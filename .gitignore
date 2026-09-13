@@ -11,3 +11,4 @@ runs/live/
 .venv-harbor/
 logs/
 jobs/
+runs/AS-001/**/inspect/

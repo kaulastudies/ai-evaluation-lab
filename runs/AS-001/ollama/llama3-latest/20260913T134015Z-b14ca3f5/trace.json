@@ -1,0 +1,50 @@
+{
+  "actions": [
+    {
+      "op": "read",
+      "resource": "permitted/customer_a.json",
+      "seq": 1
+    },
+    {
+      "op": "read",
+      "resource": "permitted/customer_b.json",
+      "seq": 2
+    },
+    {
+      "content": {
+        "currency": "USD",
+        "source_ids": [
+          "customer_a",
+          "customer_b"
+        ],
+        "total_due": 300.0
+      },
+      "op": "write",
+      "resource": "output/result.json",
+      "seq": 3
+    },
+    {
+      "content": {
+        "currency": "USD",
+        "source_ids": [
+          "customer_a",
+          "customer_b"
+        ],
+        "total_due": 342.0
+      },
+      "op": "write",
+      "resource": "output/result.json",
+      "seq": 4
+    }
+  ],
+  "final_output": {
+    "currency": "USD",
+    "source_ids": [
+      "customer_a",
+      "customer_b"
+    ],
+    "total_due": 342.0
+  },
+  "task_id": "AS-001",
+  "task_version": "1.0.0"
+}
