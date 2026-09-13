@@ -5,16 +5,23 @@ param(
 
 $ErrorActionPreference = "Stop"
 
-$Inspect = ".\.venv\Scripts\inspect.exe"
+$Inspect = ".\.venv-inspect\Scripts\inspect.exe"
 if (-not (Test-Path $Inspect)) {
-  throw "Run .\scripts\install-evalops-tools.ps1 first."
+  throw "Inspect environment missing. Run .\scripts\install-evalops-tools.ps1 first."
 }
 
 try {
-  Invoke-RestMethod -Uri "http://localhost:11434/api/tags" -Method Get -TimeoutSec 5 | Out-Null
+  $tags = Invoke-RestMethod -Uri "http://localhost:11434/api/tags" -Method Get -TimeoutSec 5
 } catch {
   throw "Ollama is not reachable at http://localhost:11434. Start Ollama first."
 }
 
+$modelNames = @($tags.models | ForEach-Object { $_.name })
+if ($Model -notin $modelNames) {
+  throw "Ollama model '$Model' is not installed. Installed: $($modelNames -join ', ')"
+}
+
 & $Inspect eval ".\inspect_evals\local_baseline.py" --model "ollama/$Model" --temperature 0
-if ($LASTEXITCODE -ne 0) { throw "Inspect/Ollama evaluation failed." }
+if ($LASTEXITCODE -ne 0) {
+  throw "Inspect/Ollama evaluation failed."
+}

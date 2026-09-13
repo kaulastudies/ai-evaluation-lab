@@ -99,3 +99,13 @@ Support does not grant equity, ownership, exclusive IP, private repository acces
 ## Security and privacy
 
 Read `SECURITY.md` before using the Lab with non-public data. Do not send confidential material to a provider until its current data handling, retention, and training terms have been reviewed for that project.
+
+## Local evidence
+
+The v0.2 runtime has been reproduced on a local Windows machine with Docker, Harbor, Ollama and Inspect AI.
+
+- Harbor oracle/reference run: verifier reward **1.000**, zero exceptions.
+- Ollama `llama3:latest` through Inspect AI: match accuracy **1.000**.
+- Public hashed records: [`runs/local/`](runs/local/).
+
+Raw runner logs remain local; compact records retain source hashes, runner/model identity, task/version data and canonical record hashes.
