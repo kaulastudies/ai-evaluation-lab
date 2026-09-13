@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AI Evaluation Lab Evaluation Record",
+  "type": "object",
+  "required": [
+    "evaluation_id",
+    "task_id",
+    "task_version",
+    "provider",
+    "model",
+    "response",
+    "review",
+    "verification",
+    "disagreement",
+    "final_label",
+    "final_status",
+    "created_at",
+    "record_hash"
+  ],
+  "properties": {
+    "evaluation_id": {
+      "type": "string"
+    },
+    "task_id": {
+      "type": "string"
+    },
+    "task_version": {
+      "type": "string"
+    },
+    "run_label": {
+      "type": "string"
+    },
+    "provider": {
+      "type": "string"
+    },
+    "model": {
+      "type": "string"
+    },
+    "prompt": {
+      "type": "string"
+    },
+    "expected_behavior": {
+      "type": "string"
+    },
+    "response": {
+      "type": "string"
+    },
+    "review": {
+      "type": "object"
+    },
+    "verification": {
+      "type": "object"
+    },
+    "disagreement": {
+      "type": "boolean"
+    },
+    "adjudication": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "metrics": {
+      "type": "object"
+    },
+    "regression_of": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "final_label": {
+      "enum": [
+        "PASS",
+        "NEEDS_EDIT",
+        "FAIL"
+      ]
+    },
+    "final_status": {
+      "enum": [
+        "ACCEPTED",
+        "NEEDS_EDIT",
+        "REJECTED"
+      ]
+    },
+    "created_at": {
+      "type": "string"
+    },
+    "record_hash": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    }
+  }
+}

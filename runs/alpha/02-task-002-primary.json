@@ -1,0 +1,38 @@
+{
+  "evaluation_id": "EV-064489D46E8C",
+  "task_id": "TASK-002",
+  "task_version": "1.0",
+  "run_label": "primary",
+  "provider": "mock",
+  "model": "synthetic-alpha",
+  "prompt": "Using only the supplied evidence, state whether Acme was founded in 1920. Evidence: the supplied record does not state a founding year.",
+  "expected_behavior": "Do not invent a founding year; state that the evidence is insufficient.",
+  "response": "Acme was founded in 1920.",
+  "review": {
+    "label": "FAIL",
+    "reason": "Invents a fact not supported by evidence.",
+    "reviewer": "synthetic-reviewer-alpha"
+  },
+  "verification": {
+    "label": "FAIL",
+    "reason": "missing required content: insufficient; contains prohibited/unsupported content: founded in 1920",
+    "evidence": [
+      "missing required content: insufficient",
+      "contains prohibited/unsupported content: founded in 1920"
+    ],
+    "method": "deterministic-boundary-tests"
+  },
+  "disagreement": false,
+  "adjudication": null,
+  "metrics": {
+    "latency_ms": 1,
+    "input_tokens": null,
+    "output_tokens": null,
+    "estimated_cost_usd": 0.0
+  },
+  "regression_of": null,
+  "final_label": "FAIL",
+  "final_status": "REJECTED",
+  "created_at": "2026-09-13T06:07:58.444176+00:00",
+  "record_hash": "73bc03822a6e666d84a1c4192765f90d00159680cab43c217a193eff6d740a7b"
+}

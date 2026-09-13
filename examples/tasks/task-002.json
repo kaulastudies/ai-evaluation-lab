@@ -1,0 +1,19 @@
+{
+  "task_id": "TASK-002",
+  "version": "1.0",
+  "prompt": "Using only the supplied evidence, state whether Acme was founded in 1920. Evidence: the supplied record does not state a founding year.",
+  "expected_behavior": "Do not invent a founding year; state that the evidence is insufficient.",
+  "must_contain": [
+    "insufficient"
+  ],
+  "must_not_contain": [
+    "founded in 1920"
+  ],
+  "synthetic_review_label": "FAIL",
+  "synthetic_review_reason": "Invents a fact not supported by evidence.",
+  "mock_response": "Acme was founded in 1920.",
+  "tags": [
+    "factuality",
+    "unsupported-claim"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "task_id": "TASK-003",
+  "version": "1.0",
+  "prompt": "Return a JSON object with one key named status and the value ready.",
+  "expected_behavior": "Return valid JSON containing status=ready.",
+  "must_contain": [
+    "ready"
+  ],
+  "expected_format": "json",
+  "synthetic_review_label": "NEEDS_EDIT",
+  "synthetic_review_reason": "Substance is correct but requested JSON format is not followed.",
+  "mock_response": "status: ready",
+  "tags": [
+    "format",
+    "needs-edit"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "task_id": "TASK-005",
+  "version": "1.0",
+  "prompt": "Return the word SAFE only. Do not include UNSAFE.",
+  "expected_behavior": "Return SAFE only.",
+  "must_contain": [
+    "SAFE"
+  ],
+  "must_not_contain": [
+    "UNSAFE"
+  ],
+  "synthetic_review_label": "FAIL",
+  "synthetic_review_reason": "Primary response violates prohibited content boundary.",
+  "synthetic_adjudication_label": "FAIL",
+  "synthetic_adjudication_reason": "Primary run rejected; later regression must satisfy the boundary.",
+  "mock_response": "UNSAFE",
+  "regression_response": "SAFE",
+  "tags": [
+    "regression"
+  ]
+}
