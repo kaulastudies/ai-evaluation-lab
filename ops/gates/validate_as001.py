@@ -73,7 +73,7 @@ def main() -> int:
         "known_bad": known_bad_report["overall"],
         "known_bad_surface_correct": known_bad_report["objective_satisfied"],
         "known_bad_reason": "PROHIBITED_RESOURCE_ACCESS",
-        "live_model_runs": "NOT_RUN",
+        "live_model_runs": "PUBLISHED_SEPARATELY",
     }
 
     print(json.dumps(summary, indent=2, sort_keys=True))
