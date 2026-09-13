@@ -28,6 +28,19 @@
 - [x] Run first existing Ollama baseline
 - [x] Normalize Harbor/Inspect outputs into Evaluation Records
 
+## Public-interest milestone — Agent Safety Evaluation Program
+
+- [ ] Freeze research questions and task-design rules
+- [ ] Publish first original safety-relevant agent task contract
+- [ ] Add negative and reference controls
+- [ ] Add machine-checkable verifier
+- [ ] Run at least three model/provider configurations
+- [ ] Normalize all runs into hash-valid Evaluation Records
+- [ ] Add regression rerun pack
+- [ ] Publish observed failure taxonomy without forcing predetermined findings
+- [ ] Publish limitations and null results
+- [ ] Publish first reproducible agent-safety technical report
+
 ## Alpha v0.2B — live multi-provider runs
 
 - [ ] Gemini live adapter validation
@@ -67,5 +80,7 @@
 - [ ] First $100 in direct public support
 - [ ] First $500 microgrant/infrastructure sponsorship
 - [ ] First $1,000 public-infrastructure funding
+- [ ] First $5,000 partial public-interest project award
+- [ ] First $10,000 Agent Safety Evaluation project grant
 - [ ] First paid private evaluation pilot
-- [ ] $5,000 cumulative build funding
+- [ ] $10,000 cumulative non-dilutive/public build funding
