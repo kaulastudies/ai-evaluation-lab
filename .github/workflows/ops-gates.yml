@@ -1,0 +1,54 @@
+name: evaluation-operations-gates
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "ops/**"
+      - "inspect_evals/**"
+      - "scripts/**"
+      - ".github/workflows/ops-gates.yml"
+  pull_request:
+    paths:
+      - "ops/**"
+      - "inspect_evals/**"
+      - "scripts/**"
+      - ".github/workflows/ops-gates.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deterministic-gates:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Existing Evaluation Lab tests
+        run: PYTHONPATH=src python -m unittest discover -s tests -v
+
+      - name: Validate task package
+        run: python ops/gates/validate_taskpack.py ops/tasks/route-policy-repair
+
+      - name: Negative and positive controls
+        run: python ops/gates/selftest_reference_task.py ops/tasks/route-policy-repair
+
+  harbor-oracle:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Harbor
+        run: pip install harbor
+
+      - name: Run original task with Harbor oracle
+        run: harbor run -p ops/tasks/route-policy-repair --agent oracle

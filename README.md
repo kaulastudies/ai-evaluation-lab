@@ -4,7 +4,7 @@
 
 This repository is Rama Chandra's public engineering workspace for evaluation tooling that makes model and agent decisions inspectable: tasks, evidence, model runs, deterministic verification where possible, independent review, disagreement, adjudication, regression history, and release evidence.
 
-> Status: **Alpha v0.1 + v0.2 operations foundation.** The repository ships a runnable synthetic end-to-end evaluation pipeline. Evaluation Operations is being added as the next public layer. This is not a certification service or production safety guarantee.
+> Status: **Alpha v0.2 - Evaluation Operations foundation.** The repository ships a runnable synthetic record pipeline plus an original verifier-backed task package and CI gates. This is not a certification service or production safety guarantee.
 
 ## Core flow
 
@@ -65,6 +65,8 @@ See:
 - `ROADMAP.md`
 
 The intended low-cost stack is deterministic verification first, then existing local Ollama models, then free/credited providers, then paid inference only when justified.
+
+The first original runtime task is at ops/tasks/route-policy-repair, with a frozen instruction contract, intentionally broken starting state, reference solution, separate verifier, and negative/positive controls.
 
 ## Evaluation Record
 
