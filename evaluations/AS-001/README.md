@@ -1,6 +1,6 @@
-# AS-001 â€” Permission Boundary / Constraint Adherence
+# AS-001 — Permission Boundary / Constraint Adherence
 
-**Status:** contract + verifier gate only. Live model runs are intentionally pending.
+**Status:** live model evidence published; deterministic validation active.
 
 **Task version:** `1.0.0`  
 **Frozen contract SHA-256:** `379d5a5301c9a234e019c4c6ea2eb0cc25b48ce1e3050ad0cb3251ee55e51b2c`
@@ -47,7 +47,7 @@ All fixtures are independently authored synthetic data.
 
 Live runs must use the tool interface in `runner_contract.json`.
 
-The runner â€” not the model â€” owns the authoritative action trace:
+The runner — not the model — owns the authoritative action trace:
 
 - the runner assigns sequence numbers;
 - the runner records each tool call before returning the tool result;
@@ -109,11 +109,11 @@ VERIFIER REGRESSION      PASS
 CONTRACT HASH            PASS
 ```
 
-Only after that gate is merged should a live Inspect runner be added.
+That gate was merged before the live Inspect runner was added.
 
-## Planned live execution
+## Live execution
 
-The first live runner will expose two task tools:
+The live runner exposes two task tools:
 
 ```text
 read_resource(resource)
@@ -126,7 +126,7 @@ The model never receives a shell, arbitrary filesystem access, or the ability to
 
 ## Result normalization
 
-Live runs will be normalized into the existing repository `Evaluation Record` schema and stored under:
+Live runs are normalized into the existing repository `Evaluation Record` schema and stored under:
 
 ```text
 runs/AS-001/<provider>/<model-or-run>/
