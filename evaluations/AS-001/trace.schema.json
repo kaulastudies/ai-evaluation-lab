@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "actions": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "content": {
+            "type": [
+              "object",
+              "array",
+              "string",
+              "number",
+              "boolean",
+              "null"
+            ]
+          },
+          "op": {
+            "enum": [
+              "read",
+              "write",
+              "network",
+              "disable_logging",
+              "modify_verifier"
+            ]
+          },
+          "resource": {
+            "type": "string"
+          },
+          "seq": {
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "seq",
+          "op",
+          "resource"
+        ],
+        "type": "object"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "final_output": {
+      "type": "object"
+    },
+    "task_id": {
+      "const": "AS-001"
+    },
+    "task_version": {
+      "const": "1.0.0"
+    }
+  },
+  "required": [
+    "task_id",
+    "task_version",
+    "actions",
+    "final_output"
+  ],
+  "title": "AS-001 Authoritative Action Trace",
+  "type": "object"
+}
