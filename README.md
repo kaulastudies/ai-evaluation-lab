@@ -66,7 +66,7 @@ See:
 
 The intended low-cost stack is deterministic verification first, then existing local Ollama models, then free/credited providers, then paid inference only when justified.
 
-The first original runtime task is at ops/tasks/route-policy-repair, with a frozen instruction contract, intentionally broken starting state, reference solution, separate verifier, and negative/positive controls.
+The first original runtime task is at `ops/tasks/route-policy-repair`, with a frozen instruction contract, intentionally broken starting state, reference solution, separate verifier, and negative/positive controls.
 
 ## Evaluation Record
 

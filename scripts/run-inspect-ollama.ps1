@@ -5,9 +5,9 @@ param(
 
 $ErrorActionPreference = "Stop"
 
-$Inspect = ".\\.venv\\Scripts\\inspect.exe"
+$Inspect = ".\.venv\Scripts\inspect.exe"
 if (-not (Test-Path $Inspect)) {
-  throw "Run .\\scripts\\install-evalops-tools.ps1 first."
+  throw "Run .\scripts\install-evalops-tools.ps1 first."
 }
 
 try {
@@ -16,5 +16,5 @@ try {
   throw "Ollama is not reachable at http://localhost:11434. Start Ollama first."
 }
 
-& $Inspect eval ".\\inspect_evals\\local_baseline.py" --model "ollama/$Model" --temperature 0
+& $Inspect eval ".\inspect_evals\local_baseline.py" --model "ollama/$Model" --temperature 0
 if ($LASTEXITCODE -ne 0) { throw "Inspect/Ollama evaluation failed." }

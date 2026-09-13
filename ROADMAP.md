@@ -1,6 +1,6 @@
 # Roadmap
 
-## Alpha v0.1 â€” reproducible record pipeline
+## Alpha v0.1 — reproducible record pipeline
 
 - [x] Versioned task format
 - [x] Offline provider
@@ -14,7 +14,7 @@
 - [x] Unit tests
 - [x] CI
 
-## Alpha v0.2A â€” Evaluation Operations foundation
+## Alpha v0.2A — Evaluation Operations foundation
 
 - [x] Public provenance/IP boundary
 - [x] Candidate-gated operations specification
@@ -28,7 +28,7 @@
 - [ ] Run first existing Ollama baseline
 - [ ] Normalize Harbor/Inspect outputs into Evaluation Records
 
-## Alpha v0.2B â€” live multi-provider runs
+## Alpha v0.2B — live multi-provider runs
 
 - [ ] Gemini live adapter validation
 - [ ] Groq live adapter validation
@@ -40,7 +40,7 @@
 - [ ] Redacted run logging
 - [ ] Public cross-provider comparison report
 
-## Alpha v0.3 â€” reviewer operations
+## Alpha v0.3 — reviewer operations
 
 - [ ] Separate author/reviewer/verifier identities
 - [ ] Reviewer assignment
@@ -50,7 +50,7 @@
 - [ ] Adjudication queue
 - [ ] Failure taxonomy
 
-## Beta â€” Evaluation Operations System
+## Beta — Evaluation Operations System
 
 - [ ] Projects and work packages
 - [ ] Dataset/evidence versioning
