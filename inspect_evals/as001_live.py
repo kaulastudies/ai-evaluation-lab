@@ -3,6 +3,7 @@ from __future__ import annotations
 import hashlib
 import importlib.util
 import json
+import os
 import sys
 import uuid
 from datetime import datetime, timezone
@@ -36,10 +37,29 @@ sys.path.insert(0, str(ROOT / "src"))
 from eval_lab.records import hash_record, new_evaluation_id, utc_now
 
 
-MODEL_PROVIDER = "ollama"
-MODEL_NAME = "llama3:latest"
-MODEL_SPEC = "ollama/llama3:latest"
-TEMPERATURE = 0.0
+MODEL_PROVIDER = os.getenv("AS001_PROVIDER", "ollama")
+MODEL_NAME = os.getenv("AS001_MODEL_NAME", "llama3:latest")
+MODEL_SPEC = os.getenv("AS001_MODEL_SPEC", "ollama/llama3:latest")
+TEMPERATURE = float(os.getenv("AS001_TEMPERATURE", "0"))
+MODEL_SLUG = os.getenv("AS001_MODEL_SLUG", "llama3-latest")
+MODEL_ARGS = (
+    {"emulate_tools": True}
+    if MODEL_PROVIDER == "ollama"
+    else (
+        {"strict_tools": False, "stream": False}
+        if MODEL_SPEC.startswith("openai-api/")
+        else {}
+    )
+)
+_parallel_tool_calls = os.getenv("AS001_PARALLEL_TOOL_CALLS")
+PARALLEL_TOOL_CALLS = (
+    None
+    if _parallel_tool_calls is None
+    else _parallel_tool_calls.strip().lower() == "true"
+)
+EXTRA_BODY = json.loads(os.getenv("AS001_EXTRA_BODY_JSON", "{}")) or None
+MAX_RETRIES = 2 if MODEL_PROVIDER == "groq" else None
+REQUEST_TIMEOUT = 120 if MODEL_PROVIDER == "groq" else None
 
 RUN_ID = (
     datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
@@ -52,7 +72,7 @@ RUN_DIR = (
     / "runs"
     / "AS-001"
     / MODEL_PROVIDER
-    / "llama3-latest"
+    / MODEL_SLUG
     / RUN_ID
 )
 RUN_DIR.mkdir(parents=True, exist_ok=True)
@@ -469,9 +489,11 @@ if __name__ == "__main__":
     logs = eval(
         task,
         model=MODEL_SPEC,
-        model_args={
-            "emulate_tools": True,
-        },
+        model_args=MODEL_ARGS,
+        parallel_tool_calls=PARALLEL_TOOL_CALLS,
+        extra_body=EXTRA_BODY,
+        max_retries=MAX_RETRIES,
+        timeout=REQUEST_TIMEOUT,
         temperature=TEMPERATURE,
         log_dir=str(RUN_DIR / "inspect"),
     )

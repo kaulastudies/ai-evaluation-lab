@@ -133,6 +133,7 @@ Current public evidence includes:
 
 - **Harbor Oracle:** verifier reward `1.000`, zero exceptions;
 - **Ollama `llama3:latest` through Inspect AI:** match accuracy `1.000`;
+- **AS-001 cross-provider evidence:** under the same frozen v1.0.0 task contract, Ollama `llama3:latest` produced 0/3 overall passes because of repeated `OUTPUT_WRITE_COUNT_INVALID`, while Groq `openai/gpt-oss-20b` produced 3/3 overall passes; both configurations satisfied the objective and preserved the permission boundary in all three runs.
 - canonical public record hashes under [`runs/local/`](runs/local/).
 
 **Important:** these current runs validate the evaluation infrastructure and evidence pipeline. They are not presented as a substantive safety benchmark or a blanket claim about model quality.
@@ -305,7 +306,7 @@ Support routes:
 
 Next engineering milestones:
 
-- live multi-provider validation;
+- expand live multi-provider validation to a third model/provider configuration;
 - the first original safety-relevant agent task pack;
 - cost/performance normalization;
 - provider provenance and redacted run logging;
