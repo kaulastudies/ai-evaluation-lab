@@ -7,12 +7,16 @@ on:
       - "ops/**"
       - "inspect_evals/**"
       - "scripts/**"
+      - "runs/local/**"
+      - "src/eval_lab/local_evidence.py"
       - ".github/workflows/ops-gates.yml"
   pull_request:
     paths:
       - "ops/**"
       - "inspect_evals/**"
       - "scripts/**"
+      - "runs/local/**"
+      - "src/eval_lab/local_evidence.py"
       - ".github/workflows/ops-gates.yml"
   workflow_dispatch:
 
@@ -37,6 +41,9 @@ jobs:
 
       - name: Negative and positive controls
         run: python ops/gates/selftest_reference_task.py ops/tasks/route-policy-repair
+
+      - name: Validate published local evidence
+        run: python ops/gates/validate_local_evidence.py
 
   harbor-oracle:
     runs-on: ubuntu-latest

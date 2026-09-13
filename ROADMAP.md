@@ -26,7 +26,7 @@
 - [x] CI operations gates
 - [x] Validate task locally with Harbor + Docker
 - [x] Run first existing Ollama baseline
-- [ ] Normalize Harbor/Inspect outputs into Evaluation Records
+- [x] Normalize Harbor/Inspect outputs into Evaluation Records
 
 ## Alpha v0.2B — live multi-provider runs
 
