@@ -1,44 +1,72 @@
 # AI Evaluation Lab
 
-## The evidence layer for AI systems and agents
+## Reproducible evidence for AI systems and agents
 
-**AI Evaluation Lab is an independent emerging lab building reproducible infrastructure to test, verify, compare, and govern AI behavior before it reaches production.**
+**AI Evaluation Lab is an independent engineering lab building provider-neutral infrastructure to test, verify, compare, and reproduce the behavior of AI systems and agents.**
 
-Models are becoming systems. Systems are becoming agents. Agents are beginning to act.
+As AI systems become more capable of acting through tools, code, browsers, APIs, and enterprise workflows, evaluation has to become more than a leaderboard score. Teams and researchers need evidence that is versioned, inspectable, reproducible, and useful for identifying regressions before deployment.
 
-The next infrastructure problem is not simply generating better outputs. It is producing **credible evidence that an AI system behaved as expected, under a known task contract, with a reproducible verifier, and with enough history to make a release decision.**
+The Lab is building that evidence layer.
 
-That is the layer we are building.
-
-> **North Star:** become neutral evaluation infrastructure for the trillion-dollar AI economy.
-
-This is an ambition and category thesis, not a claim that the Lab currently has a trillion-dollar valuation.
+> **Operating principle:** build evidence before claims.
 
 ---
 
-## The thesis
+## Mission
 
-AI does not need another leaderboard.
+AI Evaluation Lab has two compatible tracks with a clear boundary between them.
 
-It needs an operating layer that can answer:
+### Public-interest evaluation
 
-- What exactly was tested?
-- Against which task and criteria version?
-- Which model or agent produced the result?
-- What evidence was generated?
-- What did an independent verifier observe?
-- Where did reviewers disagree?
-- What changed between a failed run and a passing regression?
-- Can the result be reproduced?
-- Is there enough evidence to ship?
+Open work focused on reproducibility, agent reliability, safety-relevant failure modes, verification, regression, and evaluation methodology.
 
-AI Evaluation Lab turns those questions into structured, machine-readable evaluation operations.
+Outputs may include:
+
+- independently authored synthetic task packs;
+- deterministic or machine-checkable verifiers;
+- reproducible model/agent runs;
+- public Evaluation Records;
+- regression suites;
+- technical reports;
+- open evaluation methodology.
+
+### Private evaluation programs
+
+Fixed-scope work for AI companies and product teams that need independent evaluation of a defined model, agent, workflow, or release.
+
+Private engagements use isolated workspaces and do not automatically become public Lab assets.
+
+---
+
+## Current public-interest program
+
+### Agent Safety Evaluation Program
+
+The next public milestone is a bounded evaluation program for tool-using and increasingly autonomous AI agents.
+
+The program will investigate concrete, testable failure modes such as:
+
+- constraint or permission-boundary violations;
+- unsafe or unjustified tool escalation;
+- evaluator gaming and reward-hacking-like behavior;
+- failures that disappear in one run but return under regression;
+- behavioral differences across model/provider configurations under the same task contract.
+
+The goal is **not** to claim broad model safety.
+
+The goal is to produce reproducible evidence about specific observed behaviors under explicit task contracts.
+
+See [`docs/AGENT_SAFETY_PROGRAM.md`](docs/AGENT_SAFETY_PROGRAM.md).
+
+---
+
+## Evaluation model
 
 ```text
 Task Contract
      |
      v
-Environment
+Isolated Environment
      |
      v
 Model / Agent Run
@@ -49,7 +77,7 @@ Artifacts + Evidence
      v
 Independent Verification
      |
-     +--> Human Review
+     +--> Human Review when needed
      |       |
      |       +--> Disagreement / Adjudication
      |
@@ -60,7 +88,7 @@ Evaluation Record
 Regression History
      |
      v
-Release Evidence
+Release Evidence / Research Result
 ```
 
 Every accepted run becomes a versioned **Evaluation Record**, not just a score.
@@ -85,7 +113,7 @@ The first layer established:
 - automated tests;
 - GitHub Actions CI.
 
-### Alpha v0.2A — Evaluation Operations
+### Alpha v0.2A — Evaluation Operations foundation
 
 The current runtime adds:
 
@@ -96,7 +124,7 @@ The current runtime adds:
 - a separate verifier environment;
 - deterministic contract gates;
 - local Docker/Harbor execution;
-- local Ollama/Inspect evaluation;
+- local Ollama/Inspect execution;
 - normalized hashed Evaluation Records;
 - CI validation of published evidence;
 - a public provenance and IP boundary.
@@ -107,102 +135,60 @@ Current public evidence includes:
 - **Ollama `llama3:latest` through Inspect AI:** match accuracy `1.000`;
 - canonical public record hashes under [`runs/local/`](runs/local/).
 
-See:
-
-- [`ROADMAP.md`](ROADMAP.md)
-- [`docs/VISION.md`](docs/VISION.md)
-- [`docs/EVALUATION_OPERATIONS.md`](docs/EVALUATION_OPERATIONS.md)
-- [`docs/INDEPENDENCE.md`](docs/INDEPENDENCE.md)
-- [`runs/local/`](runs/local/)
+**Important:** these current runs validate the evaluation infrastructure and evidence pipeline. They are not presented as a substantive safety benchmark or a blanket claim about model quality.
 
 ---
 
-## The emerging category
+## Why this matters
 
-AI evaluation is moving from one-off benchmarking toward continuous operational infrastructure.
+AI evaluation is increasingly fragmented across benchmark scripts, agent traces, model-provider dashboards, spreadsheets, human review, and one-off release checks.
 
-The Lab is designed around five layers:
+The Lab is designed to connect those pieces into a reproducible evidence system:
 
 | Layer | Purpose |
 |---|---|
 | **Task & Evidence** | Define what is being tested and what counts as evidence |
-| **Execution** | Run models and agents across reproducible environments |
+| **Execution** | Run models and agents in reproducible environments |
 | **Verification** | Judge observable outcomes independently |
 | **Review & Adjudication** | Resolve subjective or conflicting determinations |
 | **Regression & Release** | Track failures, fixes, regressions, and release readiness |
 
-Over time these layers can support an **Evaluation Operations System** used by AI teams, model providers, agent builders, regulated organizations, research groups, and independent evaluators.
+The long-term category thesis is described in [`docs/VISION.md`](docs/VISION.md). Public-interest research claims remain deliberately narrower than the long-term business vision.
 
 ---
 
-## Trillion-scale ambition
+## 30-day public milestone
 
-AI systems may mediate enormous amounts of economic activity.
+The proposed Agent Safety Evaluation milestone will produce:
 
-If AI becomes embedded in software engineering, finance, healthcare, logistics, research, operations, and autonomous digital work, then evaluation cannot remain an occasional manual exercise. It becomes infrastructure.
+1. **3–5 original safety-relevant agent task packs** with explicit contracts and independently authored synthetic scenarios;
+2. execution across **at least three model/provider configurations**;
+3. deterministic verification wherever the task permits it;
+4. positive and negative controls for each public task pack;
+5. hash-valid Evaluation Records and regression lineage;
+6. a reusable open regression pack;
+7. a public technical report describing observed outcomes, limitations, null results, and reproducibility instructions.
 
-Our long-term thesis is therefore simple:
+Success is defined by the quality and reproducibility of the evidence—not by finding a predetermined failure.
 
-> **The larger the AI economy becomes, the more valuable independent, reproducible evidence about AI behavior becomes.**
-
-We are not presenting a current valuation claim.
-
-We are building with the ambition that evaluation, verification, regression, provenance, and release evidence can become a foundational control layer for an AI economy measured in trillions of dollars.
-
-Read the full thesis in [`docs/VISION.md`](docs/VISION.md).
-
----
-
-## From open infrastructure to a durable business
-
-The Lab is being built as a permanent technical institution with several compatible economic layers:
-
-```text
-Open evaluation infrastructure
-        |
-        v
-Sponsored public evaluation work
-        |
-        v
-Fixed-scope private evaluation pilots
-        |
-        v
-Managed evaluation programs
-        |
-        v
-Evaluation Operations platform / API
-        |
-        v
-Continuous regression + release evidence
-        |
-        v
-Evaluation network and specialist ecosystem
-```
-
-Public infrastructure remains reusable and inspectable.
-
-Private customer work belongs in isolated workspaces with explicit scope, permissions, and data controls.
+See [`docs/GRANT_BRIEF.md`](docs/GRANT_BRIEF.md).
 
 ---
 
-## Founding evaluation pilots
+## Research and evaluation principles
 
-The first commercial engagements are intentionally narrow.
+The Lab follows several rules:
 
-A founding pilot can include:
+- define the task and success criteria before interpreting the result;
+- distinguish infrastructure validation from model-performance evidence;
+- prefer machine-checkable verification where possible;
+- preserve negative and null results;
+- record disagreement rather than hiding it;
+- make provenance explicit;
+- separate public research assets from private customer material;
+- never market a narrow evaluation as a general safety certification.
 
-- 30–50 evaluation tasks;
-- one defined workflow;
-- 2–4 model or configuration variants;
-- deterministic verification where possible;
-- independent human review where necessary;
-- failure taxonomy;
-- regression pack;
-- technical evidence report.
-
-The objective is not to produce a vanity score.
-
-The objective is to leave the engineering team with **reusable evidence and regression assets**.
+See [`docs/RESEARCH_PRINCIPLES.md`](docs/RESEARCH_PRINCIPLES.md).
 
 ---
 
@@ -249,11 +235,12 @@ The Lab publishes technical progress through:
 
 - source commits and pull requests;
 - automated tests and CI;
-- original synthetic task packages;
+- independently authored synthetic task packages;
 - verifier gates;
 - roadmap state;
 - compact public Evaluation Records;
-- reproducible local evidence.
+- reproducible local evidence;
+- technical reports that include limitations and null results.
 
 This repository is not a certification service and does not represent a blanket safety guarantee.
 
@@ -276,17 +263,39 @@ See [`docs/INDEPENDENCE.md`](docs/INDEPENDENCE.md).
 
 ---
 
-## Support the Lab
+## Commercial evaluation pilots
 
-The current public-infrastructure target is **US $5,000**.
+Commercial work is separately scoped.
 
-Support can fund verifier runs, model comparisons, original synthetic tasks, mini benchmark packs, compute, CI/sandbox infrastructure, documentation, and the next public evaluation milestones.
+A founding pilot can include:
 
-- **GitHub Sponsors:** https://github.com/sponsors/kaulastudies
-- **Direct international support:** https://www.paypal.com/paypalme/malayanur92
-- **Funding details:** [`FUNDING.md`](FUNDING.md)
+- 30–50 evaluation tasks;
+- one defined workflow;
+- 2–4 model or configuration variants;
+- deterministic verification where possible;
+- independent human review where necessary;
+- failure taxonomy;
+- regression pack;
+- technical evidence report.
 
-Support does not grant equity, ownership, exclusive IP, private repository access, confidential data access, contributor permissions, or consulting unless separately agreed in writing.
+Commercial revenue does not change the evidentiary standard used in public evaluation work.
+
+---
+
+## Funding
+
+The current public-interest project ask is **US $10,000** for the first substantive Agent Safety Evaluation Program milestone.
+
+A **US $5,000 partial award** can still fund the core task-pack, verifier, and cross-model evaluation work.
+
+Funding supports a defined public project rather than an unbounded claim of startup runway.
+
+See [`FUNDING.md`](FUNDING.md) and [`docs/GRANT_BRIEF.md`](docs/GRANT_BRIEF.md).
+
+Support routes:
+
+- GitHub Sponsors: https://github.com/sponsors/kaulastudies
+- Direct international support: https://www.paypal.com/paypalme/malayanur92
 
 ---
 
@@ -294,6 +303,13 @@ Support does not grant equity, ownership, exclusive IP, private repository acces
 
 **Alpha v0.2A is complete.**
 
-Next: multi-provider evaluation, cost/performance normalization, provider provenance, redacted run logging, reviewer operations, and the first public cross-provider evaluation report.
+Next engineering milestones:
+
+- live multi-provider validation;
+- the first original safety-relevant agent task pack;
+- cost/performance normalization;
+- provider provenance and redacted run logging;
+- a public cross-provider evaluation report;
+- reviewer operations and agreement measurement.
 
 See [`ROADMAP.md`](ROADMAP.md).
