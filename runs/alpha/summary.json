@@ -1,8 +1,8 @@
 {
   "records": 6,
-  "accepted": 1,
+  "accepted": 2,
   "needs_edit": 1,
-  "rejected": 4,
-  "disagreements": 2,
+  "rejected": 3,
+  "disagreements": 1,
   "regressions": 1
 }

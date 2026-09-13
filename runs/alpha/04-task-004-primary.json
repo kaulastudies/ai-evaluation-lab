@@ -1,5 +1,5 @@
 {
-  "evaluation_id": "EV-1EA82F73E64F",
+  "evaluation_id": "EV-559733E2C958",
   "task_id": "TASK-004",
   "task_version": "1.0",
   "run_label": "primary",
@@ -35,6 +35,6 @@
   "regression_of": null,
   "final_label": "FAIL",
   "final_status": "REJECTED",
-  "created_at": "2026-09-13T06:07:58.444176+00:00",
-  "record_hash": "618eb0f4cc1db5320f9e5d2cbd11f2c2349b03e8d348fca5d2e1cdfd1b29e512"
+  "created_at": "2026-09-13T06:11:57.470203+00:00",
+  "record_hash": "ca89980e63cd02cf96629eba098fbeb0f8e745e38256f5984b45ab8eb5fc33d4"
 }
