@@ -24,9 +24,9 @@
 - [x] Broken-state negative control
 - [x] Reference-solution positive control
 - [x] CI operations gates
-- [ ] Validate task locally with Harbor + Docker
-- [ ] Run first existing Ollama baseline
-- [ ] Normalize Harbor/Inspect outputs into Evaluation Records
+- [x] Validate task locally with Harbor + Docker
+- [x] Run first existing Ollama baseline
+- [x] Normalize Harbor/Inspect outputs into Evaluation Records
 
 ## Alpha v0.2B — live multi-provider runs
 

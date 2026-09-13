@@ -1,0 +1,36 @@
+{
+  "evaluation_id": "LOCAL-HARBOR-ORACLE-ROUTE-POLICY-20260913",
+  "task_id": "rama-eval-lab/route-policy-repair",
+  "task_version": "R1",
+  "run_label": "windows-local-harbor-oracle",
+  "provider": "harbor",
+  "model": "oracle",
+  "prompt": "Execute the original route-policy-repair task with the Harbor oracle/reference solution.",
+  "expected_behavior": "Verifier reward 1.0 with zero exceptions.",
+  "response": "Harbor oracle completed with reward=1.0 and exceptions=0.0.",
+  "review": {
+    "source": "deterministic",
+    "label": "PASS",
+    "reason": "Harbor independent verifier reward and exception count."
+  },
+  "verification": {
+    "runner": "harbor",
+    "reward": 1.0,
+    "exceptions": 0.0,
+    "contract_hash": "f15cd4fa865d1d44247724d0beaa0955beced4868ff841d19f04821e263ae2f2",
+    "source_artifact": "result.json",
+    "source_sha256": "35ab8c61767c8aff0c5cac267e3cb5330c360c3155f0d310e72c07d1b7698c30",
+    "commit_sha": "5a7ed86a858385ce20245179ffffd3e1da691b5e"
+  },
+  "disagreement": false,
+  "adjudication": null,
+  "metrics": {
+    "reward": 1.0,
+    "exceptions": 0.0
+  },
+  "regression_of": null,
+  "final_label": "PASS",
+  "final_status": "ACCEPTED",
+  "created_at": "2026-09-13T08:12:35.790782+00:00",
+  "record_hash": "b42f7b20d4d6786d58866b326a7916d8755e8e8d00ef665eb6c03ccd8ca43177"
+}

@@ -1,0 +1,49 @@
+{
+  "evaluation_id": "LOCAL-INSPECT-LLAMA3-20260913",
+  "task_id": "local_baseline",
+  "task_version": "local-baseline-v1",
+  "run_label": "windows-local-ollama-inspect",
+  "provider": "ollama",
+  "model": "ollama/llama3:latest",
+  "prompt": "Return exactly the token ROUTE_OK and nothing else.",
+  "expected_behavior": "ROUTE_OK",
+  "response": "ROUTE_OK",
+  "review": {
+    "source": "automated",
+    "label": "PASS",
+    "reason": "Inspect match scorer evaluated the local-model response."
+  },
+  "verification": {
+    "runner": "inspect-ai",
+    "runner_version": "0.3.263",
+    "scorer_values": {
+      "match": "C"
+    },
+    "score": 1.0,
+    "source_artifact": "2026-09-13T08-01-44-00-00_local-baseline_LvjnUcKcXhbreBv8S34yeB.eval",
+    "source_sha256": "9ab67ae68134b83af2417e087c7dcb32f22923ab4009413307108fee95683985",
+    "commit_sha": "5a7ed86a858385ce20245179ffffd3e1da691b5e",
+    "control_surface_note": "Windows AF_UNIX control-surface warning did not prevent evaluation."
+  },
+  "disagreement": false,
+  "adjudication": null,
+  "metrics": {
+    "score": 1.0,
+    "model_usage": {
+      "ollama/llama3:latest": {
+        "input_tokens": 21,
+        "output_tokens": 3,
+        "total_tokens": 24,
+        "input_tokens_cache_write": null,
+        "input_tokens_cache_read": 0,
+        "reasoning_tokens": null,
+        "total_cost": null
+      }
+    }
+  },
+  "regression_of": null,
+  "final_label": "PASS",
+  "final_status": "ACCEPTED",
+  "created_at": "2026-09-13T08:12:35.777392+00:00",
+  "record_hash": "5189727e9d0fd9adb3818d6ca9b573c56dbbcb86f92825ff971c3642b638adf5"
+}
