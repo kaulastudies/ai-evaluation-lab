@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Candidate Release",
+  "type": "object",
+  "required": [
+    "candidate_id",
+    "task_id",
+    "task_contract_hash",
+    "candidate_type",
+    "base_commit",
+    "head_commit",
+    "status",
+    "gates"
+  ],
+  "properties": {
+    "candidate_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "task_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "task_contract_hash": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "candidate_type": {
+      "enum": [
+        "new",
+        "rework",
+        "new-task-version"
+      ]
+    },
+    "base_commit": {
+      "type": "string",
+      "minLength": 1
+    },
+    "head_commit": {
+      "type": "string",
+      "minLength": 1
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "earliest_blocker": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "status": {
+      "enum": [
+        "draft",
+        "gating",
+        "blocked",
+        "review",
+        "accepted",
+        "rejected"
+      ]
+    },
+    "gates": {
+      "type": "object"
+    },
+    "provenance": {
+      "type": "object"
+    }
+  }
+}

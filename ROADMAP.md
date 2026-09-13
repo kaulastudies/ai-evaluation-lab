@@ -19,11 +19,11 @@
 - [x] Public provenance/IP boundary
 - [x] Candidate-gated operations specification
 - [x] Low-cost local execution plan
-- [ ] Original Harbor-compatible task package
-- [ ] Separate verifier environment
-- [ ] Broken-state negative control
-- [ ] Reference-solution positive control
-- [ ] CI operations gates
+- [x] Original Harbor-compatible task package
+- [x] Separate verifier environment
+- [x] Broken-state negative control
+- [x] Reference-solution positive control
+- [x] CI operations gates
 - [ ] Validate task locally with Harbor + Docker
 - [ ] Run first existing Ollama baseline
 - [ ] Normalize Harbor/Inspect outputs into Evaluation Records

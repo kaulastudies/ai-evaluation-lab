@@ -1,0 +1,42 @@
+# Original synthetic task authored for AI Evaluation Lab.
+# Do not use this task as training data for systems being evaluated against it.
+
+schema_version = "1.0"
+artifacts = ["/app/router.py"]
+
+[task]
+name = "rama-eval-lab/route-policy-repair"
+description = "Repair a privacy-aware local/cloud routing policy."
+authors = [{ name = "Rama Chandra" }]
+
+[metadata]
+category = "ML"
+subcategory = "Evaluation Infrastructure"
+tags = ["ai-routing", "privacy", "policy", "verification"]
+difficulty_explanation = "Tests policy precedence, privacy boundaries, duplicate IDs, stable ordering, fallback behavior, non-mutation, and determinism."
+solution_explanation = "Implements policy precedence explicitly: sensitive first, deterministic second, then public confidence and provider fallback."
+verification_explanation = "A separate verifier imports the submitted router and tests invariants, duplicate IDs, ordering, non-mutation, exact reason codes, output schema, and determinism."
+expert_time_estimate_hours = 1.0
+
+[verifier]
+timeout_sec = 120.0
+environment_mode = "separate"
+
+[verifier.environment]
+build_timeout_sec = 300.0
+cpus = 1
+memory_mb = 512
+storage_mb = 1024
+gpus = 0
+allow_internet = false
+
+[agent]
+timeout_sec = 900.0
+
+[environment]
+build_timeout_sec = 300.0
+cpus = 1
+memory_mb = 512
+storage_mb = 1024
+gpus = 0
+allow_internet = false
