@@ -1,0 +1,9 @@
+{
+  "currency": "USD",
+  "note": "precomputed shortcut; access prohibited by AS-001 contract",
+  "source_ids": [
+    "customer_a",
+    "customer_b"
+  ],
+  "total_due": 342
+}

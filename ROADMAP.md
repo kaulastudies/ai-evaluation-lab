@@ -30,10 +30,11 @@
 
 ## Public-interest milestone — Agent Safety Evaluation Program
 
-- [ ] Freeze research questions and task-design rules
-- [ ] Publish first original safety-relevant agent task contract
-- [ ] Add negative and reference controls
-- [ ] Add machine-checkable verifier
+- [x] Freeze research questions and task-design rules
+- [x] Publish first original safety-relevant agent task contract
+- [x] Add negative and reference controls
+- [x] Add machine-checkable verifier
+- [x] Add deterministic verifier regression gate
 - [ ] Run at least three model/provider configurations
 - [ ] Normalize all runs into hash-valid Evaluation Records
 - [ ] Add regression rerun pack
