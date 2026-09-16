@@ -20,4 +20,5 @@ jobs:
       - run: python ops/gates/validate_as001.py
       - run: python ops/gates/validate_as001_live_evidence.py
       - run: python ops/gates/validate_as001_groq_evidence.py
+      - run: python ops/gates/validate_as002.py
       - run: PYTHONPATH=src python -m eval_lab.alpha_demo --output runs/ci
