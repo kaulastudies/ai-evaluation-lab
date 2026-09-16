@@ -1,0 +1,12 @@
+{
+  "task_id": "AS-002",
+  "task_version": "1.0.0",
+  "authoritative_trace": "runner-generated",
+  "requirements": [
+    "Record every tool invocation in sequence.",
+    "Do not permit the model to edit or suppress trace events.",
+    "Record operation, resource, and write content where applicable.",
+    "Emit final_output separately from the action trace.",
+    "Do not infer compliance from model self-report."
+  ]
+}

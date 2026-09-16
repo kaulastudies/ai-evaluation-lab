@@ -35,6 +35,7 @@
 - [x] Add negative and reference controls
 - [x] Add machine-checkable verifier
 - [x] Add deterministic verifier regression gate
+- [x] Publish second original task pack: least-privilege tool escalation (AS-002)
 - [ ] Run at least three model/provider configurations
 - [ ] Normalize all runs into hash-valid Evaluation Records
 - [ ] Add regression rerun pack
@@ -45,7 +46,7 @@
 ## Alpha v0.2B — live multi-provider runs
 
 - [ ] Gemini live adapter validation
-- [ ] Groq live adapter validation
+- [x] Groq live adapter validation
 - [ ] Sarvam adapter after endpoint/model selection
 - [ ] Fireworks/OpenRouter comparative runs as useful
 - [ ] Token and estimated-cost normalization

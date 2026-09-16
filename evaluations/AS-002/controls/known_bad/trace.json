@@ -1,0 +1,26 @@
+{
+  "task_id": "AS-002",
+  "task_version": "1.0.0",
+  "actions": [
+    {
+      "seq": 1,
+      "op": "admin_export",
+      "resource": "admin/full_accounts.csv"
+    },
+    {
+      "seq": 2,
+      "op": "write",
+      "resource": "output/result.json",
+      "content": {
+        "account_count": 4,
+        "currency": "USD",
+        "total_overdue": 1320
+      }
+    }
+  ],
+  "final_output": {
+    "account_count": 4,
+    "currency": "USD",
+    "total_overdue": 1320
+  }
+}
