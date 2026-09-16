@@ -10,6 +10,34 @@ The Lab is building that evidence layer.
 
 > **Operating principle:** build evidence before claims.
 
+
+### Current technical state
+
+The public Lab now has two original agent-evaluation task packs:
+
+- **AS-001 — Permission Boundary / Constraint Adherence**, with published Ollama and Groq runs under the same frozen task contract;
+- **AS-002 — Least-Privilege Tool Escalation**, with deterministic reference and known-bad controls and live-provider runs intentionally not yet claimed.
+
+Both task packs are CI-gated. Existing Harbor, AS-001, and AS-002 validation remains part of the repository's automated evidence checks.
+
+[Capabilities](docs/CAPABILITIES.md) | [Evidence catalog](docs/EVIDENCE_CATALOG.md) | [Private engagements](docs/ENGAGEMENTS.md)
+
+---
+
+## Capabilities
+
+AI Evaluation Lab currently works across four technical layers:
+
+- **task-contract and verifier engineering** — explicit objectives, controls, frozen criteria, and machine-checkable verification;
+- **cross-provider evaluation** — common contracts, repeated runs, normalized evidence, latency/token/cost observations;
+- **agent and tool-use evaluation** — permission boundaries, tool escalation, execution discipline, evaluator gaming, and regressions;
+- **regression and release evidence** — reusable suites and evidence for model, prompt, tool, policy, or application changes.
+
+Commercial work is scoped around evaluation outcomes and reproducible evidence rather than commodity task volume.
+
+See [`docs/CAPABILITIES.md`](docs/CAPABILITIES.md).
+
+
 ### Current funding window - 30-day public milestone
 
 AI Evaluation Lab is currently seeking **US $10,000** to execute its next reproducible agent-evaluation milestone. A **US $5,000 partial award** funds the core task-pack, verifier, and cross-model evaluation work.
@@ -282,22 +310,23 @@ See [`docs/INDEPENDENCE.md`](docs/INDEPENDENCE.md).
 
 ---
 
-## Commercial evaluation pilots
+## Private evaluation engagements
 
-Commercial work is separately scoped.
+Commercial work is separately scoped around a defined evaluation decision, workflow, model/agent release, or benchmark need.
 
-A founding pilot can include:
+Typical engagements include:
 
-- 30–50 evaluation tasks;
-- one defined workflow;
-- 2–4 model or configuration variants;
-- deterministic verification where possible;
-- independent human review where necessary;
-- failure taxonomy;
-- regression pack;
-- technical evidence report.
+- evaluation-readiness reviews;
+- model/provider comparisons;
+- bounded agent-reliability sprints;
+- custom benchmark and verifier engineering;
+- regression and release-evidence programs.
 
-Commercial revenue does not change the evidentiary standard used in public evaluation work.
+A founding pilot may include 20–50 bounded evaluation cases, 2–4 model/configuration variants, deterministic verification where possible, a failure taxonomy, reusable regression assets, and a technical evidence report.
+
+Commercial revenue does not change the evidentiary standard used in public evaluation work, and private customer material does not automatically become public Lab infrastructure.
+
+See [`docs/ENGAGEMENTS.md`](docs/ENGAGEMENTS.md).
 
 ---
 
@@ -326,15 +355,16 @@ Third-party dependencies and referenced external materials remain subject to the
 
 ## Status
 
-**Alpha v0.2A is complete.**
+**Alpha v0.2A is complete, and AS-002 is now merged into the public Agent Safety Evaluation Program.**
 
 Next engineering milestones:
 
 - expand live multi-provider validation to a third model/provider configuration;
-- the first original safety-relevant agent task pack;
-- cost/performance normalization;
-- provider provenance and redacted run logging;
-- a public cross-provider evaluation report;
-- reviewer operations and agreement measurement.
+- publish live-provider evidence for AS-002 under its frozen contract;
+- normalize all current runs into hash-valid Evaluation Records;
+- add cost/performance normalization;
+- add provider provenance and redacted run logging;
+- publish the first reproducible cross-provider technical report;
+- begin reviewer operations and agreement measurement.
 
 See [`ROADMAP.md`](ROADMAP.md).
