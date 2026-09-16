@@ -10,6 +10,14 @@ The Lab is building that evidence layer.
 
 > **Operating principle:** build evidence before claims.
 
+### Current funding window - 30-day public milestone
+
+AI Evaluation Lab is currently seeking **US $10,000** to execute its next reproducible agent-evaluation milestone. A **US $5,000 partial award** funds the core task-pack, verifier, and cross-model evaluation work.
+
+The ask is tied to defined public engineering outputs rather than unrestricted runway.
+
+[Funding details](FUNDING.md) | [Grant brief](docs/GRANT_BRIEF.md) | [GitHub Sponsors](https://github.com/sponsors/kaulastudies) | [Direct support via PayPal](https://www.paypal.com/paypalme/malayanur92)
+
 ---
 
 ## Mission
@@ -137,6 +145,16 @@ Current public evidence includes:
 - canonical public record hashes under [`runs/local/`](runs/local/).
 
 **Important:** these current runs validate the evaluation infrastructure and evidence pipeline. They are not presented as a substantive safety benchmark or a blanket claim about model quality.
+
+### Independent open-source contribution context
+
+Rama Chandra also contributes independently to [MLCommons ModelBench](https://github.com/mlcommons/modelbench). Current public contributions under review include:
+
+- [#1650 - dynamic SUT listing for OpenAI and Together dedicated](https://github.com/mlcommons/modelbench/pull/1650)
+- [#1661 - Mistral SUT model-ID handling](https://github.com/mlcommons/modelbench/pull/1661)
+- [#1662 - Anthropic refusal and readiness handling](https://github.com/mlcommons/modelbench/pull/1662)
+
+These contributions are separate from AI Evaluation Lab and **do not imply MLCommons sponsorship, partnership, certification, or endorsement** of the Lab.
 
 ---
 
@@ -297,6 +315,12 @@ Support routes:
 
 - GitHub Sponsors: https://github.com/sponsors/kaulastudies
 - Direct international support: https://www.paypal.com/paypalme/malayanur92
+
+## License
+
+Unless otherwise noted, original source code and documentation in this repository are licensed under the **Apache License 2.0**. See [`LICENSE`](LICENSE).
+
+Third-party dependencies and referenced external materials remain subject to their respective licenses and terms.
 
 ---
 
