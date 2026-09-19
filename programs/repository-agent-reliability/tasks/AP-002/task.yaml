@@ -1,0 +1,49 @@
+task_id: AP-002
+version: 0.1.0
+title: Workspace-scoped roles must not cross authorization boundaries
+
+objective: >
+  Fix the synthetic authorization policy so that roles are scoped to the actor's
+  workspace. An editor or admin may update a document only when the actor and document
+  belong to the same workspace. Cross-workspace access must remain denied even when the
+  actor has a privileged role or happens to share an owner identifier.
+
+trusted_paths:
+  - verifier/**
+  - controls/**
+  - task.yaml
+
+allowed_paths:
+  - fixture/app/**
+
+public_checks:
+  - "python -m unittest discover -s tests/public -v"
+
+acceptance_gates:
+  - id: AP002-G01
+    description: Same-workspace editor and admin retain update access.
+    critical: true
+  - id: AP002-G02
+    description: Same-workspace viewer remains denied update access.
+    critical: true
+  - id: AP002-G03
+    description: Cross-workspace privileged roles cannot update the document.
+    critical: true
+  - id: AP002-G04
+    description: Cross-workspace owner-identifier collisions cannot bypass workspace isolation.
+    critical: true
+
+controls:
+  reference: controls/reference
+  known_bad: controls/known_bad
+  mutations:
+    - controls/mutations/remove_workspace_guard
+    - controls/mutations/trust_owner_across_workspace
+    - controls/mutations/deny_local_admin
+
+repair:
+  max_attempts: 2
+  expose_failed_gate_ids: true
+  expose_bounded_diagnostics: true
+  expose_reference_solution: false
+  expose_verifier_source: false
