@@ -1,0 +1,47 @@
+{
+  "task_id": "AP-002",
+  "version": "0.1.0",
+  "candidate_path": "app/workspace_policy.py",
+  "agent_brief": "agent_brief.md",
+  "visible_files": [
+    {
+      "name": "source",
+      "path": "fixture/app/workspace_policy.py",
+      "heading": "CURRENT SOURCE"
+    },
+    {
+      "name": "public_test",
+      "path": "fixture/tests/public/test_workspace_policy.py",
+      "heading": "PUBLIC TESTS"
+    }
+  ],
+  "explicitly_excluded": [
+    "verifier/**",
+    "controls/**",
+    "evidence/**"
+  ],
+  "public_test_command": [
+    "python",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests/public",
+    "-v"
+  ],
+  "verifier_path": "verifier/acceptance.py",
+  "qualification_path": "evidence/verifier-qualification.json",
+  "trusted_paths": [
+    "verifier/**",
+    "controls/**",
+    "task.yaml"
+  ],
+  "admission": {
+    "filename": "app/workspace_policy.py",
+    "top_level_class": "WorkspacePolicy",
+    "required_methods": [
+      "can_update"
+    ],
+    "prohibit_imports": true
+  }
+}
