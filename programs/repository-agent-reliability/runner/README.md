@@ -25,26 +25,32 @@ New tasks should use this generic runner rather than copying AP-001's runner dir
 
 ## Generic no-model replay
 
-`replay.py` validates a committed `generic-v1` evidence directory without calling the
-model provider again.
+`replay.py` performs **source-exact no-model replay** for committed `generic-v1`
+candidate evidence.
+
+Generation provenance remains frozen in the evidence directory, while deterministic
+verification is reproduced from the run's recorded `source_commit`. Replay creates a
+temporary detached Git worktree at that commit and invokes that commit's own
+`model_trial.py` with the frozen raw response through the mock provider. No model
+inference occurs.
 
 The replay verifies:
 
 - raw model-response SHA-256 and byte count;
-- candidate artifact identity;
-- reconstruction of the admitted candidate from the stored raw response;
-- structural admission decision and reason;
-- generic engine and model-trial Git blobs against the run's recorded source commit;
-- clean local runner files;
-- deterministic re-execution of public checks and the qualified task verifier;
+- committed candidate artifact identity;
+- reconstruction and structural admission of the candidate;
+- task context, prompt, and output-protocol hashes;
+- exact source commit, engine blob, and model-trial blob;
+- deterministic re-execution of public checks and the qualified task verifier under
+  the historical evaluator implementation;
 - identical evaluation-record hash, final verdict, trusted-boundary result, and
   false-green classification.
 
-This keeps generation evidence separate from deterministic verification replay. The
-model does not need to be available for replay.
+The current HEAD evaluator is deliberately **not** required to match the historical
+runner. This allows the evaluator to evolve without making old evidence unreplayable.
 
-`replay_check.py` pins the first committed AP-002 live trial as the regression control
-for the generic replay layer.
+`replay_check.py` pins both an historical `VERIFIED_PASS` (AP-002) and an historical
+false-green `VERIFIED_FAIL` (AP-003) as source-exact replay regression controls.
 
 ## Bounded evidence-guided repair
 

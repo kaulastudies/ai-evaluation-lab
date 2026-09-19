@@ -10,64 +10,109 @@ import tempfile
 RUNNER_ROOT = Path(__file__).resolve().parent
 PROGRAM_ROOT = RUNNER_ROOT.parent
 REPLAY = RUNNER_ROOT / "replay.py"
-EVIDENCE = (
-    PROGRAM_ROOT
-    / "tasks"
-    / "AP-002"
-    / "evidence"
-    / "live"
-    / "ap002-ollama-llama3-001"
-)
+
+CASES = [
+    {
+        "task_id": "AP-002",
+        "evidence": (
+            PROGRAM_ROOT
+            / "tasks"
+            / "AP-002"
+            / "evidence"
+            / "live"
+            / "ap002-ollama-llama3-001"
+        ),
+        "record_hash": (
+            "7a8e86fd2929438f545a9379117dc4eb"
+            "f43eccb0391f46ac9c4ba012f008bb49"
+        ),
+        "verdict": "VERIFIED_PASS",
+    },
+    {
+        "task_id": "AP-003",
+        "evidence": (
+            PROGRAM_ROOT
+            / "tasks"
+            / "AP-003"
+            / "evidence"
+            / "live"
+            / "ap003-ollama-llama3-001"
+        ),
+        "record_hash": (
+            "934c5f633d9d37bd55e6dddbaf73903f"
+            "ea16669fcc6c6acc0fa586c795dd325d"
+        ),
+        "verdict": "VERIFIED_FAIL",
+    },
+]
 
 
 def main() -> int:
-    with tempfile.TemporaryDirectory(prefix="rarb-generic-replay-") as td:
-        out = Path(td) / "replay-report.json"
+    all_ok = True
 
-        process = subprocess.run(
-            [
-                sys.executable,
-                str(REPLAY),
-                "--evidence-dir",
-                str(EVIDENCE),
-                "--out",
-                str(out),
-            ],
-            cwd=PROGRAM_ROOT,
-            text=True,
-            capture_output=True,
-        )
+    with tempfile.TemporaryDirectory(
+        prefix="rarb-source-exact-check-"
+    ) as td:
+        temp = Path(td)
 
-        print(process.stdout.strip())
+        for index, case in enumerate(CASES, start=1):
+            out = temp / f"replay-{index}.json"
 
-        if process.returncode != 0:
-            print(process.stderr, file=sys.stderr)
-            print("PHASE 4B GENERIC REPLAY FAILED")
-            return 1
+            process = subprocess.run(
+                [
+                    sys.executable,
+                    str(REPLAY),
+                    "--evidence-dir",
+                    str(case["evidence"]),
+                    "--out",
+                    str(out),
+                ],
+                cwd=PROGRAM_ROOT,
+                text=True,
+                capture_output=True,
+            )
 
-        report = json.loads(out.read_text(encoding="utf-8"))
+            if process.stdout:
+                print(process.stdout.strip())
+            if process.stderr:
+                print(process.stderr, file=sys.stderr)
 
-        expected_hash = (
-            "7a8e86fd2929438f545a9379117dc4eb"
-            "f43eccb0391f46ac9c4ba012f008bb49"
-        )
+            if process.returncode != 0 or not out.is_file():
+                all_ok = False
+                continue
 
-        ok = (
-            report["status"] == "GENERIC_REPLAY_VERIFIED"
-            and report["task_id"] == "AP-002"
-            and report["replayed_candidate_admission"]["accepted"] is True
-            and report["stored_record_hash"] == expected_hash
-            and report["replayed_record_hash"] == expected_hash
-            and report["replayed_verdict"] == "VERIFIED_PASS"
-            and all(report["checks"].values())
-        )
+            report = json.loads(
+                out.read_text(encoding="utf-8")
+            )
 
-        print(
-            "PHASE 4B GENERIC REPLAY GREEN"
-            if ok
-            else "PHASE 4B GENERIC REPLAY FAILED"
-        )
-        return 0 if ok else 1
+            ok = (
+                report["status"]
+                == "SOURCE_EXACT_REPLAY_VERIFIED"
+                and report["replay_mode"]
+                == "source-exact-detached-worktree-v1"
+                and report["task_id"] == case["task_id"]
+                and report["stored_record_hash"]
+                == case["record_hash"]
+                and report["replayed_record_hash"]
+                == case["record_hash"]
+                and report["replayed_verdict"]
+                == case["verdict"]
+                and report["replay_provider"] == "mock"
+                and all(report["checks"].values())
+            )
+
+            print(
+                f"{case['task_id']} SOURCE-EXACT REPLAY "
+                + ("GREEN" if ok else "FAILED")
+            )
+            all_ok = all_ok and ok
+
+    print(
+        "PHASE 6A SOURCE-EXACT REPLAY GREEN"
+        if all_ok
+        else "PHASE 6A SOURCE-EXACT REPLAY FAILED"
+    )
+    return 0 if all_ok else 1
 
 
 if __name__ == "__main__":
