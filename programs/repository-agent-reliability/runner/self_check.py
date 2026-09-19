@@ -17,6 +17,8 @@ CASES = [
     ("AP-001", "reference", "VERIFIED_PASS", False),
     ("AP-002", "known_bad", "VERIFIED_FAIL", True),
     ("AP-002", "reference", "VERIFIED_PASS", False),
+    ("AP-003", "known_bad", "VERIFIED_FAIL", True),
+    ("AP-003", "reference", "VERIFIED_PASS", False),
 ]
 
 

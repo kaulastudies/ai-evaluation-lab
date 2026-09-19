@@ -1,0 +1,48 @@
+{
+  "task_id": "AP-003",
+  "version": "0.1.0",
+  "candidate_path": "app/event_processor.py",
+  "agent_brief": "agent_brief.md",
+  "visible_files": [
+    {
+      "name": "source",
+      "path": "fixture/app/event_processor.py",
+      "heading": "CURRENT SOURCE"
+    },
+    {
+      "name": "public_test",
+      "path": "fixture/tests/public/test_event_processor.py",
+      "heading": "PUBLIC TESTS"
+    }
+  ],
+  "explicitly_excluded": [
+    "verifier/**",
+    "controls/**",
+    "evidence/**"
+  ],
+  "public_test_command": [
+    "python",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests/public",
+    "-v"
+  ],
+  "verifier_path": "verifier/acceptance.py",
+  "qualification_path": "evidence/verifier-qualification.json",
+  "trusted_paths": [
+    "verifier/**",
+    "controls/**",
+    "task.yaml"
+  ],
+  "admission": {
+    "filename": "app/event_processor.py",
+    "top_level_class": "EventProcessor",
+    "required_methods": [
+      "__init__",
+      "handle"
+    ],
+    "prohibit_imports": true
+  }
+}
