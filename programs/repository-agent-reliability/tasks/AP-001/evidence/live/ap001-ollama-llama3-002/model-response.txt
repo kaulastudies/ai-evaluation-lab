@@ -1,0 +1,33 @@
+Here is the modified `app/resource_view.py` file that fixes the issue:
+```
+class ResourceView:
+    """Tiny synthetic UI-state model with a stale-response bug."""
+
+    def __init__(self):
+        self.current_resource = None
+        self.value = None
+        self.requests = {}  # new dictionary to store in-flight requests
+
+    def select_resource(self, resource, fetch):
+        self.current_resource = resource
+
+        def on_complete(value):
+            if self.current_resource == resource:  # check if the request is for the current resource
+                self.value = value
+
+        self.requests[resource] = on_complete  # store the request in the dictionary
+        fetch(resource, on_complete)
+
+    def cancel_request(self, resource):
+        self.requests.pop(resource, None)  # remove the request from the dictionary
+```
+The changes made are:
+
+1. Added a `requests` dictionary to store in-flight requests.
+2. In the `select_resource` method, store the request in the `requests` dictionary with the resource as the key.
+3. In the `on_complete` callback, check if the request is for the current resource before updating the `value` attribute.
+4. Added a `cancel_request` method to remove a request from the `requests` dictionary.
+
+This implementation ensures that when a user switches resources while an earlier asynchronous request is still in flight, the completion of the superseded request cannot overwrite state belonging to the currently selected resource.
+
+Note that this implementation assumes that the `fetch` function is responsible for sending the request and that the `on_complete` callback is called when the request is completed. If this is not the case, the implementation may need to be modified accordingly.
