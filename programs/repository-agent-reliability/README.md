@@ -70,7 +70,26 @@ Replayable Evidence Bundle
 - **AP-004** — API contract regression
 - **AP-005** — data-transformation edge case
 
-Only AP-001 is frozen in this initial scaffold.
+Current implementation status:
+
+- **AP-001** — verifier-qualified; live admission `HOLD` and later
+  `VERIFIED_PASS`; source-exact replay available.
+- **AP-002** — verifier-qualified; live `VERIFIED_PASS`; source-exact replay available.
+- **AP-003** — verifier-qualified; live public-test false-green `VERIFIED_FAIL`;
+  bounded repair attempted and exhausted without conversion; source-exact repair replay
+  available.
+- **AP-004** — verifier-qualified; strict-code-only-v1 admission `HOLD` followed by a
+  separate strict-code-only-v2 `VERIFIED_PASS`; both are frozen and source-exact
+  replayable. This two-run observation is not treated as causal evidence for the
+  protocol change.
+- **AP-005** — planned; no committed live task evidence yet.
+
+Current committed evidence snapshot: **8 live attempts** —
+**3 `VERIFIED_PASS` / 2 `VERIFIED_FAIL` / 3 `HOLD`** — across **4 qualified tasks**,
+with **0 / 13** configured critical verifier mutations escaping detection.
+
+The original AP-001 success gate in `PROGRAM_SPEC.md` remains unsatisfied as written;
+successful bounded repair conversion is still an explicit evidence gap.
 
 ## Non-goals
 
@@ -81,11 +100,16 @@ Only AP-001 is frozen in this initial scaffold.
 - treating existing unit tests as sufficient evidence by default;
 - allowing the agent to modify its trusted verifier surface.
 
-## Hackathon integration
+## Planned hackathon integration
 
-The Nebius x NVIDIA hackathon is used as an execution environment for the first public
-multi-model implementation of this program. NVIDIA Nemotron models accessed through
-Nebius Token Factory are evaluated under frozen repository-level tasks.
+Nebius x NVIDIA is the intended execution environment for the public multi-model phase
+of this program. The current committed RARB evidence uses local Ollama execution; it
+does **not** yet demonstrate Nebius/NVIDIA production-runtime evidence.
 
-The hackathon implementation remains part of AI Evaluation Lab after the competition as
-an open repository-agent evaluation capability.
+When Nebius access is available, NVIDIA models served through the supported Nebius
+runtime will be evaluated under the same frozen-task, qualified-verifier, trusted-
+boundary, and replay requirements. Any such runs must be recorded as new evidence rather
+than retroactively attributed to the current local evidence set.
+
+The hackathon implementation is intended to remain part of AI Evaluation Lab after the
+competition as an open repository-agent evaluation capability.

@@ -120,3 +120,44 @@ run demonstrates:
 9. replay reproduces the verifier verdict without model inference.
 
 No dashboard work should begin before this loop runs reliably.
+
+## 10. Non-normative implementation status amendment — 2026-09-19
+
+Sections 1–9 above remain the original frozen RARB v0.1 engineering specification.
+This amendment records observed implementation status without redefining the original
+success gate.
+
+Current committed evidence demonstrates:
+
+- AP-001 verifier qualification, an admission `HOLD`, a later `VERIFIED_PASS`, and
+  source-exact replay;
+- AP-002 verifier qualification, a live `VERIFIED_PASS`, and source-exact replay;
+- AP-003 verifier qualification, a genuine public-test false-green
+  `VERIFIED_FAIL`, bounded repair attempts, source-exact repair replay, and terminal
+  failure after the configured repair budget;
+- AP-004 verifier qualification, a frozen strict-code-only-v1 admission `HOLD`, and
+  a separate strict-code-only-v2 `VERIFIED_PASS`, both replayable from their recorded
+  source commits.
+
+As of this amendment, the committed evidence set contains 8 live attempts:
+3 `VERIFIED_PASS`, 2 `VERIFIED_FAIL`, and 3 `HOLD`. Four tasks are verifier-qualified,
+with 0 of 13 configured critical verifier mutations escaping detection.
+
+The original AP-001 milestone in Section 9 is **not satisfied as written**. No single
+AP-001 run demonstrates public-test false-green -> bounded repair -> verifier pass.
+The observed false-green and bounded repair sequence occurs on AP-003, and that repair
+sequence did not convert to `VERIFIED_PASS`.
+
+Therefore:
+
+- successful bounded repair conversion remains an open evidence gap;
+- AP-005 live task evidence remains open;
+- repeated multi-model/statistically meaningful evidence remains open;
+- Nebius/NVIDIA production-runtime evidence remains open.
+
+Demo and dashboard-style artifacts added during implementation are evidence indexes and
+presentation surfaces. Their existence must not be interpreted as satisfying or
+retroactively changing the original Section 9 ordering requirement.
+
+The AP-004 v1 `HOLD` and v2 `VERIFIED_PASS` are separate observed attempts. This evidence
+does not by itself establish that the protocol change caused the different outcome.
