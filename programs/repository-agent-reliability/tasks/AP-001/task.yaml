@@ -13,11 +13,10 @@ trusted_paths:
   - task.yaml
 
 allowed_paths:
-  - app/**
-  - tests/public/**
+  - fixture/app/**
 
 public_checks:
-  - "python -m pytest tests/public -q"
+  - "python -m unittest discover -s tests/public -v"
 
 acceptance_gates:
   - id: AP001-G01
@@ -37,9 +36,9 @@ controls:
   reference: controls/reference
   known_bad: controls/known_bad
   mutations:
-    - controls/mutations/remove_cancellation
+    - controls/mutations/remove_guard
     - controls/mutations/invert_guard
-    - controls/mutations/guard_wrong_request
+    - controls/mutations/wrong_generation
 
 repair:
   max_attempts: 2
