@@ -1,0 +1,71 @@
+{
+  "program": "repository-agent-reliability",
+  "runtime_schema": "generic-v1",
+  "attempt_kind": "repair",
+  "task_id": "AP-003",
+  "task_version": "0.1.0",
+  "run_label": "ap003-ollama-llama3-002-repair",
+  "source_commit": "2adb68051c219798ae9ac71087b1fd67ae7d2a1c",
+  "provider": {
+    "name": "ollama",
+    "model": "llama3:latest",
+    "generation_parameters": {
+      "temperature": 0
+    },
+    "latency_ms": 84097,
+    "input_tokens": 725,
+    "output_tokens": 106,
+    "estimated_cost_usd": 0.0
+  },
+  "output_protocol": {
+    "name": "strict-code-only-v1",
+    "sha256": "681f428e9efb6c74cb7900f9b88dce17a51af07f7f72de0cbee724cb649aeee8"
+  },
+  "model_context": {
+    "context_hash": "044df7696ceaec34eaf801d35ea9c21f3327d5f4d29c97fa9575d804afe7e11f",
+    "prompt_sha256": "c0d7bd08ce9e511962b34d0e7eaa06987fb053aed996ae38ecea5b7d43f40c48",
+    "visible_paths": [
+      "agent_brief.md",
+      "parent:candidate-event_processor.py",
+      "fixture/tests/public/test_event_processor.py",
+      "bounded_failed_gate_evidence"
+    ]
+  },
+  "repair_context": {
+    "context_hash": "044df7696ceaec34eaf801d35ea9c21f3327d5f4d29c97fa9575d804afe7e11f",
+    "prompt_sha256": "c0d7bd08ce9e511962b34d0e7eaa06987fb053aed996ae38ecea5b7d43f40c48",
+    "visible_paths": [
+      "agent_brief.md",
+      "parent:candidate-event_processor.py",
+      "fixture/tests/public/test_event_processor.py",
+      "bounded_failed_gate_evidence"
+    ],
+    "bounded_evidence_sha256": "c937fc6bf80427eebe1bff9e37d6e0ac2a90218ab1656e28945022df62ca17c6",
+    "failed_gate_ids": [
+      "AP003-G02",
+      "AP003-G04"
+    ],
+    "max_diagnostic_chars": 600
+  },
+  "parent": {
+    "run_label": "ap003-ollama-llama3-001",
+    "record_hash": "934c5f633d9d37bd55e6dddbaf73903fea16669fcc6c6acc0fa586c795dd325d",
+    "candidate_sha256": "ddce4b9d41eb052cac3acaa8ece1cb43c9ff9039601d212bc29bb12e0b14ad82",
+    "final_verdict": "VERIFIED_FAIL"
+  },
+  "model_response_sha256": "80987bf0645edfa152278a1a0e3a4d52cc34fdcb18da3743149c6b111181f14b",
+  "model_response_artifact": {
+    "filename": "ap003-ollama-llama3-002-repair-response.txt",
+    "sha256": "80987bf0645edfa152278a1a0e3a4d52cc34fdcb18da3743149c6b111181f14b",
+    "bytes": 469
+  },
+  "candidate_admission": {
+    "accepted": false,
+    "reason": "unterminated fenced code block"
+  },
+  "candidate_sha256": null,
+  "evaluation": null,
+  "repair_conversion": false,
+  "final_verdict": "HOLD",
+  "hold_reason": "repair candidate rejected before execution"
+}

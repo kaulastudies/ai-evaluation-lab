@@ -1,0 +1,16 @@
+```
+class EventProcessor:
+    """Synthetic at-least-once event processor with idempotent event handling."""
+
+    def __init__(self):
+        self.total = 0
+        self.event_id = None
+        self.event_amount = None
+
+    def handle(self, event_id, amount):
+        if event_id == self.event_id and amount == self.event_amount:
+            return True
+        self.event_id = event_id
+        self.event_amount = amount
+        self.total += amount
+        return True
