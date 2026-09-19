@@ -69,6 +69,7 @@ def provider_from_name(name: str):
         "openrouter": ("https://openrouter.ai/api/v1", "OPENROUTER_API_KEY", "OPENROUTER_MODEL"),
         "cerebras": ("https://api.cerebras.ai/v1", "CEREBRAS_API_KEY", "CEREBRAS_MODEL"),
         "fireworks": ("https://api.fireworks.ai/inference/v1", "FIREWORKS_API_KEY", "FIREWORKS_MODEL"),
+        "nebius": ("https://api.tokenfactory.nebius.com/v1", "NEBIUS_API_KEY", "NEBIUS_MODEL"),
     }
     if key not in configs: raise ProviderConfigurationError(f"Unknown live provider: {name}")
     base, api_env, model_env = configs[key]
