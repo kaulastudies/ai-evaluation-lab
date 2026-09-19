@@ -38,3 +38,31 @@ matches the recorded failure.
 
 Replay bundles intentionally omit verifier re-qualification controls/reference solutions.
 Use the full repository when re-qualification itself must be reproduced.
+
+## Model candidate adapter
+
+`model_trial.py` is the boundary between a model provider and the qualified AP-001
+evaluation pipeline.
+
+It builds the prompt only from the model-visible brief, vulnerable source, and public
+tests. A provider response is converted into a single candidate `resource_view.py`,
+subjected to a small AP-001 structural admission policy, and only then passed to the
+existing trial runner.
+
+The admission policy is **not** an operating-system sandbox. It is a pre-execution
+contract check that rejects imports and a small set of introspection/file-execution
+constructs that are unnecessary for AP-001. Strong runtime isolation remains a separate
+control.
+
+Live providers use the repository's existing provider abstraction. `--provider nebius`
+therefore becomes available automatically once Token Factory access is working.
+
+Example live command after Nebius access is available:
+
+    python model_trial.py --provider nebius --label ap001-nebius-001 --out result.json --candidate-out candidate.py
+
+`model_trial_check.py` validates three offline paths using the mock provider:
+
+- known-bad candidate -> `VERIFIED_FAIL` with `false_green=true`;
+- reference candidate -> `VERIFIED_PASS`;
+- structurally prohibited candidate -> `HOLD` before execution.
