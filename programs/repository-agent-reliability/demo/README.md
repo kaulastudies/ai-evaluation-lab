@@ -20,3 +20,24 @@ Validate it with:
 ```powershell
 python .\programs\repository-agent-reliability\demo\demo_check.py
 ```
+
+## One-command demo entrypoint
+
+`run_demo.py` regenerates the metrics and evidence brief, runs the current runner
+regressions, source-exact initial-attempt replay, source-exact repair replay, metrics
+validation, and demo-evidence validation, then emits compact machine-readable and
+human-readable status artifacts.
+
+Run:
+
+```powershell
+python .\programs\repository-agent-reliability\demo\run_demo.py `
+  --out-json .\programs\repository-agent-reliability\demo\DEMO_STATUS.json `
+  --out-md .\programs\repository-agent-reliability\demo\DEMO_STATUS.md
+```
+
+A green run means the generated metrics/brief still match the committed evidence, the
+current evaluator regressions pass, and historical initial and repair evidence remains
+source-exact replayable without model inference.
+
+This command does not run a live model and does not create new benchmark evidence.
