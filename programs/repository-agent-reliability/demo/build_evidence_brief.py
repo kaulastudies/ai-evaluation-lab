@@ -71,6 +71,10 @@ def build_payload(summary: dict[str, Any]) -> dict[str, Any]:
         attempts,
         "ap004-ollama-llama3-001",
     )
+    ap004_pass = find_attempt(
+        attempts,
+        "ap004-ollama-llama3-002",
+    )
 
     return {
         "schema_version": "1.0.0",
@@ -185,11 +189,21 @@ def build_payload(summary: dict[str, Any]) -> dict[str, Any]:
                         "run_label": ap004_hold["run_label"],
                         "verdict": ap004_hold["final_verdict"],
                         "note": (
-                            "The first live model response had an unterminated "
-                            "fenced code block and was rejected before execution. "
-                            "The HOLD is frozen rather than normalized or rerun."
+                            "The first live model response used v1 and had an "
+                            "unterminated fenced code block, so it was rejected "
+                            "before execution and frozen as HOLD."
                         ),
-                    }
+                    },
+                    {
+                        "run_label": ap004_pass["run_label"],
+                        "verdict": ap004_pass["final_verdict"],
+                        "note": (
+                            "A separately versioned v2 initial attempt was "
+                            "admitted, passed public validation, passed all four "
+                            "qualified verifier gates, and preserved the trusted "
+                            "boundary."
+                        ),
+                    },
                 ],
             },
         ],
@@ -209,8 +223,12 @@ def build_payload(summary: dict[str, Any]) -> dict[str, Any]:
             ),
             (
                 "Source-exact no-model replay across historical evaluator "
-                "versions, including initial admission HOLD, repair HOLD, and "
-                "terminal repair failure."
+                "versions, including admission HOLD, VERIFIED_PASS, "
+                "VERIFIED_FAIL, repair HOLD, and terminal repair failure."
+            ),
+            (
+                "Separately versioned initial-output protocols without rewriting "
+                "the frozen earlier HOLD."
             ),
             (
                 "Evidence-derived metrics without fabricating missing fields."
@@ -226,8 +244,7 @@ def build_payload(summary: dict[str, Any]) -> dict[str, Any]:
                 "performance."
             ),
             (
-                "An executed AP-004 candidate outcome beyond admission HOLD, "
-                "and AP-005 live task evidence."
+                "AP-005 live task evidence."
             ),
             (
                 "Nebius/NVIDIA production-runtime evidence."
@@ -304,22 +321,11 @@ def render_markdown(payload: dict[str, Any]) -> str:
             )
         lines.append("")
 
-    lines.extend(
-        [
-            "## Demonstrated",
-            "",
-        ]
-    )
+    lines.extend(["## Demonstrated", ""])
     for item in payload["demonstrated"]:
         lines.append(f"- {item}")
 
-    lines.extend(
-        [
-            "",
-            "## Not yet demonstrated",
-            "",
-        ]
-    )
+    lines.extend(["", "## Not yet demonstrated", ""])
     for item in payload["not_yet_demonstrated"]:
         lines.append(f"- {item}")
 
@@ -330,8 +336,11 @@ def render_markdown(payload: dict[str, Any]) -> str:
             "",
             "These numbers describe the committed RARB evidence set only. "
             "They are not claims about general coding-agent performance. "
-            "Local Ollama provider billing is reported as zero, but economic "
-            "execution cost is unmetered and therefore Cost / Verified Success "
+            "The AP-004 v1 HOLD and v2 VERIFIED_PASS are separate observed "
+            "attempts; this evidence does not by itself establish that the "
+            "protocol change caused the different outcome. Local Ollama "
+            "provider billing is reported as zero, but economic execution "
+            "cost is unmetered and therefore Cost / Verified Success "
             "remains N/A.",
             "",
         ]

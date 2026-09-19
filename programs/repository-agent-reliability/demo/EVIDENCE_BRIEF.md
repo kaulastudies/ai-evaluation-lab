@@ -8,15 +8,15 @@ RARB treats the coding agent as the system under test. A patch is not accepted b
 
 ## Current evidence snapshot
 
-- **7** committed live attempts
-- **2 VERIFIED_PASS / 2 VERIFIED_FAIL / 3 HOLD**
+- **8** committed live attempts
+- **3 VERIFIED_PASS / 2 VERIFIED_FAIL / 3 HOLD**
 - **4** qualified tasks
 - **0 / 13** critical verifier mutations escaped
-- Claim-Evidence Gap: **50.0%**
-- False-Green Rate: **50.0%**
-- Initial False-Green Rate: **33.3%**
+- Claim-Evidence Gap: **40.0%**
+- False-Green Rate: **40.0%**
+- Initial False-Green Rate: **25.0%**
 - Repair Conversion: **0.0%**
-- Median recorded generation latency among verified successes: **82.91s**
+- Median recorded generation latency among verified successes: **81.34s**
 
 ## The strongest live example: AP-003
 
@@ -50,7 +50,8 @@ That is the product behavior: **RARB measures whether a patch deserves to ship; 
 
 ### AP-004 - API contract regression
 
-- `ap004-ollama-llama3-001` - **HOLD** - The first live model response had an unterminated fenced code block and was rejected before execution. The HOLD is frozen rather than normalized or rerun.
+- `ap004-ollama-llama3-001` - **HOLD** - The first live model response used v1 and had an unterminated fenced code block, so it was rejected before execution and frozen as HOLD.
+- `ap004-ollama-llama3-002` - **VERIFIED_PASS** - A separately versioned v2 initial attempt was admitted, passed public validation, passed all four qualified verifier gates, and preserved the trusted boundary.
 
 ## Demonstrated
 
@@ -58,16 +59,17 @@ That is the product behavior: **RARB measures whether a patch deserves to ship; 
 - Public-test false-green detection under a qualified verifier.
 - Trusted-boundary checks and deterministic evaluation records.
 - Bounded evidence-guided repair with an explicit attempt budget.
-- Source-exact no-model replay across historical evaluator versions, including initial admission HOLD, repair HOLD, and terminal repair failure.
+- Source-exact no-model replay across historical evaluator versions, including admission HOLD, VERIFIED_PASS, VERIFIED_FAIL, repair HOLD, and terminal repair failure.
+- Separately versioned initial-output protocols without rewriting the frozen earlier HOLD.
 - Evidence-derived metrics without fabricating missing fields.
 
 ## Not yet demonstrated
 
 - A successful bounded repair conversion from VERIFIED_FAIL to VERIFIED_PASS.
 - Repeated multi-model or statistically meaningful benchmark performance.
-- An executed AP-004 candidate outcome beyond admission HOLD, and AP-005 live task evidence.
+- AP-005 live task evidence.
 - Nebius/NVIDIA production-runtime evidence.
 
 ## Evidence boundary
 
-These numbers describe the committed RARB evidence set only. They are not claims about general coding-agent performance. Local Ollama provider billing is reported as zero, but economic execution cost is unmetered and therefore Cost / Verified Success remains N/A.
+These numbers describe the committed RARB evidence set only. They are not claims about general coding-agent performance. The AP-004 v1 HOLD and v2 VERIFIED_PASS are separate observed attempts; this evidence does not by itself establish that the protocol change caused the different outcome. Local Ollama provider billing is reported as zero, but economic execution cost is unmetered and therefore Cost / Verified Success remains N/A.

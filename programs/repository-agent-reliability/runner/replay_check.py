@@ -57,6 +57,22 @@ CASES = [
         "record_hash": None,
         "verdict": "HOLD",
     },
+    {
+        "task_id": "AP-004",
+        "evidence": (
+            PROGRAM_ROOT
+            / "tasks"
+            / "AP-004"
+            / "evidence"
+            / "live"
+            / "ap004-ollama-llama3-002"
+        ),
+        "record_hash": (
+            "d216ac3dde7ad6ca3dd47926327a938b6"
+            "9eff76bfd16af5f195691edd22c1c3c"
+        ),
+        "verdict": "VERIFIED_PASS",
+    },
 ]
 
 
@@ -115,15 +131,15 @@ def main() -> int:
             )
 
             print(
-                f"{case['task_id']} SOURCE-EXACT REPLAY "
+                f"{case['task_id']} {case['evidence'].name} SOURCE-EXACT REPLAY "
                 + ("GREEN" if ok else "FAILED")
             )
             all_ok = all_ok and ok
 
     print(
-        "PHASE 6A SOURCE-EXACT REPLAY GREEN"
+        "PHASE 8D SOURCE-EXACT REPLAY GREEN"
         if all_ok
-        else "PHASE 6A SOURCE-EXACT REPLAY FAILED"
+        else "PHASE 8D SOURCE-EXACT REPLAY FAILED"
     )
     return 0 if all_ok else 1
 

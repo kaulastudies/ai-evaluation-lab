@@ -3,18 +3,18 @@
   "program": "repository-agent-reliability",
   "headline": "Verify the evaluation before trusting the verdict.",
   "evidence_snapshot": {
-    "live_attempts": 7,
-    "verified_pass": 2,
+    "live_attempts": 8,
+    "verified_pass": 3,
     "verified_fail": 2,
     "hold": 3,
     "qualified_tasks": 4,
     "critical_mutations_total": 13,
     "critical_mutation_escapes": 0,
-    "claim_evidence_gap": 0.5,
-    "false_green_rate": 0.5,
-    "initial_false_green_rate": 0.3333333333333333,
+    "claim_evidence_gap": 0.4,
+    "false_green_rate": 0.4,
+    "initial_false_green_rate": 0.25,
     "repair_conversion": 0.0,
-    "median_time_to_verified_success_ms": 82907.5
+    "median_time_to_verified_success_ms": 81341.0
   },
   "task_evidence": [
     {
@@ -72,7 +72,12 @@
         {
           "run_label": "ap004-ollama-llama3-001",
           "verdict": "HOLD",
-          "note": "The first live model response had an unterminated fenced code block and was rejected before execution. The HOLD is frozen rather than normalized or rerun."
+          "note": "The first live model response used v1 and had an unterminated fenced code block, so it was rejected before execution and frozen as HOLD."
+        },
+        {
+          "run_label": "ap004-ollama-llama3-002",
+          "verdict": "VERIFIED_PASS",
+          "note": "A separately versioned v2 initial attempt was admitted, passed public validation, passed all four qualified verifier gates, and preserved the trusted boundary."
         }
       ]
     }
@@ -82,13 +87,14 @@
     "Public-test false-green detection under a qualified verifier.",
     "Trusted-boundary checks and deterministic evaluation records.",
     "Bounded evidence-guided repair with an explicit attempt budget.",
-    "Source-exact no-model replay across historical evaluator versions, including initial admission HOLD, repair HOLD, and terminal repair failure.",
+    "Source-exact no-model replay across historical evaluator versions, including admission HOLD, VERIFIED_PASS, VERIFIED_FAIL, repair HOLD, and terminal repair failure.",
+    "Separately versioned initial-output protocols without rewriting the frozen earlier HOLD.",
     "Evidence-derived metrics without fabricating missing fields."
   ],
   "not_yet_demonstrated": [
     "A successful bounded repair conversion from VERIFIED_FAIL to VERIFIED_PASS.",
     "Repeated multi-model or statistically meaningful benchmark performance.",
-    "An executed AP-004 candidate outcome beyond admission HOLD, and AP-005 live task evidence.",
+    "AP-005 live task evidence.",
     "Nebius/NVIDIA production-runtime evidence."
   ]
 }

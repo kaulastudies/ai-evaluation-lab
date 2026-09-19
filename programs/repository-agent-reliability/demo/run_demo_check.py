@@ -61,10 +61,10 @@ def main() -> int:
                 is True
             ),
             "attempts": (
-                status["evidence_snapshot"]["attempts_total"] == 7
+                status["evidence_snapshot"]["attempts_total"] == 8
             ),
             "verdicts": (
-                status["evidence_snapshot"]["verified_pass"] == 2
+                status["evidence_snapshot"]["verified_pass"] == 3
                 and status["evidence_snapshot"]["verified_fail"] == 2
                 and status["evidence_snapshot"]["hold"] == 3
             ),
@@ -77,12 +77,18 @@ def main() -> int:
                     "critical_mutations_total"
                 ] == 13
             ),
+            "claim_gap": (
+                status["evidence_snapshot"]["claim_evidence_gap"] == 0.4
+            ),
+            "false_green": (
+                status["evidence_snapshot"]["false_green_rate"] == 0.4
+            ),
             "honest_repair_gap": any(
                 "successful bounded repair conversion" in item
                 for item in status["evidence_boundary"]
             ),
-            "ap004_gap": any(
-                "AP-004 candidate outcome beyond admission HOLD" in item
+            "ap005_gap": any(
+                item == "AP-005 live task evidence."
                 for item in status["evidence_boundary"]
             ),
             "human_summary": (

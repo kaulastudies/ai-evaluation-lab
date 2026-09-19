@@ -1,0 +1,114 @@
+{
+  "program": "repository-agent-reliability",
+  "runtime_schema": "generic-v1",
+  "task_id": "AP-004",
+  "task_version": "0.1.0",
+  "run_label": "ap004-ollama-llama3-002",
+  "source_commit": "552491fc5a75ea22e36d802172430486a54df655",
+  "provider": {
+    "name": "ollama",
+    "model": "llama3:latest",
+    "generation_parameters": {
+      "temperature": 0
+    },
+    "latency_ms": 68280,
+    "input_tokens": 575,
+    "output_tokens": 60,
+    "estimated_cost_usd": 0.0
+  },
+  "output_protocol": {
+    "name": "strict-code-only-v2",
+    "sha256": "5994fe88150a23746ff2495d7096038f155dfed22f6f3911d7c4105180f64485"
+  },
+  "model_context": {
+    "context_hash": "d170ef6704c78c421fbdaa445595213ed1ac614ef5ff5abdd4ddb70baaa8f2ba",
+    "prompt_sha256": "bf08c5e2beb328c5b092b3c72f267679dfa0500ba769cea5ea34aedb0e9fcf51",
+    "visible_paths": [
+      "agent_brief.md",
+      "fixture/app/user_response.py",
+      "fixture/tests/public/test_user_response.py"
+    ]
+  },
+  "model_response_sha256": "4239ac114297513e28aea198aafadeb3f2d5f26e2e6a6323aae8e2cefeea7550",
+  "model_response_artifact": {
+    "filename": "model-response.txt",
+    "sha256": "4239ac114297513e28aea198aafadeb3f2d5f26e2e6a6323aae8e2cefeea7550",
+    "bytes": 256
+  },
+  "candidate_admission": {
+    "accepted": true,
+    "reason": "candidate satisfies task structural admission policy"
+  },
+  "candidate_sha256": "bb3b516bc28d57f12ef1f13a8573eef7a3b6f023c057986d404b30211ca07426",
+  "evaluation": {
+    "program": "repository-agent-reliability",
+    "runtime_schema": "generic-v1",
+    "task_id": "AP-004",
+    "task_version": "0.1.0",
+    "run_label": "ap004-ollama-llama3-002",
+    "model_context": {
+      "context_hash": "d170ef6704c78c421fbdaa445595213ed1ac614ef5ff5abdd4ddb70baaa8f2ba",
+      "visible_paths": [
+        "agent_brief.md",
+        "fixture/app/user_response.py",
+        "fixture/tests/public/test_user_response.py"
+      ],
+      "excluded_paths": [
+        "verifier/**",
+        "controls/**",
+        "evidence/**"
+      ]
+    },
+    "task_contract_sha256": "89579a8edce90ab563f02007901ad01b9a86ccb07c6a375719a371c0d043670d",
+    "runtime_config_sha256": "be612f4fbbec387f4bb22de76dc9d8635234c48bb10836c3fc65a5f1c50481c0",
+    "verifier_source_sha256": "4662d811e14677b9c9bd26e7d3a49451245c2a6e686941715cb31629e919008c",
+    "qualification_evidence_sha256": "47e9df01944830c99eb6602758e8917ba7cbbbccdd9b840d9d1de97e6e043b4b",
+    "candidate_sha256": "bb3b516bc28d57f12ef1f13a8573eef7a3b6f023c057986d404b30211ca07426",
+    "agent_claimed_success": true,
+    "public_validation": {
+      "passed": true,
+      "returncode": 0
+    },
+    "verifier_qualification": {
+      "status": "QUALIFIED",
+      "verifier_version": "0.1.0",
+      "critical_mutations_rejected": 4,
+      "critical_mutations_total": 4
+    },
+    "verification": {
+      "task_id": "AP-004",
+      "task_version": "0.1.0",
+      "verifier_version": "0.1.0",
+      "candidate": "workspace",
+      "gates": [
+        {
+          "id": "AP004-G01",
+          "passed": true,
+          "diagnostic": "response status is exact integer 200"
+        },
+        {
+          "id": "AP004-G02",
+          "passed": true,
+          "diagnostic": "required public field names and types are stable"
+        },
+        {
+          "id": "AP004-G03",
+          "passed": true,
+          "diagnostic": "nullable nickname remains present as None"
+        },
+        {
+          "id": "AP004-G04",
+          "passed": true,
+          "diagnostic": "public response contains no internal or extra fields"
+        }
+      ],
+      "status": "VERIFIED_PASS"
+    },
+    "trusted_files_unchanged_after_scoring": true,
+    "false_green": false,
+    "final_verdict": "VERIFIED_PASS",
+    "record_hash": "d216ac3dde7ad6ca3dd47926327a938b69eff76bfd16af5f195691edd22c1c3c"
+  },
+  "final_verdict": "VERIFIED_PASS",
+  "hold_reason": null
+}
