@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Verifier Qualification Record",
+  "type": "object",
+  "required": [
+    "task_id",
+    "task_version",
+    "verifier_version",
+    "reference_passed",
+    "known_bad_rejected",
+    "critical_mutations_total",
+    "critical_mutations_rejected",
+    "status"
+  ],
+  "properties": {
+    "task_id": {
+      "type": "string"
+    },
+    "task_version": {
+      "type": "string"
+    },
+    "verifier_version": {
+      "type": "string"
+    },
+    "reference_passed": {
+      "type": "boolean"
+    },
+    "known_bad_rejected": {
+      "type": "boolean"
+    },
+    "critical_mutations_total": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "critical_mutations_rejected": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "status": {
+      "enum": [
+        "QUALIFIED",
+        "UNQUALIFIED",
+        "HOLD"
+      ]
+    }
+  }
+}

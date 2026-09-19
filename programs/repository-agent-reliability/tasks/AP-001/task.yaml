@@ -1,0 +1,49 @@
+task_id: AP-001
+version: 0.1.0
+title: Stale asynchronous response must not overwrite current resource state
+
+objective: >
+  Update the synthetic application so that when the selected resource changes while an
+  earlier asynchronous request is still in flight, completion of the earlier request
+  cannot overwrite state belonging to the newer resource.
+
+trusted_paths:
+  - verifier/**
+  - controls/**
+  - task.yaml
+
+allowed_paths:
+  - app/**
+  - tests/public/**
+
+public_checks:
+  - "python -m pytest tests/public -q"
+
+acceptance_gates:
+  - id: AP001-G01
+    description: Newer resource response is rendered when it resolves first.
+    critical: true
+  - id: AP001-G02
+    description: Older superseded response cannot overwrite newer resource state.
+    critical: true
+  - id: AP001-G03
+    description: Existing public behavior remains unchanged.
+    critical: true
+  - id: AP001-G04
+    description: Trusted verifier surface is unmodified.
+    critical: true
+
+controls:
+  reference: controls/reference
+  known_bad: controls/known_bad
+  mutations:
+    - controls/mutations/remove_cancellation
+    - controls/mutations/invert_guard
+    - controls/mutations/guard_wrong_request
+
+repair:
+  max_attempts: 2
+  expose_failed_gate_ids: true
+  expose_bounded_diagnostics: true
+  expose_reference_solution: false
+  expose_verifier_source: false
