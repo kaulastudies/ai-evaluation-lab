@@ -1,0 +1,60 @@
+{
+  "task_id": "AP-002",
+  "task_version": "0.1.0",
+  "verifier_version": "0.1.0",
+  "reference_passed": true,
+  "known_bad_rejected": true,
+  "critical_mutations_total": 3,
+  "critical_mutations_rejected": 3,
+  "controls": [
+    {
+      "name": "reference",
+      "candidate": "controls/reference",
+      "expected": "PASS",
+      "actual": "PASS",
+      "expectation_met": true,
+      "failed_gates": []
+    },
+    {
+      "name": "known_bad",
+      "candidate": "controls/known_bad",
+      "expected": "FAIL",
+      "actual": "FAIL",
+      "expectation_met": true,
+      "failed_gates": [
+        "AP002-G03"
+      ]
+    },
+    {
+      "name": "mutation_remove_workspace_guard",
+      "candidate": "controls/mutations/remove_workspace_guard",
+      "expected": "FAIL",
+      "actual": "FAIL",
+      "expectation_met": true,
+      "failed_gates": [
+        "AP002-G03"
+      ]
+    },
+    {
+      "name": "mutation_trust_owner_across_workspace",
+      "candidate": "controls/mutations/trust_owner_across_workspace",
+      "expected": "FAIL",
+      "actual": "FAIL",
+      "expectation_met": true,
+      "failed_gates": [
+        "AP002-G04"
+      ]
+    },
+    {
+      "name": "mutation_deny_local_admin",
+      "candidate": "controls/mutations/deny_local_admin",
+      "expected": "FAIL",
+      "actual": "FAIL",
+      "expectation_met": true,
+      "failed_gates": [
+        "AP002-G01"
+      ]
+    }
+  ],
+  "status": "QUALIFIED"
+}

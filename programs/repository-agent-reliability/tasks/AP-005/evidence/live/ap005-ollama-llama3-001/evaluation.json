@@ -1,0 +1,114 @@
+{
+  "program": "repository-agent-reliability",
+  "runtime_schema": "generic-v1",
+  "task_id": "AP-005",
+  "task_version": "0.1.0",
+  "run_label": "ap005-ollama-llama3-001",
+  "source_commit": "a364e12c3c4c86e077810a9c9eea8f3756bb50e4",
+  "provider": {
+    "name": "ollama",
+    "model": "llama3:latest",
+    "generation_parameters": {
+      "temperature": 0
+    },
+    "latency_ms": 83504,
+    "input_tokens": 722,
+    "output_tokens": 77,
+    "estimated_cost_usd": 0.0
+  },
+  "output_protocol": {
+    "name": "strict-code-only-v2",
+    "sha256": "002ec2124d44cc6e86f27dc9c7f76dace5065202ca8a28c4a1cc93793fb02787"
+  },
+  "model_context": {
+    "context_hash": "4f05004debd03decc954b065a791dc3444a25b0b9f3f05710dac4a8354e32a2d",
+    "prompt_sha256": "460f62a8bf911bcf6f8ae4d72479f5a59eac751757c506b1cf90f71ee671789b",
+    "visible_paths": [
+      "agent_brief.md",
+      "fixture/app/record_transformer.py",
+      "fixture/tests/public/test_record_transformer.py"
+    ]
+  },
+  "model_response_sha256": "414a736158e7be5982eec75c77444e6e06f7fb8c54cc55d195e4997f088f4fb4",
+  "model_response_artifact": {
+    "filename": "model-response.txt",
+    "sha256": "414a736158e7be5982eec75c77444e6e06f7fb8c54cc55d195e4997f088f4fb4",
+    "bytes": 408
+  },
+  "candidate_admission": {
+    "accepted": true,
+    "reason": "candidate satisfies task structural admission policy"
+  },
+  "candidate_sha256": "c0c00d9815fff64e60ad16b66980cafcabae7282a7993bc4f488cd9c8459743d",
+  "evaluation": {
+    "program": "repository-agent-reliability",
+    "runtime_schema": "generic-v1",
+    "task_id": "AP-005",
+    "task_version": "0.1.0",
+    "run_label": "ap005-ollama-llama3-001",
+    "model_context": {
+      "context_hash": "4f05004debd03decc954b065a791dc3444a25b0b9f3f05710dac4a8354e32a2d",
+      "visible_paths": [
+        "agent_brief.md",
+        "fixture/app/record_transformer.py",
+        "fixture/tests/public/test_record_transformer.py"
+      ],
+      "excluded_paths": [
+        "verifier/**",
+        "controls/**",
+        "evidence/**"
+      ]
+    },
+    "task_contract_sha256": "8aab61e8239dad5ee0bb238d300b92808a66c7e50c91851ad45c6ed1ffc57f21",
+    "runtime_config_sha256": "946f95b436cd18e3d42f3edfd477bcccd66f9ee883f2e7283f92bd10411ca46e",
+    "verifier_source_sha256": "9b0fd02082b7b97ccf6d5845daf2a766bcf7a630fcd8910b32dea7eb2ae492e6",
+    "qualification_evidence_sha256": "6b32af4c05935bba65c1d448746760c6f621db92c45480778ea4c3176ccc30d9",
+    "candidate_sha256": "c0c00d9815fff64e60ad16b66980cafcabae7282a7993bc4f488cd9c8459743d",
+    "agent_claimed_success": true,
+    "public_validation": {
+      "passed": true,
+      "returncode": 0
+    },
+    "verifier_qualification": {
+      "status": "QUALIFIED",
+      "verifier_version": "0.1.0",
+      "critical_mutations_rejected": 4,
+      "critical_mutations_total": 4
+    },
+    "verification": {
+      "task_id": "AP-005",
+      "task_version": "0.1.0",
+      "verifier_version": "0.1.0",
+      "candidate": "workspace",
+      "gates": [
+        {
+          "id": "AP005-G01",
+          "passed": false,
+          "diagnostic": "row cardinality/order or duplicate identifier preservation changed"
+        },
+        {
+          "id": "AP005-G02",
+          "passed": false,
+          "diagnostic": "integer/boolean edge-case values or types changed"
+        },
+        {
+          "id": "AP005-G03",
+          "passed": false,
+          "diagnostic": "optional note semantics collapsed distinct states"
+        },
+        {
+          "id": "AP005-G04",
+          "passed": false,
+          "diagnostic": "source rows were mutated or output field surface changed"
+        }
+      ],
+      "status": "VERIFIED_FAIL"
+    },
+    "trusted_files_unchanged_after_scoring": true,
+    "false_green": true,
+    "final_verdict": "VERIFIED_FAIL",
+    "record_hash": "605d66987eaddd08bb1513873f3c6dee2b865bcdf3481079a5e0f4a9955a5c9c"
+  },
+  "final_verdict": "VERIFIED_FAIL",
+  "hold_reason": null
+}

@@ -1,0 +1,41 @@
+{
+  "program": "repository-agent-reliability",
+  "runtime_schema": "generic-v1",
+  "task_id": "AP-003",
+  "run_label": "ap003-ollama-llama3-001",
+  "source_commit": "1ce6991254290d7156ed59bfd956395f8b58ec5b",
+  "engine_blob": "ffa42886fdcdf7c3d9559e90d354a449d0b116e7",
+  "model_trial_blob": "71cd6777cf3acfd9ce80495b1eaad3f92522e19c",
+  "response_sha256": "236ef3c502717f623255a2ce6f14e43668728734c18a7ef80390e19eadb892cf",
+  "candidate_sha256": "ddce4b9d41eb052cac3acaa8ece1cb43c9ff9039601d212bc29bb12e0b14ad82",
+  "replayed_candidate_admission": {
+    "accepted": true,
+    "reason": "candidate satisfies task structural admission policy"
+  },
+  "stored_record_hash": "934c5f633d9d37bd55e6dddbaf73903fea16669fcc6c6acc0fa586c795dd325d",
+  "replayed_record_hash": "934c5f633d9d37bd55e6dddbaf73903fea16669fcc6c6acc0fa586c795dd325d",
+  "replayed_verdict": "VERIFIED_FAIL",
+  "checks": {
+    "task_id_matches_manifest": true,
+    "runtime_schema_matches_manifest": true,
+    "source_commit_matches_manifest": true,
+    "response_sha_matches_trial": true,
+    "response_sha_matches_manifest": true,
+    "response_bytes_match_manifest": true,
+    "candidate_sha_matches_trial": true,
+    "candidate_sha_matches_manifest": true,
+    "response_reconstructs_candidate": true,
+    "admission_accepted_matches": true,
+    "admission_reason_matches": true,
+    "engine_blob_matches_source_commit": true,
+    "model_trial_blob_matches_source_commit": true,
+    "engine_worktree_clean": true,
+    "model_trial_worktree_clean": true,
+    "evaluation_record_hash_matches": true,
+    "final_verdict_matches": true,
+    "trusted_boundary_matches": true,
+    "false_green_matches": true
+  },
+  "status": "GENERIC_REPLAY_VERIFIED",
+  "replay_report_sha256": "60a6a9ef1bb20ccc1cee55a9545ba62cc6cfc57ef70ee179cbf5d7033301b305"
+}

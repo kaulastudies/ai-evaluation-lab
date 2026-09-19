@@ -13,12 +13,15 @@ The Lab is building that evidence layer.
 
 ### Current technical state
 
-The public Lab now has two original agent-evaluation task packs:
+The public Lab now has two original agent-evaluation task packs plus a repository-agent reliability program:
 
 - **AS-001 — Permission Boundary / Constraint Adherence**, with published Ollama and Groq runs under the same frozen task contract;
-- **AS-002 — Least-Privilege Tool Escalation**, with deterministic reference and known-bad controls and live-provider runs intentionally not yet claimed.
+- **AS-002 — Least-Privilege Tool Escalation**, with deterministic reference and known-bad controls and live-provider runs intentionally not yet claimed;
+- **RARB v0.1 — Repository Agent Reliability Program**, with five verifier-qualified synthetic repository tasks, frozen live evidence, bounded repair, and source-exact no-model replay.
 
-Both task packs are CI-gated. Existing Harbor, AS-001, and AS-002 validation remains part of the repository's automated evidence checks.
+The AS task packs remain CI-gated. RARB's deterministic runner, replay, repair-replay, metrics, and demo-evidence checks are also gated in CI by the v0.1 release candidate.
+
+[RARB program](programs/repository-agent-reliability/README.md) | [RARB evidence brief](programs/repository-agent-reliability/demo/EVIDENCE_BRIEF.md) | [RARB demo status](programs/repository-agent-reliability/demo/DEMO_STATUS.md)
 
 [Capabilities](docs/CAPABILITIES.md) | [Evidence catalog](docs/EVIDENCE_CATALOG.md) | [Private engagements](docs/ENGAGEMENTS.md)
 
@@ -356,6 +359,10 @@ Third-party dependencies and referenced external materials remain subject to the
 ## Status
 
 **Alpha v0.2A is complete, and AS-002 is now merged into the public Agent Safety Evaluation Program.**
+
+**RARB v0.1 is implemented as a release candidate.** Its committed evidence currently contains 10 live attempts across five verifier-qualified tasks: 4 `VERIFIED_PASS`, 3 `VERIFIED_FAIL`, and 3 `HOLD`. Configured critical verifier mutations show 0 / 17 escapes, and one of two bounded-repair episodes converted to `VERIFIED_PASS`. These figures describe the committed RARB evidence set only, not general coding-agent performance.
+
+RARB still records three explicit evidence boundaries: the original AP-001-specific Section 9 sequence as written, repeated multi-model/statistically meaningful benchmarking, and Nebius/NVIDIA production-runtime evidence.
 
 Next engineering milestones:
 

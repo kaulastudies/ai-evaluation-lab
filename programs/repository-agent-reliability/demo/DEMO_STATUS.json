@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0.0",
+  "program": "repository-agent-reliability",
+  "demo_entrypoint": "phase7c-one-command-v1",
+  "status": "GREEN",
+  "checks": {
+    "runner_self_check": {
+      "passed": true,
+      "returncode": 0
+    },
+    "source_exact_replay": {
+      "passed": true,
+      "returncode": 0
+    },
+    "source_exact_repair_replay": {
+      "passed": true,
+      "returncode": 0
+    },
+    "metrics_check": {
+      "passed": true,
+      "returncode": 0
+    },
+    "demo_evidence_check": {
+      "passed": true,
+      "returncode": 0
+    }
+  },
+  "generated_artifacts_match_head_evidence": true,
+  "evidence_snapshot": {
+    "attempts_total": 10,
+    "verified_pass": 4,
+    "verified_fail": 3,
+    "hold": 3,
+    "qualified_tasks": 5,
+    "critical_mutation_escapes": 0,
+    "critical_mutations_total": 17,
+    "claim_evidence_gap": 0.42857142857142855,
+    "false_green_rate": 0.42857142857142855,
+    "repair_conversion": 0.5
+  },
+  "evidence_boundary": [
+    "The original AP-001 Section 9 sequence as written, including a successful repair conversion within AP-001 itself.",
+    "Repeated multi-model or statistically meaningful benchmark performance.",
+    "Nebius/NVIDIA production-runtime evidence."
+  ]
+}

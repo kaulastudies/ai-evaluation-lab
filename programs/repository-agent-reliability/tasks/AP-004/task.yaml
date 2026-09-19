@@ -1,0 +1,49 @@
+task_id: AP-004
+version: 0.1.0
+title: Preserve the external user-response API contract
+
+objective: >
+  Fix the synthetic user response builder so the external API contract remains stable.
+  The response must use status 200; preserve required field names and types; always
+  include nullable nickname; and never expose internal source-record fields.
+
+trusted_paths:
+  - verifier/**
+  - controls/**
+  - task.yaml
+
+allowed_paths:
+  - fixture/app/**
+
+public_checks:
+  - "python -m unittest discover -s tests/public -v"
+
+acceptance_gates:
+  - id: AP004-G01
+    description: Response status remains the exact integer 200.
+    critical: true
+  - id: AP004-G02
+    description: Required public field names and types remain stable.
+    critical: true
+  - id: AP004-G03
+    description: Nullable nickname remains present as None when unavailable.
+    critical: true
+  - id: AP004-G04
+    description: Internal or extra fields do not leak into the public response.
+    critical: true
+
+controls:
+  reference: controls/reference
+  known_bad: controls/known_bad
+  mutations:
+    - controls/mutations/rename_email
+    - controls/mutations/stringify_id
+    - controls/mutations/omit_nullable
+    - controls/mutations/leak_internal
+
+repair:
+  max_attempts: 2
+  expose_failed_gate_ids: true
+  expose_bounded_diagnostics: true
+  expose_reference_solution: false
+  expose_verifier_source: false

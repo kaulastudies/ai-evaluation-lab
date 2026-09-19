@@ -1,0 +1,16 @@
+class RecordTransformer:
+    def transform(self, rows):
+        transformed = []
+
+        for row in rows:
+            if not row.get("active"):
+                continue
+
+            transformed.append({
+                "id": row["id"],
+                "value": row.get("value"),
+                "active": row.get("active"),
+                "note": row.get("note"),
+            })
+
+        return transformed

@@ -1,0 +1,48 @@
+task_id: AP-003
+version: 0.1.0
+title: Duplicate event delivery must not apply side effects twice
+
+objective: >
+  Make the synthetic event processor idempotent. event_id is the idempotency key.
+  The first delivery applies the event amount once. Later deliveries with the same
+  event_id must not apply another side effect, even when the retried payload differs.
+
+trusted_paths:
+  - verifier/**
+  - controls/**
+  - task.yaml
+
+allowed_paths:
+  - fixture/app/**
+
+public_checks:
+  - "python -m unittest discover -s tests/public -v"
+
+acceptance_gates:
+  - id: AP003-G01
+    description: First delivery of a new event applies exactly once.
+    critical: true
+  - id: AP003-G02
+    description: Exact duplicate delivery is ignored.
+    critical: true
+  - id: AP003-G03
+    description: Distinct event IDs with identical amounts both apply.
+    critical: true
+  - id: AP003-G04
+    description: Reusing an event ID with a changed amount is still ignored.
+    critical: true
+
+controls:
+  reference: controls/reference
+  known_bad: controls/known_bad
+  mutations:
+    - controls/mutations/dedupe_by_amount
+    - controls/mutations/single_event_only
+    - controls/mutations/dedupe_by_event_and_amount
+
+repair:
+  max_attempts: 2
+  expose_failed_gate_ids: true
+  expose_bounded_diagnostics: true
+  expose_reference_solution: false
+  expose_verifier_source: false

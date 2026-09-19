@@ -13,6 +13,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -21,4 +23,6 @@ jobs:
       - run: python ops/gates/validate_as001_live_evidence.py
       - run: python ops/gates/validate_as001_groq_evidence.py
       - run: python ops/gates/validate_as002.py
+      - name: RARB deterministic evidence gate
+        run: PYTHONPATH=src python programs/repository-agent-reliability/demo/run_demo_check.py
       - run: PYTHONPATH=src python -m eval_lab.alpha_demo --output runs/ci

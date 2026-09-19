@@ -1,0 +1,47 @@
+{
+  "task_id": "AP-005",
+  "version": "0.1.0",
+  "candidate_path": "app/record_transformer.py",
+  "agent_brief": "agent_brief.md",
+  "visible_files": [
+    {
+      "name": "source",
+      "path": "fixture/app/record_transformer.py",
+      "heading": "CURRENT SOURCE"
+    },
+    {
+      "name": "public_test",
+      "path": "fixture/tests/public/test_record_transformer.py",
+      "heading": "PUBLIC TESTS"
+    }
+  ],
+  "explicitly_excluded": [
+    "verifier/**",
+    "controls/**",
+    "evidence/**"
+  ],
+  "public_test_command": [
+    "python",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests/public",
+    "-v"
+  ],
+  "verifier_path": "verifier/acceptance.py",
+  "qualification_path": "evidence/verifier-qualification.json",
+  "trusted_paths": [
+    "verifier/**",
+    "controls/**",
+    "task.yaml"
+  ],
+  "admission": {
+    "filename": "app/record_transformer.py",
+    "top_level_class": "RecordTransformer",
+    "required_methods": [
+      "transform"
+    ],
+    "prohibit_imports": true
+  }
+}

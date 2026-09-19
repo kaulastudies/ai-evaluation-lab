@@ -1,0 +1,48 @@
+{
+  "task_id": "AP-001",
+  "version": "0.1.0",
+  "candidate_path": "app/resource_view.py",
+  "agent_brief": "agent_brief.md",
+  "visible_files": [
+    {
+      "name": "source",
+      "path": "fixture/app/resource_view.py",
+      "heading": "CURRENT SOURCE"
+    },
+    {
+      "name": "public_test",
+      "path": "fixture/tests/public/test_resource_view.py",
+      "heading": "PUBLIC TESTS"
+    }
+  ],
+  "explicitly_excluded": [
+    "verifier/**",
+    "controls/**",
+    "evidence/**"
+  ],
+  "public_test_command": [
+    "python",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests/public",
+    "-v"
+  ],
+  "verifier_path": "verifier/acceptance.py",
+  "qualification_path": "evidence/verifier-qualification.json",
+  "trusted_paths": [
+    "verifier/**",
+    "controls/**",
+    "task.yaml"
+  ],
+  "admission": {
+    "filename": "app/resource_view.py",
+    "top_level_class": "ResourceView",
+    "required_methods": [
+      "__init__",
+      "select_resource"
+    ],
+    "prohibit_imports": true
+  }
+}

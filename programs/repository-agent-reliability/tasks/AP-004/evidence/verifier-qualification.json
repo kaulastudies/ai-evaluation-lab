@@ -1,0 +1,72 @@
+{
+  "task_id": "AP-004",
+  "task_version": "0.1.0",
+  "verifier_version": "0.1.0",
+  "reference_passed": true,
+  "known_bad_rejected": true,
+  "critical_mutations_total": 4,
+  "critical_mutations_rejected": 4,
+  "controls": [
+    {
+      "name": "reference",
+      "candidate": "controls/reference",
+      "expected": "PASS",
+      "actual": "PASS",
+      "expectation_met": true,
+      "failed_gates": []
+    },
+    {
+      "name": "known_bad",
+      "candidate": "controls/known_bad",
+      "expected": "FAIL",
+      "actual": "FAIL",
+      "expectation_met": true,
+      "failed_gates": [
+        "AP004-G03",
+        "AP004-G04"
+      ]
+    },
+    {
+      "name": "mutation_rename_email",
+      "candidate": "controls/mutations/rename_email",
+      "expected": "FAIL",
+      "actual": "FAIL",
+      "expectation_met": true,
+      "failed_gates": [
+        "AP004-G02",
+        "AP004-G04"
+      ]
+    },
+    {
+      "name": "mutation_stringify_id",
+      "candidate": "controls/mutations/stringify_id",
+      "expected": "FAIL",
+      "actual": "FAIL",
+      "expectation_met": true,
+      "failed_gates": [
+        "AP004-G02"
+      ]
+    },
+    {
+      "name": "mutation_omit_nullable",
+      "candidate": "controls/mutations/omit_nullable",
+      "expected": "FAIL",
+      "actual": "FAIL",
+      "expectation_met": true,
+      "failed_gates": [
+        "AP004-G03"
+      ]
+    },
+    {
+      "name": "mutation_leak_internal",
+      "candidate": "controls/mutations/leak_internal",
+      "expected": "FAIL",
+      "actual": "FAIL",
+      "expectation_met": true,
+      "failed_gates": [
+        "AP004-G04"
+      ]
+    }
+  ],
+  "status": "QUALIFIED"
+}

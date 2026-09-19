@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RARB Task Contract",
+  "type": "object",
+  "required": [
+    "task_id",
+    "version",
+    "objective",
+    "trusted_paths",
+    "allowed_paths",
+    "public_checks",
+    "acceptance_gates",
+    "controls"
+  ],
+  "properties": {
+    "task_id": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    },
+    "objective": {
+      "type": "string"
+    },
+    "trusted_paths": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "allowed_paths": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "public_checks": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "acceptance_gates": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "controls": {
+      "type": "object"
+    }
+  }
+}

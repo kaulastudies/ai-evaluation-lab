@@ -1,0 +1,9 @@
+class UserResponseBuilder:
+    def build(self, user):
+        body = {
+            "id": user["id"],
+            "name": user["name"],
+            "email": user["email"],
+            "nickname": user.get("nickname", None)
+        }
+        return 200, body

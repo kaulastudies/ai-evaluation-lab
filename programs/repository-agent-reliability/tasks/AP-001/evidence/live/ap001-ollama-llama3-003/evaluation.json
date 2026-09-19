@@ -1,0 +1,106 @@
+{
+  "program": "repository-agent-reliability",
+  "task_id": "AP-001",
+  "task_version": "0.1.0",
+  "run_label": "ap001-ollama-llama3-003",
+  "source_commit": "8d630277b0151d62f96cc5aea72a89c729f2fa88",
+  "provider": {
+    "name": "ollama",
+    "model": "llama3:latest",
+    "generation_parameters": {
+      "temperature": 0
+    },
+    "latency_ms": 81341,
+    "input_tokens": 525,
+    "output_tokens": 116,
+    "estimated_cost_usd": 0.0
+  },
+  "output_protocol": {
+    "name": "strict-code-only-v1",
+    "sha256": "5cc72109a343afabd22c0740c010f106e64a2eab644c767f582ca49d96aa1f18"
+  },
+  "model_context": {
+    "context_hash": "ef02dda51b0e1c36fe7e2475aace79111387f117d0c59cfdbf952a0c23d61380",
+    "prompt_sha256": "05e5ceac351122d78796c679ed7cf4beefc0557518e8776f0760b6a9f7427d9a",
+    "visible_paths": [
+      "agent_brief.md",
+      "fixture/app/resource_view.py",
+      "fixture/tests/public/test_resource_view.py"
+    ]
+  },
+  "model_response_sha256": "d7c75370dd0785674f414f7fba98651ef4a3411b0e465e409d6a695e9b488796",
+  "model_response_artifact": {
+    "filename": "ap001-ollama-llama3-003-response.txt",
+    "sha256": "d7c75370dd0785674f414f7fba98651ef4a3411b0e465e409d6a695e9b488796",
+    "bytes": 584
+  },
+  "candidate_admission": {
+    "accepted": true,
+    "reason": "candidate satisfies AP-001 structural admission policy"
+  },
+  "candidate_sha256": "096e5c3e48fc175540ff7eefe6683b87d272139b0780bc0994812631ec283c60",
+  "evaluation": {
+    "program": "repository-agent-reliability",
+    "task_id": "AP-001",
+    "task_version": "0.1.0",
+    "run_label": "ap001-ollama-llama3-003",
+    "model_context": {
+      "context_hash": "ef02dda51b0e1c36fe7e2475aace79111387f117d0c59cfdbf952a0c23d61380",
+      "visible_paths": [
+        "agent_brief.md",
+        "fixture/app/resource_view.py",
+        "fixture/tests/public/test_resource_view.py"
+      ],
+      "excluded_paths": [
+        "verifier/**",
+        "controls/**",
+        "evidence/**"
+      ]
+    },
+    "task_contract_sha256": "c0fc841bcd01f289d7f75e848372c5d09c5fc0c985aacc41d4c01a85b702fd70",
+    "verifier_source_sha256": "3cfff85ee030e01cd2baa989d7f26fbcfb75641b147bc5b199896e98310bebff",
+    "qualification_evidence_sha256": "c76ea64845ffbf19c5acc455658568e3dccfb9d0f5387349584d1c80203237bf",
+    "candidate_sha256": "096e5c3e48fc175540ff7eefe6683b87d272139b0780bc0994812631ec283c60",
+    "agent_claimed_success": true,
+    "public_validation": {
+      "passed": true,
+      "returncode": 0
+    },
+    "verifier_qualification": {
+      "status": "QUALIFIED",
+      "verifier_version": "0.1.0",
+      "critical_mutations_rejected": 3,
+      "critical_mutations_total": 3
+    },
+    "verification": {
+      "task_id": "AP-001",
+      "task_version": "0.1.0",
+      "verifier_version": "0.1.0",
+      "candidate": "workspace",
+      "gates": [
+        {
+          "id": "AP001-G03",
+          "passed": true,
+          "diagnostic": "ordinary single-resource behavior preserved"
+        },
+        {
+          "id": "AP001-G01",
+          "passed": true,
+          "diagnostic": "newer response committed correctly"
+        },
+        {
+          "id": "AP001-G02",
+          "passed": true,
+          "diagnostic": "superseded response was ignored"
+        }
+      ],
+      "status": "VERIFIED_PASS"
+    },
+    "trusted_files_unchanged_after_scoring": true,
+    "false_green": false,
+    "final_verdict": "VERIFIED_PASS",
+    "record_hash": "ae57414f3a7fd0e13b6574f68c35eaf85d6ccf1ba05f541b13d32f95f78aa4fe"
+  },
+  "final_verdict": "VERIFIED_PASS",
+  "hold_reason": null
+}

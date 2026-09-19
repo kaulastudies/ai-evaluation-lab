@@ -1,0 +1,13 @@
+{
+  "manifest_hashes": true,
+  "record_hash": true,
+  "candidate_hash": true,
+  "task_contract_hash": true,
+  "verifier_source_hash": true,
+  "qualification_evidence_hash": true,
+  "public_result_match": true,
+  "verifier_result_match": true,
+  "final_verdict_match": true,
+  "false_green_match": true
+}
+REPLAY VERIFIED task=AP-001 verdict=VERIFIED_PASS record_hash=ae57414f3a7fd0e13b6574f68c35eaf85d6ccf1ba05f541b13d32f95f78aa4fe

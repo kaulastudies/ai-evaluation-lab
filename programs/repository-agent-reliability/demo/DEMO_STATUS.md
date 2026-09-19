@@ -1,0 +1,31 @@
+# RARB Demo Status
+
+**Overall: GREEN**
+
+- Generated evidence artifacts match committed evidence: **True**
+
+## Validation checks
+
+- runner_self_check: **PASS**
+- source_exact_replay: **PASS**
+- source_exact_repair_replay: **PASS**
+- metrics_check: **PASS**
+- demo_evidence_check: **PASS**
+
+## Evidence snapshot
+
+- Attempts: **10**
+- Verdicts: **4 VERIFIED_PASS / 3 VERIFIED_FAIL / 3 HOLD**
+- Qualified tasks: **5**
+- Critical verifier mutation escapes: **0 / 17**
+- Claim-Evidence Gap: **42.9%**
+- False-Green Rate: **42.9%**
+- Repair Conversion: **50.0%**
+
+## Evidence boundary
+
+- The original AP-001 Section 9 sequence as written, including a successful repair conversion within AP-001 itself.
+- Repeated multi-model or statistically meaningful benchmark performance.
+- Nebius/NVIDIA production-runtime evidence.
+
+The status file is a compact demo index. Detailed evidence remains in `metrics/REPORT.md`, `demo/EVIDENCE_BRIEF.md`, and the frozen task evidence directories.

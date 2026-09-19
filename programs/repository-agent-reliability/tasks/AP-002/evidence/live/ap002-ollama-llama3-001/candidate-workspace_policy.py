@@ -1,0 +1,8 @@
+class WorkspacePolicy:
+    """Synthetic workspace-scoped update authorization policy."""
+
+    def can_update(self, actor, document):
+        if actor["role"] in {"editor", "admin"} and actor["workspace_id"] == document["workspace_id"]:
+            return True
+
+        return False
