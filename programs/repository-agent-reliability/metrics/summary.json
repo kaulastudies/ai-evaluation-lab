@@ -209,34 +209,57 @@
       "repair_conversion": null,
       "terminal": false,
       "evidence_path": "tasks/AP-005/evidence/live/ap005-ollama-llama3-001"
+    },
+    {
+      "task_id": "AP-005",
+      "run_label": "ap005-ollama-llama3-002-repair",
+      "attempt_kind": "repair",
+      "source_commit": "3ddedc0247eb5af6506d033703e87cf9a420fd1c",
+      "provider": "ollama",
+      "model": "llama3:latest",
+      "latency_ms": 89419,
+      "input_tokens": 1008,
+      "output_tokens": 118,
+      "estimated_cost_usd": 0.0,
+      "candidate_admitted": true,
+      "agent_claimed_success": true,
+      "public_tests_passed": true,
+      "false_green": false,
+      "trusted_files_unchanged": true,
+      "final_verdict": "VERIFIED_PASS",
+      "evaluation_record_hash": "a14947497ef4f519f7d485f7a498ed31193197ee55241cfd0b963471c9e7f946",
+      "parent_record_hash": "605d66987eaddd08bb1513873f3c6dee2b865bcdf3481079a5e0f4a9955a5c9c",
+      "repair_conversion": true,
+      "terminal": false,
+      "evidence_path": "tasks/AP-005/evidence/live/ap005-ollama-llama3-002-repair"
     }
   ],
   "counts": {
-    "attempts_total": 9,
+    "attempts_total": 10,
     "initial_attempts": 7,
-    "repair_attempts": 2,
-    "verified_pass": 3,
+    "repair_attempts": 3,
+    "verified_pass": 4,
     "verified_fail": 3,
     "hold": 3,
-    "candidate_admitted": 6,
-    "explicit_claim_coverage": 6,
-    "public_test_observations": 6,
+    "candidate_admitted": 7,
+    "explicit_claim_coverage": 7,
+    "public_test_observations": 7,
     "false_green_count": 3,
-    "repair_episodes": 1,
-    "repair_episodes_converted": 0
+    "repair_episodes": 2,
+    "repair_episodes_converted": 1
   },
   "metrics": {
     "claim_evidence_gap": {
-      "value": 0.5,
+      "value": 0.42857142857142855,
       "numerator": 3,
-      "denominator": 6,
+      "denominator": 7,
       "definition": "Among attempts with an explicit agent success claim, the share that did not end VERIFIED_PASS.",
       "coverage_note": "Attempts without an explicit stored success-claim field are excluded rather than inferred."
     },
     "false_green_rate": {
-      "value": 0.5,
+      "value": 0.42857142857142855,
       "numerator": 3,
-      "denominator": 6,
+      "denominator": 7,
       "definition": "Among explicit success claims whose public tests passed, the share rejected by the qualified verifier."
     },
     "initial_false_green_rate": {
@@ -246,9 +269,9 @@
       "definition": "False-Green Rate restricted to non-repair attempts."
     },
     "repair_conversion": {
-      "value": 0.0,
-      "numerator": 0,
-      "denominator": 1,
+      "value": 0.5,
+      "numerator": 1,
+      "denominator": 2,
       "definition": "Share of bounded-repair episodes with at least one VERIFIED_PASS repair."
     },
     "verifier_escape_rate": {
@@ -261,15 +284,15 @@
       "value": null,
       "reported_cost_usd_total": 0.0,
       "economic_cost_complete": false,
-      "verified_successes": 3,
-      "cost_coverage_attempts": 9,
-      "attempts_total": 9,
+      "verified_successes": 4,
+      "cost_coverage_attempts": 10,
+      "attempts_total": 10,
       "definition": "Reported provider cost divided by VERIFIED_PASS count when every attempt has a reported cost.",
       "coverage_note": "Local-provider cost fields do not meter hardware, energy, or operator time."
     },
     "median_time_to_verified_success_ms": {
-      "value": 81341.0,
-      "observations": 3,
+      "value": 82907.5,
+      "observations": 4,
       "definition": "Median recorded model-generation latency among VERIFIED_PASS attempts."
     }
   },

@@ -82,17 +82,20 @@ Current implementation status:
   separate strict-code-only-v2 `VERIFIED_PASS`; both are frozen and source-exact
   replayable. This two-run observation is not treated as causal evidence for the
   protocol change.
-- **AP-005** — verifier-qualified; first live candidate was admitted and passed public
-  tests but failed all four qualified edge-case gates, producing a genuine
-  `VERIFIED_FAIL` false-green; source-exact replay available.
+- **AP-005** — verifier-qualified; the first live candidate passed public tests but
+  failed all four qualified edge-case gates, then a bounded repair using only failed
+  gate IDs and diagnostics converted the parent `VERIFIED_FAIL` to `VERIFIED_PASS`.
+  Both attempts are frozen and source-exact replayable.
 
-Current committed live evidence snapshot: **9 live attempts** —
-**3 `VERIFIED_PASS` / 3 `VERIFIED_FAIL` / 3 `HOLD`** — across all **5 qualified
+Current committed live evidence snapshot: **10 live attempts** —
+**4 `VERIFIED_PASS` / 3 `VERIFIED_FAIL` / 3 `HOLD`** — across all **5 qualified
 benchmark tasks**, with **0 / 17** configured critical verifier mutations escaping
-detection.
+detection. Repair Conversion is now **1 / 2 episodes (50%)**.
 
-The original AP-001 success gate in `PROGRAM_SPEC.md` remains unsatisfied as written;
-successful bounded repair conversion is still an explicit evidence gap.
+A successful bounded repair conversion is now demonstrated on AP-005. The original
+AP-001 success gate in `PROGRAM_SPEC.md` remains unsatisfied **as written**, because
+that frozen milestone specifically requires the false-green -> repair -> pass sequence
+within AP-001 itself.
 
 ## Non-goals
 

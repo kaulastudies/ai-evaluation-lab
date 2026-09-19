@@ -11,6 +11,10 @@ DEMO_ROOT = Path(__file__).resolve().parent
 BUILD = DEMO_ROOT / "build_evidence_brief.py"
 
 
+def close(a: float | None, b: float) -> bool:
+    return a is not None and abs(a - b) < 1e-12
+
+
 def main() -> int:
     with tempfile.TemporaryDirectory(
         prefix="rarb-demo-evidence-"
@@ -39,7 +43,7 @@ def main() -> int:
             print(process.stderr, file=sys.stderr)
 
         if process.returncode != 0:
-            print("PHASE 9B DEMO EVIDENCE FAILED")
+            print("PHASE 9C DEMO EVIDENCE FAILED")
             return 1
 
         payload = json.loads(out_json.read_text(encoding="utf-8"))
@@ -51,16 +55,16 @@ def main() -> int:
             for item in payload["task_evidence"]
             if item["task_id"] == "AP-005"
         ]
-        ap005_observations = (
+        observations = (
             ap005[0]["observations"]
             if len(ap005) == 1
             else []
         )
 
         checks = {
-            "attempts": snap["live_attempts"] == 9,
+            "attempts": snap["live_attempts"] == 10,
             "verdicts": (
-                snap["verified_pass"] == 3
+                snap["verified_pass"] == 4
                 and snap["verified_fail"] == 3
                 and snap["hold"] == 3
             ),
@@ -69,38 +73,43 @@ def main() -> int:
                 snap["critical_mutations_total"] == 17
                 and snap["critical_mutation_escapes"] == 0
             ),
-            "claim_evidence_gap": (
-                snap["claim_evidence_gap"] == 0.5
+            "claim_evidence_gap": close(
+                snap["claim_evidence_gap"],
+                3 / 7,
             ),
-            "false_green": snap["false_green_rate"] == 0.5,
+            "false_green": close(
+                snap["false_green_rate"],
+                3 / 7,
+            ),
             "initial_false_green": (
                 snap["initial_false_green_rate"] == 0.4
             ),
-            "repair_conversion": snap["repair_conversion"] == 0.0,
-            "ap005_live_false_green": (
-                len(ap005_observations) == 1
-                and ap005_observations[0]["run_label"]
+            "repair_conversion": snap["repair_conversion"] == 0.5,
+            "ap005_fail_then_pass": (
+                len(observations) == 2
+                and observations[0]["run_label"]
                 == "ap005-ollama-llama3-001"
-                and ap005_observations[0]["verdict"]
-                == "VERIFIED_FAIL"
-                and "false-green" in ap005_observations[0]["note"]
+                and observations[0]["verdict"] == "VERIFIED_FAIL"
+                and observations[1]["run_label"]
+                == "ap005-ollama-llama3-002-repair"
+                and observations[1]["verdict"] == "VERIFIED_PASS"
             ),
-            "ap005_live_gap_removed": not any(
-                item == "AP-005 live task evidence."
+            "successful_conversion_demonstrated": any(
+                "successful bounded repair conversion" in item.lower()
+                for item in payload["demonstrated"]
+            ),
+            "general_repair_gap_removed": not any(
+                item
+                == "A successful bounded repair conversion from "
+                "VERIFIED_FAIL to VERIFIED_PASS."
                 for item in payload["not_yet_demonstrated"]
             ),
-            "repair_gap_preserved": any(
-                "A successful bounded repair conversion" in item
+            "ap001_specific_gap_preserved": any(
+                "AP-001 Section 9 sequence" in item
                 for item in payload["not_yet_demonstrated"]
             ),
-            "all_five_live_claim": (
-                "Live initial model evidence across AP-001 through AP-005."
-                in payload["demonstrated"]
-            ),
-            "ap003_story": (
-                "RARB measures whether a patch deserves to ship"
-                in markdown
-                and "repair budget was exhausted"
+            "evidence_boundary_precise": (
+                "does not retroactively satisfy the original AP-001-specific"
                 in markdown
             ),
         }
@@ -110,9 +119,9 @@ def main() -> int:
 
         ok = all(checks.values())
         print(
-            "PHASE 9B DEMO EVIDENCE GREEN"
+            "PHASE 9C DEMO EVIDENCE GREEN"
             if ok
-            else "PHASE 9B DEMO EVIDENCE FAILED"
+            else "PHASE 9C DEMO EVIDENCE FAILED"
         )
         return 0 if ok else 1
 

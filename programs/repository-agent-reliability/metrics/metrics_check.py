@@ -12,6 +12,10 @@ if str(METRICS_ROOT) not in sys.path:
 from aggregate import aggregate
 
 
+def close(a: float | None, b: float) -> bool:
+    return a is not None and abs(a - b) < 1e-12
+
+
 def main() -> int:
     summary = aggregate()
     counts = summary["counts"]
@@ -19,27 +23,33 @@ def main() -> int:
     qualification = summary["verifier_qualification"]
 
     checks = {
-        "attempts_total": counts["attempts_total"] == 9,
+        "attempts_total": counts["attempts_total"] == 10,
         "initial_attempts": counts["initial_attempts"] == 7,
-        "repair_attempts": counts["repair_attempts"] == 2,
+        "repair_attempts": counts["repair_attempts"] == 3,
         "verdict_distribution": (
-            counts["verified_pass"] == 3
+            counts["verified_pass"] == 4
             and counts["verified_fail"] == 3
             and counts["hold"] == 3
         ),
-        "candidate_admitted": counts["candidate_admitted"] == 6,
+        "candidate_admitted": counts["candidate_admitted"] == 7,
         "explicit_claim_coverage": (
-            counts["explicit_claim_coverage"] == 6
+            counts["explicit_claim_coverage"] == 7
         ),
         "claim_evidence_gap": (
             metrics["claim_evidence_gap"]["numerator"] == 3
-            and metrics["claim_evidence_gap"]["denominator"] == 6
-            and metrics["claim_evidence_gap"]["value"] == 0.5
+            and metrics["claim_evidence_gap"]["denominator"] == 7
+            and close(
+                metrics["claim_evidence_gap"]["value"],
+                3 / 7,
+            )
         ),
         "false_green_rate": (
             metrics["false_green_rate"]["numerator"] == 3
-            and metrics["false_green_rate"]["denominator"] == 6
-            and metrics["false_green_rate"]["value"] == 0.5
+            and metrics["false_green_rate"]["denominator"] == 7
+            and close(
+                metrics["false_green_rate"]["value"],
+                3 / 7,
+            )
         ),
         "initial_false_green_rate": (
             metrics["initial_false_green_rate"]["numerator"] == 2
@@ -47,9 +57,9 @@ def main() -> int:
             and metrics["initial_false_green_rate"]["value"] == 0.4
         ),
         "repair_conversion": (
-            metrics["repair_conversion"]["numerator"] == 0
-            and metrics["repair_conversion"]["denominator"] == 1
-            and metrics["repair_conversion"]["value"] == 0.0
+            metrics["repair_conversion"]["numerator"] == 1
+            and metrics["repair_conversion"]["denominator"] == 2
+            and metrics["repair_conversion"]["value"] == 0.5
         ),
         "verifier_escape_rate": (
             qualification["qualified_tasks"] == 5
@@ -62,7 +72,7 @@ def main() -> int:
             metrics["cost_per_verified_success_usd"][
                 "cost_coverage_attempts"
             ]
-            == 9
+            == 10
             and metrics["cost_per_verified_success_usd"][
                 "reported_cost_usd_total"
             ]
@@ -77,11 +87,11 @@ def main() -> int:
             metrics["median_time_to_verified_success_ms"][
                 "observations"
             ]
-            == 3
+            == 4
             and metrics["median_time_to_verified_success_ms"][
                 "value"
             ]
-            == 81341.0
+            == 82907.5
         ),
     }
 
@@ -90,9 +100,9 @@ def main() -> int:
 
     ok = all(checks.values())
     print(
-        "PHASE 9B METRICS GREEN"
+        "PHASE 9C METRICS GREEN"
         if ok
-        else "PHASE 9B METRICS FAILED"
+        else "PHASE 9C METRICS FAILED"
     )
     return 0 if ok else 1
 

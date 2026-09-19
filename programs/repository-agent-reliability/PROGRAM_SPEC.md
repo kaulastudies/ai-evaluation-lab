@@ -138,25 +138,30 @@ Current committed evidence demonstrates:
 - AP-004 verifier qualification, a frozen strict-code-only-v1 admission `HOLD`, and
   a separate strict-code-only-v2 `VERIFIED_PASS`, both replayable from their recorded
   source commits;
-- AP-005 verifier qualification and a first live initial attempt that was admitted,
-  passed public validation, failed all four qualified edge-case gates, and was frozen
-  as a source-exact replayable `VERIFIED_FAIL` false-green.
+- AP-005 verifier qualification, an initial public-test false-green
+  `VERIFIED_FAIL`, and a bounded repair that received only failed gate IDs and
+  diagnostics before converting the parent failure to a source-exact replayable
+  `VERIFIED_PASS`.
 
-As of this amendment, the committed live evidence set contains 9 attempts:
-3 `VERIFIED_PASS`, 3 `VERIFIED_FAIL`, and 3 `HOLD`. All five benchmark tasks are
+As of this amendment, the committed live evidence set contains 10 attempts:
+4 `VERIFIED_PASS`, 3 `VERIFIED_FAIL`, and 3 `HOLD`. All five benchmark tasks are
 verifier-qualified, with 0 of 17 configured critical verifier mutations escaping
-detection.
+detection. Across two bounded-repair episodes, one converted to `VERIFIED_PASS`
+(Repair Conversion = 50%).
 
-The original AP-001 milestone in Section 9 is **not satisfied as written**. No single
-AP-001 run demonstrates public-test false-green -> bounded repair -> verifier pass.
-The observed false-green and bounded repair sequence occurs on AP-003, and that repair
-sequence did not convert to `VERIFIED_PASS`.
+The general successful bounded-repair-conversion evidence gap is therefore closed by
+AP-005.
 
-Therefore:
+The original AP-001 milestone in Section 9 is **still not satisfied as written**.
+No single AP-001 run demonstrates public-test false-green -> bounded repair -> verifier
+pass. AP-005 now demonstrates that general sequence on a different frozen task, while
+AP-003 remains a documented non-converting repair episode.
 
-- successful bounded repair conversion remains an open evidence gap;
-- repeated multi-model/statistically meaningful evidence remains open;
-- Nebius/NVIDIA production-runtime evidence remains open.
+Therefore the remaining evidence gaps are:
+
+- the original AP-001-specific Section 9 sequence as written;
+- repeated multi-model/statistically meaningful evidence;
+- Nebius/NVIDIA production-runtime evidence.
 
 Demo and dashboard-style artifacts added during implementation are evidence indexes and
 presentation surfaces. Their existence must not be interpreted as satisfying or

@@ -48,6 +48,27 @@ CASES = [
         ),
         "repair_conversion": False,
     },
+    {
+        "label": "AP-005 repair #002 verified conversion",
+        "evidence": (
+            PROGRAM_ROOT
+            / "tasks"
+            / "AP-005"
+            / "evidence"
+            / "live"
+            / "ap005-ollama-llama3-002-repair"
+        ),
+        "verdict": "VERIFIED_PASS",
+        "record_hash": (
+            "a14947497ef4f519f7d485f7a498ed31"
+            "193197ee55241cfd0b963471c9e7f946"
+        ),
+        "candidate_sha256": (
+            "181a0d0f7b9ddb15679563ef8ead1cf6d"
+            "9dfcd4521037b0924233dadd68283f0"
+        ),
+        "repair_conversion": True,
+    },
 ]
 
 
@@ -116,9 +137,9 @@ def main() -> int:
             all_ok = all_ok and ok
 
     print(
-        "PHASE 6C SOURCE-EXACT REPAIR REPLAY GREEN"
+        "PHASE 9C SOURCE-EXACT REPAIR REPLAY GREEN"
         if all_ok
-        else "PHASE 6C SOURCE-EXACT REPAIR REPLAY FAILED"
+        else "PHASE 9C SOURCE-EXACT REPAIR REPLAY FAILED"
     )
     return 0 if all_ok else 1
 

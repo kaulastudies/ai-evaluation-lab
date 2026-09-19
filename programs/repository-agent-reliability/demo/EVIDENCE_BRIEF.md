@@ -8,28 +8,30 @@ RARB treats the coding agent as the system under test. A patch is not accepted b
 
 ## Current evidence snapshot
 
-- **9** committed live attempts
-- **3 VERIFIED_PASS / 3 VERIFIED_FAIL / 3 HOLD**
+- **10** committed live attempts
+- **4 VERIFIED_PASS / 3 VERIFIED_FAIL / 3 HOLD**
 - **5** qualified tasks
 - **0 / 17** critical verifier mutations escaped
-- Claim-Evidence Gap: **50.0%**
-- False-Green Rate: **50.0%**
+- Claim-Evidence Gap: **42.9%**
+- False-Green Rate: **42.9%**
 - Initial False-Green Rate: **40.0%**
-- Repair Conversion: **0.0%**
-- Median recorded generation latency among verified successes: **81.34s**
+- Repair Conversion: **50.0%**
+- Median recorded generation latency among verified successes: **82.91s**
 
-## Strongest repair-path example: AP-003
+## Successful bounded-repair example: AP-005
 
-1. The initial candidate passed public tests.
-2. The qualified verifier rejected it on idempotency gates.
-3. RARB classified the run as `VERIFIED_FAIL` and `false_green=true`.
-4. Only bounded failed-gate evidence was exposed for repair.
-5. Repair attempt 1 was rejected at admission and recorded as `HOLD`.
-6. Repair attempt 2 was admitted, again passed public tests, and still failed the qualified verifier.
-7. The repair budget was exhausted and the terminal failure was frozen instead of silently rerun.
-8. Both repair outcomes are source-exact replayable without model inference.
+1. The initial AP-005 candidate passed public tests.
+2. The qualified verifier rejected all four edge-case gates.
+3. RARB froze the initial attempt as `VERIFIED_FAIL` and `false_green=true`.
+4. The repair received bounded failed-gate evidence only.
+5. The repair candidate was admitted and passed public tests.
+6. The same qualified verifier passed all four gates.
+7. RARB recorded `repair_conversion=true` and `VERIFIED_PASS`.
+8. The repair outcome is source-exact replayable without model inference.
 
-That is the product behavior: **RARB measures whether a patch deserves to ship; it does not manufacture a passing result.**
+## Failure-preservation example: AP-003
+
+AP-003 remains the counterexample: bounded repair was attempted but did not convert within its configured budget. RARB preserved that terminal failure instead of manufacturing a successful outcome.
 
 ## Task evidence
 
@@ -55,7 +57,8 @@ That is the product behavior: **RARB measures whether a patch deserves to ship; 
 
 ### AP-005 - data-transformation edge cases
 
-- `ap005-ollama-llama3-001` - **VERIFIED_FAIL** - The candidate was admitted and passed public tests, but the qualified verifier rejected all four edge-case gates. RARB recorded a genuine false-green rather than accepting the public-test pass.
+- `ap005-ollama-llama3-001` - **VERIFIED_FAIL** - The initial candidate was admitted and passed public tests, but the qualified verifier rejected all four edge-case gates: a genuine false-green.
+- `ap005-ollama-llama3-002-repair` - **VERIFIED_PASS** - A bounded repair received only failed gate IDs and diagnostics, was admitted, passed public validation and all four qualified verifier gates, and converted the parent VERIFIED_FAIL to VERIFIED_PASS.
 
 ## Demonstrated
 
@@ -63,17 +66,18 @@ That is the product behavior: **RARB measures whether a patch deserves to ship; 
 - Public-test false-green detection under a qualified verifier.
 - Trusted-boundary checks and deterministic evaluation records.
 - Bounded evidence-guided repair with an explicit attempt budget.
-- Source-exact no-model replay across historical evaluator versions, including HOLD, VERIFIED_PASS, VERIFIED_FAIL, repair HOLD, and terminal repair failure.
+- A successful bounded repair conversion from VERIFIED_FAIL to VERIFIED_PASS on AP-005.
+- Source-exact no-model replay across historical evaluator versions, including repair HOLD, terminal repair failure, and successful repair conversion.
 - Separately versioned initial-output protocols without rewriting the frozen earlier HOLD.
 - Live initial model evidence across AP-001 through AP-005.
 - Evidence-derived metrics without fabricating missing fields.
 
 ## Not yet demonstrated
 
-- A successful bounded repair conversion from VERIFIED_FAIL to VERIFIED_PASS.
+- The original AP-001 Section 9 sequence as written, including a successful repair conversion within AP-001 itself.
 - Repeated multi-model or statistically meaningful benchmark performance.
 - Nebius/NVIDIA production-runtime evidence.
 
 ## Evidence boundary
 
-These numbers describe the committed RARB evidence set only. They are not claims about general coding-agent performance. The AP-004 v1 HOLD and v2 VERIFIED_PASS are separate observed attempts; this evidence does not by itself establish that the protocol change caused the different outcome. Local Ollama provider billing is reported as zero, but economic execution cost is unmetered and therefore Cost / Verified Success remains N/A.
+These numbers describe the committed RARB evidence set only. They are not claims about general coding-agent performance. The successful AP-005 repair conversion closes the general repair-conversion evidence gap, but it does not retroactively satisfy the original AP-001-specific Section 9 sequence. The AP-004 v1 HOLD and v2 VERIFIED_PASS are separate observed attempts; this evidence does not by itself establish that the protocol change caused the different outcome. Local Ollama provider billing is reported as zero, but economic execution cost is unmetered and therefore Cost / Verified Success remains N/A.

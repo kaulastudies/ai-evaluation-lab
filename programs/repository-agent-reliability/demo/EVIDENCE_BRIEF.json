@@ -3,18 +3,18 @@
   "program": "repository-agent-reliability",
   "headline": "Verify the evaluation before trusting the verdict.",
   "evidence_snapshot": {
-    "live_attempts": 9,
-    "verified_pass": 3,
+    "live_attempts": 10,
+    "verified_pass": 4,
     "verified_fail": 3,
     "hold": 3,
     "qualified_tasks": 5,
     "critical_mutations_total": 17,
     "critical_mutation_escapes": 0,
-    "claim_evidence_gap": 0.5,
-    "false_green_rate": 0.5,
+    "claim_evidence_gap": 0.42857142857142855,
+    "false_green_rate": 0.42857142857142855,
     "initial_false_green_rate": 0.4,
-    "repair_conversion": 0.0,
-    "median_time_to_verified_success_ms": 81341.0
+    "repair_conversion": 0.5,
+    "median_time_to_verified_success_ms": 82907.5
   },
   "task_evidence": [
     {
@@ -88,7 +88,12 @@
         {
           "run_label": "ap005-ollama-llama3-001",
           "verdict": "VERIFIED_FAIL",
-          "note": "The candidate was admitted and passed public tests, but the qualified verifier rejected all four edge-case gates. RARB recorded a genuine false-green rather than accepting the public-test pass."
+          "note": "The initial candidate was admitted and passed public tests, but the qualified verifier rejected all four edge-case gates: a genuine false-green."
+        },
+        {
+          "run_label": "ap005-ollama-llama3-002-repair",
+          "verdict": "VERIFIED_PASS",
+          "note": "A bounded repair received only failed gate IDs and diagnostics, was admitted, passed public validation and all four qualified verifier gates, and converted the parent VERIFIED_FAIL to VERIFIED_PASS."
         }
       ]
     }
@@ -98,13 +103,14 @@
     "Public-test false-green detection under a qualified verifier.",
     "Trusted-boundary checks and deterministic evaluation records.",
     "Bounded evidence-guided repair with an explicit attempt budget.",
-    "Source-exact no-model replay across historical evaluator versions, including HOLD, VERIFIED_PASS, VERIFIED_FAIL, repair HOLD, and terminal repair failure.",
+    "A successful bounded repair conversion from VERIFIED_FAIL to VERIFIED_PASS on AP-005.",
+    "Source-exact no-model replay across historical evaluator versions, including repair HOLD, terminal repair failure, and successful repair conversion.",
     "Separately versioned initial-output protocols without rewriting the frozen earlier HOLD.",
     "Live initial model evidence across AP-001 through AP-005.",
     "Evidence-derived metrics without fabricating missing fields."
   ],
   "not_yet_demonstrated": [
-    "A successful bounded repair conversion from VERIFIED_FAIL to VERIFIED_PASS.",
+    "The original AP-001 Section 9 sequence as written, including a successful repair conversion within AP-001 itself.",
     "Repeated multi-model or statistically meaningful benchmark performance.",
     "Nebius/NVIDIA production-runtime evidence."
   ]

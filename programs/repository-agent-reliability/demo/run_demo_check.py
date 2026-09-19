@@ -12,6 +12,10 @@ PROGRAM_ROOT = DEMO_ROOT.parent
 RUN_DEMO = DEMO_ROOT / "run_demo.py"
 
 
+def close(a: float | None, b: float) -> bool:
+    return a is not None and abs(a - b) < 1e-12
+
+
 def main() -> int:
     with tempfile.TemporaryDirectory(
         prefix="rarb-phase7c-check-"
@@ -59,10 +63,10 @@ def main() -> int:
                 is True
             ),
             "attempts": (
-                status["evidence_snapshot"]["attempts_total"] == 9
+                status["evidence_snapshot"]["attempts_total"] == 10
             ),
             "verdicts": (
-                status["evidence_snapshot"]["verified_pass"] == 3
+                status["evidence_snapshot"]["verified_pass"] == 4
                 and status["evidence_snapshot"]["verified_fail"] == 3
                 and status["evidence_snapshot"]["hold"] == 3
             ),
@@ -75,18 +79,22 @@ def main() -> int:
                     "critical_mutations_total"
                 ] == 17
             ),
-            "claim_gap": (
-                status["evidence_snapshot"]["claim_evidence_gap"] == 0.5
+            "claim_gap": close(
+                status["evidence_snapshot"]["claim_evidence_gap"],
+                3 / 7,
             ),
-            "false_green": (
-                status["evidence_snapshot"]["false_green_rate"] == 0.5
+            "false_green": close(
+                status["evidence_snapshot"]["false_green_rate"],
+                3 / 7,
             ),
-            "honest_repair_gap": any(
-                "successful bounded repair conversion" in item
+            "repair_conversion_gap_removed": not any(
+                item
+                == "A successful bounded repair conversion from "
+                "VERIFIED_FAIL to VERIFIED_PASS."
                 for item in status["evidence_boundary"]
             ),
-            "ap005_live_gap_removed": not any(
-                item == "AP-005 live task evidence."
+            "ap001_specific_gap_present": any(
+                "AP-001 Section 9 sequence" in item
                 for item in status["evidence_boundary"]
             ),
             "human_summary": (

@@ -58,6 +58,10 @@ def build_payload(summary: dict[str, Any]) -> dict[str, Any]:
     ap004_hold = find_attempt(attempts, "ap004-ollama-llama3-001")
     ap004_pass = find_attempt(attempts, "ap004-ollama-llama3-002")
     ap005_fail = find_attempt(attempts, "ap005-ollama-llama3-001")
+    ap005_repair = find_attempt(
+        attempts,
+        "ap005-ollama-llama3-002-repair",
+    )
 
     return {
         "schema_version": "1.0.0",
@@ -197,12 +201,21 @@ def build_payload(summary: dict[str, Any]) -> dict[str, Any]:
                         "run_label": ap005_fail["run_label"],
                         "verdict": ap005_fail["final_verdict"],
                         "note": (
-                            "The candidate was admitted and passed public tests, "
-                            "but the qualified verifier rejected all four edge-case "
-                            "gates. RARB recorded a genuine false-green rather than "
-                            "accepting the public-test pass."
+                            "The initial candidate was admitted and passed public "
+                            "tests, but the qualified verifier rejected all four "
+                            "edge-case gates: a genuine false-green."
                         ),
-                    }
+                    },
+                    {
+                        "run_label": ap005_repair["run_label"],
+                        "verdict": ap005_repair["final_verdict"],
+                        "note": (
+                            "A bounded repair received only failed gate IDs and "
+                            "diagnostics, was admitted, passed public validation "
+                            "and all four qualified verifier gates, and converted "
+                            "the parent VERIFIED_FAIL to VERIFIED_PASS."
+                        ),
+                    },
                 ],
             },
         ],
@@ -221,9 +234,13 @@ def build_payload(summary: dict[str, Any]) -> dict[str, Any]:
                 "Bounded evidence-guided repair with an explicit attempt budget."
             ),
             (
+                "A successful bounded repair conversion from VERIFIED_FAIL to "
+                "VERIFIED_PASS on AP-005."
+            ),
+            (
                 "Source-exact no-model replay across historical evaluator "
-                "versions, including HOLD, VERIFIED_PASS, VERIFIED_FAIL, "
-                "repair HOLD, and terminal repair failure."
+                "versions, including repair HOLD, terminal repair failure, and "
+                "successful repair conversion."
             ),
             (
                 "Separately versioned initial-output protocols without rewriting "
@@ -238,8 +255,8 @@ def build_payload(summary: dict[str, Any]) -> dict[str, Any]:
         ],
         "not_yet_demonstrated": [
             (
-                "A successful bounded repair conversion from "
-                "VERIFIED_FAIL to VERIFIED_PASS."
+                "The original AP-001 Section 9 sequence as written, including "
+                "a successful repair conversion within AP-001 itself."
             ),
             (
                 "Repeated multi-model or statistically meaningful benchmark "
@@ -289,22 +306,24 @@ def render_markdown(payload: dict[str, Any]) -> str:
             f"**{snap['median_time_to_verified_success_ms'] / 1000:.2f}s**"
         ),
         "",
-        "## Strongest repair-path example: AP-003",
+        "## Successful bounded-repair example: AP-005",
         "",
-        "1. The initial candidate passed public tests.",
-        "2. The qualified verifier rejected it on idempotency gates.",
-        "3. RARB classified the run as `VERIFIED_FAIL` and `false_green=true`.",
-        "4. Only bounded failed-gate evidence was exposed for repair.",
-        "5. Repair attempt 1 was rejected at admission and recorded as `HOLD`.",
-        "6. Repair attempt 2 was admitted, again passed public tests, and "
-        "still failed the qualified verifier.",
-        "7. The repair budget was exhausted and the terminal failure was "
-        "frozen instead of silently rerun.",
-        "8. Both repair outcomes are source-exact replayable without model "
+        "1. The initial AP-005 candidate passed public tests.",
+        "2. The qualified verifier rejected all four edge-case gates.",
+        "3. RARB froze the initial attempt as `VERIFIED_FAIL` and "
+        "`false_green=true`.",
+        "4. The repair received bounded failed-gate evidence only.",
+        "5. The repair candidate was admitted and passed public tests.",
+        "6. The same qualified verifier passed all four gates.",
+        "7. RARB recorded `repair_conversion=true` and `VERIFIED_PASS`.",
+        "8. The repair outcome is source-exact replayable without model "
         "inference.",
         "",
-        "That is the product behavior: **RARB measures whether a patch "
-        "deserves to ship; it does not manufacture a passing result.**",
+        "## Failure-preservation example: AP-003",
+        "",
+        "AP-003 remains the counterexample: bounded repair was attempted but "
+        "did not convert within its configured budget. RARB preserved that "
+        "terminal failure instead of manufacturing a successful outcome.",
         "",
         "## Task evidence",
         "",
@@ -335,6 +354,9 @@ def render_markdown(payload: dict[str, Any]) -> str:
             "",
             "These numbers describe the committed RARB evidence set only. "
             "They are not claims about general coding-agent performance. "
+            "The successful AP-005 repair conversion closes the general "
+            "repair-conversion evidence gap, but it does not retroactively "
+            "satisfy the original AP-001-specific Section 9 sequence. "
             "The AP-004 v1 HOLD and v2 VERIFIED_PASS are separate observed "
             "attempts; this evidence does not by itself establish that the "
             "protocol change caused the different outcome. Local Ollama "
