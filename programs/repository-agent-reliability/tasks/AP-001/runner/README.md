@@ -66,3 +66,22 @@ Example live command after Nebius access is available:
 - known-bad candidate -> `VERIFIED_FAIL` with `false_green=true`;
 - reference candidate -> `VERIFIED_PASS`;
 - structurally prohibited candidate -> `HOLD` before execution.
+
+## Admission replay
+
+`admission_replay.py` reproduces a stored pre-execution admission decision without
+calling the model again.
+
+For a recorded HOLD it verifies:
+
+- the exact raw response SHA-256 and byte count;
+- agreement between the evaluation record and evidence manifest;
+- that the committed `model_trial.py` parser blob is identical to the parser at the
+  run's recorded `source_commit`;
+- that the local parser file has no uncommitted modification;
+- the same candidate-admission decision and reason;
+- the same final `HOLD` verdict.
+
+This is deliberately separate from candidate/verifier replay. A response that never
+crossed the admission boundary must not be rewritten or silently extracted during
+replay merely to make it executable.
