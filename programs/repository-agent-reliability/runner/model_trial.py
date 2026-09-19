@@ -22,6 +22,7 @@ if str(SRC_ROOT) not in sys.path:
 from engine import (
     build_prompt,
     candidate_admission,
+    candidate_source_from_response,
     evaluate_candidate,
     load_runtime,
     sha256_file,
@@ -62,17 +63,20 @@ def main() -> int:
     parser.add_argument("--candidate-out", type=Path)
     parser.add_argument(
         "--output-protocol",
-        choices=["none", "strict-code-only-v1"],
+        choices=[
+            "none",
+            "strict-code-only-v1",
+            "strict-code-only-v2",
+        ],
         default="strict-code-only-v1",
     )
     args = parser.parse_args()
 
     task_root, config = load_runtime(args.task)
-    strict = args.output_protocol == "strict-code-only-v1"
     prompt, context, protocol = build_prompt(
         task_root,
         config,
-        strict_code_only=strict,
+        output_protocol=args.output_protocol,
     )
 
     response_override = None
@@ -122,7 +126,11 @@ def main() -> int:
         }
 
     try:
-        candidate_source = unwrap_candidate(response)
+        candidate_source = candidate_source_from_response(
+            response,
+            config,
+            args.output_protocol,
+        )
         admission = candidate_admission(
             candidate_source,
             config["admission"],

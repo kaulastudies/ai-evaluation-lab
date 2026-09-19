@@ -86,6 +86,20 @@ A format retry remains a separate model attempt with its own source commit, prom
 response hash, admission result, and final verdict. The earlier `HOLD` remains immutable
 evidence and is never rewritten or normalized into a candidate.
 
+## Strict initial-output protocol v2
+
+`model_trial.py` supports `strict-code-only-v2` for a separately versioned initial
+model attempt after a prior initial attempt is rejected for output formatting.
+
+Version 2 changes only the machine-output contract. It does not add verifier evidence,
+reference solutions, mutation controls, or any other hidden task information to model
+context. The raw response must begin with the configured top-level class, contain zero
+backticks, contain no Markdown/prose prefix, and represent one complete Python module.
+
+A v2 attempt is a new run with its own source commit, prompt hash, protocol hash,
+response hash, admission result, and final verdict. A previous v1 `HOLD` remains frozen
+and source-exact replayable; it is never rewritten, normalized, or replaced.
+
 ## Public validation as an acceptance gate
 
 A candidate cannot receive `VERIFIED_PASS` when the configured public validation fails.

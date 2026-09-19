@@ -110,17 +110,16 @@ def build_context(task_root: Path, config: dict[str, Any]) -> dict[str, Any]:
     return payload
 
 
-def build_prompt(
-    task_root: Path,
+def build_output_protocol(
     config: dict[str, Any],
-    *,
-    strict_code_only: bool = True,
-) -> tuple[str, dict[str, Any], dict[str, Any]]:
-    context = build_context(task_root, config)
+    output_protocol: str,
+) -> tuple[str, dict[str, Any]]:
     candidate_path = config["candidate_path"]
+    class_name = config["admission"]["top_level_class"]
 
-    protocol_text = ""
-    if strict_code_only:
+    if output_protocol == "none":
+        protocol_text = ""
+    elif output_protocol == "strict-code-only-v1":
         protocol_text = (
             "RARB MACHINE OUTPUT PROTOCOL: strict-code-only-v1\n"
             f"Your entire response MUST be the complete raw Python source for "
@@ -130,24 +129,73 @@ def build_prompt(
             "Do not include a filename label.\n"
             "Return exactly one Python file and nothing else.\n"
         )
+    elif output_protocol == "strict-code-only-v2":
+        protocol_text = (
+            "RARB MACHINE OUTPUT PROTOCOL: strict-code-only-v2\n"
+            f"Your entire response MUST be the complete raw Python source for "
+            f"{candidate_path}.\n"
+            f"Your first non-whitespace line MUST be exactly: class {class_name}:\n"
+            "The response MUST contain zero backticks and zero Markdown code fences.\n"
+            "Do not include prose, headings, explanations, notes, commentary, "
+            "or a filename label.\n"
+            "Do not prepend words such as Here, Solution, Code, Python, or File.\n"
+            "Return one complete parseable Python module and nothing else.\n"
+            "If you would normally wrap code in Markdown, do not do so.\n"
+        )
+    else:
+        raise RuntimeConfigurationError(
+            f"Unsupported output protocol: {output_protocol}"
+        )
+
+    protocol = {
+        "name": output_protocol,
+        "sha256": hashlib.sha256(
+            protocol_text.encode("utf-8")
+        ).hexdigest(),
+    }
+    return protocol_text, protocol
+
+
+def build_prompt(
+    task_root: Path,
+    config: dict[str, Any],
+    *,
+    strict_code_only: bool = True,
+    output_protocol: str | None = None,
+) -> tuple[str, dict[str, Any], dict[str, Any]]:
+    context = build_context(task_root, config)
+
+    if output_protocol is None:
+        output_protocol = (
+            "strict-code-only-v1"
+            if strict_code_only
+            else "none"
+        )
+
+    protocol_text, protocol = build_output_protocol(
+        config,
+        output_protocol,
+    )
 
     sections = []
     if protocol_text:
         sections.append(protocol_text.rstrip())
 
-    sections.append(context["visible_files"]["brief"]["content"].rstrip())
+    sections.append(
+        context["visible_files"]["brief"]["content"].rstrip()
+    )
 
     for item in config["visible_files"]:
         visible = context["visible_files"][item["name"]]
-        heading = item.get("heading", item["name"].replace("_", " ").upper())
-        sections.append(f"--- {heading} ---\n{visible['content'].rstrip()}")
+        heading = item.get(
+            "heading",
+            item["name"].replace("_", " ").upper(),
+        )
+        sections.append(
+            f"--- {heading} ---\n{visible['content'].rstrip()}"
+        )
 
     prompt = "\n\n".join(sections) + "\n"
-
-    protocol = {
-        "name": "strict-code-only-v1" if strict_code_only else "none",
-        "sha256": hashlib.sha256(protocol_text.encode("utf-8")).hexdigest(),
-    }
     return prompt, context, protocol
 
 
@@ -170,6 +218,39 @@ def unwrap_candidate(response: str) -> str:
 
     return text + "\n"
 
+
+
+def candidate_source_from_response(
+    response: str,
+    config: dict[str, Any],
+    output_protocol: str,
+) -> str:
+    if output_protocol != "strict-code-only-v2":
+        return unwrap_candidate(response)
+
+    text = response.strip()
+
+    if "```" in text:
+        raise ValueError(
+            "strict-code-only-v2 forbids Markdown code fences"
+        )
+
+    if not text:
+        raise ValueError(
+            "strict-code-only-v2 response is empty"
+        )
+
+    class_name = config["admission"]["top_level_class"]
+    expected_first_line = f"class {class_name}:"
+    first_line = text.splitlines()[0].strip()
+
+    if first_line != expected_first_line:
+        raise ValueError(
+            "strict-code-only-v2 response must begin with exactly "
+            f"{expected_first_line}"
+        )
+
+    return text + "\n"
 
 def candidate_admission(
     source: str,
