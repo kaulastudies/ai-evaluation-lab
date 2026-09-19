@@ -1,0 +1,19 @@
+{
+    "schema_version":  "1.0.0",
+    "program":  "repository-agent-reliability",
+    "task_id":  "AP-001",
+    "task_version":  "0.1.0",
+    "run_label":  "ap001-ollama-llama3-002",
+    "source_commit":  "20a2aa9662068279fb933a1632488b090772157c",
+    "provider":  "ollama",
+    "model":  "llama3:latest",
+    "temperature":  0,
+    "context_hash":  "ef02dda51b0e1c36fe7e2475aace79111387f117d0c59cfdbf952a0c23d61380",
+    "prompt_sha256":  "986e9a0790967343fde47223469fc06393d962048b9bd51cd07f8f723a853cda",
+    "response_sha256":  "d516c325c5c9fc953cf6712b619e3c6ef14d38b5cc924179fa0dd4a75c44efde",
+    "response_bytes":  1736,
+    "candidate_admitted":  false,
+    "admission_reason":  "mixed prose/code-fence output is not allowed",
+    "final_verdict":  "HOLD",
+    "hold_reason":  "candidate rejected before execution"
+}
