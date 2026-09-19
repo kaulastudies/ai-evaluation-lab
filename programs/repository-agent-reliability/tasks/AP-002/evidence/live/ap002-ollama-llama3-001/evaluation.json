@@ -1,0 +1,114 @@
+{
+  "program": "repository-agent-reliability",
+  "runtime_schema": "generic-v1",
+  "task_id": "AP-002",
+  "task_version": "0.1.0",
+  "run_label": "ap002-ollama-llama3-001",
+  "source_commit": "377c22c4cf18730510042d6f0efaa9a8d341dc16",
+  "provider": {
+    "name": "ollama",
+    "model": "llama3:latest",
+    "generation_parameters": {
+      "temperature": 0
+    },
+    "latency_ms": 84474,
+    "input_tokens": 483,
+    "output_tokens": 62,
+    "estimated_cost_usd": 0.0
+  },
+  "output_protocol": {
+    "name": "strict-code-only-v1",
+    "sha256": "01df3f31f6bb08632d494967f85764e375aa0910e24ed7cf34cbce1cb41dcec6"
+  },
+  "model_context": {
+    "context_hash": "dc2f7af874fc466d8b5aac4c559e8dd012309b1eff45715d1f48926622b979ad",
+    "prompt_sha256": "149fe9f2dd9b1ead4737febcbd8e9f358de88fd1cd81048529f59885dc0fe5da",
+    "visible_paths": [
+      "agent_brief.md",
+      "fixture/app/workspace_policy.py",
+      "fixture/tests/public/test_workspace_policy.py"
+    ]
+  },
+  "model_response_sha256": "1a994a361a25e10f9679dc85ba8deca38a5f6ef5921bdd45de315490b0163586",
+  "model_response_artifact": {
+    "filename": "ap002-ollama-llama3-001-response.txt",
+    "sha256": "1a994a361a25e10f9679dc85ba8deca38a5f6ef5921bdd45de315490b0163586",
+    "bytes": 289
+  },
+  "candidate_admission": {
+    "accepted": true,
+    "reason": "candidate satisfies task structural admission policy"
+  },
+  "candidate_sha256": "0ec6d1e95e86c9a53b7e2aa65b7091c0ba9b28d5978f96c161efde35b7d9c6f7",
+  "evaluation": {
+    "program": "repository-agent-reliability",
+    "runtime_schema": "generic-v1",
+    "task_id": "AP-002",
+    "task_version": "0.1.0",
+    "run_label": "ap002-ollama-llama3-001",
+    "model_context": {
+      "context_hash": "dc2f7af874fc466d8b5aac4c559e8dd012309b1eff45715d1f48926622b979ad",
+      "visible_paths": [
+        "agent_brief.md",
+        "fixture/app/workspace_policy.py",
+        "fixture/tests/public/test_workspace_policy.py"
+      ],
+      "excluded_paths": [
+        "verifier/**",
+        "controls/**",
+        "evidence/**"
+      ]
+    },
+    "task_contract_sha256": "251c8e991848f6a558c3fe57e0c6a4e5b5dba73459f4682baa34a8f6739348de",
+    "runtime_config_sha256": "560b38a4d0987a75e1b5849ac50d6051efbc9943f4fe23e15c32956570e296ae",
+    "verifier_source_sha256": "4ed92cbfbe89ed04cd207f500ba130c8b1d961af07ad510521553c87f55d80ad",
+    "qualification_evidence_sha256": "e2f4246fe81d4c9fa2b10853a998ab1e5615b4547c93e0e50fe07f4a04043793",
+    "candidate_sha256": "0ec6d1e95e86c9a53b7e2aa65b7091c0ba9b28d5978f96c161efde35b7d9c6f7",
+    "agent_claimed_success": true,
+    "public_validation": {
+      "passed": true,
+      "returncode": 0
+    },
+    "verifier_qualification": {
+      "status": "QUALIFIED",
+      "verifier_version": "0.1.0",
+      "critical_mutations_rejected": 3,
+      "critical_mutations_total": 3
+    },
+    "verification": {
+      "task_id": "AP-002",
+      "task_version": "0.1.0",
+      "verifier_version": "0.1.0",
+      "candidate": "workspace",
+      "gates": [
+        {
+          "id": "AP002-G01",
+          "passed": true,
+          "diagnostic": "same-workspace editor/admin update access preserved"
+        },
+        {
+          "id": "AP002-G02",
+          "passed": true,
+          "diagnostic": "same-workspace viewer denied update access"
+        },
+        {
+          "id": "AP002-G03",
+          "passed": true,
+          "diagnostic": "cross-workspace privileged roles denied"
+        },
+        {
+          "id": "AP002-G04",
+          "passed": true,
+          "diagnostic": "cross-workspace owner-id collision denied"
+        }
+      ],
+      "status": "VERIFIED_PASS"
+    },
+    "trusted_files_unchanged_after_scoring": true,
+    "false_green": false,
+    "final_verdict": "VERIFIED_PASS",
+    "record_hash": "7a8e86fd2929438f545a9379117dc4ebf43eccb0391f46ac9c4ba012f008bb49"
+  },
+  "final_verdict": "VERIFIED_PASS",
+  "hold_reason": null
+}
