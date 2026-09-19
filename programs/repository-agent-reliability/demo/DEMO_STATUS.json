@@ -27,10 +27,10 @@
   },
   "generated_artifacts_match_head_evidence": true,
   "evidence_snapshot": {
-    "attempts_total": 6,
+    "attempts_total": 7,
     "verified_pass": 2,
     "verified_fail": 2,
-    "hold": 2,
+    "hold": 3,
     "qualified_tasks": 4,
     "critical_mutation_escapes": 0,
     "critical_mutations_total": 13,
@@ -41,7 +41,7 @@
   "evidence_boundary": [
     "A successful bounded repair conversion from VERIFIED_FAIL to VERIFIED_PASS.",
     "Repeated multi-model or statistically meaningful benchmark performance.",
-    "AP-004 and AP-005 live task evidence.",
+    "An executed AP-004 candidate outcome beyond admission HOLD, and AP-005 live task evidence.",
     "Nebius/NVIDIA production-runtime evidence."
   ]
 }
