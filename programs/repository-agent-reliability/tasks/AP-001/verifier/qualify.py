@@ -15,7 +15,7 @@ def check_candidate(name, root, expected_pass):
     actual_pass = result["status"] == "VERIFIED_PASS"
     return {
         "name": name,
-        "candidate": str(root.relative_to(TASK_ROOT)),
+        "candidate": root.relative_to(TASK_ROOT).as_posix(),
         "expected": "PASS" if expected_pass else "FAIL",
         "actual": "PASS" if actual_pass else "FAIL",
         "expectation_met": actual_pass == expected_pass,

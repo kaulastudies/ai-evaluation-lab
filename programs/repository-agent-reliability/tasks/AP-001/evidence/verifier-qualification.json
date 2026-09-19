@@ -9,7 +9,7 @@
   "controls": [
     {
       "name": "reference",
-      "candidate": "controls\\reference",
+      "candidate": "controls/reference",
       "expected": "PASS",
       "actual": "PASS",
       "expectation_met": true,
@@ -17,7 +17,7 @@
     },
     {
       "name": "known_bad",
-      "candidate": "controls\\known_bad",
+      "candidate": "controls/known_bad",
       "expected": "FAIL",
       "actual": "FAIL",
       "expectation_met": true,
@@ -27,7 +27,7 @@
     },
     {
       "name": "mutation_remove_guard",
-      "candidate": "controls\\mutations\\remove_guard",
+      "candidate": "controls/mutations/remove_guard",
       "expected": "FAIL",
       "actual": "FAIL",
       "expectation_met": true,
@@ -37,7 +37,7 @@
     },
     {
       "name": "mutation_invert_guard",
-      "candidate": "controls\\mutations\\invert_guard",
+      "candidate": "controls/mutations/invert_guard",
       "expected": "FAIL",
       "actual": "FAIL",
       "expectation_met": true,
@@ -49,7 +49,7 @@
     },
     {
       "name": "mutation_wrong_generation",
-      "candidate": "controls\\mutations\\wrong_generation",
+      "candidate": "controls/mutations/wrong_generation",
       "expected": "FAIL",
       "actual": "FAIL",
       "expectation_met": true,
