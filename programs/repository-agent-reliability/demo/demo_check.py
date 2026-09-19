@@ -56,15 +56,19 @@ def main() -> int:
                 and snap["verified_fail"] == 2
                 and snap["hold"] == 2
             ),
-            "qualified_tasks": snap["qualified_tasks"] == 3,
+            "qualified_tasks": snap["qualified_tasks"] == 4,
             "mutations": (
-                snap["critical_mutations_total"] == 9
+                snap["critical_mutations_total"] == 13
                 and snap["critical_mutation_escapes"] == 0
             ),
             "false_green": snap["false_green_rate"] == 0.5,
             "repair_conversion": snap["repair_conversion"] == 0.0,
             "honest_gap": any(
                 "A successful bounded repair conversion" in item
+                for item in payload["not_yet_demonstrated"]
+            ),
+            "ap004_live_gap": any(
+                "AP-004 and AP-005 live task evidence" in item
                 for item in payload["not_yet_demonstrated"]
             ),
             "ap003_story": (

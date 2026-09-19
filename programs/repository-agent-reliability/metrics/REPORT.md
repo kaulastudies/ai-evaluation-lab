@@ -17,7 +17,7 @@ This report is generated only from committed live evidence and committed verifie
 | False-Green Rate | 50.0% | 2 / 4 public-pass explicit success claims were verifier failures |
 | Initial False-Green Rate | 33.3% | 1 / 3 initial public-pass explicit success claims |
 | Repair Conversion | 0.0% | 0 / 1 bounded-repair episodes reached VERIFIED_PASS |
-| Verifier Escape Rate | 0.0% | 0 / 9 critical mutations escaped qualification |
+| Verifier Escape Rate | 0.0% | 0 / 13 critical mutations escaped qualification |
 | Cost / Verified Success | N/A | reported provider cost only; excludes local compute, energy, and operator time |
 | Median Time to Verified Success | 82.91s | 2 VERIFIED_PASS latency observations |
 

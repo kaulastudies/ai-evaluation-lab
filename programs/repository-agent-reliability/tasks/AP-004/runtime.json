@@ -1,0 +1,47 @@
+{
+  "task_id": "AP-004",
+  "version": "0.1.0",
+  "candidate_path": "app/user_response.py",
+  "agent_brief": "agent_brief.md",
+  "visible_files": [
+    {
+      "name": "source",
+      "path": "fixture/app/user_response.py",
+      "heading": "CURRENT SOURCE"
+    },
+    {
+      "name": "public_test",
+      "path": "fixture/tests/public/test_user_response.py",
+      "heading": "PUBLIC TESTS"
+    }
+  ],
+  "explicitly_excluded": [
+    "verifier/**",
+    "controls/**",
+    "evidence/**"
+  ],
+  "public_test_command": [
+    "python",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests/public",
+    "-v"
+  ],
+  "verifier_path": "verifier/acceptance.py",
+  "qualification_path": "evidence/verifier-qualification.json",
+  "trusted_paths": [
+    "verifier/**",
+    "controls/**",
+    "task.yaml"
+  ],
+  "admission": {
+    "filename": "app/user_response.py",
+    "top_level_class": "UserResponseBuilder",
+    "required_methods": [
+      "build"
+    ],
+    "prohibit_imports": true
+  }
+}

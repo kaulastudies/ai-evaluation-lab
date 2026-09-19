@@ -10,8 +10,8 @@ RARB treats the coding agent as the system under test. A patch is not accepted b
 
 - **6** committed live attempts
 - **2 VERIFIED_PASS / 2 VERIFIED_FAIL / 2 HOLD**
-- **3** qualified tasks
-- **0 / 9** critical verifier mutations escaped
+- **4** qualified tasks
+- **0 / 13** critical verifier mutations escaped
 - Claim-Evidence Gap: **50.0%**
 - False-Green Rate: **50.0%**
 - Initial False-Green Rate: **33.3%**

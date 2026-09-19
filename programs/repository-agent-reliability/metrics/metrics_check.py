@@ -50,8 +50,10 @@ def main() -> int:
             and metrics["repair_conversion"]["value"] == 0.0
         ),
         "verifier_escape_rate": (
-            qualification["critical_mutation_escapes"] == 0
-            and qualification["critical_mutations_total"] == 9
+            qualification["qualified_tasks"] == 4
+            and qualification["tasks_total"] == 4
+            and qualification["critical_mutation_escapes"] == 0
+            and qualification["critical_mutations_total"] == 13
             and metrics["verifier_escape_rate"]["value"] == 0.0
         ),
         "cost_coverage": (
