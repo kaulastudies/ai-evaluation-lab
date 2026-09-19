@@ -67,6 +67,10 @@ def build_payload(summary: dict[str, Any]) -> dict[str, Any]:
         attempts,
         "ap003-ollama-llama3-003-repair",
     )
+    ap004_hold = find_attempt(
+        attempts,
+        "ap004-ollama-llama3-001",
+    )
 
     return {
         "schema_version": "1.0.0",
@@ -173,6 +177,21 @@ def build_payload(summary: dict[str, Any]) -> dict[str, Any]:
                     },
                 ],
             },
+            {
+                "task_id": "AP-004",
+                "theme": "API contract regression",
+                "observations": [
+                    {
+                        "run_label": ap004_hold["run_label"],
+                        "verdict": ap004_hold["final_verdict"],
+                        "note": (
+                            "The first live model response had an unterminated "
+                            "fenced code block and was rejected before execution. "
+                            "The HOLD is frozen rather than normalized or rerun."
+                        ),
+                    }
+                ],
+            },
         ],
         "demonstrated": [
             (
@@ -190,7 +209,8 @@ def build_payload(summary: dict[str, Any]) -> dict[str, Any]:
             ),
             (
                 "Source-exact no-model replay across historical evaluator "
-                "versions, including repair HOLD and terminal repair failure."
+                "versions, including initial admission HOLD, repair HOLD, and "
+                "terminal repair failure."
             ),
             (
                 "Evidence-derived metrics without fabricating missing fields."
@@ -206,7 +226,8 @@ def build_payload(summary: dict[str, Any]) -> dict[str, Any]:
                 "performance."
             ),
             (
-                "AP-004 and AP-005 live task evidence."
+                "An executed AP-004 candidate outcome beyond admission HOLD, "
+                "and AP-005 live task evidence."
             ),
             (
                 "Nebius/NVIDIA production-runtime evidence."

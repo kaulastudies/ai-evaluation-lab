@@ -4,10 +4,10 @@ This report is generated only from committed live evidence and committed verifie
 
 ## Current evidence set
 
-- Live attempts: **6** (4 initial, 2 repair)
-- Verdicts: **2 VERIFIED_PASS**, **2 VERIFIED_FAIL**, **2 HOLD**
-- Candidate admitted: **4 / 6**
-- Explicit success-claim coverage: **4 / 6**
+- Live attempts: **7** (5 initial, 2 repair)
+- Verdicts: **2 VERIFIED_PASS**, **2 VERIFIED_FAIL**, **3 HOLD**
+- Candidate admitted: **4 / 7**
+- Explicit success-claim coverage: **4 / 7**
 
 ## Primary metrics
 
@@ -31,6 +31,7 @@ This report is generated only from committed live evidence and committed verifie
 | AP-003 | ap003-ollama-llama3-001 | initial | VERIFIED_FAIL | True | True | 62.15s |
 | AP-003 | ap003-ollama-llama3-002-repair | repair | HOLD | N/A | N/A | 84.10s |
 | AP-003 | ap003-ollama-llama3-003-repair | repair | VERIFIED_FAIL | True | True | 90.13s |
+| AP-004 | ap004-ollama-llama3-001 | initial | HOLD | N/A | N/A | 67.79s |
 
 ## Interpretation limits
 

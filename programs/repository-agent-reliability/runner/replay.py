@@ -141,12 +141,18 @@ def source_exact_trial(
             f"Source commit has no generic model_trial.py: {model_trial}"
         )
 
-    stored_evaluation = trial_record["evaluation"]
-    agent_claim = (
-        "success"
-        if stored_evaluation["agent_claimed_success"]
-        else "failure"
-    )
+    stored_evaluation = trial_record.get("evaluation")
+    if stored_evaluation is None:
+        # Admission HOLD happens before agent_claim is consumed by evaluation.
+        # The original generic trial default is success, so use that exact
+        # default while replaying the frozen raw response.
+        agent_claim = "success"
+    else:
+        agent_claim = (
+            "success"
+            if stored_evaluation["agent_claimed_success"]
+            else "failure"
+        )
 
     command = [
         sys.executable,
@@ -219,31 +225,36 @@ def main() -> int:
             "runtime_schema=generic-v1 only"
         )
 
-    if trial_record.get("evaluation") is None:
-        raise SystemExit(
-            "Source-exact generic candidate replay requires "
-            "an executed evaluation record"
-        )
-
-    candidate_sha = trial_record.get("candidate_sha256")
-    if not candidate_sha:
-        raise SystemExit(
-            "Source-exact generic replay requires an admitted "
-            "candidate artifact"
-        )
-
     source_commit = trial_record["source_commit"]
     ensure_commit_exists(source_commit)
 
     response_bytes = response_path.read_bytes()
     response_sha = sha256_bytes(response_bytes)
-    candidate_path = locate_candidate(
-        evidence_dir,
-        candidate_sha,
-    )
 
-    stored_evaluation = trial_record["evaluation"]
+    stored_evaluation = trial_record.get("evaluation")
     stored_verdict = trial_record["final_verdict"]
+    candidate_sha = trial_record.get("candidate_sha256")
+
+    if stored_evaluation is None:
+        if stored_verdict != "HOLD":
+            raise SystemExit(
+                "A generic trial without executed evaluation must be HOLD"
+            )
+        if candidate_sha is not None:
+            raise SystemExit(
+                "Admission HOLD cannot carry candidate_sha256"
+            )
+        candidate_path = None
+    else:
+        if not candidate_sha:
+            raise SystemExit(
+                "Executed generic replay requires an admitted "
+                "candidate artifact"
+            )
+        candidate_path = locate_candidate(
+            evidence_dir,
+            candidate_sha,
+        )
 
     source_engine_blob = committed_blob(
         source_commit,
@@ -284,7 +295,6 @@ def main() -> int:
                 if replay_candidate.is_file()
                 else None
             )
-
             replayed_evaluation = replayed.get("evaluation")
 
             checks = {
@@ -314,16 +324,6 @@ def main() -> int:
                     len(response_bytes)
                     == manifest["response_bytes"]
                 ),
-                "stored_candidate_sha_matches_manifest": (
-                    sha256_file(candidate_path)
-                    == candidate_sha
-                    == manifest["candidate_sha256"]
-                ),
-                "source_reconstructs_same_candidate": (
-                    replay_candidate_sha == candidate_sha
-                    and replayed.get("candidate_sha256")
-                    == candidate_sha
-                ),
                 "source_admission_matches": (
                     replayed["candidate_admission"]
                     == trial_record["candidate_admission"]
@@ -346,34 +346,74 @@ def main() -> int:
                 "source_exit_code_matches_verdict": (
                     replay_rc == expected_exit_code(stored_verdict)
                 ),
-                "evaluation_record_hash_matches": (
-                    replayed_evaluation is not None
-                    and replayed_evaluation["record_hash"]
-                    == stored_evaluation["record_hash"]
-                    == manifest["evaluation_record_hash"]
-                ),
                 "final_verdict_matches": (
                     replayed["final_verdict"]
                     == stored_verdict
                     == manifest["final_verdict"]
                 ),
-                "trusted_boundary_matches": (
-                    replayed_evaluation is not None
-                    and replayed_evaluation[
-                        "trusted_files_unchanged_after_scoring"
-                    ]
-                    == stored_evaluation[
-                        "trusted_files_unchanged_after_scoring"
-                    ]
-                    == manifest["trusted_files_unchanged"]
-                ),
-                "false_green_matches": (
-                    replayed_evaluation is not None
-                    and replayed_evaluation["false_green"]
-                    == stored_evaluation["false_green"]
-                    == manifest["false_green"]
-                ),
             }
+
+            if stored_evaluation is None:
+                checks.update(
+                    {
+                        "stored_candidate_absent": (
+                            candidate_path is None
+                            and manifest.get("candidate_sha256") is None
+                            and not list(evidence_dir.glob("candidate-*"))
+                        ),
+                        "source_reconstructs_no_candidate": (
+                            replay_candidate_sha is None
+                            and replayed.get("candidate_sha256") is None
+                        ),
+                        "evaluation_absent_matches": (
+                            replayed_evaluation is None
+                            and manifest.get("evaluation_record_hash") is None
+                        ),
+                        "hold_reason_matches": (
+                            replayed.get("hold_reason")
+                            == trial_record.get("hold_reason")
+                            == manifest.get("hold_reason")
+                        ),
+                    }
+                )
+            else:
+                assert candidate_path is not None
+                checks.update(
+                    {
+                        "stored_candidate_sha_matches_manifest": (
+                            sha256_file(candidate_path)
+                            == candidate_sha
+                            == manifest["candidate_sha256"]
+                        ),
+                        "source_reconstructs_same_candidate": (
+                            replay_candidate_sha == candidate_sha
+                            and replayed.get("candidate_sha256")
+                            == candidate_sha
+                        ),
+                        "evaluation_record_hash_matches": (
+                            replayed_evaluation is not None
+                            and replayed_evaluation["record_hash"]
+                            == stored_evaluation["record_hash"]
+                            == manifest["evaluation_record_hash"]
+                        ),
+                        "trusted_boundary_matches": (
+                            replayed_evaluation is not None
+                            and replayed_evaluation[
+                                "trusted_files_unchanged_after_scoring"
+                            ]
+                            == stored_evaluation[
+                                "trusted_files_unchanged_after_scoring"
+                            ]
+                            == manifest["trusted_files_unchanged"]
+                        ),
+                        "false_green_matches": (
+                            replayed_evaluation is not None
+                            and replayed_evaluation["false_green"]
+                            == stored_evaluation["false_green"]
+                            == manifest["false_green"]
+                        ),
+                    }
+                )
 
             report = {
                 "program": "repository-agent-reliability",
@@ -386,10 +426,14 @@ def main() -> int:
                 "source_model_trial_blob": source_model_blob,
                 "response_sha256": response_sha,
                 "candidate_sha256": candidate_sha,
-                "stored_record_hash": stored_evaluation["record_hash"],
+                "stored_record_hash": (
+                    stored_evaluation["record_hash"]
+                    if stored_evaluation is not None
+                    else None
+                ),
                 "replayed_record_hash": (
                     replayed_evaluation["record_hash"]
-                    if replayed_evaluation
+                    if replayed_evaluation is not None
                     else None
                 ),
                 "replayed_verdict": replayed["final_verdict"],

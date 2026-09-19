@@ -44,6 +44,19 @@ CASES = [
         ),
         "verdict": "VERIFIED_FAIL",
     },
+    {
+        "task_id": "AP-004",
+        "evidence": (
+            PROGRAM_ROOT
+            / "tasks"
+            / "AP-004"
+            / "evidence"
+            / "live"
+            / "ap004-ollama-llama3-001"
+        ),
+        "record_hash": None,
+        "verdict": "HOLD",
+    },
 ]
 
 

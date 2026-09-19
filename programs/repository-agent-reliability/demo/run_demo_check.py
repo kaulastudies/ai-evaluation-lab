@@ -61,15 +61,28 @@ def main() -> int:
                 is True
             ),
             "attempts": (
-                status["evidence_snapshot"]["attempts_total"] == 6
+                status["evidence_snapshot"]["attempts_total"] == 7
             ),
             "verdicts": (
                 status["evidence_snapshot"]["verified_pass"] == 2
                 and status["evidence_snapshot"]["verified_fail"] == 2
-                and status["evidence_snapshot"]["hold"] == 2
+                and status["evidence_snapshot"]["hold"] == 3
+            ),
+            "qualification": (
+                status["evidence_snapshot"]["qualified_tasks"] == 4
+                and status["evidence_snapshot"][
+                    "critical_mutation_escapes"
+                ] == 0
+                and status["evidence_snapshot"][
+                    "critical_mutations_total"
+                ] == 13
             ),
             "honest_repair_gap": any(
                 "successful bounded repair conversion" in item
+                for item in status["evidence_boundary"]
+            ),
+            "ap004_gap": any(
+                "AP-004 candidate outcome beyond admission HOLD" in item
                 for item in status["evidence_boundary"]
             ),
             "human_summary": (

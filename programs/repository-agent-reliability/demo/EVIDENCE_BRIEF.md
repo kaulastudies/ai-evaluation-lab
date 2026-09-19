@@ -8,8 +8,8 @@ RARB treats the coding agent as the system under test. A patch is not accepted b
 
 ## Current evidence snapshot
 
-- **6** committed live attempts
-- **2 VERIFIED_PASS / 2 VERIFIED_FAIL / 2 HOLD**
+- **7** committed live attempts
+- **2 VERIFIED_PASS / 2 VERIFIED_FAIL / 3 HOLD**
 - **4** qualified tasks
 - **0 / 13** critical verifier mutations escaped
 - Claim-Evidence Gap: **50.0%**
@@ -48,20 +48,24 @@ That is the product behavior: **RARB measures whether a patch deserves to ship; 
 - `ap003-ollama-llama3-002-repair` - **HOLD** - First bounded repair attempt was rejected at admission because the raw output format was invalid.
 - `ap003-ollama-llama3-003-repair` - **VERIFIED_FAIL** - Final allowed repair was admitted and public tests passed, but the same qualified verifier gates still failed. Repair budget was exhausted.
 
+### AP-004 - API contract regression
+
+- `ap004-ollama-llama3-001` - **HOLD** - The first live model response had an unterminated fenced code block and was rejected before execution. The HOLD is frozen rather than normalized or rerun.
+
 ## Demonstrated
 
 - Verifier qualification with reference, known-bad, and critical mutation controls.
 - Public-test false-green detection under a qualified verifier.
 - Trusted-boundary checks and deterministic evaluation records.
 - Bounded evidence-guided repair with an explicit attempt budget.
-- Source-exact no-model replay across historical evaluator versions, including repair HOLD and terminal repair failure.
+- Source-exact no-model replay across historical evaluator versions, including initial admission HOLD, repair HOLD, and terminal repair failure.
 - Evidence-derived metrics without fabricating missing fields.
 
 ## Not yet demonstrated
 
 - A successful bounded repair conversion from VERIFIED_FAIL to VERIFIED_PASS.
 - Repeated multi-model or statistically meaningful benchmark performance.
-- AP-004 and AP-005 live task evidence.
+- An executed AP-004 candidate outcome beyond admission HOLD, and AP-005 live task evidence.
 - Nebius/NVIDIA production-runtime evidence.
 
 ## Evidence boundary

@@ -19,14 +19,15 @@ def main() -> int:
     qualification = summary["verifier_qualification"]
 
     checks = {
-        "attempts_total": counts["attempts_total"] == 6,
-        "initial_attempts": counts["initial_attempts"] == 4,
+        "attempts_total": counts["attempts_total"] == 7,
+        "initial_attempts": counts["initial_attempts"] == 5,
         "repair_attempts": counts["repair_attempts"] == 2,
         "verdict_distribution": (
             counts["verified_pass"] == 2
             and counts["verified_fail"] == 2
-            and counts["hold"] == 2
+            and counts["hold"] == 3
         ),
+        "candidate_admitted": counts["candidate_admitted"] == 4,
         "explicit_claim_coverage": (
             counts["explicit_claim_coverage"] == 4
         ),
@@ -60,7 +61,7 @@ def main() -> int:
             metrics["cost_per_verified_success_usd"][
                 "cost_coverage_attempts"
             ]
-            == 6
+            == 7
             and metrics["cost_per_verified_success_usd"][
                 "reported_cost_usd_total"
             ]
@@ -88,9 +89,9 @@ def main() -> int:
 
     ok = all(checks.values())
     print(
-        "PHASE 7A METRICS GREEN"
+        "PHASE 8B METRICS GREEN"
         if ok
-        else "PHASE 7A METRICS FAILED"
+        else "PHASE 8B METRICS FAILED"
     )
     return 0 if ok else 1
 
