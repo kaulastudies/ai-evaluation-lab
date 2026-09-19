@@ -45,3 +45,22 @@ model does not need to be available for replay.
 
 `replay_check.py` pins the first committed AP-002 live trial as the regression control
 for the generic replay layer.
+
+## Bounded evidence-guided repair
+
+`repair.py` implements the RARB repair protocol for a committed `VERIFIED_FAIL`
+attempt.
+
+A repair prompt may contain only the task brief, the failed candidate, public tests,
+the writable candidate path, failed gate IDs, and bounded diagnostics. It does not load
+or expose verifier source, qualification controls, mutations, or the reference
+solution.
+
+Repair records retain the parent evaluation-record hash and parent candidate hash,
+record the bounded-evidence hash, run the replacement candidate through the same
+structural admission and qualified-verifier path, and emit `repair_conversion=true`
+only when a parent `VERIFIED_FAIL` becomes `VERIFIED_PASS`.
+
+`repair_check.py` uses the AP-003 false-green evidence as a deterministic regression
+control. Its mock response is supplied out-of-band to exercise the repair machinery;
+it is not included in the repair prompt.
