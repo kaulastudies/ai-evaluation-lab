@@ -85,3 +85,19 @@ structural admission.
 A format retry remains a separate model attempt with its own source commit, prompt hash,
 response hash, admission result, and final verdict. The earlier `HOLD` remains immutable
 evidence and is never rewritten or normalized into a candidate.
+
+## Public validation as an acceptance gate
+
+A candidate cannot receive `VERIFIED_PASS` when the configured public validation fails.
+
+Verdict precedence is:
+
+1. trusted-boundary violation => `HOLD`;
+2. public validation failure => `VERIFIED_FAIL`;
+3. otherwise use the qualified verifier result.
+
+`self_check.py` includes a regression case where the AP-003 reference candidate passes
+the qualified verifier while public validation is deliberately forced to fail. The
+expected final verdict is `VERIFIED_FAIL`. Source-exact replay separately proves that
+historical evidence remains replayable under the evaluator version recorded at the
+original run.

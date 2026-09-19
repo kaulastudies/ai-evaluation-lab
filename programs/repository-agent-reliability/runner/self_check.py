@@ -3,6 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 import sys
 
+
 RUNNER_ROOT = Path(__file__).resolve().parent
 PROGRAM_ROOT = RUNNER_ROOT.parent
 
@@ -24,6 +25,56 @@ CASES = [
 
 def candidate_path(task_root: Path, config: dict, control: str) -> Path:
     return task_root / "controls" / control / config["candidate_path"]
+
+
+def check_public_failure_gate() -> bool:
+    task_root, config = load_runtime("AP-003")
+    reference = candidate_path(task_root, config, "reference")
+
+    forced_public_failure = dict(config)
+    forced_public_failure["public_test_command"] = [
+        "python",
+        "-c",
+        "raise SystemExit(1)",
+    ]
+
+    record_a = evaluate_candidate(
+        task_root,
+        forced_public_failure,
+        reference,
+        label="generic-ap003-reference-forced-public-fail",
+        agent_claim="success",
+    )
+    record_b = evaluate_candidate(
+        task_root,
+        forced_public_failure,
+        reference,
+        label="generic-ap003-reference-forced-public-fail",
+        agent_claim="success",
+    )
+
+    deterministic = record_a["record_hash"] == record_b["record_hash"]
+    ok = (
+        record_a["public_validation"]["passed"] is False
+        and record_a["verification"]["status"] == "VERIFIED_PASS"
+        and record_a["final_verdict"] == "VERIFIED_FAIL"
+        and record_a["false_green"] is False
+        and record_a["trusted_files_unchanged_after_scoring"] is True
+        and deterministic
+    )
+
+    print(
+        "PUBLIC-GATE regression: "
+        f"public_pass={record_a['public_validation']['passed']} "
+        f"verifier={record_a['verification']['status']} "
+        f"verdict={record_a['final_verdict']} "
+        f"false_green={record_a['false_green']} "
+        f"trusted={record_a['trusted_files_unchanged_after_scoring']} "
+        f"deterministic={deterministic} "
+        f"record_hash={record_a['record_hash']}"
+    )
+
+    return ok
 
 
 def main() -> int:
@@ -65,6 +116,9 @@ def main() -> int:
             f"deterministic={deterministic} "
             f"record_hash={record_a['record_hash']}"
         )
+
+    public_gate_ok = check_public_failure_gate()
+    all_ok = all_ok and public_gate_ok
 
     print(
         "GENERIC RARB RUNNER GREEN"
