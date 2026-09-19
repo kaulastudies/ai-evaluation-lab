@@ -16,8 +16,8 @@
 
 - Attempts: **8**
 - Verdicts: **3 VERIFIED_PASS / 2 VERIFIED_FAIL / 3 HOLD**
-- Qualified tasks: **4**
-- Critical verifier mutation escapes: **0 / 13**
+- Qualified tasks: **5**
+- Critical verifier mutation escapes: **0 / 17**
 - Claim-Evidence Gap: **40.0%**
 - False-Green Rate: **40.0%**
 - Repair Conversion: **0.0%**

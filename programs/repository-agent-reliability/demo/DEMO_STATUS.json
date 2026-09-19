@@ -31,9 +31,9 @@
     "verified_pass": 3,
     "verified_fail": 2,
     "hold": 3,
-    "qualified_tasks": 4,
+    "qualified_tasks": 5,
     "critical_mutation_escapes": 0,
-    "critical_mutations_total": 13,
+    "critical_mutations_total": 17,
     "claim_evidence_gap": 0.4,
     "false_green_rate": 0.4,
     "repair_conversion": 0.0
