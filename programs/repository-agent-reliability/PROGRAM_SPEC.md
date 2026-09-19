@@ -138,11 +138,12 @@ Current committed evidence demonstrates:
 - AP-004 verifier qualification, a frozen strict-code-only-v1 admission `HOLD`, and
   a separate strict-code-only-v2 `VERIFIED_PASS`, both replayable from their recorded
   source commits;
-- AP-005 verifier qualification against reference, known-bad, and four critical
-  mutation controls; no live AP-005 model attempt has yet been committed.
+- AP-005 verifier qualification and a first live initial attempt that was admitted,
+  passed public validation, failed all four qualified edge-case gates, and was frozen
+  as a source-exact replayable `VERIFIED_FAIL` false-green.
 
-As of this amendment, the committed live evidence set contains 8 attempts:
-3 `VERIFIED_PASS`, 2 `VERIFIED_FAIL`, and 3 `HOLD`. All five benchmark tasks are
+As of this amendment, the committed live evidence set contains 9 attempts:
+3 `VERIFIED_PASS`, 3 `VERIFIED_FAIL`, and 3 `HOLD`. All five benchmark tasks are
 verifier-qualified, with 0 of 17 configured critical verifier mutations escaping
 detection.
 
@@ -154,7 +155,6 @@ sequence did not convert to `VERIFIED_PASS`.
 Therefore:
 
 - successful bounded repair conversion remains an open evidence gap;
-- AP-005 live task evidence remains open;
 - repeated multi-model/statistically meaningful evidence remains open;
 - Nebius/NVIDIA production-runtime evidence remains open.
 

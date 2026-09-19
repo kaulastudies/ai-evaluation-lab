@@ -73,6 +73,22 @@ CASES = [
         ),
         "verdict": "VERIFIED_PASS",
     },
+    {
+        "task_id": "AP-005",
+        "evidence": (
+            PROGRAM_ROOT
+            / "tasks"
+            / "AP-005"
+            / "evidence"
+            / "live"
+            / "ap005-ollama-llama3-001"
+        ),
+        "record_hash": (
+            "605d66987eaddd08bb1513873f3c6dee2"
+            "b865bcdf3481079a5e0f4a9955a5c9c"
+        ),
+        "verdict": "VERIFIED_FAIL",
+    },
 ]
 
 
@@ -137,9 +153,9 @@ def main() -> int:
             all_ok = all_ok and ok
 
     print(
-        "PHASE 8D SOURCE-EXACT REPLAY GREEN"
+        "PHASE 9B SOURCE-EXACT REPLAY GREEN"
         if all_ok
-        else "PHASE 8D SOURCE-EXACT REPLAY FAILED"
+        else "PHASE 9B SOURCE-EXACT REPLAY FAILED"
     )
     return 0 if all_ok else 1
 

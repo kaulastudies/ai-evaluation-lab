@@ -43,9 +43,7 @@ def main() -> int:
             print("PHASE 7C ENTRYPOINT CHECK FAILED")
             return 1
 
-        status = json.loads(
-            out_json.read_text(encoding="utf-8")
-        )
+        status = json.loads(out_json.read_text(encoding="utf-8"))
         markdown = out_md.read_text(encoding="utf-8")
 
         checks = {
@@ -61,11 +59,11 @@ def main() -> int:
                 is True
             ),
             "attempts": (
-                status["evidence_snapshot"]["attempts_total"] == 8
+                status["evidence_snapshot"]["attempts_total"] == 9
             ),
             "verdicts": (
                 status["evidence_snapshot"]["verified_pass"] == 3
-                and status["evidence_snapshot"]["verified_fail"] == 2
+                and status["evidence_snapshot"]["verified_fail"] == 3
                 and status["evidence_snapshot"]["hold"] == 3
             ),
             "qualification": (
@@ -78,16 +76,16 @@ def main() -> int:
                 ] == 17
             ),
             "claim_gap": (
-                status["evidence_snapshot"]["claim_evidence_gap"] == 0.4
+                status["evidence_snapshot"]["claim_evidence_gap"] == 0.5
             ),
             "false_green": (
-                status["evidence_snapshot"]["false_green_rate"] == 0.4
+                status["evidence_snapshot"]["false_green_rate"] == 0.5
             ),
             "honest_repair_gap": any(
                 "successful bounded repair conversion" in item
                 for item in status["evidence_boundary"]
             ),
-            "ap005_live_gap": any(
+            "ap005_live_gap_removed": not any(
                 item == "AP-005 live task evidence."
                 for item in status["evidence_boundary"]
             ),

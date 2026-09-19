@@ -19,32 +19,32 @@ def main() -> int:
     qualification = summary["verifier_qualification"]
 
     checks = {
-        "attempts_total": counts["attempts_total"] == 8,
-        "initial_attempts": counts["initial_attempts"] == 6,
+        "attempts_total": counts["attempts_total"] == 9,
+        "initial_attempts": counts["initial_attempts"] == 7,
         "repair_attempts": counts["repair_attempts"] == 2,
         "verdict_distribution": (
             counts["verified_pass"] == 3
-            and counts["verified_fail"] == 2
+            and counts["verified_fail"] == 3
             and counts["hold"] == 3
         ),
-        "candidate_admitted": counts["candidate_admitted"] == 5,
+        "candidate_admitted": counts["candidate_admitted"] == 6,
         "explicit_claim_coverage": (
-            counts["explicit_claim_coverage"] == 5
+            counts["explicit_claim_coverage"] == 6
         ),
         "claim_evidence_gap": (
-            metrics["claim_evidence_gap"]["numerator"] == 2
-            and metrics["claim_evidence_gap"]["denominator"] == 5
-            and metrics["claim_evidence_gap"]["value"] == 0.4
+            metrics["claim_evidence_gap"]["numerator"] == 3
+            and metrics["claim_evidence_gap"]["denominator"] == 6
+            and metrics["claim_evidence_gap"]["value"] == 0.5
         ),
         "false_green_rate": (
-            metrics["false_green_rate"]["numerator"] == 2
-            and metrics["false_green_rate"]["denominator"] == 5
-            and metrics["false_green_rate"]["value"] == 0.4
+            metrics["false_green_rate"]["numerator"] == 3
+            and metrics["false_green_rate"]["denominator"] == 6
+            and metrics["false_green_rate"]["value"] == 0.5
         ),
         "initial_false_green_rate": (
-            metrics["initial_false_green_rate"]["numerator"] == 1
-            and metrics["initial_false_green_rate"]["denominator"] == 4
-            and metrics["initial_false_green_rate"]["value"] == 0.25
+            metrics["initial_false_green_rate"]["numerator"] == 2
+            and metrics["initial_false_green_rate"]["denominator"] == 5
+            and metrics["initial_false_green_rate"]["value"] == 0.4
         ),
         "repair_conversion": (
             metrics["repair_conversion"]["numerator"] == 0
@@ -62,7 +62,7 @@ def main() -> int:
             metrics["cost_per_verified_success_usd"][
                 "cost_coverage_attempts"
             ]
-            == 8
+            == 9
             and metrics["cost_per_verified_success_usd"][
                 "reported_cost_usd_total"
             ]
@@ -90,9 +90,9 @@ def main() -> int:
 
     ok = all(checks.values())
     print(
-        "PHASE 9A METRICS GREEN"
+        "PHASE 9B METRICS GREEN"
         if ok
-        else "PHASE 9A METRICS FAILED"
+        else "PHASE 9B METRICS FAILED"
     )
     return 0 if ok else 1
 

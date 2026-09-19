@@ -8,17 +8,17 @@ RARB treats the coding agent as the system under test. A patch is not accepted b
 
 ## Current evidence snapshot
 
-- **8** committed live attempts
-- **3 VERIFIED_PASS / 2 VERIFIED_FAIL / 3 HOLD**
+- **9** committed live attempts
+- **3 VERIFIED_PASS / 3 VERIFIED_FAIL / 3 HOLD**
 - **5** qualified tasks
 - **0 / 17** critical verifier mutations escaped
-- Claim-Evidence Gap: **40.0%**
-- False-Green Rate: **40.0%**
-- Initial False-Green Rate: **25.0%**
+- Claim-Evidence Gap: **50.0%**
+- False-Green Rate: **50.0%**
+- Initial False-Green Rate: **40.0%**
 - Repair Conversion: **0.0%**
 - Median recorded generation latency among verified successes: **81.34s**
 
-## The strongest live example: AP-003
+## Strongest repair-path example: AP-003
 
 1. The initial candidate passed public tests.
 2. The qualified verifier rejected it on idempotency gates.
@@ -53,21 +53,25 @@ That is the product behavior: **RARB measures whether a patch deserves to ship; 
 - `ap004-ollama-llama3-001` - **HOLD** - The first live model response used v1 and had an unterminated fenced code block, so it was rejected before execution and frozen as HOLD.
 - `ap004-ollama-llama3-002` - **VERIFIED_PASS** - A separately versioned v2 initial attempt was admitted, passed public validation, passed all four qualified verifier gates, and preserved the trusted boundary.
 
+### AP-005 - data-transformation edge cases
+
+- `ap005-ollama-llama3-001` - **VERIFIED_FAIL** - The candidate was admitted and passed public tests, but the qualified verifier rejected all four edge-case gates. RARB recorded a genuine false-green rather than accepting the public-test pass.
+
 ## Demonstrated
 
-- Verifier qualification with reference, known-bad, and critical mutation controls.
+- Verifier qualification with reference, known-bad, and critical mutation controls across all five benchmark tasks.
 - Public-test false-green detection under a qualified verifier.
 - Trusted-boundary checks and deterministic evaluation records.
 - Bounded evidence-guided repair with an explicit attempt budget.
-- Source-exact no-model replay across historical evaluator versions, including admission HOLD, VERIFIED_PASS, VERIFIED_FAIL, repair HOLD, and terminal repair failure.
+- Source-exact no-model replay across historical evaluator versions, including HOLD, VERIFIED_PASS, VERIFIED_FAIL, repair HOLD, and terminal repair failure.
 - Separately versioned initial-output protocols without rewriting the frozen earlier HOLD.
+- Live initial model evidence across AP-001 through AP-005.
 - Evidence-derived metrics without fabricating missing fields.
 
 ## Not yet demonstrated
 
 - A successful bounded repair conversion from VERIFIED_FAIL to VERIFIED_PASS.
 - Repeated multi-model or statistically meaningful benchmark performance.
-- AP-005 live task evidence.
 - Nebius/NVIDIA production-runtime evidence.
 
 ## Evidence boundary

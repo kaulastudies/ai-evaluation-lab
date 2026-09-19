@@ -43,22 +43,10 @@ def build_payload(summary: dict[str, Any]) -> dict[str, Any]:
     counts = summary["counts"]
     metrics = summary["metrics"]
 
-    ap001_hold = find_attempt(
-        attempts,
-        "ap001-ollama-llama3-002",
-    )
-    ap001_pass = find_attempt(
-        attempts,
-        "ap001-ollama-llama3-003",
-    )
-    ap002_pass = find_attempt(
-        attempts,
-        "ap002-ollama-llama3-001",
-    )
-    ap003_initial = find_attempt(
-        attempts,
-        "ap003-ollama-llama3-001",
-    )
+    ap001_hold = find_attempt(attempts, "ap001-ollama-llama3-002")
+    ap001_pass = find_attempt(attempts, "ap001-ollama-llama3-003")
+    ap002_pass = find_attempt(attempts, "ap002-ollama-llama3-001")
+    ap003_initial = find_attempt(attempts, "ap003-ollama-llama3-001")
     ap003_repair_hold = find_attempt(
         attempts,
         "ap003-ollama-llama3-002-repair",
@@ -67,14 +55,9 @@ def build_payload(summary: dict[str, Any]) -> dict[str, Any]:
         attempts,
         "ap003-ollama-llama3-003-repair",
     )
-    ap004_hold = find_attempt(
-        attempts,
-        "ap004-ollama-llama3-001",
-    )
-    ap004_pass = find_attempt(
-        attempts,
-        "ap004-ollama-llama3-002",
-    )
+    ap004_hold = find_attempt(attempts, "ap004-ollama-llama3-001")
+    ap004_pass = find_attempt(attempts, "ap004-ollama-llama3-002")
+    ap005_fail = find_attempt(attempts, "ap005-ollama-llama3-001")
 
     return {
         "schema_version": "1.0.0",
@@ -206,11 +189,27 @@ def build_payload(summary: dict[str, Any]) -> dict[str, Any]:
                     },
                 ],
             },
+            {
+                "task_id": "AP-005",
+                "theme": "data-transformation edge cases",
+                "observations": [
+                    {
+                        "run_label": ap005_fail["run_label"],
+                        "verdict": ap005_fail["final_verdict"],
+                        "note": (
+                            "The candidate was admitted and passed public tests, "
+                            "but the qualified verifier rejected all four edge-case "
+                            "gates. RARB recorded a genuine false-green rather than "
+                            "accepting the public-test pass."
+                        ),
+                    }
+                ],
+            },
         ],
         "demonstrated": [
             (
                 "Verifier qualification with reference, known-bad, and "
-                "critical mutation controls."
+                "critical mutation controls across all five benchmark tasks."
             ),
             (
                 "Public-test false-green detection under a qualified verifier."
@@ -223,12 +222,15 @@ def build_payload(summary: dict[str, Any]) -> dict[str, Any]:
             ),
             (
                 "Source-exact no-model replay across historical evaluator "
-                "versions, including admission HOLD, VERIFIED_PASS, "
-                "VERIFIED_FAIL, repair HOLD, and terminal repair failure."
+                "versions, including HOLD, VERIFIED_PASS, VERIFIED_FAIL, "
+                "repair HOLD, and terminal repair failure."
             ),
             (
                 "Separately versioned initial-output protocols without rewriting "
                 "the frozen earlier HOLD."
+            ),
+            (
+                "Live initial model evidence across AP-001 through AP-005."
             ),
             (
                 "Evidence-derived metrics without fabricating missing fields."
@@ -242,9 +244,6 @@ def build_payload(summary: dict[str, Any]) -> dict[str, Any]:
             (
                 "Repeated multi-model or statistically meaningful benchmark "
                 "performance."
-            ),
-            (
-                "AP-005 live task evidence."
             ),
             (
                 "Nebius/NVIDIA production-runtime evidence."
@@ -290,7 +289,7 @@ def render_markdown(payload: dict[str, Any]) -> str:
             f"**{snap['median_time_to_verified_success_ms'] / 1000:.2f}s**"
         ),
         "",
-        "## The strongest live example: AP-003",
+        "## Strongest repair-path example: AP-003",
         "",
         "1. The initial candidate passed public tests.",
         "2. The qualified verifier rejected it on idempotency gates.",

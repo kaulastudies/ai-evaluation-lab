@@ -39,33 +39,29 @@ def main() -> int:
             print(process.stderr, file=sys.stderr)
 
         if process.returncode != 0:
-            print("PHASE 9A DEMO EVIDENCE FAILED")
+            print("PHASE 9B DEMO EVIDENCE FAILED")
             return 1
 
-        payload = json.loads(
-            out_json.read_text(encoding="utf-8")
-        )
+        payload = json.loads(out_json.read_text(encoding="utf-8"))
         markdown = out_md.read_text(encoding="utf-8")
-
         snap = payload["evidence_snapshot"]
 
-        ap004 = [
+        ap005 = [
             item
             for item in payload["task_evidence"]
-            if item["task_id"] == "AP-004"
+            if item["task_id"] == "AP-005"
         ]
-
-        observations = (
-            ap004[0]["observations"]
-            if len(ap004) == 1
+        ap005_observations = (
+            ap005[0]["observations"]
+            if len(ap005) == 1
             else []
         )
 
         checks = {
-            "attempts": snap["live_attempts"] == 8,
+            "attempts": snap["live_attempts"] == 9,
             "verdicts": (
                 snap["verified_pass"] == 3
-                and snap["verified_fail"] == 2
+                and snap["verified_fail"] == 3
                 and snap["hold"] == 3
             ),
             "qualified_tasks": snap["qualified_tasks"] == 5,
@@ -74,33 +70,32 @@ def main() -> int:
                 and snap["critical_mutation_escapes"] == 0
             ),
             "claim_evidence_gap": (
-                snap["claim_evidence_gap"] == 0.4
+                snap["claim_evidence_gap"] == 0.5
             ),
-            "false_green": snap["false_green_rate"] == 0.4,
+            "false_green": snap["false_green_rate"] == 0.5,
             "initial_false_green": (
-                snap["initial_false_green_rate"] == 0.25
+                snap["initial_false_green_rate"] == 0.4
             ),
             "repair_conversion": snap["repair_conversion"] == 0.0,
-            "honest_gap": any(
-                "A successful bounded repair conversion" in item
-                for item in payload["not_yet_demonstrated"]
+            "ap005_live_false_green": (
+                len(ap005_observations) == 1
+                and ap005_observations[0]["run_label"]
+                == "ap005-ollama-llama3-001"
+                and ap005_observations[0]["verdict"]
+                == "VERIFIED_FAIL"
+                and "false-green" in ap005_observations[0]["note"]
             ),
-            "ap004_hold_and_pass": (
-                len(observations) == 2
-                and observations[0]["run_label"]
-                == "ap004-ollama-llama3-001"
-                and observations[0]["verdict"] == "HOLD"
-                and observations[1]["run_label"]
-                == "ap004-ollama-llama3-002"
-                and observations[1]["verdict"] == "VERIFIED_PASS"
-            ),
-            "ap005_live_gap_present": any(
+            "ap005_live_gap_removed": not any(
                 item == "AP-005 live task evidence."
                 for item in payload["not_yet_demonstrated"]
             ),
-            "causal_limit": (
-                "does not by itself establish that the protocol change caused"
-                in markdown
+            "repair_gap_preserved": any(
+                "A successful bounded repair conversion" in item
+                for item in payload["not_yet_demonstrated"]
+            ),
+            "all_five_live_claim": (
+                "Live initial model evidence across AP-001 through AP-005."
+                in payload["demonstrated"]
             ),
             "ap003_story": (
                 "RARB measures whether a patch deserves to ship"
@@ -115,9 +110,9 @@ def main() -> int:
 
         ok = all(checks.values())
         print(
-            "PHASE 9A DEMO EVIDENCE GREEN"
+            "PHASE 9B DEMO EVIDENCE GREEN"
             if ok
-            else "PHASE 9A DEMO EVIDENCE FAILED"
+            else "PHASE 9B DEMO EVIDENCE FAILED"
         )
         return 0 if ok else 1
 
