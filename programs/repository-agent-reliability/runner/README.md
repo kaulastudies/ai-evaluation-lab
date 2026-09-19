@@ -101,3 +101,28 @@ the qualified verifier while public validation is deliberately forced to fail. T
 expected final verdict is `VERIFIED_FAIL`. Source-exact replay separately proves that
 historical evidence remains replayable under the evaluator version recorded at the
 original run.
+
+## Source-exact repair replay
+
+`repair_replay.py` extends source-exact no-model replay to bounded repair attempts.
+
+The replay creates a temporary detached Git worktree at the repair attempt's recorded
+`source_commit`, then invokes that commit's own `repair.py` with the frozen raw model
+response through the mock provider. The parent false-green evidence is loaded from the
+same historical source commit. No model inference occurs.
+
+The repair replay validates:
+
+- raw repair-response SHA-256 and byte count;
+- repair prompt, bounded-evidence, failed-gate, and output-protocol hashes;
+- parent run label, evaluation-record hash, and parent candidate identity;
+- structural admission or admission HOLD;
+- candidate identity for executed repairs;
+- deterministic evaluation-record hash when evaluation occurred;
+- final verdict, repair-conversion result, trusted-boundary result, and false-green
+  classification where applicable;
+- exact historical `repair.py` and `engine.py` blobs.
+
+`repair_replay_check.py` pins both AP-003 repair outcomes as regression controls:
+the first repair's admission `HOLD` and the second/final repair's deterministic
+`VERIFIED_FAIL`.
