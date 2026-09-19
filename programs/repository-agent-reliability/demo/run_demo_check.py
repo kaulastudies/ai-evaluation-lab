@@ -69,13 +69,13 @@ def main() -> int:
                 and status["evidence_snapshot"]["hold"] == 3
             ),
             "qualification": (
-                status["evidence_snapshot"]["qualified_tasks"] == 4
+                status["evidence_snapshot"]["qualified_tasks"] == 5
                 and status["evidence_snapshot"][
                     "critical_mutation_escapes"
                 ] == 0
                 and status["evidence_snapshot"][
                     "critical_mutations_total"
-                ] == 13
+                ] == 17
             ),
             "claim_gap": (
                 status["evidence_snapshot"]["claim_evidence_gap"] == 0.4
@@ -87,7 +87,7 @@ def main() -> int:
                 "successful bounded repair conversion" in item
                 for item in status["evidence_boundary"]
             ),
-            "ap005_gap": any(
+            "ap005_live_gap": any(
                 item == "AP-005 live task evidence."
                 for item in status["evidence_boundary"]
             ),

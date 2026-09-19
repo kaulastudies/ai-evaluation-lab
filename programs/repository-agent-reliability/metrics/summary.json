@@ -231,7 +231,7 @@
     "verifier_escape_rate": {
       "value": 0.0,
       "numerator": 0,
-      "denominator": 13,
+      "denominator": 17,
       "definition": "Critical verifier-qualification mutations that escaped detection divided by critical mutations exercised."
     },
     "cost_per_verified_success_usd": {
@@ -287,15 +287,24 @@
         "critical_mutation_escapes": 0,
         "known_bad_rejected": true,
         "reference_passed": true
+      },
+      {
+        "task_id": "AP-005",
+        "status": "QUALIFIED",
+        "critical_mutations_total": 4,
+        "critical_mutations_rejected": 4,
+        "critical_mutation_escapes": 0,
+        "known_bad_rejected": true,
+        "reference_passed": true
       }
     ],
-    "qualified_tasks": 4,
-    "tasks_total": 4,
-    "critical_mutations_total": 13,
-    "critical_mutations_rejected": 13,
+    "qualified_tasks": 5,
+    "tasks_total": 5,
+    "critical_mutations_total": 17,
+    "critical_mutations_rejected": 17,
     "critical_mutation_escapes": 0,
     "verifier_escape_rate": 0.0,
-    "known_bad_controls_total": 4,
-    "known_bad_controls_rejected": 4
+    "known_bad_controls_total": 5,
+    "known_bad_controls_rejected": 5
   }
 }

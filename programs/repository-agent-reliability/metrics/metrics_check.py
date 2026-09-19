@@ -52,10 +52,10 @@ def main() -> int:
             and metrics["repair_conversion"]["value"] == 0.0
         ),
         "verifier_escape_rate": (
-            qualification["qualified_tasks"] == 4
-            and qualification["tasks_total"] == 4
+            qualification["qualified_tasks"] == 5
+            and qualification["tasks_total"] == 5
             and qualification["critical_mutation_escapes"] == 0
-            and qualification["critical_mutations_total"] == 13
+            and qualification["critical_mutations_total"] == 17
             and metrics["verifier_escape_rate"]["value"] == 0.0
         ),
         "cost_coverage": (
@@ -90,9 +90,9 @@ def main() -> int:
 
     ok = all(checks.values())
     print(
-        "PHASE 8D METRICS GREEN"
+        "PHASE 9A METRICS GREEN"
         if ok
-        else "PHASE 8D METRICS FAILED"
+        else "PHASE 9A METRICS FAILED"
     )
     return 0 if ok else 1
 

@@ -137,11 +137,14 @@ Current committed evidence demonstrates:
   failure after the configured repair budget;
 - AP-004 verifier qualification, a frozen strict-code-only-v1 admission `HOLD`, and
   a separate strict-code-only-v2 `VERIFIED_PASS`, both replayable from their recorded
-  source commits.
+  source commits;
+- AP-005 verifier qualification against reference, known-bad, and four critical
+  mutation controls; no live AP-005 model attempt has yet been committed.
 
-As of this amendment, the committed evidence set contains 8 live attempts:
-3 `VERIFIED_PASS`, 2 `VERIFIED_FAIL`, and 3 `HOLD`. Four tasks are verifier-qualified,
-with 0 of 13 configured critical verifier mutations escaping detection.
+As of this amendment, the committed live evidence set contains 8 attempts:
+3 `VERIFIED_PASS`, 2 `VERIFIED_FAIL`, and 3 `HOLD`. All five benchmark tasks are
+verifier-qualified, with 0 of 17 configured critical verifier mutations escaping
+detection.
 
 The original AP-001 milestone in Section 9 is **not satisfied as written**. No single
 AP-001 run demonstrates public-test false-green -> bounded repair -> verifier pass.

@@ -1,0 +1,49 @@
+task_id: AP-005
+version: 0.1.0
+title: Preserve data-transformation edge-case semantics
+
+objective: >
+  Fix the synthetic record transformer so it preserves input cardinality and order,
+  preserves zero and false scalar values exactly, distinguishes a missing optional note
+  from a present empty string, and never mutates the source rows.
+
+trusted_paths:
+  - verifier/**
+  - controls/**
+  - task.yaml
+
+allowed_paths:
+  - fixture/app/**
+
+public_checks:
+  - "python -m unittest discover -s tests/public -v"
+
+acceptance_gates:
+  - id: AP005-G01
+    description: Row cardinality, order, and duplicate identifiers are preserved.
+    critical: true
+  - id: AP005-G02
+    description: Integer values and boolean flags preserve exact values and types, including 0 and False.
+    critical: true
+  - id: AP005-G03
+    description: Optional note semantics preserve empty string and explicit None while missing note becomes None.
+    critical: true
+  - id: AP005-G04
+    description: Source rows remain unchanged and outputs contain only the public transformation fields.
+    critical: true
+
+controls:
+  reference: controls/reference
+  known_bad: controls/known_bad
+  mutations:
+    - controls/mutations/drop_inactive
+    - controls/mutations/coerce_zero
+    - controls/mutations/collapse_empty_note
+    - controls/mutations/mutate_input
+
+repair:
+  max_attempts: 2
+  expose_failed_gate_ids: true
+  expose_bounded_diagnostics: true
+  expose_reference_solution: false
+  expose_verifier_source: false

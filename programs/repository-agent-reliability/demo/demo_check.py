@@ -39,7 +39,7 @@ def main() -> int:
             print(process.stderr, file=sys.stderr)
 
         if process.returncode != 0:
-            print("PHASE 8D DEMO EVIDENCE FAILED")
+            print("PHASE 9A DEMO EVIDENCE FAILED")
             return 1
 
         payload = json.loads(
@@ -68,9 +68,9 @@ def main() -> int:
                 and snap["verified_fail"] == 2
                 and snap["hold"] == 3
             ),
-            "qualified_tasks": snap["qualified_tasks"] == 4,
+            "qualified_tasks": snap["qualified_tasks"] == 5,
             "mutations": (
-                snap["critical_mutations_total"] == 13
+                snap["critical_mutations_total"] == 17
                 and snap["critical_mutation_escapes"] == 0
             ),
             "claim_evidence_gap": (
@@ -94,11 +94,7 @@ def main() -> int:
                 == "ap004-ollama-llama3-002"
                 and observations[1]["verdict"] == "VERIFIED_PASS"
             ),
-            "ap004_gap_removed": not any(
-                "AP-004 candidate outcome beyond admission HOLD" in item
-                for item in payload["not_yet_demonstrated"]
-            ),
-            "ap005_gap_present": any(
+            "ap005_live_gap_present": any(
                 item == "AP-005 live task evidence."
                 for item in payload["not_yet_demonstrated"]
             ),
@@ -119,9 +115,9 @@ def main() -> int:
 
         ok = all(checks.values())
         print(
-            "PHASE 8D DEMO EVIDENCE GREEN"
+            "PHASE 9A DEMO EVIDENCE GREEN"
             if ok
-            else "PHASE 8D DEMO EVIDENCE FAILED"
+            else "PHASE 9A DEMO EVIDENCE FAILED"
         )
         return 0 if ok else 1
 

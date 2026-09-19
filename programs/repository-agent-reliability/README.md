@@ -82,11 +82,12 @@ Current implementation status:
   separate strict-code-only-v2 `VERIFIED_PASS`; both are frozen and source-exact
   replayable. This two-run observation is not treated as causal evidence for the
   protocol change.
-- **AP-005** — planned; no committed live task evidence yet.
+- **AP-005** — verifier-qualified and frozen; no committed live model evidence yet.
 
-Current committed evidence snapshot: **8 live attempts** —
-**3 `VERIFIED_PASS` / 2 `VERIFIED_FAIL` / 3 `HOLD`** — across **4 qualified tasks**,
-with **0 / 13** configured critical verifier mutations escaping detection.
+Current committed live evidence snapshot remains **8 live attempts** —
+**3 `VERIFIED_PASS` / 2 `VERIFIED_FAIL` / 3 `HOLD`** — while all **5 benchmark tasks**
+are verifier-qualified, with **0 / 17** configured critical verifier mutations escaping
+detection.
 
 The original AP-001 success gate in `PROGRAM_SPEC.md` remains unsatisfied as written;
 successful bounded repair conversion is still an explicit evidence gap.
