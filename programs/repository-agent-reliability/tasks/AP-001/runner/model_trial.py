@@ -25,8 +25,12 @@ from eval_lab.providers.mock import MockProvider
 from eval_lab.tasks import EvaluationTask
 
 
+def sha256_bytes(value: bytes) -> str:
+    return hashlib.sha256(value).hexdigest()
+
+
 def sha256_text(value: str) -> str:
-    return hashlib.sha256(value.encode("utf-8")).hexdigest()
+    return sha256_bytes(value.encode("utf-8"))
 
 
 def sha256_file(path: Path) -> str:
@@ -35,6 +39,20 @@ def sha256_file(path: Path) -> str:
         for chunk in iter(lambda: handle.read(1024 * 1024), b""):
             h.update(chunk)
     return h.hexdigest()
+
+
+def source_commit() -> str:
+    try:
+        process = subprocess.run(
+            ["git", "rev-parse", "HEAD"],
+            cwd=REPO_ROOT,
+            text=True,
+            capture_output=True,
+            check=True,
+        )
+        return process.stdout.strip()
+    except (OSError, subprocess.CalledProcessError):
+        return "unknown"
 
 
 def build_prompt() -> tuple[str, dict]:
@@ -171,11 +189,13 @@ def main() -> int:
     parser.add_argument("--label", default="model-trial")
     parser.add_argument("--agent-claim", choices=["success", "failure"], default="success")
     parser.add_argument("--response-file", type=Path)
+    parser.add_argument("--response-out", type=Path)
     parser.add_argument("--out", type=Path)
     parser.add_argument("--candidate-out", type=Path)
     args = parser.parse_args()
 
     prompt, context = build_prompt()
+    prompt_hash = sha256_text(prompt)
 
     response_override = None
     if args.response_file is not None:
@@ -203,7 +223,21 @@ def main() -> int:
         provider_result = provider.run(task)
 
     response = provider_result.response
-    response_hash = sha256_text(response)
+    response_bytes = response.encode("utf-8")
+    response_hash = sha256_bytes(response_bytes)
+
+    response_artifact = None
+    if args.response_out is not None:
+        response_path = args.response_out.resolve()
+        response_path.parent.mkdir(parents=True, exist_ok=True)
+        response_path.write_bytes(response_bytes)
+        response_artifact = {
+            "filename": response_path.name,
+            "sha256": sha256_file(response_path),
+            "bytes": len(response_bytes),
+        }
+        if response_artifact["sha256"] != response_hash:
+            raise RuntimeError("persisted model response hash does not match in-memory response")
 
     try:
         candidate_source = unwrap_candidate(response)
@@ -217,9 +251,13 @@ def main() -> int:
         "task_id": "AP-001",
         "task_version": "0.1.0",
         "run_label": args.label,
+        "source_commit": source_commit(),
         "provider": {
             "name": provider_result.provider,
             "model": provider_result.model,
+            "generation_parameters": {
+                "temperature": 0,
+            },
             "latency_ms": provider_result.latency_ms,
             "input_tokens": provider_result.input_tokens,
             "output_tokens": provider_result.output_tokens,
@@ -227,11 +265,13 @@ def main() -> int:
         },
         "model_context": {
             "context_hash": context["context_hash"],
+            "prompt_sha256": prompt_hash,
             "visible_paths": sorted(
                 item["path"] for item in context["visible_files"].values()
             ),
         },
         "model_response_sha256": response_hash,
+        "model_response_artifact": response_artifact,
         "candidate_admission": admission,
     }
 

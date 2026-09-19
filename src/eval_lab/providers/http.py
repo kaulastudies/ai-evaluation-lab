@@ -35,6 +35,63 @@ class OpenAICompatibleProvider:
                               int((time.perf_counter()-started)*1000),
                               usage.get("prompt_tokens"), usage.get("completion_tokens"), None)
 
+class OllamaProvider:
+    name = "ollama"
+
+    def __init__(self, base_url: str = "http://localhost:11434"):
+        self.base_url = base_url.rstrip("/")
+
+    def run(self, task: EvaluationTask, *, response_override: str | None = None) -> ProviderResult:
+        if response_override is not None:
+            raise ValueError("response_override is only supported by the mock provider")
+
+        model = os.getenv("OLLAMA_MODEL", "").strip()
+        if not model:
+            raise ProviderConfigurationError("Set OLLAMA_MODEL before using Ollama.")
+
+        payload = {
+            "model": model,
+            "messages": [{"role": "user", "content": task.prompt}],
+            "stream": False,
+            "options": {"temperature": 0},
+        }
+        req = urllib.request.Request(
+            f"{self.base_url}/api/chat",
+            data=json.dumps(payload).encode(),
+            headers={
+                "Content-Type": "application/json",
+                "User-Agent": "rama-ai-evaluation-lab/0.1",
+            },
+            method="POST",
+        )
+
+        started = time.perf_counter()
+        try:
+            with urllib.request.urlopen(req, timeout=180) as res:
+                body = json.loads(res.read().decode())
+        except urllib.error.HTTPError as exc:
+            detail = exc.read().decode(errors="replace")
+            raise RuntimeError(f"ollama HTTP {exc.code}: {detail}") from exc
+        except urllib.error.URLError as exc:
+            raise RuntimeError(
+                f"ollama connection failed at {self.base_url}: {exc}"
+            ) from exc
+
+        message = body.get("message") or {}
+        content = message.get("content")
+        if not isinstance(content, str):
+            raise RuntimeError("ollama response did not contain message.content")
+
+        return ProviderResult(
+            provider=self.name,
+            model=model,
+            response=content,
+            latency_ms=int((time.perf_counter() - started) * 1000),
+            input_tokens=body.get("prompt_eval_count"),
+            output_tokens=body.get("eval_count"),
+            estimated_cost_usd=0.0,
+        )
+
 class GeminiProvider:
     name = "gemini"
 
@@ -64,6 +121,7 @@ class GeminiProvider:
 def provider_from_name(name: str):
     key = name.lower()
     if key == "gemini": return GeminiProvider()
+    if key == "ollama": return OllamaProvider()
     configs = {
         "groq": ("https://api.groq.com/openai/v1", "GROQ_API_KEY", "GROQ_MODEL"),
         "openrouter": ("https://openrouter.ai/api/v1", "OPENROUTER_API_KEY", "OPENROUTER_MODEL"),
