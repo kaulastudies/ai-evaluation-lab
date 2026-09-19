@@ -27,21 +27,20 @@
   },
   "generated_artifacts_match_head_evidence": true,
   "evidence_snapshot": {
-    "attempts_total": 8,
+    "attempts_total": 9,
     "verified_pass": 3,
-    "verified_fail": 2,
+    "verified_fail": 3,
     "hold": 3,
     "qualified_tasks": 5,
     "critical_mutation_escapes": 0,
     "critical_mutations_total": 17,
-    "claim_evidence_gap": 0.4,
-    "false_green_rate": 0.4,
+    "claim_evidence_gap": 0.5,
+    "false_green_rate": 0.5,
     "repair_conversion": 0.0
   },
   "evidence_boundary": [
     "A successful bounded repair conversion from VERIFIED_FAIL to VERIFIED_PASS.",
     "Repeated multi-model or statistically meaningful benchmark performance.",
-    "AP-005 live task evidence.",
     "Nebius/NVIDIA production-runtime evidence."
   ]
 }

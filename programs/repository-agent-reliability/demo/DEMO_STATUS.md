@@ -14,19 +14,18 @@
 
 ## Evidence snapshot
 
-- Attempts: **8**
-- Verdicts: **3 VERIFIED_PASS / 2 VERIFIED_FAIL / 3 HOLD**
+- Attempts: **9**
+- Verdicts: **3 VERIFIED_PASS / 3 VERIFIED_FAIL / 3 HOLD**
 - Qualified tasks: **5**
 - Critical verifier mutation escapes: **0 / 17**
-- Claim-Evidence Gap: **40.0%**
-- False-Green Rate: **40.0%**
+- Claim-Evidence Gap: **50.0%**
+- False-Green Rate: **50.0%**
 - Repair Conversion: **0.0%**
 
 ## Evidence boundary
 
 - A successful bounded repair conversion from VERIFIED_FAIL to VERIFIED_PASS.
 - Repeated multi-model or statistically meaningful benchmark performance.
-- AP-005 live task evidence.
 - Nebius/NVIDIA production-runtime evidence.
 
 The status file is a compact demo index. Detailed evidence remains in `metrics/REPORT.md`, `demo/EVIDENCE_BRIEF.md`, and the frozen task evidence directories.
