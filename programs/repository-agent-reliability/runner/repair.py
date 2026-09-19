@@ -48,16 +48,59 @@ def source_commit() -> str:
         return "unknown"
 
 
-def strict_protocol_text(candidate_path: str) -> str:
-    return (
-        "RARB MACHINE OUTPUT PROTOCOL: strict-code-only-v1\n"
-        f"Your entire response MUST be the complete raw Python source for "
-        f"{candidate_path}.\n"
-        "Do not use Markdown code fences.\n"
-        "Do not include prose, headings, explanations, notes, or commentary.\n"
-        "Do not include a filename label.\n"
-        "Return exactly one Python file and nothing else.\n"
-    )
+def strict_protocol_text(
+    name: str,
+    candidate_path: str,
+    top_level_class: str,
+) -> str:
+    if name == "strict-code-only-v1":
+        return (
+            "RARB MACHINE OUTPUT PROTOCOL: strict-code-only-v1\n"
+            f"Your entire response MUST be the complete raw Python source for "
+            f"{candidate_path}.\n"
+            "Do not use Markdown code fences.\n"
+            "Do not include prose, headings, explanations, notes, or commentary.\n"
+            "Do not include a filename label.\n"
+            "Return exactly one Python file and nothing else.\n"
+        )
+
+    if name == "strict-code-only-v2":
+        return (
+            "RARB MACHINE OUTPUT PROTOCOL: strict-code-only-v2\n"
+            f"Your entire response MUST be the complete raw Python source for "
+            f"{candidate_path}.\n"
+            f"The first non-whitespace characters MUST be: class {top_level_class}:\n"
+            "Your response MUST contain ZERO backtick (`) characters.\n"
+            "Do not use Markdown code fences.\n"
+            "Do not prefix the response with the word python or a filename.\n"
+            "Do not include prose, headings, explanations, notes, or commentary.\n"
+            "Return exactly one syntactically complete Python file and nothing else.\n"
+            "Before sending, silently verify that the response contains zero "
+            "backticks and that all opened Python blocks are complete.\n"
+        )
+
+    raise ValueError(f"Unknown output protocol: {name}")
+
+
+def raw_protocol_violation(
+    name: str,
+    response: str,
+    top_level_class: str,
+) -> str | None:
+    if name != "strict-code-only-v2":
+        return None
+
+    if "`" in response:
+        return "strict-code-only-v2 forbids backtick characters"
+
+    expected_prefix = f"class {top_level_class}:"
+    if not response.lstrip().startswith(expected_prefix):
+        return (
+            "strict-code-only-v2 requires raw source to begin with "
+            f"{expected_prefix}"
+        )
+
+    return None
 
 
 def find_candidate_artifact(
@@ -108,6 +151,7 @@ def build_repair_prompt(
     parent_candidate: Path,
     parent_record: dict[str, Any],
     *,
+    output_protocol: str = "strict-code-only-v1",
     max_diagnostic_chars: int = 600,
 ) -> tuple[str, dict[str, Any], dict[str, Any]]:
     brief_path = task_root / config["agent_brief"]
@@ -164,7 +208,11 @@ def build_repair_prompt(
     }
     context_hash = canonical_json_hash(context_payload)
 
-    protocol = strict_protocol_text(config["candidate_path"])
+    protocol = strict_protocol_text(
+        output_protocol,
+        config["candidate_path"],
+        config["admission"]["top_level_class"],
+    )
     bounded_json = json.dumps(
         bounded_payload,
         indent=2,
@@ -194,7 +242,7 @@ def build_repair_prompt(
     )
 
     protocol_meta = {
-        "name": "strict-code-only-v1",
+        "name": output_protocol,
         "sha256": hashlib.sha256(
             protocol.encode("utf-8")
         ).hexdigest(),
@@ -257,6 +305,11 @@ def main() -> int:
     parser.add_argument("--response-out", type=Path)
     parser.add_argument("--candidate-out", type=Path)
     parser.add_argument("--out", type=Path)
+    parser.add_argument(
+        "--output-protocol",
+        choices=["strict-code-only-v1", "strict-code-only-v2"],
+        default="strict-code-only-v1",
+    )
     parser.add_argument("--max-diagnostic-chars", type=int, default=600)
     args = parser.parse_args()
 
@@ -292,6 +345,7 @@ def main() -> int:
         config,
         parent_candidate,
         parent_record,
+        output_protocol=args.output_protocol,
         max_diagnostic_chars=args.max_diagnostic_chars,
     )
 
@@ -343,18 +397,31 @@ def main() -> int:
             "bytes": len(response_bytes),
         }
 
-    try:
-        candidate_source = unwrap_candidate(response)
-        admission = candidate_admission(
-            candidate_source,
-            config["admission"],
-        )
-    except ValueError as exc:
+    protocol_violation = raw_protocol_violation(
+        args.output_protocol,
+        response,
+        config["admission"]["top_level_class"],
+    )
+
+    if protocol_violation is not None:
         candidate_source = ""
         admission = {
             "accepted": False,
-            "reason": str(exc),
+            "reason": protocol_violation,
         }
+    else:
+        try:
+            candidate_source = unwrap_candidate(response)
+            admission = candidate_admission(
+                candidate_source,
+                config["admission"],
+            )
+        except ValueError as exc:
+            candidate_source = ""
+            admission = {
+                "accepted": False,
+                "reason": str(exc),
+            }
 
     record: dict[str, Any] = {
         "program": "repository-agent-reliability",

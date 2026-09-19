@@ -64,3 +64,18 @@ only when a parent `VERIFIED_FAIL` becomes `VERIFIED_PASS`.
 `repair_check.py` uses the AP-003 false-green evidence as a deterministic regression
 control. Its mock response is supplied out-of-band to exercise the repair machinery;
 it is not included in the repair prompt.
+
+## Strict repair-output protocol v2
+
+`repair.py` supports `strict-code-only-v2` for a bounded repair retry after an otherwise
+valid repair response is rejected for output formatting.
+
+Version 2 does not add verifier evidence or broaden model context. It strengthens only
+the machine-output contract. The raw model response must begin with the configured
+top-level class, contain zero backticks, contain no Markdown/prose prefix, and be a
+complete Python file. These conditions are enforced before candidate unwrapping and
+structural admission.
+
+A format retry remains a separate model attempt with its own source commit, prompt hash,
+response hash, admission result, and final verdict. The earlier `HOLD` remains immutable
+evidence and is never rewritten or normalized into a candidate.
