@@ -85,3 +85,23 @@ For a recorded HOLD it verifies:
 This is deliberately separate from candidate/verifier replay. A response that never
 crossed the admission boundary must not be rewritten or silently extracted during
 replay merely to make it executable.
+
+## Explicit machine-output protocol
+
+`protocol_model_trial.py` adds a generation-side protocol without changing the frozen
+candidate-admission parser in `model_trial.py`.
+
+`strict-code-only-v1` tells the model that its entire response must be the raw contents
+of `app/resource_view.py`: no Markdown fences, prose, headings, filename labels, notes,
+or explanations.
+
+The admission gate is intentionally unchanged. The protocol is an instruction to the
+model, not a post-processing exception. If the model still returns mixed prose and code,
+the response remains `HOLD`.
+
+`output_protocol_check.py` verifies both sides:
+
+- a raw reference candidate is admitted and reaches `VERIFIED_PASS`;
+- mixed prose/fenced code remains rejected as `HOLD`;
+- the historical Phase 3C admission replay still passes, proving the original parser
+  has not been modified.
