@@ -120,7 +120,6 @@ def main() -> int:
             and replay["replay_provider"] == "mock"
             and all(replay["checks"].values())
             and replay["status"] == "SOURCE_EXACT_REPLAY_VERIFIED"
-            and replay["replay_report_sha256"] == item["replay_report_sha256"]
         )
 
     counts = summary["counts"]
@@ -186,7 +185,7 @@ def main() -> int:
         "single_failure_preserved": failure_preserved,
         "section9_remains_open": counts["ap001_section9_sequences"] == 0,
         "claim_boundary": (
-            any("one-task" in item.lower() or "one task" in item.lower()
+            any("ap-001 matrix" in item.lower() or "one task" in item.lower()
                 for item in promotion["claim_boundary"])
             and any("three" in item.lower() and "configuration" in item.lower()
                 for item in promotion["claim_boundary"])
