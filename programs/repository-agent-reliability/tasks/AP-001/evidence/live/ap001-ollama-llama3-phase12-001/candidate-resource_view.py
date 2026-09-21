@@ -1,0 +1,19 @@
+class ResourceView:
+    def __init__(self):
+        self.current_resource = None
+        self.value = None
+        self.resource_values = {}
+
+    def select_resource(self, resource, fetch):
+        self.current_resource = resource
+
+        def on_complete(value):
+            if self.current_resource == resource:
+                self.resource_values[resource] = value
+            else:
+                self.resource_values[resource] = None
+
+        fetch(resource, on_complete)
+
+    def get_value(self, resource):
+        return self.resource_values.get(resource)

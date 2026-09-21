@@ -1,0 +1,610 @@
+{
+  "schema_version": "1.0.0",
+  "status": "PROMOTED",
+  "experiment_id": "phase-12-cross-model-replication-v1",
+  "experiment_plan_sha256": "97ab476246d131c672f00c75fb1aabb391f2c31b98c9e6af47f139834637eeba",
+  "source_commit": "257cb7a3510a05e124e279a32357befa51b2f7f4",
+  "source_archive": {
+    "filename": "phase-12-cross-model-replication-v1-evidence.zip",
+    "sha256": "a0344076f2ad5efedf48e602ef27049e3d1892a74b746d77163b74c3163c8a7d",
+    "bytes": 224074,
+    "entries": 213
+  },
+  "audit": {
+    "credential_patterns_detected": false,
+    "independent_source_exact_replays_verified": 30,
+    "stored_reports_reproduced_exactly": true,
+    "planned_initial_attempts": 30,
+    "observed_initial_attempts": 30,
+    "verified_pass": 29,
+    "verified_fail": 1,
+    "hold": 0,
+    "false_greens": 0,
+    "repair_attempts": 0,
+    "ap001_section9_sequences": 0
+  },
+  "batch_artifact_sha256": {
+    "batch-ledger.json": "b6ac3307874d661d6976f681fcfbc0f155168e22a513ce181850a94ac03a23de",
+    "batch-summary.json": "a82eafd1cd4a782a6083c4c297fb4e45c55f1ce72ae830826ea47025c31cd8fb",
+    "batch-summary.md": "f30eaac448a8cf3b96d62c975340e4ea7c6584cbc10ae65adb0f3c117da5018e"
+  },
+  "attempts": [
+    {
+      "trial_index": 1,
+      "configuration_id": "ollama-llama3-latest",
+      "source_staging_evidence_dir": "phase-12-cross-model-replication-v1-ap-001-ollama-llama3-latest-i001",
+      "canonical_evidence_dir": "tasks/AP-001/evidence/live/ap001-ollama-llama3-phase12-001",
+      "run_label": "phase-12-cross-model-replication-v1-ap-001-ollama-llama3-latest-i001",
+      "final_verdict": "VERIFIED_FAIL",
+      "evaluation_record_hash": "405a7c29b4100c22bdf248f906b7b8f2e84e2d4a18d506cd58e7827afd38f981",
+      "replay_report_sha256": "612877fbdd238c86996d4f423915b3e1ed0a46c860df7b9798f941e0351777db",
+      "artifact_sha256": {
+        "candidate-resource_view.py": "db809a5818964bf8694e0243cb86e26dcf2c0d0aa2a0fddce320e14b78ba346c",
+        "evaluation.json": "a8cc9605b06784782df42a0d82c96c6f2918380c18ec88e434a288700b85fa0b",
+        "manifest.json": "3bf6fb36781cc2e8916c1e1d46c323899ea583f8d999469f69fe70790c3c0d99",
+        "model-response.txt": "a0dff1dfd51b18c9ce4a9f5e31bde2116188ff71129b868f526319c1d23537cb",
+        "replay.json": "612877fbdd238c86996d4f423915b3e1ed0a46c860df7b9798f941e0351777db",
+        "runner-stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "runner-stdout.txt": "a8cc9605b06784782df42a0d82c96c6f2918380c18ec88e434a288700b85fa0b"
+      }
+    },
+    {
+      "trial_index": 2,
+      "configuration_id": "ollama-llama3-latest",
+      "source_staging_evidence_dir": "phase-12-cross-model-replication-v1-ap-001-ollama-llama3-latest-i002",
+      "canonical_evidence_dir": "tasks/AP-001/evidence/live/ap001-ollama-llama3-phase12-002",
+      "run_label": "phase-12-cross-model-replication-v1-ap-001-ollama-llama3-latest-i002",
+      "final_verdict": "VERIFIED_PASS",
+      "evaluation_record_hash": "991068d54a5b26611b44ccafbaf476328cbe7a9b596d029ea5046c8cbb560407",
+      "replay_report_sha256": "e0ebaf0719d449c456d5e82aeb6b3a27369685daba9b246af5e128c5011f5109",
+      "artifact_sha256": {
+        "candidate-resource_view.py": "c6ae5f28d193785839b652fd4586839d47ac3e1e3374d2074283aa49f77f22db",
+        "evaluation.json": "d5890d2ed493388f268a3c20df86e19d0bea70e403342ccbb9f3acce1ded11ba",
+        "manifest.json": "431db3c8a0d8279eb6104ce0e4c157bdf07675f0a44ea3ab1a320081831727ba",
+        "model-response.txt": "4d827b9817d748158af63593a73563583bd1b1d38a1a60f4103da6266a9fb9db",
+        "replay.json": "e0ebaf0719d449c456d5e82aeb6b3a27369685daba9b246af5e128c5011f5109",
+        "runner-stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "runner-stdout.txt": "d5890d2ed493388f268a3c20df86e19d0bea70e403342ccbb9f3acce1ded11ba"
+      }
+    },
+    {
+      "trial_index": 3,
+      "configuration_id": "ollama-llama3-latest",
+      "source_staging_evidence_dir": "phase-12-cross-model-replication-v1-ap-001-ollama-llama3-latest-i003",
+      "canonical_evidence_dir": "tasks/AP-001/evidence/live/ap001-ollama-llama3-phase12-003",
+      "run_label": "phase-12-cross-model-replication-v1-ap-001-ollama-llama3-latest-i003",
+      "final_verdict": "VERIFIED_PASS",
+      "evaluation_record_hash": "652cd86c8bf67409e4845d13ec535f27ce9a6794373ed561a719cb8cf0f8048e",
+      "replay_report_sha256": "06072ad248088e4a9c6100af208a2050584e7dfc30fde8a87efd32cceeeac576",
+      "artifact_sha256": {
+        "candidate-resource_view.py": "c6ae5f28d193785839b652fd4586839d47ac3e1e3374d2074283aa49f77f22db",
+        "evaluation.json": "c94f7a609412149c6bca8ad6543513fab993c57b58f4acaab9a7252499020db4",
+        "manifest.json": "47194c7cf2559cacf758ff4136ad63ec9e18dfad20a98a4faa6c3570c93d1186",
+        "model-response.txt": "4d827b9817d748158af63593a73563583bd1b1d38a1a60f4103da6266a9fb9db",
+        "replay.json": "06072ad248088e4a9c6100af208a2050584e7dfc30fde8a87efd32cceeeac576",
+        "runner-stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "runner-stdout.txt": "c94f7a609412149c6bca8ad6543513fab993c57b58f4acaab9a7252499020db4"
+      }
+    },
+    {
+      "trial_index": 4,
+      "configuration_id": "ollama-llama3-latest",
+      "source_staging_evidence_dir": "phase-12-cross-model-replication-v1-ap-001-ollama-llama3-latest-i004",
+      "canonical_evidence_dir": "tasks/AP-001/evidence/live/ap001-ollama-llama3-phase12-004",
+      "run_label": "phase-12-cross-model-replication-v1-ap-001-ollama-llama3-latest-i004",
+      "final_verdict": "VERIFIED_PASS",
+      "evaluation_record_hash": "88e43cccbe434b383658199f51f33e369623f5112b041456d89413db88e632c3",
+      "replay_report_sha256": "bd65b8e279eff6ab1ed37ab683a41cb9239e5c4ee043face61004d81423378a4",
+      "artifact_sha256": {
+        "candidate-resource_view.py": "c6ae5f28d193785839b652fd4586839d47ac3e1e3374d2074283aa49f77f22db",
+        "evaluation.json": "e467c0c49e6b744d2c0c6b48dc6cd104fbc5e2f9e23f60051ba19f82eb23b274",
+        "manifest.json": "f6327d552a9f6e01be0541d55aab23fb1200902842e54427232d058c1ae9f1ee",
+        "model-response.txt": "4d827b9817d748158af63593a73563583bd1b1d38a1a60f4103da6266a9fb9db",
+        "replay.json": "bd65b8e279eff6ab1ed37ab683a41cb9239e5c4ee043face61004d81423378a4",
+        "runner-stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "runner-stdout.txt": "e467c0c49e6b744d2c0c6b48dc6cd104fbc5e2f9e23f60051ba19f82eb23b274"
+      }
+    },
+    {
+      "trial_index": 5,
+      "configuration_id": "ollama-llama3-latest",
+      "source_staging_evidence_dir": "phase-12-cross-model-replication-v1-ap-001-ollama-llama3-latest-i005",
+      "canonical_evidence_dir": "tasks/AP-001/evidence/live/ap001-ollama-llama3-phase12-005",
+      "run_label": "phase-12-cross-model-replication-v1-ap-001-ollama-llama3-latest-i005",
+      "final_verdict": "VERIFIED_PASS",
+      "evaluation_record_hash": "6f9445101d4ff9130b1b97684c9a719b39b6f12a3d9354e8e7f16687dc0e2309",
+      "replay_report_sha256": "b4ccfc94a4322e5a291c38aef675b59fef1aa84e05ed78d1f930f96ac807c14d",
+      "artifact_sha256": {
+        "candidate-resource_view.py": "c6ae5f28d193785839b652fd4586839d47ac3e1e3374d2074283aa49f77f22db",
+        "evaluation.json": "e1ed4f4102c89e24c7667927352d688b2db695febcf9c2e92b3957107a75e2f2",
+        "manifest.json": "b058d49b620a7471d1f1f114e9b51c61d1725919f5d47b58bfa7c586da03e5e2",
+        "model-response.txt": "4d827b9817d748158af63593a73563583bd1b1d38a1a60f4103da6266a9fb9db",
+        "replay.json": "b4ccfc94a4322e5a291c38aef675b59fef1aa84e05ed78d1f930f96ac807c14d",
+        "runner-stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "runner-stdout.txt": "e1ed4f4102c89e24c7667927352d688b2db695febcf9c2e92b3957107a75e2f2"
+      }
+    },
+    {
+      "trial_index": 6,
+      "configuration_id": "ollama-llama3-latest",
+      "source_staging_evidence_dir": "phase-12-cross-model-replication-v1-ap-001-ollama-llama3-latest-i006",
+      "canonical_evidence_dir": "tasks/AP-001/evidence/live/ap001-ollama-llama3-phase12-006",
+      "run_label": "phase-12-cross-model-replication-v1-ap-001-ollama-llama3-latest-i006",
+      "final_verdict": "VERIFIED_PASS",
+      "evaluation_record_hash": "87e70b05e40df11b40842178647137ad4673d7eb242311569761050e9292ca5f",
+      "replay_report_sha256": "add9a69c582f9a580b60938d62c1572e8397d33f437694dc995f3349600667c5",
+      "artifact_sha256": {
+        "candidate-resource_view.py": "c6ae5f28d193785839b652fd4586839d47ac3e1e3374d2074283aa49f77f22db",
+        "evaluation.json": "07573b81b5f6429425a2a3e573f2453b1d476020a4da25ddc98138c3537987e7",
+        "manifest.json": "c81102d7a0032101b7a259dedd970f0d889d69af09b406834a108042e35f747b",
+        "model-response.txt": "4d827b9817d748158af63593a73563583bd1b1d38a1a60f4103da6266a9fb9db",
+        "replay.json": "add9a69c582f9a580b60938d62c1572e8397d33f437694dc995f3349600667c5",
+        "runner-stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "runner-stdout.txt": "07573b81b5f6429425a2a3e573f2453b1d476020a4da25ddc98138c3537987e7"
+      }
+    },
+    {
+      "trial_index": 7,
+      "configuration_id": "ollama-llama3-latest",
+      "source_staging_evidence_dir": "phase-12-cross-model-replication-v1-ap-001-ollama-llama3-latest-i007",
+      "canonical_evidence_dir": "tasks/AP-001/evidence/live/ap001-ollama-llama3-phase12-007",
+      "run_label": "phase-12-cross-model-replication-v1-ap-001-ollama-llama3-latest-i007",
+      "final_verdict": "VERIFIED_PASS",
+      "evaluation_record_hash": "9c1a58215f20127713aed6244877fbe72e81568fe3198a4edbe3494b2fc712a0",
+      "replay_report_sha256": "8c760df1338ffeffa4a621762031b8a487ab73b27d6fb1dce4fa696ce2139314",
+      "artifact_sha256": {
+        "candidate-resource_view.py": "c6ae5f28d193785839b652fd4586839d47ac3e1e3374d2074283aa49f77f22db",
+        "evaluation.json": "7ec7c15d8a71805c64984760c45e4ac5b14953179a848da750c46075348e7619",
+        "manifest.json": "32b07110f91a9ec9b5066f652b5619716657ba3b8fae81d28cf787e85102a53d",
+        "model-response.txt": "4d827b9817d748158af63593a73563583bd1b1d38a1a60f4103da6266a9fb9db",
+        "replay.json": "8c760df1338ffeffa4a621762031b8a487ab73b27d6fb1dce4fa696ce2139314",
+        "runner-stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "runner-stdout.txt": "7ec7c15d8a71805c64984760c45e4ac5b14953179a848da750c46075348e7619"
+      }
+    },
+    {
+      "trial_index": 8,
+      "configuration_id": "ollama-llama3-latest",
+      "source_staging_evidence_dir": "phase-12-cross-model-replication-v1-ap-001-ollama-llama3-latest-i008",
+      "canonical_evidence_dir": "tasks/AP-001/evidence/live/ap001-ollama-llama3-phase12-008",
+      "run_label": "phase-12-cross-model-replication-v1-ap-001-ollama-llama3-latest-i008",
+      "final_verdict": "VERIFIED_PASS",
+      "evaluation_record_hash": "4437eb3914fece189dbe6c5f6dfd48d874d92b427a8a9b62e82947cf5535b30f",
+      "replay_report_sha256": "ecec62815e87b04130d30196256efd4ddeda0b693ae075ad227d3242faeaba80",
+      "artifact_sha256": {
+        "candidate-resource_view.py": "c6ae5f28d193785839b652fd4586839d47ac3e1e3374d2074283aa49f77f22db",
+        "evaluation.json": "819842b9f3957911f414a5fa5007d5ebc59d5ff37648c624cef7053a36be0075",
+        "manifest.json": "d4e8b3fc4ce614b304f7170e72e4fdf6accc77b16fa996e94d4b801410ac395f",
+        "model-response.txt": "4d827b9817d748158af63593a73563583bd1b1d38a1a60f4103da6266a9fb9db",
+        "replay.json": "ecec62815e87b04130d30196256efd4ddeda0b693ae075ad227d3242faeaba80",
+        "runner-stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "runner-stdout.txt": "819842b9f3957911f414a5fa5007d5ebc59d5ff37648c624cef7053a36be0075"
+      }
+    },
+    {
+      "trial_index": 9,
+      "configuration_id": "ollama-llama3-latest",
+      "source_staging_evidence_dir": "phase-12-cross-model-replication-v1-ap-001-ollama-llama3-latest-i009",
+      "canonical_evidence_dir": "tasks/AP-001/evidence/live/ap001-ollama-llama3-phase12-009",
+      "run_label": "phase-12-cross-model-replication-v1-ap-001-ollama-llama3-latest-i009",
+      "final_verdict": "VERIFIED_PASS",
+      "evaluation_record_hash": "a2a9fe69417e5480e0c91b42e9f1aad521a0dcf8e3e05ed15141bc1421951f65",
+      "replay_report_sha256": "3747703585112b6fff9dc5ce0bb597914abf3685af023f3ab75408698e67566d",
+      "artifact_sha256": {
+        "candidate-resource_view.py": "c6ae5f28d193785839b652fd4586839d47ac3e1e3374d2074283aa49f77f22db",
+        "evaluation.json": "cf89848d2ab9d65099670f9de0f706e4dca12c18182bcabe293ee1021158691d",
+        "manifest.json": "a1ee487bc602dbd923c609556a6ec753c6169ceac638d0098bccc55542c0725e",
+        "model-response.txt": "4d827b9817d748158af63593a73563583bd1b1d38a1a60f4103da6266a9fb9db",
+        "replay.json": "3747703585112b6fff9dc5ce0bb597914abf3685af023f3ab75408698e67566d",
+        "runner-stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "runner-stdout.txt": "cf89848d2ab9d65099670f9de0f706e4dca12c18182bcabe293ee1021158691d"
+      }
+    },
+    {
+      "trial_index": 10,
+      "configuration_id": "ollama-llama3-latest",
+      "source_staging_evidence_dir": "phase-12-cross-model-replication-v1-ap-001-ollama-llama3-latest-i010",
+      "canonical_evidence_dir": "tasks/AP-001/evidence/live/ap001-ollama-llama3-phase12-010",
+      "run_label": "phase-12-cross-model-replication-v1-ap-001-ollama-llama3-latest-i010",
+      "final_verdict": "VERIFIED_PASS",
+      "evaluation_record_hash": "d2c5c1762aa027b9d01da56d0cf1c326ae6a67830081b454c38d6e6bf7ca4c6d",
+      "replay_report_sha256": "c2ab6f8e4af90db9f8d726c42f023e123a019c11aa0a107111a9aa659f386263",
+      "artifact_sha256": {
+        "candidate-resource_view.py": "c6ae5f28d193785839b652fd4586839d47ac3e1e3374d2074283aa49f77f22db",
+        "evaluation.json": "da177e2d0c1d1e31c682783d3811c79f525399954d560bb4d470512f2c8dff95",
+        "manifest.json": "cf7517c0f9d142d10cf12e2aaaac51effeeccbb5e4234e65d24e332f1b968a9f",
+        "model-response.txt": "4d827b9817d748158af63593a73563583bd1b1d38a1a60f4103da6266a9fb9db",
+        "replay.json": "c2ab6f8e4af90db9f8d726c42f023e123a019c11aa0a107111a9aa659f386263",
+        "runner-stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "runner-stdout.txt": "da177e2d0c1d1e31c682783d3811c79f525399954d560bb4d470512f2c8dff95"
+      }
+    },
+    {
+      "trial_index": 1,
+      "configuration_id": "ollama-qwen2-5-coder-7b",
+      "source_staging_evidence_dir": "phase-12-cross-model-replication-v1-ap-001-ollama-qwen2-5-coder-7b-i001",
+      "canonical_evidence_dir": "tasks/AP-001/evidence/live/ap001-ollama-qwen2-5-coder-7b-phase12-001",
+      "run_label": "phase-12-cross-model-replication-v1-ap-001-ollama-qwen2-5-coder-7b-i001",
+      "final_verdict": "VERIFIED_PASS",
+      "evaluation_record_hash": "4af9a2f1d3c15b524049fdc458401f6c4ec7121775d3a147bf30d8ec1085fa5a",
+      "replay_report_sha256": "4b8ab78934a8dd0d1a47814d8c21b4604bbc7342911dc2c904784f96365cb736",
+      "artifact_sha256": {
+        "candidate-resource_view.py": "d6b54867f2c0ba2b38a8de0a52a2418dcb649234e845360fe2ff42518bc2e2a9",
+        "evaluation.json": "9c1dadb3c1f16ddf25c199c50dc49760b2b494e317808f92278eafd34869e69c",
+        "manifest.json": "29b84b0da10be5d588d2932300dbacaa63b41292ea8094088eb88eccd8bb789f",
+        "model-response.txt": "c841426166624ac063fb0874edeb6ced7bb53fb1c58ea4c1617650560136e7af",
+        "replay.json": "4b8ab78934a8dd0d1a47814d8c21b4604bbc7342911dc2c904784f96365cb736",
+        "runner-stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "runner-stdout.txt": "9c1dadb3c1f16ddf25c199c50dc49760b2b494e317808f92278eafd34869e69c"
+      }
+    },
+    {
+      "trial_index": 2,
+      "configuration_id": "ollama-qwen2-5-coder-7b",
+      "source_staging_evidence_dir": "phase-12-cross-model-replication-v1-ap-001-ollama-qwen2-5-coder-7b-i002",
+      "canonical_evidence_dir": "tasks/AP-001/evidence/live/ap001-ollama-qwen2-5-coder-7b-phase12-002",
+      "run_label": "phase-12-cross-model-replication-v1-ap-001-ollama-qwen2-5-coder-7b-i002",
+      "final_verdict": "VERIFIED_PASS",
+      "evaluation_record_hash": "2b35c851306bc27a1c6b162a4acbcc5036430e0e33ff84bce8f60a69ce40d28f",
+      "replay_report_sha256": "6015c60591c698111d1c0da393bacfeafb762c387606141d45c379158713a8a7",
+      "artifact_sha256": {
+        "candidate-resource_view.py": "a815b99547f87bd5623b10056b857279bc75cf672dab770ca0490c593b779b7d",
+        "evaluation.json": "04287970deb08c84283eb83f0a69fc7cb8fee947f8677a36592933166f9b1686",
+        "manifest.json": "0edcfc5e0c4caf6622778a412a90d697d09a65d5a93d68d26e578d72bb9d170b",
+        "model-response.txt": "80385b3c4290e9d99089b699be95f1afe783f57401e8595399e10fa9e68ab3bd",
+        "replay.json": "6015c60591c698111d1c0da393bacfeafb762c387606141d45c379158713a8a7",
+        "runner-stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "runner-stdout.txt": "04287970deb08c84283eb83f0a69fc7cb8fee947f8677a36592933166f9b1686"
+      }
+    },
+    {
+      "trial_index": 3,
+      "configuration_id": "ollama-qwen2-5-coder-7b",
+      "source_staging_evidence_dir": "phase-12-cross-model-replication-v1-ap-001-ollama-qwen2-5-coder-7b-i003",
+      "canonical_evidence_dir": "tasks/AP-001/evidence/live/ap001-ollama-qwen2-5-coder-7b-phase12-003",
+      "run_label": "phase-12-cross-model-replication-v1-ap-001-ollama-qwen2-5-coder-7b-i003",
+      "final_verdict": "VERIFIED_PASS",
+      "evaluation_record_hash": "3ca3a14540b065de85a850918744afaa23bf537604629e52e20d832bb524c6a6",
+      "replay_report_sha256": "0f7ec58b10d9be999f40256dc7c7e54bb607c047c814edf7e0e5c56d02cb7a5c",
+      "artifact_sha256": {
+        "candidate-resource_view.py": "a815b99547f87bd5623b10056b857279bc75cf672dab770ca0490c593b779b7d",
+        "evaluation.json": "07572fbfbbd01351fac57ae7dcddecf8982fe00d37fb5d5d7f80856715dafae4",
+        "manifest.json": "a0a4e966d49ae755e13995f225c99ff0e2cede19bc949c32cdf1c99b88e02946",
+        "model-response.txt": "80385b3c4290e9d99089b699be95f1afe783f57401e8595399e10fa9e68ab3bd",
+        "replay.json": "0f7ec58b10d9be999f40256dc7c7e54bb607c047c814edf7e0e5c56d02cb7a5c",
+        "runner-stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "runner-stdout.txt": "07572fbfbbd01351fac57ae7dcddecf8982fe00d37fb5d5d7f80856715dafae4"
+      }
+    },
+    {
+      "trial_index": 4,
+      "configuration_id": "ollama-qwen2-5-coder-7b",
+      "source_staging_evidence_dir": "phase-12-cross-model-replication-v1-ap-001-ollama-qwen2-5-coder-7b-i004",
+      "canonical_evidence_dir": "tasks/AP-001/evidence/live/ap001-ollama-qwen2-5-coder-7b-phase12-004",
+      "run_label": "phase-12-cross-model-replication-v1-ap-001-ollama-qwen2-5-coder-7b-i004",
+      "final_verdict": "VERIFIED_PASS",
+      "evaluation_record_hash": "0d50aeca4b0aaa07aea89d7334a1fe57d4f74ae89e75431bc18375da6d16af12",
+      "replay_report_sha256": "70ae6908f19d195cfc5eb033b006bff0326403e1a1d1be2b0e7ec907b274e800",
+      "artifact_sha256": {
+        "candidate-resource_view.py": "a815b99547f87bd5623b10056b857279bc75cf672dab770ca0490c593b779b7d",
+        "evaluation.json": "b72006e0316d5a03cbf37b120141bc2a1e7a76fe70e7801e6460eedbb2ccecae",
+        "manifest.json": "433a7499de385b00a03925eef6509ff6e378cdcd043398c19a544329afc577a5",
+        "model-response.txt": "80385b3c4290e9d99089b699be95f1afe783f57401e8595399e10fa9e68ab3bd",
+        "replay.json": "70ae6908f19d195cfc5eb033b006bff0326403e1a1d1be2b0e7ec907b274e800",
+        "runner-stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "runner-stdout.txt": "b72006e0316d5a03cbf37b120141bc2a1e7a76fe70e7801e6460eedbb2ccecae"
+      }
+    },
+    {
+      "trial_index": 5,
+      "configuration_id": "ollama-qwen2-5-coder-7b",
+      "source_staging_evidence_dir": "phase-12-cross-model-replication-v1-ap-001-ollama-qwen2-5-coder-7b-i005",
+      "canonical_evidence_dir": "tasks/AP-001/evidence/live/ap001-ollama-qwen2-5-coder-7b-phase12-005",
+      "run_label": "phase-12-cross-model-replication-v1-ap-001-ollama-qwen2-5-coder-7b-i005",
+      "final_verdict": "VERIFIED_PASS",
+      "evaluation_record_hash": "e4d42891ddd03f568790d63c5e5fe963cbb4f9d03e1ab21f1b4bf7e52375ebe4",
+      "replay_report_sha256": "2be7cef741d924daebfd5c8199a32c79b9de73e85fa4c00502f910ae41dc590a",
+      "artifact_sha256": {
+        "candidate-resource_view.py": "a815b99547f87bd5623b10056b857279bc75cf672dab770ca0490c593b779b7d",
+        "evaluation.json": "fdfec52d5575b8fd2bcbec7b2734cf9b3209bccc7bfc47953e6073d3797f471e",
+        "manifest.json": "1cd26421e2c51e1215540c10f95a71056a36b82679cfab6ac75f21027642b6f0",
+        "model-response.txt": "80385b3c4290e9d99089b699be95f1afe783f57401e8595399e10fa9e68ab3bd",
+        "replay.json": "2be7cef741d924daebfd5c8199a32c79b9de73e85fa4c00502f910ae41dc590a",
+        "runner-stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "runner-stdout.txt": "fdfec52d5575b8fd2bcbec7b2734cf9b3209bccc7bfc47953e6073d3797f471e"
+      }
+    },
+    {
+      "trial_index": 6,
+      "configuration_id": "ollama-qwen2-5-coder-7b",
+      "source_staging_evidence_dir": "phase-12-cross-model-replication-v1-ap-001-ollama-qwen2-5-coder-7b-i006",
+      "canonical_evidence_dir": "tasks/AP-001/evidence/live/ap001-ollama-qwen2-5-coder-7b-phase12-006",
+      "run_label": "phase-12-cross-model-replication-v1-ap-001-ollama-qwen2-5-coder-7b-i006",
+      "final_verdict": "VERIFIED_PASS",
+      "evaluation_record_hash": "e3068ba4866616c61b436a5f50d972b2dd77488542fc1fa1cae01885385cd431",
+      "replay_report_sha256": "6128779e1329b363359cef3a9e7ca46f70d90f2cc9fe1800bd7dfc2bdafbf159",
+      "artifact_sha256": {
+        "candidate-resource_view.py": "a815b99547f87bd5623b10056b857279bc75cf672dab770ca0490c593b779b7d",
+        "evaluation.json": "dc7fefe0999b6fddfb70ac72369fea1393c969d991578e2f3f937b9c757ce1d9",
+        "manifest.json": "4b73d4d1046d3a88100dc7a01cdbcc3c559e5f09ac91707d08777561fde391ee",
+        "model-response.txt": "80385b3c4290e9d99089b699be95f1afe783f57401e8595399e10fa9e68ab3bd",
+        "replay.json": "6128779e1329b363359cef3a9e7ca46f70d90f2cc9fe1800bd7dfc2bdafbf159",
+        "runner-stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "runner-stdout.txt": "dc7fefe0999b6fddfb70ac72369fea1393c969d991578e2f3f937b9c757ce1d9"
+      }
+    },
+    {
+      "trial_index": 7,
+      "configuration_id": "ollama-qwen2-5-coder-7b",
+      "source_staging_evidence_dir": "phase-12-cross-model-replication-v1-ap-001-ollama-qwen2-5-coder-7b-i007",
+      "canonical_evidence_dir": "tasks/AP-001/evidence/live/ap001-ollama-qwen2-5-coder-7b-phase12-007",
+      "run_label": "phase-12-cross-model-replication-v1-ap-001-ollama-qwen2-5-coder-7b-i007",
+      "final_verdict": "VERIFIED_PASS",
+      "evaluation_record_hash": "c3c8dae199444db2558bd2fb23389394813ad83e4f56307055960f4811bfb5fa",
+      "replay_report_sha256": "4d653d63e838167bf9ac231a5d1b1d90db35768d9b7b8ea3424d96bafaae18ca",
+      "artifact_sha256": {
+        "candidate-resource_view.py": "a815b99547f87bd5623b10056b857279bc75cf672dab770ca0490c593b779b7d",
+        "evaluation.json": "446e1204a6cc977cca8cd8e5e481128c2d07d0fa330b702163517bdd5a76fb2a",
+        "manifest.json": "2adec1c5d398e5b8c78fef8f47b49eccf6d23a2458e80fd1f2ae515381b1ade0",
+        "model-response.txt": "80385b3c4290e9d99089b699be95f1afe783f57401e8595399e10fa9e68ab3bd",
+        "replay.json": "4d653d63e838167bf9ac231a5d1b1d90db35768d9b7b8ea3424d96bafaae18ca",
+        "runner-stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "runner-stdout.txt": "446e1204a6cc977cca8cd8e5e481128c2d07d0fa330b702163517bdd5a76fb2a"
+      }
+    },
+    {
+      "trial_index": 8,
+      "configuration_id": "ollama-qwen2-5-coder-7b",
+      "source_staging_evidence_dir": "phase-12-cross-model-replication-v1-ap-001-ollama-qwen2-5-coder-7b-i008",
+      "canonical_evidence_dir": "tasks/AP-001/evidence/live/ap001-ollama-qwen2-5-coder-7b-phase12-008",
+      "run_label": "phase-12-cross-model-replication-v1-ap-001-ollama-qwen2-5-coder-7b-i008",
+      "final_verdict": "VERIFIED_PASS",
+      "evaluation_record_hash": "3ddb567f36b8c631644c17a19099877ab15f81c4e7625a8f0197f27e15bc98ab",
+      "replay_report_sha256": "130a0fdf38bf019587af9b14b9918b70ee9d6766add76f0d726a67d8984a3367",
+      "artifact_sha256": {
+        "candidate-resource_view.py": "a815b99547f87bd5623b10056b857279bc75cf672dab770ca0490c593b779b7d",
+        "evaluation.json": "9fc38da7850536615fc5ecd38f75d72fe9f06fcd569c0836b22a40c9214866ed",
+        "manifest.json": "e6045a10ef52a5b72210ce93cdc007d49b0e905333d71d44da0abb23c035ffc7",
+        "model-response.txt": "80385b3c4290e9d99089b699be95f1afe783f57401e8595399e10fa9e68ab3bd",
+        "replay.json": "130a0fdf38bf019587af9b14b9918b70ee9d6766add76f0d726a67d8984a3367",
+        "runner-stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "runner-stdout.txt": "9fc38da7850536615fc5ecd38f75d72fe9f06fcd569c0836b22a40c9214866ed"
+      }
+    },
+    {
+      "trial_index": 9,
+      "configuration_id": "ollama-qwen2-5-coder-7b",
+      "source_staging_evidence_dir": "phase-12-cross-model-replication-v1-ap-001-ollama-qwen2-5-coder-7b-i009",
+      "canonical_evidence_dir": "tasks/AP-001/evidence/live/ap001-ollama-qwen2-5-coder-7b-phase12-009",
+      "run_label": "phase-12-cross-model-replication-v1-ap-001-ollama-qwen2-5-coder-7b-i009",
+      "final_verdict": "VERIFIED_PASS",
+      "evaluation_record_hash": "11ce81f01441f25b48add1639d06dc0c0d610e3a57b3c41d20598ddfbc9c87f0",
+      "replay_report_sha256": "6b94cc4bb3c863f050a071fdbb2eb592d09ec20b9dd1ca252cac0280ba749a97",
+      "artifact_sha256": {
+        "candidate-resource_view.py": "a815b99547f87bd5623b10056b857279bc75cf672dab770ca0490c593b779b7d",
+        "evaluation.json": "687dd2511144e19514347f28c00a61700aa1ecbd8a9e4064a731c80b912fc731",
+        "manifest.json": "51028b27fc5a8afdd84bb1ac80317c867f13d0eb12a000f12f0535d8df6714a5",
+        "model-response.txt": "80385b3c4290e9d99089b699be95f1afe783f57401e8595399e10fa9e68ab3bd",
+        "replay.json": "6b94cc4bb3c863f050a071fdbb2eb592d09ec20b9dd1ca252cac0280ba749a97",
+        "runner-stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "runner-stdout.txt": "687dd2511144e19514347f28c00a61700aa1ecbd8a9e4064a731c80b912fc731"
+      }
+    },
+    {
+      "trial_index": 10,
+      "configuration_id": "ollama-qwen2-5-coder-7b",
+      "source_staging_evidence_dir": "phase-12-cross-model-replication-v1-ap-001-ollama-qwen2-5-coder-7b-i010",
+      "canonical_evidence_dir": "tasks/AP-001/evidence/live/ap001-ollama-qwen2-5-coder-7b-phase12-010",
+      "run_label": "phase-12-cross-model-replication-v1-ap-001-ollama-qwen2-5-coder-7b-i010",
+      "final_verdict": "VERIFIED_PASS",
+      "evaluation_record_hash": "8f699edb7c62f6f357abae8a4dca05e1175757771efe8f8b62a19b3b2f987455",
+      "replay_report_sha256": "83d3f472999c551cc7e980fe2198bed72d6ef2d946ccaaa87079fb8263c80f81",
+      "artifact_sha256": {
+        "candidate-resource_view.py": "a815b99547f87bd5623b10056b857279bc75cf672dab770ca0490c593b779b7d",
+        "evaluation.json": "95f1e0dfcbb12d1b5a865ccd6dd010442bf355db1a800b1645d01e36c67f3f01",
+        "manifest.json": "b32293e253e65f60ea055d2a7a5f0a9477b9299c26c2cc312c5238864dbe1607",
+        "model-response.txt": "80385b3c4290e9d99089b699be95f1afe783f57401e8595399e10fa9e68ab3bd",
+        "replay.json": "83d3f472999c551cc7e980fe2198bed72d6ef2d946ccaaa87079fb8263c80f81",
+        "runner-stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "runner-stdout.txt": "95f1e0dfcbb12d1b5a865ccd6dd010442bf355db1a800b1645d01e36c67f3f01"
+      }
+    },
+    {
+      "trial_index": 1,
+      "configuration_id": "nebius-nemotron-3-super-120b-a12b",
+      "source_staging_evidence_dir": "phase-12-cross-model-replication-v1-ap-001-nebius-nemotron-3-super-120b-a12b-i001",
+      "canonical_evidence_dir": "tasks/AP-001/evidence/live/ap001-nebius-nemotron-phase12-001",
+      "run_label": "phase-12-cross-model-replication-v1-ap-001-nebius-nemotron-3-super-120b-a12b-i001",
+      "final_verdict": "VERIFIED_PASS",
+      "evaluation_record_hash": "7df9bd6976f2ccfda7cfeaa78413c7e6d4e546074506aa4dea04332e43233324",
+      "replay_report_sha256": "a87fe018213cac47dae5d88cfce539d086409be830e79720fd869a96d05908ee",
+      "artifact_sha256": {
+        "candidate-resource_view.py": "38d26cff34fd455c31a13ad20c3134f752ee61f2ccba4cd0c4af584b4da4352b",
+        "evaluation.json": "409a1f84bb220d439d8d63dbb78982c92dadc8f51f65ba862f82c9a8ef03c67c",
+        "manifest.json": "8144b49532a8b5c14f6017accac4992f12efc5b4e66340dde8eaae4dcc3aebc7",
+        "model-response.txt": "78f96ab57577ffb65745c836173d56cd394de76f39c9c46b45c959336b7eee65",
+        "replay.json": "a87fe018213cac47dae5d88cfce539d086409be830e79720fd869a96d05908ee",
+        "runner-stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "runner-stdout.txt": "409a1f84bb220d439d8d63dbb78982c92dadc8f51f65ba862f82c9a8ef03c67c"
+      }
+    },
+    {
+      "trial_index": 2,
+      "configuration_id": "nebius-nemotron-3-super-120b-a12b",
+      "source_staging_evidence_dir": "phase-12-cross-model-replication-v1-ap-001-nebius-nemotron-3-super-120b-a12b-i002",
+      "canonical_evidence_dir": "tasks/AP-001/evidence/live/ap001-nebius-nemotron-phase12-002",
+      "run_label": "phase-12-cross-model-replication-v1-ap-001-nebius-nemotron-3-super-120b-a12b-i002",
+      "final_verdict": "VERIFIED_PASS",
+      "evaluation_record_hash": "5f0331014c38d1c01bc633524fab6358eac3b262423770250bbe8b9beab56ad3",
+      "replay_report_sha256": "63c53f290eef8782d2b20ce5a447b1916487631f83ccac424e51b68ed1432b45",
+      "artifact_sha256": {
+        "candidate-resource_view.py": "f43589d44b3384bfa878ba60d8ca60f37e081089eb1b2666d5469bf8ab518298",
+        "evaluation.json": "e8643488c84188544ee0504dbd9199d1caad41489b68c2c0d6e6e791aa1d83ed",
+        "manifest.json": "56211ee6e8ef435c418a7952cbe78284eb7629b0ee4892e02c567eb5a4a78ca7",
+        "model-response.txt": "be75ebd9e0839d4db429479673dfb278e501a25e07723b0fd96b82610d81b343",
+        "replay.json": "63c53f290eef8782d2b20ce5a447b1916487631f83ccac424e51b68ed1432b45",
+        "runner-stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "runner-stdout.txt": "e8643488c84188544ee0504dbd9199d1caad41489b68c2c0d6e6e791aa1d83ed"
+      }
+    },
+    {
+      "trial_index": 3,
+      "configuration_id": "nebius-nemotron-3-super-120b-a12b",
+      "source_staging_evidence_dir": "phase-12-cross-model-replication-v1-ap-001-nebius-nemotron-3-super-120b-a12b-i003",
+      "canonical_evidence_dir": "tasks/AP-001/evidence/live/ap001-nebius-nemotron-phase12-003",
+      "run_label": "phase-12-cross-model-replication-v1-ap-001-nebius-nemotron-3-super-120b-a12b-i003",
+      "final_verdict": "VERIFIED_PASS",
+      "evaluation_record_hash": "296f7e2779b77ab094a016819e06057dbb23feda036c2dc8af517444971a0849",
+      "replay_report_sha256": "2bcedc188c4cc2edb87d01952dcff7fc968255ff424e1fa77fe6515ef02fab12",
+      "artifact_sha256": {
+        "candidate-resource_view.py": "f43589d44b3384bfa878ba60d8ca60f37e081089eb1b2666d5469bf8ab518298",
+        "evaluation.json": "7b74224a6e94eca424a61a12f0e4a1695e48f553a608506b71aa30935dea3907",
+        "manifest.json": "6617265523300fef73101811d15b646a1e35b80474e8f0506086b76f4b585a27",
+        "model-response.txt": "be75ebd9e0839d4db429479673dfb278e501a25e07723b0fd96b82610d81b343",
+        "replay.json": "2bcedc188c4cc2edb87d01952dcff7fc968255ff424e1fa77fe6515ef02fab12",
+        "runner-stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "runner-stdout.txt": "7b74224a6e94eca424a61a12f0e4a1695e48f553a608506b71aa30935dea3907"
+      }
+    },
+    {
+      "trial_index": 4,
+      "configuration_id": "nebius-nemotron-3-super-120b-a12b",
+      "source_staging_evidence_dir": "phase-12-cross-model-replication-v1-ap-001-nebius-nemotron-3-super-120b-a12b-i004",
+      "canonical_evidence_dir": "tasks/AP-001/evidence/live/ap001-nebius-nemotron-phase12-004",
+      "run_label": "phase-12-cross-model-replication-v1-ap-001-nebius-nemotron-3-super-120b-a12b-i004",
+      "final_verdict": "VERIFIED_PASS",
+      "evaluation_record_hash": "c527cc9d5da16f8d08c6480c7eef08f81fc2b15de65bf72b46511a04ba3beef4",
+      "replay_report_sha256": "548e8136dfd55e2c99c084145737b951c26c5cf6a1425c145eea65ed73d38887",
+      "artifact_sha256": {
+        "candidate-resource_view.py": "f43589d44b3384bfa878ba60d8ca60f37e081089eb1b2666d5469bf8ab518298",
+        "evaluation.json": "9b71ec4311e0f52e454d7034864c36b81186d6072be5a26d0d84e3e2af75ca1e",
+        "manifest.json": "ae664c03daa997bdeaba35cf0fc56c628227d20a8dfee5d2c639b7b40af86b07",
+        "model-response.txt": "be75ebd9e0839d4db429479673dfb278e501a25e07723b0fd96b82610d81b343",
+        "replay.json": "548e8136dfd55e2c99c084145737b951c26c5cf6a1425c145eea65ed73d38887",
+        "runner-stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "runner-stdout.txt": "9b71ec4311e0f52e454d7034864c36b81186d6072be5a26d0d84e3e2af75ca1e"
+      }
+    },
+    {
+      "trial_index": 5,
+      "configuration_id": "nebius-nemotron-3-super-120b-a12b",
+      "source_staging_evidence_dir": "phase-12-cross-model-replication-v1-ap-001-nebius-nemotron-3-super-120b-a12b-i005",
+      "canonical_evidence_dir": "tasks/AP-001/evidence/live/ap001-nebius-nemotron-phase12-005",
+      "run_label": "phase-12-cross-model-replication-v1-ap-001-nebius-nemotron-3-super-120b-a12b-i005",
+      "final_verdict": "VERIFIED_PASS",
+      "evaluation_record_hash": "2453646ff4e26c78b1c2457d86f02b93352acb5c325ca454a7ac5dc8178e62ac",
+      "replay_report_sha256": "7a126955375659c1aaa69db1c93d438a8b7d393e84cf83ae4ab2a0ba4ce1b359",
+      "artifact_sha256": {
+        "candidate-resource_view.py": "f43589d44b3384bfa878ba60d8ca60f37e081089eb1b2666d5469bf8ab518298",
+        "evaluation.json": "19dff6a6e212e0dfe41c4c270565bc66b39273af6d197c97e27f9eb6b9cf6fb0",
+        "manifest.json": "35c7e7eec4e620ea5de1f2f3b94fadf6262b3bed134e1f60d995ce9be7b38237",
+        "model-response.txt": "be75ebd9e0839d4db429479673dfb278e501a25e07723b0fd96b82610d81b343",
+        "replay.json": "7a126955375659c1aaa69db1c93d438a8b7d393e84cf83ae4ab2a0ba4ce1b359",
+        "runner-stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "runner-stdout.txt": "19dff6a6e212e0dfe41c4c270565bc66b39273af6d197c97e27f9eb6b9cf6fb0"
+      }
+    },
+    {
+      "trial_index": 6,
+      "configuration_id": "nebius-nemotron-3-super-120b-a12b",
+      "source_staging_evidence_dir": "phase-12-cross-model-replication-v1-ap-001-nebius-nemotron-3-super-120b-a12b-i006",
+      "canonical_evidence_dir": "tasks/AP-001/evidence/live/ap001-nebius-nemotron-phase12-006",
+      "run_label": "phase-12-cross-model-replication-v1-ap-001-nebius-nemotron-3-super-120b-a12b-i006",
+      "final_verdict": "VERIFIED_PASS",
+      "evaluation_record_hash": "dcb1b6cf4a51d952b76819e59761de2814888a924da8e1deedd6f2d42b3c42d7",
+      "replay_report_sha256": "76ad472784f184c5c52a51d7095d83b04b92e9fe6827e59e48ba57d97af81944",
+      "artifact_sha256": {
+        "candidate-resource_view.py": "f43589d44b3384bfa878ba60d8ca60f37e081089eb1b2666d5469bf8ab518298",
+        "evaluation.json": "80dcd487dbc1366f624005324f5dbc53ee766c0a569c7d010fe320a3c865bc6b",
+        "manifest.json": "d0658bcf8c1461f4e822f8c432632ef4ae8c53965311534de44009f4f2f1f7b7",
+        "model-response.txt": "be75ebd9e0839d4db429479673dfb278e501a25e07723b0fd96b82610d81b343",
+        "replay.json": "76ad472784f184c5c52a51d7095d83b04b92e9fe6827e59e48ba57d97af81944",
+        "runner-stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "runner-stdout.txt": "80dcd487dbc1366f624005324f5dbc53ee766c0a569c7d010fe320a3c865bc6b"
+      }
+    },
+    {
+      "trial_index": 7,
+      "configuration_id": "nebius-nemotron-3-super-120b-a12b",
+      "source_staging_evidence_dir": "phase-12-cross-model-replication-v1-ap-001-nebius-nemotron-3-super-120b-a12b-i007",
+      "canonical_evidence_dir": "tasks/AP-001/evidence/live/ap001-nebius-nemotron-phase12-007",
+      "run_label": "phase-12-cross-model-replication-v1-ap-001-nebius-nemotron-3-super-120b-a12b-i007",
+      "final_verdict": "VERIFIED_PASS",
+      "evaluation_record_hash": "ad421a4cfb53490bfbaddcb143152a70cdc912ebca7db3db185d4718ae076837",
+      "replay_report_sha256": "9f5505b43733dec5dd60b9564dc31d0703093937cbf09caa48e9026ad006c85c",
+      "artifact_sha256": {
+        "candidate-resource_view.py": "38d26cff34fd455c31a13ad20c3134f752ee61f2ccba4cd0c4af584b4da4352b",
+        "evaluation.json": "803551ed476e38f430ba105029ddc2ad542d96bf708c062763332fd840a28e13",
+        "manifest.json": "7e66d14ef05185baee2c6ba3c558ff14a02916efdaf779bd7bb6a0f4124d5c43",
+        "model-response.txt": "78f96ab57577ffb65745c836173d56cd394de76f39c9c46b45c959336b7eee65",
+        "replay.json": "9f5505b43733dec5dd60b9564dc31d0703093937cbf09caa48e9026ad006c85c",
+        "runner-stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "runner-stdout.txt": "803551ed476e38f430ba105029ddc2ad542d96bf708c062763332fd840a28e13"
+      }
+    },
+    {
+      "trial_index": 8,
+      "configuration_id": "nebius-nemotron-3-super-120b-a12b",
+      "source_staging_evidence_dir": "phase-12-cross-model-replication-v1-ap-001-nebius-nemotron-3-super-120b-a12b-i008",
+      "canonical_evidence_dir": "tasks/AP-001/evidence/live/ap001-nebius-nemotron-phase12-008",
+      "run_label": "phase-12-cross-model-replication-v1-ap-001-nebius-nemotron-3-super-120b-a12b-i008",
+      "final_verdict": "VERIFIED_PASS",
+      "evaluation_record_hash": "c6a3c5010e541d39b28e414f5326c47b3676be78697896a553f6cd062716ded1",
+      "replay_report_sha256": "17f28451a87936aad5f16b4f89e5cf1352109475ef688840093e7cef0ee82c42",
+      "artifact_sha256": {
+        "candidate-resource_view.py": "ea6e54d883d9be3291b96d3d9fb75332ef9d68fb1c11469c90ee69686fa89844",
+        "evaluation.json": "7177a4174f33dfb752f6015a5c4f8575253c2662d896dca02a007adb294f88b0",
+        "manifest.json": "fbad3f5b071df3a24745488ce2974db3b184149659c26fd3525a82d50b922a0c",
+        "model-response.txt": "dd2b588e2d5d3ddb0c4e637e0606f2c41b6839e14e58943469be9a8361d78caa",
+        "replay.json": "17f28451a87936aad5f16b4f89e5cf1352109475ef688840093e7cef0ee82c42",
+        "runner-stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "runner-stdout.txt": "7177a4174f33dfb752f6015a5c4f8575253c2662d896dca02a007adb294f88b0"
+      }
+    },
+    {
+      "trial_index": 9,
+      "configuration_id": "nebius-nemotron-3-super-120b-a12b",
+      "source_staging_evidence_dir": "phase-12-cross-model-replication-v1-ap-001-nebius-nemotron-3-super-120b-a12b-i009",
+      "canonical_evidence_dir": "tasks/AP-001/evidence/live/ap001-nebius-nemotron-phase12-009",
+      "run_label": "phase-12-cross-model-replication-v1-ap-001-nebius-nemotron-3-super-120b-a12b-i009",
+      "final_verdict": "VERIFIED_PASS",
+      "evaluation_record_hash": "e65c5dbe177023a1febb6c3421353a16f1c192cce155d97a44e2cc3b8d26e797",
+      "replay_report_sha256": "d4d0f9fb33a1ec056ad559573d64632abd987ff8e0bd145261a0f43f0850a4f6",
+      "artifact_sha256": {
+        "candidate-resource_view.py": "ea6e54d883d9be3291b96d3d9fb75332ef9d68fb1c11469c90ee69686fa89844",
+        "evaluation.json": "f0ad7fcfa7d794fe891ca6ffe86ea29b2d002aabc9fdd4719684815e67eb5b1e",
+        "manifest.json": "b3b187a14350ed41fbddd9000939f08e404ec209c3bdfe220987c77b2be8a1a1",
+        "model-response.txt": "dd2b588e2d5d3ddb0c4e637e0606f2c41b6839e14e58943469be9a8361d78caa",
+        "replay.json": "d4d0f9fb33a1ec056ad559573d64632abd987ff8e0bd145261a0f43f0850a4f6",
+        "runner-stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "runner-stdout.txt": "f0ad7fcfa7d794fe891ca6ffe86ea29b2d002aabc9fdd4719684815e67eb5b1e"
+      }
+    },
+    {
+      "trial_index": 10,
+      "configuration_id": "nebius-nemotron-3-super-120b-a12b",
+      "source_staging_evidence_dir": "phase-12-cross-model-replication-v1-ap-001-nebius-nemotron-3-super-120b-a12b-i010",
+      "canonical_evidence_dir": "tasks/AP-001/evidence/live/ap001-nebius-nemotron-phase12-010",
+      "run_label": "phase-12-cross-model-replication-v1-ap-001-nebius-nemotron-3-super-120b-a12b-i010",
+      "final_verdict": "VERIFIED_PASS",
+      "evaluation_record_hash": "9fb85ed0a9223b4821aa476e00ae36122c92dcfb15750c4341cb872959883f92",
+      "replay_report_sha256": "677a3374bd94547171b3764d8f832af4d6181e6c7a7d2db38a14246d09ad517e",
+      "artifact_sha256": {
+        "candidate-resource_view.py": "38d26cff34fd455c31a13ad20c3134f752ee61f2ccba4cd0c4af584b4da4352b",
+        "evaluation.json": "bf8c23b49d614da5d9ab44044a4967971d587023fff78e23a103942dd1074bf7",
+        "manifest.json": "161998d20e3c322b58f4d0294cb4c902e7f4098742a9876a34a5086eb27e692c",
+        "model-response.txt": "78f96ab57577ffb65745c836173d56cd394de76f39c9c46b45c959336b7eee65",
+        "replay.json": "677a3374bd94547171b3764d8f832af4d6181e6c7a7d2db38a14246d09ad517e",
+        "runner-stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "runner-stdout.txt": "bf8c23b49d614da5d9ab44044a4967971d587023fff78e23a103942dd1074bf7"
+      }
+    }
+  ],
+  "claim_boundary": [
+    "This is a fixed AP-001 matrix of three configurations with ten initial trials per configuration under one evaluator source commit.",
+    "Twenty-nine attempts reached VERIFIED_PASS; one llama3:latest attempt failed public validation and is preserved as VERIFIED_FAIL. No false-green occurred and no repair was eligible.",
+    "All 30 committed attempts passed source-exact no-model replay; this supports bounded AP-001 configuration-level evidence only.",
+    "The results do not establish general coding-agent performance, provider-wide superiority, statistical generalization beyond this matrix, customers, revenue, or production scale.",
+    "The AP-001 Section 9 false-green-to-repair sequence remains unsatisfied."
+  ]
+}

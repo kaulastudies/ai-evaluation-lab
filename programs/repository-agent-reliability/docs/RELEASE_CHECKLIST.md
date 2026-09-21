@@ -36,8 +36,8 @@ release gates without changing the frozen benchmark evidence.
 - full non-stopping batch required; split configuration execution rejected
 - per-configuration Wilson intervals, repair outcomes, latency, token, and reported-cost
   coverage preregistered
-- Phase 12 live attempts committed: **0**
-- existing 21 attempts remain frozen and unchanged
+- Phase 12 promoted initial attempts: **30**
+- prior Phase 11 evidence remains frozen and unchanged
 
 ## Post-release Phase 11B evidence expansion
 
@@ -75,12 +75,25 @@ the merge commit and PR; these boxes are a status record, not newly generated ev
 ## Evidence boundaries that remain after v0.1
 
 - the original AP-001 Section 9 sequence as written, including repair conversion within AP-001;
-- repeated cross-model and cross-provider benchmark evidence with sample sizes
-  sufficient for general performance claims;
+- general cross-task or provider-wide performance evidence beyond the bounded
+  single-task Phase 12 matrix;
 - production-scale runtime, reliability, and complete economic-cost evidence.
 
 The narrower Nebius/NVIDIA connectivity and repository-task execution gap is closed by
 the Phase 11C pilot. Phase 11B adds repeated evidence for one local configuration only.
-Phase 12A fixes the next experiment but creates no new model-performance evidence. The
-boundaries above remain and must not be rewritten as completed until corresponding
-evidence exists.
+Phase 12 adds bounded AP-001 evidence across three configurations with ten trials each.
+It does not close the broader cross-task/provider-wide or production-scale boundaries
+above.
+
+## Phase 12 evidence promotion record
+
+- [x] fixed 30-attempt batch completed without rerunning frozen attempts
+- [x] source archive SHA-256, size, ZIP integrity, and secret scan verified
+- [x] 30 manifests, evaluations, responses, candidates, logs, and replays audited
+- [x] 30 source-exact no-model replays verified
+- [x] single llama3 failure preserved without normalization
+- [x] promotion hashes recorded in `promotion.json`
+- [x] dedicated Phase 12 evidence-integrity gate added
+- [x] aggregate and demo evidence updated from committed attempts
+- [x] AP-001 Section 9 explicitly remains open
+- [x] claims bounded to one task, three configurations, ten trials each

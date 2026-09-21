@@ -177,12 +177,11 @@ pass public validation, so the repair protocol correctly did not activate. Becau
 ten attempts use one model configuration, this result does not satisfy the broader
 cross-model evidence gap.
 
-Phase 12A preregisters, but does not yet execute, a fixed AP-001 replication matrix:
-ten new initial attempts for each of two local Ollama models and one Nebius/NVIDIA
-model. The plan binds all configurations to one evaluator source, prevents early
-stopping and split execution, preserves every outcome, and requires configuration-level
-reporting. Because no Phase 12 attempt is yet committed, the evidence counts and the
-three remaining gaps above are unchanged.
+Phase 12A preregistered a fixed AP-001 replication matrix: ten initial attempts for
+each of two local Ollama models and one Nebius/NVIDIA model. The plan bound all
+configurations to one evaluator source, prevented early stopping and split execution,
+preserved every outcome, and required configuration-level reporting. That matrix has
+now completed and is promoted below without rewriting the preregistration.
 
 Demo and dashboard-style artifacts added during implementation are evidence indexes and
 presentation surfaces. Their existence must not be interpreted as satisfying or
@@ -190,3 +189,16 @@ retroactively changing the original Section 9 ordering requirement.
 
 The AP-004 v1 `HOLD` and v2 `VERIFIED_PASS` are separate observed attempts. This evidence
 does not by itself establish that the protocol change caused the different outcome.
+
+## Phase 12 promoted evidence
+
+The preregistered `phase-12-cross-model-replication-v1` matrix is now promoted as
+committed AP-001 evidence. It contains exactly 30 initial attempts: ten for each of three
+fixed configurations. Outcomes are 29 `VERIFIED_PASS`, 1 `VERIFIED_FAIL`, 0 `HOLD`,
+0 false-greens, and 0 repair attempts; all 30 have source-exact no-model replay records.
+
+This evidence is bounded to one task, three configurations, and ten trials per
+configuration. It does not establish general coding-agent performance, provider-wide
+superiority, statistical generalization, or production-scale behavior. The original
+AP-001 Section 9 requirement remains open because Phase 12 produced no false-green to
+eligible repair sequence.

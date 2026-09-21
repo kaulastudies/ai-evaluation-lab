@@ -113,9 +113,9 @@ non-secret model environment variable from the plan and refuses a split
 `--configuration-id` execution. The Nebius key remains an ephemeral execution-time
 credential and is not required to inspect or validate the preregistration.
 
-Phase 12 is **PREREGISTERED ONLY**. No Phase 12 model attempt or result is committed.
+Phase 12 was preregistered before execution and is now promoted as committed evidence.
 The 30 labels are new observations; the Phase 11B and Phase 11C attempts remain frozen
-and are neither rerun nor pooled into the new matrix.
+and were neither rerun nor rewritten.
 
 Preview the complete matrix without calling a model:
 
@@ -124,8 +124,8 @@ python .\programs\repository-agent-reliability\runner\batch.py `
   --plan .\programs\repository-agent-reliability\experiments\phase-12-cross-model-replication-v1.json
 ```
 
-Validate the preregistration, configuration-specific reporting, and absence of Phase 12
-evidence:
+Validate the preregistration, configuration-specific reporting, and explicit Phase 12
+promotion:
 
 ```powershell
 python .\programs\repository-agent-reliability\runner\phase12a_plan_check.py
@@ -135,3 +135,16 @@ Before live execution, `qwen2.5-coder:7b` must be available in Ollama and the Ne
 API key must be supplied ephemerally. A completed matrix will support bounded AP-001
 configuration-level estimates only. It will not establish general coding-agent or
 production-scale performance.
+
+## Phase 12 promotion
+
+`phase-12-cross-model-replication-v1` completed its fixed 30-attempt matrix and the
+audited artifacts are promoted under `experiments/results/phase-12-cross-model-replication-v1/`
+and `tasks/AP-001/evidence/live/`. The promotion record binds the source archive,
+batch artifacts, evaluation records, replay reports, and canonical evidence paths by
+SHA-256.
+
+The completed matrix is one-task evidence: three configurations, ten trials per
+configuration. It records 29 `VERIFIED_PASS`, one preserved `VERIFIED_FAIL`, zero
+false-greens, zero repairs, and 30 source-exact no-model replays. AP-001 Section 9
+remains open.

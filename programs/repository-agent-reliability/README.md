@@ -88,10 +88,11 @@ Current implementation status:
   gate IDs and diagnostics converted the parent `VERIFIED_FAIL` to `VERIFIED_PASS`.
   Both attempts are frozen and source-exact replayable.
 
-Current committed live evidence snapshot: **21 live attempts** —
-**14 `VERIFIED_PASS` / 4 `VERIFIED_FAIL` / 3 `HOLD`** — across all **5 qualified
+Current committed live evidence snapshot: **51 live attempts** —
+**43 `VERIFIED_PASS` / 5 `VERIFIED_FAIL` / 3 `HOLD`** — across all **5 qualified
 benchmark tasks**, with **0 / 17** configured critical verifier mutations escaping
-detection. Repair Conversion is now **1 / 2 episodes (50%)**.
+detection. There are **48 initial attempts** and **3 repair attempts**. Repair Conversion
+remains **1 / 2 episodes (50%)**.
 
 A successful bounded repair conversion is now demonstrated on AP-005. The original
 AP-001 success gate in `PROGRAM_SPEC.md` remains unsatisfied **as written**, because
@@ -126,16 +127,28 @@ production-scale performance.
 
 ## Phase 12 cross-model replication
 
-Phase 12A preregisters a new fixed AP-001 matrix with 30 initial attempts: ten each
+The preregistered Phase 12 AP-001 matrix completed exactly 30 initial attempts: ten each
 for Ollama `llama3:latest`, Ollama `qwen2.5-coder:7b`, and Nebius/NVIDIA
-`nvidia/nemotron-3-super-120b-a12b`. All configurations are bound to one source commit,
-task version, temperature, output protocol, verifier, and repair policy. The batch does
-not stop early, and only genuine false-greens may receive up to two bounded repairs.
+`nvidia/nemotron-3-super-120b-a12b`, all from evaluator source commit
+`257cb7a3510a05e124e279a32357befa51b2f7f4`.
 
-This is an execution plan, not evidence. Phase 12A makes no change to the 21-attempt
-committed evidence snapshot, and it does not rerun or rewrite Phase 11 evidence. Even
-after execution, one task across three configurations will support bounded AP-001
-comparisons rather than general or production-scale performance claims.
+Observed outcomes are preserved exactly: Ollama `llama3:latest` produced 9
+`VERIFIED_PASS` and 1 `VERIFIED_FAIL`; the other two configurations produced 10
+`VERIFIED_PASS` each. The batch contains 29 passes, 1 failure, 0 HOLD, 0 false-greens,
+0 repair attempts, and 0 AP-001 Section 9 sequences. All 30 attempts passed source-exact
+no-model replay.
+
+The pooled batch verified-pass rate is 96.7% (29/30; 95% Wilson interval 83.3%–99.4%).
+The initial false-green rate is 0.0% (0/29 public-test passes; 95% Wilson interval
+0.0%–11.7%). These are descriptive results for **one task, three fixed configurations,
+and ten trials per configuration**. They do not establish general coding-agent
+performance, provider-wide superiority, statistical generalization beyond this matrix,
+or production-scale reliability.
+
+The single llama3 failure is retained as observed; it was an admitted candidate with an
+agent success claim that failed public validation and verifier gates AP001-G03,
+AP001-G01, and AP001-G02. Because no public-test false-green occurred in Phase 12, no
+repair was eligible and the original AP-001 Section 9 sequence remains open.
 
 ## Non-goals
 

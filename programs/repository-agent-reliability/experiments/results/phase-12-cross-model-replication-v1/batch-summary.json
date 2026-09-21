@@ -1,0 +1,266 @@
+{
+  "schema_version": "1.0.0",
+  "experiment_id": "phase-12-cross-model-replication-v1",
+  "experiment_plan_sha256": "97ab476246d131c672f00c75fb1aabb391f2c31b98c9e6af47f139834637eeba",
+  "source_commit": "257cb7a3510a05e124e279a32357befa51b2f7f4",
+  "status": "COMPLETE",
+  "fixed_initial_trial_count_satisfied": true,
+  "counts": {
+    "planned_initial_attempts": 30,
+    "observed_initial_attempts": 30,
+    "repair_attempts": 0,
+    "initial_verified_pass": 29,
+    "initial_verified_fail": 1,
+    "initial_hold": 0,
+    "initial_false_greens": 0,
+    "repair_episodes": 0,
+    "repair_episodes_converted": 0,
+    "ap001_section9_sequences": 0
+  },
+  "rates": {
+    "initial_verified_pass": {
+      "value": 0.9666666666666667,
+      "lower_95": 0.8332960900859082,
+      "upper_95": 0.9940914096183874,
+      "numerator": 29,
+      "denominator": 30
+    },
+    "initial_false_green": {
+      "value": 0.0,
+      "lower_95": 0.0,
+      "upper_95": 0.11696979849974075,
+      "numerator": 0,
+      "denominator": 29
+    },
+    "repair_conversion": {
+      "value": null,
+      "lower_95": null,
+      "upper_95": null,
+      "numerator": 0,
+      "denominator": 0
+    }
+  },
+  "section9_sequence_parent_runs": [],
+  "configuration_summaries": [
+    {
+      "configuration_id": "ollama-llama3-latest",
+      "provider": "ollama",
+      "model": "llama3:latest",
+      "counts": {
+        "initial_attempts": 10,
+        "initial_verified_pass": 9,
+        "initial_verified_fail": 1,
+        "initial_hold": 0,
+        "public_test_passes": 9,
+        "initial_false_greens": 0,
+        "repair_attempts": 0,
+        "repair_episodes": 0,
+        "repair_episodes_converted": 0,
+        "ap001_section9_sequences": 0
+      },
+      "rates": {
+        "initial_verified_pass": {
+          "value": 0.9,
+          "lower_95": 0.5958499732047615,
+          "upper_95": 0.9821237869049271,
+          "numerator": 9,
+          "denominator": 10
+        },
+        "initial_false_green": {
+          "value": 0.0,
+          "lower_95": 0.0,
+          "upper_95": 0.2991450484195441,
+          "numerator": 0,
+          "denominator": 9
+        },
+        "initial_hold": {
+          "value": 0.0,
+          "lower_95": 0.0,
+          "upper_95": 0.2775327998628892,
+          "numerator": 0,
+          "denominator": 10
+        },
+        "repair_conversion": {
+          "value": null,
+          "lower_95": null,
+          "upper_95": null,
+          "numerator": 0,
+          "denominator": 0
+        }
+      },
+      "measures": {
+        "generation_latency_ms": {
+          "observed": 10,
+          "median": 13407.5
+        },
+        "input_tokens": {
+          "observed": 10,
+          "total": 5750
+        },
+        "output_tokens": {
+          "observed": 10,
+          "total": 864
+        },
+        "reported_provider_cost_usd": {
+          "observed": 10,
+          "total": 0.0
+        }
+      }
+    },
+    {
+      "configuration_id": "ollama-qwen2-5-coder-7b",
+      "provider": "ollama",
+      "model": "qwen2.5-coder:7b",
+      "counts": {
+        "initial_attempts": 10,
+        "initial_verified_pass": 10,
+        "initial_verified_fail": 0,
+        "initial_hold": 0,
+        "public_test_passes": 10,
+        "initial_false_greens": 0,
+        "repair_attempts": 0,
+        "repair_episodes": 0,
+        "repair_episodes_converted": 0,
+        "ap001_section9_sequences": 0
+      },
+      "rates": {
+        "initial_verified_pass": {
+          "value": 1.0,
+          "lower_95": 0.7224672001371107,
+          "upper_95": 0.9999999999999999,
+          "numerator": 10,
+          "denominator": 10
+        },
+        "initial_false_green": {
+          "value": 0.0,
+          "lower_95": 0.0,
+          "upper_95": 0.2775327998628892,
+          "numerator": 0,
+          "denominator": 10
+        },
+        "initial_hold": {
+          "value": 0.0,
+          "lower_95": 0.0,
+          "upper_95": 0.2775327998628892,
+          "numerator": 0,
+          "denominator": 10
+        },
+        "repair_conversion": {
+          "value": null,
+          "lower_95": null,
+          "upper_95": null,
+          "numerator": 0,
+          "denominator": 0
+        }
+      },
+      "measures": {
+        "generation_latency_ms": {
+          "observed": 10,
+          "median": 20392.5
+        },
+        "input_tokens": {
+          "observed": 10,
+          "total": 5960
+        },
+        "output_tokens": {
+          "observed": 10,
+          "total": 1215
+        },
+        "reported_provider_cost_usd": {
+          "observed": 10,
+          "total": 0.0
+        }
+      }
+    },
+    {
+      "configuration_id": "nebius-nemotron-3-super-120b-a12b",
+      "provider": "nebius",
+      "model": "nvidia/nemotron-3-super-120b-a12b",
+      "counts": {
+        "initial_attempts": 10,
+        "initial_verified_pass": 10,
+        "initial_verified_fail": 0,
+        "initial_hold": 0,
+        "public_test_passes": 10,
+        "initial_false_greens": 0,
+        "repair_attempts": 0,
+        "repair_episodes": 0,
+        "repair_episodes_converted": 0,
+        "ap001_section9_sequences": 0
+      },
+      "rates": {
+        "initial_verified_pass": {
+          "value": 1.0,
+          "lower_95": 0.7224672001371107,
+          "upper_95": 0.9999999999999999,
+          "numerator": 10,
+          "denominator": 10
+        },
+        "initial_false_green": {
+          "value": 0.0,
+          "lower_95": 0.0,
+          "upper_95": 0.2775327998628892,
+          "numerator": 0,
+          "denominator": 10
+        },
+        "initial_hold": {
+          "value": 0.0,
+          "lower_95": 0.0,
+          "upper_95": 0.2775327998628892,
+          "numerator": 0,
+          "denominator": 10
+        },
+        "repair_conversion": {
+          "value": null,
+          "lower_95": null,
+          "upper_95": null,
+          "numerator": 0,
+          "denominator": 0
+        }
+      },
+      "measures": {
+        "generation_latency_ms": {
+          "observed": 10,
+          "median": 4869.5
+        },
+        "input_tokens": {
+          "observed": 10,
+          "total": 6210
+        },
+        "output_tokens": {
+          "observed": 10,
+          "total": 6522
+        },
+        "reported_provider_cost_usd": {
+          "observed": 0,
+          "total": 0
+        }
+      }
+    }
+  ],
+  "observed_configurations": [
+    {
+      "provider": "nebius",
+      "model": "nvidia/nemotron-3-super-120b-a12b",
+      "configuration_id": "nebius-nemotron-3-super-120b-a12b"
+    },
+    {
+      "provider": "ollama",
+      "model": "llama3:latest",
+      "configuration_id": "ollama-llama3-latest"
+    },
+    {
+      "provider": "ollama",
+      "model": "qwen2.5-coder:7b",
+      "configuration_id": "ollama-qwen2-5-coder-7b"
+    }
+  ],
+  "claim_boundary": [
+    "This preregistration creates no model-performance evidence; live outputs become evidence only after the fixed batch completes, every artifact is audited and source-exactly replayed, and promotion is explicit.",
+    "The 30 new initial attempts are distinct observations and do not rerun, replace, pool with, or rewrite any frozen Phase 11 attempt.",
+    "All three configurations must run from one committed evaluator source with the same AP-001 task version, prompt construction, temperature, output protocol, verifier, and repair policy.",
+    "Every observed HOLD, VERIFIED_FAIL, failed repair, and VERIFIED_PASS must be retained; the batch cannot stop early because a desired outcome appears.",
+    "A completed one-task, three-configuration matrix supports only bounded AP-001 configuration-level comparisons, not general coding-agent, production-scale, or provider-wide performance claims.",
+    "The AP-001 Section 9 gap closes only if a new committed source-exact sequence naturally contains public-test pass, qualified-verifier rejection, bounded repair, VERIFIED_PASS, and successful no-model replay."
+  ]
+}

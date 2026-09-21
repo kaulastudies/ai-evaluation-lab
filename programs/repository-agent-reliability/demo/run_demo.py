@@ -130,6 +130,13 @@ def validate_system() -> list[CheckResult]:
                 str(RUNNER_ROOT / "phase12a_plan_check.py"),
             ],
         ),
+        run_check(
+            "phase12_evidence_integrity",
+            [
+                sys.executable,
+                str(RUNNER_ROOT / "phase12_evidence_check.py"),
+            ],
+        ),
     ]
 
 

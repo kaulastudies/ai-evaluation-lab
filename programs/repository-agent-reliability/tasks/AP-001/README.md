@@ -40,3 +40,16 @@ replays.
 None of these attempts demonstrates the full sequence above because none contains
 public-test pass, qualified-verifier rejection, bounded repair, and subsequent verifier
 pass within one AP-001 episode. The original Section 9 target therefore remains open.
+
+## Phase 12 promoted replication evidence
+
+Phase 12 adds 30 frozen AP-001 initial attempts under one evaluator source commit:
+10 Ollama `llama3:latest`, 10 Ollama `qwen2.5-coder:7b`, and 10 Nebius/NVIDIA
+`nvidia/nemotron-3-super-120b-a12b`. The observed distribution is 29
+`VERIFIED_PASS` and 1 `VERIFIED_FAIL`; the failure is preserved exactly, with public
+validation failure and AP001-G03, AP001-G01, and AP001-G02 verifier failures. All 30
+attempts are source-exact replay verified.
+
+No Phase 12 false-green occurred, so no repair was eligible. AP-001 Section 9 therefore
+remains open. These observations are limited to AP-001 and the three fixed
+configurations tested.

@@ -3,18 +3,18 @@
   "program": "repository-agent-reliability",
   "headline": "Verify the evaluation before trusting the verdict.",
   "evidence_snapshot": {
-    "live_attempts": 21,
-    "verified_pass": 14,
-    "verified_fail": 4,
+    "live_attempts": 51,
+    "verified_pass": 43,
+    "verified_fail": 5,
     "hold": 3,
     "qualified_tasks": 5,
     "critical_mutations_total": 17,
     "critical_mutation_escapes": 0,
-    "claim_evidence_gap": 0.2222222222222222,
-    "false_green_rate": 0.17647058823529413,
-    "initial_false_green_rate": 0.13333333333333333,
+    "claim_evidence_gap": 0.10416666666666667,
+    "false_green_rate": 0.06521739130434782,
+    "initial_false_green_rate": 0.045454545454545456,
     "repair_conversion": 0.5,
-    "median_time_to_verified_success_ms": 13442.0
+    "median_time_to_verified_success_ms": 13398.0
   },
   "task_evidence": [
     {
@@ -164,11 +164,12 @@
     "Live initial model evidence across AP-001 through AP-005.",
     "One preregistered Nebius/NVIDIA-backed AP-001 initial attempt using nvidia/nemotron-3-super-120b-a12b, with a source-exact replayable VERIFIED_PASS.",
     "One preregistered fixed ten-trial AP-001 batch using local Ollama llama3:latest: nine VERIFIED_PASS outcomes, one public-test VERIFIED_FAIL, zero false-greens, and ten source-exact replays.",
+    "One preregistered Phase 12 AP-001 matrix across three fixed configurations with ten trials each: 29 VERIFIED_PASS, one preserved public-test VERIFIED_FAIL, zero false-greens, zero repairs, and 30 source-exact no-model replays.",
     "Evidence-derived metrics without fabricating missing fields."
   ],
   "not_yet_demonstrated": [
     "The original AP-001 Section 9 sequence as written, including a successful repair conversion within AP-001 itself.",
-    "Repeated cross-model and cross-provider benchmark evidence with sample sizes sufficient for general performance claims.",
+    "General cross-task or provider-wide performance evidence; Phase 12 is bounded to AP-001, three configurations, and ten trials per configuration.",
     "Production-scale runtime evidence, including repeated throughput, reliability, and complete economic-cost measurement."
   ]
 }

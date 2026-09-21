@@ -62,10 +62,10 @@ def main() -> int:
         )
 
         checks = {
-            "attempts": snap["live_attempts"] == 21,
+            "attempts": snap["live_attempts"] == 51,
             "verdicts": (
-                snap["verified_pass"] == 14
-                and snap["verified_fail"] == 4
+                snap["verified_pass"] == 43
+                and snap["verified_fail"] == 5
                 and snap["hold"] == 3
             ),
             "qualified_tasks": snap["qualified_tasks"] == 5,
@@ -75,14 +75,14 @@ def main() -> int:
             ),
             "claim_evidence_gap": close(
                 snap["claim_evidence_gap"],
-                4 / 18,
+                5 / 48,
             ),
             "false_green": close(
                 snap["false_green_rate"],
-                3 / 17,
+                3 / 46,
             ),
             "initial_false_green": (
-                close(snap["initial_false_green_rate"], 2 / 15)
+                close(snap["initial_false_green_rate"], 2 / 44)
             ),
             "repair_conversion": snap["repair_conversion"] == 0.5,
             "ap005_fail_then_pass": (
@@ -117,7 +117,7 @@ def main() -> int:
                 for item in payload["demonstrated"]
             ),
             "cross_model_gap_preserved": any(
-                "Repeated cross-model and cross-provider" in item
+                "General cross-task or provider-wide performance" in item
                 for item in payload["not_yet_demonstrated"]
             ),
             "production_scale_gap_preserved": any(

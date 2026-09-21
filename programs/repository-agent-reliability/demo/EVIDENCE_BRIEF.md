@@ -8,15 +8,15 @@ RARB treats the coding agent as the system under test. A patch is not accepted b
 
 ## Current evidence snapshot
 
-- **21** committed live attempts
-- **14 VERIFIED_PASS / 4 VERIFIED_FAIL / 3 HOLD**
+- **51** committed live attempts
+- **43 VERIFIED_PASS / 5 VERIFIED_FAIL / 3 HOLD**
 - **5** qualified tasks
 - **0 / 17** critical verifier mutations escaped
-- Claim-Evidence Gap: **22.2%**
-- False-Green Rate: **17.6%**
-- Initial False-Green Rate: **13.3%**
+- Claim-Evidence Gap: **10.4%**
+- False-Green Rate: **6.5%**
+- Initial False-Green Rate: **4.5%**
 - Repair Conversion: **50.0%**
-- Median recorded generation latency among verified successes: **13.44s**
+- Median recorded generation latency among verified successes: **13.40s**
 
 ## Successful bounded-repair example: AP-005
 
@@ -83,14 +83,15 @@ AP-003 remains the counterexample: bounded repair was attempted but did not conv
 - Live initial model evidence across AP-001 through AP-005.
 - One preregistered Nebius/NVIDIA-backed AP-001 initial attempt using nvidia/nemotron-3-super-120b-a12b, with a source-exact replayable VERIFIED_PASS.
 - One preregistered fixed ten-trial AP-001 batch using local Ollama llama3:latest: nine VERIFIED_PASS outcomes, one public-test VERIFIED_FAIL, zero false-greens, and ten source-exact replays.
+- One preregistered Phase 12 AP-001 matrix across three fixed configurations with ten trials each: 29 VERIFIED_PASS, one preserved public-test VERIFIED_FAIL, zero false-greens, zero repairs, and 30 source-exact no-model replays.
 - Evidence-derived metrics without fabricating missing fields.
 
 ## Not yet demonstrated
 
 - The original AP-001 Section 9 sequence as written, including a successful repair conversion within AP-001 itself.
-- Repeated cross-model and cross-provider benchmark evidence with sample sizes sufficient for general performance claims.
+- General cross-task or provider-wide performance evidence; Phase 12 is bounded to AP-001, three configurations, and ten trials per configuration.
 - Production-scale runtime evidence, including repeated throughput, reliability, and complete economic-cost measurement.
 
 ## Evidence boundary
 
-These numbers describe the committed RARB evidence set only. They are not claims about general coding-agent performance. The successful AP-005 repair conversion closes the general repair-conversion evidence gap, but it does not retroactively satisfy the original AP-001-specific Section 9 sequence. The AP-004 v1 HOLD and v2 VERIFIED_PASS are separate observed attempts; this evidence does not by itself establish that the protocol change caused the different outcome. Local Ollama provider billing is reported as zero, but economic execution cost is unmetered and therefore Cost / Verified Success remains N/A. The single Nebius/NVIDIA AP-001 pilot establishes provider-backed repository-task execution under the RARB protocol; it does not establish statistical or production-scale performance. The fixed ten-trial local Ollama batch adds repeated single-configuration evidence; its result must not be generalized to other models or providers.
+These numbers describe the committed RARB evidence set only. They are not claims about general coding-agent performance. The successful AP-005 repair conversion closes the general repair-conversion evidence gap, but it does not retroactively satisfy the original AP-001-specific Section 9 sequence. The AP-004 v1 HOLD and v2 VERIFIED_PASS are separate observed attempts; this evidence does not by itself establish that the protocol change caused the different outcome. Local Ollama provider billing is reported as zero, but economic execution cost is unmetered and therefore Cost / Verified Success remains N/A. The single Nebius/NVIDIA AP-001 pilot establishes provider-backed repository-task execution under the RARB protocol; it does not establish statistical or production-scale performance. The fixed ten-trial local Ollama batch adds repeated single-configuration evidence. Phase 12 adds a fixed three-configuration, ten-trials-per-configuration AP-001 matrix with 29 VERIFIED_PASS and one preserved VERIFIED_FAIL; it remains single-task evidence and must not be generalized to coding agents overall, providers overall, or production-scale performance.
