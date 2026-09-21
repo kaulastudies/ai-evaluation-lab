@@ -81,9 +81,9 @@ the merge commit and PR; these boxes are a status record, not newly generated ev
 
 The narrower Nebius/NVIDIA connectivity and repository-task execution gap is closed by
 the Phase 11C pilot. Phase 11B adds repeated evidence for one local configuration only.
-Phase 12A fixes the next experiment but creates no new model-performance evidence. The
-boundaries above remain and must not be rewritten as completed until corresponding
-evidence exists.
+Phase 12 adds bounded AP-001 evidence across three configurations with ten trials each.
+It does not close the broader cross-task/provider-wide or production-scale boundaries
+above.
 
 ## Phase 12 evidence promotion record
 
