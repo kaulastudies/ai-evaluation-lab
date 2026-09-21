@@ -166,3 +166,20 @@ replay record before the one-command demo can remain green.
 batch. It validates the source archive and plan hashes, provider/model identity,
 source commit, artifact hashes, exact 9-pass/1-fail distribution, trusted boundaries,
 zero false-greens, zero repairs, and all stored source-exact replay records.
+
+## Phase 12 multi-configuration execution
+
+For a multi-configuration plan, `batch.py` injects the preregistered model name into
+the provider-specific model environment variable for each subprocess. It never writes
+or supplies API keys. Plans that set `run_all_configurations_in_one_batch=true` reject
+`--configuration-id`, keeping all observations on one evaluator source commit and in
+one ledger.
+
+`batch_report.py` emits both aggregate counts and per-configuration counts, Wilson
+intervals, repair outcomes, latency coverage, token totals, and reported provider-cost
+coverage. Missing provider cost remains missing rather than being estimated.
+
+`phase12a_plan_check.py` validates the fixed 30-attempt AP-001 matrix, non-stopping
+policy, bounded repair budget, per-configuration analysis, model-environment routing,
+dry-run output, and the absence of prematurely committed Phase 12 evidence. Its
+synthetic report regression does not call a model and is not live evidence.

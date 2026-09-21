@@ -47,3 +47,5 @@ current evaluator regressions pass, and historical initial and repair evidence r
 source-exact replayable without model inference.
 
 This command does not run a live model and does not create new benchmark evidence.
+It also validates the Phase 12A preregistration and confirms that no Phase 12 result has
+been prematurely promoted.

@@ -5,6 +5,7 @@ from collections import Counter
 import json
 import math
 from pathlib import Path
+import statistics
 import sys
 from typing import Any
 
@@ -94,6 +95,8 @@ def summarize(
             raise BatchReportError("Ledger run label does not match evidence")
         if manifest["source_commit"] != record["source_commit"]:
             raise BatchReportError("Manifest source commit does not match record")
+        if record["source_commit"] != ledger.get("source_commit"):
+            raise BatchReportError("Attempt source commit does not match ledger")
         experiment = manifest.get("experiment") or {}
         if experiment.get("experiment_id") != plan["experiment_id"]:
             raise BatchReportError("Manifest experiment ID does not match plan")
@@ -175,6 +178,146 @@ def summarize(
     }
     section9_sequences = sorted(false_green_labels & converted_parents)
 
+    configuration_summaries: list[dict[str, Any]] = []
+    for config in plan["configurations"]:
+        config_id = config["configuration_id"]
+        config_initials = [
+            observation
+            for observation in initials
+            if observation["manifest"]["experiment"][
+                "configuration_id"
+            ]
+            == config_id
+        ]
+        config_repairs = [
+            observation
+            for observation in repairs
+            if observation["manifest"]["experiment"][
+                "configuration_id"
+            ]
+            == config_id
+        ]
+        config_verdicts = Counter(
+            observation["record"]["final_verdict"]
+            for observation in config_initials
+        )
+        config_public_pass = [
+            observation
+            for observation in config_initials
+            if (observation["record"].get("evaluation") or {})
+            .get("public_validation", {})
+            .get("passed")
+            is True
+        ]
+        config_false_greens = [
+            observation
+            for observation in config_public_pass
+            if observation["record"]["evaluation"]["false_green"]
+            is True
+        ]
+        config_repairs_by_parent: dict[str, list[dict[str, Any]]] = {}
+        for observation in config_repairs:
+            parent = observation["record"]["parent"]["run_label"]
+            config_repairs_by_parent.setdefault(parent, []).append(
+                observation
+            )
+        config_converted = {
+            parent
+            for parent, group in config_repairs_by_parent.items()
+            if any(
+                observation["record"]["repair_conversion"] is True
+                for observation in group
+            )
+        }
+        config_false_green_labels = {
+            observation["record"]["run_label"]
+            for observation in config_false_greens
+        }
+
+        def provider_values(field: str) -> list[int | float]:
+            values = [
+                observation["record"]["provider"].get(field)
+                for observation in config_initials
+            ]
+            return [
+                value
+                for value in values
+                if isinstance(value, (int, float))
+                and not isinstance(value, bool)
+            ]
+
+        latencies = provider_values("latency_ms")
+        input_tokens = provider_values("input_tokens")
+        output_tokens = provider_values("output_tokens")
+        costs = provider_values("estimated_cost_usd")
+        configuration_summaries.append(
+            {
+                "configuration_id": config_id,
+                "provider": config["provider"],
+                "model": config["expected_model"],
+                "counts": {
+                    "initial_attempts": len(config_initials),
+                    "initial_verified_pass": config_verdicts.get(
+                        "VERIFIED_PASS", 0
+                    ),
+                    "initial_verified_fail": config_verdicts.get(
+                        "VERIFIED_FAIL", 0
+                    ),
+                    "initial_hold": config_verdicts.get("HOLD", 0),
+                    "public_test_passes": len(config_public_pass),
+                    "initial_false_greens": len(
+                        config_false_greens
+                    ),
+                    "repair_attempts": len(config_repairs),
+                    "repair_episodes": len(config_repairs_by_parent),
+                    "repair_episodes_converted": len(config_converted),
+                    "ap001_section9_sequences": len(
+                        config_false_green_labels & config_converted
+                    ),
+                },
+                "rates": {
+                    "initial_verified_pass": wilson_interval(
+                        config_verdicts.get("VERIFIED_PASS", 0),
+                        len(config_initials),
+                    ),
+                    "initial_false_green": wilson_interval(
+                        len(config_false_greens),
+                        len(config_public_pass),
+                    ),
+                    "initial_hold": wilson_interval(
+                        config_verdicts.get("HOLD", 0),
+                        len(config_initials),
+                    ),
+                    "repair_conversion": wilson_interval(
+                        len(config_converted),
+                        len(config_repairs_by_parent),
+                    ),
+                },
+                "measures": {
+                    "generation_latency_ms": {
+                        "observed": len(latencies),
+                        "median": (
+                            statistics.median(latencies)
+                            if latencies
+                            else None
+                        ),
+                    },
+                    "input_tokens": {
+                        "observed": len(input_tokens),
+                        "total": sum(input_tokens),
+                    },
+                    "output_tokens": {
+                        "observed": len(output_tokens),
+                        "total": sum(output_tokens),
+                    },
+                    "reported_provider_cost_usd": {
+                        "observed": len(costs),
+                        "total": sum(costs),
+                    },
+                },
+            }
+        )
+
     configurations = sorted(
         {
             (
@@ -227,6 +370,7 @@ def summarize(
             ),
         },
         "section9_sequence_parent_runs": section9_sequences,
+        "configuration_summaries": configuration_summaries,
         "observed_configurations": [
             {
                 "provider": provider,
@@ -277,6 +421,32 @@ def render_markdown(summary: dict[str, Any]) -> str:
         "",
     ]
     lines.extend(f"- {item}" for item in summary["claim_boundary"])
+    if summary.get("configuration_summaries"):
+        lines.extend(["", "## Configuration-level results", ""])
+        for item in summary["configuration_summaries"]:
+            counts = item["counts"]
+            rates = item["rates"]
+            measures = item["measures"]
+            latency = measures["generation_latency_ms"]
+            lines.extend(
+                [
+                    f"### {item['configuration_id']}",
+                    "",
+                    f"- Provider/model: `{item['provider']}` / `{item['model']}`",
+                    f"- Initial attempts: **{counts['initial_attempts']}**",
+                    f"- Initial verified-pass rate: {fmt_rate(rates['initial_verified_pass'])}",
+                    f"- Initial false-green rate: {fmt_rate(rates['initial_false_green'])}",
+                    f"- Initial HOLD rate: {fmt_rate(rates['initial_hold'])}",
+                    f"- Repair conversion: {fmt_rate(rates['repair_conversion'])}",
+                    "- Median recorded generation latency: "
+                    + (
+                        f"{latency['median']:.1f} ms"
+                        if latency["median"] is not None
+                        else "N/A"
+                    ),
+                    "",
+                ]
+            )
     lines.append("")
     return "\n".join(lines)
 

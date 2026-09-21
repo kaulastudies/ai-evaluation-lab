@@ -35,6 +35,10 @@
     "phase11c_nebius_evidence_check": {
       "passed": true,
       "returncode": 0
+    },
+    "phase12a_preregistration_check": {
+      "passed": true,
+      "returncode": 0
     }
   },
   "generated_artifacts_match_head_evidence": true,

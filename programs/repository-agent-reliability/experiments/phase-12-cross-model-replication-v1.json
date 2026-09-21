@@ -1,0 +1,76 @@
+{
+  "schema_version": "1.0.0",
+  "experiment_id": "phase-12-cross-model-replication-v1",
+  "status": "PLANNED",
+  "baseline_commit": "8503cf9eb71ac634642424521bf148fd0fc5958e",
+  "objective": "Measure AP-001 outcomes across three fixed model configurations under one source commit, prompt, output protocol, verifier, repair policy, and non-stopping trial schedule.",
+  "tasks": [
+    {
+      "task_id": "AP-001",
+      "task_version": "0.1.0",
+      "initial_trials": 10,
+      "max_repairs_per_false_green": 2
+    }
+  ],
+  "configurations": [
+    {
+      "configuration_id": "ollama-llama3-latest",
+      "provider": "ollama",
+      "expected_model": "llama3:latest",
+      "temperature": 0,
+      "output_protocol": "strict-code-only-v2"
+    },
+    {
+      "configuration_id": "ollama-qwen2-5-coder-7b",
+      "provider": "ollama",
+      "expected_model": "qwen2.5-coder:7b",
+      "temperature": 0,
+      "output_protocol": "strict-code-only-v2"
+    },
+    {
+      "configuration_id": "nebius-nemotron-3-super-120b-a12b",
+      "provider": "nebius",
+      "expected_model": "nvidia/nemotron-3-super-120b-a12b",
+      "temperature": 0,
+      "output_protocol": "strict-code-only-v2"
+    }
+  ],
+  "execution_policy": {
+    "fixed_initial_trial_count": true,
+    "stop_initial_trials_on_success": false,
+    "stop_repairs_after_conversion": true,
+    "preserve_all_outcomes": true,
+    "require_clean_worktree": true,
+    "stage_before_promotion": true,
+    "run_all_configurations_in_one_batch": true,
+    "require_single_source_commit": true
+  },
+  "analysis_plan": {
+    "primary_unit": "initial attempt",
+    "report_by_configuration": true,
+    "pool_configurations_for_performance_claims": false,
+    "confidence_interval": "two-sided 95% Wilson",
+    "primary_rates": [
+      "verified_pass",
+      "false_green_among_public_test_passes",
+      "hold"
+    ],
+    "secondary_measures": [
+      "repair_conversion",
+      "generation_latency_ms",
+      "input_tokens",
+      "output_tokens",
+      "reported_provider_cost_usd"
+    ],
+    "missing_cost_policy": "Report coverage and retain cost as unknown; do not impute.",
+    "comparison_policy": "Report descriptive per-configuration estimates and intervals; do not claim superiority or general coding-agent performance from this single-task matrix."
+  },
+  "claim_boundary": [
+    "This preregistration creates no model-performance evidence; live outputs become evidence only after the fixed batch completes, every artifact is audited and source-exactly replayed, and promotion is explicit.",
+    "The 30 new initial attempts are distinct observations and do not rerun, replace, pool with, or rewrite any frozen Phase 11 attempt.",
+    "All three configurations must run from one committed evaluator source with the same AP-001 task version, prompt construction, temperature, output protocol, verifier, and repair policy.",
+    "Every observed HOLD, VERIFIED_FAIL, failed repair, and VERIFIED_PASS must be retained; the batch cannot stop early because a desired outcome appears.",
+    "A completed one-task, three-configuration matrix supports only bounded AP-001 configuration-level comparisons, not general coding-agent, production-scale, or provider-wide performance claims.",
+    "The AP-001 Section 9 gap closes only if a new committed source-exact sequence naturally contains public-test pass, qualified-verifier rejection, bounded repair, VERIFIED_PASS, and successful no-model replay."
+  ]
+}

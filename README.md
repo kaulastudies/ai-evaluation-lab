@@ -365,9 +365,11 @@ Third-party dependencies and referenced external materials remain subject to the
 
 RARB still records three explicit evidence boundaries: the original AP-001-specific Section 9 sequence as written, repeated cross-model and cross-provider benchmarking with sample sizes sufficient for general performance claims, and production-scale runtime, reliability, and economic-cost evidence.
 
+**Phase 12A is preregistered, not executed evidence.** It fixes a 30-attempt AP-001 matrix across local Ollama `llama3:latest`, local Ollama `qwen2.5-coder:7b`, and Nebius/NVIDIA `nvidia/nemotron-3-super-120b-a12b`, with one source commit and configuration-level reporting. The committed evidence counts above remain unchanged until a complete batch is audited, source-exactly replayed, and explicitly promoted.
+
 Next engineering milestones:
 
-- expand RARB validation across repeated model/provider configurations;
+- execute and audit the preregistered Phase 12 cross-model/provider matrix;
 - publish live-provider evidence for AS-002 under its frozen contract;
 - normalize all current runs into hash-valid Evaluation Records;
 - add complete provider-cost capture and performance normalization;

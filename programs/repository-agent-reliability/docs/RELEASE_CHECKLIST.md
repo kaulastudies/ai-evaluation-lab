@@ -26,6 +26,19 @@ release gates without changing the frozen benchmark evidence.
 - source-exact no-model replay: verified
 - original AP-001 Section 9 repair sequence: still open
 
+## Phase 12A preregistration
+
+- 30 new AP-001 initial attempts fixed before execution
+- 10 trials each for Ollama `llama3:latest`, Ollama `qwen2.5-coder:7b`, and
+  Nebius/NVIDIA `nvidia/nemotron-3-super-120b-a12b`
+- one source commit, task version, temperature, output protocol, verifier, and repair
+  policy across all configurations
+- full non-stopping batch required; split configuration execution rejected
+- per-configuration Wilson intervals, repair outcomes, latency, token, and reported-cost
+  coverage preregistered
+- Phase 12 live attempts committed: **0**
+- existing 21 attempts remain frozen and unchanged
+
 ## Post-release Phase 11B evidence expansion
 
 - 21 total committed live attempts after promotion
@@ -68,5 +81,6 @@ the merge commit and PR; these boxes are a status record, not newly generated ev
 
 The narrower Nebius/NVIDIA connectivity and repository-task execution gap is closed by
 the Phase 11C pilot. Phase 11B adds repeated evidence for one local configuration only.
-The boundaries above remain and must not be rewritten as completed until corresponding
+Phase 12A fixes the next experiment but creates no new model-performance evidence. The
+boundaries above remain and must not be rewritten as completed until corresponding
 evidence exists.

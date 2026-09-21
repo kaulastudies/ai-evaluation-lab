@@ -124,6 +124,19 @@ execution under RARB. It did not enter the repair loop, does not close the origi
 AP-001 Section 9 sequence, and does not establish statistically meaningful or
 production-scale performance.
 
+## Phase 12 cross-model replication
+
+Phase 12A preregisters a new fixed AP-001 matrix with 30 initial attempts: ten each
+for Ollama `llama3:latest`, Ollama `qwen2.5-coder:7b`, and Nebius/NVIDIA
+`nvidia/nemotron-3-super-120b-a12b`. All configurations are bound to one source commit,
+task version, temperature, output protocol, verifier, and repair policy. The batch does
+not stop early, and only genuine false-greens may receive up to two bounded repairs.
+
+This is an execution plan, not evidence. Phase 12A makes no change to the 21-attempt
+committed evidence snapshot, and it does not rerun or rewrite Phase 11 evidence. Even
+after execution, one task across three configurations will support bounded AP-001
+comparisons rather than general or production-scale performance claims.
+
 ## Non-goals
 
 - claiming general software correctness;

@@ -99,3 +99,39 @@ finally {
 
 Do not rerun or delete a completed staging directory. Audit the result in place before
 any evidence promotion decision.
+
+## Phase 12: cross-model AP-001 replication
+
+`phase-12-cross-model-replication-v1.json` preregisters 30 new AP-001 initial
+attempts: ten each for local Ollama `llama3:latest`, local Ollama
+`qwen2.5-coder:7b`, and Nebius/NVIDIA
+`nvidia/nemotron-3-super-120b-a12b`. The configurations use the same task version,
+temperature, output protocol, verifier, repair budget, and evaluator source commit.
+
+The three-configuration matrix must execute as one batch. The runner sets each
+non-secret model environment variable from the plan and refuses a split
+`--configuration-id` execution. The Nebius key remains an ephemeral execution-time
+credential and is not required to inspect or validate the preregistration.
+
+Phase 12 is **PREREGISTERED ONLY**. No Phase 12 model attempt or result is committed.
+The 30 labels are new observations; the Phase 11B and Phase 11C attempts remain frozen
+and are neither rerun nor pooled into the new matrix.
+
+Preview the complete matrix without calling a model:
+
+```powershell
+python .\programs\repository-agent-reliability\runner\batch.py `
+  --plan .\programs\repository-agent-reliability\experiments\phase-12-cross-model-replication-v1.json
+```
+
+Validate the preregistration, configuration-specific reporting, and absence of Phase 12
+evidence:
+
+```powershell
+python .\programs\repository-agent-reliability\runner\phase12a_plan_check.py
+```
+
+Before live execution, `qwen2.5-coder:7b` must be available in Ollama and the Nebius
+API key must be supplied ephemerally. A completed matrix will support bounded AP-001
+configuration-level estimates only. It will not establish general coding-agent or
+production-scale performance.

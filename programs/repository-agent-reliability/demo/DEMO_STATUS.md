@@ -14,6 +14,7 @@
 - phase11b_batch_check: **PASS**
 - phase11b_evidence_check: **PASS**
 - phase11c_nebius_evidence_check: **PASS**
+- phase12a_preregistration_check: **PASS**
 
 ## Evidence snapshot
 
