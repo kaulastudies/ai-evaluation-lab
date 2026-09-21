@@ -23,38 +23,41 @@ def main() -> int:
     qualification = summary["verifier_qualification"]
 
     checks = {
-        "attempts_total": counts["attempts_total"] == 10,
-        "initial_attempts": counts["initial_attempts"] == 7,
+        "attempts_total": counts["attempts_total"] == 11,
+        "initial_attempts": counts["initial_attempts"] == 8,
         "repair_attempts": counts["repair_attempts"] == 3,
         "verdict_distribution": (
-            counts["verified_pass"] == 4
+            counts["verified_pass"] == 5
             and counts["verified_fail"] == 3
             and counts["hold"] == 3
         ),
-        "candidate_admitted": counts["candidate_admitted"] == 7,
+        "candidate_admitted": counts["candidate_admitted"] == 8,
         "explicit_claim_coverage": (
-            counts["explicit_claim_coverage"] == 7
+            counts["explicit_claim_coverage"] == 8
         ),
         "claim_evidence_gap": (
             metrics["claim_evidence_gap"]["numerator"] == 3
-            and metrics["claim_evidence_gap"]["denominator"] == 7
+            and metrics["claim_evidence_gap"]["denominator"] == 8
             and close(
                 metrics["claim_evidence_gap"]["value"],
-                3 / 7,
+                3 / 8,
             )
         ),
         "false_green_rate": (
             metrics["false_green_rate"]["numerator"] == 3
-            and metrics["false_green_rate"]["denominator"] == 7
+            and metrics["false_green_rate"]["denominator"] == 8
             and close(
                 metrics["false_green_rate"]["value"],
-                3 / 7,
+                3 / 8,
             )
         ),
         "initial_false_green_rate": (
             metrics["initial_false_green_rate"]["numerator"] == 2
-            and metrics["initial_false_green_rate"]["denominator"] == 5
-            and metrics["initial_false_green_rate"]["value"] == 0.4
+            and metrics["initial_false_green_rate"]["denominator"] == 6
+            and close(
+                metrics["initial_false_green_rate"]["value"],
+                1 / 3,
+            )
         ),
         "repair_conversion": (
             metrics["repair_conversion"]["numerator"] == 1
@@ -87,11 +90,11 @@ def main() -> int:
             metrics["median_time_to_verified_success_ms"][
                 "observations"
             ]
-            == 4
+            == 5
             and metrics["median_time_to_verified_success_ms"][
                 "value"
             ]
-            == 82907.5
+            == 81341.0
         ),
     }
 

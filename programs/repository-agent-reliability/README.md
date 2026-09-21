@@ -72,8 +72,9 @@ Replayable Evidence Bundle
 
 Current implementation status:
 
-- **AP-001** — verifier-qualified; live admission `HOLD` and later
-  `VERIFIED_PASS`; source-exact replay available.
+- **AP-001** — verifier-qualified; live admission `HOLD`, local Ollama
+  `VERIFIED_PASS`, and a preregistered Nebius/NVIDIA `VERIFIED_PASS`; source-exact
+  replay is available for both admitted passes.
 - **AP-002** — verifier-qualified; live `VERIFIED_PASS`; source-exact replay available.
 - **AP-003** — verifier-qualified; live public-test false-green `VERIFIED_FAIL`;
   bounded repair attempted and exhausted without conversion; source-exact repair replay
@@ -87,8 +88,8 @@ Current implementation status:
   gate IDs and diagnostics converted the parent `VERIFIED_FAIL` to `VERIFIED_PASS`.
   Both attempts are frozen and source-exact replayable.
 
-Current committed live evidence snapshot: **10 live attempts** —
-**4 `VERIFIED_PASS` / 3 `VERIFIED_FAIL` / 3 `HOLD`** — across all **5 qualified
+Current committed live evidence snapshot: **11 live attempts** —
+**5 `VERIFIED_PASS` / 3 `VERIFIED_FAIL` / 3 `HOLD`** — across all **5 qualified
 benchmark tasks**, with **0 / 17** configured critical verifier mutations escaping
 detection. Repair Conversion is now **1 / 2 episodes (50%)**.
 
@@ -96,6 +97,31 @@ A successful bounded repair conversion is now demonstrated on AP-005. The origin
 AP-001 success gate in `PROGRAM_SPEC.md` remains unsatisfied **as written**, because
 that frozen milestone specifically requires the false-green -> repair -> pass sequence
 within AP-001 itself.
+
+## Phase 11B evidence expansion
+
+The next provider-independent execution layer is preregistered under
+[`experiments/`](experiments/). Its first plan fixes ten new AP-001 initial trials and a
+maximum of two bounded repairs per false-green before any live execution occurs. Outputs
+are staged outside committed evidence, and the batch does not stop early when the target
+sequence appears.
+
+The plan is currently **PLANNED**, not completed evidence. It uses the existing local
+Ollama configuration and therefore does not establish multi-model or Nebius/NVIDIA
+runtime results.
+
+## Phase 11C Nebius/NVIDIA pilot
+
+The preregistered Phase 11C pilot executed AP-001 once through Nebius Token Factory
+using `nvidia/nemotron-3-super-120b-a12b`. The candidate was admitted, passed public
+validation and all three qualified verifier gates, preserved the trusted boundary, and
+ended `VERIFIED_PASS`. Source-exact no-model replay reproduced the stored evaluation
+record hash and verdict.
+
+This single direct pass demonstrates provider-backed Nebius/NVIDIA repository-task
+execution under RARB. It did not enter the repair loop, does not close the original
+AP-001 Section 9 sequence, and does not establish statistically meaningful or
+production-scale performance.
 
 ## Non-goals
 
@@ -106,16 +132,15 @@ within AP-001 itself.
 - treating existing unit tests as sufficient evidence by default;
 - allowing the agent to modify its trusted verifier surface.
 
-## Planned hackathon integration
+## Nebius/NVIDIA integration
 
-Nebius x NVIDIA is the intended execution environment for the public multi-model phase
-of this program. The current committed RARB evidence uses local Ollama execution; it
-does **not** yet demonstrate Nebius/NVIDIA production-runtime evidence.
+Nebius x NVIDIA is an execution environment for the public multi-provider phase of this
+program. The committed Phase 11C pilot now demonstrates one AP-001 run through Nebius
+Token Factory using `nvidia/nemotron-3-super-120b-a12b`.
 
-When Nebius access is available, NVIDIA models served through the supported Nebius
-runtime will be evaluated under the same frozen-task, qualified-verifier, trusted-
-boundary, and replay requirements. Any such runs must be recorded as new evidence rather
-than retroactively attributed to the current local evidence set.
+Future Nebius/NVIDIA runs remain subject to the same frozen-task, qualified-verifier,
+trusted-boundary, preregistration, and replay requirements. The one-run pilot is not a
+claim of broad multi-model, statistical, or production-scale capability.
 
 The hackathon implementation is intended to remain part of AI Evaluation Lab after the
 competition as an open repository-agent evaluation capability.

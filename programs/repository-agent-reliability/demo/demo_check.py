@@ -62,9 +62,9 @@ def main() -> int:
         )
 
         checks = {
-            "attempts": snap["live_attempts"] == 10,
+            "attempts": snap["live_attempts"] == 11,
             "verdicts": (
-                snap["verified_pass"] == 4
+                snap["verified_pass"] == 5
                 and snap["verified_fail"] == 3
                 and snap["hold"] == 3
             ),
@@ -75,14 +75,14 @@ def main() -> int:
             ),
             "claim_evidence_gap": close(
                 snap["claim_evidence_gap"],
-                3 / 7,
+                3 / 8,
             ),
             "false_green": close(
                 snap["false_green_rate"],
-                3 / 7,
+                3 / 8,
             ),
             "initial_false_green": (
-                snap["initial_false_green_rate"] == 0.4
+                close(snap["initial_false_green_rate"], 1 / 3)
             ),
             "repair_conversion": snap["repair_conversion"] == 0.5,
             "ap005_fail_then_pass": (
@@ -106,6 +106,14 @@ def main() -> int:
             ),
             "ap001_specific_gap_preserved": any(
                 "AP-001 Section 9 sequence" in item
+                for item in payload["not_yet_demonstrated"]
+            ),
+            "nebius_pilot_demonstrated": any(
+                "Nebius/NVIDIA-backed AP-001" in item
+                for item in payload["demonstrated"]
+            ),
+            "production_scale_gap_preserved": any(
+                "Production-scale" in item
                 for item in payload["not_yet_demonstrated"]
             ),
             "evidence_boundary_precise": (

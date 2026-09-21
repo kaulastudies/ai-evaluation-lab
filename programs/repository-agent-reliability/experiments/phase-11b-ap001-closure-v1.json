@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0.0",
+  "experiment_id": "phase-11b-ap001-closure-v1",
+  "status": "PLANNED",
+  "baseline_commit": "556ca9653aa6e6ea5de0778890b2efe098cff618",
+  "objective": "Attempt the original AP-001 Section 9 sequence under a fixed repeated-trial protocol without rewriting any v0.1 evidence.",
+  "tasks": [
+    {
+      "task_id": "AP-001",
+      "task_version": "0.1.0",
+      "initial_trials": 10,
+      "max_repairs_per_false_green": 2
+    }
+  ],
+  "configurations": [
+    {
+      "configuration_id": "ollama-llama3-latest",
+      "provider": "ollama",
+      "expected_model": "llama3:latest",
+      "temperature": 0,
+      "output_protocol": "strict-code-only-v2"
+    }
+  ],
+  "execution_policy": {
+    "fixed_initial_trial_count": true,
+    "stop_initial_trials_on_success": false,
+    "stop_repairs_after_conversion": true,
+    "preserve_all_outcomes": true,
+    "require_clean_worktree": true,
+    "stage_before_promotion": true
+  },
+  "claim_boundary": [
+    "This plan does not create evidence until live execution completes and the staged artifacts are audited and committed.",
+    "A successful mock regression is infrastructure validation, not live model evidence.",
+    "One local Ollama configuration is not multi-model evidence.",
+    "The AP-001 Section 9 gap closes only if a new committed source-exact sequence contains public-test pass, qualified-verifier rejection, bounded repair, VERIFIED_PASS, and successful no-model replay.",
+    "Nebius/NVIDIA runtime evidence remains out of scope for this phase."
+  ]
+}

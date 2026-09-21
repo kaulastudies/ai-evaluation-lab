@@ -23,24 +23,32 @@
     "demo_evidence_check": {
       "passed": true,
       "returncode": 0
+    },
+    "phase11b_batch_check": {
+      "passed": true,
+      "returncode": 0
+    },
+    "phase11c_nebius_evidence_check": {
+      "passed": true,
+      "returncode": 0
     }
   },
   "generated_artifacts_match_head_evidence": true,
   "evidence_snapshot": {
-    "attempts_total": 10,
-    "verified_pass": 4,
+    "attempts_total": 11,
+    "verified_pass": 5,
     "verified_fail": 3,
     "hold": 3,
     "qualified_tasks": 5,
     "critical_mutation_escapes": 0,
     "critical_mutations_total": 17,
-    "claim_evidence_gap": 0.42857142857142855,
-    "false_green_rate": 0.42857142857142855,
+    "claim_evidence_gap": 0.375,
+    "false_green_rate": 0.375,
     "repair_conversion": 0.5
   },
   "evidence_boundary": [
     "The original AP-001 Section 9 sequence as written, including a successful repair conversion within AP-001 itself.",
     "Repeated multi-model or statistically meaningful benchmark performance.",
-    "Nebius/NVIDIA production-runtime evidence."
+    "Production-scale runtime evidence, including repeated throughput, reliability, and complete economic-cost measurement."
   ]
 }

@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0.0",
+  "status": "PROMOTED",
+  "experiment_id": "phase-11c-nebius-nemotron-pilot-v1",
+  "experiment_plan_sha256": "f076297eeef7448632b1cc40f27976426e9717919838684f060a42e6382f0ebd",
+  "source_commit": "348b3aedf8ce1296645d97db8f4fe31d47878bdd",
+  "source_archive": {
+    "filename": "phase-11c-nebius-evidence.zip",
+    "sha256": "94ed8fbbeac9e0a513200fc5d4ce1611bde6a48efde4f7d1957ba3e0c1456002"
+  },
+  "source_staging_evidence_dir": "phase-11c-nebius-nemotron-pilot-v1-ap-001-nebius-nemotron-3-super-120b-a12b-i001",
+  "canonical_evidence_dir": "tasks/AP-001/evidence/live/ap001-nebius-nemotron-001",
+  "audit": {
+    "credential_patterns_detected": false,
+    "independent_source_exact_replay_verified": true,
+    "replay_status": "SOURCE_EXACT_REPLAY_VERIFIED",
+    "stored_record_hash": "0302eea657a02410f6067db591305452641653257d511d2a79452218e572eab3",
+    "replayed_record_hash": "0302eea657a02410f6067db591305452641653257d511d2a79452218e572eab3",
+    "replayed_verdict": "VERIFIED_PASS",
+    "trusted_boundary_matches": true,
+    "false_green_matches": true
+  },
+  "artifact_sha256": {
+    "batch-ledger.json": "973765062f470a1351f0e9bac6ef76647eb78d5b64c9a22384249b90ccafe1d9",
+    "batch-summary.json": "0b4063eb7854fb0bf24f4b1e236f0e9733cd819e7aee662d37d31ed135054cc0",
+    "batch-summary.md": "3a2d987114ceee8e4da3c882ac63aeb3d60ff391993237823a31b6cc19631f9c",
+    "candidate-resource_view.py": "38d26cff34fd455c31a13ad20c3134f752ee61f2ccba4cd0c4af584b4da4352b",
+    "evaluation.json": "d7dd12bd4af83be8fa5781f65e94007c6200a1bb312684a0c9610000cb2d6c3b",
+    "manifest.json": "f32bf4fa00e68c55443a133a9208692f62654745ec362e5f3a723a0caae927aa",
+    "model-response.txt": "78f96ab57577ffb65745c836173d56cd394de76f39c9c46b45c959336b7eee65",
+    "replay.json": "183391cf3bb2e6ad1efc1871d66355f4f8132dbf1f80dd687baf234f31e0d5dc",
+    "runner-stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "runner-stdout.txt": "d7dd12bd4af83be8fa5781f65e94007c6200a1bb312684a0c9610000cb2d6c3b"
+  },
+  "claim_boundary": [
+    "This is one initial AP-001 trial under one Nebius/NVIDIA configuration.",
+    "The direct VERIFIED_PASS does not satisfy the AP-001 Section 9 false-green-to-repair sequence.",
+    "This pilot does not establish statistically meaningful, broad multi-model, or production-scale performance."
+  ]
+}

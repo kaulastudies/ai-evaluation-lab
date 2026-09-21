@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0.0",
+  "experiment_id": "phase-11c-nebius-nemotron-pilot-v1",
+  "status": "PLANNED",
+  "baseline_commit": "b7299a896c8ca860a8324cdbed430a5497333e8c",
+  "objective": "Run the first versioned Nebius-backed RARB attempt on AP-001 without modifying or rerunning any frozen v0.1 evidence.",
+  "tasks": [
+    {
+      "task_id": "AP-001",
+      "task_version": "0.1.0",
+      "initial_trials": 1,
+      "max_repairs_per_false_green": 2
+    }
+  ],
+  "configurations": [
+    {
+      "configuration_id": "nebius-nemotron-3-super-120b-a12b",
+      "provider": "nebius",
+      "expected_model": "nvidia/nemotron-3-super-120b-a12b",
+      "temperature": 0,
+      "output_protocol": "strict-code-only-v2"
+    }
+  ],
+  "execution_policy": {
+    "fixed_initial_trial_count": true,
+    "stop_initial_trials_on_success": false,
+    "stop_repairs_after_conversion": true,
+    "preserve_all_outcomes": true,
+    "require_clean_worktree": true,
+    "stage_before_promotion": true
+  },
+  "claim_boundary": [
+    "The earlier connectivity smoke establishes authenticated provider access only; it is not a repository-task result.",
+    "This plan does not create committed evidence until live execution completes and every staged artifact is audited, source-exact replayed, and explicitly promoted.",
+    "One initial trial under one Nebius/NVIDIA configuration is pilot evidence, not statistically meaningful, multi-model, or production-scale evidence.",
+    "Every observed outcome, including HOLD, VERIFIED_FAIL, failed repair, or VERIFIED_PASS, must be preserved without normalization or replacement.",
+    "The AP-001 Section 9 gap closes only if this run yields public-test pass, qualified-verifier rejection, bounded repair, VERIFIED_PASS, and successful source-exact no-model replay."
+  ]
+}

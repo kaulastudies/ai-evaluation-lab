@@ -13,6 +13,22 @@ REPLAY = RUNNER_ROOT / "replay.py"
 
 CASES = [
     {
+        "task_id": "AP-001",
+        "evidence": (
+            PROGRAM_ROOT
+            / "tasks"
+            / "AP-001"
+            / "evidence"
+            / "live"
+            / "ap001-nebius-nemotron-001"
+        ),
+        "record_hash": (
+            "0302eea657a02410f6067db5913054526"
+            "41653257d511d2a79452218e572eab3"
+        ),
+        "verdict": "VERIFIED_PASS",
+    },
+    {
         "task_id": "AP-002",
         "evidence": (
             PROGRAM_ROOT

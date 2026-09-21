@@ -63,10 +63,10 @@ def main() -> int:
                 is True
             ),
             "attempts": (
-                status["evidence_snapshot"]["attempts_total"] == 10
+                status["evidence_snapshot"]["attempts_total"] == 11
             ),
             "verdicts": (
-                status["evidence_snapshot"]["verified_pass"] == 4
+                status["evidence_snapshot"]["verified_pass"] == 5
                 and status["evidence_snapshot"]["verified_fail"] == 3
                 and status["evidence_snapshot"]["hold"] == 3
             ),
@@ -81,11 +81,11 @@ def main() -> int:
             ),
             "claim_gap": close(
                 status["evidence_snapshot"]["claim_evidence_gap"],
-                3 / 7,
+                3 / 8,
             ),
             "false_green": close(
                 status["evidence_snapshot"]["false_green_rate"],
-                3 / 7,
+                3 / 8,
             ),
             "repair_conversion_gap_removed": not any(
                 item
@@ -95,6 +95,10 @@ def main() -> int:
             ),
             "ap001_specific_gap_present": any(
                 "AP-001 Section 9 sequence" in item
+                for item in status["evidence_boundary"]
+            ),
+            "production_scale_gap_present": any(
+                "Production-scale" in item
                 for item in status["evidence_boundary"]
             ),
             "human_summary": (

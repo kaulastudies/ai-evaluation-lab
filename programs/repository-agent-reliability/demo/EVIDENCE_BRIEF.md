@@ -8,15 +8,15 @@ RARB treats the coding agent as the system under test. A patch is not accepted b
 
 ## Current evidence snapshot
 
-- **10** committed live attempts
-- **4 VERIFIED_PASS / 3 VERIFIED_FAIL / 3 HOLD**
+- **11** committed live attempts
+- **5 VERIFIED_PASS / 3 VERIFIED_FAIL / 3 HOLD**
 - **5** qualified tasks
 - **0 / 17** critical verifier mutations escaped
-- Claim-Evidence Gap: **42.9%**
-- False-Green Rate: **42.9%**
-- Initial False-Green Rate: **40.0%**
+- Claim-Evidence Gap: **37.5%**
+- False-Green Rate: **37.5%**
+- Initial False-Green Rate: **33.3%**
 - Repair Conversion: **50.0%**
-- Median recorded generation latency among verified successes: **82.91s**
+- Median recorded generation latency among verified successes: **81.34s**
 
 ## Successful bounded-repair example: AP-005
 
@@ -39,6 +39,7 @@ AP-003 remains the counterexample: bounded repair was attempted but did not conv
 
 - `ap001-ollama-llama3-002` - **HOLD** - Model response was rejected before execution; no candidate verdict was inferred.
 - `ap001-ollama-llama3-003` - **VERIFIED_PASS** - Admitted candidate passed public validation and the qualified verifier.
+- `phase-11c-nebius-nemotron-pilot-v1-ap-001-nebius-nemotron-3-super-120b-a12b-i001` - **VERIFIED_PASS** - The preregistered Nebius/NVIDIA pilot was admitted, passed public validation and every qualified verifier gate, preserved the trusted boundary, and passed source-exact replay.
 
 ### AP-002 - permission-boundary isolation
 
@@ -70,14 +71,15 @@ AP-003 remains the counterexample: bounded repair was attempted but did not conv
 - Source-exact no-model replay across historical evaluator versions, including repair HOLD, terminal repair failure, and successful repair conversion.
 - Separately versioned initial-output protocols without rewriting the frozen earlier HOLD.
 - Live initial model evidence across AP-001 through AP-005.
+- One preregistered Nebius/NVIDIA-backed AP-001 initial attempt using nvidia/nemotron-3-super-120b-a12b, with a source-exact replayable VERIFIED_PASS.
 - Evidence-derived metrics without fabricating missing fields.
 
 ## Not yet demonstrated
 
 - The original AP-001 Section 9 sequence as written, including a successful repair conversion within AP-001 itself.
 - Repeated multi-model or statistically meaningful benchmark performance.
-- Nebius/NVIDIA production-runtime evidence.
+- Production-scale runtime evidence, including repeated throughput, reliability, and complete economic-cost measurement.
 
 ## Evidence boundary
 
-These numbers describe the committed RARB evidence set only. They are not claims about general coding-agent performance. The successful AP-005 repair conversion closes the general repair-conversion evidence gap, but it does not retroactively satisfy the original AP-001-specific Section 9 sequence. The AP-004 v1 HOLD and v2 VERIFIED_PASS are separate observed attempts; this evidence does not by itself establish that the protocol change caused the different outcome. Local Ollama provider billing is reported as zero, but economic execution cost is unmetered and therefore Cost / Verified Success remains N/A.
+These numbers describe the committed RARB evidence set only. They are not claims about general coding-agent performance. The successful AP-005 repair conversion closes the general repair-conversion evidence gap, but it does not retroactively satisfy the original AP-001-specific Section 9 sequence. The AP-004 v1 HOLD and v2 VERIFIED_PASS are separate observed attempts; this evidence does not by itself establish that the protocol change caused the different outcome. Local Ollama provider billing is reported as zero, but economic execution cost is unmetered and therefore Cost / Verified Success remains N/A. The single Nebius/NVIDIA AP-001 pilot establishes provider-backed repository-task execution under the RARB protocol; it does not establish statistical or production-scale performance.

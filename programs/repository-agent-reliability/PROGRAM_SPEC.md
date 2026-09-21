@@ -130,6 +130,7 @@ success gate.
 Current committed evidence demonstrates:
 
 - AP-001 verifier qualification, an admission `HOLD`, a later `VERIFIED_PASS`, and
+  source-exact replay, plus a preregistered Nebius/NVIDIA initial `VERIFIED_PASS` with
   source-exact replay;
 - AP-002 verifier qualification, a live `VERIFIED_PASS`, and source-exact replay;
 - AP-003 verifier qualification, a genuine public-test false-green
@@ -143,8 +144,8 @@ Current committed evidence demonstrates:
   diagnostics before converting the parent failure to a source-exact replayable
   `VERIFIED_PASS`.
 
-As of this amendment, the committed live evidence set contains 10 attempts:
-4 `VERIFIED_PASS`, 3 `VERIFIED_FAIL`, and 3 `HOLD`. All five benchmark tasks are
+As of the Phase 11C evidence expansion, the committed live evidence set contains 11
+attempts: 5 `VERIFIED_PASS`, 3 `VERIFIED_FAIL`, and 3 `HOLD`. All five benchmark tasks are
 verifier-qualified, with 0 of 17 configured critical verifier mutations escaping
 detection. Across two bounded-repair episodes, one converted to `VERIFIED_PASS`
 (Repair Conversion = 50%).
@@ -161,7 +162,12 @@ Therefore the remaining evidence gaps are:
 
 - the original AP-001-specific Section 9 sequence as written;
 - repeated multi-model/statistically meaningful evidence;
-- Nebius/NVIDIA production-runtime evidence.
+- production-scale runtime, reliability, and economic-cost evidence.
+
+The Phase 11C Nebius/NVIDIA pilot closes the narrower provider-connectivity and
+repository-task execution gap: one preregistered AP-001 attempt using
+`nvidia/nemotron-3-super-120b-a12b` reached `VERIFIED_PASS` and reproduced source-exactly.
+Because it passed directly, it does not satisfy the Section 9 repair sequence.
 
 Demo and dashboard-style artifacts added during implementation are evidence indexes and
 presentation surfaces. Their existence must not be interpreted as satisfying or
