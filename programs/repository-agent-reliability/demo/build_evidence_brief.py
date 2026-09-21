@@ -301,6 +301,12 @@ def build_payload(summary: dict[str, Any]) -> dict[str, Any]:
                 "source-exact replays."
             ),
             (
+                "One preregistered Phase 12 AP-001 matrix across three fixed "
+                "configurations with ten trials each: 29 VERIFIED_PASS, one "
+                "preserved public-test VERIFIED_FAIL, zero false-greens, zero "
+                "repairs, and 30 source-exact no-model replays."
+            ),
+            (
                 "Evidence-derived metrics without fabricating missing fields."
             ),
         ],
@@ -310,8 +316,9 @@ def build_payload(summary: dict[str, Any]) -> dict[str, Any]:
                 "a successful repair conversion within AP-001 itself."
             ),
             (
-                "Repeated cross-model and cross-provider benchmark evidence "
-                "with sample sizes sufficient for general performance claims."
+                "General cross-task or provider-wide performance evidence; "
+                "Phase 12 is bounded to AP-001, three configurations, and "
+                "ten trials per configuration."
             ),
             (
                 "Production-scale runtime evidence, including repeated "
@@ -419,8 +426,11 @@ def render_markdown(payload: dict[str, Any]) -> str:
             "provider-backed repository-task execution under the RARB "
             "protocol; it does not establish statistical or production-scale "
             "performance. The fixed ten-trial local Ollama batch adds "
-            "repeated single-configuration evidence; its result must not be "
-            "generalized to other models or providers.",
+            "repeated single-configuration evidence. Phase 12 adds a fixed "
+            "three-configuration, ten-trials-per-configuration AP-001 matrix "
+            "with 29 VERIFIED_PASS and one preserved VERIFIED_FAIL; it remains "
+            "single-task evidence and must not be generalized to coding agents "
+            "overall, providers overall, or production-scale performance.",
             "",
         ]
     )
