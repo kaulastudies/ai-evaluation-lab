@@ -156,3 +156,8 @@ preregistered configuration.
 Batch output under `runs/live/rarb/` is staging, not committed evidence. Promotion into
 a task's `evidence/live/` directory requires separate artifact review and source-exact
 replay.
+
+`phase11c_evidence_check.py` pins the promoted Nebius/NVIDIA AP-001 pilot. It validates
+the preregistered plan hash, provider/model identity, source commit, artifact hashes,
+qualified-verifier result, trusted-boundary result, fixed batch counts, and source-exact
+replay record before the one-command demo can remain green.

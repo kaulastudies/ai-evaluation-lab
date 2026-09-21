@@ -109,6 +109,13 @@ def validate_system() -> list[CheckResult]:
             "phase11b_batch_check",
             [sys.executable, str(RUNNER_ROOT / "batch_check.py")],
         ),
+        run_check(
+            "phase11c_nebius_evidence_check",
+            [
+                sys.executable,
+                str(RUNNER_ROOT / "phase11c_evidence_check.py"),
+            ],
+        ),
     ]
 
 

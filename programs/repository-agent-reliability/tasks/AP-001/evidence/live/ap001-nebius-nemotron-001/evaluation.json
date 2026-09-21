@@ -1,0 +1,109 @@
+{
+  "program": "repository-agent-reliability",
+  "runtime_schema": "generic-v1",
+  "task_id": "AP-001",
+  "task_version": "0.1.0",
+  "run_label": "phase-11c-nebius-nemotron-pilot-v1-ap-001-nebius-nemotron-3-super-120b-a12b-i001",
+  "source_commit": "348b3aedf8ce1296645d97db8f4fe31d47878bdd",
+  "provider": {
+    "name": "nebius",
+    "model": "nvidia/nemotron-3-super-120b-a12b",
+    "generation_parameters": {
+      "temperature": 0
+    },
+    "latency_ms": 7741,
+    "input_tokens": 621,
+    "output_tokens": 375,
+    "estimated_cost_usd": null
+  },
+  "output_protocol": {
+    "name": "strict-code-only-v2",
+    "sha256": "187df771d5b46fadd4d3d0ed345e199ee3879eea1fa79d1ea87f682b3e92efcc"
+  },
+  "model_context": {
+    "context_hash": "c8cce2a9ab983c6ffa70a35e0702004336ce594c4e21bcd716324d108a4cf2e8",
+    "prompt_sha256": "8c6752f70566e06c21263cb308429c027cfa76d033ce682c8a8e36c3439ad2e7",
+    "visible_paths": [
+      "agent_brief.md",
+      "fixture/app/resource_view.py",
+      "fixture/tests/public/test_resource_view.py"
+    ]
+  },
+  "model_response_sha256": "78f96ab57577ffb65745c836173d56cd394de76f39c9c46b45c959336b7eee65",
+  "model_response_artifact": {
+    "filename": "model-response.txt",
+    "sha256": "78f96ab57577ffb65745c836173d56cd394de76f39c9c46b45c959336b7eee65",
+    "bytes": 422
+  },
+  "candidate_admission": {
+    "accepted": true,
+    "reason": "candidate satisfies task structural admission policy"
+  },
+  "candidate_sha256": "38d26cff34fd455c31a13ad20c3134f752ee61f2ccba4cd0c4af584b4da4352b",
+  "evaluation": {
+    "program": "repository-agent-reliability",
+    "runtime_schema": "generic-v1",
+    "task_id": "AP-001",
+    "task_version": "0.1.0",
+    "run_label": "phase-11c-nebius-nemotron-pilot-v1-ap-001-nebius-nemotron-3-super-120b-a12b-i001",
+    "model_context": {
+      "context_hash": "c8cce2a9ab983c6ffa70a35e0702004336ce594c4e21bcd716324d108a4cf2e8",
+      "visible_paths": [
+        "agent_brief.md",
+        "fixture/app/resource_view.py",
+        "fixture/tests/public/test_resource_view.py"
+      ],
+      "excluded_paths": [
+        "verifier/**",
+        "controls/**",
+        "evidence/**"
+      ]
+    },
+    "task_contract_sha256": "c0fc841bcd01f289d7f75e848372c5d09c5fc0c985aacc41d4c01a85b702fd70",
+    "runtime_config_sha256": "fc1421cfa51c33b843990a1281af5f9aef2b87851c2f150b67d5ffecd9f37606",
+    "verifier_source_sha256": "3cfff85ee030e01cd2baa989d7f26fbcfb75641b147bc5b199896e98310bebff",
+    "qualification_evidence_sha256": "c76ea64845ffbf19c5acc455658568e3dccfb9d0f5387349584d1c80203237bf",
+    "candidate_sha256": "38d26cff34fd455c31a13ad20c3134f752ee61f2ccba4cd0c4af584b4da4352b",
+    "agent_claimed_success": true,
+    "public_validation": {
+      "passed": true,
+      "returncode": 0
+    },
+    "verifier_qualification": {
+      "status": "QUALIFIED",
+      "verifier_version": "0.1.0",
+      "critical_mutations_rejected": 3,
+      "critical_mutations_total": 3
+    },
+    "verification": {
+      "task_id": "AP-001",
+      "task_version": "0.1.0",
+      "verifier_version": "0.1.0",
+      "candidate": "workspace",
+      "gates": [
+        {
+          "id": "AP001-G03",
+          "passed": true,
+          "diagnostic": "ordinary single-resource behavior preserved"
+        },
+        {
+          "id": "AP001-G01",
+          "passed": true,
+          "diagnostic": "newer response committed correctly"
+        },
+        {
+          "id": "AP001-G02",
+          "passed": true,
+          "diagnostic": "superseded response was ignored"
+        }
+      ],
+      "status": "VERIFIED_PASS"
+    },
+    "trusted_files_unchanged_after_scoring": true,
+    "false_green": false,
+    "final_verdict": "VERIFIED_PASS",
+    "record_hash": "0302eea657a02410f6067db591305452641653257d511d2a79452218e572eab3"
+  },
+  "final_verdict": "VERIFIED_PASS",
+  "hold_reason": null
+}

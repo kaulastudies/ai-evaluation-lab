@@ -61,10 +61,11 @@ repository-task run. It schedules one AP-001 initial attempt using
 the bounded repair loop, with at most two repair attempts. Every observed outcome is
 retained.
 
-The earlier token-factory smoke test proves connectivity only. This pilot becomes RARB
-evidence only after the staged artifacts pass review and source-exact replay and are
-committed explicitly. A single model configuration and one initial trial do not support
-statistical, multi-model, or production-scale claims.
+The earlier token-factory smoke test proved connectivity only. The completed pilot has
+now passed artifact review and source-exact replay and is promoted into committed AP-001
+evidence. The initial candidate reached `VERIFIED_PASS` directly, so no bounded repair
+was triggered. A single model configuration and one initial trial do not support
+statistical, broad multi-model, or production-scale claims.
 
 Preview the fixed run plan without calling Nebius:
 

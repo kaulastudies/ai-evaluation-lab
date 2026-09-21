@@ -7,7 +7,9 @@ The brief is deliberately descriptive. It highlights the strongest demonstrated 
 behavior while keeping unproven claims visible. The current evidence set contains one
 successful bounded repair conversion on AP-005; it does **not** satisfy the original
 AP-001-specific Section 9 sequence or establish statistically meaningful multi-model
-performance.
+performance. It now also records one preregistered, source-exact replayable
+Nebius/NVIDIA AP-001 `VERIFIED_PASS`; that single pilot does not establish
+production-scale performance.
 
 Generate it with:
 

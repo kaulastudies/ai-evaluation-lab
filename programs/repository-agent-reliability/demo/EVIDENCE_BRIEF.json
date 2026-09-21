@@ -3,18 +3,18 @@
   "program": "repository-agent-reliability",
   "headline": "Verify the evaluation before trusting the verdict.",
   "evidence_snapshot": {
-    "live_attempts": 10,
-    "verified_pass": 4,
+    "live_attempts": 11,
+    "verified_pass": 5,
     "verified_fail": 3,
     "hold": 3,
     "qualified_tasks": 5,
     "critical_mutations_total": 17,
     "critical_mutation_escapes": 0,
-    "claim_evidence_gap": 0.42857142857142855,
-    "false_green_rate": 0.42857142857142855,
-    "initial_false_green_rate": 0.4,
+    "claim_evidence_gap": 0.375,
+    "false_green_rate": 0.375,
+    "initial_false_green_rate": 0.3333333333333333,
     "repair_conversion": 0.5,
-    "median_time_to_verified_success_ms": 82907.5
+    "median_time_to_verified_success_ms": 81341.0
   },
   "task_evidence": [
     {
@@ -30,6 +30,11 @@
           "run_label": "ap001-ollama-llama3-003",
           "verdict": "VERIFIED_PASS",
           "note": "Admitted candidate passed public validation and the qualified verifier."
+        },
+        {
+          "run_label": "phase-11c-nebius-nemotron-pilot-v1-ap-001-nebius-nemotron-3-super-120b-a12b-i001",
+          "verdict": "VERIFIED_PASS",
+          "note": "The preregistered Nebius/NVIDIA pilot was admitted, passed public validation and every qualified verifier gate, preserved the trusted boundary, and passed source-exact replay."
         }
       ]
     },
@@ -107,11 +112,12 @@
     "Source-exact no-model replay across historical evaluator versions, including repair HOLD, terminal repair failure, and successful repair conversion.",
     "Separately versioned initial-output protocols without rewriting the frozen earlier HOLD.",
     "Live initial model evidence across AP-001 through AP-005.",
+    "One preregistered Nebius/NVIDIA-backed AP-001 initial attempt using nvidia/nemotron-3-super-120b-a12b, with a source-exact replayable VERIFIED_PASS.",
     "Evidence-derived metrics without fabricating missing fields."
   ],
   "not_yet_demonstrated": [
     "The original AP-001 Section 9 sequence as written, including a successful repair conversion within AP-001 itself.",
     "Repeated multi-model or statistically meaningful benchmark performance.",
-    "Nebius/NVIDIA production-runtime evidence."
+    "Production-scale runtime evidence, including repeated throughput, reliability, and complete economic-cost measurement."
   ]
 }

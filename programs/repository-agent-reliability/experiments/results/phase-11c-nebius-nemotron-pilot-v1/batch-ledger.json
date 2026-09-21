@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0.0",
+  "experiment_id": "phase-11c-nebius-nemotron-pilot-v1",
+  "experiment_plan_sha256": "f076297eeef7448632b1cc40f27976426e9717919838684f060a42e6382f0ebd",
+  "source_commit": "348b3aedf8ce1296645d97db8f4fe31d47878bdd",
+  "status": "COMPLETE",
+  "attempts": [
+    {
+      "run_label": "phase-11c-nebius-nemotron-pilot-v1-ap-001-nebius-nemotron-3-super-120b-a12b-i001",
+      "task_id": "AP-001",
+      "attempt_kind": "initial",
+      "configuration_id": "nebius-nemotron-3-super-120b-a12b",
+      "provider": "nebius",
+      "model": "nvidia/nemotron-3-super-120b-a12b",
+      "returncode": 0,
+      "final_verdict": "VERIFIED_PASS",
+      "false_green": false,
+      "evidence_dir": "phase-11c-nebius-nemotron-pilot-v1-ap-001-nebius-nemotron-3-super-120b-a12b-i001"
+    }
+  ]
+}

@@ -361,16 +361,16 @@ Third-party dependencies and referenced external materials remain subject to the
 
 **Alpha v0.2A is complete, and AS-002 is now merged into the public Agent Safety Evaluation Program.**
 
-**RARB v0.1 is implemented as a release candidate.** Its committed evidence currently contains 10 live attempts across five verifier-qualified tasks: 4 `VERIFIED_PASS`, 3 `VERIFIED_FAIL`, and 3 `HOLD`. Configured critical verifier mutations show 0 / 17 escapes, and one of two bounded-repair episodes converted to `VERIFIED_PASS`. These figures describe the committed RARB evidence set only, not general coding-agent performance.
+**RARB v0.1 is merged and CI-green.** Its committed evidence now contains 11 live attempts across five verifier-qualified tasks: 5 `VERIFIED_PASS`, 3 `VERIFIED_FAIL`, and 3 `HOLD`. Configured critical verifier mutations show 0 / 17 escapes, and one of two bounded-repair episodes converted to `VERIFIED_PASS`. The evidence includes one preregistered, source-exact replayable AP-001 `VERIFIED_PASS` from Nebius Token Factory using `nvidia/nemotron-3-super-120b-a12b`. These figures describe the committed RARB evidence set only, not general coding-agent performance.
 
-RARB still records three explicit evidence boundaries: the original AP-001-specific Section 9 sequence as written, repeated multi-model/statistically meaningful benchmarking, and Nebius/NVIDIA production-runtime evidence.
+RARB still records three explicit evidence boundaries: the original AP-001-specific Section 9 sequence as written, repeated multi-model/statistically meaningful benchmarking, and production-scale runtime, reliability, and economic-cost evidence.
 
 Next engineering milestones:
 
-- expand live multi-provider validation to a third model/provider configuration;
+- expand RARB validation across repeated model/provider configurations;
 - publish live-provider evidence for AS-002 under its frozen contract;
 - normalize all current runs into hash-valid Evaluation Records;
-- add cost/performance normalization;
+- add complete provider-cost capture and performance normalization;
 - add provider provenance and redacted run logging;
 - publish the first reproducible cross-provider technical report;
 - begin reviewer operations and agreement measurement.

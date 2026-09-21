@@ -45,6 +45,11 @@ def build_payload(summary: dict[str, Any]) -> dict[str, Any]:
 
     ap001_hold = find_attempt(attempts, "ap001-ollama-llama3-002")
     ap001_pass = find_attempt(attempts, "ap001-ollama-llama3-003")
+    ap001_nebius_pass = find_attempt(
+        attempts,
+        "phase-11c-nebius-nemotron-pilot-v1-ap-001-"
+        "nebius-nemotron-3-super-120b-a12b-i001",
+    )
     ap002_pass = find_attempt(attempts, "ap002-ollama-llama3-001")
     ap003_initial = find_attempt(attempts, "ap003-ollama-llama3-001")
     ap003_repair_hold = find_attempt(
@@ -118,6 +123,16 @@ def build_payload(summary: dict[str, Any]) -> dict[str, Any]:
                         "note": (
                             "Admitted candidate passed public validation "
                             "and the qualified verifier."
+                        ),
+                    },
+                    {
+                        "run_label": ap001_nebius_pass["run_label"],
+                        "verdict": ap001_nebius_pass["final_verdict"],
+                        "note": (
+                            "The preregistered Nebius/NVIDIA pilot was "
+                            "admitted, passed public validation and every "
+                            "qualified verifier gate, preserved the trusted "
+                            "boundary, and passed source-exact replay."
                         ),
                     },
                 ],
@@ -250,6 +265,11 @@ def build_payload(summary: dict[str, Any]) -> dict[str, Any]:
                 "Live initial model evidence across AP-001 through AP-005."
             ),
             (
+                "One preregistered Nebius/NVIDIA-backed AP-001 initial "
+                "attempt using nvidia/nemotron-3-super-120b-a12b, with a "
+                "source-exact replayable VERIFIED_PASS."
+            ),
+            (
                 "Evidence-derived metrics without fabricating missing fields."
             ),
         ],
@@ -263,7 +283,9 @@ def build_payload(summary: dict[str, Any]) -> dict[str, Any]:
                 "performance."
             ),
             (
-                "Nebius/NVIDIA production-runtime evidence."
+                "Production-scale runtime evidence, including repeated "
+                "throughput, reliability, and complete economic-cost "
+                "measurement."
             ),
         ],
     }
@@ -362,7 +384,10 @@ def render_markdown(payload: dict[str, Any]) -> str:
             "protocol change caused the different outcome. Local Ollama "
             "provider billing is reported as zero, but economic execution "
             "cost is unmetered and therefore Cost / Verified Success "
-            "remains N/A.",
+            "remains N/A. The single Nebius/NVIDIA AP-001 pilot establishes "
+            "provider-backed repository-task execution under the RARB "
+            "protocol; it does not establish statistical or production-scale "
+            "performance.",
             "",
         ]
     )

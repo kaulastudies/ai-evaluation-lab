@@ -6,7 +6,7 @@ RARB v0.1 was merged through PR #13 at commit
 `556ca9653aa6e6ea5de0778890b2efe098cff618`. This checklist records the completed
 release gates without changing the frozen benchmark evidence.
 
-## Evidence state
+## v0.1 release evidence snapshot
 
 - 5 verifier-qualified benchmark tasks
 - 10 committed live attempts
@@ -15,6 +15,16 @@ release gates without changing the frozen benchmark evidence.
 - Repair Conversion: 1 / 2 episodes (50%)
 - AP-005 successful bounded repair is source-exact replayable
 - AP-003 non-converting repair remains preserved
+
+## Post-release Phase 11C evidence expansion
+
+- 11 committed live attempts
+- 5 `VERIFIED_PASS` / 3 `VERIFIED_FAIL` / 3 `HOLD`
+- one preregistered Nebius/NVIDIA AP-001 initial attempt
+- provider/model: Nebius Token Factory / `nvidia/nemotron-3-super-120b-a12b`
+- verdict: `VERIFIED_PASS`
+- source-exact no-model replay: verified
+- original AP-001 Section 9 repair sequence: still open
 
 ## Required pre-merge gates
 
@@ -41,7 +51,8 @@ the merge commit and PR; these boxes are a status record, not newly generated ev
 
 - the original AP-001 Section 9 sequence as written, including repair conversion within AP-001;
 - repeated multi-model/statistically meaningful benchmark performance;
-- Nebius/NVIDIA production-runtime evidence.
+- production-scale runtime, reliability, and complete economic-cost evidence.
 
-These boundaries are intentionally retained. They must not be rewritten as completed
+The narrower Nebius/NVIDIA connectivity and repository-task execution gap is closed by
+the Phase 11C pilot. The boundaries above remain and must not be rewritten as completed
 until corresponding evidence exists.
