@@ -120,7 +120,7 @@ def main() -> int:
             and replay["replay_provider"] == "mock"
             and all(replay["checks"].values())
             and replay["status"] == "SOURCE_EXACT_REPLAY_VERIFIED"
-            and replay["replay_report_sha256"] == item["replay_report_hash"]
+            and replay["replay_report_sha256"] == item["replay_report_sha256"]
         )
 
     counts = summary["counts"]
@@ -136,7 +136,7 @@ def main() -> int:
         "archive_identity": (
             promotion["source_archive"]["sha256"] == ARCHIVE_SHA256
             and promotion["source_archive"]["bytes"] == ARCHIVE_BYTES
-            and promotion["source_archive"]["files"] == ARCHIVE_FILES
+            and promotion["source_archive"]["entries"] == ARCHIVE_FILES
         ),
         "plan_hash": (
             canonical_json_hash(plan) == PLAN_HASH
