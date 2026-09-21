@@ -127,6 +127,25 @@ def main() -> int:
         item["configuration_id"]: item for item in summary["configuration_summaries"]
     }
 
+    credential_markers = (
+        b"Authorization:",
+        b"Bearer ",
+        b"NEBIUS_API_KEY",
+        b"API_KEY=",
+    )
+    scanned_paths = [
+        path
+        for item in promotion["attempts"]
+        for path in (PROGRAM_ROOT / item["canonical_evidence_dir"]).iterdir()
+        if path.is_file()
+    ] + [
+        path for path in RESULT_ROOT.iterdir() if path.is_file()
+    ]
+    credential_marker_free = all(
+        not any(marker in path.read_bytes() for marker in credential_markers)
+        for path in scanned_paths
+    )
+
     checks = {
         "promotion_record": (
             promotion["status"] == "PROMOTED"
@@ -136,6 +155,10 @@ def main() -> int:
             promotion["source_archive"]["sha256"] == ARCHIVE_SHA256
             and promotion["source_archive"]["bytes"] == ARCHIVE_BYTES
             and promotion["source_archive"]["entries"] == ARCHIVE_FILES
+        ),
+        "credential_marker_scan": (
+            promotion["audit"]["credential_patterns_detected"] is False
+            and credential_marker_free
         ),
         "plan_hash": (
             canonical_json_hash(plan) == PLAN_HASH
