@@ -29,6 +29,7 @@ from engine import (
     sha256_file,
     unwrap_candidate,
 )
+from manifest import write_manifest
 from eval_lab.providers.http import provider_from_name
 from eval_lab.providers.mock import MockProvider
 from eval_lab.tasks import EvaluationTask
@@ -305,6 +306,12 @@ def main() -> int:
     parser.add_argument("--response-out", type=Path)
     parser.add_argument("--candidate-out", type=Path)
     parser.add_argument("--out", type=Path)
+    parser.add_argument("--manifest-out", type=Path)
+    parser.add_argument("--experiment-id")
+    parser.add_argument("--experiment-plan-sha256")
+    parser.add_argument("--configuration-id")
+    parser.add_argument("--trial-index", type=int)
+    parser.add_argument("--repair-index", type=int)
     parser.add_argument(
         "--output-protocol",
         choices=["strict-code-only-v1", "strict-code-only-v2"],
@@ -312,6 +319,11 @@ def main() -> int:
     )
     parser.add_argument("--max-diagnostic-chars", type=int, default=600)
     args = parser.parse_args()
+
+    if args.manifest_out and not args.response_out:
+        raise SystemExit("--manifest-out requires --response-out")
+    if args.manifest_out and not args.candidate_out:
+        raise SystemExit("--manifest-out requires --candidate-out")
 
     task_root, config = load_runtime(args.task)
     parent_dir = args.parent_evidence.resolve()
@@ -529,6 +541,24 @@ def main() -> int:
             + "\n",
             encoding="utf-8",
             newline="\n",
+        )
+
+    if args.manifest_out:
+        experiment = {
+            key: value
+            for key, value in {
+                "experiment_id": args.experiment_id,
+                "experiment_plan_sha256": args.experiment_plan_sha256,
+                "configuration_id": args.configuration_id,
+                "trial_index": args.trial_index,
+                "repair_index": args.repair_index,
+            }.items()
+            if value is not None
+        }
+        write_manifest(
+            args.manifest_out,
+            record,
+            experiment=experiment or None,
         )
 
     print(json.dumps(record, indent=2, ensure_ascii=False))

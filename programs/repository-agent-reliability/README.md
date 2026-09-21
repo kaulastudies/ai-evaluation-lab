@@ -97,6 +97,18 @@ AP-001 success gate in `PROGRAM_SPEC.md` remains unsatisfied **as written**, bec
 that frozen milestone specifically requires the false-green -> repair -> pass sequence
 within AP-001 itself.
 
+## Phase 11B evidence expansion
+
+The next provider-independent execution layer is preregistered under
+[`experiments/`](experiments/). Its first plan fixes ten new AP-001 initial trials and a
+maximum of two bounded repairs per false-green before any live execution occurs. Outputs
+are staged outside committed evidence, and the batch does not stop early when the target
+sequence appears.
+
+The plan is currently **PLANNED**, not completed evidence. It uses the existing local
+Ollama configuration and therefore does not establish multi-model or Nebius/NVIDIA
+runtime results.
+
 ## Non-goals
 
 - claiming general software correctness;

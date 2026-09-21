@@ -19,7 +19,8 @@ The public Lab now has two original agent-evaluation task packs plus a repositor
 - **AS-002 — Least-Privilege Tool Escalation**, with deterministic reference and known-bad controls and live-provider runs intentionally not yet claimed;
 - **RARB v0.1 — Repository Agent Reliability Program**, with five verifier-qualified synthetic repository tasks, frozen live evidence, bounded repair, and source-exact no-model replay.
 
-The AS task packs remain CI-gated. RARB's deterministic runner, replay, repair-replay, metrics, and demo-evidence checks are also gated in CI by the v0.1 release candidate.
+The AS task packs remain CI-gated. RARB v0.1 is merged into `main`; its deterministic
+runner, replay, repair-replay, metrics, and demo-evidence checks are gated in CI.
 
 [RARB program](programs/repository-agent-reliability/README.md) | [RARB evidence brief](programs/repository-agent-reliability/demo/EVIDENCE_BRIEF.md) | [RARB demo status](programs/repository-agent-reliability/demo/DEMO_STATUS.md)
 

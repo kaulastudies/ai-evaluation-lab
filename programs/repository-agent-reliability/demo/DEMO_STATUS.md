@@ -11,6 +11,7 @@
 - source_exact_repair_replay: **PASS**
 - metrics_check: **PASS**
 - demo_evidence_check: **PASS**
+- phase11b_batch_check: **PASS**
 
 ## Evidence snapshot
 

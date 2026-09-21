@@ -4,8 +4,10 @@ This directory contains a judge- and stakeholder-facing evidence brief generated
 `metrics/summary.json`.
 
 The brief is deliberately descriptive. It highlights the strongest demonstrated RARB
-behavior while keeping unproven claims visible, especially the fact that the current
-evidence set does **not** yet contain a successful bounded repair conversion.
+behavior while keeping unproven claims visible. The current evidence set contains one
+successful bounded repair conversion on AP-005; it does **not** satisfy the original
+AP-001-specific Section 9 sequence or establish statistically meaningful multi-model
+performance.
 
 Generate it with:
 
