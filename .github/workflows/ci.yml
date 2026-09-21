@@ -23,6 +23,10 @@ jobs:
       - run: python ops/gates/validate_as001_live_evidence.py
       - run: python ops/gates/validate_as001_groq_evidence.py
       - run: python ops/gates/validate_as002.py
+      - name: RARB Python compilation
+        run: python -m compileall -q programs/repository-agent-reliability
+      - name: RARB diff hygiene
+        run: git diff --check origin/main...HEAD
       - name: RARB Phase 12 evidence integrity
         run: PYTHONPATH=src python programs/repository-agent-reliability/runner/phase12_evidence_check.py
       - name: RARB deterministic evidence gate
