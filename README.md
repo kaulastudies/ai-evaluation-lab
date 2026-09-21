@@ -361,15 +361,15 @@ Third-party dependencies and referenced external materials remain subject to the
 
 **Alpha v0.2A is complete, and AS-002 is now merged into the public Agent Safety Evaluation Program.**
 
-**RARB v0.1 is merged and CI-green.** Its committed evidence now contains 21 live attempts across five verifier-qualified tasks: 14 `VERIFIED_PASS`, 4 `VERIFIED_FAIL`, and 3 `HOLD`. Configured critical verifier mutations show 0 / 17 escapes, and one of two bounded-repair episodes converted to `VERIFIED_PASS`. The evidence includes a fixed ten-trial local Ollama AP-001 batch with 9 verified passes and 1 public-test failure, plus one preregistered, source-exact replayable AP-001 `VERIFIED_PASS` from Nebius Token Factory using `nvidia/nemotron-3-super-120b-a12b`. These figures describe the committed RARB evidence set only, not general coding-agent performance.
+**RARB v0.1 is merged and CI-gated.** Its promoted evidence now contains 51 live attempts across five verifier-qualified tasks: 43 `VERIFIED_PASS`, 5 `VERIFIED_FAIL`, and 3 `HOLD`. Configured critical verifier mutations show 0 / 17 escapes, and one of two bounded-repair episodes converted to `VERIFIED_PASS`.
 
-RARB still records three explicit evidence boundaries: the original AP-001-specific Section 9 sequence as written, repeated cross-model and cross-provider benchmarking with sample sizes sufficient for general performance claims, and production-scale runtime, reliability, and economic-cost evidence.
+Phase 12 adds a preregistered AP-001 matrix of exactly 30 initial attempts across three fixed configurations, ten trials each: Ollama `llama3:latest` (9 pass, 1 fail), Ollama `qwen2.5-coder:7b` (10 pass), and Nebius/NVIDIA `nvidia/nemotron-3-super-120b-a12b` (10 pass). All 30 outcomes passed source-exact no-model replay; there were no false-greens or repair attempts.
 
-**Phase 12A is preregistered, not executed evidence.** It fixes a 30-attempt AP-001 matrix across local Ollama `llama3:latest`, local Ollama `qwen2.5-coder:7b`, and Nebius/NVIDIA `nvidia/nemotron-3-super-120b-a12b`, with one source commit and configuration-level reporting. The committed evidence counts above remain unchanged until a complete batch is audited, source-exactly replayed, and explicitly promoted.
+These figures describe the committed RARB evidence set only. Phase 12 is bounded to one task, three configurations, and ten trials per configuration; it does not establish general coding-agent performance, provider-wide superiority, statistical generalization, or production-scale reliability. The original AP-001-specific Section 9 false-green-to-repair sequence remains open.
 
 Next engineering milestones:
 
-- execute and audit the preregistered Phase 12 cross-model/provider matrix;
+- extend RARB beyond the bounded single-task Phase 12 matrix while preserving preregistration and replay discipline;
 - publish live-provider evidence for AS-002 under its frozen contract;
 - normalize all current runs into hash-valid Evaluation Records;
 - add complete provider-cost capture and performance normalization;
