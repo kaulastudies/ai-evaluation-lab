@@ -36,8 +36,8 @@ release gates without changing the frozen benchmark evidence.
 - full non-stopping batch required; split configuration execution rejected
 - per-configuration Wilson intervals, repair outcomes, latency, token, and reported-cost
   coverage preregistered
-- Phase 12 live attempts committed: **0**
-- existing 21 attempts remain frozen and unchanged
+- Phase 12 promoted initial attempts: **30**
+- prior Phase 11 evidence remains frozen and unchanged
 
 ## Post-release Phase 11B evidence expansion
 
