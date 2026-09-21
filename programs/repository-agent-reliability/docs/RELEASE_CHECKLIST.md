@@ -84,3 +84,16 @@ the Phase 11C pilot. Phase 11B adds repeated evidence for one local configuratio
 Phase 12A fixes the next experiment but creates no new model-performance evidence. The
 boundaries above remain and must not be rewritten as completed until corresponding
 evidence exists.
+
+## Phase 12 evidence promotion record
+
+- [x] fixed 30-attempt batch completed without rerunning frozen attempts
+- [x] source archive SHA-256, size, ZIP integrity, and secret scan verified
+- [x] 30 manifests, evaluations, responses, candidates, logs, and replays audited
+- [x] 30 source-exact no-model replays verified
+- [x] single llama3 failure preserved without normalization
+- [x] promotion hashes recorded in `promotion.json`
+- [x] dedicated Phase 12 evidence-integrity gate added
+- [x] aggregate and demo evidence updated from committed attempts
+- [x] AP-001 Section 9 explicitly remains open
+- [x] claims bounded to one task, three configurations, ten trials each
