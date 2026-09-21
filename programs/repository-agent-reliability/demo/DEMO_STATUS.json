@@ -4,59 +4,33 @@
   "demo_entrypoint": "phase7c-one-command-v1",
   "status": "GREEN",
   "checks": {
-    "runner_self_check": {
-      "passed": true,
-      "returncode": 0
-    },
-    "source_exact_replay": {
-      "passed": true,
-      "returncode": 0
-    },
-    "source_exact_repair_replay": {
-      "passed": true,
-      "returncode": 0
-    },
-    "metrics_check": {
-      "passed": true,
-      "returncode": 0
-    },
-    "demo_evidence_check": {
-      "passed": true,
-      "returncode": 0
-    },
-    "phase11b_batch_check": {
-      "passed": true,
-      "returncode": 0
-    },
-    "phase11b_evidence_check": {
-      "passed": true,
-      "returncode": 0
-    },
-    "phase11c_nebius_evidence_check": {
-      "passed": true,
-      "returncode": 0
-    },
-    "phase12a_preregistration_check": {
-      "passed": true,
-      "returncode": 0
-    }
+    "runner_self_check": {"passed": true, "returncode": 0},
+    "source_exact_replay": {"passed": true, "returncode": 0},
+    "source_exact_repair_replay": {"passed": true, "returncode": 0},
+    "metrics_check": {"passed": true, "returncode": 0},
+    "demo_evidence_check": {"passed": true, "returncode": 0},
+    "phase11b_batch_check": {"passed": true, "returncode": 0},
+    "phase11b_evidence_check": {"passed": true, "returncode": 0},
+    "phase11c_nebius_evidence_check": {"passed": true, "returncode": 0},
+    "phase12a_preregistration_check": {"passed": true, "returncode": 0},
+    "phase12_evidence_integrity": {"passed": true, "returncode": 0}
   },
   "generated_artifacts_match_head_evidence": true,
   "evidence_snapshot": {
-    "attempts_total": 21,
-    "verified_pass": 14,
-    "verified_fail": 4,
+    "attempts_total": 51,
+    "verified_pass": 43,
+    "verified_fail": 5,
     "hold": 3,
     "qualified_tasks": 5,
     "critical_mutation_escapes": 0,
     "critical_mutations_total": 17,
-    "claim_evidence_gap": 0.2222222222222222,
-    "false_green_rate": 0.17647058823529413,
+    "claim_evidence_gap": 0.10416666666666667,
+    "false_green_rate": 0.06521739130434782,
     "repair_conversion": 0.5
   },
   "evidence_boundary": [
     "The original AP-001 Section 9 sequence as written, including a successful repair conversion within AP-001 itself.",
-    "Repeated cross-model and cross-provider benchmark evidence with sample sizes sufficient for general performance claims.",
+    "General cross-task or provider-wide performance evidence; Phase 12 is bounded to AP-001, three configurations, and ten trials per configuration.",
     "Production-scale runtime evidence, including repeated throughput, reliability, and complete economic-cost measurement."
   ]
 }
