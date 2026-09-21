@@ -121,7 +121,7 @@ run demonstrates:
 
 No dashboard work should begin before this loop runs reliably.
 
-## 10. Non-normative implementation status amendment — 2026-09-19
+## 10. Non-normative implementation status amendment — updated 2026-09-21
 
 Sections 1–9 above remain the original frozen RARB v0.1 engineering specification.
 This amendment records observed implementation status without redefining the original
@@ -129,9 +129,10 @@ success gate.
 
 Current committed evidence demonstrates:
 
-- AP-001 verifier qualification, an admission `HOLD`, a later `VERIFIED_PASS`, and
-  source-exact replay, plus a preregistered Nebius/NVIDIA initial `VERIFIED_PASS` with
-  source-exact replay;
+- AP-001 verifier qualification, an admission `HOLD`, a later `VERIFIED_PASS`, a
+  preregistered ten-trial local Ollama batch with 9 `VERIFIED_PASS` and 1 public-test
+  `VERIFIED_FAIL`, and a preregistered Nebius/NVIDIA initial `VERIFIED_PASS`; all new
+  Phase 11B and Phase 11C attempts are source-exact replayable;
 - AP-002 verifier qualification, a live `VERIFIED_PASS`, and source-exact replay;
 - AP-003 verifier qualification, a genuine public-test false-green
   `VERIFIED_FAIL`, bounded repair attempts, source-exact repair replay, and terminal
@@ -144,8 +145,8 @@ Current committed evidence demonstrates:
   diagnostics before converting the parent failure to a source-exact replayable
   `VERIFIED_PASS`.
 
-As of the Phase 11C evidence expansion, the committed live evidence set contains 11
-attempts: 5 `VERIFIED_PASS`, 3 `VERIFIED_FAIL`, and 3 `HOLD`. All five benchmark tasks are
+As of the Phase 11B evidence promotion, the committed live evidence set contains 21
+attempts: 14 `VERIFIED_PASS`, 4 `VERIFIED_FAIL`, and 3 `HOLD`. All five benchmark tasks are
 verifier-qualified, with 0 of 17 configured critical verifier mutations escaping
 detection. Across two bounded-repair episodes, one converted to `VERIFIED_PASS`
 (Repair Conversion = 50%).
@@ -161,13 +162,20 @@ AP-003 remains a documented non-converting repair episode.
 Therefore the remaining evidence gaps are:
 
 - the original AP-001-specific Section 9 sequence as written;
-- repeated multi-model/statistically meaningful evidence;
+- repeated cross-model and cross-provider evidence with sample sizes sufficient for
+  general performance claims;
 - production-scale runtime, reliability, and economic-cost evidence.
 
 The Phase 11C Nebius/NVIDIA pilot closes the narrower provider-connectivity and
 repository-task execution gap: one preregistered AP-001 attempt using
 `nvidia/nemotron-3-super-120b-a12b` reached `VERIFIED_PASS` and reproduced source-exactly.
 Because it passed directly, it does not satisfy the Section 9 repair sequence.
+
+The Phase 11B local Ollama batch adds a fixed repeated-trial estimate for AP-001: 9/10
+verified passes and 0/9 false-greens among public-test passes. Its only failure did not
+pass public validation, so the repair protocol correctly did not activate. Because all
+ten attempts use one model configuration, this result does not satisfy the broader
+cross-model evidence gap.
 
 Demo and dashboard-style artifacts added during implementation are evidence indexes and
 presentation surfaces. Their existence must not be interpreted as satisfying or

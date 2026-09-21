@@ -11,7 +11,39 @@ RUNNER_ROOT = Path(__file__).resolve().parent
 PROGRAM_ROOT = RUNNER_ROOT.parent
 REPLAY = RUNNER_ROOT / "replay.py"
 
+PHASE11B_RECORDS = [
+    ("ef122639dc15f99b2995c7b9b1181af911d6033e32aef5e11118c7345079016e", "VERIFIED_FAIL"),
+    ("b64b9af159c5f301903b4cf4145ecfa1e469973da01f55280b43bc0b29280b14", "VERIFIED_PASS"),
+    ("6aaa4d12576f4c5270683f61c8a311625561d2af43af9f302640d3497d4d0f5d", "VERIFIED_PASS"),
+    ("4e813431abcc56b8cc0fde8d196d4b520c42813f30f9f967a946b94c8f4c8220", "VERIFIED_PASS"),
+    ("bc1843f0742fc8f1f823ce575a96c5d9018acd407b1462ce7d0f5f9ad45b0094", "VERIFIED_PASS"),
+    ("c17e367465e7f37a057c6a0d0d2bf10dccf9dbbfa286db0b3580d5b768025f27", "VERIFIED_PASS"),
+    ("5b4576383710842ab8cdd6380c985fe0296a6895212462637fa624827398cefd", "VERIFIED_PASS"),
+    ("1d5c214f47937a624405852b502b6dcf437d83881106ae6ea7171063b53be090", "VERIFIED_PASS"),
+    ("6ebe8903ebb24aaa71aef62c9e09c4810e378e1735bcd959a6c9ec7e8df8e8ca", "VERIFIED_PASS"),
+    ("206153a8b263c19e1e75381ccfc5e53d1d82a414653df1ec6bbc71bde82a9e44", "VERIFIED_PASS"),
+]
+
 CASES = [
+    *[
+        {
+            "task_id": "AP-001",
+            "evidence": (
+                PROGRAM_ROOT
+                / "tasks"
+                / "AP-001"
+                / "evidence"
+                / "live"
+                / f"ap001-ollama-llama3-phase11b-{index:03d}"
+            ),
+            "record_hash": record_hash,
+            "verdict": verdict,
+        }
+        for index, (record_hash, verdict) in enumerate(
+            PHASE11B_RECORDS,
+            start=1,
+        )
+    ],
     {
         "task_id": "AP-001",
         "evidence": (

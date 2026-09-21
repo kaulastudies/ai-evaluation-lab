@@ -62,10 +62,10 @@ def main() -> int:
         )
 
         checks = {
-            "attempts": snap["live_attempts"] == 11,
+            "attempts": snap["live_attempts"] == 21,
             "verdicts": (
-                snap["verified_pass"] == 5
-                and snap["verified_fail"] == 3
+                snap["verified_pass"] == 14
+                and snap["verified_fail"] == 4
                 and snap["hold"] == 3
             ),
             "qualified_tasks": snap["qualified_tasks"] == 5,
@@ -75,14 +75,14 @@ def main() -> int:
             ),
             "claim_evidence_gap": close(
                 snap["claim_evidence_gap"],
-                3 / 8,
+                4 / 18,
             ),
             "false_green": close(
                 snap["false_green_rate"],
-                3 / 8,
+                3 / 17,
             ),
             "initial_false_green": (
-                close(snap["initial_false_green_rate"], 1 / 3)
+                close(snap["initial_false_green_rate"], 2 / 15)
             ),
             "repair_conversion": snap["repair_conversion"] == 0.5,
             "ap005_fail_then_pass": (
@@ -111,6 +111,14 @@ def main() -> int:
             "nebius_pilot_demonstrated": any(
                 "Nebius/NVIDIA-backed AP-001" in item
                 for item in payload["demonstrated"]
+            ),
+            "repeated_single_configuration_demonstrated": any(
+                "fixed ten-trial AP-001 batch" in item
+                for item in payload["demonstrated"]
+            ),
+            "cross_model_gap_preserved": any(
+                "Repeated cross-model and cross-provider" in item
+                for item in payload["not_yet_demonstrated"]
             ),
             "production_scale_gap_preserved": any(
                 "Production-scale" in item

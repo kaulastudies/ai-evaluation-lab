@@ -50,6 +50,14 @@ def build_payload(summary: dict[str, Any]) -> dict[str, Any]:
         "phase-11c-nebius-nemotron-pilot-v1-ap-001-"
         "nebius-nemotron-3-super-120b-a12b-i001",
     )
+    ap001_phase11b = [
+        find_attempt(
+            attempts,
+            "phase-11b-ap001-closure-v1-ap-001-"
+            f"ollama-llama3-latest-i{index:03d}",
+        )
+        for index in range(1, 11)
+    ]
     ap002_pass = find_attempt(attempts, "ap002-ollama-llama3-001")
     ap003_initial = find_attempt(attempts, "ap003-ollama-llama3-001")
     ap003_repair_hold = find_attempt(
@@ -135,6 +143,23 @@ def build_payload(summary: dict[str, Any]) -> dict[str, Any]:
                             "boundary, and passed source-exact replay."
                         ),
                     },
+                    *[
+                        {
+                            "run_label": attempt["run_label"],
+                            "verdict": attempt["final_verdict"],
+                            "note": (
+                                "Fixed Phase 11B trial failed public "
+                                "validation and was preserved without a "
+                                "repair because it was not a false-green."
+                                if attempt["final_verdict"]
+                                == "VERIFIED_FAIL"
+                                else "Fixed Phase 11B trial passed public "
+                                "validation and the qualified verifier; "
+                                "source-exact replay verified the result."
+                            ),
+                        }
+                        for attempt in ap001_phase11b
+                    ],
                 ],
             },
             {
@@ -270,6 +295,12 @@ def build_payload(summary: dict[str, Any]) -> dict[str, Any]:
                 "source-exact replayable VERIFIED_PASS."
             ),
             (
+                "One preregistered fixed ten-trial AP-001 batch using local "
+                "Ollama llama3:latest: nine VERIFIED_PASS outcomes, one "
+                "public-test VERIFIED_FAIL, zero false-greens, and ten "
+                "source-exact replays."
+            ),
+            (
                 "Evidence-derived metrics without fabricating missing fields."
             ),
         ],
@@ -279,8 +310,8 @@ def build_payload(summary: dict[str, Any]) -> dict[str, Any]:
                 "a successful repair conversion within AP-001 itself."
             ),
             (
-                "Repeated multi-model or statistically meaningful benchmark "
-                "performance."
+                "Repeated cross-model and cross-provider benchmark evidence "
+                "with sample sizes sufficient for general performance claims."
             ),
             (
                 "Production-scale runtime evidence, including repeated "
@@ -387,7 +418,9 @@ def render_markdown(payload: dict[str, Any]) -> str:
             "remains N/A. The single Nebius/NVIDIA AP-001 pilot establishes "
             "provider-backed repository-task execution under the RARB "
             "protocol; it does not establish statistical or production-scale "
-            "performance.",
+            "performance. The fixed ten-trial local Ollama batch adds "
+            "repeated single-configuration evidence; its result must not be "
+            "generalized to other models or providers.",
             "",
         ]
     )

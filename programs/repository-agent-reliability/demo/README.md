@@ -7,9 +7,11 @@ The brief is deliberately descriptive. It highlights the strongest demonstrated 
 behavior while keeping unproven claims visible. The current evidence set contains one
 successful bounded repair conversion on AP-005; it does **not** satisfy the original
 AP-001-specific Section 9 sequence or establish statistically meaningful multi-model
-performance. It now also records one preregistered, source-exact replayable
-Nebius/NVIDIA AP-001 `VERIFIED_PASS`; that single pilot does not establish
-production-scale performance.
+performance. It records a fixed ten-trial local Ollama AP-001 batch with nine verified
+passes, one public-test failure, zero false-greens, and ten source-exact replays. That
+batch is repeated single-configuration evidence, not cross-model evidence. The brief
+also records one preregistered, source-exact replayable Nebius/NVIDIA AP-001
+`VERIFIED_PASS`; that single pilot does not establish production-scale performance.
 
 Generate it with:
 

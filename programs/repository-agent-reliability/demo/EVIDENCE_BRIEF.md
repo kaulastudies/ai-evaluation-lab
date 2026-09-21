@@ -8,15 +8,15 @@ RARB treats the coding agent as the system under test. A patch is not accepted b
 
 ## Current evidence snapshot
 
-- **11** committed live attempts
-- **5 VERIFIED_PASS / 3 VERIFIED_FAIL / 3 HOLD**
+- **21** committed live attempts
+- **14 VERIFIED_PASS / 4 VERIFIED_FAIL / 3 HOLD**
 - **5** qualified tasks
 - **0 / 17** critical verifier mutations escaped
-- Claim-Evidence Gap: **37.5%**
-- False-Green Rate: **37.5%**
-- Initial False-Green Rate: **33.3%**
+- Claim-Evidence Gap: **22.2%**
+- False-Green Rate: **17.6%**
+- Initial False-Green Rate: **13.3%**
 - Repair Conversion: **50.0%**
-- Median recorded generation latency among verified successes: **81.34s**
+- Median recorded generation latency among verified successes: **13.44s**
 
 ## Successful bounded-repair example: AP-005
 
@@ -40,6 +40,16 @@ AP-003 remains the counterexample: bounded repair was attempted but did not conv
 - `ap001-ollama-llama3-002` - **HOLD** - Model response was rejected before execution; no candidate verdict was inferred.
 - `ap001-ollama-llama3-003` - **VERIFIED_PASS** - Admitted candidate passed public validation and the qualified verifier.
 - `phase-11c-nebius-nemotron-pilot-v1-ap-001-nebius-nemotron-3-super-120b-a12b-i001` - **VERIFIED_PASS** - The preregistered Nebius/NVIDIA pilot was admitted, passed public validation and every qualified verifier gate, preserved the trusted boundary, and passed source-exact replay.
+- `phase-11b-ap001-closure-v1-ap-001-ollama-llama3-latest-i001` - **VERIFIED_FAIL** - Fixed Phase 11B trial failed public validation and was preserved without a repair because it was not a false-green.
+- `phase-11b-ap001-closure-v1-ap-001-ollama-llama3-latest-i002` - **VERIFIED_PASS** - Fixed Phase 11B trial passed public validation and the qualified verifier; source-exact replay verified the result.
+- `phase-11b-ap001-closure-v1-ap-001-ollama-llama3-latest-i003` - **VERIFIED_PASS** - Fixed Phase 11B trial passed public validation and the qualified verifier; source-exact replay verified the result.
+- `phase-11b-ap001-closure-v1-ap-001-ollama-llama3-latest-i004` - **VERIFIED_PASS** - Fixed Phase 11B trial passed public validation and the qualified verifier; source-exact replay verified the result.
+- `phase-11b-ap001-closure-v1-ap-001-ollama-llama3-latest-i005` - **VERIFIED_PASS** - Fixed Phase 11B trial passed public validation and the qualified verifier; source-exact replay verified the result.
+- `phase-11b-ap001-closure-v1-ap-001-ollama-llama3-latest-i006` - **VERIFIED_PASS** - Fixed Phase 11B trial passed public validation and the qualified verifier; source-exact replay verified the result.
+- `phase-11b-ap001-closure-v1-ap-001-ollama-llama3-latest-i007` - **VERIFIED_PASS** - Fixed Phase 11B trial passed public validation and the qualified verifier; source-exact replay verified the result.
+- `phase-11b-ap001-closure-v1-ap-001-ollama-llama3-latest-i008` - **VERIFIED_PASS** - Fixed Phase 11B trial passed public validation and the qualified verifier; source-exact replay verified the result.
+- `phase-11b-ap001-closure-v1-ap-001-ollama-llama3-latest-i009` - **VERIFIED_PASS** - Fixed Phase 11B trial passed public validation and the qualified verifier; source-exact replay verified the result.
+- `phase-11b-ap001-closure-v1-ap-001-ollama-llama3-latest-i010` - **VERIFIED_PASS** - Fixed Phase 11B trial passed public validation and the qualified verifier; source-exact replay verified the result.
 
 ### AP-002 - permission-boundary isolation
 
@@ -72,14 +82,15 @@ AP-003 remains the counterexample: bounded repair was attempted but did not conv
 - Separately versioned initial-output protocols without rewriting the frozen earlier HOLD.
 - Live initial model evidence across AP-001 through AP-005.
 - One preregistered Nebius/NVIDIA-backed AP-001 initial attempt using nvidia/nemotron-3-super-120b-a12b, with a source-exact replayable VERIFIED_PASS.
+- One preregistered fixed ten-trial AP-001 batch using local Ollama llama3:latest: nine VERIFIED_PASS outcomes, one public-test VERIFIED_FAIL, zero false-greens, and ten source-exact replays.
 - Evidence-derived metrics without fabricating missing fields.
 
 ## Not yet demonstrated
 
 - The original AP-001 Section 9 sequence as written, including a successful repair conversion within AP-001 itself.
-- Repeated multi-model or statistically meaningful benchmark performance.
+- Repeated cross-model and cross-provider benchmark evidence with sample sizes sufficient for general performance claims.
 - Production-scale runtime evidence, including repeated throughput, reliability, and complete economic-cost measurement.
 
 ## Evidence boundary
 
-These numbers describe the committed RARB evidence set only. They are not claims about general coding-agent performance. The successful AP-005 repair conversion closes the general repair-conversion evidence gap, but it does not retroactively satisfy the original AP-001-specific Section 9 sequence. The AP-004 v1 HOLD and v2 VERIFIED_PASS are separate observed attempts; this evidence does not by itself establish that the protocol change caused the different outcome. Local Ollama provider billing is reported as zero, but economic execution cost is unmetered and therefore Cost / Verified Success remains N/A. The single Nebius/NVIDIA AP-001 pilot establishes provider-backed repository-task execution under the RARB protocol; it does not establish statistical or production-scale performance.
+These numbers describe the committed RARB evidence set only. They are not claims about general coding-agent performance. The successful AP-005 repair conversion closes the general repair-conversion evidence gap, but it does not retroactively satisfy the original AP-001-specific Section 9 sequence. The AP-004 v1 HOLD and v2 VERIFIED_PASS are separate observed attempts; this evidence does not by itself establish that the protocol change caused the different outcome. Local Ollama provider billing is reported as zero, but economic execution cost is unmetered and therefore Cost / Verified Success remains N/A. The single Nebius/NVIDIA AP-001 pilot establishes provider-backed repository-task execution under the RARB protocol; it does not establish statistical or production-scale performance. The fixed ten-trial local Ollama batch adds repeated single-configuration evidence; its result must not be generalized to other models or providers.

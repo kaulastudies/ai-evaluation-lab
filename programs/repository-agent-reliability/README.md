@@ -72,9 +72,9 @@ Replayable Evidence Bundle
 
 Current implementation status:
 
-- **AP-001** — verifier-qualified; live admission `HOLD`, local Ollama
-  `VERIFIED_PASS`, and a preregistered Nebius/NVIDIA `VERIFIED_PASS`; source-exact
-  replay is available for both admitted passes.
+- **AP-001** — verifier-qualified; live admission `HOLD`, a preregistered fixed
+  ten-trial local Ollama batch, and a preregistered Nebius/NVIDIA `VERIFIED_PASS`.
+  All ten Phase 11B outcomes and the Nebius pilot are source-exact replayable.
 - **AP-002** — verifier-qualified; live `VERIFIED_PASS`; source-exact replay available.
 - **AP-003** — verifier-qualified; live public-test false-green `VERIFIED_FAIL`;
   bounded repair attempted and exhausted without conversion; source-exact repair replay
@@ -88,8 +88,8 @@ Current implementation status:
   gate IDs and diagnostics converted the parent `VERIFIED_FAIL` to `VERIFIED_PASS`.
   Both attempts are frozen and source-exact replayable.
 
-Current committed live evidence snapshot: **11 live attempts** —
-**5 `VERIFIED_PASS` / 3 `VERIFIED_FAIL` / 3 `HOLD`** — across all **5 qualified
+Current committed live evidence snapshot: **21 live attempts** —
+**14 `VERIFIED_PASS` / 4 `VERIFIED_FAIL` / 3 `HOLD`** — across all **5 qualified
 benchmark tasks**, with **0 / 17** configured critical verifier mutations escaping
 detection. Repair Conversion is now **1 / 2 episodes (50%)**.
 
@@ -100,15 +100,16 @@ within AP-001 itself.
 
 ## Phase 11B evidence expansion
 
-The next provider-independent execution layer is preregistered under
-[`experiments/`](experiments/). Its first plan fixes ten new AP-001 initial trials and a
-maximum of two bounded repairs per false-green before any live execution occurs. Outputs
-are staged outside committed evidence, and the batch does not stop early when the target
-sequence appears.
+The preregistered Phase 11B plan completed all ten AP-001 initial trials under one local
+Ollama `llama3:latest` configuration without early stopping. Nine attempts reached
+`VERIFIED_PASS`; one admitted candidate failed public validation and remained
+`VERIFIED_FAIL`. No public-test false-green occurred, so no repair was eligible. All ten
+outcomes passed independent source-exact no-model replay.
 
-The plan is currently **PLANNED**, not completed evidence. It uses the existing local
-Ollama configuration and therefore does not establish multi-model or Nebius/NVIDIA
-runtime results.
+The observed verified-pass rate is 90.0% (9/10; 95% Wilson interval 59.6%–98.2%). The
+false-green rate among public-test passes is 0.0% (0/9; 95% Wilson interval 0.0%–29.9%).
+This is repeated evidence for one local configuration, not repeated multi-model or
+cross-provider evidence, and it does not close the AP-001 Section 9 sequence.
 
 ## Phase 11C Nebius/NVIDIA pilot
 
