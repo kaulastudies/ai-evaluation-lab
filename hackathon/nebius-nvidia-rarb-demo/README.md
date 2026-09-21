@@ -33,6 +33,22 @@ hackathon/nebius-nvidia-rarb-demo
 
 This is a dependency-free static site.
 
+## Submission package
+
+- [Devpost draft](submission/DEVPOST_DRAFT.md)
+- [Demo video script](submission/VIDEO_SCRIPT.md)
+- [Judge testing instructions](submission/JUDGE_TESTING.md)
+- [Significant hackathon-period updates](submission/SIGNIFICANT_UPDATES.md)
+- [Nebius / NVIDIA feedback draft](submission/NEBIUS_NVIDIA_FEEDBACK.md)
+
+## Live Nebius runtime
+
+The underlying RARB project makes runtime calls to Nebius Token Factory through the
+OpenAI-compatible chat-completions endpoint. A minimal authenticated connectivity check is
+available at `scripts/nebius_token_factory_smoke.py`; repository-task Nebius/NVIDIA evidence
+is preserved under the canonical RARB evidence paths below. API keys remain server/local
+environment variables and are never embedded in the browser demo.
+
 ## Canonical evidence
 
 The demo does not rewrite the frozen evidence. Canonical artifacts remain under:
