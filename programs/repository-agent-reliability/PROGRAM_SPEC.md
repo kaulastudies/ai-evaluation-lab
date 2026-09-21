@@ -177,12 +177,11 @@ pass public validation, so the repair protocol correctly did not activate. Becau
 ten attempts use one model configuration, this result does not satisfy the broader
 cross-model evidence gap.
 
-Phase 12A preregisters, but does not yet execute, a fixed AP-001 replication matrix:
-ten new initial attempts for each of two local Ollama models and one Nebius/NVIDIA
-model. The plan binds all configurations to one evaluator source, prevents early
-stopping and split execution, preserves every outcome, and requires configuration-level
-reporting. Because no Phase 12 attempt is yet committed, the evidence counts and the
-three remaining gaps above are unchanged.
+Phase 12A preregistered a fixed AP-001 replication matrix: ten initial attempts for
+each of two local Ollama models and one Nebius/NVIDIA model. The plan bound all
+configurations to one evaluator source, prevented early stopping and split execution,
+preserved every outcome, and required configuration-level reporting. That matrix has
+now completed and is promoted below without rewriting the preregistration.
 
 Demo and dashboard-style artifacts added during implementation are evidence indexes and
 presentation surfaces. Their existence must not be interpreted as satisfying or
