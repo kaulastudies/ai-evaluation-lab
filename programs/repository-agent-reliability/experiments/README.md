@@ -135,3 +135,16 @@ Before live execution, `qwen2.5-coder:7b` must be available in Ollama and the Ne
 API key must be supplied ephemerally. A completed matrix will support bounded AP-001
 configuration-level estimates only. It will not establish general coding-agent or
 production-scale performance.
+
+## Phase 12 promotion
+
+`phase-12-cross-model-replication-v1` completed its fixed 30-attempt matrix and the
+audited artifacts are promoted under `experiments/results/phase-12-cross-model-replication-v1/`
+and `tasks/AP-001/evidence/live/`. The promotion record binds the source archive,
+batch artifacts, evaluation records, replay reports, and canonical evidence paths by
+SHA-256.
+
+The completed matrix is one-task evidence: three configurations, ten trials per
+configuration. It records 29 `VERIFIED_PASS`, one preserved `VERIFIED_FAIL`, zero
+false-greens, zero repairs, and 30 source-exact no-model replays. AP-001 Section 9
+remains open.
