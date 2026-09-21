@@ -159,6 +159,13 @@ repair was eligible and the original AP-001 Section 9 sequence remains open.
 - treating existing unit tests as sufficient evidence by default;
 - allowing the agent to modify its trusted verifier surface.
 
+## Hackathon judge demo
+
+A dependency-free judge-facing evidence explorer is available at
+[`hackathon/nebius-nvidia-rarb-demo`](../../../hackathon/nebius-nvidia-rarb-demo/).
+It visualizes committed RARB evidence and clearly labels replay as stored-evidence replay,
+not fresh inference. Frozen experiment artifacts remain unchanged.
+
 ## Nebius/NVIDIA integration
 
 Nebius x NVIDIA is an execution environment for the public multi-provider phase of this
