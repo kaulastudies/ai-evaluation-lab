@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 from pathlib import Path
 import re
 import subprocess
@@ -23,6 +24,26 @@ from engine import canonical_json_hash, load_runtime
 
 class PlanError(RuntimeError):
     pass
+
+
+MODEL_ENV_BY_PROVIDER = {
+    "cerebras": "CEREBRAS_MODEL",
+    "fireworks": "FIREWORKS_MODEL",
+    "gemini": "GEMINI_MODEL",
+    "groq": "GROQ_MODEL",
+    "nebius": "NEBIUS_MODEL",
+    "ollama": "OLLAMA_MODEL",
+    "openrouter": "OPENROUTER_MODEL",
+}
+
+API_KEY_ENV_BY_PROVIDER = {
+    "cerebras": "CEREBRAS_API_KEY",
+    "fireworks": "FIREWORKS_API_KEY",
+    "gemini": "GEMINI_API_KEY",
+    "groq": "GROQ_API_KEY",
+    "nebius": "NEBIUS_API_KEY",
+    "openrouter": "OPENROUTER_API_KEY",
+}
 
 
 def load_plan(path: Path) -> dict[str, Any]:
@@ -126,6 +147,11 @@ def validate_plan(plan: dict[str, Any]) -> None:
             raise PlanError(
                 f"{config_id} requires provider and expected_model"
             )
+        if config["provider"] not in MODEL_ENV_BY_PROVIDER:
+            raise PlanError(
+                f"{config_id} has unsupported provider: "
+                f"{config['provider']}"
+            )
         if config.get("temperature") != 0:
             raise PlanError(f"{config_id} temperature must be 0")
         if config.get("output_protocol") not in {
@@ -194,12 +220,39 @@ def require_executable_state(plan: dict[str, Any]) -> str:
     return git_output("rev-parse", "HEAD")
 
 
-def run_process(command: list[str]) -> subprocess.CompletedProcess[str]:
+def model_environment(config: dict[str, Any]) -> dict[str, str]:
+    model_env = MODEL_ENV_BY_PROVIDER[config["provider"]]
+    return {model_env: config["expected_model"]}
+
+
+def require_execution_environment(
+    attempts: list[dict[str, Any]],
+) -> None:
+    missing: set[str] = set()
+    for attempt in attempts:
+        provider = attempt["configuration"]["provider"]
+        api_key_env = API_KEY_ENV_BY_PROVIDER.get(provider)
+        if api_key_env and not os.getenv(api_key_env, "").strip():
+            missing.add(api_key_env)
+    if missing:
+        raise PlanError(
+            "Live execution is missing required credentials: "
+            + ", ".join(sorted(missing))
+        )
+
+
+def run_process(
+    command: list[str],
+    config: dict[str, Any],
+) -> subprocess.CompletedProcess[str]:
+    environment = os.environ.copy()
+    environment.update(model_environment(config))
     return subprocess.run(
         command,
         cwd=REPO_ROOT,
         text=True,
         capture_output=True,
+        env=environment,
     )
 
 
@@ -336,6 +389,7 @@ def execute(
     out_root: Path,
 ) -> dict[str, Any]:
     source_commit = require_executable_state(plan)
+    require_execution_environment(attempts)
     if out_root.exists():
         if not out_root.is_dir() or any(out_root.iterdir()):
             raise PlanError(
@@ -357,7 +411,8 @@ def execute(
             initial_dir = out_root / attempt["run_label"]
             initial_dir.mkdir(parents=True)
             process = run_process(
-                initial_command(plan, attempt, initial_dir)
+                initial_command(plan, attempt, initial_dir),
+                attempt["configuration"],
             )
             write_logs(initial_dir, process)
             record = read_record(initial_dir / "evaluation.json", process)
@@ -402,7 +457,8 @@ def execute(
                         initial_dir,
                         repair_dir,
                         repair_index,
-                    )
+                    ),
+                    attempt["configuration"],
                 )
                 write_logs(repair_dir, repair_process)
                 repair_record = read_record(
@@ -463,6 +519,17 @@ def main() -> int:
     args = parser.parse_args()
 
     plan = load_plan(args.plan.resolve())
+    if (
+        args.configuration_id is not None
+        and plan["execution_policy"].get(
+            "run_all_configurations_in_one_batch"
+        )
+        is True
+    ):
+        raise PlanError(
+            "This plan requires all configurations in one batch; "
+            "--configuration-id is not allowed"
+        )
     attempts = planned_initials(
         plan,
         configuration_id=args.configuration_id,
