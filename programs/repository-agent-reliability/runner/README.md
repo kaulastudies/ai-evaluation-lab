@@ -161,3 +161,8 @@ replay.
 the preregistered plan hash, provider/model identity, source commit, artifact hashes,
 qualified-verifier result, trusted-boundary result, fixed batch counts, and source-exact
 replay record before the one-command demo can remain green.
+
+`phase11b_evidence_check.py` pins the promoted fixed ten-trial local Ollama AP-001
+batch. It validates the source archive and plan hashes, provider/model identity,
+source commit, artifact hashes, exact 9-pass/1-fail distribution, trusted boundaries,
+zero false-greens, zero repairs, and all stored source-exact replay records.

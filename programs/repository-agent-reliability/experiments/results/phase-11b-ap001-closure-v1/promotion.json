@@ -1,0 +1,208 @@
+{
+  "schema_version": "1.0.0",
+  "status": "PROMOTED",
+  "experiment_id": "phase-11b-ap001-closure-v1",
+  "experiment_plan_sha256": "0883bab67a7758206e9bf68a34c444d7b3a68b59348f3ee52879e348aa712a8a",
+  "source_commit": "37ed3813521f7cdaccbb6cc3a3d682854be1edb1",
+  "source_archive": {
+    "filename": "phase-11b-ap001-evidence.zip",
+    "sha256": "dec6344f3783c0949822036b7f72c8749fa8241176706042ab8d1931fe8e3fa2",
+    "bytes": 71372
+  },
+  "audit": {
+    "credential_patterns_detected": false,
+    "independent_source_exact_replays_verified": 10,
+    "stored_reports_reproduced_exactly": true,
+    "planned_initial_attempts": 10,
+    "observed_initial_attempts": 10,
+    "verified_pass": 9,
+    "verified_fail": 1,
+    "hold": 0,
+    "false_greens": 0,
+    "repair_attempts": 0,
+    "ap001_section9_sequences": 0
+  },
+  "batch_artifact_sha256": {
+    "batch-ledger.json": "320d37fbd5d00891649edcd89bf2339a88e7e3ea557e86eeabb4f95d4badf78a",
+    "batch-summary.json": "9e9baae336ca2064ae3b40cc31f9d42d3ea4cb3807fca69852a2669489ed71a6",
+    "batch-summary.md": "7dcbc36969dfe516f104fe33ed2a5b38d4f5e8275cde60307fd6270c3028e380"
+  },
+  "attempts": [
+    {
+      "trial_index": 1,
+      "source_staging_evidence_dir": "phase-11b-ap001-closure-v1-ap-001-ollama-llama3-latest-i001",
+      "canonical_evidence_dir": "tasks/AP-001/evidence/live/ap001-ollama-llama3-phase11b-001",
+      "final_verdict": "VERIFIED_FAIL",
+      "evaluation_record_hash": "ef122639dc15f99b2995c7b9b1181af911d6033e32aef5e11118c7345079016e",
+      "replay_report_sha256": "7abf0be62873dc5698675e6025a509a4b58f56a4cefe4a8797cf4b8bd202a95c",
+      "artifact_sha256": {
+        "candidate-resource_view.py": "db809a5818964bf8694e0243cb86e26dcf2c0d0aa2a0fddce320e14b78ba346c",
+        "evaluation.json": "4d4714d3c7ba13409a079c9bec732cc534a78278bf39da7590c9fea97184d508",
+        "manifest.json": "bc60b4a119e1638bd4c78260be50e83064c48c20ec51870812f9b92d5bda7a23",
+        "model-response.txt": "a0dff1dfd51b18c9ce4a9f5e31bde2116188ff71129b868f526319c1d23537cb",
+        "replay.json": "ed4435c68699cf19b90a4fad6d3083a2fbb0819fe7e2bd11f992b1b1073ece81",
+        "runner-stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "runner-stdout.txt": "4d4714d3c7ba13409a079c9bec732cc534a78278bf39da7590c9fea97184d508"
+      }
+    },
+    {
+      "trial_index": 2,
+      "source_staging_evidence_dir": "phase-11b-ap001-closure-v1-ap-001-ollama-llama3-latest-i002",
+      "canonical_evidence_dir": "tasks/AP-001/evidence/live/ap001-ollama-llama3-phase11b-002",
+      "final_verdict": "VERIFIED_PASS",
+      "evaluation_record_hash": "b64b9af159c5f301903b4cf4145ecfa1e469973da01f55280b43bc0b29280b14",
+      "replay_report_sha256": "1c7d2e441afd70dd0a1c802c38b68fd9f98ce9134e9feecf1f0f780d3f8c76c7",
+      "artifact_sha256": {
+        "candidate-resource_view.py": "c6ae5f28d193785839b652fd4586839d47ac3e1e3374d2074283aa49f77f22db",
+        "evaluation.json": "051ba4e7c4e407bc2b7e0b361a5b65a04ac5602414959db5ba795a235ca743db",
+        "manifest.json": "833d0e4892edb38579c8097a056ac64a4e38b646d63ec0e6c48673553eb211e7",
+        "model-response.txt": "4d827b9817d748158af63593a73563583bd1b1d38a1a60f4103da6266a9fb9db",
+        "replay.json": "d78ebcb09372dba6ba5a89e5f3cec3f48319bd49f7c5e977189106d6d014e888",
+        "runner-stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "runner-stdout.txt": "051ba4e7c4e407bc2b7e0b361a5b65a04ac5602414959db5ba795a235ca743db"
+      }
+    },
+    {
+      "trial_index": 3,
+      "source_staging_evidence_dir": "phase-11b-ap001-closure-v1-ap-001-ollama-llama3-latest-i003",
+      "canonical_evidence_dir": "tasks/AP-001/evidence/live/ap001-ollama-llama3-phase11b-003",
+      "final_verdict": "VERIFIED_PASS",
+      "evaluation_record_hash": "6aaa4d12576f4c5270683f61c8a311625561d2af43af9f302640d3497d4d0f5d",
+      "replay_report_sha256": "488598d221bb8912d78ba33faab272a6c62afeace9e242ddee759c2940897641",
+      "artifact_sha256": {
+        "candidate-resource_view.py": "c6ae5f28d193785839b652fd4586839d47ac3e1e3374d2074283aa49f77f22db",
+        "evaluation.json": "30f0f9fafa6e9368803d1492208e06695cb0dbd930de94bd258dc6ec4731f203",
+        "manifest.json": "7229d1952875b628261a79fb5e38684f014fd16cfdbe4fc3c97af0a1facd35d1",
+        "model-response.txt": "4d827b9817d748158af63593a73563583bd1b1d38a1a60f4103da6266a9fb9db",
+        "replay.json": "3b4ea35a3db896297f2ba77666ca14ccf9438f71c6af4af4f8ddf5ea9f0c039d",
+        "runner-stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "runner-stdout.txt": "30f0f9fafa6e9368803d1492208e06695cb0dbd930de94bd258dc6ec4731f203"
+      }
+    },
+    {
+      "trial_index": 4,
+      "source_staging_evidence_dir": "phase-11b-ap001-closure-v1-ap-001-ollama-llama3-latest-i004",
+      "canonical_evidence_dir": "tasks/AP-001/evidence/live/ap001-ollama-llama3-phase11b-004",
+      "final_verdict": "VERIFIED_PASS",
+      "evaluation_record_hash": "4e813431abcc56b8cc0fde8d196d4b520c42813f30f9f967a946b94c8f4c8220",
+      "replay_report_sha256": "98ab279f9682b785a0741b16013a18376d4d0f6d16490f59b26b5349097d7c08",
+      "artifact_sha256": {
+        "candidate-resource_view.py": "c6ae5f28d193785839b652fd4586839d47ac3e1e3374d2074283aa49f77f22db",
+        "evaluation.json": "8ad4c338281763375cf5bf098afe7f229625f0fcba081baee6134c4e81f58ca3",
+        "manifest.json": "2b4d38d7f7bd9d2b126f95eacecc597b84a2675882416d64c982700a74e3574d",
+        "model-response.txt": "4d827b9817d748158af63593a73563583bd1b1d38a1a60f4103da6266a9fb9db",
+        "replay.json": "07ad50f77edd2672d0c0378e7753e003bf6bbf9620a2a9fdd07f51f11a218730",
+        "runner-stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "runner-stdout.txt": "8ad4c338281763375cf5bf098afe7f229625f0fcba081baee6134c4e81f58ca3"
+      }
+    },
+    {
+      "trial_index": 5,
+      "source_staging_evidence_dir": "phase-11b-ap001-closure-v1-ap-001-ollama-llama3-latest-i005",
+      "canonical_evidence_dir": "tasks/AP-001/evidence/live/ap001-ollama-llama3-phase11b-005",
+      "final_verdict": "VERIFIED_PASS",
+      "evaluation_record_hash": "bc1843f0742fc8f1f823ce575a96c5d9018acd407b1462ce7d0f5f9ad45b0094",
+      "replay_report_sha256": "4c32c928469592fc582502d180ca4bbbdea5275974c7559f7db2ef78df67684d",
+      "artifact_sha256": {
+        "candidate-resource_view.py": "c6ae5f28d193785839b652fd4586839d47ac3e1e3374d2074283aa49f77f22db",
+        "evaluation.json": "77f7e916310fb674424a348f6f526e1e41c81c5ccb4a3b95b7deeb6e1aa31401",
+        "manifest.json": "3c399e655aea86bd451aa2ac799d885d6cac37db731b8873772b14f560905d4c",
+        "model-response.txt": "4d827b9817d748158af63593a73563583bd1b1d38a1a60f4103da6266a9fb9db",
+        "replay.json": "4e145ccb2467b8d923aec3b72dd92b6ef4162f291520dd872dcbb1830608e0d6",
+        "runner-stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "runner-stdout.txt": "77f7e916310fb674424a348f6f526e1e41c81c5ccb4a3b95b7deeb6e1aa31401"
+      }
+    },
+    {
+      "trial_index": 6,
+      "source_staging_evidence_dir": "phase-11b-ap001-closure-v1-ap-001-ollama-llama3-latest-i006",
+      "canonical_evidence_dir": "tasks/AP-001/evidence/live/ap001-ollama-llama3-phase11b-006",
+      "final_verdict": "VERIFIED_PASS",
+      "evaluation_record_hash": "c17e367465e7f37a057c6a0d0d2bf10dccf9dbbfa286db0b3580d5b768025f27",
+      "replay_report_sha256": "103ed26bca04c884ba5219136f126df0a7443d1cb8aa3addf396a6dff4b415be",
+      "artifact_sha256": {
+        "candidate-resource_view.py": "c6ae5f28d193785839b652fd4586839d47ac3e1e3374d2074283aa49f77f22db",
+        "evaluation.json": "d47ae6d5e2e0096c50d4a6d962c02c31b039328ac35f825c86184b8566bf8dce",
+        "manifest.json": "adf59a3dfff349a03743f8278ef144e4b1c109087ffc3050e5a367480d768eba",
+        "model-response.txt": "4d827b9817d748158af63593a73563583bd1b1d38a1a60f4103da6266a9fb9db",
+        "replay.json": "564f9e8c49747cff668db5ab40ad1bbd740850aa5d891a203e0e61247b35a3e8",
+        "runner-stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "runner-stdout.txt": "d47ae6d5e2e0096c50d4a6d962c02c31b039328ac35f825c86184b8566bf8dce"
+      }
+    },
+    {
+      "trial_index": 7,
+      "source_staging_evidence_dir": "phase-11b-ap001-closure-v1-ap-001-ollama-llama3-latest-i007",
+      "canonical_evidence_dir": "tasks/AP-001/evidence/live/ap001-ollama-llama3-phase11b-007",
+      "final_verdict": "VERIFIED_PASS",
+      "evaluation_record_hash": "5b4576383710842ab8cdd6380c985fe0296a6895212462637fa624827398cefd",
+      "replay_report_sha256": "f0d913df300b33c9a95b44e50e315169449566b71f83be14e3779693ae334324",
+      "artifact_sha256": {
+        "candidate-resource_view.py": "c6ae5f28d193785839b652fd4586839d47ac3e1e3374d2074283aa49f77f22db",
+        "evaluation.json": "c5bf794d4cf1b0bb32347c205df1fc971ae428858aafddaeae63161adedda798",
+        "manifest.json": "98b04baaf141c01f195426fadd9b2fa67920f95183e788d244186a39d871e18c",
+        "model-response.txt": "4d827b9817d748158af63593a73563583bd1b1d38a1a60f4103da6266a9fb9db",
+        "replay.json": "cd8e6bacf47b67da2d9874be38a900be3013d88f52db864fa1d9bf412a439097",
+        "runner-stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "runner-stdout.txt": "c5bf794d4cf1b0bb32347c205df1fc971ae428858aafddaeae63161adedda798"
+      }
+    },
+    {
+      "trial_index": 8,
+      "source_staging_evidence_dir": "phase-11b-ap001-closure-v1-ap-001-ollama-llama3-latest-i008",
+      "canonical_evidence_dir": "tasks/AP-001/evidence/live/ap001-ollama-llama3-phase11b-008",
+      "final_verdict": "VERIFIED_PASS",
+      "evaluation_record_hash": "1d5c214f47937a624405852b502b6dcf437d83881106ae6ea7171063b53be090",
+      "replay_report_sha256": "3a0cf8c8bc0cc03b64b4c65397ea6c3cd41c9e66e19768a9810798abd59895f0",
+      "artifact_sha256": {
+        "candidate-resource_view.py": "c6ae5f28d193785839b652fd4586839d47ac3e1e3374d2074283aa49f77f22db",
+        "evaluation.json": "3281f8a0112135c872947b17687a215c85ef0eb63545c39c135c9b86a088c049",
+        "manifest.json": "e48c3e47b9396496482d460ea9e829443ccdac8260b0bc10525905715245f1a1",
+        "model-response.txt": "4d827b9817d748158af63593a73563583bd1b1d38a1a60f4103da6266a9fb9db",
+        "replay.json": "3715ed711d652e6f69f23f3ecaf78b6bc7f77d27f5d9c3591d3e821250bfed72",
+        "runner-stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "runner-stdout.txt": "3281f8a0112135c872947b17687a215c85ef0eb63545c39c135c9b86a088c049"
+      }
+    },
+    {
+      "trial_index": 9,
+      "source_staging_evidence_dir": "phase-11b-ap001-closure-v1-ap-001-ollama-llama3-latest-i009",
+      "canonical_evidence_dir": "tasks/AP-001/evidence/live/ap001-ollama-llama3-phase11b-009",
+      "final_verdict": "VERIFIED_PASS",
+      "evaluation_record_hash": "6ebe8903ebb24aaa71aef62c9e09c4810e378e1735bcd959a6c9ec7e8df8e8ca",
+      "replay_report_sha256": "52497776023e84947b927805082c4f174b7a7647df508e56c1a55eca9adc45c9",
+      "artifact_sha256": {
+        "candidate-resource_view.py": "c6ae5f28d193785839b652fd4586839d47ac3e1e3374d2074283aa49f77f22db",
+        "evaluation.json": "a18d23b79111e662166449ffb42f257af1a4c6888093c018a9eabafcd6efed71",
+        "manifest.json": "b35966c917435ad5b65cf8358406f06170488780e1967acea43efcaa8537239d",
+        "model-response.txt": "4d827b9817d748158af63593a73563583bd1b1d38a1a60f4103da6266a9fb9db",
+        "replay.json": "6d71c3287d4257c7f41bad77251209747421c49d5d85925d99efd68580a79288",
+        "runner-stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "runner-stdout.txt": "a18d23b79111e662166449ffb42f257af1a4c6888093c018a9eabafcd6efed71"
+      }
+    },
+    {
+      "trial_index": 10,
+      "source_staging_evidence_dir": "phase-11b-ap001-closure-v1-ap-001-ollama-llama3-latest-i010",
+      "canonical_evidence_dir": "tasks/AP-001/evidence/live/ap001-ollama-llama3-phase11b-010",
+      "final_verdict": "VERIFIED_PASS",
+      "evaluation_record_hash": "206153a8b263c19e1e75381ccfc5e53d1d82a414653df1ec6bbc71bde82a9e44",
+      "replay_report_sha256": "d3a85ae25e458090dbc79fa8648f0a5798349657af896cfcbbd66162e829e8fd",
+      "artifact_sha256": {
+        "candidate-resource_view.py": "c6ae5f28d193785839b652fd4586839d47ac3e1e3374d2074283aa49f77f22db",
+        "evaluation.json": "fadf0e2ff9735b36a95dc47b01fe51c15890a4da0f096b387524935c88e10ecd",
+        "manifest.json": "97a7e86238505fc51753a3edcbf63548a5de43e43effd8804c57ac3dab5ccfff",
+        "model-response.txt": "4d827b9817d748158af63593a73563583bd1b1d38a1a60f4103da6266a9fb9db",
+        "replay.json": "0c51b55b733da52c3e6d8e0e154b92c2de6fa28d45c438246850a2e8d8f6856f",
+        "runner-stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "runner-stdout.txt": "fadf0e2ff9735b36a95dc47b01fe51c15890a4da0f096b387524935c88e10ecd"
+      }
+    }
+  ],
+  "claim_boundary": [
+    "This is a fixed ten-trial AP-001 batch under one local Ollama llama3:latest configuration.",
+    "Nine attempts reached VERIFIED_PASS and one admitted candidate failed public validation; no false-green occurred and no repair was eligible.",
+    "The batch provides repeated single-configuration evidence with Wilson intervals, not repeated multi-model, broad cross-provider, or production-scale evidence.",
+    "The AP-001 Section 9 false-green-to-repair sequence remains unsatisfied."
+  ]
+}

@@ -26,6 +26,18 @@ release gates without changing the frozen benchmark evidence.
 - source-exact no-model replay: verified
 - original AP-001 Section 9 repair sequence: still open
 
+## Post-release Phase 11B evidence expansion
+
+- 21 total committed live attempts after promotion
+- 14 `VERIFIED_PASS` / 4 `VERIFIED_FAIL` / 3 `HOLD`
+- fixed 10/10 planned AP-001 local Ollama initial trials completed
+- Phase 11B outcome: 9 `VERIFIED_PASS` / 1 public-test `VERIFIED_FAIL`
+- false-greens: 0 / 9 public-test passes
+- repair attempts: 0, because no false-green was eligible
+- all 10 attempts passed independent source-exact no-model replay
+- dedicated Phase 11B evidence-integrity gate: green
+- original AP-001 Section 9 repair sequence: still open
+
 ## Required pre-merge gates
 
 - [x] repository working tree was clean before the release commit
@@ -50,9 +62,11 @@ the merge commit and PR; these boxes are a status record, not newly generated ev
 ## Evidence boundaries that remain after v0.1
 
 - the original AP-001 Section 9 sequence as written, including repair conversion within AP-001;
-- repeated multi-model/statistically meaningful benchmark performance;
+- repeated cross-model and cross-provider benchmark evidence with sample sizes
+  sufficient for general performance claims;
 - production-scale runtime, reliability, and complete economic-cost evidence.
 
 The narrower Nebius/NVIDIA connectivity and repository-task execution gap is closed by
-the Phase 11C pilot. The boundaries above remain and must not be rewritten as completed
-until corresponding evidence exists.
+the Phase 11C pilot. Phase 11B adds repeated evidence for one local configuration only.
+The boundaries above remain and must not be rewritten as completed until corresponding
+evidence exists.

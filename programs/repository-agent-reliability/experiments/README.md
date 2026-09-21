@@ -18,6 +18,13 @@ repair attempts, and repair stops after conversion.
 This phase does not use Nebius credentials and does not claim multi-model evidence.
 Frozen v0.1 attempts remain untouched.
 
+Phase 11B is now **COMPLETE AND PROMOTED**. All ten planned initial trials ran from
+source commit `37ed3813521f7cdaccbb6cc3a3d682854be1edb1`: nine reached
+`VERIFIED_PASS`, and one admitted candidate failed public validation and remained
+`VERIFIED_FAIL`. There were no false-greens, so no repair was eligible. All ten attempts
+passed independent source-exact replay. The 90.0% verified-pass estimate has a 95%
+Wilson interval of 59.6%–98.2%; it describes this one local configuration only.
+
 Preview the exact run plan without calling a model:
 
 ```powershell
@@ -25,23 +32,15 @@ python .\programs\repository-agent-reliability\runner\batch.py `
   --plan .\programs\repository-agent-reliability\experiments\phase-11b-ap001-closure-v1.json
 ```
 
-Live execution is deliberately explicit:
-
-```powershell
-$env:OLLAMA_MODEL = "llama3:latest"
-python .\programs\repository-agent-reliability\runner\batch.py `
-  --plan .\programs\repository-agent-reliability\experiments\phase-11b-ap001-closure-v1.json `
-  --configuration-id ollama-llama3-latest `
-  --execute
-```
+The historical live batch is frozen. Do not rerun or overwrite it. The dry-run command
+above remains available to inspect the committed plan without calling a model.
 
 Execution refuses a dirty worktree because every attempt records `HEAD` as its evaluator
 source commit. It also refuses to overwrite a non-empty staging directory and checks
 that the observed provider and model match the preregistered configuration.
 
-No staged result should be copied into `tasks/AP-001/evidence/live/` until every attempt
-has a manifest, its source commit is available, and source-exact initial or repair replay
-passes as applicable.
+The audited attempts are promoted under `tasks/AP-001/evidence/live/`, with the batch
+ledger, report, and promotion record under `experiments/results/`.
 
 After a complete staged batch, generate counts and Wilson confidence intervals with:
 

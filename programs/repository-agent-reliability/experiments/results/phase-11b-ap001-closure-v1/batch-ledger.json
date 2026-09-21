@@ -1,0 +1,129 @@
+{
+  "schema_version": "1.0.0",
+  "experiment_id": "phase-11b-ap001-closure-v1",
+  "experiment_plan_sha256": "0883bab67a7758206e9bf68a34c444d7b3a68b59348f3ee52879e348aa712a8a",
+  "source_commit": "37ed3813521f7cdaccbb6cc3a3d682854be1edb1",
+  "status": "COMPLETE",
+  "attempts": [
+    {
+      "run_label": "phase-11b-ap001-closure-v1-ap-001-ollama-llama3-latest-i001",
+      "task_id": "AP-001",
+      "attempt_kind": "initial",
+      "configuration_id": "ollama-llama3-latest",
+      "provider": "ollama",
+      "model": "llama3:latest",
+      "returncode": 1,
+      "final_verdict": "VERIFIED_FAIL",
+      "false_green": false,
+      "evidence_dir": "phase-11b-ap001-closure-v1-ap-001-ollama-llama3-latest-i001"
+    },
+    {
+      "run_label": "phase-11b-ap001-closure-v1-ap-001-ollama-llama3-latest-i002",
+      "task_id": "AP-001",
+      "attempt_kind": "initial",
+      "configuration_id": "ollama-llama3-latest",
+      "provider": "ollama",
+      "model": "llama3:latest",
+      "returncode": 0,
+      "final_verdict": "VERIFIED_PASS",
+      "false_green": false,
+      "evidence_dir": "phase-11b-ap001-closure-v1-ap-001-ollama-llama3-latest-i002"
+    },
+    {
+      "run_label": "phase-11b-ap001-closure-v1-ap-001-ollama-llama3-latest-i003",
+      "task_id": "AP-001",
+      "attempt_kind": "initial",
+      "configuration_id": "ollama-llama3-latest",
+      "provider": "ollama",
+      "model": "llama3:latest",
+      "returncode": 0,
+      "final_verdict": "VERIFIED_PASS",
+      "false_green": false,
+      "evidence_dir": "phase-11b-ap001-closure-v1-ap-001-ollama-llama3-latest-i003"
+    },
+    {
+      "run_label": "phase-11b-ap001-closure-v1-ap-001-ollama-llama3-latest-i004",
+      "task_id": "AP-001",
+      "attempt_kind": "initial",
+      "configuration_id": "ollama-llama3-latest",
+      "provider": "ollama",
+      "model": "llama3:latest",
+      "returncode": 0,
+      "final_verdict": "VERIFIED_PASS",
+      "false_green": false,
+      "evidence_dir": "phase-11b-ap001-closure-v1-ap-001-ollama-llama3-latest-i004"
+    },
+    {
+      "run_label": "phase-11b-ap001-closure-v1-ap-001-ollama-llama3-latest-i005",
+      "task_id": "AP-001",
+      "attempt_kind": "initial",
+      "configuration_id": "ollama-llama3-latest",
+      "provider": "ollama",
+      "model": "llama3:latest",
+      "returncode": 0,
+      "final_verdict": "VERIFIED_PASS",
+      "false_green": false,
+      "evidence_dir": "phase-11b-ap001-closure-v1-ap-001-ollama-llama3-latest-i005"
+    },
+    {
+      "run_label": "phase-11b-ap001-closure-v1-ap-001-ollama-llama3-latest-i006",
+      "task_id": "AP-001",
+      "attempt_kind": "initial",
+      "configuration_id": "ollama-llama3-latest",
+      "provider": "ollama",
+      "model": "llama3:latest",
+      "returncode": 0,
+      "final_verdict": "VERIFIED_PASS",
+      "false_green": false,
+      "evidence_dir": "phase-11b-ap001-closure-v1-ap-001-ollama-llama3-latest-i006"
+    },
+    {
+      "run_label": "phase-11b-ap001-closure-v1-ap-001-ollama-llama3-latest-i007",
+      "task_id": "AP-001",
+      "attempt_kind": "initial",
+      "configuration_id": "ollama-llama3-latest",
+      "provider": "ollama",
+      "model": "llama3:latest",
+      "returncode": 0,
+      "final_verdict": "VERIFIED_PASS",
+      "false_green": false,
+      "evidence_dir": "phase-11b-ap001-closure-v1-ap-001-ollama-llama3-latest-i007"
+    },
+    {
+      "run_label": "phase-11b-ap001-closure-v1-ap-001-ollama-llama3-latest-i008",
+      "task_id": "AP-001",
+      "attempt_kind": "initial",
+      "configuration_id": "ollama-llama3-latest",
+      "provider": "ollama",
+      "model": "llama3:latest",
+      "returncode": 0,
+      "final_verdict": "VERIFIED_PASS",
+      "false_green": false,
+      "evidence_dir": "phase-11b-ap001-closure-v1-ap-001-ollama-llama3-latest-i008"
+    },
+    {
+      "run_label": "phase-11b-ap001-closure-v1-ap-001-ollama-llama3-latest-i009",
+      "task_id": "AP-001",
+      "attempt_kind": "initial",
+      "configuration_id": "ollama-llama3-latest",
+      "provider": "ollama",
+      "model": "llama3:latest",
+      "returncode": 0,
+      "final_verdict": "VERIFIED_PASS",
+      "false_green": false,
+      "evidence_dir": "phase-11b-ap001-closure-v1-ap-001-ollama-llama3-latest-i009"
+    },
+    {
+      "run_label": "phase-11b-ap001-closure-v1-ap-001-ollama-llama3-latest-i010",
+      "task_id": "AP-001",
+      "attempt_kind": "initial",
+      "configuration_id": "ollama-llama3-latest",
+      "provider": "ollama",
+      "model": "llama3:latest",
+      "returncode": 0,
+      "final_verdict": "VERIFIED_PASS",
+      "false_green": false,
+      "evidence_dir": "phase-11b-ap001-closure-v1-ap-001-ollama-llama3-latest-i010"
+    }
+  ]
+}

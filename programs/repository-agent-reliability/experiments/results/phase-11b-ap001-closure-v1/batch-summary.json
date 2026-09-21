@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.0.0",
+  "experiment_id": "phase-11b-ap001-closure-v1",
+  "experiment_plan_sha256": "0883bab67a7758206e9bf68a34c444d7b3a68b59348f3ee52879e348aa712a8a",
+  "source_commit": "37ed3813521f7cdaccbb6cc3a3d682854be1edb1",
+  "status": "COMPLETE",
+  "fixed_initial_trial_count_satisfied": true,
+  "counts": {
+    "planned_initial_attempts": 10,
+    "observed_initial_attempts": 10,
+    "repair_attempts": 0,
+    "initial_verified_pass": 9,
+    "initial_verified_fail": 1,
+    "initial_hold": 0,
+    "initial_false_greens": 0,
+    "repair_episodes": 0,
+    "repair_episodes_converted": 0,
+    "ap001_section9_sequences": 0
+  },
+  "rates": {
+    "initial_verified_pass": {
+      "value": 0.9,
+      "lower_95": 0.5958499732047615,
+      "upper_95": 0.9821237869049271,
+      "numerator": 9,
+      "denominator": 10
+    },
+    "initial_false_green": {
+      "value": 0.0,
+      "lower_95": 0.0,
+      "upper_95": 0.2991450484195441,
+      "numerator": 0,
+      "denominator": 9
+    },
+    "repair_conversion": {
+      "value": null,
+      "lower_95": null,
+      "upper_95": null,
+      "numerator": 0,
+      "denominator": 0
+    }
+  },
+  "section9_sequence_parent_runs": [],
+  "observed_configurations": [
+    {
+      "provider": "ollama",
+      "model": "llama3:latest",
+      "configuration_id": "ollama-llama3-latest"
+    }
+  ],
+  "claim_boundary": [
+    "This plan does not create evidence until live execution completes and the staged artifacts are audited and committed.",
+    "A successful mock regression is infrastructure validation, not live model evidence.",
+    "One local Ollama configuration is not multi-model evidence.",
+    "The AP-001 Section 9 gap closes only if a new committed source-exact sequence contains public-test pass, qualified-verifier rejection, bounded repair, VERIFIED_PASS, and successful no-model replay.",
+    "Nebius/NVIDIA runtime evidence remains out of scope for this phase."
+  ]
+}

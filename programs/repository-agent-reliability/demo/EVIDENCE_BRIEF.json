@@ -3,18 +3,18 @@
   "program": "repository-agent-reliability",
   "headline": "Verify the evaluation before trusting the verdict.",
   "evidence_snapshot": {
-    "live_attempts": 11,
-    "verified_pass": 5,
-    "verified_fail": 3,
+    "live_attempts": 21,
+    "verified_pass": 14,
+    "verified_fail": 4,
     "hold": 3,
     "qualified_tasks": 5,
     "critical_mutations_total": 17,
     "critical_mutation_escapes": 0,
-    "claim_evidence_gap": 0.375,
-    "false_green_rate": 0.375,
-    "initial_false_green_rate": 0.3333333333333333,
+    "claim_evidence_gap": 0.2222222222222222,
+    "false_green_rate": 0.17647058823529413,
+    "initial_false_green_rate": 0.13333333333333333,
     "repair_conversion": 0.5,
-    "median_time_to_verified_success_ms": 81341.0
+    "median_time_to_verified_success_ms": 13442.0
   },
   "task_evidence": [
     {
@@ -35,6 +35,56 @@
           "run_label": "phase-11c-nebius-nemotron-pilot-v1-ap-001-nebius-nemotron-3-super-120b-a12b-i001",
           "verdict": "VERIFIED_PASS",
           "note": "The preregistered Nebius/NVIDIA pilot was admitted, passed public validation and every qualified verifier gate, preserved the trusted boundary, and passed source-exact replay."
+        },
+        {
+          "run_label": "phase-11b-ap001-closure-v1-ap-001-ollama-llama3-latest-i001",
+          "verdict": "VERIFIED_FAIL",
+          "note": "Fixed Phase 11B trial failed public validation and was preserved without a repair because it was not a false-green."
+        },
+        {
+          "run_label": "phase-11b-ap001-closure-v1-ap-001-ollama-llama3-latest-i002",
+          "verdict": "VERIFIED_PASS",
+          "note": "Fixed Phase 11B trial passed public validation and the qualified verifier; source-exact replay verified the result."
+        },
+        {
+          "run_label": "phase-11b-ap001-closure-v1-ap-001-ollama-llama3-latest-i003",
+          "verdict": "VERIFIED_PASS",
+          "note": "Fixed Phase 11B trial passed public validation and the qualified verifier; source-exact replay verified the result."
+        },
+        {
+          "run_label": "phase-11b-ap001-closure-v1-ap-001-ollama-llama3-latest-i004",
+          "verdict": "VERIFIED_PASS",
+          "note": "Fixed Phase 11B trial passed public validation and the qualified verifier; source-exact replay verified the result."
+        },
+        {
+          "run_label": "phase-11b-ap001-closure-v1-ap-001-ollama-llama3-latest-i005",
+          "verdict": "VERIFIED_PASS",
+          "note": "Fixed Phase 11B trial passed public validation and the qualified verifier; source-exact replay verified the result."
+        },
+        {
+          "run_label": "phase-11b-ap001-closure-v1-ap-001-ollama-llama3-latest-i006",
+          "verdict": "VERIFIED_PASS",
+          "note": "Fixed Phase 11B trial passed public validation and the qualified verifier; source-exact replay verified the result."
+        },
+        {
+          "run_label": "phase-11b-ap001-closure-v1-ap-001-ollama-llama3-latest-i007",
+          "verdict": "VERIFIED_PASS",
+          "note": "Fixed Phase 11B trial passed public validation and the qualified verifier; source-exact replay verified the result."
+        },
+        {
+          "run_label": "phase-11b-ap001-closure-v1-ap-001-ollama-llama3-latest-i008",
+          "verdict": "VERIFIED_PASS",
+          "note": "Fixed Phase 11B trial passed public validation and the qualified verifier; source-exact replay verified the result."
+        },
+        {
+          "run_label": "phase-11b-ap001-closure-v1-ap-001-ollama-llama3-latest-i009",
+          "verdict": "VERIFIED_PASS",
+          "note": "Fixed Phase 11B trial passed public validation and the qualified verifier; source-exact replay verified the result."
+        },
+        {
+          "run_label": "phase-11b-ap001-closure-v1-ap-001-ollama-llama3-latest-i010",
+          "verdict": "VERIFIED_PASS",
+          "note": "Fixed Phase 11B trial passed public validation and the qualified verifier; source-exact replay verified the result."
         }
       ]
     },
@@ -113,11 +163,12 @@
     "Separately versioned initial-output protocols without rewriting the frozen earlier HOLD.",
     "Live initial model evidence across AP-001 through AP-005.",
     "One preregistered Nebius/NVIDIA-backed AP-001 initial attempt using nvidia/nemotron-3-super-120b-a12b, with a source-exact replayable VERIFIED_PASS.",
+    "One preregistered fixed ten-trial AP-001 batch using local Ollama llama3:latest: nine VERIFIED_PASS outcomes, one public-test VERIFIED_FAIL, zero false-greens, and ten source-exact replays.",
     "Evidence-derived metrics without fabricating missing fields."
   ],
   "not_yet_demonstrated": [
     "The original AP-001 Section 9 sequence as written, including a successful repair conversion within AP-001 itself.",
-    "Repeated multi-model or statistically meaningful benchmark performance.",
+    "Repeated cross-model and cross-provider benchmark evidence with sample sizes sufficient for general performance claims.",
     "Production-scale runtime evidence, including repeated throughput, reliability, and complete economic-cost measurement."
   ]
 }

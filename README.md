@@ -361,9 +361,9 @@ Third-party dependencies and referenced external materials remain subject to the
 
 **Alpha v0.2A is complete, and AS-002 is now merged into the public Agent Safety Evaluation Program.**
 
-**RARB v0.1 is merged and CI-green.** Its committed evidence now contains 11 live attempts across five verifier-qualified tasks: 5 `VERIFIED_PASS`, 3 `VERIFIED_FAIL`, and 3 `HOLD`. Configured critical verifier mutations show 0 / 17 escapes, and one of two bounded-repair episodes converted to `VERIFIED_PASS`. The evidence includes one preregistered, source-exact replayable AP-001 `VERIFIED_PASS` from Nebius Token Factory using `nvidia/nemotron-3-super-120b-a12b`. These figures describe the committed RARB evidence set only, not general coding-agent performance.
+**RARB v0.1 is merged and CI-green.** Its committed evidence now contains 21 live attempts across five verifier-qualified tasks: 14 `VERIFIED_PASS`, 4 `VERIFIED_FAIL`, and 3 `HOLD`. Configured critical verifier mutations show 0 / 17 escapes, and one of two bounded-repair episodes converted to `VERIFIED_PASS`. The evidence includes a fixed ten-trial local Ollama AP-001 batch with 9 verified passes and 1 public-test failure, plus one preregistered, source-exact replayable AP-001 `VERIFIED_PASS` from Nebius Token Factory using `nvidia/nemotron-3-super-120b-a12b`. These figures describe the committed RARB evidence set only, not general coding-agent performance.
 
-RARB still records three explicit evidence boundaries: the original AP-001-specific Section 9 sequence as written, repeated multi-model/statistically meaningful benchmarking, and production-scale runtime, reliability, and economic-cost evidence.
+RARB still records three explicit evidence boundaries: the original AP-001-specific Section 9 sequence as written, repeated cross-model and cross-provider benchmarking with sample sizes sufficient for general performance claims, and production-scale runtime, reliability, and economic-cost evidence.
 
 Next engineering milestones:
 

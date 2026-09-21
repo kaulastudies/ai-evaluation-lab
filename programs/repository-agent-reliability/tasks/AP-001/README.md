@@ -31,11 +31,12 @@ then A, and confirms that A cannot overwrite B.
 
 ## Current evidence boundary
 
-Committed evidence includes a local Ollama `VERIFIED_PASS` and one preregistered
-Nebius/NVIDIA `VERIFIED_PASS` using `nvidia/nemotron-3-super-120b-a12b`. The Nebius
-attempt passed public validation and all qualified verifier gates directly, and
-source-exact no-model replay reproduced its stored record hash and verdict.
+Committed evidence includes the earlier local Ollama `VERIFIED_PASS`, a preregistered
+fixed ten-trial local Ollama batch, and one preregistered Nebius/NVIDIA `VERIFIED_PASS`
+using `nvidia/nemotron-3-super-120b-a12b`. The fixed batch produced nine direct passes
+and one public-test failure, with zero false-greens and ten successful source-exact
+replays.
 
-Neither passing attempt demonstrates the full sequence above because neither contains
+None of these attempts demonstrates the full sequence above because none contains
 public-test pass, qualified-verifier rejection, bounded repair, and subsequent verifier
 pass within one AP-001 episode. The original Section 9 target therefore remains open.

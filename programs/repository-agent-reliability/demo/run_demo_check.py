@@ -63,11 +63,11 @@ def main() -> int:
                 is True
             ),
             "attempts": (
-                status["evidence_snapshot"]["attempts_total"] == 11
+                status["evidence_snapshot"]["attempts_total"] == 21
             ),
             "verdicts": (
-                status["evidence_snapshot"]["verified_pass"] == 5
-                and status["evidence_snapshot"]["verified_fail"] == 3
+                status["evidence_snapshot"]["verified_pass"] == 14
+                and status["evidence_snapshot"]["verified_fail"] == 4
                 and status["evidence_snapshot"]["hold"] == 3
             ),
             "qualification": (
@@ -81,11 +81,11 @@ def main() -> int:
             ),
             "claim_gap": close(
                 status["evidence_snapshot"]["claim_evidence_gap"],
-                3 / 8,
+                4 / 18,
             ),
             "false_green": close(
                 status["evidence_snapshot"]["false_green_rate"],
-                3 / 8,
+                3 / 17,
             ),
             "repair_conversion_gap_removed": not any(
                 item
