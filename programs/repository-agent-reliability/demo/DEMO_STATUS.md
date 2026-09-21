@@ -15,21 +15,22 @@
 - phase11b_evidence_check: **PASS**
 - phase11c_nebius_evidence_check: **PASS**
 - phase12a_preregistration_check: **PASS**
+- phase12_evidence_integrity: **PASS**
 
 ## Evidence snapshot
 
-- Attempts: **21**
-- Verdicts: **14 VERIFIED_PASS / 4 VERIFIED_FAIL / 3 HOLD**
+- Attempts: **51**
+- Verdicts: **43 VERIFIED_PASS / 5 VERIFIED_FAIL / 3 HOLD**
 - Qualified tasks: **5**
 - Critical verifier mutation escapes: **0 / 17**
-- Claim-Evidence Gap: **22.2%**
-- False-Green Rate: **17.6%**
+- Claim-Evidence Gap: **10.4%**
+- False-Green Rate: **6.5%**
 - Repair Conversion: **50.0%**
 
 ## Evidence boundary
 
 - The original AP-001 Section 9 sequence as written, including a successful repair conversion within AP-001 itself.
-- Repeated cross-model and cross-provider benchmark evidence with sample sizes sufficient for general performance claims.
+- General cross-task or provider-wide performance evidence; Phase 12 is bounded to AP-001, three configurations, and ten trials per configuration.
 - Production-scale runtime evidence, including repeated throughput, reliability, and complete economic-cost measurement.
 
 The status file is a compact demo index. Detailed evidence remains in `metrics/REPORT.md`, `demo/EVIDENCE_BRIEF.md`, and the frozen task evidence directories.
