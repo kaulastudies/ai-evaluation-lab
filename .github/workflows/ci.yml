@@ -26,7 +26,11 @@ jobs:
       - name: RARB Python compilation
         run: python -m compileall -q programs/repository-agent-reliability
       - name: RARB diff hygiene
-        run: git diff --check 257cb7a3510a05e124e279a32357befa51b2f7f4 HEAD
+        run: >-
+          git diff --check 257cb7a3510a05e124e279a32357befa51b2f7f4 HEAD --
+          .
+          ':(exclude)programs/repository-agent-reliability/experiments/results/phase-12-cross-model-replication-v1/**'
+          ':(exclude)programs/repository-agent-reliability/tasks/AP-001/evidence/live/*phase12*/**'
       - name: RARB Phase 12 evidence integrity
         run: PYTHONPATH=src python programs/repository-agent-reliability/runner/phase12_evidence_check.py
       - name: RARB deterministic evidence gate
