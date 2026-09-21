@@ -327,8 +327,10 @@ def main() -> int:
         ),
         "split_execution_blocked": split_attempt.returncode != 0,
         "per_configuration_report": synthetic_report_check(plan),
-        "no_phase12_results_committed": (
-            not RESULT_ROOT.exists() and not live_phase12
+        "phase12_results_promoted": (
+            RESULT_ROOT.exists()
+            and (RESULT_ROOT / "promotion.json").is_file()
+            and len(live_phase12) == 30
         ),
         "claim_boundary_preserved": (
             any(
@@ -352,9 +354,9 @@ def main() -> int:
 
     ok = all(checks.values())
     print(
-        "PHASE 12A PREREGISTRATION GREEN"
+        "PHASE 12A PREREGISTRATION/PROMOTION GREEN"
         if ok
-        else "PHASE 12A PREREGISTRATION FAILED"
+        else "PHASE 12A PREREGISTRATION/PROMOTION FAILED"
     )
     return 0 if ok else 1
 
