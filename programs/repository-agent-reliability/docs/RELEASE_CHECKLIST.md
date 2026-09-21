@@ -75,8 +75,8 @@ the merge commit and PR; these boxes are a status record, not newly generated ev
 ## Evidence boundaries that remain after v0.1
 
 - the original AP-001 Section 9 sequence as written, including repair conversion within AP-001;
-- repeated cross-model and cross-provider benchmark evidence with sample sizes
-  sufficient for general performance claims;
+- general cross-task or provider-wide performance evidence beyond the bounded
+  single-task Phase 12 matrix;
 - production-scale runtime, reliability, and complete economic-cost evidence.
 
 The narrower Nebius/NVIDIA connectivity and repository-task execution gap is closed by
