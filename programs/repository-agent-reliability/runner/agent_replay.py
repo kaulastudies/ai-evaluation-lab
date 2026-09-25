@@ -1,4 +1,4 @@
-import argparse
+﻿import argparse
 import hashlib
 import json
 import shutil
@@ -50,18 +50,24 @@ def main():
     args = parser.parse_args()
 
     evidence_dir = args.evidence_dir.resolve()
+    eval_path = evidence_dir / "evaluation.json"
     manifest_path = evidence_dir / "manifest.json"
+    
+    if not eval_path.is_file():
+        raise RuntimeError(f"Missing evaluation.json in {evidence_dir}")
     if not manifest_path.is_file():
         raise RuntimeError(f"Missing manifest.json in {evidence_dir}")
 
+    evaluation = json.loads(eval_path.read_text(encoding="utf-8"))
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-    if manifest.get("runtime_schema") != "agent-workspace-v1":
+    
+    if evaluation.get("runtime_schema") != "agent-workspace-v1":
         raise RuntimeError("agent_replay.py only supports agent-workspace-v1.")
 
-    source_commit = manifest["source_commit"]
+    source_commit = evaluation["source_commit"]
     ensure_commit_exists(source_commit)
 
-    candidate_sha = manifest["candidate_sha256"]
+    candidate_sha = evaluation["candidate_sha256"]
     candidate_path = None
     for p in evidence_dir.glob("candidate-*"):
         if p.is_file() and sha256_file(p) == candidate_sha:
@@ -79,32 +85,33 @@ def main():
         add_detached_worktree(source_root, source_commit)
         
         try:
-            # Reconstruct the exact agent-workspace evaluation using the detached worktree's engine
             agent_evaluate_py = source_root / "programs" / "repository-agent-reliability" / "runner" / "agent_evaluate.py"
             if not agent_evaluate_py.is_file():
-                # Fallback to current runner if source commit doesn't have it (e.g. this is the commit adding it)
+                # Fallback to current runner if source commit doesn't have it
                 agent_evaluate_py = RUNNER_ROOT / "agent_evaluate.py"
                 
-            task_root = source_root / "programs" / "repository-agent-reliability" / "tasks" / manifest["task_id"]
+            task_root = source_root / "programs" / "repository-agent-reliability" / "tasks" / evaluation["task_id"]
             
-            replayed_out = source_root / "replayed-manifest.json"
+            replayed_eval_out = source_root / "replayed-evaluation.json"
+            replayed_manifest_out = source_root / "replayed-manifest.json"
             
             cmd = [
                 sys.executable,
                 str(agent_evaluate_py),
-                "--task-id", manifest["task_id"],
+                "--task-id", evaluation["task_id"],
+                "--task-root", str(task_root),
                 "--candidate", str(candidate_path),
-                "--prompt-file", str(prompt_path) if prompt_path.exists() else str(evidence_dir / "candidate-resource_view.py"), # Fallback if no prompt file staged
+                "--prompt-file", str(prompt_path) if prompt_path.exists() else str(evidence_dir / "candidate-resource_view.py"),
                 "--summary-file", str(summary_path) if summary_path.exists() else str(evidence_dir / "model-response.txt"),
                 "--source-commit", source_commit,
-                "--run-label", manifest["run_label"],
-                "--out-json", str(replayed_out)
+                "--run-label", evaluation["run_label"],
+                "--out-eval", str(replayed_eval_out),
+                "--out-manifest", str(replayed_manifest_out)
             ]
             
-            # Write a dummy prompt file if missing, since Phase 13 might not have it in the evidence dir yet
+            # Write a dummy prompt file if missing
             temp_prompt = source_root / "temp_prompt.txt"
             if not prompt_path.exists():
-                # Extract prompt from original location
                 prompt_src = source_root / "programs" / "repository-agent-reliability" / "experiments" / "phase-13-ibm-bob-agent-pilot-v1.prompt.txt"
                 if prompt_src.exists():
                     cmd[cmd.index("--prompt-file") + 1] = str(prompt_src)
@@ -113,36 +120,42 @@ def main():
                     cmd[cmd.index("--prompt-file") + 1] = str(temp_prompt)
                     
             process = subprocess.run(cmd, capture_output=True, text=True, cwd=source_root)
-            if process.returncode != 0:
-                raise RuntimeError(f"agent_evaluate.py failed during replay:\n{process.stderr}")
+            # We don't check returncode immediately because it returns 0/1/2 based on verdict
+            if not replayed_eval_out.exists():
+                raise RuntimeError(f"agent_evaluate.py failed to produce output:\n{process.stderr}")
                 
-            replayed_manifest = json.loads(replayed_out.read_text(encoding="utf-8"))
+            replayed_eval = json.loads(replayed_eval_out.read_text(encoding="utf-8"))
             
-            # Compare results
             checks = {
-                "source_commit_matches_manifest": source_commit == manifest["source_commit"],
-                "candidate_sha256_matches": replayed_manifest["candidate_sha256"] == manifest["candidate_sha256"],
-                "completion_summary_sha256_matches": replayed_manifest["completion_summary_sha256"] == manifest["completion_summary_sha256"],
-                "candidate_admitted_matches": replayed_manifest["candidate_admitted"] == manifest["candidate_admitted"],
-                "final_verdict_matches": replayed_manifest["final_verdict"] == manifest["final_verdict"],
-                "trusted_files_unchanged_matches": replayed_manifest["trusted_files_unchanged"] == manifest["trusted_files_unchanged"],
-                "verifier_qualification_matches": replayed_manifest["verifier_qualification"] == manifest["verifier_qualification"],
-                "evaluation_record_hash_matches": replayed_manifest["evaluation_record_hash"] == manifest["evaluation_record_hash"]
+                "source_commit_matches": source_commit == evaluation["source_commit"],
+                "task_contract_sha256_matches": replayed_eval.get("task_contract_sha256") == evaluation.get("task_contract_sha256"),
+                "runtime_config_sha256_matches": replayed_eval.get("runtime_config_sha256") == evaluation.get("runtime_config_sha256"),
+                "verifier_source_sha256_matches": replayed_eval.get("verifier_source_sha256") == evaluation.get("verifier_source_sha256"),
+                "qualification_evidence_sha256_matches": replayed_eval.get("qualification_evidence_sha256") == evaluation.get("qualification_evidence_sha256"),
+                "candidate_sha256_matches": replayed_eval["candidate_sha256"] == evaluation["candidate_sha256"],
+                "completion_summary_sha256_matches": replayed_eval["completion_summary_sha256"] == evaluation["completion_summary_sha256"],
+                "candidate_admitted_matches": replayed_eval["candidate_admission"]["accepted"] == evaluation["candidate_admission"]["accepted"],
+                "final_verdict_matches": replayed_eval["final_verdict"] == evaluation["final_verdict"],
+                "trusted_files_unchanged_matches": replayed_eval["trusted_files_unchanged"] == evaluation["trusted_files_unchanged"],
+                "hold_reason_matches": replayed_eval.get("hold_reason") == evaluation.get("hold_reason"),
+                "evaluation_record_hash_matches": replayed_eval["record_hash"] == evaluation["record_hash"]
             }
+
+            status = "SOURCE_EXACT_REPLAY_VERIFIED" if all(checks.values()) else "SOURCE_EXACT_REPLAY_MISMATCH"
 
             report = {
                 "program": "repository-agent-reliability",
                 "runtime_schema": "agent-workspace-v1",
                 "replay_mode": "source-exact-workspace-v1",
-                "task_id": manifest["task_id"],
-                "run_label": manifest["run_label"],
+                "task_id": evaluation["task_id"],
+                "run_label": evaluation["run_label"],
                 "source_commit": source_commit,
                 "candidate_sha256": candidate_sha,
-                "stored_record_hash": manifest["evaluation_record_hash"],
-                "replayed_record_hash": replayed_manifest["evaluation_record_hash"],
-                "replayed_verdict": replayed_manifest["final_verdict"],
+                "stored_record_hash": evaluation["record_hash"],
+                "replayed_record_hash": replayed_eval["record_hash"],
+                "replayed_verdict": replayed_eval["final_verdict"],
                 "checks": checks,
-                "status": "SOURCE_EXACT_REPLAY_VERIFIED" if all(checks.values()) else "SOURCE_EXACT_REPLAY_MISMATCH"
+                "status": status
             }
             report["replay_report_sha256"] = canonical_hash(report)
             
@@ -155,7 +168,7 @@ def main():
         out.write_text(json.dumps(report, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
     print(json.dumps(report, indent=2, ensure_ascii=False))
-    return 0 if report["status"] == "SOURCE_EXACT_REPLAY_VERIFIED" else 1
+    return 0 if status == "SOURCE_EXACT_REPLAY_VERIFIED" else 1
 
 if __name__ == "__main__":
     sys.exit(main())
