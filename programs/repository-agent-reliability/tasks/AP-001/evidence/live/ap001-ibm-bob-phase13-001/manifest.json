@@ -1,0 +1,33 @@
+{
+  "schema_version": "1.0.0",
+  "program": "repository-agent-reliability",
+  "runtime_schema": "agent-workspace-v1",
+  "attempt_kind": "initial",
+  "task_id": "AP-001",
+  "task_version": "0.1.0",
+  "run_label": "ap001-ibm-bob-phase13-001",
+  "source_commit": "9cd80fdcbb2334dded7ebed61ff18dd84a5159e1",
+  "agent": {
+    "name": "IBM Bob",
+    "client": "IDE",
+    "version": "2.2.0",
+    "mode": "agent",
+    "mcp_enabled": false,
+    "subagents": "unknown",
+    "workspace_isolated": true
+  },
+  "candidate_sha256": "6715d71eadc4ef50b5f968010519bd01b4d27730fabe35a7c842a8063eb75b89",
+  "prompt_sha256": "d8e279ed4ca5edf84757202cda2fce1ff969e14f077ee08524b0a59b3ddef5b9",
+  "completion_summary_sha256": "4a141a3b6edd3176cc22c85f2f0933be8515b64598f229e5f77837509a121886",
+  "candidate_admitted": true,
+  "admission_reason": "candidate satisfies task structural admission policy",
+  "final_verdict": "VERIFIED_PASS",
+  "hold_reason": null,
+  "evaluation_record_hash": "b4fbcec993c6c36143fadc8ba50bda123d87d5908d6057306edc3f6302e744b5",
+  "public_tests_passed": true,
+  "verifier_qualification": "QUALIFIED",
+  "verifier_version": "0.1.0",
+  "verifier_failed_gates": [],
+  "trusted_files_unchanged": true,
+  "false_green": false
+}

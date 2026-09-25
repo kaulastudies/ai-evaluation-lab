@@ -1,0 +1,77 @@
+{
+  "program": "repository-agent-reliability",
+  "runtime_schema": "agent-workspace-v1",
+  "task_id": "AP-001",
+  "task_version": "0.1.0",
+  "run_label": "ap001-ibm-bob-phase13-001",
+  "source_commit": "9cd80fdcbb2334dded7ebed61ff18dd84a5159e1",
+  "agent": {
+    "name": "IBM Bob",
+    "client": "IDE",
+    "version": "2.2.0",
+    "mode": "agent",
+    "mcp_enabled": false,
+    "subagents": "unknown",
+    "workspace_isolated": true
+  },
+  "source_engine_blob": "523ecc00c8c79007643cc65f735976af378bb1f2",
+  "source_engine_sha256": "34bb477d97c047ef60d872b40710b0bdaec653919902236d2b6bf102d91260d8",
+  "adapter_source_sha256": "89b2eaf1aef302553e53008d4df816417b32dc9db49d8cc2281df321d0062e5f",
+  "candidate_sha256": "6715d71eadc4ef50b5f968010519bd01b4d27730fabe35a7c842a8063eb75b89",
+  "prompt_sha256": "d8e279ed4ca5edf84757202cda2fce1ff969e14f077ee08524b0a59b3ddef5b9",
+  "completion_summary_sha256": "4a141a3b6edd3176cc22c85f2f0933be8515b64598f229e5f77837509a121886",
+  "task_contract_sha256": "c0fc841bcd01f289d7f75e848372c5d09c5fc0c985aacc41d4c01a85b702fd70",
+  "runtime_config_sha256": "fc1421cfa51c33b843990a1281af5f9aef2b87851c2f150b67d5ffecd9f37606",
+  "verifier_source_sha256": "3cfff85ee030e01cd2baa989d7f26fbcfb75641b147bc5b199896e98310bebff",
+  "qualification_evidence_sha256": "c76ea64845ffbf19c5acc455658568e3dccfb9d0f5387349584d1c80203237bf",
+  "candidate_admission": {
+    "accepted": true,
+    "reason": "candidate satisfies task structural admission policy"
+  },
+  "telemetry": {
+    "input_tokens": null,
+    "output_tokens": null,
+    "reported_cost": null,
+    "post_run_usage": null,
+    "reason": "not captured for Phase 13 IDE execution"
+  },
+  "public_validation": {
+    "passed": true,
+    "returncode": 0
+  },
+  "verifier_qualification": {
+    "status": "QUALIFIED",
+    "verifier_version": "0.1.0",
+    "critical_mutations_rejected": 3,
+    "critical_mutations_total": 3
+  },
+  "verification": {
+    "task_id": "AP-001",
+    "task_version": "0.1.0",
+    "verifier_version": "0.1.0",
+    "candidate": "workspace",
+    "gates": [
+      {
+        "id": "AP001-G03",
+        "passed": true,
+        "diagnostic": "ordinary single-resource behavior preserved"
+      },
+      {
+        "id": "AP001-G01",
+        "passed": true,
+        "diagnostic": "newer response committed correctly"
+      },
+      {
+        "id": "AP001-G02",
+        "passed": true,
+        "diagnostic": "superseded response was ignored"
+      }
+    ],
+    "status": "VERIFIED_PASS"
+  },
+  "trusted_files_unchanged": true,
+  "false_green": false,
+  "final_verdict": "VERIFIED_PASS",
+  "hold_reason": null,
+  "record_hash": "b4fbcec993c6c36143fadc8ba50bda123d87d5908d6057306edc3f6302e744b5"
+}

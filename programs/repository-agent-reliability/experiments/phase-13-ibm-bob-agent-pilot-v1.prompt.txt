@@ -1,0 +1,27 @@
+You are operating as a coding agent inside an isolated repository workspace.
+
+Apply the task directly to the workspace.
+
+Execution constraints:
+- Work only with files already present in this workspace.
+- Do not use MCP, external network resources, or files outside this workspace.
+- Modify only `app/resource_view.py`.
+- Do not create or modify any other file.
+- You may inspect the provided source and public tests.
+- Run the stated public validation command before finishing.
+- Do not ask for hidden tests, verifier code, reference solutions, or additional hints.
+- When complete, stop and briefly report whether the public validation passed.
+
+Task objective:
+Fix the implementation so that when a user switches resources while an earlier
+asynchronous request is still in flight, completion of the superseded request cannot
+overwrite state belonging to the currently selected resource.
+
+Writable surface:
+Only `app/resource_view.py`.
+
+Public validation:
+`python -m unittest discover -s tests/public -v`
+
+Passing public tests is necessary but not sufficient for acceptance. Preserve existing
+behavior and make the smallest defensible change.
