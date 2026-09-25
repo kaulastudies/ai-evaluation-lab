@@ -18,12 +18,27 @@ replayed, and explicitly promoted.
 
 - Agent: IBM Bob IDE
 - Access tier: team-provided IBM Bob workspace
-- Version: record the exact installed version at execution time; use IBM Bob v2.0.2 or later
+- Version: IBM Bob IDE `2.2.0` (observed pre-execution)
 - Mode: Agent
 - Workspace: isolated AP-001 candidate workspace only
 - MCP: disabled
 - Outside-workspace file access: not permitted
 - Extra user hints after the frozen task prompt: not permitted
+
+### Pre-execution access check
+
+Observed in Bob General settings before any benchmark use:
+
+- plan: Enterprise;
+- installed Bob IDE version: `2.2.0`;
+- add-ons: none;
+- displayed budget: `40.00` with `100% Remaining` (unit not inferred);
+- displayed usage: `0.0000`;
+- benchmark usage at this point: none.
+
+The account identifier is intentionally not copied into public experiment metadata. Renewal
+date, telemetry state, and file-logging state are not required for the benchmark and are
+not used as evaluation variables unless separately recorded before execution.
 
 The full `ai-evaluation-lab` repository MUST NOT be opened as Bob's benchmark workspace.
 RARB verifier code, verifier diagnostics, evidence bundles, prior candidate outputs, and
