@@ -165,3 +165,18 @@ Only Rama-controlled public/synthetic RARB material may be used.
 
 Do not introduce Handshake, Boson, Insight, customer, employer, private benchmark, or other
 restricted artifacts into the Bob workspace or public evidence package.
+
+## Post-Execution Results
+
+**Lifecycle:** Preregistered -> Executed once -> Frozen candidate -> Independently verified -> Source-exact replay verified -> Evidence promoted.
+
+*   **Initial attempts:** 1
+*   **Repairs:** 0
+*   **Public validation:** Passed
+*   **AP001-G03:** Passed
+*   **AP001-G01:** Passed
+*   **AP001-G02:** Passed
+*   **Final verdict:** VERIFIED_PASS
+*   **Replay status:** Source-exact agent-workspace replay verified
+
+*Note: Billing and token telemetry were not captured for the IDE run. This is one bounded AP-001 observation and does not constitute a claim of general IBM Bob performance.*

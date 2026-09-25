@@ -1,0 +1,30 @@
+{
+  "program": "repository-agent-reliability",
+  "runtime_schema": "agent-workspace-v1",
+  "replay_mode": "source-exact-workspace-v1",
+  "task_id": "AP-001",
+  "run_label": "ap001-ibm-bob-phase13-001",
+  "source_commit": "9cd80fdcbb2334dded7ebed61ff18dd84a5159e1",
+  "candidate_sha256": "6715d71eadc4ef50b5f968010519bd01b4d27730fabe35a7c842a8063eb75b89",
+  "stored_record_hash": "b4fbcec993c6c36143fadc8ba50bda123d87d5908d6057306edc3f6302e744b5",
+  "replayed_record_hash": "b4fbcec993c6c36143fadc8ba50bda123d87d5908d6057306edc3f6302e744b5",
+  "replayed_verdict": "VERIFIED_PASS",
+  "checks": {
+    "source_commit_matches": true,
+    "task_contract_sha256_matches": true,
+    "runtime_config_sha256_matches": true,
+    "verifier_source_sha256_matches": true,
+    "qualification_evidence_sha256_matches": true,
+    "candidate_sha256_matches": true,
+    "prompt_sha256_matches": true,
+    "completion_summary_sha256_matches": true,
+    "candidate_admitted_matches": true,
+    "final_verdict_matches": true,
+    "trusted_files_unchanged_matches": true,
+    "hold_reason_matches": true,
+    "evaluation_record_hash_matches": true,
+    "adapter_exit_code_matches": true
+  },
+  "status": "SOURCE_EXACT_REPLAY_VERIFIED",
+  "replay_report_sha256": "a0a3bed05c6562f2f57bfd65259cf470d1c7049d507a19ece4bbc444b72f4b38"
+}

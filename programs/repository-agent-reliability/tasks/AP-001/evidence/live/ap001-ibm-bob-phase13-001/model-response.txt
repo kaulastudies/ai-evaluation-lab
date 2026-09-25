@@ -1,0 +1,13 @@
+﻿Both tests pass. Here's a summary of the fix:
+
+**Root cause:** on_complete in the original code unconditionally wrote self.value = value. If the user switched to a different resource before a slow fetch resolved, the stale callback would overwrite alue with data for the old resource.
+
+**Fix applied** (single-line guard in on_complete):
+
+`python
+def on_complete(value, _requested_resource=resource):
+    if self.current_resource is _requested_resource:
+        self.value = value
+`
+
+The closure captures esource as a default argument (_requested_resource) at the moment on_complete is created. When the callback fires, it checks whether current_resource is still that same object. If select_resource was called again in the interim, current_resource will point to a different object and the stale write is suppressed. All existing behaviour is preserved — the normal case where no switch occurs is unaffected.
