@@ -127,5 +127,28 @@ class ResourceView:
         report = self.run_replay(1)
         self.assertEqual(report["status"], "SOURCE_EXACT_REPLAY_MISMATCH")
 
+    def test_prompt_mismatch(self):
+        self.run_evaluate(PASSING_CANDIDATE, "VERIFIED_PASS", 0)
+        self.prompt.write_text("modified prompt", encoding="utf-8")
+        report = self.run_replay(1)
+        self.assertIsNone(report) # Replay raises RuntimeError on missing/mismatched prompt artifacts
+
+    def test_verifier_result_mismatch(self):
+        self.run_evaluate(PASSING_CANDIDATE, "VERIFIED_PASS", 0)
+        eval_out = self.evidence_dir / "evaluation.json"
+        data = json.loads(eval_out.read_text(encoding="utf-8"))
+        data["final_verdict"] = "VERIFIED_FAIL"
+        eval_out.write_text(json.dumps(data), encoding="utf-8")
+        
+        # update manifest to match the tampered evaluation.json so it passes consistency check
+        manifest_out = self.evidence_dir / "manifest.json"
+        m_data = json.loads(manifest_out.read_text(encoding="utf-8"))
+        m_data["final_verdict"] = "VERIFIED_FAIL"
+        manifest_out.write_text(json.dumps(m_data), encoding="utf-8")
+        
+        report = self.run_replay(1)
+        self.assertEqual(report["status"], "SOURCE_EXACT_REPLAY_MISMATCH")
+        self.assertFalse(report["checks"]["final_verdict_matches"])
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

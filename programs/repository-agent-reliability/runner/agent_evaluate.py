@@ -1,5 +1,6 @@
 ﻿import argparse
 import json
+import subprocess
 import sys
 from pathlib import Path
 
@@ -7,6 +8,7 @@ RUNNER_ROOT = Path(__file__).resolve().parent
 if str(RUNNER_ROOT) not in sys.path:
     sys.path.insert(0, str(RUNNER_ROOT))
 
+import engine
 from engine import (
     canonical_json_hash,
     candidate_admission,
@@ -14,6 +16,11 @@ from engine import (
     load_runtime,
     sha256_file,
 )
+
+
+def git_hash_object(path: Path) -> str:
+    res = subprocess.run(["git", "hash-object", str(path)], capture_output=True, text=True, check=True)
+    return res.stdout.strip()
 
 
 def expected_exit_code(verdict: str) -> int:
@@ -56,6 +63,11 @@ def main():
     verifier_source_sha256 = sha256_file(task_root / config["verifier_path"])
     qualification_evidence_sha256 = sha256_file(task_root / config["qualification_path"])
     
+    engine_path = Path(engine.__file__).resolve()
+    source_engine_blob = git_hash_object(engine_path)
+    source_engine_sha256 = sha256_file(engine_path)
+    adapter_source_sha256 = sha256_file(Path(__file__).resolve())
+    
     # 1. Structural admission
     candidate_source = candidate.read_text(encoding="utf-8")
     admission = candidate_admission(candidate_source, config["admission"])
@@ -97,6 +109,9 @@ def main():
             "subagents": "unknown",
             "workspace_isolated": True,
         },
+        "source_engine_blob": source_engine_blob,
+        "source_engine_sha256": source_engine_sha256,
+        "adapter_source_sha256": adapter_source_sha256,
         "candidate_sha256": sha256_file(candidate),
         "prompt_sha256": sha256_file(prompt_file),
         "completion_summary_sha256": sha256_file(summary_file),
