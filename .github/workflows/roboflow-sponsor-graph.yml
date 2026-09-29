@@ -1,0 +1,83 @@
+name: Roboflow sponsor graph research
+
+on:
+  push:
+    branches:
+      - research/roboflow-sponsor-graph-20260929
+
+permissions:
+  contents: read
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Query public GitHub Sponsors graph
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          QUERY='
+          query($endCursor: String) {
+            organization(login: "roboflow") {
+              sponsorshipsAsSponsor(first: 100, after: $endCursor, activeOnly: true) {
+                totalCount
+                nodes {
+                  createdAt
+                  isActive
+                  sponsorable {
+                    __typename
+                    ... on User {
+                      login
+                      name
+                      url
+                    }
+                    ... on Organization {
+                      login
+                      name
+                      url
+                    }
+                  }
+                }
+                pageInfo {
+                  hasNextPage
+                  endCursor
+                }
+              }
+            }
+          }'
+          gh api graphql --paginate --slurp -f query="$QUERY" > roboflow-sponsorship-pages.json
+          jq '[.[] | .data.organization.sponsorshipsAsSponsor.nodes[]]' roboflow-sponsorship-pages.json > roboflow-sponsorships.json
+          jq -r '
+            ["login","account_type","name","github_url","created_at","is_active"],
+            (.[] | [
+              .sponsorable.login,
+              .sponsorable.__typename,
+              (.sponsorable.name // ""),
+              .sponsorable.url,
+              .createdAt,
+              (.isActive|tostring)
+            ]) | @csv
+          ' roboflow-sponsorships.json > roboflow-sponsorships.csv
+          EXPECTED=$(jq -r '.[0].data.organization.sponsorshipsAsSponsor.totalCount' roboflow-sponsorship-pages.json)
+          EXTRACTED=$(jq 'length' roboflow-sponsorships.json)
+          UNIQUE=$(jq -r '.[].sponsorable.login' roboflow-sponsorships.json | sort -fu | wc -l | tr -d ' ')
+          {
+            echo "expected_total=$EXPECTED"
+            echo "extracted_rows=$EXTRACTED"
+            echo "unique_logins=$UNIQUE"
+          } | tee verification.txt
+          test "$EXPECTED" -eq "$EXTRACTED"
+          test "$EXTRACTED" -eq "$UNIQUE"
+
+      - name: Upload sponsor graph evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: roboflow-sponsor-graph
+          path: |
+            roboflow-sponsorship-pages.json
+            roboflow-sponsorships.json
+            roboflow-sponsorships.csv
+            verification.txt
+          if-no-files-found: error
