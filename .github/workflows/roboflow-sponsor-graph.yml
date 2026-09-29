@@ -11,8 +11,9 @@ permissions:
 jobs:
   export:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
-      - name: Query public GitHub Sponsors graph
+      - name: Export Roboflow active sponsorship recipients
         env:
           GH_TOKEN: ${{ github.token }}
         shell: bash
@@ -28,22 +29,11 @@ jobs:
                   isActive
                   sponsorable {
                     __typename
-                    ... on User {
-                      login
-                      name
-                      url
-                    }
-                    ... on Organization {
-                      login
-                      name
-                      url
-                    }
+                    ... on User { login name url }
+                    ... on Organization { login name url }
                   }
                 }
-                pageInfo {
-                  hasNextPage
-                  endCursor
-                }
+                pageInfo { hasNextPage endCursor }
               }
             }
           }'
@@ -60,6 +50,7 @@ jobs:
               (.isActive|tostring)
             ]) | @csv
           ' roboflow-sponsorships.json > roboflow-sponsorships.csv
+
           EXPECTED=$(jq -r '.[0].data.organization.sponsorshipsAsSponsor.totalCount' roboflow-sponsorship-pages.json)
           EXTRACTED=$(jq 'length' roboflow-sponsorships.json)
           UNIQUE=$(jq -r '.[].sponsorable.login' roboflow-sponsorships.json | sort -fu | wc -l | tr -d ' ')
@@ -67,9 +58,185 @@ jobs:
             echo "expected_total=$EXPECTED"
             echo "extracted_rows=$EXTRACTED"
             echo "unique_logins=$UNIQUE"
-          } | tee verification.txt
+          } > verification.txt
           test "$EXPECTED" -eq "$EXTRACTED"
           test "$EXTRACTED" -eq "$UNIQUE"
+
+      - name: Export each recipient's public current sponsors
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          : > cosponsor-edges.jsonl
+          : > recipient-public-sponsor-counts.tsv
+
+          QUERY='
+          query($login: String!, $cursor: String) {
+            repositoryOwner(login: $login) {
+              ... on User {
+                sponsorshipsAsMaintainer(first: 100, after: $cursor, activeOnly: true, includePrivate: false) {
+                  totalCount
+                  nodes {
+                    createdAt
+                    isActive
+                    isOneTimePayment
+                    sponsorEntity {
+                      __typename
+                      ... on User { login name url }
+                      ... on Organization { login name url }
+                    }
+                  }
+                  pageInfo { hasNextPage endCursor }
+                }
+              }
+              ... on Organization {
+                sponsorshipsAsMaintainer(first: 100, after: $cursor, activeOnly: true, includePrivate: false) {
+                  totalCount
+                  nodes {
+                    createdAt
+                    isActive
+                    isOneTimePayment
+                    sponsorEntity {
+                      __typename
+                      ... on User { login name url }
+                      ... on Organization { login name url }
+                    }
+                  }
+                  pageInfo { hasNextPage endCursor }
+                }
+              }
+            }
+          }'
+
+          jq -r '.[].sponsorable.login' roboflow-sponsorships.json | while IFS= read -r login; do
+            cursor=""
+            first_page=1
+            total_count=""
+            while :; do
+              if [ -z "$cursor" ]; then
+                RESP=$(gh api graphql -f query="$QUERY" -F login="$login")
+              else
+                RESP=$(gh api graphql -f query="$QUERY" -F login="$login" -f cursor="$cursor")
+              fi
+
+              CONN=$(printf '%s' "$RESP" | jq -c '.data.repositoryOwner.sponsorshipsAsMaintainer // empty')
+              if [ -z "$CONN" ]; then
+                echo "No sponsorship connection for $login" >&2
+                exit 1
+              fi
+
+              if [ "$first_page" -eq 1 ]; then
+                total_count=$(printf '%s' "$CONN" | jq -r '.totalCount')
+                printf '%s\t%s\n' "$login" "$total_count" >> recipient-public-sponsor-counts.tsv
+                first_page=0
+              fi
+
+              printf '%s' "$CONN" | jq -c --arg recipient "$login" '
+                .nodes[]
+                | select(.sponsorEntity != null)
+                | {
+                    recipient: $recipient,
+                    sponsor_login: .sponsorEntity.login,
+                    sponsor_type: .sponsorEntity.__typename,
+                    sponsor_name: (.sponsorEntity.name // ""),
+                    sponsor_url: .sponsorEntity.url,
+                    sponsorship_created_at: .createdAt,
+                    is_active: .isActive,
+                    is_one_time: .isOneTimePayment
+                  }
+              ' >> cosponsor-edges.jsonl
+
+              has_next=$(printf '%s' "$CONN" | jq -r '.pageInfo.hasNextPage')
+              [ "$has_next" = "true" ] || break
+              cursor=$(printf '%s' "$CONN" | jq -r '.pageInfo.endCursor')
+            done
+          done
+
+          jq -s '.' cosponsor-edges.jsonl > cosponsor-edges.json
+
+          python - <<'PY'
+          import csv, json
+          from collections import defaultdict
+          from pathlib import Path
+
+          recipients = list(csv.DictReader(open("roboflow-sponsorships.csv", encoding="utf-8")))
+          edges = json.load(open("cosponsor-edges.json", encoding="utf-8"))
+
+          by_sponsor = {}
+          recipient_sets = defaultdict(set)
+          for e in edges:
+              login = e["sponsor_login"]
+              if not login:
+                  continue
+              by_sponsor[login] = {
+                  "sponsor_login": login,
+                  "sponsor_type": e["sponsor_type"],
+                  "sponsor_name": e["sponsor_name"],
+                  "github_url": e["sponsor_url"],
+              }
+              recipient_sets[login].add(e["recipient"])
+
+          with open("cosponsor-edges.csv", "w", newline="", encoding="utf-8") as f:
+              w = csv.DictWriter(f, fieldnames=[
+                  "recipient","sponsor_login","sponsor_type","sponsor_name","sponsor_url",
+                  "sponsorship_created_at","is_active","is_one_time"
+              ])
+              w.writeheader()
+              w.writerows(edges)
+
+          agg = []
+          for login, info in by_sponsor.items():
+              if login.lower() == "roboflow":
+                  continue
+              recips = sorted(recipient_sets[login], key=str.lower)
+              agg.append({
+                  **info,
+                  "roboflow_recipient_overlap_count": len(recips),
+                  "recipient_examples": ", ".join(recips[:12]),
+              })
+          agg.sort(key=lambda r: (-r["roboflow_recipient_overlap_count"], r["sponsor_login"].lower()))
+
+          with open("cosponsor-overlap.csv", "w", newline="", encoding="utf-8") as f:
+              fields = ["sponsor_login","sponsor_type","sponsor_name","github_url",
+                        "roboflow_recipient_overlap_count","recipient_examples"]
+              w = csv.DictWriter(f, fieldnames=fields)
+              w.writeheader()
+              w.writerows(agg)
+
+          counts = {}
+          with open("recipient-public-sponsor-counts.tsv", encoding="utf-8") as f:
+              for line in f:
+                  login, count = line.rstrip("\n").split("\t")
+                  counts[login] = int(count)
+
+          with open("recipient-public-sponsor-counts.csv", "w", newline="", encoding="utf-8") as f:
+              w = csv.DictWriter(f, fieldnames=["recipient","public_current_sponsor_count"])
+              w.writeheader()
+              for r in recipients:
+                  w.writerow({"recipient": r["login"], "public_current_sponsor_count": counts[r["login"]]})
+
+          recipient_logins = {r["login"].lower() for r in recipients}
+          processed = set(counts)
+          roboflow_covered = {e["recipient"].lower() for e in edges if e["sponsor_login"].lower() == "roboflow"}
+          verification = {
+              "roboflow_active_recipients": len(recipients),
+              "unique_recipient_logins": len(recipient_logins),
+              "recipient_accounts_processed_for_cosponsors": len(processed),
+              "public_current_sponsorship_edges": len(edges),
+              "distinct_public_current_sponsors_across_recipients": len(by_sponsor),
+              "recipients_with_public_roboflow_edge": len(roboflow_covered),
+              "all_recipients_processed": len(processed) == len(recipients),
+              "all_recipients_show_public_roboflow_edge": len(roboflow_covered) == len(recipients),
+          }
+          Path("deep-verification.json").write_text(json.dumps(verification, indent=2) + "\n", encoding="utf-8")
+          if not verification["all_recipients_processed"]:
+              raise SystemExit("Not all recipients processed")
+          if not verification["all_recipients_show_public_roboflow_edge"]:
+              raise SystemExit("Not all recipients contain public Roboflow edge")
+          PY
+
+          cat deep-verification.json
 
       - name: Upload sponsor graph evidence
         uses: actions/upload-artifact@v4
@@ -79,5 +246,10 @@ jobs:
             roboflow-sponsorship-pages.json
             roboflow-sponsorships.json
             roboflow-sponsorships.csv
+            cosponsor-edges.json
+            cosponsor-edges.csv
+            cosponsor-overlap.csv
+            recipient-public-sponsor-counts.csv
             verification.txt
+            deep-verification.json
           if-no-files-found: error
