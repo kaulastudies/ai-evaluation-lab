@@ -4,7 +4,7 @@ from pathlib import Path
 
 def check_phase13():
     evidence_dir = Path(__file__).resolve().parent.parent / "tasks" / "AP-001" / "evidence" / "live" / "ap001-ibm-bob-phase13-001"
-    
+
     if not evidence_dir.is_dir():
         print("Phase 13 evidence directory not found.")
         return 1
@@ -15,15 +15,15 @@ def check_phase13():
     expected = {
         "candidate_sha256": "6715d71eadc4ef50b5f968010519bd01b4d27730fabe35a7c842a8063eb75b89",
         "prompt_sha256": "d8e279ed4ca5edf84757202cda2fce1ff969e14f077ee08524b0a59b3ddef5b9",
-        "completion_summary_sha256": "4a141a3b6edd3176cc22c85f2f0933be8515b64598f229e5f77837509a121886",
-        "evaluation_record_hash": "b4fbcec993c6c36143fadc8ba50bda123d87d5908d6057306edc3f6302e744b5",
+        "completion_summary_sha256": "c8f7663801fb6f16a9fec362d9838667a810c8a489431145bbfd75e3505df4bf",
+        "evaluation_record_hash": "9bc35755a5fbb9e65c8175e12d238fcd813c1c70151ec1a147dd160bd99a996f",
         "final_verdict": "VERIFIED_PASS",
         "historical_source_commit": "9cd80fdcbb2334dded7ebed61ff18dd84a5159e1",
         "historical_engine_identity": "523ecc00c8c79007643cc65f735976af378bb1f2",
         "qualified_verifier_status": "QUALIFIED",
         "trusted_files_unchanged": True,
         "replay_report_status": "SOURCE_EXACT_REPLAY_VERIFIED",
-        "replay_report_hash": "a0a3bed05c6562f2f57bfd65259cf470d1c7049d507a19ece4bbc444b72f4b38"
+        "replay_report_hash": "2c490d8dd7d262dd53168b55ae81fa5290ab0167f5b5f3af74f0dd6061a62f86"
     }
 
     errors = []
@@ -46,7 +46,7 @@ def check_phase13():
         errors.append("Qualified verifier status mismatch")
     if eval_data.get("trusted_files_unchanged") != expected["trusted_files_unchanged"]:
         errors.append("Trusted files unchanged mismatch")
-        
+
     for gate in eval_data.get("verification", {}).get("gates", []):
         if not gate.get("passed"):
             errors.append(f"Gate {gate.get('id')} did not pass")
@@ -60,7 +60,7 @@ def check_phase13():
         for err in errors:
             print(f"FAIL: {err}")
         return 1
-        
+
     print("Phase 13 evidence check passed.")
     return 0
 

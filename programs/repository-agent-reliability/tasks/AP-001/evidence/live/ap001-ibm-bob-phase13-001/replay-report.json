@@ -6,8 +6,8 @@
   "run_label": "ap001-ibm-bob-phase13-001",
   "source_commit": "9cd80fdcbb2334dded7ebed61ff18dd84a5159e1",
   "candidate_sha256": "6715d71eadc4ef50b5f968010519bd01b4d27730fabe35a7c842a8063eb75b89",
-  "stored_record_hash": "b4fbcec993c6c36143fadc8ba50bda123d87d5908d6057306edc3f6302e744b5",
-  "replayed_record_hash": "b4fbcec993c6c36143fadc8ba50bda123d87d5908d6057306edc3f6302e744b5",
+  "stored_record_hash": "9bc35755a5fbb9e65c8175e12d238fcd813c1c70151ec1a147dd160bd99a996f",
+  "replayed_record_hash": "9bc35755a5fbb9e65c8175e12d238fcd813c1c70151ec1a147dd160bd99a996f",
   "replayed_verdict": "VERIFIED_PASS",
   "checks": {
     "source_commit_matches": true,
@@ -26,5 +26,5 @@
     "adapter_exit_code_matches": true
   },
   "status": "SOURCE_EXACT_REPLAY_VERIFIED",
-  "replay_report_sha256": "a0a3bed05c6562f2f57bfd65259cf470d1c7049d507a19ece4bbc444b72f4b38"
+  "replay_report_sha256": "2c490d8dd7d262dd53168b55ae81fa5290ab0167f5b5f3af74f0dd6061a62f86"
 }

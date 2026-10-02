@@ -62,20 +62,20 @@ def main():
     runtime_config_sha256 = sha256_file(task_root / "runtime.json")
     verifier_source_sha256 = sha256_file(task_root / config["verifier_path"])
     qualification_evidence_sha256 = sha256_file(task_root / config["qualification_path"])
-    
+
     engine_path = Path(engine.__file__).resolve()
     source_engine_blob = git_hash_object(engine_path)
     source_engine_sha256 = sha256_file(engine_path)
     adapter_source_sha256 = sha256_file(Path(__file__).resolve())
-    
+
     # 1. Structural admission
     candidate_source = candidate.read_text(encoding="utf-8")
     admission = candidate_admission(candidate_source, config["admission"])
-    
+
     raw_eval = None
     final_verdict = None
     hold_reason = None
-    
+
     if not admission["accepted"]:
         final_verdict = "HOLD"
         hold_reason = f"candidate rejected before execution: {admission['reason']}"
@@ -128,7 +128,7 @@ def main():
             "reason": "not captured for Phase 13 IDE execution",
         },
     }
-    
+
     if raw_eval:
         evaluation.update({
             "public_validation": raw_eval["public_validation"],
@@ -145,7 +145,7 @@ def main():
             "trusted_files_unchanged": None,
             "false_green": None,
         })
-        
+
     evaluation["final_verdict"] = final_verdict
     evaluation["hold_reason"] = hold_reason
 
@@ -172,7 +172,7 @@ def main():
         "hold_reason": hold_reason,
         "evaluation_record_hash": record_hash,
     }
-    
+
     if raw_eval:
         manifest.update({
             "public_tests_passed": raw_eval["public_validation"]["passed"],

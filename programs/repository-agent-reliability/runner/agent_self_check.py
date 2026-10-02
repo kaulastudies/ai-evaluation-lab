@@ -36,17 +36,17 @@ class TestAgentWorkspace(unittest.TestCase):
         self.prompt.write_text("dummy prompt", encoding="utf-8")
         self.summary = self.evidence_dir / "model-response.txt"
         self.summary.write_text("dummy summary", encoding="utf-8")
-        
+
     def tearDown(self):
         self.temp_dir.cleanup()
 
     def run_evaluate(self, candidate_code, expected_verdict, expected_exit_code, source_commit=SOURCE_COMMIT):
         candidate = self.evidence_dir / "candidate-resource_view.py"
         candidate.write_text(candidate_code, encoding="utf-8")
-        
+
         eval_out = self.evidence_dir / "evaluation.json"
         manifest_out = self.evidence_dir / "manifest.json"
-        
+
         cmd = [
             sys.executable, str(AGENT_EVALUATE),
             "--task-id", "AP-001",
@@ -58,10 +58,10 @@ class TestAgentWorkspace(unittest.TestCase):
             "--out-eval", str(eval_out),
             "--out-manifest", str(manifest_out)
         ]
-        
+
         p = subprocess.run(cmd, cwd=REPO_ROOT, capture_output=True, text=True)
         self.assertEqual(p.returncode, expected_exit_code, f"evaluate failed: stdout: {p.stdout} \nstderr: {p.stderr}")
-        
+
         if eval_out.exists():
             record = json.loads(eval_out.read_text(encoding="utf-8"))
             self.assertEqual(record["final_verdict"], expected_verdict)
@@ -83,7 +83,7 @@ class TestAgentWorkspace(unittest.TestCase):
         self.run_evaluate(PASSING_CANDIDATE, "VERIFIED_PASS", 0)
         report = self.run_replay(0)
         self.assertEqual(report["status"], "SOURCE_EXACT_REPLAY_VERIFIED")
-        
+
     def test_invalid_candidate(self):
         self.run_evaluate("def foo(): pass", "HOLD", 2)
         report = self.run_replay(0)
@@ -123,7 +123,7 @@ class ResourceView:
         data = json.loads(eval_out.read_text(encoding="utf-8"))
         data["trusted_files_unchanged"] = False
         eval_out.write_text(json.dumps(data), encoding="utf-8")
-        
+
         report = self.run_replay(1)
         self.assertEqual(report["status"], "SOURCE_EXACT_REPLAY_MISMATCH")
 
@@ -139,13 +139,13 @@ class ResourceView:
         data = json.loads(eval_out.read_text(encoding="utf-8"))
         data["final_verdict"] = "VERIFIED_FAIL"
         eval_out.write_text(json.dumps(data), encoding="utf-8")
-        
+
         # update manifest to match the tampered evaluation.json so it passes consistency check
         manifest_out = self.evidence_dir / "manifest.json"
         m_data = json.loads(manifest_out.read_text(encoding="utf-8"))
         m_data["final_verdict"] = "VERIFIED_FAIL"
         manifest_out.write_text(json.dumps(m_data), encoding="utf-8")
-        
+
         report = self.run_replay(1)
         self.assertEqual(report["status"], "SOURCE_EXACT_REPLAY_MISMATCH")
         self.assertFalse(report["checks"]["final_verdict_matches"])

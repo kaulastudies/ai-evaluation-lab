@@ -16,10 +16,10 @@
   },
   "source_engine_blob": "523ecc00c8c79007643cc65f735976af378bb1f2",
   "source_engine_sha256": "34bb477d97c047ef60d872b40710b0bdaec653919902236d2b6bf102d91260d8",
-  "adapter_source_sha256": "89b2eaf1aef302553e53008d4df816417b32dc9db49d8cc2281df321d0062e5f",
+  "adapter_source_sha256": "dda691f649bcddbe80e898be10aa8fde477a5f5761643c88ec542428222f99e0",
   "candidate_sha256": "6715d71eadc4ef50b5f968010519bd01b4d27730fabe35a7c842a8063eb75b89",
   "prompt_sha256": "d8e279ed4ca5edf84757202cda2fce1ff969e14f077ee08524b0a59b3ddef5b9",
-  "completion_summary_sha256": "4a141a3b6edd3176cc22c85f2f0933be8515b64598f229e5f77837509a121886",
+  "completion_summary_sha256": "c8f7663801fb6f16a9fec362d9838667a810c8a489431145bbfd75e3505df4bf",
   "task_contract_sha256": "c0fc841bcd01f289d7f75e848372c5d09c5fc0c985aacc41d4c01a85b702fd70",
   "runtime_config_sha256": "fc1421cfa51c33b843990a1281af5f9aef2b87851c2f150b67d5ffecd9f37606",
   "verifier_source_sha256": "3cfff85ee030e01cd2baa989d7f26fbcfb75641b147bc5b199896e98310bebff",
@@ -73,5 +73,5 @@
   "false_green": false,
   "final_verdict": "VERIFIED_PASS",
   "hold_reason": null,
-  "record_hash": "b4fbcec993c6c36143fadc8ba50bda123d87d5908d6057306edc3f6302e744b5"
+  "record_hash": "9bc35755a5fbb9e65c8175e12d238fcd813c1c70151ec1a147dd160bd99a996f"
 }

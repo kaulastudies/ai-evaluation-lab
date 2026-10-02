@@ -45,7 +45,7 @@ def remove_worktree(path: Path) -> None:
     shutil.rmtree(path, ignore_errors=True)
 
 def validate_consistency(manifest, evaluation):
-    keys = ["runtime_schema", "task_id", "task_version", "run_label", "source_commit", 
+    keys = ["runtime_schema", "task_id", "task_version", "run_label", "source_commit",
             "candidate_sha256", "prompt_sha256", "completion_summary_sha256", "final_verdict"]
     for k in keys:
         if manifest.get(k) != evaluation.get(k):
@@ -62,7 +62,7 @@ def main():
     evidence_dir = args.evidence_dir.resolve()
     eval_path = evidence_dir / "evaluation.json"
     manifest_path = evidence_dir / "manifest.json"
-    
+
     if not eval_path.is_file():
         raise RuntimeError(f"Missing evaluation.json in {evidence_dir}")
     if not manifest_path.is_file():
@@ -70,7 +70,7 @@ def main():
 
     evaluation = json.loads(eval_path.read_text(encoding="utf-8"))
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-    
+
     if evaluation.get("runtime_schema") != "agent-workspace-v1":
         raise RuntimeError("agent_replay.py only supports agent-workspace-v1.")
 
@@ -85,18 +85,18 @@ def main():
         if p.is_file() and sha256_file(p) == candidate_sha:
             candidate_path = p
             break
-            
+
     if not candidate_path:
         raise RuntimeError(f"Could not find candidate file matching {candidate_sha}")
 
     prompt_path = evidence_dir / "prompt.txt"
     summary_path = evidence_dir / "model-response.txt"
-    
+
     if not prompt_path.is_file():
         raise RuntimeError("Missing prompt.txt artifact")
     if not summary_path.is_file():
         raise RuntimeError("Missing model-response.txt artifact")
-    
+
     if sha256_file(prompt_path) != evaluation["prompt_sha256"]:
         raise RuntimeError("prompt.txt does not match stored prompt_sha256")
 
@@ -105,23 +105,23 @@ def main():
         with tempfile.TemporaryDirectory(prefix="rarb-agent-replay-") as worktree_dir:
             source_root = Path(worktree_dir) / "source"
             add_detached_worktree(source_root, source_commit)
-            
+
             try:
                 historical_runner = source_root / "programs" / "repository-agent-reliability" / "runner"
                 historical_agent_evaluate = historical_runner / "agent_evaluate.py"
-                
+
                 adapter_py = adapter_temp_dir / "agent_evaluate_adapter.py"
-                
+
                 if historical_agent_evaluate.is_file():
                     shutil.copyfile(historical_agent_evaluate, adapter_py)
                 else:
                     shutil.copyfile(RUNNER_ROOT / "agent_evaluate.py", adapter_py)
-                    
+
                 task_root = source_root / "programs" / "repository-agent-reliability" / "tasks" / evaluation["task_id"]
-                
+
                 replayed_eval_out = source_root / "replayed-evaluation.json"
                 replayed_manifest_out = source_root / "replayed-manifest.json"
-                
+
                 cmd = [
                     sys.executable,
                     str(adapter_py),
@@ -135,18 +135,18 @@ def main():
                     "--out-eval", str(replayed_eval_out),
                     "--out-manifest", str(replayed_manifest_out)
                 ]
-                
+
                 env = os.environ.copy()
                 env["PYTHONPATH"] = str(historical_runner)
-                
+
                 process = subprocess.run(cmd, env=env, capture_output=True, text=True, cwd=source_root)
                 if not replayed_eval_out.exists():
                     raise RuntimeError(f"agent_evaluate.py failed to produce output:\n{process.stderr}")
-                    
+
                 replayed_eval = json.loads(replayed_eval_out.read_text(encoding="utf-8"))
-                
+
                 expected_exit = 0 if evaluation["final_verdict"] == "VERIFIED_PASS" else (1 if evaluation["final_verdict"] == "VERIFIED_FAIL" else 2)
-                
+
                 checks = {
                     "source_commit_matches": source_commit == evaluation["source_commit"],
                     "task_contract_sha256_matches": replayed_eval.get("task_contract_sha256") == evaluation.get("task_contract_sha256"),
@@ -163,9 +163,9 @@ def main():
                     "evaluation_record_hash_matches": replayed_eval["record_hash"] == evaluation["record_hash"],
                     "adapter_exit_code_matches": process.returncode == expected_exit
                 }
-    
+
                 status = "SOURCE_EXACT_REPLAY_VERIFIED" if all(checks.values()) else "SOURCE_EXACT_REPLAY_MISMATCH"
-    
+
                 report = {
                     "program": "repository-agent-reliability",
                     "runtime_schema": "agent-workspace-v1",
@@ -181,7 +181,7 @@ def main():
                     "status": status
                 }
                 report["replay_report_sha256"] = canonical_hash(report)
-                
+
             finally:
                 remove_worktree(source_root)
     finally:
