@@ -10,4 +10,4 @@ def on_complete(value, _requested_resource=resource):
         self.value = value
 `
 
-The closure captures esource as a default argument (_requested_resource) at the moment on_complete is created. When the callback fires, it checks whether current_resource is still that same object. If select_resource was called again in the interim, current_resource will point to a different object and the stale write is suppressed. All existing behaviour is preserved — the normal case where no switch occurs is unaffected.
+The closure captures esource as a default argument (_requested_resource) at the moment on_complete is created. When the callback fires, it checks whether current_resource is still that same object. If a later select_resource call selects a different resource object and current_resource still points to that object when the earlier callback fires, the identity guard suppresses the stale write. Selecting the same resource object again is not distinguished by this guard, so the earlier callback may still write to self.value. All existing behaviour is preserved — the normal case where no switch occurs is unaffected.
