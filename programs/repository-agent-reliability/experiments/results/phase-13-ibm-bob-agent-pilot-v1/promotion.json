@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0.0",
+  "status": "PROMOTED",
+  "experiment_id": "phase-13-ibm-bob-agent-pilot-v1",
+  "source_commit": "9cd80fdcbb2334dded7ebed61ff18dd84a5159e1",
+  "promotion_commit": "aab411374b6bcf64db2147f97f21045c387f243a",
+  "runtime_schema": "agent-workspace-v1",
+  "agent": "IBM Bob",
+  "client": "IDE",
+  "version": "2.2.0",
+  "historical_engine_blob": "523ecc00c8c79007643cc65f735976af378bb1f2",
+  "adapter_provenance": {
+    "adapter_source_sha256": "dda691f649bcddbe80e898be10aa8fde477a5f5761643c88ec542428222f99e0"
+  },
+  "attempts": [
+    {
+      "run_label": "ap001-ibm-bob-phase13-001",
+      "canonical_evidence_dir": "tasks/AP-001/evidence/live/ap001-ibm-bob-phase13-001",
+      "final_verdict": "VERIFIED_PASS",
+      "replay_status": "SOURCE_EXACT_REPLAY_VERIFIED",
+      "artifacts": {
+        "candidate_sha256": "6715d71eadc4ef50b5f968010519bd01b4d27730fabe35a7c842a8063eb75b89",
+        "prompt_sha256": "d8e279ed4ca5edf84757202cda2fce1ff969e14f077ee08524b0a59b3ddef5b9",
+        "completion_summary_sha256": "c8f7663801fb6f16a9fec362d9838667a810c8a489431145bbfd75e3505df4bf",
+        "evaluation_record_hash": "9bc35755a5fbb9e65c8175e12d238fcd813c1c70151ec1a147dd160bd99a996f",
+        "evaluation_file_sha256": "fc58c8abf7191d8e0f7b8294bcabad8dc420143d787070c42e2552e8074990d6",
+        "manifest_sha256": "7395fda9f91cef6a207362072972548d4a2ce9000aed748da4b047c5c1e95e99",
+        "replay_report_sha256": "2c490d8dd7d262dd53168b55ae81fa5290ab0167f5b5f3af74f0dd6061a62f86"
+      }
+    }
+  ]
+}

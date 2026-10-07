@@ -178,3 +178,5 @@ claim of broad multi-model, statistical, or production-scale capability.
 
 The hackathon implementation is intended to remain part of AI Evaluation Lab after the
 competition as an open repository-agent evaluation capability.
+## Phase 13 IBM Bob agent pilot
+The preregistered Phase 13 pilot executed one preregistered IBM Bob IDE workspace-agent AP-001 attempt resulting in VERIFIED_PASS with source-exact no-model replay.
