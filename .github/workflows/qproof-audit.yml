@@ -20,7 +20,7 @@ jobs:
         with:
           python-version: '3.12'
       - name: Run reference verifier tests
-        run: python -m unittest research.futureproof_eval.test_verifier research.futureproof_eval.test_qproof_audit -v
+        run: python -m unittest research.futureproof_eval.test_verifier research.futureproof_eval.test_qproof_audit research.futureproof_eval.test_proofq_api -v
       - name: Build example report
         run: python -m research.futureproof_eval.qproof_audit research/futureproof-eval/example.json --output /tmp/qproof-report.json
       - name: Check example flags
