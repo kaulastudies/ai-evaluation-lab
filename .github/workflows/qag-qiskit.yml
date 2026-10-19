@@ -1,0 +1,33 @@
+name: Quantum Agent Gate — Qiskit 2.x
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'integrations/quantum-agent-gate/**'
+      - '.github/workflows/qag-qiskit.yml'
+  pull_request:
+    paths:
+      - 'integrations/quantum-agent-gate/**'
+      - '.github/workflows/qag-qiskit.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  qiskit-v2-integration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install stable Qiskit 2.x and tests
+        run: python -m pip install -e './integrations/quantum-agent-gate[qiskit,test]'
+      - name: Check real SDK major version
+        run: python -c 'import qiskit; assert qiskit.__version__.split(".")[0] == "2", qiskit.__version__'
+      - name: Policy and Qiskit V2 tests
+        working-directory: integrations/quantum-agent-gate
+        run: python -m pytest -q -ra
+      - name: Guarded Bell-state demo
+        working-directory: integrations/quantum-agent-gate
+        run: python -m examples.qiskit_guarded_demo

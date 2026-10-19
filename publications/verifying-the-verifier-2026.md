@@ -1,9 +1,9 @@
 # Verifying the Verifier: Reproducible Evidence for Repository-Level AI Evaluation
 
-Rama Chandra M  
-AI Evaluation Lab  
-ORCID: https://orcid.org/0009-0008-0189-2166  
-Prepared: 11 October 2026  
+Rama Chandra M
+AI Evaluation Lab
+ORCID: https://orcid.org/0009-0008-0189-2166
+Prepared: 11 October 2026
 Status: Self-published technical report, version 1.0; not peer reviewed.
 
 ## Abstract
