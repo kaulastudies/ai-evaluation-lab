@@ -29,7 +29,9 @@ def analyze(case):
     den = 1 + z*z / shots
     mid = (observed + z*z/(2*shots)) / den
     half = z * math.sqrt((observed*(1-observed) + z*z/(4*shots))/shots) / den
-    low, high = max(0, mid-half), min(1, mid+half)
+    # Avoid floating-point cancellation producing tiny nonzero bounds at p=0/1.
+    low = 0.0 if ones == 0 else max(0.0, mid-half)
+    high = 1.0 if ones == shots else min(1.0, mid+half)
     # Diagnostic flag only: CI exclusion is NOT a corrected multiple-testing decision.
     flag = not (low <= p <= high)
     return {"id": name, "shots": shots, "ones": ones,
