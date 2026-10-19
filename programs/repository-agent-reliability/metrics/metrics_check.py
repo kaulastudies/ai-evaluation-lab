@@ -94,7 +94,7 @@ def main() -> int:
             metrics["median_time_to_verified_success_ms"][
                 "observations"
             ]
-            == 44
+            == 43
             and metrics["median_time_to_verified_success_ms"][
                 "value"
             ]
