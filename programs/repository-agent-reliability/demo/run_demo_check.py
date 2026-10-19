@@ -63,10 +63,10 @@ def main() -> int:
                 is True
             ),
             "attempts": (
-                status["evidence_snapshot"]["attempts_total"] == 51
+                status["evidence_snapshot"]["attempts_total"] == 52
             ),
             "verdicts": (
-                status["evidence_snapshot"]["verified_pass"] == 43
+                status["evidence_snapshot"]["verified_pass"] == 44
                 and status["evidence_snapshot"]["verified_fail"] == 5
                 and status["evidence_snapshot"]["hold"] == 3
             ),

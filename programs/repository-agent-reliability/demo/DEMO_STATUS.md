@@ -19,8 +19,8 @@
 
 ## Evidence snapshot
 
-- Attempts: **51**
-- Verdicts: **43 VERIFIED_PASS / 5 VERIFIED_FAIL / 3 HOLD**
+- Attempts: **52**
+- Verdicts: **44 VERIFIED_PASS / 5 VERIFIED_FAIL / 3 HOLD**
 - Qualified tasks: **5**
 - Critical verifier mutation escapes: **0 / 17**
 - Claim-Evidence Gap: **10.4%**

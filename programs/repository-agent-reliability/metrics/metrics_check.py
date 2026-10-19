@@ -22,16 +22,20 @@ def main() -> int:
     metrics = summary["metrics"]
     qualification = summary["verifier_qualification"]
 
+    # Phase 13 IBM Bob adds one VERIFIED_PASS with missing provider metadata.
+    # Keep that unknown provenance explicit rather than inferring values.
+    phase13 = [a for a in summary["attempts"] if a["run_label"] == "ap001-ibm-bob-phase13-001"]
     checks = {
-        "attempts_total": counts["attempts_total"] == 51,
-        "initial_attempts": counts["initial_attempts"] == 48,
+        "phase13_preserved": (len(phase13) == 1 and phase13[0]["final_verdict"] == "VERIFIED_PASS" and phase13[0]["model"] is None),
+        "attempts_total": counts["attempts_total"] == 52,
+        "initial_attempts": counts["initial_attempts"] == 49,
         "repair_attempts": counts["repair_attempts"] == 3,
         "verdict_distribution": (
-            counts["verified_pass"] == 43
+            counts["verified_pass"] == 44
             and counts["verified_fail"] == 5
             and counts["hold"] == 3
         ),
-        "candidate_admitted": counts["candidate_admitted"] == 48,
+        "candidate_admitted": counts["candidate_admitted"] == 49,
         "explicit_claim_coverage": (
             counts["explicit_claim_coverage"] == 48
         ),
@@ -90,7 +94,7 @@ def main() -> int:
             metrics["median_time_to_verified_success_ms"][
                 "observations"
             ]
-            == 43
+            == 44
             and metrics["median_time_to_verified_success_ms"][
                 "value"
             ]

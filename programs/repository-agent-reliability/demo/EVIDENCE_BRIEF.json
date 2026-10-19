@@ -3,8 +3,8 @@
   "program": "repository-agent-reliability",
   "headline": "Verify the evaluation before trusting the verdict.",
   "evidence_snapshot": {
-    "live_attempts": 51,
-    "verified_pass": 43,
+    "live_attempts": 52,
+    "verified_pass": 44,
     "verified_fail": 5,
     "hold": 3,
     "qualified_tasks": 5,
@@ -14,7 +14,7 @@
     "false_green_rate": 0.06521739130434782,
     "initial_false_green_rate": 0.045454545454545456,
     "repair_conversion": 0.5,
-    "median_time_to_verified_success_ms": 13398.0
+    "median_time_to_verified_success_ms": 13398
   },
   "task_evidence": [
     {

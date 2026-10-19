@@ -4,21 +4,51 @@
   "demo_entrypoint": "phase7c-one-command-v1",
   "status": "GREEN",
   "checks": {
-    "runner_self_check": {"passed": true, "returncode": 0},
-    "source_exact_replay": {"passed": true, "returncode": 0},
-    "source_exact_repair_replay": {"passed": true, "returncode": 0},
-    "metrics_check": {"passed": true, "returncode": 0},
-    "demo_evidence_check": {"passed": true, "returncode": 0},
-    "phase11b_batch_check": {"passed": true, "returncode": 0},
-    "phase11b_evidence_check": {"passed": true, "returncode": 0},
-    "phase11c_nebius_evidence_check": {"passed": true, "returncode": 0},
-    "phase12a_preregistration_check": {"passed": true, "returncode": 0},
-    "phase12_evidence_integrity": {"passed": true, "returncode": 0}
+    "runner_self_check": {
+      "passed": true,
+      "returncode": 0
+    },
+    "source_exact_replay": {
+      "passed": true,
+      "returncode": 0
+    },
+    "source_exact_repair_replay": {
+      "passed": true,
+      "returncode": 0
+    },
+    "metrics_check": {
+      "passed": true,
+      "returncode": 0
+    },
+    "demo_evidence_check": {
+      "passed": true,
+      "returncode": 0
+    },
+    "phase11b_batch_check": {
+      "passed": true,
+      "returncode": 0
+    },
+    "phase11b_evidence_check": {
+      "passed": true,
+      "returncode": 0
+    },
+    "phase11c_nebius_evidence_check": {
+      "passed": true,
+      "returncode": 0
+    },
+    "phase12a_preregistration_check": {
+      "passed": true,
+      "returncode": 0
+    },
+    "phase12_evidence_integrity": {
+      "passed": true,
+      "returncode": 0
+    }
   },
   "generated_artifacts_match_head_evidence": true,
   "evidence_snapshot": {
-    "attempts_total": 51,
-    "verified_pass": 43,
+    "attempts_total": 52,
+    "verified_pass": 44,
     "verified_fail": 5,
     "hold": 3,
     "qualified_tasks": 5,

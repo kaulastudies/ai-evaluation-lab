@@ -4,10 +4,10 @@ This report is generated only from committed live evidence and committed verifie
 
 ## Current evidence set
 
-- Live attempts: **51** (48 initial, 3 repair)
-- Verdicts: **43 VERIFIED_PASS**, **5 VERIFIED_FAIL**, **3 HOLD**
-- Candidate admitted: **48 / 51**
-- Explicit success-claim coverage: **48 / 51**
+- Live attempts: **52** (49 initial, 3 repair)
+- Verdicts: **44 VERIFIED_PASS**, **5 VERIFIED_FAIL**, **3 HOLD**
+- Candidate admitted: **49 / 52**
+- Explicit success-claim coverage: **48 / 52**
 
 ## Primary metrics
 
@@ -25,6 +25,7 @@ This report is generated only from committed live evidence and committed verifie
 
 | Task | Run | Kind | Verdict | Public | False green | Latency |
 | --- | --- | --- | --- | --- | --- | ---: |
+| AP-001 | ap001-ibm-bob-phase13-001 | initial | VERIFIED_PASS | N/A | N/A | N/A |
 | AP-001 | phase-11c-nebius-nemotron-pilot-v1-ap-001-nebius-nemotron-3-super-120b-a12b-i001 | initial | VERIFIED_PASS | True | False | 7.74s |
 | AP-001 | phase-12-cross-model-replication-v1-ap-001-nebius-nemotron-3-super-120b-a12b-i001 | initial | VERIFIED_PASS | True | False | 3.97s |
 | AP-001 | phase-12-cross-model-replication-v1-ap-001-nebius-nemotron-3-super-120b-a12b-i002 | initial | VERIFIED_PASS | True | False | 4.61s |

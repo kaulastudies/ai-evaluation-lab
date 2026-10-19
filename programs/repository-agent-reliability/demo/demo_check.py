@@ -62,9 +62,9 @@ def main() -> int:
         )
 
         checks = {
-            "attempts": snap["live_attempts"] == 51,
+            "attempts": snap["live_attempts"] == 52,
             "verdicts": (
-                snap["verified_pass"] == 43
+                snap["verified_pass"] == 44
                 and snap["verified_fail"] == 5
                 and snap["hold"] == 3
             ),
