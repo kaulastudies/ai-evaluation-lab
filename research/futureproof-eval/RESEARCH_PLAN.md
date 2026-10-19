@@ -1,7 +1,7 @@
 # FutureProof Eval: quantum-verification pilot (proposal)
 
-**Status:** experimental research plan; no quantum-hardware validation claimed.  
-**Parent:** [AI Evaluation Lab](../../README.md).  
+**Status:** experimental research plan; no quantum-hardware validation claimed.
+**Parent:** [AI Evaluation Lab](../../README.md).
 **Existing work:** retain and reuse the repository's Qiskit SDK 2.x CI workflow and current reproducibility conventions.
 
 ## Research question
