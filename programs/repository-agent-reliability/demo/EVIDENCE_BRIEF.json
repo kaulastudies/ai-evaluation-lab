@@ -14,7 +14,7 @@
     "false_green_rate": 0.06521739130434782,
     "initial_false_green_rate": 0.045454545454545456,
     "repair_conversion": 0.5,
-    "median_time_to_verified_success_ms": 13398
+    "median_time_to_verified_success_ms": 13398.0
   },
   "task_evidence": [
     {
