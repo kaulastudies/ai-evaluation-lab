@@ -1,5 +1,12 @@
 # AI Evaluation Lab
 
+
+[![AI Evaluation Lab CI](https://github.com/kaulastudies/ai-evaluation-lab/actions/workflows/ci.yml/badge.svg)](https://github.com/kaulastudies/ai-evaluation-lab/actions/workflows/ci.yml)
+[![Qiskit SDK 2.x tests](https://github.com/kaulastudies/ai-evaluation-lab/actions/workflows/qag-qiskit.yml/badge.svg)](https://github.com/kaulastudies/ai-evaluation-lab/actions/workflows/qag-qiskit.yml)
+[![OpenSSF Scorecard assessment workflow](https://github.com/kaulastudies/ai-evaluation-lab/actions/workflows/scorecard-analysis.yml/badge.svg)](https://github.com/kaulastudies/ai-evaluation-lab/actions/workflows/scorecard-analysis.yml)
+
+*These badges report GitHub Actions workflow results, not Qiskit Ecosystem approval, OpenSSF certification, or organization membership.*
+
 ## Reproducible evidence for AI systems and agents
 
 **AI Evaluation Lab is an independent engineering lab building provider-neutral infrastructure to test, verify, compare, and reproduce the behavior of AI systems and agents.**
