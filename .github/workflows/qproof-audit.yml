@@ -1,0 +1,35 @@
+name: QProof Audit pilot checks
+on:
+  pull_request:
+    paths:
+      - 'research/futureproof_eval/**'
+      - 'research/futureproof-eval/**'
+      - '.github/workflows/qproof-audit.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'research/futureproof_eval/**'
+      - 'research/futureproof-eval/**'
+      - '.github/workflows/qproof-audit.yml'
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run reference verifier tests
+        run: python -m unittest research.futureproof_eval.test_verifier research.futureproof_eval.test_qproof_audit -v
+      - name: Build example report
+        run: python -m research.futureproof_eval.qproof_audit research/futureproof-eval/example.json --output /tmp/qproof-report.json
+      - name: Check example flags
+        run: |
+          python - <<'PY'
+          import json
+          p=json.load(open('/tmp/qproof-report.json'))
+          assert p['total_cases']==3
+          assert p['flagged']==1
+          assert len(p['evidence_sha256'])==64
+          print('QProof demo passed:', p['total_cases'], 'cases,',p['flagged'],'anomaly')
+          PY
