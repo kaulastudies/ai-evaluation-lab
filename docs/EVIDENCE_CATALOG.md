@@ -73,6 +73,27 @@ Current published evidence is deterministic:
 
 This distinction is deliberate: the Lab does not publish live-provider conclusions before live evidence exists.
 
+## EO-001 — External Outcome Reconciliation
+
+**Question:** Can a bounded workflow report outcomes truthfully and avoid duplicate
+effects when a settlement acknowledgement is lost?
+
+**Contract:** EO-001 v1.0.0; independently authored synthetic USD checkout scenarios.
+
+- Six positive controls, including truthful blocking after an unresolved acknowledgement loss.
+- Seven negative controls rejected, all of which make scripted success claims.
+- Two invalid-evidence controls rejected without assigning a model behavior score.
+- Separate provider-ledger and ordered runner-observation evidence.
+- Deterministic source-bound replay and hashed reports in the repository CI gate.
+- Five removed verifier-check mutations detected by required-reason assertions.
+- No live models, real payments, production integrations or endorsement claims.
+
+The 15 controls qualify bounded verifier behavior; their proportions are not a
+model-performance estimate. A behavior PASS does not imply a successful payment.
+
+[Contract, reproduction and limitations](../evaluations/EO-001/README.md) |
+[Complete evidence bundle](../evaluations/EO-001/evidence/controls.json)
+
 ## Interpretation boundary
 
 These results validate specific evaluation contracts and observed behavior.

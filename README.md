@@ -33,6 +33,18 @@ runner, replay, repair-replay, metrics, and demo-evidence checks are gated in CI
 
 [Capabilities](docs/CAPABILITIES.md) | [Evidence catalog](docs/EVIDENCE_CATALOG.md) | [Private engagements](docs/ENGAGEMENTS.md)
 
+### External outcome reconciliation — EO-001
+
+[EO-001](evaluations/EO-001/README.md) adds a deterministic synthetic checkout
+evaluation for lost acknowledgements, idempotent retries, unsupported success
+claims and duplicate effects. A separate provider ledger is checked against
+ordered runner observations; later confirmation cannot excuse premature
+fulfillment. Fifteen published controls cover six valid behaviors, seven
+violations and two invalid-evidence cases, with source-bound replay in CI.
+
+These are scripted verifier controls. They do not add live model runs to the
+AS/RARB results or establish production payment reliability.
+
 ---
 
 ## Capabilities
@@ -368,7 +380,7 @@ Third-party dependencies and referenced external materials remain subject to the
 
 **Alpha v0.2A is complete, and AS-002 is now merged into the public Agent Safety Evaluation Program.**
 
-**RARB v0.1 is merged and CI-gated.** Its promoted evidence now contains 51 live attempts across five verifier-qualified tasks: 43 `VERIFIED_PASS`, 5 `VERIFIED_FAIL`, and 3 `HOLD`. Configured critical verifier mutations show 0 / 17 escapes, and one of two bounded-repair episodes converted to `VERIFIED_PASS`.
+**RARB v0.1 is merged and CI-gated.** Its [current committed evidence index](programs/repository-agent-reliability/demo/DEMO_STATUS.md) contains 52 live attempts across five verifier-qualified tasks: 44 `VERIFIED_PASS`, 5 `VERIFIED_FAIL`, and 3 `HOLD`, including the existing Phase 13 IBM Bob attempt. Configured critical verifier mutations show 0 / 17 escapes, and one of two bounded-repair episodes converted to `VERIFIED_PASS`. EO-001's synthetic controls are counted separately and add no live model attempts to these figures.
 
 Phase 12 adds a preregistered AP-001 matrix of exactly 30 initial attempts across three fixed configurations, ten trials each: Ollama `llama3:latest` (9 pass, 1 fail), Ollama `qwen2.5-coder:7b` (10 pass), and Nebius/NVIDIA `nvidia/nemotron-3-super-120b-a12b` (10 pass). All 30 outcomes passed source-exact no-model replay; there were no false-greens or repair attempts.
 
