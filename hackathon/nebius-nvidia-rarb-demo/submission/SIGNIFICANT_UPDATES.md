@@ -54,3 +54,17 @@ The project being submitted is therefore not a cosmetic rebrand of the pre-exist
 During the hackathon period, the repository gained the RARB repository-agent reliability system, verifier qualification, bounded repair, source-exact replay, evidence metrics, Nebius Token Factory / NVIDIA Nemotron execution, a fixed cross-configuration replication experiment, integrity gates, and the judge-facing product experience.
 
 The underlying AI Evaluation Lab repository predates the competition; these RARB capabilities and the hackathon integration are the significant submission-period updates.
+
+## October 29, 2026 — ProofGate product and executable judge workbench
+
+The existing RARB entry gained a more focused product interface under the ProofGate name:
+
+- a bundle generated from canonical evidence, correcting the old interface's stale 51-attempt count to the current 52;
+- five inspectable evidence cases with candidate code, diagnostics, provenance, raw records and export;
+- browser SHA-256 artifact verification, clearly distinguished from evaluator execution;
+- the full searchable ledger, retaining failures, HOLDs and unavailable fields;
+- a loopback-only local server that executes source-exact replay and optionally one fresh Nemotron AP-001 run through Nebius Token Factory;
+- integration tests for replay, request boundaries, evidence allowlists and missing credentials;
+- refreshed judge instructions, Devpost copy and recording plan.
+
+The implementation is on `feat/proofgate-hackathon-judge-demo` until merged. This update changes the product and execution interface without rewriting historical results. A fresh provider call is implemented but was not executed during this update because a Nebius key was unavailable in the environment.

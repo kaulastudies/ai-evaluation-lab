@@ -1,105 +1,41 @@
-# Judge Testing Instructions
+# Judge testing instructions — ProofGate
 
-## Fastest path
+## Browser inspection (no credentials)
 
-1. Open the public hosted demo URL supplied in Devpost.
-2. In **Judge Mode**, switch among:
-   - Nebius / Nemotron pass
-   - Preserved Phase 12 failure
-   - False-green → repair
-3. Click **Replay stored evidence** to visualize the preserved replay sequence.
-4. Use **Open canonical evidence** to inspect the corresponding committed artifacts.
+1. Open the submitted public demo URL.
+2. The default AP-005 case shows public PASS alongside VERIFIED_FAIL. Inspect all four gate diagnostics and the candidate code.
+3. Choose Bounded repair, then Verify again. Inspect the repaired candidate and parent record hash.
+4. Select AP-001 · Nebius / Nemotron. Confirm the provider/model, generation latency and source provenance.
+5. Click Recheck artifact hashes. On HTTPS, the browser recomputes SHA-256 for the supplied candidate and raw response, comparing them with the recorded manifest. This is an integrity check, not evaluator execution.
+6. Inspect Evidence ledger. Search `nebius`; eleven entries include the one pilot plus ten Phase 12 attempts. Filter failures and HOLDs to inspect the retained unsuccessful outcomes.
+7. Verify the verifier displays the AP-005 reference, known-bad and mutation controls.
 
-The browser interface intentionally visualizes committed evidence. It does not send a secret API key from the browser or represent a UI animation as fresh model inference.
+## Execute the evaluator
 
-## Run the judge interface locally
-
-From the repository root:
+Clone the repository with full Git history, switch to `feat/proofgate-hackathon-judge-demo` until merged, and start:
 
 ```bash
-cd hackathon/nebius-nvidia-rarb-demo
-python -m http.server 8080
+python hackathon/nebius-nvidia-rarb-demo/serve.py
 ```
 
-Then open:
+Open `http://127.0.0.1:8080`. Select a case and click Re-execute verifier locally. The server runs `replay.py` or `repair_replay.py` using an allowlisted canonical evidence directory. The returned report must show `SOURCE_EXACT_REPLAY_VERIFIED` or `SOURCE_EXACT_REPAIR_REPLAY_VERIFIED` as applicable. Successful replay can reproduce a failing verdict: replay integrity and candidate correctness are different checks.
 
-```text
-http://localhost:8080
-```
+## Make a fresh Nebius runtime call
 
-No JavaScript package install or build step is required.
+Use a disposable development environment. Set `NEBIUS_API_KEY` in the server environment and restart the server. Source must be clean and committed. Under Run it yourself, click Generate & verify one candidate. This makes one Token Factory call with NVIDIA Nemotron 3 Super and evaluates the returned AP-001 candidate. It consumes the configured account's credits.
 
-## Run the RARB evidence demo
+Inspect the report's actual provider and model, candidate admission and final verdict. Outcomes are staged under `runs/live/rarb/proofgate-nebius-*`. There is no automatic retry or substitution of stored evidence when inference fails. The server is loopback-only and is not intended for public multi-user hosting or arbitrary code submission.
 
-From the repository root:
+## Whole-project checks
 
 ```bash
-python programs/repository-agent-reliability/demo/run_demo.py
-```
-
-The command regenerates/checks RARB evidence artifacts and runs the deterministic/replay validation suite. A successful run finishes GREEN.
-
-## Verify Phase 12 evidence integrity directly
-
-```bash
+PYTHONPATH=src python -m unittest discover -s tests -v
+PYTHONPATH=src python programs/repository-agent-reliability/demo/run_demo_check.py
 python programs/repository-agent-reliability/runner/phase12_evidence_check.py
 ```
 
-This checks the promoted Phase 12 evidence, fixed configuration matrix, hashes, preserved failure, replay state, claim boundaries, and credential-marker scan.
+Windows PowerShell: set `$env:PYTHONPATH = "src"` before Python commands.
 
-## Optional live Nebius connectivity check
+## Expected snapshot
 
-A live provider check requires your own Nebius Token Factory API key.
-
-Set:
-
-```text
-NEBIUS_API_KEY=<your key>
-NEBIUS_MODEL=nvidia/nemotron-3-super-120b-a12b
-```
-
-Then run:
-
-```bash
-PYTHONPATH=src python scripts/nebius_token_factory_smoke.py
-```
-
-The script makes a runtime Token Factory call and reports provider, model, latency, token usage, returned response, and connectivity status.
-
-Do not commit API keys.
-
-## Canonical hackathon evidence
-
-### Nebius/NVIDIA pilot
-
-```text
-programs/repository-agent-reliability/experiments/results/phase-11c-nebius-nemotron-pilot-v1/
-programs/repository-agent-reliability/tasks/AP-001/evidence/live/ap001-nebius-nemotron-001/
-```
-
-### Phase 12 replication
-
-```text
-programs/repository-agent-reliability/experiments/results/phase-12-cross-model-replication-v1/
-programs/repository-agent-reliability/tasks/AP-001/evidence/live/*phase12*/
-```
-
-### False-green and successful bounded repair
-
-```text
-programs/repository-agent-reliability/tasks/AP-005/evidence/live/ap005-ollama-llama3-001/
-programs/repository-agent-reliability/tasks/AP-005/evidence/live/ap005-ollama-llama3-002-repair/
-```
-
-## Expected evidence snapshot
-
-- 51 attempts
-- 43 VERIFIED_PASS
-- 5 VERIFIED_FAIL
-- 3 HOLD
-- 5 qualified tasks
-- 0 / 17 critical verifier mutation escapes
-- Phase 12: 29 / 30 VERIFIED_PASS, 1 preserved VERIFIED_FAIL
-- Phase 12: 30 / 30 source-exact no-model replays verified
-
-These are bounded observations from the committed evidence set, not general model-performance claims.
+52 attempts: 44 pass, 5 fail, 3 hold. Five qualified tasks. Zero critical mutation escapes out of 17. Phase 12: 29/30 passes, 30/30 recorded source-exact replays and 10/10 Nemotron passes on AP-001. AP-005's repair uses Ollama. No general model or production reliability claim is made.

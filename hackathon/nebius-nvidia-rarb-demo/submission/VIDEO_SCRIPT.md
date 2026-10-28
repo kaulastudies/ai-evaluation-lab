@@ -1,79 +1,47 @@
-# Demo Video Script — target runtime 2:40–2:50
+# ProofGate — recording plan (target 2:45)
 
-The public submission video must stay under three minutes. Record the actual judge interface and terminal/repository evidence; do not add copyrighted music.
+Record the actual interface and local runner. Upload the finished video to a public YouTube URL. This script is preparation, not a produced or published video.
 
-## 0:00–0:18 — The problem
+## 0:00–0:20 · The problem
 
-**On screen:** RARB landing page headline and the 51-attempt evidence snapshot.
+Screen: AP-005 false-green case, with public PASS and VERIFIED_FAIL visible.
 
-**Voiceover:**
+“An AI coding agent can pass the tests and still produce a broken change. ProofGate makes that gap visible. This is a real recorded candidate: its public tests passed, but four independent checks failed.”
 
-“Coding agents can write a patch, run public tests, and say they are done. But a green test is not always proof that the repository task is actually correct. RARB is a reliability layer that asks a second question: is the evaluation itself strong enough to trust?”
+## 0:20–0:50 · Show the failure
 
-## 0:18–0:38 — How RARB works
+Open Candidate code, then Verifier gates. Point at the actual diagnostics.
 
-**On screen:** Scroll through the three principles: qualify the verifier, evaluate the patch, replay the result.
+“The task is a data transformation. Its contract requires preserving rows, zero and false values, optional notes and the original input. These four gates caught failures the public tests missed. Before using this verifier, we tested it against a reference, a known-bad implementation and deliberate mutations.”
 
-**Voiceover:**
+## 0:50–1:15 · Show the repair
 
-“First, RARB qualifies the verifier with a known-good reference, known-bad controls, and critical mutations. Then the coding agent generates a candidate. Public tests are evidence, not the final verdict. A qualified verifier produces VERIFIED_PASS, VERIFIED_FAIL, or HOLD, and the result is preserved for source-exact replay.”
+Click Bounded repair, then Verify again. Open Provenance to show the parent hash.
 
-## 0:38–1:05 — Nebius + NVIDIA execution
+“The repair receives the failed-gate IDs and bounded diagnostics, not the hidden verifier or reference solution. The same verifier evaluates the replacement. This attempt passes, and its record links back to the original failure. This specific repair was generated with Ollama.”
 
-**On screen:** Select **Nebius / Nemotron pass** in Judge Mode. Show provider, model, gates, final verdict, and replay state.
+## 1:15–1:50 · Show Nebius and NVIDIA
 
-**Voiceover:**
+Select AP-001 · Nebius / Nemotron. Show the model ID, source commit and latency. If the local key is configured, perform a fresh run before recording and show its returned report. If no fresh run is available, clearly say this is preserved runtime evidence.
 
-“For the hackathon, I integrated Nebius Token Factory through its chat-completions API and used NVIDIA Nemotron 3 Super 120B A12B to generate repository-task candidates. This is a real preserved Phase 12 Nemotron run: candidate admitted, public validation passed, the qualified verifier passed, the trusted boundary remained intact, and no-model replay reproduced the result.”
+“We also run NVIDIA Nemotron 3 Super through Nebius Token Factory. Here is a preserved repository-task execution, including its candidate, token usage, latency and exact evaluator source. Ten fixed Nemotron trials passed this AP-001 contract. That is one bounded experiment, not a general model ranking.”
 
-## 1:05–1:30 — Preserve the failure
+## 1:50–2:20 · Actually replay
 
-**On screen:** Select **Preserved Phase 12 failure**. Let the failed steps appear.
+In the local workbench, click Re-execute verifier locally and show the returned status and record hashes. No key is needed for replay.
 
-**Voiceover:**
+“This action runs the historical evaluator again against the recorded candidate. It does not call a model. The reproduced verdict and record hash match the original evidence. The hosted browser can separately check artifact hashes; those checks are not evaluator execution.”
 
-“RARB also preserves failures. In this Phase 12 llama3 attempt, the agent claimed success, but public validation failed and three AP-001 verifier gates failed. RARB kept the attempt as VERIFIED_FAIL. It did not replace the result with a better run and did not trigger repair because this was not a public-test false-green.”
+## 2:20–2:45 · Scope and close
 
-## 1:30–1:58 — False-green and bounded repair
+Show the full ledger, filter VERIFIED_FAIL, then show the public repository.
 
-**On screen:** Select **False-green → repair**.
+“The ledger keeps all 52 attempts, including five failures and three HOLDs. Five tasks are verifier-qualified, with zero observed escapes among 17 mutations. ProofGate helps engineering teams inspect why an agent's change passed, and reproduce that decision. The code, setup instructions and evidence are open source.”
 
-**Voiceover:**
+## Before uploading
 
-“This AP-005 example shows the failure mode RARB is designed to catch. The initial patch passed public tests but failed all four qualified edge-case gates. RARB froze that false-green, exposed only bounded failed-gate evidence to a repair attempt, and applied the same qualified verifier. The repair converted to VERIFIED_PASS.”
-
-## 1:58–2:23 — Replication evidence
-
-**On screen:** Scroll to Phase 12 cards and the 29/30, 30/30, zero false-green, zero repair row.
-
-**Voiceover:**
-
-“Phase 12 was preregistered before execution: one frozen repository task, three fixed configurations, ten trials each. The batch produced 29 verified passes, one preserved failure, zero false-greens, zero repairs, and all 30 attempts passed source-exact no-model replay. The ten Nebius Nemotron attempts were all verified passes.”
-
-## 2:23–2:42 — Reproducibility / terminal
-
-**On screen:** Show the repository, the committed evidence paths, and run the one-command RARB demo or replay check locally. Capture the final GREEN output.
-
-**Voiceover:**
-
-“The repository contains the task contracts, verifier qualification, model responses, candidate artifacts, manifests, replay records, and CI gates. A stored verdict can be checked without spending another model call.”
-
-## 2:42–2:52 — Close
-
-**On screen:** Return to the headline and evidence boundary.
-
-**Voiceover:**
-
-“RARB does not claim that one benchmark proves general model reliability. It makes narrower claims that can be inspected and replayed. AI can propose the patch. RARB measures whether the patch deserves to ship.”
-
-## Recording checklist
-
-- Keep the final upload **under 3:00**.
-- Use the deployed public demo URL in the browser.
-- Show the actual interactive controls, not slides alone.
-- Include the words **Nebius Token Factory** and **NVIDIA Nemotron 3 Super 120B A12B** in the audio.
-- Show at least one canonical evidence path in GitHub.
-- Show the terminal GREEN replay/check output.
-- Do not show API keys, environment variables, browser autofill, email, or private tabs.
-- Do not use copyrighted background music.
-- Upload to YouTube as **Public** before entering the URL in Devpost.
+- Keep the final cut under three minutes.
+- Show the app working, not only slides.
+- Keep credentials and unrelated browser tabs out of the recording.
+- Do not label a recorded result as fresh inference.
+- Use the public YouTube URL in Devpost and check it while signed out.
