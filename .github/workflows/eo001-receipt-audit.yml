@@ -49,10 +49,23 @@ jobs:
         run: python -m research.eo001_receipt_audit.durable.suite --check
       - name: Fresh process kills, concurrent retries and workflow controls
         run: python -m research.eo001_receipt_audit.durable.suite --run --output "$RUNNER_TEMP/eo-durable-evidence.json"
+      - name: Replay independent Systemia mapping and negative controls
+        run: |
+          python -m research.eo001_receipt_audit.systemia.evaluate --check
+          python -m unittest discover -s research/eo001_receipt_audit/systemia/tests -v
+      - name: Fetch reviewed Evercraft source closure by commit and hash
+        run: python -m research.eo001_receipt_audit.systemia.fetch_sources "$RUNNER_TEMP/eo-systemia-pinned"
+      - name: Independently run Evercraft candidate and native recovery CLI
+        run: >-
+          python -m research.eo001_receipt_audit.systemia.evaluate --run
+          --forge-source "$RUNNER_TEMP/eo-systemia-pinned"
+          --output "$RUNNER_TEMP/eo-systemia-evidence.json"
       - name: Preserve public evidence from this CI run
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: eo-durable-public-evidence
-          path: ${{ runner.temp }}/eo-durable-evidence.json
+          path: |
+            ${{ runner.temp }}/eo-durable-evidence.json
+            ${{ runner.temp }}/eo-systemia-evidence.json
           retention-days: 7
           if-no-files-found: error

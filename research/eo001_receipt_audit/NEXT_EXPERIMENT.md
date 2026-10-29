@@ -1,18 +1,27 @@
 # Systemia integration handoff
 
-The Lab-side local experiment is implemented in [durable/](durable/README.md).
-It is ready for technical review and adapter mapping. A joint Systemia/live-agent
-evaluation has not yet occurred, so no percentage of overall collaboration
-completion is claimed.
+The local provider experiment is implemented in [durable/](durable/README.md).
+The [Systemia mapping report](systemia/README.md) now records independent Lab
+execution of Evercraft's deterministic candidate and the actual native recovery
+CLI on isolated synthetic state. Source pins and full public evidence are retained.
+A live Systemia agent evaluation and joint acceptance have not occurred.
+
+Jesse supplied the native recovery entry point in
+[issue #1705](https://github.com/jgaethle10/forge-operator/issues/1705), then added
+the wire-compatible candidate in
+[PR #1744](https://github.com/jgaethle10/forge-operator/pull/1744).
+The Lab reviewed and ran commit `171a49b2a5cf81ff8922ebe2c69a182e91c1bd54`.
+The [coordination issue text](systemia/COORDINATION_ISSUE_DRAFT.md) is prepared
+but has not been published or accepted as joint scope.
 
 ## Jesse's questions and the current evidence
 
 | Question | Completed Lab work | Remaining joint work |
 | --- | --- | --- |
-| Can evidence be authenticated independently? | Provider-issued Ed25519 receipts, fresh signed observations, public-key verifier, signed closing manifest and separate SQL read | Agree on Systemia's authoritative provider, key ownership and evidence export |
+| Can evidence be authenticated independently? | Provider-issued Ed25519 receipts; pinned Evercraft candidate verifies them; native signed claims checked with a separate Lab serializer and verifier | Agree on authoritative provider truth, key ownership and evidence export |
 | Does state survive a process failure? | Actual kills before commit and after commit/before acknowledgement; new-process reconciliation and same-key retry | Map those boundaries onto the isolated Systemia workflow |
 | Do concurrent retries duplicate an effect? | Three eight-worker same-key rounds and one eight-worker payload-conflict round | Agree whether the real adapter's concurrency and idempotency guarantees match this protocol |
-| How does a live agent respond? | Executable bounded workflow adapter and nine scripted behavior controls | Supply the workflow entry point, model/configuration, credentials if needed and agreed run budget; execute and publish actual attempts |
+| How does a live agent respond? | Executable adapter, nine Lab scripted controls and four independently run Evercraft candidate cases; native recovery CLI tested in fourteen cases | Select an isolated real decision worker, model/configuration and run budget; retain raw proposals separately from guard decisions |
 
 ## Findings to review first
 
@@ -34,9 +43,12 @@ secure sandbox for an arbitrary candidate process.
 
 ## Proposed first joint run
 
-1. Identify one isolated workflow entry point and its intended provider guarantees.
-2. Map it to the [implemented adapter contract](durable/adapter_contract.json),
-   or document the minimal change needed for a persistent workflow.
+1. Review the [completed contract mapping](systemia/README.md) and the native
+   `recovery-hold` / `recovery-observe` boundary. A native signed observation is
+   an attestation only; the tested CLI does not release the hold.
+2. Agree the namespaces and trust anchors. The deterministic candidate already
+   speaks the Lab wire contract, but native Systemia observations are a distinct
+   protocol and must not be converted into Lab settlement proof or retry authority.
 3. Agree on durable operation identity, trusted issuer, query freshness and the
    evidence retained independently of the agent. Identify candidate access to
    the key or provider store before executing untrusted code.
@@ -47,6 +59,13 @@ secure sandbox for an arbitrary candidate process.
 5. Independently score evidence validity, authorized behavior and actual task
    completion. Count fulfillment only if an independently observed delivery
    effect is added; current code measures authorization.
+
+The added counterexample signs `completed` while the independent synthetic
+oracle has zero effects and zero provider calls. Signature verification succeeds,
+but the claim is contradicted and Systemia remains quarantined. This confirms the
+documented trust boundary; it is not an observed bypass. A later guarded model
+run must report the raw proposed action and any guard override separately, so a
+safe final workflow does not hide an unsafe model proposal.
 
 ## Suggested ownership and stopping point
 

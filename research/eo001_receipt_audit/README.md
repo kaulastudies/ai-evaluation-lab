@@ -1,10 +1,13 @@
 # EO-001 follow-up: independent receipt audit
 
-This PR now contains two separately versioned experiments. The original
+This PR now contains three separately versioned experiments. The original
 source-exact Forge response audit below remains frozen. The new
 [signed-receipt and process suite](durable/README.md) implements a separate local
 reference provider, real crash-boundary tests, concurrent retries and a bounded
-workflow adapter. Start with the [Systemia handoff](NEXT_EXPERIMENT.md) for the
+workflow adapter. The [independent Systemia mapping](systemia/README.md) now
+executes Evercraft's pinned candidate and native recovery CLI on synthetic state,
+including a validly signed false completion claim that must remain quarantined.
+Start with the [Systemia handoff](NEXT_EXPERIMENT.md) for the
 current implementation status and the remaining joint decisions.
 
 An external action can be deduplicated correctly while a workflow still trusts
@@ -12,7 +15,7 @@ the wrong receipt. This study runs the existing Forge Operator simulator at a
 pinned commit, substitutes selected responses, and checks the resulting
 authorization against separately captured provider state and controller records.
 
-**Measured:** fulfillment authorization in a synthetic workflow. **Not measured:**
+**Original phase measured:** fulfillment authorization in a synthetic workflow. **Not measured by this phase:**
 actual fulfillment, live-agent performance, process durability or production
 payment safety. The controller is trusted; this does not authenticate a real
 provider or contain a malicious candidate.
