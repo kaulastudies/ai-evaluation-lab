@@ -6,6 +6,14 @@ ProofGate is the judge-facing product built on AI Evaluation Lab's Repository Ag
 
 A coding agent can pass ordinary tests and still break the task contract. ProofGate qualifies the verifier, evaluates the candidate, preserves failures and HOLDs, and supports bounded repair with reproducible evidence.
 
+## Team and mentorship
+
+**With mentorship from Prof. Nithya Ravi Kumar.** Rama Chandra leads implementation, experiments and evidence curation. We thank Prof. Nithya Ravi Kumar for her mentorship.
+
+Her proposed methodology and evidence review responsibilities are documented in the [team record](TEAM.md), with a [research review pack prepared for her](submission/MENTOR_REVIEW_PACK.md). These reviews are pending; no completed review or approval is claimed.
+
+![ProofGate team and mentorship](submission/media/proofgate-team-card.svg)
+
 ## Judge demo: execute real checks in the browser
 
 The first page now runs the actual Python public tests and qualified verifier using Pyodide. Judges can execute a recorded false-green, its repair, a Nebius/Nemotron candidate, a preserved failure, or six qualification controls. Results are produced at runtime; no API key or installation is needed in the hosted demo. The browser run is clearly labeled as current-verifier re-execution, separate from historical source-exact replay and new model inference.
@@ -13,7 +21,7 @@ The first page now runs the actual Python public tests and qualified verifier us
 ## Start here
 
 - [Open the browser demo](https://proofgate-rarb.kaulastudies.chatgpt.site/)
-- [Watch the 109-second captioned walkthrough](https://proofgate-rarb.kaulastudies.chatgpt.site/proofgate-walkthrough.mp4)
+- [Watch the 119-second captioned walkthrough](https://proofgate-rarb.kaulastudies.chatgpt.site/proofgate-walkthrough.mp4)
 
 - [Recovered project context and completion checklist](submission/PROJECT_CONTEXT.md)
 - [Devpost description](submission/DEVPOST_DRAFT.md)
@@ -29,7 +37,7 @@ Python 3.10+ and Git are required. Clone with full history; source-exact replay 
 ```bash
 git clone https://github.com/kaulastudies/ai-evaluation-lab.git
 cd ai-evaluation-lab
-git switch feat/proofgate-hackathon-judge-demo
+git switch main
 python hackathon/nebius-nvidia-rarb-demo/prepare_browser_runtime.py
 python hackathon/nebius-nvidia-rarb-demo/serve.py
 ```

@@ -5,6 +5,8 @@
 **Nebius × NVIDIA hackathon:** [Run the live ProofGate demo](https://proofgate-rarb.kaulastudies.chatgpt.site/) · [ProofGate — Independent Verification for Coding Agents](hackathon/nebius-nvidia-rarb-demo/README.md) · [Judge instructions](hackathon/nebius-nvidia-rarb-demo/submission/JUDGE_TESTING.md)
 
 
+**ProofGate mentorship:** Prof. Nithya Ravi Kumar. We thank her for her mentorship. [Team and proposed research review responsibilities](hackathon/nebius-nvidia-rarb-demo/TEAM.md).
+
 [![AI Evaluation Lab CI](https://github.com/kaulastudies/ai-evaluation-lab/actions/workflows/ci.yml/badge.svg)](https://github.com/kaulastudies/ai-evaluation-lab/actions/workflows/ci.yml)
 [![Qiskit SDK 2.x tests](https://github.com/kaulastudies/ai-evaluation-lab/actions/workflows/qag-qiskit.yml/badge.svg)](https://github.com/kaulastudies/ai-evaluation-lab/actions/workflows/qag-qiskit.yml)
 [![OpenSSF Scorecard assessment workflow](https://github.com/kaulastudies/ai-evaluation-lab/actions/workflows/scorecard-analysis.yml/badge.svg)](https://github.com/kaulastudies/ai-evaluation-lab/actions/workflows/scorecard-analysis.yml)

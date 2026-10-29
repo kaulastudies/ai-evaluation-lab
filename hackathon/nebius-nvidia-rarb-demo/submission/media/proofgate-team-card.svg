@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" role="img" aria-labelledby="title desc">
+<title id="title">ProofGate — team and mentorship</title><desc id="desc">Independent verification for coding agents. With mentorship from Prof. Nithya Ravi Kumar. Project lead and implementation: Rama Chandra.</desc>
+<rect width="1200" height="800" fill="#152c3a"/><rect x="64" y="62" width="74" height="74" rx="14" fill="#a9e4c4"/><text x="85" y="116" fill="#152c3a" font-family="DejaVu Sans,sans-serif" font-size="52" font-weight="700">P</text>
+<g font-family="DejaVu Sans,sans-serif"><text x="162" y="94" fill="#b6c9d0" font-size="18" letter-spacing="2">AI EVALUATION LAB</text><text x="162" y="124" fill="#b6c9d0" font-size="16">Nebius × NVIDIA Global AI Hackathon</text>
+<text x="64" y="246" fill="#ffffff" font-size="86" font-weight="700">ProofGate</text><text x="68" y="300" fill="#d9e5e9" font-size="28">Independent verification for coding agents.</text><text x="68" y="348" fill="#a9e4c4" font-size="23">Run the checks. Inspect the evidence.</text>
+<line x1="68" y1="395" x2="1132" y2="395" stroke="#3c5966"/>
+<text x="68" y="453" fill="#a9e4c4" font-size="19" letter-spacing="2">WITH MENTORSHIP FROM</text><text x="66" y="512" fill="#ffffff" font-size="43" font-weight="700">Prof. Nithya Ravi Kumar</text>
+<text x="68" y="582" fill="#b6c9d0" font-size="18" letter-spacing="1">PROJECT LEAD &amp; IMPLEMENTATION</text><text x="68" y="626" fill="#ffffff" font-size="30">Rama Chandra</text>
+<text x="68" y="721" fill="#a9e4c4" font-size="19">Thank you, Prof. Nithya Ravi Kumar, for your mentorship.</text><text x="68" y="759" fill="#b6c9d0" font-size="16">proofgate-rarb.kaulastudies.chatgpt.site · Open source · Apache 2.0</text></g></svg>
