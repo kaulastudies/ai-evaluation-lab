@@ -31,8 +31,12 @@ SESSIONS = weakref.WeakSet()
 
 
 class Candidate:
-    def __init__(self, source: bytes, class_name=None):
-        if not shutil.which("bwrap") or not Path("/usr/bin/python3").exists():
+    def __init__(self, source: bytes, class_name=None, *, isolation="bubblewrap"):
+        if isolation not in {"bubblewrap", "chroot"}:
+            raise ValueError("Unsupported isolation backend")
+        if isolation == "chroot" and os.geteuid() != 0:
+            raise RuntimeError("chroot isolation requires a root supervisor")
+        if isolation == "bubblewrap" and (not shutil.which("bwrap") or not Path("/usr/bin/python3").exists()):
             raise RuntimeError("HOLD: Linux bubblewrap isolation is required")
         self.temp = tempfile.TemporaryDirectory(prefix="rarb-candidate-")
         source_file = Path(self.temp.name) / "candidate.py"
@@ -45,6 +49,13 @@ class Candidate:
                     "--ro-bind", str(source_file), "/candidate.py",
                     "--ro-bind", str(Path(__file__).with_name("candidate_worker.py")), "/worker.py",
                     "--chdir", "/tmp", "/usr/bin/python3", "-I", "-S", "/worker.py"]
+        if isolation == "chroot":
+            # No unsafe native fallback: worker must chroot AND drop uid/gid AND
+            # install seccomp successfully before it can load the candidate.
+            os.chmod(self.temp.name, 0o755)
+            os.chmod(source_file, 0o444)
+            command = [sys.executable, "-I", "-S", str(Path(__file__).with_name("candidate_worker.py")),
+                       "--chroot", self.temp.name]
         self.process = subprocess.Popen(command, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
                                         stderr=subprocess.PIPE, start_new_session=True, env=clean_env())
         os.set_blocking(self.process.stdin.fileno(), False)

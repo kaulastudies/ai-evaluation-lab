@@ -26,7 +26,7 @@ Linux with working unprivileged namespaces, bubblewrap, libseccomp2, and
 `/usr/bin/python3` is required for native scoring and historical replay. Windows,
 macOS, and restricted containers must use a suitable Linux runner. CI explicitly
 requires a successful sandbox probe; positive integration tests cannot silently
-skip there. Harbor deployments also need to permit nested user namespaces.
+skip there. Separate root-owned Harbor verifier containers use an empty chroot and permanently dropped uid/gid instead of nested user namespaces. The seccomp and resource limits remain mandatory; no candidate code loads before both boundaries succeed.
 
 ## Evidence boundary and compatibility
 

@@ -25,9 +25,12 @@ def authenticate_directory(directory, prefix):
     actual = {p.relative_to(directory).as_posix() for p in directory.rglob("*") if p.is_file() and "__pycache__" not in p.parts}
     if not expected or actual != set(expected):
         raise ValueError("Evidence inventory is not the reviewed historical inventory")
+    snapshot = {}
     for relative, digest in expected.items():
-        if hashlib.sha256(read_confined(directory, relative)).hexdigest() != digest:
+        snapshot[relative] = read_confined(directory, relative)
+        if hashlib.sha256(snapshot[relative]).hexdigest() != digest:
             raise ValueError("Evidence differs from reviewed historical artifact: " + relative)
+    return snapshot
 
 
 def authenticate_attempt(directory, record):
@@ -39,12 +42,15 @@ def authenticate_attempt(directory, record):
     if len(matches) != 1:
         raise ValueError("Evaluation is not a reviewed historical record")
     prefix = matches[0]
-    authenticate_directory(directory, prefix)
+    snapshot = authenticate_directory(directory, prefix)
+    if json.loads(snapshot["evaluation.json"]) != record:
+        raise ValueError("Evaluation changed while authenticating the package")
     evaluation = record.get("evaluation")
     if record.get("runtime_schema") == "agent-workspace-v1":
         validate_record(record)
     else:
         validate_record(evaluation)
+    return snapshot
 
 
 def validate_response(record, manifest, data):

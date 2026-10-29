@@ -79,6 +79,9 @@ class EvidenceBoundaryTests(unittest.TestCase):
             shutil.copytree(original, target, ignore=shutil.ignore_patterns("__pycache__"))
             record = json.loads((target / "evaluation.json").read_text())
             authenticate_attempt(target, record)
+            forged = dict(record, source_commit="0" * 40)
+            with self.assertRaises(ValueError):
+                authenticate_attempt(target, forged)
             record["evaluation"]["final_verdict"] = "FORGED"
             record["evaluation"]["record_hash"] = record_digest(record["evaluation"])
             (target / "evaluation.json").write_text(json.dumps(record))

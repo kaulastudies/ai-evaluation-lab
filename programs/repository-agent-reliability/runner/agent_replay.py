@@ -80,7 +80,7 @@ def main():
     task_id(evaluation["task_id"])
     component(evaluation["run_label"])
     validate_record(evaluation)
-    authenticate_attempt(evidence_dir, evaluation)
+    frozen_package = authenticate_attempt(evidence_dir, evaluation)
     validate_consistency(manifest, evaluation)
 
     source_commit = evaluation["source_commit"]
@@ -109,6 +109,16 @@ def main():
 
     adapter_temp_dir = Path(tempfile.mkdtemp(prefix="rarb-adapter-"))
     try:
+        frozen_root = adapter_temp_dir / "evidence"
+        frozen_root.mkdir()
+        for relative, data in frozen_package.items():
+            destination = frozen_root / relative
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            destination.write_bytes(data)
+        candidate_path = frozen_root / candidate_path.name
+        prompt_path = frozen_root / "prompt.txt"
+        summary_path = frozen_root / "model-response.txt"
+        evidence_dir = frozen_root
         with tempfile.TemporaryDirectory(prefix="rarb-agent-replay-") as worktree_dir:
             source_root = Path(worktree_dir) / "source"
             add_detached_worktree(source_root, source_commit)

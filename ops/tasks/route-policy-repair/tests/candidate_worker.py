@@ -4,6 +4,7 @@ import ctypes.util
 import errno
 import importlib.util
 import json
+import os
 import resource
 import sys
 
@@ -36,6 +37,19 @@ def restrict():
 
 
 restrict()
+if len(sys.argv) == 3 and sys.argv[1] == "--chroot":
+    # Separate Harbor verifier containers retain CAP_SYS_CHROOT but may forbid
+    # nested user namespaces. Load the trusted runtime, then enter an empty root
+    # and irrevocably drop root before importing any candidate bytes.
+    if os.geteuid() != 0:
+        raise RuntimeError("chroot worker requires a privileged trusted supervisor")
+    os.chroot(sys.argv[2])
+    os.chdir("/")
+    os.setgroups([])
+    os.setresgid(65534, 65534, 65534)
+    os.setresuid(65534, 65534, 65534)
+    if os.getuid() == 0 or os.getgid() == 0:
+        raise RuntimeError("Failed to drop worker privileges")
 spec = importlib.util.spec_from_file_location("candidate", "/candidate.py")
 module = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(module)

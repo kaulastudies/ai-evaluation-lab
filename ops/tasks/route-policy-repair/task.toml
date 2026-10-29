@@ -15,7 +15,7 @@ subcategory = "Evaluation Infrastructure"
 tags = ["ai-routing", "privacy", "policy", "verification"]
 difficulty_explanation = "Tests policy precedence, privacy boundaries, duplicate IDs, stable ordering, fallback behavior, non-mutation, and determinism."
 solution_explanation = "Implements policy precedence explicitly: sensitive first, deterministic second, then public confidence and provider fallback."
-verification_explanation = "A separate verifier imports the submitted router and tests invariants, duplicate IDs, ordering, non-mutation, exact reason codes, output schema, and determinism."
+verification_explanation = "A separate verifier owns assertions and queries an isolated, unprivileged router worker to test invariants, duplicate IDs, ordering, non-mutation, exact reason codes, output schema, and determinism."
 expert_time_estimate_hours = 1.0
 
 [verifier]

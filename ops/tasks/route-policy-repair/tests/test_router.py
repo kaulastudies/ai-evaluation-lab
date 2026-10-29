@@ -12,7 +12,8 @@ from security import read_confined
 
 class Router:
     def route_batch(self, items):
-        candidate = Candidate(read_confined(ROUTER.parent, ROUTER.name))
+        candidate = Candidate(read_confined(ROUTER.parent, ROUTER.name),
+                              isolation="chroot" if os.geteuid() == 0 else "bubblewrap")
         try:
             observed = candidate.request("call", name="route_batch", args=[items])
             if type(observed) is not dict or set(observed) != {"result", "args"}:

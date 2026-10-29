@@ -27,7 +27,8 @@ def evidence_path(case: str) -> Path:
 def build() -> dict:
     # Bind links to the commit that last changed canonical evidence, not UI commits.
     ref = subprocess.check_output(
-        ["git", "log", "-1", "--format=%H", "--", "programs/repository-agent-reliability"],
+        ["git", "log", "-1", "--format=%H", "--", "programs/repository-agent-reliability/tasks/*/evidence/live",
+         "programs/repository-agent-reliability/metrics/summary.json"],
         cwd=ROOT, text=True,
     ).strip()
     bundle = {
