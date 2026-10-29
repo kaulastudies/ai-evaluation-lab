@@ -102,8 +102,8 @@ run, and no provider settlement, delivery or production readiness is established
 
 ## Next agreement
 
-The [coordination issue text](COORDINATION_ISSUE_DRAFT.md) is prepared for review,
-not yet published as an issue. Confirm the identity mapping, evidence ownership
+The [coordination issue #35](https://github.com/kaulastudies/ai-evaluation-lab/issues/35)
+is published and linked to Evercraft #1705. Confirm the identity mapping, evidence ownership
 and acceptance rules before building a native disposition bridge. A later agent
 experiment needs pinned model/runtime configuration, bounded resources, retained
 raw proposed actions and guard decisions, and complete attempt records. Guarded

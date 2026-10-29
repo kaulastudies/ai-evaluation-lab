@@ -1,7 +1,9 @@
 # EO-001: agree Systemia recovery evidence and authority boundaries
 
-Prepared coordination issue text. Publication and shared scope agreement remain
-pending; this document does not speak for Evercraft or establish accepted scope.
+Historical draft. The current coordination discussion is published in
+[Lab issue #35](https://github.com/kaulastudies/ai-evaluation-lab/issues/35),
+linked to Evercraft #1705. Use that issue for updates and scope agreement.
+This retained draft does not establish accepted scope or speak for Evercraft.
 
 References:
 

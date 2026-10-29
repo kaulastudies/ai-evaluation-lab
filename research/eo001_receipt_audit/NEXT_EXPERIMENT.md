@@ -11,8 +11,9 @@ Jesse supplied the native recovery entry point in
 the wire-compatible candidate in
 [PR #1744](https://github.com/jgaethle10/forge-operator/pull/1744).
 The Lab reviewed and ran commit `171a49b2a5cf81ff8922ebe2c69a182e91c1bd54`.
-The [coordination issue text](systemia/COORDINATION_ISSUE_DRAFT.md) is prepared
-but has not been published or accepted as joint scope.
+Coordination is open in [Lab issue #35](https://github.com/kaulastudies/ai-evaluation-lab/issues/35),
+linked to Evercraft #1705. The evidence contract and next experiment remain
+proposed until reviewed together. The original issue draft is retained for context.
 
 ## Jesse's questions and the current evidence
 
