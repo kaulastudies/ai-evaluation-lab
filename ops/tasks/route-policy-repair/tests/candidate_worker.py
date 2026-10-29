@@ -66,7 +66,7 @@ for line in sys.stdin:
     elif operation == "select":
         registrations = []
         def fetch(resource_name, callback):
-            key = str(len(callbacks))
+            key = str(request["id"]) + ":" + str(len(registrations))
             callbacks[key] = callback
             registrations.append([resource_name, key])
         obj.select_resource(request["resource"], fetch)

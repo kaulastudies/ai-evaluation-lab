@@ -353,11 +353,33 @@ def main() -> int:
         config["task_id"],
     )
 
-    authenticate_attempt(parent_dir, parent_record)
     parent_candidate = find_candidate_artifact(
         parent_dir,
         parent_record["candidate_sha256"],
     )
+
+    try:
+        authenticate_attempt(parent_dir, parent_record)
+    except ValueError:
+        # Fresh packages have no archive anchor. Reproduce the complete nested
+        # evaluation with the installed secure controller before trusting their
+        # candidate identity or diagnostic text in a provider prompt.
+        frozen = read_confined(parent_dir, parent_candidate.name)
+        if hashlib.sha256(frozen).hexdigest() != parent_record["candidate_sha256"]:
+            raise RuntimeError("Parent candidate changed before independent verification")
+        admission = candidate_admission(frozen.decode("utf-8"), config["admission"])
+        if not admission["accepted"]:
+            raise RuntimeError("Parent candidate is not admitted by the installed runtime")
+        with tempfile.TemporaryDirectory(prefix="rarb-parent-recheck-") as temp:
+            independent_candidate = Path(temp) / "candidate.py"
+            independent_candidate.write_bytes(frozen)
+            independent = evaluate_candidate(
+                task_root, config, independent_candidate,
+                label=parent_record["run_label"],
+                agent_claim="success" if parent_record["evaluation"]["agent_claimed_success"] else "failure",
+            )
+        if independent["final_verdict"] != "VERIFIED_FAIL" or independent["record_hash"] != parent_record["evaluation"]["record_hash"]:
+            raise RuntimeError("Parent evidence does not reproduce under the installed secure controller")
 
     prompt, repair_context, protocol = build_repair_prompt(
         task_root,

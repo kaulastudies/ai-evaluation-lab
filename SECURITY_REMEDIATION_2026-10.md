@@ -38,9 +38,7 @@ from their bodies. Task identifiers and parent labels are constrained; evidence
 files are opened without following links. Repair prompts use frozen candidate bytes.
 
 Historical source-exact replay is restricted to the reviewed archived packages and
-runs in an isolated, bounded environment. New packages and repair parents need
-reviewed provenance before being admitted to the archive; self-supplied hashes are
-not proof of origin. The immutable anchors are a trust decision, not an independent
+runs in an isolated, bounded environment. New packages need reviewed provenance before being admitted to the historical archive. Fresh repair parents are independently re-evaluated with the installed secure controller, and their complete nested record hash must match before candidate code or diagnostic text enters a provider prompt. Self-supplied hashes alone are not proof of origin. The immutable anchors are a trust decision, not an independent
 reassessment of historical benchmark quality.
 
 Legacy executable standalone bundles are no longer trusted just because their
