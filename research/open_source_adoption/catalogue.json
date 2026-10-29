@@ -1,0 +1,1804 @@
+{
+  "schema_version": 1,
+  "reviewed_on": "2026-10-29",
+  "input_scope": "All 125 entries in the user-supplied five-page marketplace extract; not the full 2,230-listing catalogue.",
+  "method": "Title/name plus listed vendor queries, followed by primary-repository verification for selected public alternatives. Search can miss private or unindexed projects. No paid source was purchased or accessed.",
+  "priority_meaning": {
+    "P1": "near-term experimental fit",
+    "P2": "later bounded task or auxiliary workflow",
+    "P3": "defer: outside current scope or insufficient detail"
+  },
+  "projects": [
+    {
+      "id": 1,
+      "title": "SME finance operations platform - SaaS Production Repository",
+      "listed_vendor": "Thalassis",
+      "priority": "P2",
+      "category": "workflow",
+      "public_reference_ids": [
+        "harbor"
+      ],
+      "adoption_idea": "Synthetic invoice approval and reconciliation tasks; no commercial finance code or records.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"SME finance operations platform - SaaS Production Repository\" Thalassis github open source",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 2,
+      "title": "Go and TypeScript Infrastructure",
+      "listed_vendor": "Private Data Supplier",
+      "priority": "P1",
+      "category": "durability",
+      "public_reference_ids": [
+        "temporal-python"
+      ],
+      "adoption_idea": "Crash recovery and transaction-coordination experiments with retained retry evidence.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Go and TypeScript Infrastructure\" Private Data Supplier github open source",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 3,
+      "title": "99tests Crowdsourced QA Marketplace & Human Testing Infras",
+      "listed_vendor": "99tests",
+      "priority": "P2",
+      "category": "review",
+      "public_reference_ids": [
+        "inspect"
+      ],
+      "adoption_idea": "Independent reviewer disagreement and adjudication protocols; no crowd-worker data import.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"99tests Crowdsourced QA Marketplace & Human Testing Infras\" 99tests github open source",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 4,
+      "title": "Historical Software Engineering Codebase & Development Data",
+      "listed_vendor": "DATALENT",
+      "priority": "P2",
+      "category": "repository",
+      "public_reference_ids": [
+        "harbor"
+      ],
+      "adoption_idea": "Repository-change provenance and source-exact replay; require rights to each historical change.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Historical Software Engineering Codebase & Development Data\" DATALENT github open source",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 5,
+      "title": "Full-Stack AI Coworker Platform Codebase",
+      "listed_vendor": "Z data",
+      "priority": "P2",
+      "category": "tool-use",
+      "public_reference_ids": [
+        "mcp-python"
+      ],
+      "adoption_idea": "Bounded tool-call and permission tests using independently authored mock integrations.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Full-Stack AI Coworker Platform Codebase\" Z data github open source",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 6,
+      "title": "Product Codebase: Visual research & AI moodboarding",
+      "listed_vendor": "0x41 Labs",
+      "priority": "P3",
+      "category": "multimodal",
+      "public_reference_ids": [],
+      "adoption_idea": "Defer visual moodboard UI; consider licensed-image retrieval tests after text evidence work.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Product Codebase\" 0x41 Labs github open source",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 7,
+      "title": "Private SaaS Codebase",
+      "listed_vendor": "Variable Ratio",
+      "priority": "P3",
+      "category": "repository",
+      "public_reference_ids": [],
+      "adoption_idea": "Insufficient technical detail for an integration decision; source and licence required.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Private SaaS Codebase\" Variable Ratio github open source",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 8,
+      "title": "1.1M rides, 700K riders, 8 years: the whole Go X Platform",
+      "listed_vendor": "Go X",
+      "priority": "P2",
+      "category": "workflow",
+      "public_reference_ids": [
+        "harbor"
+      ],
+      "adoption_idea": "Synthetic fleet scheduling and billing invariants; exclude rider and trip records.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"1.1M rides, 700K riders, 8 years\" Go X github open source",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 9,
+      "title": "Elixir Protocol DeFi Backend & Engineering History",
+      "listed_vendor": "Elixir",
+      "priority": "P3",
+      "category": "finance",
+      "public_reference_ids": [],
+      "adoption_idea": "Defer protocol-specific evaluation; no trading systems or live settlement integration.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Elixir Protocol DeFi Backend & Engineering History\" Elixir github open source",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 10,
+      "title": "Job opening and candidate pipeline workflow (.NET 10)",
+      "listed_vendor": "DataFactor",
+      "priority": "P2",
+      "category": "workflow",
+      "public_reference_ids": [
+        "harbor"
+      ],
+      "adoption_idea": "Synthetic vacancy state transitions and access controls; no candidate records or eligibility decisions.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Job opening and candidate pipeline workflow (.NET 10)\" DataFactor github open source",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 11,
+      "title": "Freebuff Production AI Coding Agent Repository",
+      "listed_vendor": "Freebuff",
+      "priority": "P1",
+      "category": "coding-agent",
+      "public_reference_ids": [
+        "freebuff",
+        "harbor"
+      ],
+      "adoption_idea": "Evaluate the public Freebuff agent as a separately pinned candidate with tool logs and budget limits.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The public CodebuffAI/freebuff repository was verified. Identity and rights of the sold snapshot, private history and bundled data remain unestablished.",
+      "search_query": "\"Freebuff Production AI Coding Agent Repository\" Freebuff github open source",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 12,
+      "title": "PlanCodeScan — Regulatory Evidence & Readiness Engine",
+      "listed_vendor": "Rama Chandra’s Organization",
+      "priority": "P2",
+      "category": "owned-source",
+      "public_reference_ids": [
+        "harbor"
+      ],
+      "adoption_idea": "Design new synthetic provenance/readiness tasks after separate ownership and publication review.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "User-owned PlanCodeScan is already a separate marketplace asset. No private source, assets or history are copied into the public Lab.",
+      "search_query": "\"PlanCodeScan\" Rama Chandra github open source",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 13,
+      "title": "Procedural Sound Studio — LLM-authored music as code",
+      "listed_vendor": "Shreenivas’s Organization",
+      "priority": "P3",
+      "category": "multimodal",
+      "public_reference_ids": [],
+      "adoption_idea": "Potential sandbox resource-limit and generated-artifact tests; audio evaluation needs its own contract.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Procedural Sound Studio\" Shreenivas github open source",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 14,
+      "title": "OAF — High-Performance Lossless Archive Engine",
+      "listed_vendor": "Noctyx Developments",
+      "priority": "P2",
+      "category": "systems",
+      "public_reference_ids": [
+        "harbor"
+      ],
+      "adoption_idea": "Original archive round-trip, corruption and streaming-limit tasks; do not copy the sold archive engine.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"OAF\" Noctyx Developments github open source",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 15,
+      "title": "Quiet Skies: Three.js Flight Simulator with a Procedural Wor",
+      "listed_vendor": "Awais’s Organization",
+      "priority": "P3",
+      "category": "simulation",
+      "public_reference_ids": [
+        "gymnasium"
+      ],
+      "adoption_idea": "Defer flight simulation; use controlled environments only if a visual-agent research question is approved.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Quiet Skies\" Awais github open source",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 16,
+      "title": "Proprietary x86_64 Rust Microkernel & WebAssembly OS Archit",
+      "listed_vendor": "Imperium",
+      "priority": "P3",
+      "category": "systems",
+      "public_reference_ids": [],
+      "adoption_idea": "Kernel and capability-isolation claims require a separate systems review and execution environment.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Proprietary x86_64 Rust Microkernel & WebAssembly OS Archit\" Imperium github open source",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 17,
+      "title": "Over The Horizon - 3D Planetary Exploration & Game Engine",
+      "listed_vendor": "Srinivasa Yadav",
+      "priority": "P3",
+      "category": "simulation",
+      "public_reference_ids": [
+        "gymnasium"
+      ],
+      "adoption_idea": "Defer planetary game integration; deterministic state transitions could inspire original simulation tasks.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Over The Horizon - 3D Planetary Exploration & Game Engine\" Srinivasa Yadav github open source",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 18,
+      "title": "Rust MEV bot: full Git history + 54 days of live trade data",
+      "listed_vendor": "Anthem Labs",
+      "priority": "P3",
+      "category": "finance",
+      "public_reference_ids": [],
+      "adoption_idea": "Exclude live MEV execution; only independently authored transaction-replay fixtures could be relevant.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Rust MEV bot\" Anthem Labs github open source",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 19,
+      "title": "Forma — AI Architectural Visualization & 3D Reconstruction",
+      "listed_vendor": "amith’s Organization",
+      "priority": "P3",
+      "category": "multimodal",
+      "public_reference_ids": [
+        "ospray"
+      ],
+      "adoption_idea": "Possible geometry and rendering invariants; no architectural approval or proprietary image assets.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Forma\" amith github open source",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 20,
+      "title": "Real-time payment fraud detection on K8s (Spark/StarRocks)",
+      "listed_vendor": "Juan’s Organization",
+      "priority": "P2",
+      "category": "data-pipeline",
+      "public_reference_ids": [
+        "harbor"
+      ],
+      "adoption_idea": "Synthetic late-event, duplicate-event and leakage tests for streaming pipelines.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Real-time payment fraud detection on K8s (Spark/StarRocks)\" Juan github open source",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 21,
+      "title": "Self-hosted LLM serving and evaluation program on K8s",
+      "listed_vendor": "Juan’s Organization",
+      "priority": "P1",
+      "category": "evaluation",
+      "public_reference_ids": [
+        "inspect"
+      ],
+      "adoption_idea": "Preserve complete evaluation logs and model/configuration identity before comparing serving configurations.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Self-hosted LLM serving and evaluation program on K8s\" Juan github open source",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 22,
+      "title": "Real-time news and social trend platform (Kafka/Spark)",
+      "listed_vendor": "Juan’s Organization",
+      "priority": "P2",
+      "category": "data-pipeline",
+      "public_reference_ids": [
+        "harbor"
+      ],
+      "adoption_idea": "Source provenance and out-of-order ingestion fixtures; no scraping or customer news corpus import.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Real-time news and social trend platform (Kafka/Spark)\" Juan github open source",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 23,
+      "title": "Reliability Engineering Lab (REL) — Reliability Simulations",
+      "listed_vendor": "Kapil’s Organization",
+      "priority": "P2",
+      "category": "durability",
+      "public_reference_ids": [
+        "temporal-python"
+      ],
+      "adoption_idea": "Preregister failure/repair scenarios and distinguish simulated reliability from production evidence.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Reliability Engineering Lab (REL)\" Kapil github open source",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 24,
+      "title": "VeerOS",
+      "listed_vendor": "VeerLabs Solutions",
+      "priority": "P3",
+      "category": "systems",
+      "public_reference_ids": [],
+      "adoption_idea": "Description too broad to validate operating-system capabilities; defer implementation.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"VeerOS\" VeerLabs Solutions github open source",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 25,
+      "title": "OpenKyle: clinical encounter factory and WebXR runtime",
+      "listed_vendor": "Founder Execute",
+      "priority": "P3",
+      "category": "clinical",
+      "public_reference_ids": [],
+      "adoption_idea": "Defer clinical encounters; any future tests need independently reviewed synthetic cases.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"OpenKyle\" Founder Execute github open source",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 26,
+      "title": "Veero",
+      "listed_vendor": "VeerLabs Solutions",
+      "priority": "P3",
+      "category": "ui",
+      "public_reference_ids": [],
+      "adoption_idea": "UI framework replacement does not advance current verifier research; no adoption now.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Veero\" VeerLabs Solutions github open source",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 27,
+      "title": "sbtxt-core: 768-D Vector Search & Product Quantization",
+      "listed_vendor": "Notii Labs",
+      "priority": "P2",
+      "category": "retrieval",
+      "public_reference_ids": [
+        "faiss"
+      ],
+      "adoption_idea": "Measure approximate-neighbour recall against exact search with frozen public or synthetic vectors.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"sbtxt-core\" Notii Labs github open source",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 28,
+      "title": "notii: AC-3 Constraint Solver & Causal CRDT Engine",
+      "listed_vendor": "Notii Labs",
+      "priority": "P2",
+      "category": "constraints",
+      "public_reference_ids": [
+        "or-tools"
+      ],
+      "adoption_idea": "Constraint and schedule feasibility controls; CRDT convergence would require a separate model.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"notii\" Notii Labs github open source",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 29,
+      "title": "ARES Memory OS — Persistent Memory for AI Coding Agents",
+      "listed_vendor": "Eswar’s Organization",
+      "priority": "P2",
+      "category": "retrieval",
+      "public_reference_ids": [
+        "faiss"
+      ],
+      "adoption_idea": "Test stale-memory retrieval, source provenance and cross-task contamination before agent memory integration.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"ARES Memory OS\" Eswar github open source",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 30,
+      "title": "Enterprise Agent Reliability Pack: Tool-Use Safety Eval",
+      "listed_vendor": "KONDURI’s Organization",
+      "priority": "P1",
+      "category": "tool-use",
+      "public_reference_ids": [
+        "harbor",
+        "mcp-python"
+      ],
+      "adoption_idea": "Author independent tool-use cases under new contracts; the advertised 20 tasks are not available for reuse.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Enterprise Agent Reliability Pack\" KONDURI github open source",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 31,
+      "title": "VELOCITY X: Three.js racing game codebase with tests and git",
+      "listed_vendor": "Magzin",
+      "priority": "P3",
+      "category": "simulation",
+      "public_reference_ids": [
+        "gymnasium"
+      ],
+      "adoption_idea": "Defer racing-game import; deterministic environment controls are the potentially transferable idea.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"VELOCITY X\" Magzin github open source",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 32,
+      "title": "Relaykit — Multi-tenant Operations Platform (Next.js",
+      "listed_vendor": "Magzin",
+      "priority": "P2",
+      "category": "workflow",
+      "public_reference_ids": [
+        "temporal-python"
+      ],
+      "adoption_idea": "Tenant isolation, dependency ordering and event replay fixtures with no real tenant data.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Relaykit\" Magzin github open source",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 33,
+      "title": "StreetOCR — Verified Surveys & Metadata Research Engine",
+      "listed_vendor": "Nilima’s Organization",
+      "priority": "P2",
+      "category": "provenance",
+      "public_reference_ids": [
+        "harbor"
+      ],
+      "adoption_idea": "Coverage completeness and resumable research tasks with explicit uncertainty and source references.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"StreetOCR\" Nilima github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 34,
+      "title": "PyPie — AI Storybook & Continuity Planning Engine",
+      "listed_vendor": "Nilima’s Organization",
+      "priority": "P2",
+      "category": "constraints",
+      "public_reference_ids": [
+        "or-tools"
+      ],
+      "adoption_idea": "Synthetic continuity constraints and replay verification; no story or image dataset copying.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"PyPie\" Nilima github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 35,
+      "title": "TrustChainnn",
+      "listed_vendor": "Achintya’s Organization",
+      "priority": "P2",
+      "category": "provenance",
+      "public_reference_ids": [
+        "temporal-python"
+      ],
+      "adoption_idea": "Custody event ordering, duplicate detection and provenance checks on synthetic records.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"TrustChainnn\" Achintya github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 36,
+      "title": "Agent Sandbox Platform",
+      "listed_vendor": "Sean’s Organization",
+      "priority": "P1",
+      "category": "isolation",
+      "public_reference_ids": [
+        "agent-sandbox"
+      ],
+      "adoption_idea": "Study sandbox lifecycle separately from actual kernel isolation; no cluster deployment in this branch.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "Kubernetes SIG Apps agent-sandbox is a separately verified public alternative; no evidence establishes it is Sean’s listed product.",
+      "search_query": "\"Agent Sandbox Platform\" Sean github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 37,
+      "title": "Property Insurance Claim Document Processor v1",
+      "listed_vendor": "Fintech Founder",
+      "priority": "P2",
+      "category": "documents",
+      "public_reference_ids": [
+        "harbor"
+      ],
+      "adoption_idea": "Synthetic PDF extraction with exact evidence locations; no insurance claimant documents.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Property Insurance Claim Document Processor v1\" Fintech Founder github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 38,
+      "title": "cNGN Stablecoin Settlement Hub",
+      "listed_vendor": "My Organization",
+      "priority": "P3",
+      "category": "finance",
+      "public_reference_ids": [],
+      "adoption_idea": "Defer regulated settlement infrastructure; generic idempotency research belongs with EO-001 review.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"cNGN Stablecoin Settlement Hub\" My  github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 39,
+      "title": "Mechanistic Interpretability: Tiny Recurrent Network Study",
+      "listed_vendor": "Egoist Machines, Inc.",
+      "priority": "P3",
+      "category": "interpretability",
+      "public_reference_ids": [],
+      "adoption_idea": "Mechanistic interventions need a separate scientific protocol and independently licensed model/data.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Mechanistic Interpretability\" Egoist Machines, Inc. github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 40,
+      "title": "Workspine: Local-First Work Capture Desktop App + AI Context",
+      "listed_vendor": "Aixcel Labs",
+      "priority": "P2",
+      "category": "provenance",
+      "public_reference_ids": [
+        "inspect"
+      ],
+      "adoption_idea": "Local work-trace provenance with deliberate capture scope; no desktop surveillance or automatic collection.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "Search returned PatrickSys/workspine; its description differs from the Aixcel Labs desktop listing. Treat as a name collision, not a match.",
+      "search_query": "\"Workspine\" Aixcel Labs github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 41,
+      "title": "MoCap",
+      "listed_vendor": "Ayush Paul's organization",
+      "priority": "P3",
+      "category": "hardware",
+      "public_reference_ids": [],
+      "adoption_idea": "Motion-capture hardware lies outside current text/code evaluation scope.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"MoCap\" Ayush Paul's organization github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 42,
+      "title": "Approved iOS app, Web & Backend Codebase",
+      "listed_vendor": "Vevria Data",
+      "priority": "P3",
+      "category": "application",
+      "public_reference_ids": [],
+      "adoption_idea": "Large application size alone is not a research fit; require a specific bounded task and licence.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Approved iOS app, Web & Backend Codebase\" Vevria Data github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 43,
+      "title": "Personal suite of vibe coded ideas",
+      "listed_vendor": "Arth’s Organization",
+      "priority": "P3",
+      "category": "application",
+      "public_reference_ids": [],
+      "adoption_idea": "Mixed scraping and map utilities lack a coherent immediate Lab integration target.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Personal suite of vibe coded ideas\" Arth github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 44,
+      "title": "Rocketspace",
+      "listed_vendor": "Harshil’s Organization",
+      "priority": "P3",
+      "category": "application",
+      "public_reference_ids": [],
+      "adoption_idea": "Business-building application features do not justify replacing the Lab's research workflow.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Rocketspace\" Harshil github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 45,
+      "title": "Glint",
+      "listed_vendor": "Enzo’s Organization",
+      "priority": "P2",
+      "category": "review",
+      "public_reference_ids": [
+        "inspect"
+      ],
+      "adoption_idea": "Reviewer calibration and annotation provenance; no contributor data or commercial platform import.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Glint\" Enzo github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 46,
+      "title": "Geothermal inventions (zemanium.com)",
+      "listed_vendor": "Toni’s Organization",
+      "priority": "P3",
+      "category": "science",
+      "public_reference_ids": [],
+      "adoption_idea": "Geothermal invention claims need independent domain validation before any evaluation task.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Geothermal inventions (zemanium.com)\" Toni github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 47,
+      "title": "DootDB: Zig storage engine + HTTP service with full decision",
+      "listed_vendor": "Tarek’s Organization",
+      "priority": "P2",
+      "category": "systems",
+      "public_reference_ids": [
+        "harbor",
+        "valkey"
+      ],
+      "adoption_idea": "Original persistence and crash-consistency tasks with independently verified outcomes.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"DootDB\" Tarek github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 48,
+      "title": "Production runtime and dashboard for long-running agents.",
+      "listed_vendor": "Yusuf’s Organization",
+      "priority": "P1",
+      "category": "durability",
+      "public_reference_ids": [
+        "temporal-python"
+      ],
+      "adoption_idea": "Process restarts, concurrent retries and durable event histories, coordinated with open EO-001 work.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Production runtime and dashboard for long-running agents.\" Yusuf github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 49,
+      "title": "AgentOS",
+      "listed_vendor": "Independent",
+      "priority": "P2",
+      "category": "tool-use",
+      "public_reference_ids": [
+        "mcp-python",
+        "agent-sandbox"
+      ],
+      "adoption_idea": "Explicit computer-action authority and sandbox limits; do not assume name-matching AgentOS repositories are identical.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "Multiple unrelated AgentOS repositories surfaced. The listed owner and exact source were not established.",
+      "search_query": "\"AgentOS\" Independent github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 50,
+      "title": "DEAD ZONE: OUTBREAK - UE5 Survival Horror",
+      "listed_vendor": "Dusker AI",
+      "priority": "P3",
+      "category": "simulation",
+      "public_reference_ids": [],
+      "adoption_idea": "Defer Unreal game and asset import; code and art have separate rights and runtime costs.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"DEAD ZONE\" Dusker AI github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 51,
+      "title": "MCPSMITH | API to MCP Server Generator",
+      "listed_vendor": "Akhil’s Organization",
+      "priority": "P1",
+      "category": "tool-contract",
+      "public_reference_ids": [
+        "mcp-python"
+      ],
+      "adoption_idea": "Version tool schemas and test removed tools, required fields and permission changes before dispatch.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"MCPSMITH | API to MCP Server Generator\" Akhil github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 52,
+      "title": "Drommo LoRA Lab: reproducible QLoRA fine-tuning & evaluation",
+      "listed_vendor": "Magzin",
+      "priority": "P2",
+      "category": "evaluation",
+      "public_reference_ids": [
+        "inspect"
+      ],
+      "adoption_idea": "Frozen train/eval splits and paired adapter comparisons; no training or GPU jobs in this branch.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Drommo LoRA Lab\" Magzin github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 53,
+      "title": "TriFlow Python mesh topology reimplementation",
+      "listed_vendor": "Preetinder’s Organization",
+      "priority": "P3",
+      "category": "science",
+      "public_reference_ids": [],
+      "adoption_idea": "Mesh-topology research needs an independent numeric oracle and licensed inputs before adoption.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"TriFlow Python mesh topology reimplementation\" Preetinder github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 54,
+      "title": "Things: full-stack on-device computer vision app (TypeScript",
+      "listed_vendor": "Carol’s Organization",
+      "priority": "P3",
+      "category": "multimodal",
+      "public_reference_ids": [],
+      "adoption_idea": "Defer on-device vision integration; later test object extraction with synthetic images and fixed metrics.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Things\" Carol github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 55,
+      "title": "Livestock monitoring application",
+      "listed_vendor": "Ocean labs AI",
+      "priority": "P3",
+      "category": "multimodal",
+      "public_reference_ids": [],
+      "adoption_idea": "Geospatial deduplication is a future task idea, not a reason to import drone footage.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Livestock monitoring application\" Ocean labs AI github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 56,
+      "title": "Rust PCIe device emulation framework",
+      "listed_vendor": "Bayley’s Organization",
+      "priority": "P3",
+      "category": "hardware",
+      "public_reference_ids": [],
+      "adoption_idea": "PCIe device emulation requires specialist hardware/isolation review and separate scope.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Rust PCIe device emulation framework\" Bayley github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 57,
+      "title": "Windex: Solana Account Indexer and GraphQL API",
+      "listed_vendor": "Ferum Labs",
+      "priority": "P3",
+      "category": "finance",
+      "public_reference_ids": [],
+      "adoption_idea": "Indexer reorg and replay concepts may inform synthetic tests; no live chain integration now.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Windex\" Ferum Labs github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 58,
+      "title": "Move-Based High-Efficiency Central Limit Order Book",
+      "listed_vendor": "Ferum Labs",
+      "priority": "P3",
+      "category": "finance",
+      "public_reference_ids": [],
+      "adoption_idea": "Order-book matching requires a separately reviewed reference model; no trading implementation.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Move-Based High-Efficiency Central Limit Order Book\" Ferum Labs github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 59,
+      "title": "1v1 leaderboard",
+      "listed_vendor": "Kayvon’s Organization",
+      "priority": "P2",
+      "category": "workflow",
+      "public_reference_ids": [
+        "harbor"
+      ],
+      "adoption_idea": "Synthetic leaderboard tie handling and deterministic ranking tests.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"1v1 leaderboard\" Kayvon github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 60,
+      "title": "wuxnz verified game-engine portfolio (2 repos)",
+      "listed_vendor": "Kayvon’s Organization",
+      "priority": "P2",
+      "category": "provenance",
+      "public_reference_ids": [
+        "harbor"
+      ],
+      "adoption_idea": "Shuffle commitment and signed-result checks as original tasks; verify cryptographic assumptions separately.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"wuxnz verified game-engine portfolio (2 repos)\" Kayvon github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 61,
+      "title": "Neoku v1",
+      "listed_vendor": "Kayvon’s Organization",
+      "priority": "P3",
+      "category": "simulation",
+      "public_reference_ids": [],
+      "adoption_idea": "No enough detail to justify adopting this game codebase.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Neoku v1\" Kayvon github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 62,
+      "title": "Plutonium anticheat",
+      "listed_vendor": "Kayvon’s Organization",
+      "priority": "P3",
+      "category": "security",
+      "public_reference_ids": [],
+      "adoption_idea": "Integrity and tampering are relevant concepts; game anticheat requires explicit authorization and distinct scope.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Plutonium anticheat\" Kayvon github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 63,
+      "title": "LuLu: DAG orchestrator + SQLite ledger substrate",
+      "listed_vendor": "Kayvon’s Organization",
+      "priority": "P1",
+      "category": "durability",
+      "public_reference_ids": [
+        "temporal-python"
+      ],
+      "adoption_idea": "Content-bound execution plans, restart recovery and evidence-preserving stage retries.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"LuLu\" Kayvon github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 64,
+      "title": "TopDeck Circuit: Yu-Gi-Oh! tournament & duel engine",
+      "listed_vendor": "Kayvon’s Organization",
+      "priority": "P2",
+      "category": "constraints",
+      "public_reference_ids": [
+        "or-tools"
+      ],
+      "adoption_idea": "Independent tournament feasibility and deterministic tie-break tasks, without proprietary game assets.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"TopDeck Circuit\" Kayvon github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 65,
+      "title": "AlphaBench: Backtesting Bench + Research Record",
+      "listed_vendor": "datxzxz",
+      "priority": "P2",
+      "category": "evaluation",
+      "public_reference_ids": [
+        "inspect"
+      ],
+      "adoption_idea": "Preregister hypotheses, retain failed strategies and separate time-based train/eval windows.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "Several AlphaBench projects surfaced with different owners and purposes. None is accepted as the datxzxz listing.",
+      "search_query": "\"AlphaBench\" datxzxz github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 66,
+      "title": "Social chat site with video-to-GIF & caption tools",
+      "listed_vendor": "sameer’s Organization",
+      "priority": "P3",
+      "category": "multimodal",
+      "public_reference_ids": [],
+      "adoption_idea": "Media-processing UI is not a current priority; retain only the idea of artifact-level acceptance tests.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Social chat site with video-to-GIF & caption tools\" sameer github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 67,
+      "title": "TieProof - auditable revenue reconciliation",
+      "listed_vendor": "Jeetaksh’s Organization",
+      "priority": "P2",
+      "category": "workflow",
+      "public_reference_ids": [
+        "harbor"
+      ],
+      "adoption_idea": "Exact arithmetic and invoice/payment lineage in synthetic reconciliation tasks.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"TieProof - auditable revenue reconciliation\" Jeetaksh github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 68,
+      "title": "NRFI/YRFI Prediction Engine – Calibrated 4-Model MLB Ensembl",
+      "listed_vendor": "My Organization",
+      "priority": "P3",
+      "category": "evaluation",
+      "public_reference_ids": [],
+      "adoption_idea": "Calibration is transferable, but sports prediction and betting claims are outside Lab integration scope.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"NRFI/YRFI Prediction Engine – Calibrated 4-Model MLB Ensembl\" My  github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 69,
+      "title": "Harbor tasks",
+      "listed_vendor": "Mayank’s Organization",
+      "priority": "P1",
+      "category": "evaluation",
+      "public_reference_ids": [
+        "harbor"
+      ],
+      "adoption_idea": "Use the public Harbor format for original Lab tasks; marketplace task contents are not cleared.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "Harbor framework is open source; the marketplace vendor’s task pack has independent rights and contents.",
+      "search_query": "\"Harbor tasks\" Mayank github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 70,
+      "title": "EmilyOS — Autonomous AI Operating System",
+      "listed_vendor": "Sandeep’s Organization",
+      "priority": "P2",
+      "category": "tool-use",
+      "public_reference_ids": [
+        "mcp-python",
+        "agent-sandbox"
+      ],
+      "adoption_idea": "Observe bounded tool execution and separate claimed completion from independent outcomes.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"EmilyOS\" Sandeep github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 71,
+      "title": "vbits: synthetic financial-data generator (Python + TS)",
+      "listed_vendor": "vbits",
+      "priority": "P2",
+      "category": "synthetic-data",
+      "public_reference_ids": [
+        "harbor"
+      ],
+      "adoption_idea": "Versioned synthetic fixture generators with leakage checks; generation alone does not prove privacy.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"vbits\" vbits github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 72,
+      "title": "ComplyFleet — Fleet Regulatory & Telematics Engine",
+      "listed_vendor": "Bhargav’s Organization",
+      "priority": "P2",
+      "category": "data-pipeline",
+      "public_reference_ids": [
+        "harbor"
+      ],
+      "adoption_idea": "Deterministic event-time and coverage checks; no regulatory-compliance claims from synthetic tests.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"ComplyFleet\" Bhargav github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 73,
+      "title": "Air — Gesture-Control System",
+      "listed_vendor": "Sidharth’s Organization",
+      "priority": "P3",
+      "category": "multimodal",
+      "public_reference_ids": [],
+      "adoption_idea": "Gesture control would need consented video and an independent interaction protocol; defer.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Air\" Sidharth github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 74,
+      "title": "Proclear Safety-First macOS Storage Auditor Cleaner Swift 6",
+      "listed_vendor": "Spark Mithila",
+      "priority": "P2",
+      "category": "tool-use",
+      "public_reference_ids": [
+        "harbor"
+      ],
+      "adoption_idea": "Quarantine, recovery and no-delete boundaries in a disposable synthetic filesystem.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Proclear Safety-First macOS Storage Auditor Cleaner Swift 6\" Spark Mithila github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 75,
+      "title": "Lemma",
+      "listed_vendor": "NorviaLabs",
+      "priority": "P3",
+      "category": "learning",
+      "public_reference_ids": [],
+      "adoption_idea": "Visual lesson generation is outside current evidence and verifier priorities.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Lemma\" NorviaLabs github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 76,
+      "title": "Conclave",
+      "listed_vendor": "NorviaLabs",
+      "priority": "P2",
+      "category": "orchestration",
+      "public_reference_ids": [
+        "temporal-python"
+      ],
+      "adoption_idea": "Dependency and authority ordering in multi-agent workflows; no framework migration.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Conclave\" NorviaLabs github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 77,
+      "title": "JMeter Test Plan CLI & AI Context Optimization Tool",
+      "listed_vendor": "Yedhu’s Organization",
+      "priority": "P2",
+      "category": "tool-contract",
+      "public_reference_ids": [
+        "harbor"
+      ],
+      "adoption_idea": "Structure-preserving edits and validation of synthetic test-plan documents.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"JMeter Test Plan CLI & AI Context Optimization Tool\" Yedhu github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 78,
+      "title": "Modular 3D Stealth Game Engine & NPC AI Logic Pack",
+      "listed_vendor": "Waseem’s Organization",
+      "priority": "P3",
+      "category": "simulation",
+      "public_reference_ids": [
+        "gymnasium"
+      ],
+      "adoption_idea": "Game-engine and NPC evaluation is deferred until a bounded simulation contract exists.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Modular 3D Stealth Game Engine & NPC AI Logic Pack\" Waseem github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 79,
+      "title": "Click-On: Reusable Gaming Infrastructure & Competitive Gamin",
+      "listed_vendor": "Dozimikes",
+      "priority": "P3",
+      "category": "simulation",
+      "public_reference_ids": [],
+      "adoption_idea": "Competitive gaming infrastructure is not an immediate Lab dependency.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Click-On\" Dozimikes github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 80,
+      "title": "Windows AI cockpit: voice agent that proves its actions",
+      "listed_vendor": "José’s Organization",
+      "priority": "P1",
+      "category": "tool-use",
+      "public_reference_ids": [
+        "mcp-python"
+      ],
+      "adoption_idea": "Bind each synthetic OS action to authorization and independently observed effects; no real desktop control.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Windows AI cockpit\" José github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 81,
+      "title": "OpenChapter: A modern ebook reading and discovery website",
+      "listed_vendor": "yochrisbolton",
+      "priority": "P3",
+      "category": "retrieval",
+      "public_reference_ids": [
+        "faiss"
+      ],
+      "adoption_idea": "Possible retrieval/citation tests on licensed text; do not ingest ebook catalogues or copyrighted books.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"OpenChapter\" yochrisbolton github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 82,
+      "title": "Production Event Seating & Visual Floor-Plan SaaS Codebase",
+      "listed_vendor": "Jaime Gonzalez",
+      "priority": "P2",
+      "category": "constraints",
+      "public_reference_ids": [
+        "or-tools"
+      ],
+      "adoption_idea": "Synthetic seating feasibility, capacity and conflict tests without guest data.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Production Event Seating & Visual Floor-Plan SaaS Codebase\" Jaime Gonzalez github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 83,
+      "title": "Reasonix — Intelligence Infrastructure",
+      "listed_vendor": "My Organization",
+      "priority": "P3",
+      "category": "application",
+      "public_reference_ids": [],
+      "adoption_idea": "The intelligence-infrastructure description is too broad to verify a useful integration.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "Search surfaced similarly named terminal coding agents; these do not establish the listed intelligence-infrastructure source.",
+      "search_query": "\"Reasonix\" My  github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 84,
+      "title": "Killbook 3D: Real-Time Multiplayer Social Deduction Game",
+      "listed_vendor": "Waseem’s Organization",
+      "priority": "P3",
+      "category": "simulation",
+      "public_reference_ids": [],
+      "adoption_idea": "Defer multiplayer game integration; deterministic state/replay remains a possible future task type.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Killbook 3D\" Waseem github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 85,
+      "title": "Fully Automated E-COMMERCE platform",
+      "listed_vendor": "Surya’s Organization",
+      "priority": "P2",
+      "category": "workflow",
+      "public_reference_ids": [
+        "harbor"
+      ],
+      "adoption_idea": "Synthetic order-state and duplicate-effect tests; actual payment behavior stays outside this prototype.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Fully Automated E-COMMERCE platform\" Surya github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 86,
+      "title": "Production, Inventory & Order Operations for Manufacturing B",
+      "listed_vendor": "Abhash’s Organization",
+      "priority": "P2",
+      "category": "workflow",
+      "public_reference_ids": [
+        "harbor"
+      ],
+      "adoption_idea": "Inventory conservation and transactional order-update tasks using synthetic stock records.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Production, Inventory & Order Operations for Manufacturing B\" Abhash github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 87,
+      "title": "Reinforcement Learning Game Lab",
+      "listed_vendor": "Faizan ’s Organization",
+      "priority": "P2",
+      "category": "simulation",
+      "public_reference_ids": [
+        "gymnasium"
+      ],
+      "adoption_idea": "Adopt explicit reset/step/termination semantics when a separate RL evaluation is approved.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Reinforcement Learning Game Lab\" Faizan  github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 88,
+      "title": "Coding-Agent Failure Prediction Lab",
+      "listed_vendor": "Faizan ’s Organization",
+      "priority": "P1",
+      "category": "failure-analysis",
+      "public_reference_ids": [
+        "agentrx"
+      ],
+      "adoption_idea": "Treat failure localization as an auxiliary diagnosis; calibrate stopping policies separately on held-out trajectories.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Coding-Agent Failure Prediction Lab\" Faizan  github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 89,
+      "title": "CSV-to-Model Workflow Lab",
+      "listed_vendor": "Faizan ’s Organization",
+      "priority": "P2",
+      "category": "evaluation",
+      "public_reference_ids": [
+        "inspect"
+      ],
+      "adoption_idea": "Train/test split integrity, calibration and portable inference contracts on synthetic tabular data.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"CSV-to-Model Workflow Lab\" Faizan  github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 90,
+      "title": "Code Editing Format Research Lab",
+      "listed_vendor": "Faizan ’s Organization",
+      "priority": "P1",
+      "category": "coding-agent",
+      "public_reference_ids": [
+        "aider",
+        "harbor"
+      ],
+      "adoption_idea": "Preregister paired edit-format experiments with identical tasks and independently checked patches.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Code Editing Format Research Lab\" Faizan  github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 91,
+      "title": "Coding-Agent Process Reward Lab",
+      "listed_vendor": "Faizan ’s Organization",
+      "priority": "P1",
+      "category": "failure-analysis",
+      "public_reference_ids": [
+        "agentrx"
+      ],
+      "adoption_idea": "Audit trajectory-label leakage and keep process rewards distinct from final verifier outcomes.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Coding-Agent Process Reward Lab\" Faizan  github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 92,
+      "title": "Dependency Policy Experiment Kit",
+      "listed_vendor": "Faizan ’s Organization",
+      "priority": "P1",
+      "category": "dependency",
+      "public_reference_ids": [
+        "pip-audit"
+      ],
+      "adoption_idea": "Review pinned dependency changes and vulnerability evidence; never auto-fix the existing Lab environment.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Dependency Policy Experiment Kit\" Faizan  github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 93,
+      "title": "Coding-Agent Improvement Experiment Kit",
+      "listed_vendor": "Faizan ’s Organization",
+      "priority": "P1",
+      "category": "coding-agent",
+      "public_reference_ids": [
+        "freebuff",
+        "aider",
+        "harbor"
+      ],
+      "adoption_idea": "Evaluate proposed agent changes in a shadow branch with retained baseline, rollback and negative controls.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Coding-Agent Improvement Experiment Kit\" Faizan  github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 94,
+      "title": "AI Intelligence Engine Ventro",
+      "listed_vendor": "Akshat’s Organization",
+      "priority": "P3",
+      "category": "application",
+      "public_reference_ids": [],
+      "adoption_idea": "Investor-pattern analysis is separate from agent reliability and does not belong in the current runtime.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"AI Intelligence Engine Ventro\" Akshat github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 95,
+      "title": "OSPRay Eval - Long-Horizon Coding Agent Benchmark",
+      "listed_vendor": "Moury’s Organization",
+      "priority": "P2",
+      "category": "systems",
+      "public_reference_ids": [
+        "ospray",
+        "harbor"
+      ],
+      "adoption_idea": "Use independently licensed OSPRay source for a new bounded task; the advertised 12-hour benchmark is not open by association.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "RenderKit/ospray is an open-source renderer. This does not establish rights to the marketplace OSPRay Eval task, prompts, verifier or history.",
+      "search_query": "\"OSPRay Eval - Long-Horizon Coding Agent Benchmark\" Moury github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 96,
+      "title": "Groundwork AI: Governed AI Workspace for Jira and Confluence",
+      "listed_vendor": "Abhineet’s Organization",
+      "priority": "P1",
+      "category": "tool-use",
+      "public_reference_ids": [
+        "mcp-python"
+      ],
+      "adoption_idea": "Synthetic document permissions, citations and approval boundaries; no Jira or Confluence connection.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Groundwork AI\" Abhineet github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 97,
+      "title": "AI Interview and Career Learning Platform",
+      "listed_vendor": "Faizan ’s Organization",
+      "priority": "P3",
+      "category": "learning",
+      "public_reference_ids": [],
+      "adoption_idea": "Interview practice is a separate product; only independently specified rubric ideas may transfer.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"AI Interview and Career Learning Platform\" Faizan  github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 98,
+      "title": "AI Learning and Assessment Platform",
+      "listed_vendor": "Faizan ’s Organization",
+      "priority": "P3",
+      "category": "learning",
+      "public_reference_ids": [],
+      "adoption_idea": "Learning-plan features do not justify changing Lab runtime or research claims.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"AI Learning and Assessment Platform\" Faizan  github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 99,
+      "title": "Interview Evidence Rubric Engine and AI Practice Platform",
+      "listed_vendor": "Faizan ’s Organization",
+      "priority": "P2",
+      "category": "review",
+      "public_reference_ids": [
+        "inspect"
+      ],
+      "adoption_idea": "Replayable reviewer decisions and explicit rubric evidence, using synthetic assessment cases.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Interview Evidence Rubric Engine and AI Practice Platform\" Faizan  github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 100,
+      "title": "Voice-Guided Coding and AI Build Platform",
+      "listed_vendor": "Faizan ’s Organization",
+      "priority": "P2",
+      "category": "coding-agent",
+      "public_reference_ids": [
+        "aider"
+      ],
+      "adoption_idea": "Validate edits and tool permissions independently of a voice interface; audio is deferred.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Voice-Guided Coding and AI Build Platform\" Faizan  github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 101,
+      "title": "Cohort Learning Cloud Backend",
+      "listed_vendor": "Faizan ’s Organization",
+      "priority": "P2",
+      "category": "review",
+      "public_reference_ids": [
+        "inspect"
+      ],
+      "adoption_idea": "Transactional review assignments and disagreement reports without student records.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Cohort Learning Cloud Backend\" Faizan  github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 102,
+      "title": "Form-to-Outreach Automation Server",
+      "listed_vendor": "Faizan ’s Organization",
+      "priority": "P2",
+      "category": "durability",
+      "public_reference_ids": [
+        "temporal-python"
+      ],
+      "adoption_idea": "Delivery receipts and same-key retry tests in a simulated outbox; no outreach is sent.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Form-to-Outreach Automation Server\" Faizan  github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 103,
+      "title": "Cohort Curriculum and Learning Portal",
+      "listed_vendor": "Faizan ’s Organization",
+      "priority": "P2",
+      "category": "review",
+      "public_reference_ids": [
+        "inspect"
+      ],
+      "adoption_idea": "Balanced reviewer assignment and evidence replay; preregister calibration metrics.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Cohort Curriculum and Learning Portal\" Faizan  github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 104,
+      "title": "Scheduling and Outreach Operations Dashboard",
+      "listed_vendor": "Faizan ’s Organization",
+      "priority": "P2",
+      "category": "constraints",
+      "public_reference_ids": [
+        "or-tools",
+        "temporal-python"
+      ],
+      "adoption_idea": "Conflict-free schedules and duplicate-safe reminder simulation.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Scheduling and Outreach Operations Dashboard\" Faizan  github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 105,
+      "title": "Playback Evidence Engine and Course Portal",
+      "listed_vendor": "Faizan ’s Organization",
+      "priority": "P2",
+      "category": "provenance",
+      "public_reference_ids": [
+        "harbor"
+      ],
+      "adoption_idea": "Interval union and immutable playback-event tasks on generated timestamps.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Playback Evidence Engine and Course Portal\" Faizan  github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 106,
+      "title": "Evidence Relations Engine and Recruiting Platform",
+      "listed_vendor": "Faizan ’s Organization",
+      "priority": "P1",
+      "category": "provenance",
+      "public_reference_ids": [
+        "harbor"
+      ],
+      "adoption_idea": "Source-witness joins and replayable relation queries using independently authored synthetic records.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Evidence Relations Engine and Recruiting Platform\" Faizan  github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 107,
+      "title": "XTHENOL-100: Computational E10/E20 Fuel Additive Design",
+      "listed_vendor": "Chandandeep’s Organization",
+      "priority": "P3",
+      "category": "science",
+      "public_reference_ids": [],
+      "adoption_idea": "Chemical-model predictions require specialist validation; no fuel formulation or empirical claims are adopted.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"XTHENOL-100\" Chandandeep github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 108,
+      "title": "Loupe: Reliable Code Repair with a Tiny Local LLM on macOS",
+      "listed_vendor": "Chandandeep’s Organization",
+      "priority": "P2",
+      "category": "coding-agent",
+      "public_reference_ids": [
+        "aider",
+        "harbor"
+      ],
+      "adoption_idea": "Compare constrained edit forms with patch-based repair under fixed tasks and models.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Loupe\" Chandandeep github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 109,
+      "title": "GRECKO: Drone-Swarm Defence Research Simulator",
+      "listed_vendor": "Chandandeep’s Organization",
+      "priority": "P3",
+      "category": "simulation",
+      "public_reference_ids": [],
+      "adoption_idea": "Defence simulator is outside this branch; no operational targeting or weapon-control integration.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"GRECKO\" Chandandeep github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 110,
+      "title": "Multi-SIM GSM device control via an HTTP API",
+      "listed_vendor": "Ashish’s Organization",
+      "priority": "P3",
+      "category": "hardware",
+      "public_reference_ids": [],
+      "adoption_idea": "GSM control introduces real external effects and hardware requirements; defer.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Multi-SIM GSM device control via an HTTP API\" Ashish github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 111,
+      "title": "hypr-recorder: local dual-track audio capture and transcript",
+      "listed_vendor": "Dylan’s Organization",
+      "priority": "P3",
+      "category": "multimodal",
+      "public_reference_ids": [],
+      "adoption_idea": "Local transcript provenance may be useful later; no microphone or system-audio capture is enabled.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"hypr-recorder\" Dylan github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 112,
+      "title": "Legal Practice Manager",
+      "listed_vendor": "Vaibhav’s Organization",
+      "priority": "P3",
+      "category": "documents",
+      "public_reference_ids": [],
+      "adoption_idea": "Legal practice data and advice require separate scope; only synthetic document workflow ideas transfer.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Legal Practice Manager\" Vaibhav github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 113,
+      "title": "PEAAI — AI Companion & Pixel Expression Animation Framework",
+      "listed_vendor": "Prabhu Raj Vardhan’s Organization",
+      "priority": "P3",
+      "category": "application",
+      "public_reference_ids": [],
+      "adoption_idea": "Companion animation and personalization are outside current verifier research.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"PEAAI\" Prabhu Raj Vardhan github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 114,
+      "title": "Timelined: AI-Native Startup Evaluation & Underwriting",
+      "listed_vendor": "timelined’s Organization",
+      "priority": "P3",
+      "category": "finance",
+      "public_reference_ids": [],
+      "adoption_idea": "Startup underwriting is a separate decision domain; no eligibility or investment judgments are integrated.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Timelined\" timelined github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 115,
+      "title": "Reversed-phase HPLC method simulator in Python",
+      "listed_vendor": "Leo’s Organization",
+      "priority": "P3",
+      "category": "science",
+      "public_reference_ids": [],
+      "adoption_idea": "HPLC simulation needs a domain reference and held-out physical data before scientific evaluation claims.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Reversed-phase HPLC method simulator in Python\" Leo github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 116,
+      "title": "SMTP intake and delivery service",
+      "listed_vendor": "Leo’s Organization",
+      "priority": "P2",
+      "category": "durability",
+      "public_reference_ids": [
+        "temporal-python"
+      ],
+      "adoption_idea": "Synthetic per-recipient delivery and retry evidence; no SMTP credentials or messages.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"SMTP intake and delivery service\" Leo github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 117,
+      "title": "Hybrid Post-Quantum Sealed Messaging with Key-Derived Names",
+      "listed_vendor": "Chandandeep’s Organization",
+      "priority": "P3",
+      "category": "cryptography",
+      "public_reference_ids": [],
+      "adoption_idea": "Post-quantum protocols need expert cryptographic review; no custom cryptography is adopted here.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Hybrid Post-Quantum Sealed Messaging with Key-Derived Names\" Chandandeep github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 118,
+      "title": "DAW Control Toolkit for macOS: Mackie Control + Atmos OSC",
+      "listed_vendor": "Chandandeep’s Organization",
+      "priority": "P3",
+      "category": "multimodal",
+      "public_reference_ids": [],
+      "adoption_idea": "Closed-loop audio-control concepts need licensed media and hardware; defer.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"DAW Control Toolkit for macOS\" Chandandeep github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 119,
+      "title": "Native macOS Design Toolkit: Figma UI Kit to SwiftUI",
+      "listed_vendor": "Chandandeep’s Organization",
+      "priority": "P3",
+      "category": "ui",
+      "public_reference_ids": [],
+      "adoption_idea": "Native UI design guidance is not a current evaluation-engine dependency.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Native macOS Design Toolkit\" Chandandeep github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 120,
+      "title": "Fintech super-app backend: payments, BBPS, e-commerce",
+      "listed_vendor": "Bharat’s Organization",
+      "priority": "P2",
+      "category": "workflow",
+      "public_reference_ids": [
+        "harbor"
+      ],
+      "adoption_idea": "Synthetic wallet conservation, duplicate settlement and permissions; no real payment integrations.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Fintech super-app backend\" Bharat github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 121,
+      "title": "Desktop transcription studio (Tauri + Vue + Python)",
+      "listed_vendor": "Sifer Design",
+      "priority": "P3",
+      "category": "multimodal",
+      "public_reference_ids": [],
+      "adoption_idea": "Transcription and diarization need consented audio and a separate evaluation protocol.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Desktop transcription studio (Tauri + Vue + Python)\" Sifer Design github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 122,
+      "title": "Sravana - offline-first local music player PWA (full source)",
+      "listed_vendor": "Invgen’s Organization",
+      "priority": "P3",
+      "category": "application",
+      "public_reference_ids": [],
+      "adoption_idea": "Offline media-player functionality is not an immediate research fit.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Sravana - offline-first local music player PWA (full source)\" Invgen github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 123,
+      "title": "Full stack multi-tenant operations management platform",
+      "listed_vendor": "Sifer Design",
+      "priority": "P2",
+      "category": "workflow",
+      "public_reference_ids": [
+        "harbor"
+      ],
+      "adoption_idea": "Synthetic tenant isolation and role-boundary tasks; no healthcare or NGO records.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Full stack multi-tenant operations management platform\" Sifer Design github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 124,
+      "title": "Ferrogres: Build Postgres From Scratch",
+      "listed_vendor": "Praesidium Compliance Systems Corporation",
+      "priority": "P2",
+      "category": "systems",
+      "public_reference_ids": [
+        "harbor"
+      ],
+      "adoption_idea": "Design original storage/transaction tasks with documented oracles; neither the private commits nor Postgres licence are assumed transferred.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Ferrogres\" Praesidium Compliance Systems Corporation github",
+      "searched_on": "2026-10-29"
+    },
+    {
+      "id": 125,
+      "title": "Ferrodis: Redis Rebuilt, Step by Step",
+      "listed_vendor": "Praesidium Compliance Systems Corporation",
+      "priority": "P2",
+      "category": "systems",
+      "public_reference_ids": [
+        "valkey",
+        "harbor"
+      ],
+      "adoption_idea": "Use a separately licensed reference server for original key-value tests; do not copy the sold Redis reconstruction history.",
+      "listing_reuse_status": "not-cleared",
+      "identity_note": "The exact listed source, snapshot and reuse rights were not established in this review. Related public references are alternatives, not identity matches.",
+      "search_query": "\"Ferrodis\" Praesidium Compliance Systems Corporation github",
+      "searched_on": "2026-10-29"
+    }
+  ]
+}
