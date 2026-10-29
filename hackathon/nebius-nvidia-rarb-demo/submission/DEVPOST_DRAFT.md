@@ -76,8 +76,8 @@ Python, Pyodide/WebAssembly, JavaScript, HTML, CSS, Git, NVIDIA Nemotron 3 Super
 
 - Public repository: https://github.com/kaulastudies/ai-evaluation-lab
 - Updated implementation: public repository `main`; executable workbench merged in PR #28.
-- Demo URL: https://proofgate-rarb.kaulastudies.chatgpt.site/
-- Public YouTube video: upload and verify the 119-second captioned walkthrough, or record the spoken flow using VIDEO_SCRIPT.md; maximum three minutes. The MP4 is available at https://proofgate-rarb.kaulastudies.chatgpt.site/proofgate-walkthrough.mp4 . YouTube upload is still outstanding.
+- Demo URL: https://kaulastudies.github.io/ai-evaluation-lab/proofgate/
+- Public YouTube video: upload and verify the 119-second captioned walkthrough, or record the spoken flow using VIDEO_SCRIPT.md; maximum three minutes. The MP4 is available at https://kaulastudies.github.io/ai-evaluation-lab/proofgate/proofgate-walkthrough.mp4 . YouTube upload is still outstanding.
 - Significant updates: use SIGNIFICANT_UPDATES.md.
 - Platform feedback: use NEBIUS_NVIDIA_FEEDBACK.md.
 - IRL city: select only an event actually attended.

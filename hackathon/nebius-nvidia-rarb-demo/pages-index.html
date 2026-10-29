@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="AI Evaluation Lab: independent, provider-neutral evaluation and reproducible evidence for AI systems and agents.">
+  <title>AI Evaluation Lab</title>
+  <style>
+    :root{color-scheme:light dark;font-family:system-ui,sans-serif;line-height:1.65}
+    body{max-width:52rem;margin:4rem auto;padding:0 1.5rem;background:#f7fafb;color:#17333d}
+    h1{font-size:clamp(2rem,6vw,3.4rem);line-height:1.15;margin-bottom:1rem}
+    a{color:#006b60;text-underline-offset:.2em}a:focus-visible{outline:3px solid #006b60;outline-offset:4px}
+    section{margin-top:2.5rem;padding-top:1rem;border-top:1px solid #b7c9ce}
+    .lead{font-size:1.2rem}.links{display:flex;flex-wrap:wrap;gap:1.25rem}
+    footer{margin-top:3rem;font-size:.9rem}
+    @media(prefers-color-scheme:dark){body{background:#102730;color:#e7f0f2}a{color:#93e6cb}}
+  </style>
+</head>
+<body>
+  <main>
+    <h1>AI Evaluation Lab</h1>
+    <p class="lead">Independent, provider-neutral evaluation and reproducible evidence for AI systems and agents.</p>
+    <p>The Lab develops task contracts, independent verifiers, model and agent evaluations, and evidence that other people can inspect and reproduce.</p>
+    <p class="links"><a href="https://github.com/kaulastudies/ai-evaluation-lab">Explore the main repository</a><a href="https://github.com/kaulastudies/ai-evaluation-lab/blob/main/ROADMAP.md">Research roadmap</a></p>
+    <section aria-labelledby="programs">
+      <h2 id="programs">Research programs</h2>
+      <ul>
+        <li><a href="https://github.com/kaulastudies/ai-evaluation-lab/blob/main/docs/AGENT_SAFETY_PROGRAM.md">Agent Safety Evaluation Program</a></li>
+        <li><a href="https://github.com/kaulastudies/ai-evaluation-lab/tree/main/programs/repository-agent-reliability">Repository Agent Reliability Program (RARB)</a></li>
+      </ul>
+    </section>
+    <section aria-labelledby="applications">
+      <h2 id="applications">Applications built on the Lab</h2>
+      <h3>ProofGate</h3>
+      <p>A coding-agent verification application built on RARB for the Nebius × NVIDIA hackathon. Run Python verifier checks against recorded candidates, inspect failed gates, and explore the preserved evidence.</p>
+      <p class="links"><a href="proofgate/">Open ProofGate</a><a href="https://github.com/kaulastudies/ai-evaluation-lab/tree/main/hackathon/nebius-nvidia-rarb-demo">Source, setup and media</a></p>
+    </section>
+  </main>
+  <footer>AI Evaluation Lab · Rama Chandra · <a href="https://github.com/kaulastudies/ai-evaluation-lab/blob/main/LICENSE">Apache 2.0</a></footer>
+</body>
+</html>

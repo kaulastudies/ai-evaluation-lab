@@ -38,7 +38,7 @@ runner, replay, repair-replay, metrics, and demo-evidence checks are gated in CI
 
 **ProofGate** is a hackathon application built on AI Evaluation Lab's Repository Agent Reliability Program (RARB). **AI Evaluation Lab remains the parent project**, with its provider-neutral research programs, canonical evidence, and roadmap. The ProofGate app and Nebius × NVIDIA submission materials are maintained within [`hackathon/nebius-nvidia-rarb-demo/`](hackathon/nebius-nvidia-rarb-demo/README.md).
 
-[ProofGate demo](https://proofgate-rarb.kaulastudies.chatgpt.site/) · [Project README](hackathon/nebius-nvidia-rarb-demo/README.md) · [Judge instructions](hackathon/nebius-nvidia-rarb-demo/submission/JUDGE_TESTING.md)
+[ProofGate demo](https://kaulastudies.github.io/ai-evaluation-lab/proofgate/) · [Project README](hackathon/nebius-nvidia-rarb-demo/README.md) · [Judge instructions](hackathon/nebius-nvidia-rarb-demo/submission/JUDGE_TESTING.md)
 
 ProofGate is developed with mentorship from Prof. Nithya Ravi Kumar. See the [project's team and proposed research review responsibilities](hackathon/nebius-nvidia-rarb-demo/TEAM.md).
 
