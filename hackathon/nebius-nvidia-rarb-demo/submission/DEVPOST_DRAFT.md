@@ -62,6 +62,12 @@ A useful evaluation needs a clear boundary. A browser animation, a hash match, a
 
 Broader repository tasks, isolated execution workers, stronger request-level model provenance and measured operating cost. The original AP-001-specific false-green → repair → pass sequence remains open; the AP-005 repair does not close it.
 
+## Team and mentorship
+
+ProofGate is developed by Rama Chandra, with mentorship from Prof. Nithya Ravi Kumar. We thank her for her mentorship.
+
+A research review pack has been prepared for Prof. Nithya Ravi Kumar covering experiment design, verifier qualification, claim-to-evidence checks and demo clarity. These are proposed review responsibilities; her review and feedback are pending. Existing code and experimental results are attributed to their recorded contributors and providers.
+
 ## Built with
 
 Python, Pyodide/WebAssembly, JavaScript, HTML, CSS, Git, NVIDIA Nemotron 3 Super, Nebius Token Factory, Ollama, GitHub Actions.
@@ -69,9 +75,9 @@ Python, Pyodide/WebAssembly, JavaScript, HTML, CSS, Git, NVIDIA Nemotron 3 Super
 ## Submission fields requiring completion
 
 - Public repository: https://github.com/kaulastudies/ai-evaluation-lab
-- Updated implementation: `feat/proofgate-hackathon-judge-demo` branch until merged.
+- Updated implementation: public repository `main`; executable workbench merged in PR #28.
 - Demo URL: https://proofgate-rarb.kaulastudies.chatgpt.site/
-- Public YouTube video: upload and verify the 109-second captioned walkthrough, or record the spoken flow using VIDEO_SCRIPT.md; maximum three minutes. The MP4 is available at https://proofgate-rarb.kaulastudies.chatgpt.site/proofgate-walkthrough.mp4 . YouTube upload is still outstanding.
+- Public YouTube video: upload and verify the 119-second captioned walkthrough, or record the spoken flow using VIDEO_SCRIPT.md; maximum three minutes. The MP4 is available at https://proofgate-rarb.kaulastudies.chatgpt.site/proofgate-walkthrough.mp4 . YouTube upload is still outstanding.
 - Significant updates: use SIGNIFICANT_UPDATES.md.
 - Platform feedback: use NEBIUS_NVIDIA_FEEDBACK.md.
 - IRL city: select only an event actually attended.

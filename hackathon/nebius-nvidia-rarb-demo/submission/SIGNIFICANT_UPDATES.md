@@ -74,3 +74,8 @@ The implementation is on `feat/proofgate-hackathon-judge-demo` until merged. Thi
 The hosted product now runs the original Python public tests and verifier in a disposable Pyodide worker. Ten fixed candidates include recorded model outputs plus reference, known-bad and mutation controls. Judges can introduce a known fault, execute the checks and export a fresh report without installing Python or providing an API key. The report explicitly distinguishes browser re-execution from source-exact replay and model inference. A pinned, hash-verified Python runtime is served with the app.
 
 A local AP-005 repair action now invokes NVIDIA Nemotron through Nebius Token Factory using the existing bounded repair protocol and fixed parent failure. No new live model outcome is claimed until that route is exercised with a key and its evidence inspected.
+
+
+### Mentorship acknowledgment and review preparation
+
+Added a visible mentorship credit for Prof. Nithya Ravi Kumar to the ProofGate README, demo, team graphic and video. Prepared a research review pack covering methodology, verifier challenges, evidence claims and demo clarity. These are prepared materials and proposed review responsibilities, not completed reviews or additional experimental results.

@@ -1,4 +1,4 @@
-# ProofGate — executable demo recording (target 2:35)
+# ProofGate — executable demo recording (target 2:45)
 
 Use the public hosted app. Record real button clicks and returned results. The browser checks are fresh executions of previously generated candidates; they are not fresh model calls.
 
@@ -43,6 +43,12 @@ Screen: Run it yourself. If a new live request has actually been completed, show
 “ProofGate is for engineering teams reviewing coding-agent changes. The open-source ledger keeps 52 attempts, including failures and HOLDs. The current evidence covers five synthetic tasks, not production reliability. Every claim has code and an inspectable artifact behind it.”
 
 Screen: ledger, then public repository and setup instructions.
+
+## 2:35–2:45 · Team and mentorship
+
+“ProofGate is developed by Rama Chandra, with mentorship from Prof. Nithya Ravi Kumar. We thank her for her mentorship.”
+
+Screen: the team credit card. Do not imply that she authored historical code or approved the results; her proposed research review is pending.
 
 ## Upload checklist
 

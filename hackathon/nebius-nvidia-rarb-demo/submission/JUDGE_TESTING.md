@@ -53,3 +53,8 @@ Windows PowerShell: set `$env:PYTHONPATH = "src"` before Python commands.
 ## Expected snapshot
 
 52 attempts: 44 pass, 5 fail, 3 hold. Five qualified tasks. Zero critical mutation escapes out of 17. Phase 12: 29/30 passes, 30/30 recorded source-exact replays and 10/10 Nemotron passes on AP-001. AP-005's repair uses Ollama. No general model or production reliability claim is made.
+
+
+## Team and mentorship
+
+Implementation and experiments are led by Rama Chandra, with mentorship from Prof. Nithya Ravi Kumar. The [team record](../TEAM.md) distinguishes the mentorship acknowledgment from [proposed research reviews](MENTOR_REVIEW_PACK.md), which remain pending.
