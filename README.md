@@ -2,7 +2,7 @@
 
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 
-**Nebius × NVIDIA hackathon:** [ProofGate — Independent Verification for Coding Agents](hackathon/nebius-nvidia-rarb-demo/README.md) · [Judge instructions](hackathon/nebius-nvidia-rarb-demo/submission/JUDGE_TESTING.md)
+**Nebius × NVIDIA hackathon:** [Run the live ProofGate demo](https://proofgate-rarb.kaulastudies.chatgpt.site/) · [ProofGate — Independent Verification for Coding Agents](hackathon/nebius-nvidia-rarb-demo/README.md) · [Judge instructions](hackathon/nebius-nvidia-rarb-demo/submission/JUDGE_TESTING.md)
 
 
 [![AI Evaluation Lab CI](https://github.com/kaulastudies/ai-evaluation-lab/actions/workflows/ci.yml/badge.svg)](https://github.com/kaulastudies/ai-evaluation-lab/actions/workflows/ci.yml)

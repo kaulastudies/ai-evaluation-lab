@@ -6,7 +6,14 @@ ProofGate is the judge-facing product built on AI Evaluation Lab's Repository Ag
 
 A coding agent can pass ordinary tests and still break the task contract. ProofGate qualifies the verifier, evaluates the candidate, preserves failures and HOLDs, and supports bounded repair with reproducible evidence.
 
+## Judge demo: execute real checks in the browser
+
+The first page now runs the actual Python public tests and qualified verifier using Pyodide. Judges can execute a recorded false-green, its repair, a Nebius/Nemotron candidate, a preserved failure, or six qualification controls. Results are produced at runtime; no API key or installation is needed in the hosted demo. The browser run is clearly labeled as current-verifier re-execution, separate from historical source-exact replay and new model inference.
+
 ## Start here
+
+- [Open the browser demo](https://proofgate-rarb.kaulastudies.chatgpt.site/)
+- [Watch the 109-second captioned walkthrough](https://proofgate-rarb.kaulastudies.chatgpt.site/proofgate-walkthrough.mp4)
 
 - [Recovered project context and completion checklist](submission/PROJECT_CONTEXT.md)
 - [Devpost description](submission/DEVPOST_DRAFT.md)
@@ -23,6 +30,7 @@ Python 3.10+ and Git are required. Clone with full history; source-exact replay 
 git clone https://github.com/kaulastudies/ai-evaluation-lab.git
 cd ai-evaluation-lab
 git switch feat/proofgate-hackathon-judge-demo
+python hackathon/nebius-nvidia-rarb-demo/prepare_browser_runtime.py
 python hackathon/nebius-nvidia-rarb-demo/serve.py
 ```
 
@@ -34,11 +42,15 @@ The interface contains secure PowerShell setup commands. Do not put keys in sour
 
 **Execution boundary:** the server binds only to loopback and validates Host, Origin, a session token and an evidence allowlist. It is not a public execution API or an OS sandbox. Run fresh model candidates in a disposable development environment. AST admission alone is not an isolation guarantee.
 
-## Hosted evidence mode
+## Hosted execution and evidence mode
 
-The static site supports five evidence cases, code/gate/provenance inspection, a searchable 52-attempt ledger, qualification controls, SHA-256 artifact checks, and evidence download. It clearly labels stored evidence and disables runtime controls. It does not claim that browser hash checks execute the evaluator or call Nebius.
+The static site includes the executable Python verifier lab and supports five stored evidence cases, code/gate/provenance inspection, a searchable 52-attempt ledger, qualification controls, SHA-256 artifact checks, and evidence download. It clearly labels stored evidence and enables browser verification. Only server-side inference and full historical replay require the local server. It does not claim that browser hash checks execute the evaluator or call Nebius.
 
-To host, serve `index.html`, `style.css`, `app.js`, and `evidence.json` together over HTTPS. The existing Vercel root-directory configuration remains supported. A private review preview has also been prepared through Sites; make the intended judge URL publicly accessible before submitting.
+To host, install the pinned runtime and serve `index.html`, `style.css`, `app.js`, `lab.js`, `lab-worker.mjs`, `browser_lab.py`, both evidence JSON bundles, `vendor/pyodide/`, and the license notices together over HTTPS. The existing Vercel root-directory configuration remains supported. Judge demo: https://proofgate-rarb.kaulastudies.chatgpt.site/ . The deployment includes the pinned Python runtime, so judges can run the verifier without installing dependencies.
+
+## Nemotron repairs the recorded failure
+
+The local **Ask Nemotron to repair AP-005** action makes one Nebius request using the fixed, recorded AP-005 failure as its parent. It calls the existing bounded repair engine with failed gate IDs, at most 600 diagnostic characters, no hidden verifier/reference source, and repair index 1. It then applies the same qualified verifier. The provider key is required; this new route has not yet been exercised against the live service in the current build environment. Test fixtures are never counted as model evidence.
 
 ## Rebuild the evidence bundle
 

@@ -1,0 +1,121 @@
+{
+  "schema_version": 1,
+  "evidence_commit": "666aa1c08cbad1103c575d580234a1b2e577417c",
+  "tasks": {
+    "AP-001": {
+      "candidate_path": "app/resource_view.py",
+      "admission": {
+        "filename": "app/resource_view.py",
+        "top_level_class": "ResourceView",
+        "required_methods": [
+          "__init__",
+          "select_resource"
+        ],
+        "prohibit_imports": true
+      },
+      "public_source": "import unittest\n\nfrom app.resource_view import ResourceView\n\n\nclass DeferredFetcher:\n    def __init__(self):\n        self.callbacks = {}\n\n    def __call__(self, resource, callback):\n        self.callbacks[resource] = callback\n\n    def resolve(self, resource, value):\n        self.callbacks.pop(resource)(value)\n\n\nclass PublicBehaviorTests(unittest.TestCase):\n    def test_single_resource_loads(self):\n        fetcher = DeferredFetcher()\n        view = ResourceView()\n\n        view.select_resource(\"alpha\", fetcher)\n        fetcher.resolve(\"alpha\", \"ALPHA\")\n\n        self.assertEqual(view.current_resource, \"alpha\")\n        self.assertEqual(view.value, \"ALPHA\")\n\n    def test_completed_request_then_resource_switch(self):\n        fetcher = DeferredFetcher()\n        view = ResourceView()\n\n        view.select_resource(\"alpha\", fetcher)\n        fetcher.resolve(\"alpha\", \"ALPHA\")\n        view.select_resource(\"beta\", fetcher)\n        fetcher.resolve(\"beta\", \"BETA\")\n\n        self.assertEqual(view.current_resource, \"beta\")\n        self.assertEqual(view.value, \"BETA\")\n\n\nif __name__ == \"__main__\":\n    unittest.main()\n",
+      "verifier_source": "from __future__ import annotations\n\nimport argparse\nimport importlib.util\nimport json\nfrom pathlib import Path\nimport sys\nimport uuid\n\n\nVERIFIER_VERSION = \"0.1.0\"\n\n\nclass DeferredFetcher:\n    def __init__(self):\n        self.callbacks = {}\n\n    def __call__(self, resource, callback):\n        self.callbacks[resource] = callback\n\n    def resolve(self, resource, value):\n        self.callbacks.pop(resource)(value)\n\n\ndef load_resource_view(candidate_root: Path):\n    module_path = candidate_root / \"app\" / \"resource_view.py\"\n    if not module_path.is_file():\n        raise FileNotFoundError(f\"candidate missing {module_path}\")\n    module_name = f\"ap001_candidate_{uuid.uuid4().hex}\"\n    spec = importlib.util.spec_from_file_location(module_name, module_path)\n    module = importlib.util.module_from_spec(spec)\n    assert spec.loader is not None\n    spec.loader.exec_module(module)\n    return module.ResourceView\n\n\ndef evaluate(candidate_root: Path):\n    ResourceView = load_resource_view(candidate_root)\n    gates = []\n\n    # G03: ordinary behavior.\n    fetcher = DeferredFetcher()\n    view = ResourceView()\n    view.select_resource(\"alpha\", fetcher)\n    fetcher.resolve(\"alpha\", \"ALPHA\")\n    g03 = view.current_resource == \"alpha\" and view.value == \"ALPHA\"\n    gates.append({\n        \"id\": \"AP001-G03\",\n        \"passed\": g03,\n        \"diagnostic\": \"ordinary single-resource behavior preserved\" if g03\n        else \"ordinary single-resource behavior regressed\",\n    })\n\n    # G01/G02: overlapping requests, newer response resolves first.\n    fetcher = DeferredFetcher()\n    view = ResourceView()\n    view.select_resource(\"alpha\", fetcher)\n    view.select_resource(\"beta\", fetcher)\n\n    fetcher.resolve(\"beta\", \"BETA\")\n    g01 = view.current_resource == \"beta\" and view.value == \"BETA\"\n    gates.append({\n        \"id\": \"AP001-G01\",\n        \"passed\": g01,\n        \"diagnostic\": \"newer response committed correctly\" if g01\n        else \"newer response did not commit correctly\",\n    })\n\n    fetcher.resolve(\"alpha\", \"ALPHA\")\n    g02 = view.current_resource == \"beta\" and view.value == \"BETA\"\n    gates.append({\n        \"id\": \"AP001-G02\",\n        \"passed\": g02,\n        \"diagnostic\": \"superseded response was ignored\" if g02\n        else \"superseded alpha response overwrote beta state\",\n    })\n\n    return {\n        \"task_id\": \"AP-001\",\n        \"task_version\": \"0.1.0\",\n        \"verifier_version\": VERIFIER_VERSION,\n        \"candidate\": str(candidate_root),\n        \"gates\": gates,\n        \"status\": \"VERIFIED_PASS\" if all(g[\"passed\"] for g in gates) else \"VERIFIED_FAIL\",\n    }\n\n\ndef main():\n    parser = argparse.ArgumentParser()\n    parser.add_argument(\"candidate_root\", type=Path)\n    parser.add_argument(\"--json\", action=\"store_true\")\n    args = parser.parse_args()\n\n    result = evaluate(args.candidate_root.resolve())\n    if args.json:\n        print(json.dumps(result, indent=2))\n    else:\n        print(f\"{result['status']}  task={result['task_id']} verifier={result['verifier_version']}\")\n        for gate in result[\"gates\"]:\n            mark = \"PASS\" if gate[\"passed\"] else \"FAIL\"\n            print(f\"  {gate['id']}: {mark} - {gate['diagnostic']}\")\n\n    return 0 if result[\"status\"] == \"VERIFIED_PASS\" else 1\n\n\nif __name__ == \"__main__\":\n    raise SystemExit(main())\n",
+      "public_sha256": "874f4722e5feafba95b2271750e81c4a68c20feb7829f1253b0fc59d19827d98",
+      "verifier_sha256": "3cfff85ee030e01cd2baa989d7f26fbcfb75641b147bc5b199896e98310bebff"
+    },
+    "AP-005": {
+      "candidate_path": "app/record_transformer.py",
+      "admission": {
+        "filename": "app/record_transformer.py",
+        "top_level_class": "RecordTransformer",
+        "required_methods": [
+          "transform"
+        ],
+        "prohibit_imports": true
+      },
+      "public_source": "import unittest\n\nfrom app.record_transformer import RecordTransformer\n\n\nclass PublicRecordTransformerTests(unittest.TestCase):\n    def test_happy_path_records(self):\n        rows = [\n            {\n                \"id\": \"a-1\",\n                \"value\": 5,\n                \"active\": True,\n                \"note\": \"ready\",\n            },\n            {\n                \"id\": \"b-2\",\n                \"value\": 12,\n                \"active\": True,\n                \"note\": \"queued\",\n            },\n        ]\n\n        result = RecordTransformer().transform(rows)\n\n        self.assertEqual(\n            result,\n            [\n                {\n                    \"id\": \"a-1\",\n                    \"value\": 5,\n                    \"active\": True,\n                    \"note\": \"ready\",\n                },\n                {\n                    \"id\": \"b-2\",\n                    \"value\": 12,\n                    \"active\": True,\n                    \"note\": \"queued\",\n                },\n            ],\n        )\n\n\nif __name__ == \"__main__\":\n    unittest.main()\n",
+      "verifier_source": "from __future__ import annotations\n\nimport argparse\nimport copy\nimport importlib.util\nimport json\nfrom pathlib import Path\nimport sys\n\n\nTASK_ID = \"AP-005\"\nTASK_VERSION = \"0.1.0\"\nVERIFIER_VERSION = \"0.1.0\"\nPUBLIC_KEYS = {\"id\", \"value\", \"active\", \"note\"}\n\n\ndef load_transformer(root: Path):\n    source = root / \"app\" / \"record_transformer.py\"\n    if not source.is_file():\n        raise FileNotFoundError(f\"Missing candidate source: {source}\")\n\n    spec = importlib.util.spec_from_file_location(\n        \"rarb_ap005_candidate\",\n        source,\n    )\n    if spec is None or spec.loader is None:\n        raise RuntimeError(f\"Unable to load candidate: {source}\")\n\n    module = importlib.util.module_from_spec(spec)\n    sys.modules.pop(\"rarb_ap005_candidate\", None)\n    spec.loader.exec_module(module)\n\n    if not hasattr(module, \"RecordTransformer\"):\n        raise RuntimeError(\"Candidate does not define RecordTransformer\")\n\n    return module.RecordTransformer\n\n\ndef gate(gate_id: str, passed: bool, diagnostic: str) -> dict:\n    return {\n        \"id\": gate_id,\n        \"passed\": bool(passed),\n        \"diagnostic\": diagnostic,\n    }\n\n\ndef evaluate(root: Path) -> dict:\n    RecordTransformer = load_transformer(root)\n\n    rows = [\n        {\n            \"id\": \"dup\",\n            \"value\": 0,\n            \"active\": False,\n            \"note\": \"\",\n            \"internal_tag\": \"do-not-copy\",\n        },\n        {\n            \"id\": \"dup\",\n            \"value\": -2,\n            \"active\": True,\n            \"internal_tag\": \"missing-note\",\n        },\n        {\n            \"id\": \"b\",\n            \"value\": 3,\n            \"active\": True,\n            \"note\": None,\n            \"internal_tag\": \"explicit-null\",\n        },\n    ]\n\n    before = copy.deepcopy(rows)\n    result = RecordTransformer().transform(rows)\n\n    g01 = (\n        isinstance(result, list)\n        and len(result) == 3\n        and all(isinstance(item, dict) for item in result)\n        and [item.get(\"id\") for item in result] == [\"dup\", \"dup\", \"b\"]\n    )\n\n    expected_values = [0, -2, 3]\n    expected_active = [False, True, True]\n\n    g02 = (\n        isinstance(result, list)\n        and len(result) == 3\n        and all(type(item.get(\"id\")) is str for item in result)\n        and all(\n            type(item.get(\"value\")) is int\n            and item.get(\"value\") == expected\n            for item, expected in zip(result, expected_values)\n        )\n        and all(\n            type(item.get(\"active\")) is bool\n            and item.get(\"active\") is expected\n            for item, expected in zip(result, expected_active)\n        )\n    )\n\n    g03 = (\n        isinstance(result, list)\n        and len(result) == 3\n        and all(\"note\" in item for item in result)\n        and result[0][\"note\"] == \"\"\n        and result[1][\"note\"] is None\n        and result[2][\"note\"] is None\n    )\n\n    g04 = (\n        rows == before\n        and isinstance(result, list)\n        and len(result) == 3\n        and all(set(item) == PUBLIC_KEYS for item in result)\n    )\n\n    gates = [\n        gate(\n            \"AP005-G01\",\n            g01,\n            \"row cardinality/order and duplicate identifiers are preserved\"\n            if g01\n            else \"row cardinality/order or duplicate identifier preservation changed\",\n        ),\n        gate(\n            \"AP005-G02\",\n            g02,\n            \"integer and boolean values preserve exact values and types\"\n            if g02\n            else \"integer/boolean edge-case values or types changed\",\n        ),\n        gate(\n            \"AP005-G03\",\n            g03,\n            \"missing, empty-string, and explicit-null note semantics are preserved\"\n            if g03\n            else \"optional note semantics collapsed distinct states\",\n        ),\n        gate(\n            \"AP005-G04\",\n            g04,\n            \"source rows are unchanged and outputs expose exactly public fields\"\n            if g04\n            else \"source rows were mutated or output field surface changed\",\n        ),\n    ]\n\n    status_value = (\n        \"VERIFIED_PASS\"\n        if all(item[\"passed\"] for item in gates)\n        else \"VERIFIED_FAIL\"\n    )\n\n    return {\n        \"task_id\": TASK_ID,\n        \"task_version\": TASK_VERSION,\n        \"verifier_version\": VERIFIER_VERSION,\n        \"candidate\": str(root),\n        \"gates\": gates,\n        \"status\": status_value,\n    }\n\n\ndef main() -> int:\n    parser = argparse.ArgumentParser()\n    parser.add_argument(\"candidate\", type=Path)\n    parser.add_argument(\"--json\", action=\"store_true\")\n    args = parser.parse_args()\n\n    result = evaluate(args.candidate.resolve())\n\n    if args.json:\n        print(json.dumps(result, ensure_ascii=False))\n    else:\n        print(\n            f\"{result['status']}  \"\n            f\"task={TASK_ID} verifier={VERIFIER_VERSION}\"\n        )\n        for item in result[\"gates\"]:\n            label = \"PASS\" if item[\"passed\"] else \"FAIL\"\n            print(\n                f\"  {item['id']}: {label} - \"\n                f\"{item['diagnostic']}\"\n            )\n\n    return 0 if result[\"status\"] == \"VERIFIED_PASS\" else 1\n\n\nif __name__ == \"__main__\":\n    raise SystemExit(main())\n",
+      "public_sha256": "f23e80fed855b3ffad58cc9a48267de79c96a83f0ef81cb88409606eb42c88ba",
+      "verifier_sha256": "9b0fd02082b7b97ccf6d5845daf2a766bcf7a630fcd8910b32dea7eb2ae492e6"
+    }
+  },
+  "variants": {
+    "false-green": {
+      "task_id": "AP-005",
+      "source": "class RecordTransformer:\n    def transform(self, rows):\n        transformed = []\n\n        for row in rows:\n            if not row.get(\"active\"):\n                continue\n\n            transformed.append({\n                \"id\": row[\"id\"],\n                \"value\": row.get(\"value\"),\n                \"active\": row.get(\"active\"),\n                \"note\": row.get(\"note\"),\n            })\n\n        return transformed\n",
+      "sha256": "c0c00d9815fff64e60ad16b66980cafcabae7282a7993bc4f488cd9c8459743d",
+      "path": "programs/repository-agent-reliability/tasks/AP-005/evidence/live/ap005-ollama-llama3-001",
+      "kind": "recorded_model_candidate",
+      "expected_verdict": "VERIFIED_FAIL"
+    },
+    "repair": {
+      "task_id": "AP-005",
+      "source": "class RecordTransformer:\n    def transform(self, rows):\n        transformed = []\n\n        for row in rows:\n            if not row.get(\"active\"):\n                transformed.append({\n                    \"id\": row[\"id\"],\n                    \"value\": row.get(\"value\"),\n                    \"active\": row.get(\"active\"),\n                    \"note\": row.get(\"note\"),\n                })\n            else:\n                transformed.append({\n                    \"id\": row[\"id\"],\n                    \"value\": row.get(\"value\"),\n                    \"active\": row.get(\"active\"),\n                    \"note\": row.get(\"note\"),\n                })\n\n        return transformed\n",
+      "sha256": "181a0d0f7b9ddb15679563ef8ead1cf6d9dfcd4521037b0924233dadd68283f0",
+      "path": "programs/repository-agent-reliability/tasks/AP-005/evidence/live/ap005-ollama-llama3-002-repair",
+      "kind": "recorded_model_candidate",
+      "expected_verdict": "VERIFIED_PASS"
+    },
+    "nemotron": {
+      "task_id": "AP-001",
+      "source": "class ResourceView:\n    \"\"\"Tiny synthetic UI-state model with a stale-response bug.\"\"\"\n\n    def __init__(self):\n        self.current_resource = None\n        self.value = None\n\n    def select_resource(self, resource, fetch):\n        self.current_resource = resource\n\n        def on_complete(value):\n            if self.current_resource == resource:\n                self.value = value\n\n        fetch(resource, on_complete)\n",
+      "sha256": "38d26cff34fd455c31a13ad20c3134f752ee61f2ccba4cd0c4af584b4da4352b",
+      "path": "programs/repository-agent-reliability/tasks/AP-001/evidence/live/ap001-nebius-nemotron-phase12-001",
+      "kind": "recorded_model_candidate",
+      "expected_verdict": "VERIFIED_PASS"
+    },
+    "failure": {
+      "task_id": "AP-001",
+      "source": "class ResourceView:\n    def __init__(self):\n        self.current_resource = None\n        self.value = None\n        self.resource_values = {}\n\n    def select_resource(self, resource, fetch):\n        self.current_resource = resource\n\n        def on_complete(value):\n            if self.current_resource == resource:\n                self.resource_values[resource] = value\n            else:\n                self.resource_values[resource] = None\n\n        fetch(resource, on_complete)\n\n    def get_value(self, resource):\n        return self.resource_values.get(resource)\n",
+      "sha256": "db809a5818964bf8694e0243cb86e26dcf2c0d0aa2a0fddce320e14b78ba346c",
+      "path": "programs/repository-agent-reliability/tasks/AP-001/evidence/live/ap001-ollama-llama3-phase12-001",
+      "kind": "recorded_model_candidate",
+      "expected_verdict": "VERIFIED_FAIL"
+    },
+    "reference": {
+      "task_id": "AP-005",
+      "source": "class RecordTransformer:\n    \"\"\"Convert internal rows into a public normalized shape.\"\"\"\n\n    def transform(self, rows):\n        transformed = []\n\n        for row in rows:\n            transformed.append(\n                {\n                    \"id\": row[\"id\"],\n                    \"value\": row[\"value\"],\n                    \"active\": row[\"active\"],\n                    \"note\": row.get(\"note\"),\n                }\n            )\n\n        return transformed\n",
+      "sha256": "59ce09174962db131652462028fd7a6907a13d56bc9b91f3960612cec51ce56a",
+      "path": "programs/repository-agent-reliability/tasks/AP-005/controls/reference/app/record_transformer.py",
+      "kind": "qualification_control",
+      "expected_verdict": "VERIFIED_PASS"
+    },
+    "known-bad": {
+      "task_id": "AP-005",
+      "source": "class RecordTransformer:\n    \"\"\"Convert internal rows into a public normalized shape.\"\"\"\n\n    def transform(self, rows):\n        transformed = []\n\n        for row in rows:\n            # BUG: inactive rows are treated as absent.\n            if not row.get(\"active\"):\n                continue\n\n            transformed.append(\n                {\n                    \"id\": row[\"id\"],\n                    # BUG: a legitimate zero is collapsed into None.\n                    \"value\": row.get(\"value\") or None,\n                    \"active\": bool(row.get(\"active\")),\n                    # BUG: an explicit empty string is collapsed into None.\n                    \"note\": row.get(\"note\") or None,\n                }\n            )\n\n        return transformed\n",
+      "sha256": "c58379deeb72732c9a7cf1bba6460a52c4b7e9529476661ca2d59d6d16c0ba49",
+      "path": "programs/repository-agent-reliability/tasks/AP-005/controls/known_bad/app/record_transformer.py",
+      "kind": "qualification_control",
+      "expected_verdict": "VERIFIED_FAIL"
+    },
+    "drop-inactive": {
+      "task_id": "AP-005",
+      "source": "class RecordTransformer:\n    def transform(self, rows):\n        transformed = []\n\n        for row in rows:\n            if row[\"active\"]:\n                transformed.append(\n                    {\n                        \"id\": row[\"id\"],\n                        \"value\": row[\"value\"],\n                        \"active\": row[\"active\"],\n                        \"note\": row.get(\"note\"),\n                    }\n                )\n\n        return transformed\n",
+      "sha256": "a0c142bdc9c4ed48d824cc1cfd274482d41d4b7800057ee51722e68d687ddb44",
+      "path": "programs/repository-agent-reliability/tasks/AP-005/controls/mutations/drop_inactive/app/record_transformer.py",
+      "kind": "qualification_control",
+      "expected_verdict": "VERIFIED_FAIL"
+    },
+    "coerce-zero": {
+      "task_id": "AP-005",
+      "source": "class RecordTransformer:\n    def transform(self, rows):\n        return [\n            {\n                \"id\": row[\"id\"],\n                \"value\": row[\"value\"] or None,\n                \"active\": row[\"active\"],\n                \"note\": row.get(\"note\"),\n            }\n            for row in rows\n        ]\n",
+      "sha256": "b5df737778430e4c3b341e5d17eb154cdced2e672675cc9714dc979b573692c9",
+      "path": "programs/repository-agent-reliability/tasks/AP-005/controls/mutations/coerce_zero/app/record_transformer.py",
+      "kind": "qualification_control",
+      "expected_verdict": "VERIFIED_FAIL"
+    },
+    "collapse-note": {
+      "task_id": "AP-005",
+      "source": "class RecordTransformer:\n    def transform(self, rows):\n        return [\n            {\n                \"id\": row[\"id\"],\n                \"value\": row[\"value\"],\n                \"active\": row[\"active\"],\n                \"note\": row.get(\"note\") or None,\n            }\n            for row in rows\n        ]\n",
+      "sha256": "fbd9d09cd316a6a9b49e5edafd16aad557e7943c3ac83b5a5747e9f937bdc7a8",
+      "path": "programs/repository-agent-reliability/tasks/AP-005/controls/mutations/collapse_empty_note/app/record_transformer.py",
+      "kind": "qualification_control",
+      "expected_verdict": "VERIFIED_FAIL"
+    },
+    "mutate-input": {
+      "task_id": "AP-005",
+      "source": "class RecordTransformer:\n    def transform(self, rows):\n        transformed = []\n\n        for row in rows:\n            transformed.append(\n                {\n                    \"id\": row[\"id\"],\n                    \"value\": row[\"value\"],\n                    \"active\": row[\"active\"],\n                    \"note\": row.pop(\"note\", None),\n                }\n            )\n\n        return transformed\n",
+      "sha256": "673d0e68b6e3ee29d4a27a7361ad36c324242a99dabbeeea96928753a82cb51a",
+      "path": "programs/repository-agent-reliability/tasks/AP-005/controls/mutations/mutate_input/app/record_transformer.py",
+      "kind": "qualification_control",
+      "expected_verdict": "VERIFIED_FAIL"
+    }
+  },
+  "admission_source": "def candidate_admission(\n    source: str,\n    admission: dict[str, Any],\n) -> dict[str, Any]:\n    try:\n        tree = ast.parse(source, filename=admission[\"filename\"])\n    except SyntaxError as exc:\n        return {\n            \"accepted\": False,\n            \"reason\": f\"syntax error: {exc.msg} at line {exc.lineno}\",\n        }\n\n    class_name = admission[\"top_level_class\"]\n    classes = [\n        node\n        for node in tree.body\n        if isinstance(node, ast.ClassDef) and node.name == class_name\n    ]\n    if len(classes) != 1:\n        return {\n            \"accepted\": False,\n            \"reason\": (\n                f\"candidate must define exactly one top-level {class_name} class\"\n            ),\n        }\n\n    methods = {\n        node.name\n        for node in classes[0].body\n        if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef))\n    }\n    required_methods = set(admission.get(\"required_methods\", []))\n    missing_methods = sorted(required_methods - methods)\n    if missing_methods:\n        return {\n            \"accepted\": False,\n            \"reason\": (\n                f\"{class_name} missing required methods: \"\n                + \", \".join(missing_methods)\n            ),\n        }\n\n    if admission.get(\"prohibit_imports\", True):\n        prohibited_nodes = (ast.Import, ast.ImportFrom, ast.Global, ast.Nonlocal)\n        if any(isinstance(node, prohibited_nodes) for node in ast.walk(tree)):\n            return {\n                \"accepted\": False,\n                \"reason\": (\n                    \"imports/global/nonlocal statements are outside \"\n                    \"the candidate contract\"\n                ),\n            }\n\n    prohibited_calls = set(\n        admission.get(\n            \"prohibited_calls\",\n            [\"open\", \"exec\", \"eval\", \"compile\", \"__import__\", \"input\"],\n        )\n    )\n    for node in ast.walk(tree):\n        if isinstance(node, ast.Call) and isinstance(node.func, ast.Name):\n            if node.func.id in prohibited_calls:\n                return {\n                    \"accepted\": False,\n                    \"reason\": (\n                        f\"call to {node.func.id} is outside the candidate contract\"\n                    ),\n                }\n\n    prohibited_attrs = set(\n        admission.get(\n            \"prohibited_attributes\",\n            [\"__class__\", \"__dict__\", \"__globals__\", \"__subclasses__\", \"__mro__\"],\n        )\n    )\n    for node in ast.walk(tree):\n        if isinstance(node, ast.Attribute) and node.attr in prohibited_attrs:\n            return {\n                \"accepted\": False,\n                \"reason\": (\n                    f\"attribute {node.attr} is outside the candidate contract\"\n                ),\n            }\n\n    return {\n        \"accepted\": True,\n        \"reason\": \"candidate satisfies task structural admission policy\",\n    }",
+  "admission_sha256": "2efc383a4aa8aa5ae1ee72f85749b770bdfc6ec6db36322264057df0c5762053"
+}

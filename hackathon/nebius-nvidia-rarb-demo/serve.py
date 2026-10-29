@@ -47,7 +47,7 @@ class Handler(SimpleHTTPRequestHandler):
         self.send_header("Cache-Control", "no-store")
         self.send_header("X-Content-Type-Options", "nosniff")
         self.send_header("Referrer-Policy", "no-referrer")
-        self.send_header("Content-Security-Policy", "default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'none'")
+        self.send_header("Content-Security-Policy", "default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; worker-src 'self'; style-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'none'")
         super().end_headers()
 
     def respond(self, status: int, data: dict):
@@ -68,7 +68,10 @@ class Handler(SimpleHTTPRequestHandler):
         if self.path == "/api/status":
             return self.respond(200, {"mode": "local", "csrf": TOKEN, "live_available": bool(os.getenv("NEBIUS_API_KEY")), "model": MODEL})
         # Serve only intended UI assets, never arbitrary source or local files.
-        if self.path.split("?")[0] not in {"/", "/index.html", "/app.js", "/style.css", "/evidence.json"}:
+        runtime_manifest = json.loads((HERE / "browser-runtime.json").read_text())
+        assets = {"/", "/index.html", "/app.js", "/style.css", "/evidence.json", "/lab.js", "/lab-worker.mjs", "/browser_lab.py", "/browser-evidence.json"}
+        assets.update("/vendor/pyodide/" + f["name"] for f in runtime_manifest["files"])
+        if self.path.split("?")[0] not in assets:
             return self.respond(404, {"error": "Not found"})
         return super().do_GET()
 
@@ -77,7 +80,7 @@ class Handler(SimpleHTTPRequestHandler):
         expected = f"http://{self.headers.get('Host')}"
         if not self.valid_host() or origin != expected or not secrets.compare_digest(self.headers.get("X-ProofGate-Token", ""), TOKEN):
             return self.respond(403, {"error": "Same-origin local session required"})
-        if self.path not in {"/api/replay", "/api/run"}:
+        if self.path not in {"/api/replay", "/api/run", "/api/repair"}:
             return self.respond(404, {"error": "Not found"})
         try:
             length = int(self.headers.get("Content-Length", "0"))
@@ -108,16 +111,19 @@ class Handler(SimpleHTTPRequestHandler):
             label = "proofgate-nebius-" + time.strftime("%Y%m%dT%H%M%SZ", time.gmtime()) + "-" + secrets.token_hex(3)
             output = ROOT / "runs/live/rarb" / label
             output.mkdir(parents=True, exist_ok=False)
-            result = execute([
-                sys.executable, str(PROGRAM / "runner/model_trial.py"),
-                "--task", "AP-001", "--provider", "nebius", "--label", label,
+            is_repair = self.path == "/api/repair"
+            command = [sys.executable, str(PROGRAM / "runner" / ("repair.py" if is_repair else "model_trial.py")),
+                "--task", "AP-005" if is_repair else "AP-001", "--provider", "nebius", "--label", label,
                 "--output-protocol", "strict-code-only-v2",
                 "--out", str(output / "evaluation.json"),
                 "--response-out", str(output / "model-response.txt"),
-                "--candidate-out", str(output / "candidate-resource_view.py"),
+                "--candidate-out", str(output / ("candidate-record_transformer.py" if is_repair else "candidate-resource_view.py")),
                 "--manifest-out", str(output / "manifest.json"),
-            ], live=True)
-            return self.respond(200, {"mode": "fresh_nebius_inference", "staging_path": output.relative_to(ROOT).as_posix(), **result})
+            ]
+            if is_repair:
+                command += ["--parent-evidence", str(evidence_path("false-green")), "--repair-index", "1", "--max-diagnostic-chars", "600"]
+            result = execute(command, live=True)
+            return self.respond(200, {"mode": "fresh_nebius_repair" if is_repair else "fresh_nebius_inference", "staging_path": output.relative_to(ROOT).as_posix(), **result})
         except subprocess.TimeoutExpired:
             return self.respond(504, {"error": "Runner exceeded 180 seconds. No successful result is claimed."})
         except Exception as exc:

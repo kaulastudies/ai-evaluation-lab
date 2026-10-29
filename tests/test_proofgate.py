@@ -9,14 +9,39 @@ import sys
 import threading
 import unittest
 from unittest.mock import patch
+import copy
 
 DEMO = Path(__file__).resolve().parents[1] / 'hackathon/nebius-nvidia-rarb-demo'
 sys.path.insert(0, str(DEMO))
 import build_evidence
 import serve
+import browser_lab
 
 
 class EvidenceTests(unittest.TestCase):
+    def test_browser_bundle_matches_sources_and_all_ten_candidates(self):
+        bundle = build_evidence.build_browser()
+        self.assertEqual(bundle, json.loads((DEMO / 'browser-evidence.json').read_text()))
+        for name, variant in bundle['variants'].items():
+            with self.subTest(variant=name):
+                report = browser_lab.run_case(bundle, name)
+                self.assertEqual(report['final_verdict'], variant['expected_verdict'])
+                self.assertFalse(report['fresh_model_inference'])
+                self.assertFalse(report['historical_source_exact_replay'])
+        zero = browser_lab.run_case(bundle, 'coerce-zero')
+        self.assertTrue(zero['public_tests_passed'])
+        self.assertEqual([g['id'] for g in zero['gates'] if not g['passed']], ['AP005-G02'])
+
+    def test_browser_refuses_tampered_candidate_or_verifier(self):
+        for target in ('candidate', 'verifier'):
+            bundle = build_evidence.build_browser()
+            if target == 'candidate':
+                bundle['variants']['nemotron']['source'] += '\nraise RuntimeError("MUST NOT EXECUTE")'
+            else:
+                bundle['tasks']['AP-001']['verifier_source'] += '\n# altered'
+            with self.assertRaisesRegex(ValueError, 'integrity mismatch'):
+                browser_lab.run_case(bundle, 'nemotron')
+
     def test_bundle_matches_canonical_evidence_and_counts(self):
         actual = build_evidence.build()
         saved = json.loads((DEMO / 'evidence.json').read_text())
@@ -68,9 +93,24 @@ class ServerTests(unittest.TestCase):
 
     def test_missing_key_never_falls_back_to_stored_success(self):
         with patch.dict(os.environ,{},clear=True), patch.object(serve,'execute') as execute:
-            status,data = self.request('POST','/api/run',{})
-            self.assertEqual(status,503)
-            self.assertIn('No model call',data['error']); execute.assert_not_called()
+            for endpoint in ('/api/run', '/api/repair'):
+                status,data = self.request('POST',endpoint,{})
+                self.assertEqual(status,503)
+                self.assertIn('No model call',data['error']); execute.assert_not_called()
+
+    def test_nebius_repair_is_one_bounded_call_with_fixed_parent(self):
+        import tempfile
+        with tempfile.TemporaryDirectory() as temp, patch.dict(os.environ, {'NEBIUS_API_KEY':'test-fixture-key'}), patch.object(serve, 'ROOT', Path(temp)), patch.object(serve.subprocess, 'check_output', return_value=''), patch.object(serve, 'execute', return_value={'exit_code':0,'elapsed_ms':1,'report':{'final_verdict':'VERIFIED_PASS'}}) as execute:
+            status,data = self.request('POST','/api/repair',{'parent':'../../untrusted'})
+            self.assertEqual(status,200)
+            self.assertEqual(data['mode'],'fresh_nebius_repair')
+            execute.assert_called_once()
+            command = execute.call_args.args[0]
+            self.assertIn(str(serve.evidence_path('false-green')), command)
+            self.assertIn('--max-diagnostic-chars', command)
+            self.assertIn('600', command)
+            self.assertIn('--repair-index', command)
+            self.assertNotIn('../../untrusted', command)
 
     def test_busy_rejects_duplicate_execution(self):
         serve.BUSY.acquire()

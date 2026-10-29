@@ -1,47 +1,52 @@
-# ProofGate — recording plan (target 2:45)
+# ProofGate — executable demo recording (target 2:35)
 
-Record the actual interface and local runner. Upload the finished video to a public YouTube URL. This script is preparation, not a produced or published video.
+Use the public hosted app. Record real button clicks and returned results. The browser checks are fresh executions of previously generated candidates; they are not fresh model calls.
 
-## 0:00–0:20 · The problem
+## 0:00–0:15 · Show the problem
 
-Screen: AP-005 false-green case, with public PASS and VERIFIED_FAIL visible.
+“An AI coding agent can pass the tests and still produce a broken change. ProofGate lets an engineer inspect the contract, test the verifier and reproduce the verdict. Let's run it.”
 
-“An AI coding agent can pass the tests and still produce a broken change. ProofGate makes that gap visible. This is a real recorded candidate: its public tests passed, but four independent checks failed.”
+Screen: Run the verifier, default false-green candidate. Click Run Python checks.
 
-## 0:20–0:50 · Show the failure
+## 0:15–0:40 · Public PASS, independent FAIL
 
-Open Candidate code, then Verifier gates. Point at the actual diagnostics.
+“This is an actual recorded data-transformation candidate. The public test passes. Four independent gates fail: row preservation, values and types, optional notes, and input mutation. These results have just been computed by Python in the browser.”
 
-“The task is a data transformation. Its contract requires preserving rows, zero and false values, optional notes and the original input. These four gates caught failures the public tests missed. Before using this verifier, we tested it against a reference, a known-bad implementation and deliberate mutations.”
+Screen: the returned PASS/FAIL comparison and gate diagnostics. Briefly open candidate code.
 
-## 0:50–1:15 · Show the repair
+## 0:40–1:00 · Repair under the same contract
 
-Click Bounded repair, then Verify again. Open Provenance to show the parent hash.
+“This replacement was produced after the agent received bounded failed-gate evidence, without the hidden verifier or reference solution. The same checks now pass. This archived repair was generated with Ollama.”
 
-“The repair receives the failed-gate IDs and bounded diagnostics, not the hidden verifier or reference solution. The same verifier evaluates the replacement. This attempt passes, and its record links back to the original failure. This specific repair was generated with Ollama.”
+Screen: Check the repair → Run Python checks; show the fresh result.
 
-## 1:15–1:50 · Show Nebius and NVIDIA
+## 1:00–1:25 · Challenge the verifier
 
-Select AP-001 · Nebius / Nemotron. Show the model ID, source commit and latency. If the local key is configured, perform a fresh run before recording and show its returned report. If no fresh run is available, clearly say this is preserved runtime evidence.
+“Now we introduce a specific fault: turning zero into null. The ordinary test still passes, but the value-and-type gate catches it. We also test the verifier itself: a correct reference passes, while a known-bad baseline and four deliberate mutations fail.”
 
-“We also run NVIDIA Nemotron 3 Super through Nebius Token Factory. Here is a preserved repository-task execution, including its candidate, token usage, latency and exact evaluator source. Ten fixed Nemotron trials passed this AP-001 contract. That is one bounded experiment, not a general model ranking.”
+Screen: zero-to-null mutation, then all-six-controls result. Keep the important failing gate visible.
 
-## 1:50–2:20 · Actually replay
+## 1:25–1:55 · Show NVIDIA and Nebius
 
-In the local workbench, click Re-execute verifier locally and show the returned status and record hashes. No key is needed for replay.
+“NVIDIA Nemotron 3 Super generates repository-task candidates through Nebius Token Factory. Here is a preserved Nemotron candidate from our fixed Phase 12 experiment. We can execute its actual Python checks in the browser and inspect its source, provider and hashes. Ten of ten Nemotron trials passed this one task; we don't treat that as a general model ranking.”
 
-“This action runs the historical evaluator again against the recorded candidate. It does not call a model. The reproduced verdict and record hash match the original evidence. The hosted browser can separately check artifact hashes; those checks are not evaluator execution.”
+Screen: Verify Nemotron code → Run Python checks; then inspect its provenance in the evidence workbench.
 
-## 2:20–2:45 · Scope and close
+## 1:55–2:15 · Runtime and repair integration
 
-Show the full ledger, filter VERIFIED_FAIL, then show the public repository.
+“The local workbench can make a new Nemotron generation request or ask it to repair the recorded AP-005 failure. A server-side key is required. Every returned result is retained. Source-exact replay is separate: it reruns the full evaluator at the historical Git commit without calling a model.”
 
-“The ledger keeps all 52 attempts, including five failures and three HOLDs. Five tasks are verifier-qualified, with zero observed escapes among 17 mutations. ProofGate helps engineering teams inspect why an agent's change passed, and reproduce that decision. The code, setup instructions and evidence are open source.”
+Screen: Run it yourself. If a new live request has actually been completed, show the real returned report. Otherwise show the controls and state that live inference requires configuration; never imply it ran.
 
-## Before uploading
+## 2:15–2:35 · Close with scope
 
-- Keep the final cut under three minutes.
-- Show the app working, not only slides.
-- Keep credentials and unrelated browser tabs out of the recording.
-- Do not label a recorded result as fresh inference.
-- Use the public YouTube URL in Devpost and check it while signed out.
+“ProofGate is for engineering teams reviewing coding-agent changes. The open-source ledger keeps 52 attempts, including failures and HOLDs. The current evidence covers five synthetic tasks, not production reliability. Every claim has code and an inspectable artifact behind it.”
+
+Screen: ledger, then public repository and setup instructions.
+
+## Upload checklist
+
+- Keep the finished video under three minutes and publicly visible on YouTube.
+- Show working execution and readable results; no credentials or unrelated tabs.
+- Preserve the distinction between browser verification, historical replay and fresh inference.
+- Add the public video URL to Devpost and verify signed-out playback.

@@ -74,19 +74,19 @@ function download() {
 }
 async function execute(kind) {
   if(!local || executing) return;
-  executing = true; $('live-run').disabled = true; $('execute-replay').disabled = true;
+  executing = true; $('live-run').disabled = true; $('live-repair').disabled = true; $('execute-replay').disabled = true;
   showView('runtime'); $('execution-result').hidden = false;
-  $('execution-summary').textContent = kind === 'run' ? 'Calling Nebius Token Factory, then evaluating the generated candidate…' : `Re-executing the historical evaluator for ${current}. No model inference…`;
+  $('execution-summary').textContent = kind !== 'replay' ? 'Calling Nebius Token Factory, then evaluating the generated candidate…' : `Re-executing the historical evaluator for ${current}. No model inference…`;
   $('execution-json').textContent = 'Waiting for the local runner. This may take up to 180 seconds.';
   try {
     const response = await fetch(`/api/${kind}`,{method:'POST',headers:{'Content-Type':'application/json','X-ProofGate-Token':local.csrf},body:JSON.stringify({case:current})});
     const result = await response.json();
     if(!response.ok) throw new Error(result.error || `HTTP ${response.status}`);
     const report = result.report;
-    $('execution-summary').textContent = kind === 'run' ? `Fresh Nebius run: ${report.final_verdict ?? 'No verdict'}. ${result.elapsed_ms} ms. Retained in ${result.staging_path}.` : `Executed replay: ${report.status ?? 'No status'}. ${result.elapsed_ms} ms. No model call.`;
+    $('execution-summary').textContent = kind !== 'replay' ? `Fresh Nebius run: ${report.final_verdict ?? 'No verdict'}. ${result.elapsed_ms} ms. Retained in ${result.staging_path}.` : `Executed replay: ${report.status ?? 'No status'}. ${result.elapsed_ms} ms. No model call.`;
     $('execution-json').textContent = JSON.stringify(result,null,2);
   } catch(error) { $('execution-summary').textContent = 'Execution did not complete.'; $('execution-json').textContent = error.message; }
-  finally { executing = false; $('live-run').disabled = !local.live_available; $('execute-replay').disabled = false; }
+  finally { executing = false; $('live-run').disabled = !local.live_available; $('live-repair').disabled = !local.live_available; $('execute-replay').disabled = false; }
 }
 async function init() {
   const response = await fetch('evidence.json'); if(!response.ok) throw new Error('Evidence bundle could not be loaded.'); bundle = await response.json();
@@ -96,7 +96,7 @@ async function init() {
   $('controls-body').innerHTML = controls.map(c => `<tr><td>${esc(c.name)}</td><td>${esc(c.expected)}</td><td class="${c.expectation_met ? 'good' : 'bad'}">${esc(c.actual)} · ${c.expectation_met ? 'as expected' : 'unexpected'}</td><td>${esc(c.failed_gates.join(', ') || 'None')}</td></tr>`).join('');
   $('qualification-source').href = url('programs/repository-agent-reliability/tasks/AP-005/evidence');
   $('source-ref').textContent = `Evidence snapshot ${bundle.evidence_commit.slice(0,10)}`;
-  $('setup-command').textContent = 'git clone https://github.com/kaulastudies/ai-evaluation-lab.git\ncd ai-evaluation-lab\ngit switch feat/proofgate-hackathon-judge-demo\npython hackathon/nebius-nvidia-rarb-demo/serve.py';
+  $('setup-command').textContent = 'git clone https://github.com/kaulastudies/ai-evaluation-lab.git\ncd ai-evaluation-lab\ngit switch feat/proofgate-hackathon-judge-demo\npython hackathon/nebius-nvidia-rarb-demo/prepare_browser_runtime.py\npython hackathon/nebius-nvidia-rarb-demo/serve.py';
   $('powershell').textContent = '$secureKey = Read-Host "Nebius API key" -AsSecureString\n$pointer = [Runtime.InteropServices.Marshal]::SecureStringToBSTR($secureKey)\ntry {\n  $env:NEBIUS_API_KEY = [Runtime.InteropServices.Marshal]::PtrToStringBSTR($pointer)\n  python hackathon/nebius-nvidia-rarb-demo/serve.py\n} finally {\n  Remove-Item Env:NEBIUS_API_KEY -ErrorAction SilentlyContinue\n  [Runtime.InteropServices.Marshal]::ZeroFreeBSTR($pointer)\n}';
   document.querySelectorAll('[data-view]').forEach(b => b.addEventListener('click', () => showView(b.dataset.view)));
   document.querySelectorAll('[data-tab]').forEach(b => b.addEventListener('click', () => {activeTab=b.dataset.tab;renderDetail();}));
@@ -104,12 +104,12 @@ async function init() {
   $('case-select').addEventListener('change', e => {current=e.target.value;document.querySelectorAll('[data-story]').forEach(b=>b.classList.remove('selected'));renderCase();});
   $('hash-check').addEventListener('click',recheckHashes); $('download').addEventListener('click',download);
   $('search').addEventListener('input',renderLedger); $('verdict-filter').addEventListener('change',renderLedger);
-  $('execute-replay').addEventListener('click',()=>execute('replay')); $('live-run').addEventListener('click',()=>execute('run'));
+  $('execute-replay').addEventListener('click',()=>execute('replay')); $('live-run').addEventListener('click',()=>execute('run')); $('live-repair').addEventListener('click',()=>execute('repair'));
   document.querySelectorAll('.copy').forEach(b=>b.addEventListener('click',async()=>{try{await navigator.clipboard.writeText($(b.dataset.copy).textContent);toast('Commands copied');}catch{toast('Clipboard unavailable. Select and copy the commands.');}}));
-  $('live-status').textContent = 'Hosted evidence mode. Start the local workbench to enable runtime actions.';
+  $('live-status').textContent = 'Browser verification is ready. Start the local workbench for new inference and full historical replay.';
   if(['localhost','127.0.0.1'].includes(location.hostname)) {
-    try {const r=await fetch('/api/status');if(r.ok){const s=await r.json();if(s.mode==='local'){local=s;$('mode').textContent='Local runtime · recorded evidence view';$('live-run').disabled=!s.live_available;$('live-status').textContent=s.live_available?'Nebius key configured in server environment. Ready for one fresh run.':'Local replay ready. NEBIUS_API_KEY is not set; fresh inference is unavailable.';}}}catch{}
+    try {const r=await fetch('/api/status');if(r.ok){const s=await r.json();if(s.mode==='local'){local=s;$('mode').textContent='Local runtime · recorded evidence view';$('live-run').disabled=!s.live_available;$('live-repair').disabled=!s.live_available;$('live-status').textContent=s.live_available?'Nebius key configured in server environment. Ready for one fresh run.':'Local replay ready. NEBIUS_API_KEY is not set; fresh inference is unavailable.';}}}catch{}
   }
-  renderCase();renderLedger();$('loading').hidden=true;$('app').hidden=false;
+  renderCase();renderLedger();$('loading').hidden=true;$('app').hidden=false;showView('lab');
 }
 init().catch(error=>{$('loading').textContent=`Could not load the evidence: ${error.message} Reload or inspect the repository.`;});

@@ -61,11 +61,17 @@ Evidence snapshot used by the workbench: `666aa1c08cbad1103c575d580234a1b2e57741
 ## Remaining before submission
 
 1. Configure a Nebius key in the local runtime and inspect one fresh candidate run. The key was not available in this execution environment. Do not paste it into chat.
-2. Make the intended demo publicly accessible and verify signed-out access. The Sites review preview starts private.
-3. Record the actual app and local replay; upload a public YouTube video of at most three minutes. No recording or upload is claimed here.
+2. Public demo: https://proofgate-rarb.kaulastudies.chatgpt.site/ . Public access is enabled; perform a final signed-out check before submitting.
+3. Upload and verify the 109-second captioned walkthrough on public YouTube, or record the spoken flow. The walkthrough uses real browser execution screenshots; see VIDEO_PROVENANCE.md. YouTube upload is not yet complete.
 4. Merge the reviewed implementation or clearly provide the exact public branch for judging.
 5. Complete the existing Devpost draft, replace “Untitled” if still present, add demo/video/repository links, feedback and significant updates, and submit before the deadline.
 
 ## Explicit limits
 
-The hosted preview is an evidence product, not a hosted inference service. The local runner uses AST admission and temporary workspaces, not an OS security sandbox. A production deployment would need isolated execution workers. Provider cost is not fully measured. No winning outcome can be promised.
+The hosted app executes bundled Python checks and displays recorded evidence. It is not a hosted inference service. The local runner uses AST admission and temporary workspaces, not an OS security sandbox. A production deployment would need isolated execution workers. Provider cost is not fully measured. No winning outcome can be promised.
+
+## Competitive refinement, October 29
+
+The hosted app now executes actual Python checks, instead of requiring local installation for all execution. It bundles the existing public tests and verifiers unchanged, offers ten fixed candidates and runs the six AP-005 qualification controls together. Native validation confirms all expected outcomes, including a public-pass zero-to-null mutation caught by AP005-G02. Browser execution has been observed on the recorded false-green, its repair, the zero mutation, all six controls and the archived Nebius/Nemotron candidate. This mode is distinct from full historical source-exact replay.
+
+The local runtime now also offers a one-call Nemotron repair of the fixed AP-005 parent failure, with the existing bounded diagnostics and verifier. A fresh service result remains pending a configured Nebius key. See JUDGE_REVIEW.md for the criterion-by-criterion assessment and the focused demonstration sequence.

@@ -68,3 +68,9 @@ The existing RARB entry gained a more focused product interface under the ProofG
 - refreshed judge instructions, Devpost copy and recording plan.
 
 The implementation is on `feat/proofgate-hackathon-judge-demo` until merged. This update changes the product and execution interface without rewriting historical results. A fresh provider call is implemented but was not executed during this update because a Nebius key was unavailable in the environment.
+
+### Executable browser lab and Nemotron repair action
+
+The hosted product now runs the original Python public tests and verifier in a disposable Pyodide worker. Ten fixed candidates include recorded model outputs plus reference, known-bad and mutation controls. Judges can introduce a known fault, execute the checks and export a fresh report without installing Python or providing an API key. The report explicitly distinguishes browser re-execution from source-exact replay and model inference. A pinned, hash-verified Python runtime is served with the app.
+
+A local AP-005 repair action now invokes NVIDIA Nemotron through Nebius Token Factory using the existing bounded repair protocol and fixed parent failure. No new live model outcome is claimed until that route is exercised with a key and its evidence inspected.
