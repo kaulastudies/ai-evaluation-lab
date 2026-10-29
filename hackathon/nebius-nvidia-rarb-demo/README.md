@@ -20,8 +20,8 @@ The first page now runs the actual Python public tests and qualified verifier us
 
 ## Start here
 
-- [Open the browser demo](https://proofgate-rarb.kaulastudies.chatgpt.site/)
-- [Watch the 119-second captioned walkthrough](https://proofgate-rarb.kaulastudies.chatgpt.site/proofgate-walkthrough.mp4)
+- [Open the browser demo](https://kaulastudies.github.io/ai-evaluation-lab/proofgate/)
+- [Watch the 119-second captioned walkthrough](https://kaulastudies.github.io/ai-evaluation-lab/proofgate/proofgate-walkthrough.mp4)
 
 - [Recovered project context and completion checklist](submission/PROJECT_CONTEXT.md)
 - [Devpost description](submission/DEVPOST_DRAFT.md)
@@ -54,7 +54,20 @@ The interface contains secure PowerShell setup commands. Do not put keys in sour
 
 The static site includes the executable Python verifier lab and supports five stored evidence cases, code/gate/provenance inspection, a searchable 52-attempt ledger, qualification controls, SHA-256 artifact checks, and evidence download. It clearly labels stored evidence and enables browser verification. Only server-side inference and full historical replay require the local server. It does not claim that browser hash checks execute the evaluator or call Nebius.
 
-To host, install the pinned runtime and serve `index.html`, `style.css`, `app.js`, `lab.js`, `lab-worker.mjs`, `browser_lab.py`, both evidence JSON bundles, `vendor/pyodide/`, and the license notices together over HTTPS. The existing Vercel root-directory configuration remains supported. Judge demo: https://proofgate-rarb.kaulastudies.chatgpt.site/ . The deployment includes the pinned Python runtime, so judges can run the verifier without installing dependencies.
+The canonical public demo is deployed from this repository by [ProofGate GitHub Pages](../../.github/workflows/proofgate-pages.yml): https://kaulastudies.github.io/ai-evaluation-lab/proofgate/ . Pull requests build the site; changes merged into `main` publish it. The root Pages URL presents AI Evaluation Lab as the parent project.
+
+The app, local server, evidence generators, deployment workflow, media, screenshots and media-build script are all in this public repository. The build downloads the pinned open-source Pyodide runtime and verifies its file sizes and SHA-256 hashes before publishing. The running site serves these runtime files from GitHub Pages. It has no dependency on the earlier ChatGPT-hosted demo.
+
+To build the same static site from a fresh clone:
+
+```bash
+python hackathon/nebius-nvidia-rarb-demo/build_pages.py
+python -m http.server 8080 --directory .proofgate-pages
+```
+
+Open `http://localhost:8080/proofgate/`. The output includes an explicit allowlist of public files; it does not publish the local server or environment files. `proofgate/deployment.json` records the deployed source commit, canonical evidence commit and file hashes. Use a new or empty output directory for each build, or pass `--output /path/to/empty-directory`.
+
+GitHub Pages serves the browser verifier and recorded evidence. Fresh Nebius inference and historical source-exact replay use `serve.py` locally; they require a Python server and are not executed by GitHub Pages. The existing Vercel root-directory configuration remains available for other hosting.
 
 ## Nemotron repairs the recorded failure
 

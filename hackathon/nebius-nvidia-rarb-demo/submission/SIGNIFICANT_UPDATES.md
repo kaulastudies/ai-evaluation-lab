@@ -67,7 +67,7 @@ The existing RARB entry gained a more focused product interface under the ProofG
 - integration tests for replay, request boundaries, evidence allowlists and missing credentials;
 - refreshed judge instructions, Devpost copy and recording plan.
 
-The implementation is on `feat/proofgate-hackathon-judge-demo` until merged. This update changes the product and execution interface without rewriting historical results. A fresh provider call is implemented but was not executed during this update because a Nebius key was unavailable in the environment.
+The implementation is merged into `main` (PR #28). This update changes the product and execution interface without rewriting historical results. A fresh provider call is implemented but was not executed during this update because a Nebius key was unavailable in the environment.
 
 ### Executable browser lab and Nemotron repair action
 

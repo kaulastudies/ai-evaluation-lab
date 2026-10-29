@@ -23,7 +23,7 @@ The first run loads the bundled Python runtime. Each operation uses a disposable
 
 ## Execute the evaluator
 
-Clone the repository with full Git history, switch to `feat/proofgate-hackathon-judge-demo` until merged, and start:
+Clone the repository with full Git history, use the `main` branch, and start:
 
 ```bash
 python hackathon/nebius-nvidia-rarb-demo/prepare_browser_runtime.py

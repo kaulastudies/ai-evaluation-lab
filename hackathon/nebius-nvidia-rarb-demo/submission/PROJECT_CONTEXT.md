@@ -21,7 +21,7 @@ Deadline: **October 30, 2026, 10:30 PM IST**. Official rules: https://nebiusglob
 
 Public repository: https://github.com/kaulastudies/ai-evaluation-lab
 
-Implementation branch: `feat/proofgate-hackathon-judge-demo`
+Public implementation: `main`. The original development branch was `feat/proofgate-hackathon-judge-demo`; its work is merged.
 
 Demo path: `hackathon/nebius-nvidia-rarb-demo/`
 
@@ -61,7 +61,7 @@ Evidence snapshot used by the workbench: `666aa1c08cbad1103c575d580234a1b2e57741
 ## Remaining before submission
 
 1. Configure a Nebius key in the local runtime and inspect one fresh candidate run. The key was not available in this execution environment. Do not paste it into chat.
-2. Public demo: https://proofgate-rarb.kaulastudies.chatgpt.site/ . Public access is enabled; perform a final signed-out check before submitting.
+2. Public demo: https://kaulastudies.github.io/ai-evaluation-lab/proofgate/ . Public access is enabled; perform a final signed-out check before submitting.
 3. Upload and verify the 119-second captioned walkthrough on public YouTube, or record the spoken flow. The walkthrough uses real browser execution screenshots; see VIDEO_PROVENANCE.md. YouTube upload is not yet complete.
 4. Merge the reviewed implementation or clearly provide the exact public branch for judging.
 5. Complete the existing Devpost draft, replace “Untitled” if still present, add demo/video/repository links, feedback and significant updates, and submit before the deadline.
