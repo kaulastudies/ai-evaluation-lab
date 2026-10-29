@@ -25,14 +25,20 @@ permissions:
 
 jobs:
   deterministic-gates:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
+      - name: Install required candidate isolation
+        run: sudo apt-get update && sudo apt-get install -y bubblewrap libseccomp2
+      - name: Require working candidate isolation
+        run: PYTHONPATH=programs/repository-agent-reliability/runner python -c 'from candidate_proxy import sandbox_available; assert sandbox_available(), "Candidate isolation unavailable"'
       - name: Existing Evaluation Lab tests
         run: PYTHONPATH=src python -m unittest discover -s tests -v
 
@@ -46,9 +52,11 @@ jobs:
         run: python ops/gates/validate_local_evidence.py
 
   harbor-oracle:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - uses: actions/setup-python@v5
         with:

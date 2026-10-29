@@ -8,6 +8,8 @@ import subprocess
 import sys
 import tempfile
 from typing import Any
+from security import read_confined, validate_record
+from evidence_trust import authenticate_attempt
 
 
 RUNNER_ROOT = Path(__file__).resolve().parent
@@ -111,7 +113,7 @@ def find_candidate_artifact(
     matches = [
         path
         for path in sorted(evidence_dir.glob("candidate-*"))
-        if path.is_file() and sha256_file(path) == expected_sha256
+        if path.is_file() and not path.is_symlink() and hashlib.sha256(read_confined(evidence_dir, path.name)).hexdigest() == expected_sha256
     ]
     if len(matches) != 1:
         raise RuntimeError(
@@ -172,7 +174,10 @@ def build_repair_prompt(
 
     brief = read_lf(brief_path)
     public_test = read_lf(public_path)
-    candidate = read_lf(parent_candidate)
+    frozen_candidate = read_confined(parent_candidate.parent, parent_candidate.name)
+    if hashlib.sha256(frozen_candidate).hexdigest() != parent_record["candidate_sha256"]:
+        raise RuntimeError("Parent candidate identity changed")
+    candidate = frozen_candidate.decode("utf-8").replace("\r\n", "\n")
     failed = bounded_failed_gate_evidence(
         parent_record,
         max_diagnostic_chars=max_diagnostic_chars,
@@ -290,6 +295,7 @@ def validate_parent(
         raise RuntimeError("Repair parent verifier was not QUALIFIED")
     if evaluation["trusted_files_unchanged_after_scoring"] is not True:
         raise RuntimeError("Repair parent trusted boundary is not intact")
+    validate_record(evaluation)
     if manifest.get("evaluation_record_hash") != evaluation["record_hash"]:
         raise RuntimeError("Parent manifest record hash mismatch")
     if manifest.get("candidate_sha256") != parent_record["candidate_sha256"]:
@@ -347,6 +353,7 @@ def main() -> int:
         config["task_id"],
     )
 
+    authenticate_attempt(parent_dir, parent_record)
     parent_candidate = find_candidate_artifact(
         parent_dir,
         parent_record["candidate_sha256"],

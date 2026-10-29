@@ -79,7 +79,7 @@ def build_browser() -> dict:
         root = PROGRAM / "tasks" / task_id
         config = json.loads((root / "runtime.json").read_text())
         public = next((root / "fixture/tests/public").glob("test_*.py"))
-        verifier = root / config["verifier_path"]
+        verifier = HERE / "browser-verifiers" / f"{task_id}.py"
         result["tasks"][task_id] = {
             "candidate_path": config["candidate_path"], "admission": config["admission"],
             "public_source": public.read_bytes().decode(), "verifier_source": verifier.read_bytes().decode(),

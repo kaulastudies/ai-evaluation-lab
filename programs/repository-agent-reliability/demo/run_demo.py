@@ -82,6 +82,7 @@ def regenerate_artifacts() -> list[CheckResult]:
 
 def validate_system() -> list[CheckResult]:
     return [
+        run_check("complete_aggregation_coverage", [sys.executable, str(RUNNER_ROOT / "coverage_check.py")]),
         run_check(
             "runner_self_check",
             [sys.executable, str(RUNNER_ROOT / "self_check.py")],

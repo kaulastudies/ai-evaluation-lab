@@ -54,3 +54,30 @@ def test_shot_overrun_rejected_before_sampler(tmp_path):
     decision,counts=guarded_local_counts(bell(),req,Policy(backends={'local-statevector':'local'}),ledger)
     assert decision.verdict=='DENY' and 'SHOT_LIMIT' in decision.reasons and counts is None
     assert ledger.status(req) is None
+
+def test_nested_and_repeated_composite_definitions_denied(tmp_path):
+    from qiskit import QuantumCircuit
+    definition = QuantumCircuit(1)
+    definition.x(0)
+    for _ in range(8):
+        wrapper = QuantumCircuit(1)
+        gate = definition.to_gate()
+        wrapper.append(gate, [0])
+        wrapper.append(gate, [0])
+        definition = wrapper
+    circuit = QuantumCircuit(1)
+    circuit.append(definition.to_gate(), [0])
+    circuit.measure_all()
+    ledger = ExecutionLedger(tmp_path / 'nested.sqlite')
+    req = ExecutionRequest('agent', 'nested', 'local', 128)
+    decision, counts = guarded_local_counts(circuit, req, Policy(backends={'local': 'local'}), ledger)
+    assert decision.reasons == ('CIRCUIT_WORK_LIMIT',) and counts is None
+    assert ledger.status(req) is None
+
+def test_instruction_budget_enforced():
+    from qiskit import QuantumCircuit
+    circuit = QuantumCircuit(1)
+    for _ in range(2049):
+        circuit.x(0)
+    with pytest.raises(ValueError, match='operation budget'):
+        inspect_circuit(circuit)

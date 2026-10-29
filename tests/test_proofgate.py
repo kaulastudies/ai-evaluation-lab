@@ -16,6 +16,9 @@ sys.path.insert(0, str(DEMO))
 import build_evidence
 import serve
 import browser_lab
+sys.path.insert(0, str(DEMO.parents[1] / "programs/repository-agent-reliability/runner"))
+from candidate_proxy import sandbox_available
+SANDBOX_AVAILABLE = sandbox_available()
 
 
 class EvidenceTests(unittest.TestCase):
@@ -120,6 +123,7 @@ class ServerTests(unittest.TestCase):
         finally:
             serve.BUSY.release()
 
+    @unittest.skipUnless(SANDBOX_AVAILABLE, "Linux candidate isolation unavailable")
     def test_real_nemotron_evidence_replay(self):
         status,data = self.request('POST','/api/replay',{'case':'nemotron'})
         self.assertEqual(status,200)
@@ -127,6 +131,7 @@ class ServerTests(unittest.TestCase):
         self.assertEqual(data['report']['status'],'SOURCE_EXACT_REPLAY_VERIFIED')
         self.assertEqual(data['report']['replayed_verdict'],'VERIFIED_PASS')
 
+    @unittest.skipUnless(SANDBOX_AVAILABLE, "Linux candidate isolation unavailable")
     def test_real_repair_replay(self):
         status,data = self.request('POST','/api/replay',{'case':'repair'})
         self.assertEqual(status,200)
