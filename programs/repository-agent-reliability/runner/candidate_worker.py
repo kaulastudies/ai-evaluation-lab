@@ -6,6 +6,7 @@ import importlib.util
 import json
 import os
 import resource
+import socket  # Load the runtime module before chroot; seccomp denies socket syscalls.
 import sys
 
 

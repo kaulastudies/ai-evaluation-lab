@@ -41,7 +41,7 @@ class Candidate:
         self.temp = tempfile.TemporaryDirectory(prefix="rarb-candidate-")
         source_file = Path(self.temp.name) / "candidate.py"
         source_file.write_bytes(source)
-        command = ["bwrap", "--unshare-all", "--die-with-parent", "--new-session", "--clearenv",
+        command = ["bwrap", "--unshare-all", "--die-with-parent", "--new-session", "--clearenv", "--cap-drop", "ALL",
                    "--ro-bind", "/usr", "/usr", "--ro-bind", "/lib", "/lib"]
         if Path("/lib64").exists():
             command += ["--ro-bind", "/lib64", "/lib64"]
@@ -59,6 +59,8 @@ class Candidate:
         self.process = subprocess.Popen(command, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
                                         stderr=subprocess.PIPE, start_new_session=True, env=clean_env())
         os.set_blocking(self.process.stdin.fileno(), False)
+        os.set_blocking(self.process.stderr.fileno(), False)
+        self.stderr_tail = bytearray()
         self.buffer = bytearray()
         self.sequence = 0
         self.bytes_read = 0
@@ -93,12 +95,20 @@ class Candidate:
                     for key, _ in selector.select(0.1):
                         data = os.read(key.fileobj.fileno(), 4096)
                         if not data:
-                            raise RuntimeError("Candidate terminated without completing observation")
+                            try:
+                                self.stderr_tail.extend(os.read(self.process.stderr.fileno(), 2048))
+                            except BlockingIOError:
+                                pass
+                            detail = self.stderr_tail[-2048:].decode("utf-8", "replace")
+                            raise RuntimeError("Candidate terminated without completing observation: " + detail)
                         self.bytes_read += len(data)
                         if self.bytes_read > 65536:
                             raise RuntimeError("Candidate output budget exceeded")
                         if key.fileobj is self.process.stdout:
                             self.buffer.extend(data)
+                        else:
+                            self.stderr_tail.extend(data)
+                            self.stderr_tail = self.stderr_tail[-2048:]
                 line, _, rest = self.buffer.partition(b"\n")
                 self.buffer = bytearray(rest)
             response = json.loads(line)
