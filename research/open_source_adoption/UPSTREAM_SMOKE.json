@@ -1,0 +1,13 @@
+{
+  "source": "UKGovernmentBEIS/inspect_ai",
+  "commit": "2f78dcb29eb02830b4536050f61fd1a0f7665523",
+  "path": "tests/log/test_eval_log/log_formats.json",
+  "input_sha256": "b36b887e44701701d87a7bd8bac7f9fafb2804731491b3125b3917fb7968a825",
+  "observed_sample_count": 1,
+  "preserved_scores": {
+    "match": "I"
+  },
+  "lab_verdict": null,
+  "report_sha256": "4211cf81d194f4b39fcfd35a4fc7669e3a7da6822597e5cf51345b2f5157f933",
+  "scope": "One upstream static fixture; no Inspect SDK execution or live model attempt; fixture not vendored."
+}
