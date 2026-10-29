@@ -2,11 +2,6 @@
 
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 
-**Nebius × NVIDIA hackathon:** [Run the live ProofGate demo](https://proofgate-rarb.kaulastudies.chatgpt.site/) · [ProofGate — Independent Verification for Coding Agents](hackathon/nebius-nvidia-rarb-demo/README.md) · [Judge instructions](hackathon/nebius-nvidia-rarb-demo/submission/JUDGE_TESTING.md)
-
-
-**ProofGate mentorship:** Prof. Nithya Ravi Kumar. We thank her for her mentorship. [Team and proposed research review responsibilities](hackathon/nebius-nvidia-rarb-demo/TEAM.md).
-
 [![AI Evaluation Lab CI](https://github.com/kaulastudies/ai-evaluation-lab/actions/workflows/ci.yml/badge.svg)](https://github.com/kaulastudies/ai-evaluation-lab/actions/workflows/ci.yml)
 [![Qiskit SDK 2.x tests](https://github.com/kaulastudies/ai-evaluation-lab/actions/workflows/qag-qiskit.yml/badge.svg)](https://github.com/kaulastudies/ai-evaluation-lab/actions/workflows/qag-qiskit.yml)
 [![OpenSSF Scorecard assessment workflow](https://github.com/kaulastudies/ai-evaluation-lab/actions/workflows/scorecard-analysis.yml/badge.svg)](https://github.com/kaulastudies/ai-evaluation-lab/actions/workflows/scorecard-analysis.yml)
@@ -38,6 +33,14 @@ runner, replay, repair-replay, metrics, and demo-evidence checks are gated in CI
 [RARB program](programs/repository-agent-reliability/README.md) | [RARB evidence brief](programs/repository-agent-reliability/demo/EVIDENCE_BRIEF.md) | [RARB demo status](programs/repository-agent-reliability/demo/DEMO_STATUS.md)
 
 [Capabilities](docs/CAPABILITIES.md) | [Evidence catalog](docs/EVIDENCE_CATALOG.md) | [Private engagements](docs/ENGAGEMENTS.md)
+
+### Applications built on the Lab
+
+**ProofGate** is a hackathon application built on AI Evaluation Lab's Repository Agent Reliability Program (RARB). **AI Evaluation Lab remains the parent project**, with its provider-neutral research programs, canonical evidence, and roadmap. The ProofGate app and Nebius × NVIDIA submission materials are maintained within [`hackathon/nebius-nvidia-rarb-demo/`](hackathon/nebius-nvidia-rarb-demo/README.md).
+
+[ProofGate demo](https://proofgate-rarb.kaulastudies.chatgpt.site/) · [Project README](hackathon/nebius-nvidia-rarb-demo/README.md) · [Judge instructions](hackathon/nebius-nvidia-rarb-demo/submission/JUDGE_TESTING.md)
+
+ProofGate is developed with mentorship from Prof. Nithya Ravi Kumar. See the [project's team and proposed research review responsibilities](hackathon/nebius-nvidia-rarb-demo/TEAM.md).
 
 ---
 
