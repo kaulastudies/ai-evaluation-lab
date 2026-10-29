@@ -12,3 +12,5 @@ runs/live/
 logs/
 jobs/
 runs/AS-001/**/inspect/
+# Pinned browser runtime is installed by the checked, reproducible helper.
+hackathon/nebius-nvidia-rarb-demo/vendor/
