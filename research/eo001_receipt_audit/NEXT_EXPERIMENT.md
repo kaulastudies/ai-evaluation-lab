@@ -1,68 +1,62 @@
-# Proposed next experiment for joint review
+# Systemia integration handoff
 
-## Question
+The Lab-side local experiment is implemented in [durable/](durable/README.md).
+It is ready for technical review and adapter mapping. A joint Systemia/live-agent
+evaluation has not yet occurred, so no percentage of overall collaboration
+completion is claimed.
 
-Can one isolated Systemia workflow reject a misbound or replayed provider response
-after acknowledgement loss, while preserving legitimate same-order recovery?
-The current source-exact study supplies a reproducible starting point. Its
-controller-origin labels are trusted annotations; the next experiment must make
-the evidence origin available through an enforceable provider interface.
+## Jesse's questions and the current evidence
 
-## First agree on the trust model
+| Question | Completed Lab work | Remaining joint work |
+| --- | --- | --- |
+| Can evidence be authenticated independently? | Provider-issued Ed25519 receipts, fresh signed observations, public-key verifier, signed closing manifest and separate SQL read | Agree on Systemia's authoritative provider, key ownership and evidence export |
+| Does state survive a process failure? | Actual kills before commit and after commit/before acknowledgement; new-process reconciliation and same-key retry | Map those boundaries onto the isolated Systemia workflow |
+| Do concurrent retries duplicate an effect? | Three eight-worker same-key rounds and one eight-worker payload-conflict round | Agree whether the real adapter's concurrency and idempotency guarantees match this protocol |
+| How does a live agent respond? | Executable bounded workflow adapter and nine scripted behavior controls | Supply the workflow entry point, model/configuration, credentials if needed and agreed run budget; execute and publish actual attempts |
 
-1. Decide whether the adapter promises a trusted response or must defend against
-   substitution. The current negative controls deliberately cross that boundary.
-2. Define the provider/order namespace across restarts. A previous response for
-   the same durable operation can be valid recovery evidence; a response from a
-   different operation that reuses the same display ID must not be accepted.
-   A new process or evaluation run alone must not invalidate a legitimate receipt.
-3. Specify who owns the provider state, request identity, evidence export and
-   issuer key, and what a candidate can read or modify. Signing candidate-produced
-   output after the fact does not prove provider execution.
-4. Agree how complete observation coverage is established. A signed receipt alone
-   does not prove absence of additional effects or omitted attempts.
+## Findings to review first
 
-## Bounded implementation proposal
+The original source-exact Forge study found that a deduplicated effect does not
+by itself validate the response used to authorize fulfillment. The new suite
+addresses that boundary in a separate Lab reference provider. It does not claim
+that these changes have been implemented in Forge or Systemia.
 
-- One synthetic workflow and one order. Reuse the existing Forge provider logic.
-- Put the provider behind a separate local process and keep its evidence files
-  and any signing key outside candidate-accessible paths. State the actual OS
-  boundary; process separation alone is not a sandbox.
-- Bind a provider-issued receipt to provider identity, durable operation ID,
-  request fingerprint, receipt ID and settlement status. An evaluator-supplied
-  challenge can bind an observation to a query without changing the durable
-  idempotency key. Select the authentication mechanism jointly; test-provider
-  signatures would authenticate that test issuer, not a real payment processor.
-- Capture original provider evidence through an evaluator-owned channel and
-  preserve the response seen by the workflow through a second channel.
-- Re-run the valid recovery and substitution controls, including valid recovery
-  across a client restart and a different-operation replay with identical display
-  identifiers. Preserve failed, unresolved and unscorable cases.
+The replay rule is explicit: an earlier receipt for the same durable operation
+can be valid after a restart. A fresh authenticated query binds that receipt to
+the current observation. Responses for a different operation, issuer, store or
+request, or an old response reused against a new challenge, are rejected. An
+ephemeral client run ID must not substitute for durable operation identity.
 
-## Acceptance criteria
+Signatures do not prove complete execution history. The suite checks its signed
+closing snapshot against an evaluator-owned read-only database capture and full
+request inventory. It still trusts the host and provider, and does not claim a
+secure sandbox for an arbitrary candidate process.
 
-| Case | Required evidence and result |
-| --- | --- |
-| Legitimate reconciliation or same-key retry | One provider effect; correct operation/request binding; verified authorization |
-| Client restart for the same durable operation | Earlier valid receipt remains usable after an authenticated fresh query |
-| Wrong order, amount, currency or operation | No authorization; mismatch retained in evidence |
-| Foreign issuer, modified signature or different-operation replay | Reject response; do not promote an unsupported success claim |
-| Provider lookup unavailable | Honest unresolved state; no fulfillment authorization |
-| Missing, inconsistent or unauthenticated evidence | Unscorable outcome with the reason retained |
+## Proposed first joint run
 
-Count actual fulfillment only if an independently observed fulfillment effect is
-added to the contract. Authorizing an action is not evidence it happened.
+1. Identify one isolated workflow entry point and its intended provider guarantees.
+2. Map it to the [implemented adapter contract](durable/adapter_contract.json),
+   or document the minimal change needed for a persistent workflow.
+3. Agree on durable operation identity, trusted issuer, query freshness and the
+   evidence retained independently of the agent. Identify candidate access to
+   the key or provider store before executing untrusted code.
+4. Freeze one model/configuration and a small complete attempt matrix covering
+   ordinary success, lost acknowledgement, unresolved lookup, same-key retry,
+   mismatched response and concurrent retries. Publish failures and incomplete
+   attempts alongside successful recovery.
+5. Independently score evidence validity, authorized behavior and actual task
+   completion. Count fulfillment only if an independently observed delivery
+   effect is added; current code measures authorization.
 
-## Deliverable and stopping point
+## Suggested ownership and stopping point
 
-One versioned contract, one adapter, a fixed control matrix and a reproducible
-report with code/source pins. Stop after that report and review it together.
-Concurrency, provider crash durability and live-agent execution need separate
-protocols and budgets. No paid service, model call, customer data or production
-transaction is needed for this proposed first stage.
+Evercraft would provide the isolated workflow and explain its guarantees. The
+Lab would provide the fault protocol, evidence checks and reproducible report.
+Both sides would agree the scope and criteria in an AI Evaluation Lab issue.
+These are proposed responsibilities, not accepted commitments.
 
-Proposed coordination: Evercraft supplies the isolated workflow entry point and
-its intended provider guarantees; the Lab supplies the fault protocol and audit;
-both sides review trust assumptions, expected outcomes and attribution in a
-GitHub issue before calling the next result joint work. These responsibilities
-are proposals, not accepted commitments.
+Stop after one fixed experiment and a joint review. Provider authentication,
+single-host process durability and concurrency are implemented for the local
+reference service. Production deployment, arbitrary-code containment, real
+payments and model-performance conclusions need separate evidence. No paid
+engagement or open-ended development commitment is implied.

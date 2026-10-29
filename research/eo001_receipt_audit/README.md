@@ -1,5 +1,12 @@
 # EO-001 follow-up: independent receipt audit
 
+This PR now contains two separately versioned experiments. The original
+source-exact Forge response audit below remains frozen. The new
+[signed-receipt and process suite](durable/README.md) implements a separate local
+reference provider, real crash-boundary tests, concurrent retries and a bounded
+workflow adapter. Start with the [Systemia handoff](NEXT_EXPERIMENT.md) for the
+current implementation status and the remaining joint decisions.
+
 An external action can be deduplicated correctly while a workflow still trusts
 the wrong receipt. This study runs the existing Forge Operator simulator at a
 pinned commit, substitutes selected responses, and checks the resulting
@@ -149,12 +156,12 @@ and the exact PR #29 intake check pass. The 25 adoption-branch tests and its
 AS-001/AS-002, RARB Phase 12 and deterministic replay gates passed. GitHub Actions
 is the remote verification record; see the pull request checks for its status.
 
-## Trust limits
+## Trust limits of the original 0.1 experiment
 
 The pinned source, recorder, controller-origin labels and full synthetic capture
 are trusted. A party controlling all those inputs can forge a consistent story.
 Hashes bind reviewed bytes; they do not authenticate a provider, prove log
-completeness or establish a trusted clock. This experiment does not implement
+completeness or establish a trusted clock. This original experiment does not implement
 provider signatures or a process sandbox. Pending states, refunds, multi-tenant
 orders, crashes, races and live-agent decisions remain outside the protocol.
 This is preliminary independent Lab work, not a joint result, endorsement or

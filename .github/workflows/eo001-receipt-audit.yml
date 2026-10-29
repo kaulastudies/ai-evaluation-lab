@@ -41,3 +41,18 @@ jobs:
           python research/eo001_receipt_audit/audit.py --check
           --source-file "$RUNNER_TEMP/eo001-pinned/ambiguous-external-effect.mjs"
           --inspect-adapter "$RUNNER_TEMP/eo001-pinned/adoption.py"
+      - name: Install isolated signing dependency
+        run: python -m pip install -r research/eo001_receipt_audit/durable/requirements.txt
+      - name: Signed evidence and workflow boundary tests
+        run: python -m unittest discover -s research/eo001_receipt_audit/durable/tests -v
+      - name: Replay recorded process evidence
+        run: python -m research.eo001_receipt_audit.durable.suite --check
+      - name: Fresh process kills, concurrent retries and workflow controls
+        run: python -m research.eo001_receipt_audit.durable.suite --run --output "$RUNNER_TEMP/eo-durable-evidence.json"
+      - name: Preserve public evidence from this CI run
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: eo-durable-public-evidence
+          path: ${{ runner.temp }}/eo-durable-evidence.json
+          retention-days: 7
+          if-no-files-found: error
