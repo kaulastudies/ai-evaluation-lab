@@ -15,7 +15,11 @@ class Evaluation:
     evidence_sha256: str
 
 def born_probability(theta_radians: float) -> float:
-    if not isinstance(theta_radians, (int, float)) or not math.isfinite(theta_radians):
+    try:
+        finite_angle = type(theta_radians) in (int, float) and math.isfinite(theta_radians)
+    except OverflowError:
+        finite_angle = False
+    if not finite_angle:
         raise ValueError("angle must be finite")
     return math.sin(theta_radians / 2) ** 2
 
@@ -27,7 +31,7 @@ def evaluate(case_id: str, theta_radians: float, ones: int, shots: int,
         raise TypeError("shot counts must be integers")
     if shots <= 0 or not 0 <= ones <= shots:
         raise ValueError("invalid shot counts")
-    if not isinstance(tolerance, (int, float)) or not math.isfinite(tolerance) or not 0 <= tolerance <= 1:
+    if type(tolerance) not in (int, float) or not 0 <= tolerance <= 1:
         raise ValueError("invalid tolerance")
     ref = born_probability(theta_radians)
     observed = ones / shots

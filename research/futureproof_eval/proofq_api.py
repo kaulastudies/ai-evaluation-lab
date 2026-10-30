@@ -5,7 +5,7 @@ Bind to loopback only. Experimental software, not an internet production service
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import json
 import os
-from research.futureproof_eval.qproof_audit import audit
+from research.futureproof_eval.qproof_audit import audit, load_payload
 
 MAX_BYTES = 128 * 1024
 
@@ -21,11 +21,11 @@ class Handler(BaseHTTPRequestHandler):
             length = int(self.headers.get("Content-Length", "-1"))
             if not 0 < length <= MAX_BYTES:
                 return self.reply(413, {"error": "invalid_content_length"})
-            data = json.loads(self.rfile.read(length).decode("utf-8"))
+            data = load_payload(self.rfile.read(length).decode("utf-8"))
             if not isinstance(data, dict):
                 raise ValueError("JSON root must be an object")
             result = audit(data)
-        except (ValueError, TypeError, KeyError, UnicodeDecodeError, json.JSONDecodeError) as exc:
+        except (ValueError, TypeError, KeyError, UnicodeDecodeError, RecursionError) as exc:
             return self.reply(400, {"error": "invalid_input", "detail": str(exc)})
         return self.reply(200, result)
     def reply(self, status, payload):

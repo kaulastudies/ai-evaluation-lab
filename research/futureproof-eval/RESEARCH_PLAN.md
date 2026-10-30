@@ -38,7 +38,17 @@ The repository currently advertises a **$10,000 / 30-day** public agent-evaluati
 
 ## Next milestones
 
-- Incorporate calibrated shot-aware tests and independent simulation checks.
+- Freeze a repeated-trial protocol covering shot regimes, false-positive/false-negative rates and confidence intervals; complete this before making calibrated decision claims. Current Wilson intervals remain uncorrected screening only.
+- Extend the independent ideal-state cross-check to seeded sampling and publish all outcomes, including failures. The ten-angle Qiskit 2.6.1 ideal-state check now runs in CI.
 - Establish failure taxonomy for quantum measurements and AI-authored quantum code.
 - Approach India's quantum-computing thematic hub for collaborator/eligibility advice.
 - Publish a short, reproducible methods note with negative findings included.
+
+## Readiness review — 30 October 2026
+
+- The existing draft PR #26 contains the illustrative tolerance verifier, Wilson screening CLI and local HTTP API. These remain distinct from Quantum Agent Gate's execution policy checks.
+- Rejected inputs now include duplicate JSON keys, boolean angles/counts, non-finite and unrepresentable angles, malformed IDs and unexpected fields. Tests check that invalid HTTP input returns 400 and leaves the service responsive.
+- The original example still reports three cases and one review flag. No original evidence, examples or historical result records were rewritten.
+- The independent simulator check covers ideal single-qubit probabilities, not repeated-sampling calibration. Provider authenticity, multiple-testing control and hardware evidence remain open.
+- Security remediation in [PR #34](https://github.com/kaulastudies/ai-evaluation-lab/pull/34) is separate and unmerged. Its follow-up scan and review are required before broader candidate-execution claims; it is not evidence that this ProofQ API has been security reviewed.
+- The near-term customer deliverable remains a human-reviewed offline report for up to ten eligible single-qubit Ry/Z-basis cases. Scope, inputs and payment must be agreed before work starts. No customer, payment or grant award is established by these tests.

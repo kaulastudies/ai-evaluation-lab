@@ -9,7 +9,25 @@ import math
 from pathlib import Path
 
 
+def load_payload(text):
+    """Reject ambiguous keys and nonstandard JSON numbers before hashing."""
+    def object_pairs(pairs):
+        result = {}
+        for key, value in pairs:
+            if key in result:
+                raise ValueError("duplicate JSON key: " + key)
+            result[key] = value
+        return result
+
+    def invalid_constant(value):
+        raise ValueError("non-finite JSON number: " + value)
+
+    return json.loads(text, object_pairs_hook=object_pairs, parse_constant=invalid_constant)
+
+
 def analyze(case):
+    if not isinstance(case, dict) or set(case) != {"id", "shots", "ones", "theta_radians"}:
+        raise ValueError("each case requires exactly id, shots, ones and theta_radians")
     name = case["id"]
     shots = case["shots"]
     ones = case["ones"]
@@ -18,7 +36,11 @@ def analyze(case):
         raise ValueError("id must be a nonempty string")
     if type(shots) is not int or type(ones) is not int or shots < 1 or not 0 <= ones <= shots:
         raise ValueError("shots must be positive; ones must be an integer in [0, shots]")
-    if not isinstance(theta, (int, float)) or not math.isfinite(theta):
+    try:
+        finite_theta = type(theta) in (int, float) and math.isfinite(theta)
+    except OverflowError:
+        finite_theta = False
+    if not finite_theta:
         raise ValueError("theta_radians must be finite")
     if shots > 100000:
         raise ValueError("shots above 100000 not supported in this reference implementation")
@@ -41,12 +63,16 @@ def analyze(case):
 
 
 def audit(payload):
+    if not isinstance(payload, dict) or set(payload) != {"cases"}:
+        raise ValueError("input must be an object containing only cases")
     cases = payload["cases"]
     if not isinstance(cases, list) or not cases or len(cases) > 1000:
         raise ValueError("cases must contain 1..1000 entries")
     if any(not isinstance(c, dict) for c in cases):
         raise ValueError("each case must be an object")
     ids = [c.get("id") for c in cases]
+    if any(not isinstance(name, str) or not name.strip() for name in ids):
+        raise ValueError("case IDs must be nonempty strings")
     if len(ids) != len(set(ids)):
         raise ValueError("case IDs must be unique")
     results = [analyze(c) for c in cases]
@@ -63,7 +89,7 @@ def main():
     ap.add_argument("input", type=Path, help="JSON object with cases array")
     ap.add_argument("--output", type=Path, help="write JSON report to file")
     args = ap.parse_args()
-    result = audit(json.loads(args.input.read_text(encoding="utf-8")))
+    result = audit(load_payload(args.input.read_text(encoding="utf-8")))
     rendered = json.dumps(result, indent=2, allow_nan=False) + "\n"
     if args.output:
         args.output.write_text(rendered, encoding="utf-8")
