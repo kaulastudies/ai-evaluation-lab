@@ -1,5 +1,10 @@
 # Systemia integration handoff
 
+The [first-run review kit](first_run/README.md) now supports Evercraft's v2 model
+decision receipts and sovereign inference acceptance receipts. It includes a
+tested patch for missing blocked-run receipts. This is offline tooling and a
+proposed upstream fix, not an observed physical model run or a host change.
+
 The local provider experiment is implemented in [durable/](durable/README.md).
 The [Systemia mapping report](systemia/README.md) now records independent Lab
 execution of Evercraft's deterministic candidate and the actual native recovery
