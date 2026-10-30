@@ -51,4 +51,4 @@ The qag.evidence adapter exports SHA-256 hashed records using fields from the La
 
 ## Status and eligibility
 
-MIT-licensed (see LICENSE), follows Qiskit's Code of Conduct, targets Qiskit SDK 2.x and V2 StatevectorSampler, with best-effort experimental support. CI must pass before submitting to the official ecosystem form. This package is not a production security system and has no paid-hardware execution path.
+Apache-2.0 licensed (see the [repository license](../../LICENSE); the package includes the same text in [LICENSE-APACHE-2.0](LICENSE-APACHE-2.0)), follows Qiskit's Code of Conduct, targets Qiskit SDK 2.x and V2 StatevectorSampler, with best-effort experimental support. CI must pass before submitting to the official ecosystem form. This package is not a production security system and has no paid-hardware execution path.

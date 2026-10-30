@@ -5,10 +5,14 @@ on:
     paths:
       - 'integrations/quantum-agent-gate/**'
       - '.github/workflows/qag-qiskit.yml'
+      - 'ops/gates/validate_qag_package.py'
+      - 'LICENSE'
   pull_request:
     paths:
       - 'integrations/quantum-agent-gate/**'
       - '.github/workflows/qag-qiskit.yml'
+      - 'ops/gates/validate_qag_package.py'
+      - 'LICENSE'
   workflow_dispatch:
 permissions:
   contents: read
@@ -25,6 +29,10 @@ jobs:
         run: python -m pip install -e './integrations/quantum-agent-gate[qiskit,test]'
       - name: Check real SDK major version
         run: python -c 'import qiskit; assert qiskit.__version__.split(".")[0] == "2", qiskit.__version__'
+      - name: Verify distributable license
+        run: |
+          python -m pip wheel --no-deps --wheel-dir /tmp/qag-dist ./integrations/quantum-agent-gate
+          python ops/gates/validate_qag_package.py /tmp/qag-dist/quantum_agent_gate-*.whl
       - name: Policy and Qiskit V2 tests
         working-directory: integrations/quantum-agent-gate
         run: python -m pytest -q -ra
