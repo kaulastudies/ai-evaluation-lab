@@ -5,6 +5,8 @@ agent's claimed completion with its intended action, a frozen authorization
 contract, and recorded effects. The example closes one synthetic support ticket.
 It uses no customer data, model inference, network calls, or real ticket changes.
 
+This is the **support/approval expansion example**. The first commercial buyer in the redesigned proposal is a software engineering lead or coding-agent integrator, using the existing ProofGate coding-agent evidence as the entry point. This example is not that customer pilot or an authenticated ticket connector.
+
 ## Run it from the repository root
 
 Python 3.10 or later; standard library only:

@@ -1,11 +1,98 @@
-# Pilot protocol: support-agent release evidence
+# Customer pilot protocols: coding first, support expansion
 
-Status: proposed customer-validation protocol, version 0.1, 30 October 2026.
+Status: proposed customer-validation protocols, version 0.2, 30 October 2026.
 No customer has accepted it and no customer outcome is reported here. Any local
 synthetic demonstration in this branch is engineering evidence, not execution of
 this buyer pilot.
 
-## Decision and scope
+## First commercial pilot: coding-agent release checks
+
+The first buyer hypothesis is an engineering lead at a SaaS/software company or
+coding-agent integrator. ProofGate is the existing coding-agent demonstrator.
+The first 90-day targets are 15 buyer interviews, three assisted staging installs,
+and one signed paid scope or budget-authorized LOI. These are preparation targets;
+the unchanged base model begins completed paid delivery in month 4 and recurring
+service in month 6. Neither a staging install nor an LOI is a completed sale.
+
+### Decision, access and delivery
+
+Test whether qualified task-contract checks improve one repository-task release
+decision compared with the buyer's normal tests and code review, at acceptable
+installation, review and maintenance cost. A four-week paid delivery scope is
+proposed once authorized access, execution isolation and independent review are
+ready. The $5,000 / 60-hour pilot assumption is unchanged; excess adapter or
+execution work requires a new scope rather than an implied commitment.
+
+Use one buyer-approved task family and synthetic or explicitly authorized test
+artifacts. Keep private repository material in the buyer's workspace. The present
+local runner is not an OS sandbox: review the intended execution boundary before
+running customer code or untrusted candidates. Existing security remediation
+remains separate. Do not assume an authenticated customer connector, unattended
+CI integration or a production deployment exists.
+
+### Freeze before evaluating
+
+The buyer engineering owner specifies the intended behavior, current baseline,
+release decision and relevant failure classes. The Lab engineer implements checks;
+a person independent of that implementation authors/reviews holdout cases and
+reference outcomes. The budget owner separately decides whether results merit a
+purchase or repeat engagement. Roles are proposed, not appointed people.
+
+Lock the task contract, repository revision, candidate input policy, runtime and
+dependency versions, baseline configuration, control strategy, sampling plan,
+severity definitions, metrics, budget and publication rights before examining
+holdout results. Record code provenance and execution errors. Compare both methods
+on the same candidate artifacts; retain every failed or uncertain attempt and
+report repairs separately. Replay from retained artifacts is not fresh inference.
+
+An initial design may use 12 visible development cases and 48 independent holdout
+episodes: 20 contract-compliant, 20 contract-violating and eight with incomplete
+or conflicting evidence. These are proposed case counts, not existing customer
+observations. The buyer and reviewer must confirm that the cases represent its
+workflow. Relevant classes may include data-preservation/API-contract regressions,
+permission isolation, duplicate processing and stale asynchronous results.
+Do not reuse the implementation's own verdict as ground truth or treat variants
+of one case as independent customer observations.
+
+### Measurement and continuation
+
+Map each method's release recommendation to `ALLOW`, `BLOCK` or `REVIEW` using a
+frozen rule. An execution error maps to `REVIEW` and remains separately flagged.
+For the adjudicated compliant and violating cases, report all three counts,
+false acceptance, false blocks, review burden and decisive coverage with their
+exact denominators. Report unresolved labels and unexecuted cases separately.
+For the uncertain-evidence partition, measure explicit review rather than an
+unsupported pass. Zero denominators are `N/A`, not zero-percent performance.
+
+Measure assisted-installation time, failed installs, engineering/reviewer hours,
+paired case-review time, compute costs and rerun effort. Freeze the buyer's normal
+baseline fairly; do not compare only against a deliberately weak success-claim
+baseline. Blind method labels where possible and record failures of blinding.
+
+Proposed continuation thresholds, to be agreed before lock, are: complete artifact
+accounting; zero allowed contract violations; at least 95% decisive coverage of
+the 40 decisive holdouts; at most one false block among 20 compliant cases; all
+eight uncertain cases routed to review; and buyer-accepted incremental detection
+without added false blocks, or at least 20% lower median review time without worse
+false-acceptance/false-block counts. Economic continuation also requires a scope
+and price accepted by the budget owner. These are internal experiment gates,
+not formal START eligibility rules or general deployment approval. Small designed
+case sets do not estimate production incident rates.
+
+The handover contains the frozen contract, full candidate and result ledger,
+reference-case provenance, source/runtime identifiers, controls, errors, hashes,
+review disagreements, costs and reproduction instructions. Buyer reproduction
+and a subsequent real release provide the next reuse test. If no incremental
+value is found, preserve the result and stop or rescope; do not add favorable
+cases after looking at the outcomes.
+
+The more detailed methods below apply to a **separate support/approval expansion**.
+They are not a claim that the coding pilot uses a ticket connector or that the
+support pilot has been carried out.
+
+## Support/approval expansion protocol
+
+### Decision and scope
 
 Can a buyer make a better-supported release decision for one support workflow by
 adding action-outcome verification to its existing checks, at acceptable review
@@ -29,7 +116,7 @@ incident rates, and other workflows are outside this pilot. Arabic–English cas
 are a later extension only if a buyer needs them and a qualified reviewer verifies
 language and meaning; translated strings alone do not establish that capability.
 
-## Roles and separation
+### Roles and separation
 
 | Role | Responsibility | Evidence boundary |
 | --- | --- | --- |
@@ -42,7 +129,7 @@ The independent reviewer is a proposed paid role; nobody is committed by this
 document. If that reviewer or buyer cannot participate, label the work an internal
 engineering exercise and do not claim the customer pilot is complete.
 
-## Preregister before running
+### Preregister before running
 
 Before seeing holdout outcomes, all participants accept and version:
 
@@ -61,7 +148,7 @@ Hashing only detects changes relative to a trusted copy; it does not prove that
 the content is true or that execution was secure. Keep original artifacts and a
 change log. A changed rule creates a new protocol version and a new holdout set.
 
-## Cases and the comparison
+### Cases and the comparison
 
 Proposed initial scope is 60 distinct synthetic episodes for one workflow:
 
@@ -97,7 +184,7 @@ blocks with their own identifiers and denominators. Do not count multiple
 variants of the same episode as independent customer observations. Do not repair
 a failed candidate and replace its original result. Report repairs separately.
 
-## Result vocabulary and metrics
+### Result vocabulary and metrics
 
 Each method returns `ALLOW`, `BLOCK`, or `REVIEW`, plus evidence and reasons.
 The comparison ledger maps a method's execution error to `REVIEW` and retains
@@ -135,7 +222,7 @@ individual values and the median, sample size, and range. Include time spent
 handling false alarms and errors. Do not turn an estimated avoided incident into
 measured savings. Keep an explicit `unknown` for costs that were not measured.
 
-## Proposed gates, to be agreed before lock
+### Proposed gates, to be agreed before lock
 
 These are internal pilot continuation thresholds, not industry standards or a
 general deployment approval. A buyer may require stricter rules before lock.
@@ -166,7 +253,7 @@ If no incremental value is found, report that the current baseline was adequate
 for this set or that the additional checks did not justify their cost. Do not add
 new favorable cases after inspecting results and present them as preregistered.
 
-## Evidence package and handover
+### Evidence package and handover
 
 For each episode retain, subject to the agreed private retention policy:
 
@@ -194,7 +281,7 @@ separately approved material under the repository's
 [provenance boundary](../INDEPENDENCE.md). This protocol does not establish data
 residency, a security audit, or a customer-ready hosted environment.
 
-## Commercial outcome record
+### Commercial outcome record
 
 Ask the budget owner to choose and explain one result: paid continuation,
 conditional purchase with named conditions and decision date, further unpaid

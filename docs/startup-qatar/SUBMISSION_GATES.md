@@ -22,11 +22,11 @@ The public F6S application inspected on 30 October 2026 listed 21 question topic
 
 | Attachment | Material prepared here | Remaining work |
 | --- | --- | --- |
-| Pitch deck | [12-section narrative](PITCH.md), evidence, demo and pilot plan | Founder review, final selection of claims, export to accepted attachment format |
-| Founder profile(s) | [Public profile draft](FOUNDER_PROFILE.md) | Confirm all founders, current roles and dates, then export |
-| Historical and projected financials | [Formula-based plan](FINANCIAL_PLAN.md) and JSON model | Add verified historical accounts, approve assumptions and amount requested, export |
+| Pitch deck | [13-slide core narrative plus two appendix slides](PITCH.md), aligned with the redesigned attachment | Founder review, final claims/ask, visual QA, accepted file type and file-size check |
+| Founder profile(s) | [Public profile source](FOUNDER_PROFILE.md), aligned with the redesigned attachment | Confirm all founders, current roles and dates; check final export and privacy boundary |
+| Historical and projected financials | [Formula-based plan](FINANCIAL_PLAN.md), unchanged JSON model and redesigned financial attachment | Reconcile historical accounts, approve assumptions and amount requested; check final export |
 
-Repository Markdown and JSON are review sources. They are not represented as uploaded F6S attachments. The final application must answer both parts of the Qatar-operations/local-hiring question and must not infer consent to relocation or equity from interest in a funding program.
+Repository Markdown and JSON are review sources aligned with the companion redesigned exports. Neither exported attachments nor this branch have been submitted to F6S. The first commercial path is coding-agent release checks; the support/approval example is a separate expansion prototype. First-stage targets remain 15 buyer interviews, three assisted staging installs and one signed paid scope or budget-authorized LOI, followed by modeled paid delivery in month 4 and recurring service in month 6. These internal validation targets are not additional published START eligibility rules. The final application must answer both parts of the Qatar-operations/local-hiring question and must not infer consent to relocation or equity from interest in a funding program.
 
 ## Actions not yet performed
 

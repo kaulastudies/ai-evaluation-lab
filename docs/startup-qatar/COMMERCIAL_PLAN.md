@@ -1,4 +1,4 @@
-# Commercial plan: verifiable release checks for agent workflows
+# Commercial plan: verifiable release checks for coding agents
 
 Status: proposed commercial strategy, 30 October 2026. No buyer interviews, signed
 pilot, Qatar customer, product revenue, or willingness to pay are established by
@@ -12,23 +12,26 @@ or customer-evidence status.
 
 ## The first purchase decision
 
-An engineering lead is about to release a support agent that can update tickets
-and request approvals. The agent says an action succeeded; a release test checks
-the response format. The buyer still needs to know whether the right action
-actually occurred, within the right tenant and authority, exactly as permitted.
+An engineering lead at a SaaS/software company or coding-agent integrator is
+reviewing an AI-generated change. Existing tests pass, but the buyer still needs
+to know whether the change satisfies the agreed task contract and preserves
+behavior that the tests did not cover. The AP-005 demonstration makes one such
+failure inspectable; it is a synthetic example, not a customer incident.
 
-AI Evaluation Lab's proposed first product is a bounded release evidence pack for
-that decision. ProofGate is an existing demonstration of the Lab's verification
-approach; adapting it to a buyer's support workflow is proposed work. This offer
-does not assume the present repository is already a customer integration.
+AI Evaluation Lab's proposed first offer is a bounded release evidence pack for
+one repository task family. ProofGate is the existing coding-agent demonstration;
+customer installation, reviewed execution isolation and reusable repository
+adapters remain proposed work. The separate offline support/approval example is
+an expansion prototype, not the initial customer integration.
 
-The first customer profile is a B2B software company or implementation team that:
+The first customer profile is a SaaS/software engineering team or coding-agent
+integrator that:
 
-- owns a working tool-using support or internal-approval agent;
-- can provide a synthetic staging workflow and inspectable action receipts;
-- has a named engineering owner, release date, and person who controls budget;
-- changes its model, prompts, tools, or workflow often enough to rerun checks;
-- can describe a recent relevant failure or a costly release-review process.
+- has a recurring agent-generated code workflow and a defined release decision;
+- can authorize a bounded task family, test repository and inspectable artifacts;
+- has a named engineering owner, release date and person who controls budget;
+- changes code, models, prompts or tools often enough to reuse the checks;
+- can describe a relevant regression, missing check or costly review process.
 
 The engineering or platform lead is the likely champion. The head of engineering
 or product is the proposed budget owner. Security and procurement may veto
@@ -38,12 +41,23 @@ developer or an accelerator introduction alone is not a qualified buyer.
 Exclude the first pilot if it requires live financial transfers, production
 credentials, regulated personal data, unrestricted agent execution, or a general
 safety certificate. A team needing only response-quality scoring is outside this
-initial offer unless interviews reveal a concrete action-verification problem.
+initial offer unless interviews reveal a concrete coding-release verification need.
+
+## Why investigate this now
+
+Stack Overflow's 2026 trust question had 14,304 respondents: 48.0% selected trust
+conditional on easy output verification, while 6.6% selected trust including
+important work decisions. This self-selected survey motivates discovery; it does
+not measure the Lab's customer demand or market size. No cross-year comparison
+is inferred. Source: [Stack Exchange Inc., 2026 Developer Survey](https://survey.stackoverflow.co/2026/ai/data/ai-trust),
+ODbL 1.0 response data; checked 30 October 2026.
 
 ## What the buyer receives
 
-One workflow, one frozen acceptance contract, a small qualified test set, a
-comparison with the buyer's existing checks, and a reproducible evidence report.
+One repository task family, one frozen acceptance contract, a small qualified
+test set, a comparison with the buyer's existing checks, and a reproducible evidence
+report. A four-week delivery scope is proposed after authorized access, execution
+isolation and independent review are ready.
 The [pilot protocol](PILOT_PROTOCOL.md) specifies the measurements and stop rules.
 The handover includes the observed failures, clean outcomes, unresolved cases,
 case-level evidence, and rerun instructions. It does not promise a safe agent or
@@ -70,9 +84,9 @@ and [Promptfoo introduction](https://www.promptfoo.dev/docs/intro/).
 This is a limited comparison, not an exhaustive feature or price audit. No
 head-to-head performance result has been produced.
 
-The differentiation hypothesis is the combined delivery of explicit action
-contracts, tests of the verifier itself, retained failures, and inspectable
-outcome evidence. Each component can be reproduced by others. Any lasting
+The differentiation hypothesis is the combined delivery of explicit repository
+task contracts, tests of the verifier itself, retained failures, and inspectable
+release evidence. Each component can be reproduced by others. Any lasting
 advantage must come from validated task expertise, lower adoption effort, and
 repeat customer value. Proprietary customer artifacts cannot become a public
 benchmark or commercial asset without separate publication and reuse rights.
@@ -139,22 +153,24 @@ organizations as a pipeline or display their logos as customers.
 
 ## Discovery that can disprove the idea
 
-Target ten interviews with relevant engineering/release owners across at least
-five organizations. This is a proposed research sample, not ten scheduled
+Target 15 buyer interviews with relevant engineering/release owners across at least
+five organizations. This is a proposed research sample, not 15 scheduled
 meetings. Start with Qatar-serving teams for relevance, but record Qatar and other
 markets separately rather than disguising international evidence as local demand.
 
 Ask these questions before showing the proposed solution:
 
-1. Describe the last agent release you approved. What actions could it perform?
+1. Describe the last agent-generated code change you reviewed. What requirement
+   and release decision did it affect?
 2. What failed or took longest to verify? Show a redacted or synthetic example if
    you are permitted to share one.
 3. Which checks caught the problem? Which evidence was missing? What happened next?
 4. How many people and hours did review and repair require? Which costs are measured
    and which are estimates?
-5. What do you already use for evaluation, tracing, CI, and manual approval?
+5. What do you already use for tests, evaluation, CI and manual code review?
 6. Who could approve a pilot, from which budget, and on what procurement timescale?
-7. What data or deployment restrictions would prevent a staging evaluation?
+7. What repository permissions, data rules or execution-isolation requirements
+   would prevent a staging installation?
 8. After seeing the exact pilot scope and $5,000 hypothesis: what would you remove,
    what would make it worth paying for, and what concrete next step could you take?
 
@@ -164,24 +180,29 @@ Separate direct statements from interpretation. Permission to quote an interview
 does not imply permission to publish artifacts or name the organization.
 
 Proposed discovery continuation gate: at least three distinct organizations
-describe a recurring action-verification problem using a specific example, two
-accept a detailed scoping discussion, and one names a budget owner and a plausible
-paid-pilot procurement route. A pleasant call, mailing-list signup, unpaid
+describe the same recurring coding-release problem using a specific example,
+three are suitable for assisted staging installs, and at least one names a budget
+owner and a plausible paid-pilot procurement route. A pleasant call, mailing-list signup, unpaid
 collaboration, or vague interest does not satisfy this gate. If the gate is
-missed after ten relevant interviews, revise the workflow or buyer segment before
+missed after 15 relevant buyer interviews, revise the workflow or buyer segment before
 expanding the product. Report the failure honestly.
 
 ## Ninety-day execution and stop decisions
 
-The clock begins when work starts; external access, funding, and human review may
-change the schedule. Proposed owners are roles, not employees or committed hires.
+The clock begins with the approved, funded validation stage; external access and
+human review may change the schedule. Proposed owners are roles, not employees or committed hires.
 
 | Period | Work and proposed owner | Reviewable output | Continue only if |
 | --- | --- | --- | --- |
-| Days 1–15 | Founder: buyer interviews, eligibility screen, three-minute evidence walkthrough | Dated discovery log and qualified opportunity summary; public summary without private data | The discovery gate above is met or one explicit segment revision is justified |
-| Days 16–30 | Founder + buyer release owner: scope and baseline; independent reviewer identified | Written workflow contract, price/scope proposal, data boundary, named buyer owner and reviewer | A buyer authorizes the bounded pilot; costs and access are feasible |
-| Days 31–60 | Founder + reviewer: run the frozen pilot and comparison | Case-level results, failures, unknowns, measured effort, customer review | Technical and operational gates in the pilot protocol are met; otherwise report and stop/re-scope |
-| Days 61–90 | Buyer budget owner + founder: purchase/renewal decision and economics review | Signed paid scope or documented rejection; repeat-use decision; actual cost ledger | A paid customer or credible purchase process exists and the revised economics support delivery |
+| Days 1–30 | Founder: 15 buyer interviews, eligibility screen and ProofGate walkthrough | Dated discovery log; three teams describing the same recurring coding-release problem | The discovery gate above is met or one explicit segment revision is justified |
+| Days 31–60 | Founder + buyer engineers: three assisted staging installs | Authorized artifacts, reviewed isolation, buyer-authored cases, setup/assistance time and baseline comparison | Access is lawful, execution controls are adequate, and at least one workflow has plausible value |
+| Days 61–90 | Founder + buyer budget owner + independent reviewer: scope and procurement | One signed paid scope or budget-authorized LOI; frozen acceptance rules, price, data boundary and delivery budget | Buyer ownership and procurement are real and the delivery economics fit |
+
+The base financial scenario starts completed paid delivery and invoicing in month 4,
+with recurring service from month 6. The first three months prepare that decision;
+staging installs, written interest and an LOI are not completed pilots or sales.
+An LOI must state whether it is binding and which conditions remain. Both the
+schedule and the 15/3/1 targets are proposed, not achieved milestones.
 
 No signed pilot or buyer access means no claimed customer validation. A letter of
 intent, if obtained, should say whether it is binding and identify its conditions;
@@ -193,9 +214,9 @@ appropriate execution steps.
 
 Qatar should be a place to conduct useful customer validation and build a credible
 operation, rather than an address added to qualify for funding. The immediate
-local contribution hypothesis is engineering support for teams releasing
-tool-using agents and, only where buyers need it, Arabic–English workflow tests
-reviewed by qualified people. No Arabic capability, local buyer, institutional
+local contribution hypothesis is evaluation engineering for software teams and
+coding-agent integrators. Support/approval workflows and buyer-required
+Arabic–English cases are later extensions needing qualified review. No Arabic capability, local buyer, institutional
 partner, resident founder, or local hire is claimed today.
 
 The application becomes stronger with one permissioned buyer case, a baseline

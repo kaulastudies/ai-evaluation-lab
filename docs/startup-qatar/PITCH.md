@@ -1,89 +1,111 @@
-# AI Evaluation Lab: verifiable release checks for AI agents
+# AI Evaluation Lab: release checks for coding agents
 
-Pitch narrative for Startup Qatar START. Prepared 30 October 2026. These sections are presentation source, not an exported pitch-deck attachment. All proposed commercial and Qatar activity requires validation.
+Pitch narrative aligned with the redesigned Startup Qatar attachments, 30 October 2026. The core story has 13 slides and two evidence/financial appendix slides. This is presentation source; exporting it does not resolve the factual submission gates. Commercial activity, customer installation and Qatar operations remain proposed.
 
-## 1. The product
+## 1. Release checks for coding agents
 
-AI Evaluation Lab helps an engineering team determine whether a tool-using agent completed a defined workflow within its permissions. The release evidence records the task contract, the agent's claim, the observed outcome and the verification result. Missing evidence remains visible.
+AI Evaluation Lab helps engineering teams check whether an AI-generated change satisfies the agreed task contract. **ProofGate** is the existing coding-agent demonstration, built on retained repository-agent attempts. AI Evaluation Lab is the company/project identity; ProofQ and other research prototypes are separate portfolio work.
 
-The first proposed commercial workflow is support-ticket closure that requires approval. The buyer is the engineering owner responsible for releasing that automation. The existing ProofGate demonstration shows the Lab's verification approach on repository-agent tasks.
+Rama Chandra Malayanur leads the work as a founder and independent engineer based in India. [Public demonstration](https://kaulastudies.github.io/ai-evaluation-lab/proofgate/) · [Repository](https://github.com/kaulastudies/ai-evaluation-lab).
 
-The longer-term product is a shared verification engine with workflow-specific rules and connectors. After the first workflow earns repeat use, the same product could support e-commerce operations, procurement and logistics. Financial operations and healthcare administration would require additional domain review and controls. These are expansion hypotheses, not implemented sector offerings. The [platform and launch strategy](PLATFORM_STRATEGY.md) defines the product gaps, adoption mechanism and evidence required to expand.
+## 2. Passing tests can still hide a broken task
 
-## 2. The problem we can demonstrate
+In the recorded AP-005 example, a generated record-transformer change passed public tests while silently dropping inactive rows. The qualified verifier rejected it because the frozen task contract required preservation of every input row. A later recorded repair passed the bounded verifier.
 
-A passing public test or an agent's success message can disagree with the underlying task contract. In the Lab's retained repository-agent evidence, 3 of 46 attempts with an explicit success claim and passing public tests were rejected by the qualified verifier.
+This is a synthetic repository task and historical inference, not a production incident. It demonstrates the difference between passing a test and satisfying the intended contract. The commercial question is whether that distinction changes a buyer's release decision enough to justify the cost of additional checks.
 
-This is a result from a small, selected synthetic task set. It does not estimate failure prevalence in deployed enterprise agents. The commercial question is whether checking these disagreements reduces a buyer's release risk or review effort enough to justify a paid engagement.
+## 3. Verification matters to developer trust
 
-Source: [evidence ledger](EVIDENCE_LEDGER.md) and its reproducible snapshot.
+In the 2026 Stack Overflow trust question, 48.0% of 14,304 respondents selected trust conditional on easily verifying outputs; 6.6% selected trust extending to important work decisions. This self-selected survey is an industry signal to investigate, not evidence of Lab demand, TAM or willingness to pay. No cross-year comparison is made.
 
-## 3. What the buyer receives
+Source: [Stack Exchange Inc., Trust in AI tools, 2026 Developer Survey](https://survey.stackoverflow.co/2026/ai/data/ai-trust), response data under ODbL 1.0; checked 30 October 2026.
 
-A proposed pilot produces a frozen contract for one workflow, a control and held-out test set, a machine-readable report and reproducible regression instructions. Each result preserves the distinction between the agent's claim, a requested action and evidence of the resulting effect.
+## 4. Make the release decision inspectable
 
-The buyer can inspect why a case passed, failed or remained unresolved. The pilot measures missed violations and false alarms alongside review time. It does not promise a generally safe agent or automatic compliance certification.
+1. **Define:** freeze a task contract and challenge its verifier with negative controls.
+2. **Check:** inspect the candidate change and run bounded contract checks.
+3. **Review:** retain PASS, FAIL and HOLD outcomes with artifacts and replay instructions.
 
-## 4. What works today
+The working demonstration is a coding-task workflow. Customer installation, reviewed execution isolation, reusable repository adapters and CI packaging are next product work. The public runner is not a production sandbox.
 
-The public repository contains five RARB tasks and 52 retained attempts: 44 verified passes, 5 verified failures and 3 holds. The 30-trial AP-001 repeated experiment is included in those 52 attempts. Seventeen configured critical verifier mutations were rejected in the retained qualification results.
+## 5. Fifty-two retained attempts across five tasks
 
-ProofGate exposes existing evidence for inspection and replay. This branch adds a separate offline support-workflow demonstration. That demonstration contains synthetic records and makes no fresh-model or customer-deployment claim.
+The public RARB record contains **52 attempts: 44 VERIFIED_PASS, 5 VERIFIED_FAIL and 3 HOLD**. In that selected set, **3 of 46 attempts with an explicit success claim and passing public tests** were rejected by the verifier. The sample does not estimate an industry failure rate.
 
-These results support technical diligence. Independent human evaluation and commercial validation remain open.
+The 30-trial AP-001 experiment is included in 52; do not add it again. Seventeen configured critical mutations were rejected in retained verifier-qualification results. See [EVIDENCE_LEDGER.md](EVIDENCE_LEDGER.md) for denominators, provenance and limits. These are technical results, not customer traction.
 
-## 5. First customer and route to revenue
+## 6. One engineering team, one release decision
 
-Start with a small engineering team releasing an agent that changes support records and can provide authorized test data and observable action receipts. The proposed purchase is a fixed-scope evaluation sprint for one workflow.
+First buyer hypothesis: **the engineering lead at a SaaS/software company or coding-agent integrator** with a recurring agent-generated code workflow, authorized test artifacts and a budget owner.
 
-The pricing hypothesis is US$5,000 for the first pilot, followed by an optional US$1,000 monthly regression service with a limited workload. These prices have not been accepted by a buyer. The [commercial plan](COMMERCIAL_PLAN.md) specifies the discovery questions, cost assumptions and conditions for changing or stopping this offer.
+The proposed pilot covers one repository task family and compares the added checks with the buyer's existing tests and review process. A four-week delivery scope is proposed once access, security and independent review are ready. Repeat use on a subsequent release, actual effort and willingness to pay determine whether to continue. No buyer, savings or demand has been validated by this package.
 
-The product-growth hypothesis is a free local check that an engineer can install, rerun at the next release and share with a teammate, followed by paid team capabilities or recurring support. Customer-ready onboarding, connectors and paid team features still need implementation and validation. The test is declining assistance per activated customer and repeat use. No multi-billion-dollar TAM, viral adoption or revenue forecast is established by the current evidence.
+## 7. Win on useful evidence and delivery
 
-## 6. Alternatives and differentiation
+Internal tests and CI already provide assertions, logs and code review. LangSmith documents datasets, custom code evaluation and regression testing; Promptfoo documents assertions, evaluation and CI integration.
 
-LangSmith already supports code evaluators and regression testing. Promptfoo already supports model/application evaluation, assertions and CI integration. A buyer may also write ordinary tests and inspect logs without buying a new product.
+The proposed reason to choose the Lab is the work required to design, qualify and review trustworthy checks for a specific release decision. The pilot must demonstrate incremental findings or lower review effort after including installation and maintenance cost. No unique-feature monopoly or comparative ROI is claimed.
 
-The proposed reason to choose the Lab is the engineering and evidence package for one difficult workflow: qualified checks, explicit unknowns, reproducible failure artifacts and a measurable reduction in release review effort. The pilot must demonstrate incremental value against the buyer's current tools. A generic evaluation dashboard alone would provide insufficient differentiation.
+Sources checked 30 October 2026: [LangSmith](https://docs.langchain.com/langsmith/evaluation-types), [Promptfoo](https://www.promptfoo.dev/docs/intro/).
 
-Sources checked 30 October 2026: [LangSmith evaluation types](https://docs.langchain.com/langsmith/evaluation-types), [Promptfoo introduction](https://www.promptfoo.dev/docs/intro/).
+## 8. Start with code; expand through repeat use
 
-## 7. Why Qatar
+Coding-agent checks are the first commercial entry point. Support and approval actions are a later extension, illustrated by a **separate offline synthetic prototype**. Authenticated connectors and customer deployment for that extension are not implemented here. Commerce, procurement and administrative workflows would need their own domain rules and validation.
 
-Startup Qatar's START route supports PoC/MVP companies planning Qatar operations and includes AI/ML and B2B SaaS among its priority sectors. This makes it a relevant funding and market-entry route for the proposal.
+The long-term product hypothesis is reusable verification with less founder assistance per account. The market formula is qualified buying organizations multiplied by validated annual spend; neither input currently supports a measured TAM. See [PLATFORM_STRATEGY.md](PLATFORM_STRATEGY.md).
 
-The proposed local contribution is workflow-verification capability that a Qatar engineering team can operate and audit. Arabic-English workflow tests could add value after a qualified language reviewer and a local design partner agree on a real use case. Neither a reviewer nor a partner is secured by this proposal.
+## 9. A paid pilot first, recurring release support next
 
-The [operating plan](QATAR_OPERATING_PLAN.md) makes incorporation, local hiring, deployment location and founder presence conditional on written terms and founder decisions. Fee waivers do not establish a zero-cost launch.
+| Offer hypothesis | Price | Direct economic cost | Contribution before overhead and tax |
+| --- | ---: | ---: | ---: |
+| One bounded pilot | $5,000 | 60 hours × $50 + $500 review + $250 compute = $3,750 | $1,250 / 25% |
+| One recurring workflow service | $1,000/month | Eight hours × $50 + $100 compute = $500 | $500 / 50% |
 
-Source: [official investment program](https://startupqatar.qa/en/investment-program), checked 30 October 2026.
+No customer has accepted these prices in the evidence used for this pack. Current pricing describes a bounded service. Software scale requires reusable contracts and lower delivery/support effort per account; prospective team features and private deployment are unvalidated. See [COMMERCIAL_PLAN.md](COMMERCIAL_PLAN.md).
 
-## 8. The next 90 days
+## 10. Turn a public example into a repeat release check
 
-The next milestone is an agreed workflow and a paying or budget-authorized pilot, followed by a comparison against the buyer's existing release process. Discovery must establish a named budget owner, permission to use the evidence and the operational cost of current failure/review.
+| Period | Proposed target |
+| --- | --- |
+| Days 1–30 | 15 buyer interviews; identify three teams with the same recurring release problem |
+| Days 31–60 | Three assisted staging installs; measure setup effort and compare buyer-authored cases |
+| Days 61–90 | One signed paid scope or budget-authorized LOI; freeze acceptance rules and delivery cost |
 
-Engineering work then freezes the acceptance rules before evaluation and retains failures. Independent case authorship and blinded review reduce the risk of testing only what the verifier already handles. The [pilot protocol](PILOT_PROTOCOL.md) defines what counts as success and when to stop.
+These are targets, not completed work. The unchanged base financial scenario starts paid delivery in **month 4** and recurring service in **month 6**. A staging install or LOI is not invoiced revenue or collected cash. See [PILOT_PROTOCOL.md](PILOT_PROTOCOL.md).
 
-## 9. Capital tied to evidence
+## 11. Engineering evidence and execution capacity
 
-The [financial model](FINANCIAL_PLAN.md) explores an indicative US$100,000 funding ceiling for a conditional 12-month plan, beginning with a proposed US$20,000 validation stage. This is a planning scenario, not a founder-approved funding request, valuation, term sheet or promise of program funding.
+Rama leads the Lab's implementation, experiment execution and evidence curation. ProofGate and the retained evaluation pipeline provide inspectable evidence of that work. His [Periskop Jest 30 contribution](https://github.com/backstage/community-plugins/pull/10964) was merged by Backstage Community Plugins on 22 September 2026. An accepted contribution is individual execution evidence, not endorsement of this venture.
 
-Later spending depends on customer evidence and written operating costs. The model separates cash collections from invoicing, founder draw from economic labor cost, and projected revenue from historical actuals. Any funded public research overlap must reduce the corresponding commercial funding need.
+The founder profile supplies relevant operating context. Independent review, customer delivery and funded local capacity remain needs to address. Mentor acknowledgments, collaborators and AI review workstreams are not employees or committed cofounders. Actual availability and Qatar presence remain founder decisions. See [FOUNDER_PROFILE.md](FOUNDER_PROFILE.md).
 
-## 10. Founder and execution capacity
+## 12. Build a Qatar validation and delivery base
 
-Rama Chandra Malayanur leads AI Evaluation Lab. The public repository provides inspectable implementation, retained experiment artifacts and verification code. The strongest founder evidence is the work itself.
+The proposed first local engagement is a buyer-owned coding-agent workflow with a software team or integrator. Seek relevant introductions, develop evaluation engineering and independent-review capacity when funded demand supports it, and confirm establishment terms before commitments.
 
-The business remains founder-dependent. The first plan must fit real founder availability and leave room for customer discovery, support and review. Proposed specialist reviewers and local hires must remain unfilled roles until agreed and funded. See the [public founder profile](FOUNDER_PROFILE.md).
+No Qatar customer, partner, local hire or relocation is committed. Arabic-English evaluation remains an expansion hypothesis requiring a real use case and a qualified reviewer. The [operating plan](QATAR_OPERATING_PLAN.md) separates proposed activity from written programme requirements. Fee waivers do not mean free operations.
 
-## 11. Risks that determine the investment decision
+Source: [Startup Qatar START](https://startupqatar.qa/en/investment-program), checked 30 October 2026.
 
-Customer demand is unproven. Existing tools may already solve enough of the problem. Evidence from a few synthetic workflows may not transfer to customer systems. Receipts supplied by an untrusted system cannot establish real-world truth merely because their hashes match. Security remediation in PR #34 remains open and unmerged as of this review.
+## 13. Fund validation, then earn the next stage
 
-The proposal addresses these risks with a narrow pilot, explicit trust assumptions, a comparison baseline and staged spending. No document substitutes for customer evidence or an independent security review.
+The planning scenario begins with **$20,000** inside a conditional **$100,000 twelve-month ceiling**: validate with $20,000, deliver with a proposed $30,000 second stage, and consider up to $50,000 for repeatability. These amounts are not founder-approved investment terms or a funding offer.
 
-## 12. The decision requested
+Later releases depend on buyer evidence, accepted independent review, a quoted Qatar setup, and paid continuation or a second paying buyer. Recalculate and reduce later capital for collections and actual costs; stop when gates fail. The existing public $10,000 research request is separate, and shared costs must be allocated only once. See [FINANCIAL_PLAN.md](FINANCIAL_PLAN.md).
 
-Advance the project to technical and commercial diligence, with a defined first-pilot milestone and a proportionate first funding stage if terms and eligibility fit. A broader investment decision should follow evidence of buyer demand, viable delivery cost and an agreed Qatar operating commitment.
+The requested next decision is technical and commercial diligence, with a proportionate funded validation stage if eligibility and terms fit. A broader investment recommendation depends on demand, repeatable delivery and compatible founder commitments.
 
-The [jury review](JURY_REVIEW.md) records the objections that still need answers. The [submission gates](SUBMISSION_GATES.md) identify unresolved facts before this narrative becomes an application.
+## Appendix A. Evidence and security boundaries
+
+Historical model attempts, source-exact replay, original synthetic controls, plans and customer outcomes are different evidence classes. The 12 support-workflow controls are separate from the 52 model attempts. Hashes bind retained bytes; they do not prove a real external effect. Security remediation PR #34 remains a separate open dependency as of this review. No production enforcement, general certification or independent human audit is claimed.
+
+## Appendix B. Financial scenarios
+
+| Twelve-month measure | Base hypothesis | Downside |
+| --- | ---: | ---: |
+| Pilots / recurring customer-months | 9 / 16 | 3 / 1 |
+| Invoices / cash collected | $61,000 / $52,000 | $16,000 / $10,000 |
+| Operating cash cost | $85,550 | $79,550 |
+| Peak unfinanced cash need | $33,550 | $69,550 |
+
+These are planning assumptions, not forecasts or historical accounts. Actual revenue, cash, funding and liabilities remain unreconciled. The [jury review](JURY_REVIEW.md) and [submission gates](SUBMISSION_GATES.md) retain the unresolved investment questions.

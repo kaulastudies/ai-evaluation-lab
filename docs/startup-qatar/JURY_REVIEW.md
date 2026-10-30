@@ -1,6 +1,6 @@
 # Jury review: AI Evaluation Lab / ProofGate
 
-Assessment date: 30 October 2026. This is a simulated investment-committee assessment, not Startup Qatar's official rubric, an external review, or a prediction of selection. No verified evidence supports a claim about competing against “lakhs” of applications. Competition should be addressed through stronger proof rather than invented acceptance odds.
+Assessment date: 30 October 2026; narrative aligned with the attachment redesign later the same day. This is a simulated investment-committee assessment, not Startup Qatar's official rubric, an external review, or a prediction of selection. No verified evidence supports a claim about competing against “lakhs” of applications. Competition should be addressed through stronger proof rather than invented acceptance odds.
 
 ## Decision
 
@@ -28,7 +28,7 @@ The “after” column describes the review package and proposed validation desi
 
 | Decision area | Existing position | Added by this branch | Evidence still needed for selection |
 | --- | --- | --- | --- |
-| Problem and buyer | Broad agent-evaluation infrastructure | One proposed support/approval workflow, buyer roles, interview protocol and rejection criteria | Independent buyer accounts of the problem, current workaround, budget and urgency |
+| Problem and buyer | Broad agent-evaluation infrastructure | A first coding-agent release workflow, buyer roles, interview protocol and rejection criteria; support/approval kept as a separate extension | Independent buyer accounts of the problem, current workaround, budget and urgency |
 | Technical proof | Five RARB tasks; 52 attempts: 44 pass, 5 fail, 3 hold | Auditable evidence snapshot and an offline workflow-release demonstration | Independent challenge cases and customer-specific integration feasibility |
 | Differentiation | Verifiers, provenance and replay are visible | Explicit claim-to-effect checks, receipt limits and comparison protocol | Better decision quality or lower total effort than the buyer's existing CI/evaluation setup |
 | Commercial model | Fixed-scope services described; no paying Lab customer verified | Costed pilot and recurring-service hypotheses | Accepted price, actual delivery hours, acquisition effort, collection and renewal evidence |
@@ -76,7 +76,7 @@ A working evaluation and replay pipeline, five synthetic repository tasks, a ret
 
 **Who is the first customer?**
 
-No paying AI Evaluation Lab customer is verified in the public evidence used for this review. The first proposed customer profile is a team deploying an agent into a bounded support/approval workflow, with an engineering owner and access to a budget decision. Interviews and a paid pilot must establish whether that profile is real and reachable.
+No paying AI Evaluation Lab customer is verified in the public evidence used for this review. The first proposed customer profile is an engineering lead at a SaaS/software company or coding-agent integrator with a recurring agent-generated code-release workflow and access to a budget decision. Interviews and a paid pilot must establish whether that profile is real and reachable.
 
 **Why Qatar?**
 
@@ -100,7 +100,7 @@ The repository demonstrates founder execution. It does not demonstrate a staffed
 
 ## Evidence that matters most next
 
-Priority one is a buyer-owned pilot and measured baseline comparison. Priority two is independent verifier and security review. Priority three is a quote-backed Qatar operating plan with founder commitments and investment terms resolved. These are more likely to change an investment decision than more generic features, a larger TAM slide or additional unvalidated product names.
+Priority one is a buyer-owned coding-agent pilot and measured baseline comparison. The first 90-day targets are 15 buyer interviews, three assisted staging installs and one signed paid scope or budget-authorized LOI. Paid delivery is modeled from month 4 and recurring service from month 6; neither has been achieved by producing this package. Priority two is independent verifier and security review. Priority three is a quote-backed Qatar operating plan with founder commitments and investment terms resolved. These are more likely to change an investment decision than more generic features, a larger TAM slide or additional unvalidated product names.
 
 The committee should receive a concise deck and a reproducible evidence bundle with explicit unknowns. The source [application draft](APPLICATION_DRAFT.md) is intentionally not ready to submit while its OPEN items remain unresolved.
 

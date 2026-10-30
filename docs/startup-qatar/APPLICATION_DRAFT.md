@@ -48,13 +48,13 @@ Draft answer: The public repository documents implementation led by the founder,
 
 Proposed model: **B2B.** Begin with fixed-scope evaluation pilots for teams deploying agents into defined workflows. A successful pilot can lead to recurring regression maintenance and evidence review. Both pricing and repeat purchase assumptions still require customer validation. No government contract is claimed.
 
-The longer-term model proposes a reusable verification product with workflow packs and connectors across sectors, starting with support/approval agents. Local developer adoption could lead to paid team features or private deployment support. These software capabilities and expansion markets are proposed, not existing subscriptions or sector deployments. See [PLATFORM_STRATEGY.md](PLATFORM_STRATEGY.md).
+The first offer is a coding-agent release-evaluation pilot for a SaaS/software engineering lead or coding-agent integrator. The longer-term model proposes a reusable verification product with workflow packs and connectors across sectors, with support/approval agents as a separate expansion path. Local developer adoption could lead to paid team features or private deployment support. These software capabilities and expansion markets are proposed, not existing subscriptions or sector deployments. See [PLATFORM_STRATEGY.md](PLATFORM_STRATEGY.md).
 
 ## 10. Customer base, new-market acquisition and TAM/SAM
 
 No paying AI Evaluation Lab customer or Qatar customer is verified by the public materials used for this draft. **OPEN — reconcile actual customers, users, revenue and signed agreements against founder records.** Repository views, collaborators and demonstration users are not automatically customers.
 
-Initial acquisition plan: identify engineering and product owners responsible for support/approval agents, interview them about recent release failures and existing checks, and offer a tightly scoped pilot only when a budget owner and usable workflow are present. The objective is to learn whether the problem is costly and whether our evidence changes a real decision.
+Initial acquisition plan: identify engineering leads at SaaS/software companies and coding-agent integrators with recurring agent-generated code workflows, authorized test artifacts and a budget owner. Target 15 buyer interviews in days 1–30, three assisted staging installs in days 31–60, and one signed paid scope or budget-authorized LOI in days 61–90. These are proposed targets, not a pipeline or achieved traction. The unchanged base financial model starts paid delivery in month 4 and recurring service in month 6. The objective is to learn whether the problem is costly and whether our evidence changes a real release decision.
 
 Use [COMMERCIAL_PLAN.md](COMMERCIAL_PLAN.md) for the bottom-up market framework. Its account counts and price scenarios are assumptions to validate, not measured market size. Do not substitute a global AI-market headline for the number of buyers the team can serve.
 
@@ -68,7 +68,7 @@ The proposal is not that these alternatives lack deterministic checks. The pilot
 
 ## 12. Unique value proposition and brief SWOT
 
-**Proposed value:** Help an engineering team decide whether an agent completed a defined workflow correctly, using inspectable checks and evidence that can be replayed. Start with one release decision and retain failures and uncertain outcomes.
+**Proposed value:** Help an engineering team decide whether an AI-generated code change satisfies its agreed task contract, using qualified checks and evidence that can be replayed. Start with one repository task family and release decision; retain failures and uncertain outcomes. Support/approval action verification is a separate offline extension.
 
 | Strength | Weakness | Opportunity | Threat |
 | --- | --- | --- | --- |
@@ -84,7 +84,8 @@ Use the actual September–October development period, without inflating operati
 - Retained **52 attempts: 44 VERIFIED_PASS, 5 VERIFIED_FAIL and 3 HOLD**, including repair attempts.
 - Published a **30-trial AP-001 Phase 12 subset** across three configurations, with 29 passes, one failure and retained source-exact replay evidence. These trials are already included in 52.
 - Published a ProofGate interface for inspecting and exercising bounded checks.
-- Prepared this customer-validation, financial-planning and Qatar diligence package; added an offline synthetic workflow-release demonstration. These are preparation outputs, not completed customer milestones.
+- Prepared this customer-validation, financial-planning and Qatar diligence package; added a separate offline synthetic support-workflow demonstration. These are preparation outputs, not completed customer milestones.
+- The founder's [Periskop Jest 30 contribution](https://github.com/backstage/community-plugins/pull/10964) was merged by Backstage Community Plugins on 22 September 2026. This is individual execution evidence, not startup revenue or project endorsement.
 
 Use [EVIDENCE_LEDGER.md](EVIDENCE_LEDGER.md) for audit details and current claim boundaries. Do not count open PRs as merged work or external review requests as approvals.
 
@@ -106,7 +107,7 @@ The repository's existing **US$10,000 public project-grant request** remains unc
 
 ## 17. Why Qatar, and what do you expect to gain?
 
-Proposed answer: We want to test a focused agent-evaluation offering with teams operating in Qatar and develop local delivery capacity if customer evidence and the program's terms support that plan. The first objective is a buyer-owned pilot and an independently reviewed evidence package. Qualified Arabic-English review could become a useful capability where customers require it, but it has not been validated or staffed.
+Proposed answer: We want to test a focused agent-evaluation offering with teams operating in Qatar and develop local delivery capacity if customer evidence and the program's terms support that plan. The first objective is a buyer-owned coding-agent pilot with a Qatar software team or integrator and an independently reviewed evidence package. Qualified Arabic-English review could become a useful capability where customers require it, but it has not been validated or staffed.
 
 We seek introductions to relevant buyers, guidance on establishing operations, technical and commercial mentorship, and staged investment against measured milestones. In return, the proposed local contribution is evaluation engineering, reproducible methodology and funded local technical capacity as demand develops. We are not claiming a local partner, customer, research relationship or guaranteed procurement access.
 
@@ -143,9 +144,9 @@ The inspected F6S form requires **three attachments, each at most 30 MB**:
 | Founder(s) profile | [FOUNDER_PROFILE.md](FOUNDER_PROFILE.md) and approved public contribution history | Accurate roles, dates, availability, qualifications and permission for any third-party profile |
 | Historical and projected financials | [FINANCIAL_PLAN.md](FINANCIAL_PLAN.md) and model | Actual historical records, assumptions, requested amount, scenario reconciliation and founder approval |
 
-These Markdown sources and planning outputs are not a claim that the required upload files are complete. Keep supporting personal records in a private workspace. Inspect exports, file sizes and the final form before submission.
+These Markdown files are source and review material aligned with the redesigned attachments. Exporting a deck, founder profile and financial plan does not resolve their open factual answers or establish that they are ready to upload unchanged. Keep supporting personal records in a private workspace. Inspect exports, file sizes and the final form before submission.
 
-The previously inspected form asks applicants to finish within **30 days of starting** and includes an accuracy declaration. Prepare the unresolved items first; this work has not started or submitted an application. Recheck those instructions at submission because forms can change.
+The previously inspected form asks applicants to finish within **30 days of starting** and includes an accuracy declaration. Resolve the open items and check the current draft status and deadline in the portal. This branch does not submit an application. Recheck those instructions at submission because forms can change.
 
 ## Sources checked on 30 October 2026
 

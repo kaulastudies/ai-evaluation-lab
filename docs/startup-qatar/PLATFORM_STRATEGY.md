@@ -4,7 +4,7 @@
 
 ## Decision
 
-Build toward a shared verification product for teams releasing tool-using AI agents. Use the first support/approval workflow to learn which parts can be installed and reused without founder involvement. Apply to Startup Qatar once the factual submission gates are resolved, while customer validation continues. Completing several industry products is not a prerequisite for the published PoC/MVP route.[1]
+Build toward a shared verification product for teams releasing tool-using AI agents. Start with coding-agent release checks for an engineering lead at a SaaS/software company or coding-agent integrator. Use that first buyer workflow to learn which parts can be installed and reused without founder involvement. Treat support/approval checks as a separate offline expansion prototype. Apply to Startup Qatar once the factual submission gates are resolved, while customer validation continues. Completing several industry products is not a prerequisite for the published PoC/MVP route.[1]
 
 The current repository provides technical proof and an offline workflow example. It does not yet provide self-service customer onboarding, authenticated connectors, paid subscriptions or a demonstrated repeat-use business. Those are material product gaps. A broader pitch alone does not close them.
 
@@ -34,13 +34,14 @@ The existing workflow verifier is deliberately limited to `close_ticket` and syn
 
 | Priority | Buyer/workflow | Reusable checks | Additional evidence required |
 | --- | --- | --- | --- |
-| First | Engineering teams releasing support or internal-approval agents | Permission, approval, duplicate effect, unsupported completion, unresolved evidence | A staging connector, buyer-owned contract, independent cases and accepted price |
+| First | Engineering leads at SaaS/software companies or coding-agent integrators | Repository task contracts, qualified verifiers, retained failures and replay | Buyer-approved task family, reviewed execution isolation, assisted installation, independent cases and accepted price |
+| Next | Support and internal-approval agents | Permission, approval, duplicate effect, unsupported completion, unresolved evidence | Authenticated staging connector, authoritative receipts, buyer-owned contract and independent cases; current example is offline only |
 | Next | E-commerce operations: order changes, returns or refund approvals in staging | The same authorization and effect checks | Domain rules, correct transaction/state evidence and a buyer willing to reuse the product |
 | Next | Logistics and procurement: shipment or purchase-order updates | Authorization, allowed state changes, replay and duplicate detection | Cross-system event mapping and reviewers who understand the workflow |
 | Later | Financial operations: invoice approvals and reconciliation | Separation of duties and evidence of allowed changes | Qualified domain review, security and contractual controls; no autonomous real-money release in the first offer |
 | Later | Healthcare administration: appointment and administrative-record workflows | Access boundaries and authorized state changes | Healthcare-specific review and data controls; clinical decisions are outside the proposed initial product |
 
-Software/repository-agent evidence remains an entry point for developers across these sectors. The first commercial validation remains support/approval workflows. A new sector proceeds only when at least two independent teams need the same pack, its connector can be reused, a qualified reviewer accepts the rules and someone accepts a paid scope. These are proposed internal expansion gates, not observed demand.
+Software/repository-agent evidence is the first commercial entry point. Support/approval workflows and other sectors are later expansion hypotheses. A new sector proceeds only when at least two independent teams need the same pack, its connector can be reused, a qualified reviewer accepts the rules and someone accepts a paid scope. These are proposed internal expansion gates, not observed demand.
 
 ## What a multi-billion-dollar claim would require
 
@@ -61,15 +62,17 @@ The proposed adoption path is:
 3. The developer adds the same check to the next release and shares a redacted result with a teammate.
 4. A team buys collaboration, recurring workflow maintenance or private deployment because repeated use creates value.
 
-Start with installation documentation, a packaged CLI and one customer-informed adapter. Add an opt-in CI integration that can annotate a release using the repository owner's permissions. A report should export locally by default. Public links or badges require explicit publication permission and should describe the exact check, never certify broad safety.
+Start with coding-pilot installation documentation, reviewed execution isolation, a packaged CLI and one buyer-informed repository adapter. Add an opt-in CI integration that can annotate a release using the repository owner's permissions. A report should export locally by default. Public links or badges require explicit publication permission and should describe the exact check, never certify broad safety.
 
 Publish worked failure cases with reproduction instructions, then distribute through the developer and integration communities that use the selected adapter. Obtain permission for customer examples. No promotion or outreach has been sent through this strategy update.
 
 Free local verification can reduce adoption friction. Possible paid products include team review/history, managed recurring checks and private deployment/support. These capabilities and prices require validation. Keep optional fresh-model testing separately metered with user budgets; do not make free adoption depend on unlimited provider spend. Existing pilot/service pricing remains an experiment, not a SaaS price list.
 
-## Proposed beta acceptance criteria
+## First 90 days and later beta acceptance criteria
 
-Measure a defined cohort of 20 qualified organizations, with eligibility and observation dates recorded. These are learning targets, not forecasts or achieved milestones:
+The first 90-day targets are 15 buyer interviews, three assisted staging installs and one signed paid scope or budget-authorized LOI. They precede a scaled beta; they are not completed milestones or a sales forecast. The unchanged base model starts paid delivery in month 4 and recurring service in month 6.
+
+After initial paid validation, a separate proposed beta could measure a cohort of 20 qualified organizations, with eligibility and observation dates recorded. This later experiment is not an additional first-90-day obligation. Its thresholds below are learning targets, not forecasts or achieved milestones:
 
 | Question | Proposed acceptance evidence |
 | --- | --- |
