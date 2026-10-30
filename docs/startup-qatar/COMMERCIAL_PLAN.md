@@ -5,6 +5,11 @@ pilot, Qatar customer, product revenue, or willingness to pay are established by
 this document. The numerical assumptions below are planning inputs, not market
 research findings or a financial offer.
 
+The [platform and launch strategy](PLATFORM_STRATEGY.md) extends this first-pilot
+plan toward reusable software and multiple sectors. Its expansion gates and beta
+targets are proposed. They do not change the current scope, pricing assumptions
+or customer-evidence status.
+
 ## The first purchase decision
 
 An engineering lead is about to release a support agent that can update tickets

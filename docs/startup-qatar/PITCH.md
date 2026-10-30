@@ -8,6 +8,8 @@ AI Evaluation Lab helps an engineering team determine whether a tool-using agent
 
 The first proposed commercial workflow is support-ticket closure that requires approval. The buyer is the engineering owner responsible for releasing that automation. The existing ProofGate demonstration shows the Lab's verification approach on repository-agent tasks.
 
+The longer-term product is a shared verification engine with workflow-specific rules and connectors. After the first workflow earns repeat use, the same product could support e-commerce operations, procurement and logistics. Financial operations and healthcare administration would require additional domain review and controls. These are expansion hypotheses, not implemented sector offerings. The [platform and launch strategy](PLATFORM_STRATEGY.md) defines the product gaps, adoption mechanism and evidence required to expand.
+
 ## 2. The problem we can demonstrate
 
 A passing public test or an agent's success message can disagree with the underlying task contract. In the Lab's retained repository-agent evidence, 3 of 46 attempts with an explicit success claim and passing public tests were rejected by the qualified verifier.
@@ -35,6 +37,8 @@ These results support technical diligence. Independent human evaluation and comm
 Start with a small engineering team releasing an agent that changes support records and can provide authorized test data and observable action receipts. The proposed purchase is a fixed-scope evaluation sprint for one workflow.
 
 The pricing hypothesis is US$5,000 for the first pilot, followed by an optional US$1,000 monthly regression service with a limited workload. These prices have not been accepted by a buyer. The [commercial plan](COMMERCIAL_PLAN.md) specifies the discovery questions, cost assumptions and conditions for changing or stopping this offer.
+
+The product-growth hypothesis is a free local check that an engineer can install, rerun at the next release and share with a teammate, followed by paid team capabilities or recurring support. Customer-ready onboarding, connectors and paid team features still need implementation and validation. The test is declining assistance per activated customer and repeat use. No multi-billion-dollar TAM, viral adoption or revenue forecast is established by the current evidence.
 
 ## 6. Alternatives and differentiation
 

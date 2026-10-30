@@ -48,6 +48,8 @@ Draft answer: The public repository documents implementation led by the founder,
 
 Proposed model: **B2B.** Begin with fixed-scope evaluation pilots for teams deploying agents into defined workflows. A successful pilot can lead to recurring regression maintenance and evidence review. Both pricing and repeat purchase assumptions still require customer validation. No government contract is claimed.
 
+The longer-term model proposes a reusable verification product with workflow packs and connectors across sectors, starting with support/approval agents. Local developer adoption could lead to paid team features or private deployment support. These software capabilities and expansion markets are proposed, not existing subscriptions or sector deployments. See [PLATFORM_STRATEGY.md](PLATFORM_STRATEGY.md).
+
 ## 10. Customer base, new-market acquisition and TAM/SAM
 
 No paying AI Evaluation Lab customer or Qatar customer is verified by the public materials used for this draft. **OPEN — reconcile actual customers, users, revenue and signed agreements against founder records.** Repository views, collaborators and demonstration users are not automatically customers.

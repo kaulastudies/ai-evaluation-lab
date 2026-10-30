@@ -10,6 +10,7 @@ AI Evaluation Lab proposes a first commercial product around **verifiable releas
 | --- | --- |
 | [Jury review](JURY_REVIEW.md) | Why advance to diligence, why defer investment, and what evidence would change that decision |
 | [Pitch narrative](PITCH.md) | A concise investment story, with observed results separated from proposed work |
+| [Platform and launch strategy](PLATFORM_STRATEGY.md) | How one verification product could serve several sectors, and what adoption evidence would justify expansion |
 | [Evidence ledger](EVIDENCE_LEDGER.md) | What the existing research actually demonstrates and how to reproduce the audit |
 | [Workflow demonstration](DEMO.md) | Inspect a concrete claim, action and outcome verification example |
 | [Commercial plan](COMMERCIAL_PLAN.md) | First buyer, alternatives, pricing hypotheses and customer discovery |
