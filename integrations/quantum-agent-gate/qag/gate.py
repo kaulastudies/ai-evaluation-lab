@@ -13,6 +13,12 @@ class Policy:
     allow_remote: bool = False
     remote_approvals: FrozenSet[tuple[str,str,str]] = frozenset()
 
+    def __post_init__(self):
+        for name, minimum in (('max_shots', 1), ('max_qubits', 1), ('max_depth', 0)):
+            value = getattr(self, name)
+            if type(value) is not int or value < minimum:
+                raise ValueError(f'{name} must be an integer >= {minimum}')
+
 @dataclass(frozen=True)
 class ExecutionRequest:
     actor: str
@@ -69,11 +75,11 @@ def preflight(req: ExecutionRequest, facts: CircuitFacts, policy: Policy, ledger
     reasons: list[str] = []
     if not req.actor.strip() or not req.request_id.strip():
         reasons.append('IDENTITY_REQUIRED')
-    if req.shots < 1 or req.shots > policy.max_shots:
+    if type(req.shots) is not int or not 1 <= req.shots <= policy.max_shots:
         reasons.append('SHOT_LIMIT')
-    if facts.qubits < 1 or facts.qubits > policy.max_qubits:
+    if type(facts.qubits) is not int or not 1 <= facts.qubits <= policy.max_qubits:
         reasons.append('QUBIT_LIMIT')
-    if facts.depth < 0 or facts.depth > policy.max_depth:
+    if type(facts.depth) is not int or not 0 <= facts.depth <= policy.max_depth:
         reasons.append('DEPTH_LIMIT')
     kind = policy.backends.get(req.target_id)
     if kind not in {'local','remote'}:
