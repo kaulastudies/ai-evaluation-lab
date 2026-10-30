@@ -9,7 +9,7 @@ def main():
     if len(sys.argv) != 2:
         raise SystemExit("Usage: validate_qag_package.py PATH_TO_WHEEL")
     root = Path(__file__).resolve().parents[2]
-    expected = (root / "LICENSE").read_bytes()
+    expected = (root / "LICENSE").read_bytes().rstrip(b"\r\n") + b"\n"
     with zipfile.ZipFile(sys.argv[1]) as wheel:
         metadata_files = [p for p in wheel.namelist() if p.endswith(".dist-info/METADATA")]
         if len(metadata_files) != 1:
