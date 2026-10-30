@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.1",
   "currency": "USD",
   "as_of": "2026-10-30",
   "status": "Planning assumptions only; not historical accounts, booked revenue, vendor quotations or a funding commitment.",
@@ -41,10 +41,14 @@
   "funding": {
     "contingency_percent": 15,
     "rounding_increment": 10000,
-    "conditional_tranches": [
-      {"month": 1, "amount": 20000, "gate": "Founder approves operating/availability assumptions; written programme eligibility and investment terms; funds received before spending."},
-      {"month": 4, "amount": 30000, "gate": "Evidence review complete, demand interviews support buyer need, one signed paid-pilot scope or budget-authorised LOI, Qatar formation and cash requirements quoted."},
-      {"month": 7, "amount": 50000, "gate": "Pilot independently reviewed and customer accepts value; at least one paid continuation or second paying buyer; local hiring plan and remaining cash need re-costed."}
+    "current_initial_request": 12000,
+    "initial_request_month": 1,
+    "initial_stage_months": 3,
+    "initial_request_rounding_increment": 1000,
+    "initial_request_gate": "Founder approves operating/availability assumptions; programme confirms the validation scope and eligible costs; written investment terms; funds received before spending.",
+    "follow_on_reviews": [
+      {"month": 4, "amount": null, "gate": "Evidence review complete, demand interviews support buyer need, one signed paid-pilot scope or budget-authorised LOI, Qatar formation and cash requirements quoted. Size any request from remaining approved costs and available cash."},
+      {"month": 7, "amount": null, "gate": "Pilot independently reviewed and customer accepts value; at least one paid continuation or second paying buyer; local hiring plan and remaining cash need re-costed. No automatic follow-on funding."}
     ]
   },
   "scenarios": {

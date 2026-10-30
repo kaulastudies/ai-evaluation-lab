@@ -1,39 +1,33 @@
-# Submission gates
+# Application status and remaining factual entries
 
-Status on 30 October 2026: **HOLD for submission**. The review pack is useful now, but unresolved legal, founder and financial answers must not be converted into invented facts to complete a form.
+Updated 30 October 2026. The proposal and assets are prepared for review. Submission remains on hold because some actual records and personal commitments are not established by available evidence. This is a statement of evidence, not an extra approval rule.
 
-## Required facts and decisions
+## Required to complete an accurate form
 
-| Gate | Evidence needed | Responsible role | Current status |
-| --- | --- | --- | --- |
-| Founder/company identity | Correct legal/applicant name, incorporation status, ownership and founder count | Founder | OPEN |
-| Current capacity | Actual technical employee count, founder availability, launch and work-start dates | Founder | OPEN |
-| Historical finances | Reconciled actual records, reporting period and any true revenue/funding figures | Founder / accountant | OPEN; unknown amounts are not zero |
-| Qatar operations | Written founder answer on operations, local full-time hiring, residence and two-year commitment | Founder | OPEN |
-| Investment terms | Instrument, dilution, conditions, eligible spending and milestone disbursement | Founder / program | OPEN |
-| Entry costs and timing | Written incorporation, address, visa, payroll and insurance requirements and quotes | Founder / program / providers | OPEN |
-| Commercial validation | Buyer interviews, budget owner, scoped workflow and signed pilot or justified next decision | Founder / buyer | OPEN |
-| Independent verification | Reviewer-authored held-out cases and documented human review | Qualified reviewer | OPEN; agent-assisted QA is separate |
-| Customer data/security | Agreed data boundary, authorized use, retention policy and reviewed deployment controls | Founder / buyer / security reviewer | OPEN; PR #34 is separate |
-
-## Form and attachments
-
-The public F6S application inspected on 30 October 2026 listed 21 question topics, three required attachments of up to 30 MB each, and a request to finish within 30 days after starting. Recheck the live form before starting because requirements can change.
-
-| Attachment | Material prepared here | Remaining work |
+| Form item | Prepared | Remaining factual entry |
 | --- | --- | --- |
-| Pitch deck | [13-slide core narrative plus two appendix slides](PITCH.md), aligned with the redesigned attachment | Founder review, final claims/ask, visual QA, accepted file type and file-size check |
-| Founder profile(s) | [Public profile source](FOUNDER_PROFILE.md), aligned with the redesigned attachment | Confirm all founders, current roles and dates; check final export and privacy boundary |
-| Historical and projected financials | [Formula-based plan](FINANCIAL_PLAN.md), unchanged JSON model and redesigned financial attachment | Reconcile historical accounts, approve assumptions and amount requested; check final export |
+| 1-2 contact and referral | Private handoff includes known contact | Accurate referral source |
+| 3-6 sector, stage, prototype and development | AI/ML, prototype; Alpha 13 Sep 2026; canonical demo 29 Oct 2026 | Confirm any earlier private work separately |
+| 7-8 technical team and ownership | Founder-led implementation with open-source dependencies | Actual employees and legal ownership/contributor arrangements |
+| 9-14 commercial answers | Buyer, market scenarios, acquisition, competitors, SWOT, milestones, pricing | Any actual customers or agreements absent from public record |
+| 15-16 financial history | Projection and reconciliation template | Actual reporting period, revenue, received funding, cash and liabilities |
+| 17-21 Qatar and founder answers | Costed conditional plan and identified founder | Explicit operations, local hiring, residence, availability and founder-count answers |
+| 22-24 attachments | Pitch, founder profile, historical/projected-financial document | Historical financial portion remains incomplete until reconciled |
+| 25 accuracy declaration | No declaration made | Founder checks final saved answers and attachments |
+| 26 completion period | Public form says finish within 30 days of starting | Verify the actual draft start date in the portal |
 
-Repository Markdown and JSON are review sources aligned with the companion redesigned exports. Neither exported attachments nor this branch have been submitted to F6S. The first commercial path is coding-agent release checks; the support/approval example is a separate expansion prototype. First-stage targets remain 15 buyer interviews, three assisted staging installs and one signed paid scope or budget-authorized LOI, followed by modeled paid delivery in month 4 and recurring service in month 6. These internal validation targets are not additional published START eligibility rules. The final application must answer both parts of the Qatar-operations/local-hiring question and must not infer consent to relocation or equity from interest in a funding program.
+The form lists a 30 MB maximum for each of its three attachments. Its public page does not establish a universal slide count or all accepted MIME types. Match actual upload controls. A resume supports the F6S profile; the one-pager and diligence brief are supplementary. The review guide is private handoff material.
 
-## Actions not yet performed
+## Selection improvements, not separate published upload rules
 
-No form has been started or submitted for this proposal. No recommendations, introductions or buyer messages have been sent through this work. No payment, incorporation, hiring, relocation or equity commitment has been made. The new branch and pull request are the requested review surface.
+Buyer interviews, a paid scope or LOI, independent human review, baseline comparisons and repeat installation would strengthen the investment case. Our 15/3/1 targets and pilot thresholds are proposed validation gates, not additional rules imposed by Startup Qatar. A polished proposal does not establish market readiness or acceptance odds.
 
-## Approval quality
+## Later diligence before spending or contracting
 
-When these gates are resolved, review the exact final form and attachments together. Preserve any null findings or failed runs, verify every material claim against its source, and reconcile the proposed budget with any other funded scope. A selection decision remains the program's decision. No internal score or polished deck can establish selection odds.
+Agree the investment instrument, milestones, disbursement timing, eligible costs, entity and visa route. Obtain local employment, insurance and tax quotations. Complete the security/data review before receiving customer code. These remain later diligence items unless the program specifically requests them during application.
 
-Sources: [Startup Qatar investment program](https://startupqatar.qa/en/investment-program), [QDB investment program](https://www.qdb.qa/en/Financing-And-Funding/Equity-And-Investment/Startup-Qatar-Investment-Program), [F6S application](https://www.f6s.com/sqinvestmentprogram). Official program pages checked 30 October 2026. F6S field topics come from the direct public-page inspection earlier the same day.
+## Scope and current state
+
+A F6S draft exists from earlier work. It may contain older support-first wording and must match this coding-agent proposal before submission. No attachment or application has been submitted by this revision. No buyer outreach, investment acceptance, hiring, relocation, incorporation or payment has been executed. Core Lab files remain outside this revision's scope.
+
+Sources: [F6S application](https://www.f6s.com/sqinvestmentprogram), [QDB program](https://www.qdb.qa/en/Financing-And-Funding/Equity-And-Investment/Startup-Qatar-Investment-Program), checked 30 October 2026. See the [requirements map](PROGRAM_REQUIREMENTS.md) for field-by-field detail.

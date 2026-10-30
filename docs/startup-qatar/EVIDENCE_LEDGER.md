@@ -5,6 +5,11 @@ Reviewed 30 October 2026 against public repository baseline
 This is evidence for an early product hypothesis. It does not establish customer demand,
 production safety, or an independent audit.
 
+## Publication dates
+
+- Public Alpha: 13 September 2026, [root commit e1a7226](https://github.com/kaulastudies/ai-evaluation-lab/commit/e1a7226f59174608a69c2ca7799e96883bfa5212).
+- Canonical ProofGate GitHub Pages demo: 29 October 2026, [successful deployment](https://github.com/kaulastudies/ai-evaluation-lab/actions/runs/40838837507). PR #28 implemented the browser demo; PR #33 established this canonical publication. Neither date is a commercial or incorporation date.
+
 ## Claims a reviewer can inspect
 
 | Claim supported by the committed records | Exact scope and limitation | Source |

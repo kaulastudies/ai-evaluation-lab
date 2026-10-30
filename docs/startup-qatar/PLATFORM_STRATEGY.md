@@ -10,11 +10,17 @@ The current repository provides technical proof and an offline workflow example.
 
 ## What the market evidence supports
 
-McKinsey's August 2026 survey reports that 40% of respondents from large organizations were scaling agents, compared with 22% from smaller organizations. It also reports that 32% had forgone at least one software purchase because their organization could build the functionality internally with coding agents.[2] This supports investigating a growing need while recognizing a serious build-versus-buy alternative. It does not measure the Lab's addressable market.
+The [market sizing note](MARKET_SIZING.md) now provides a sourced U.S. employer-firm
+reference and a separate Qatar directory scenario. At the $12,000 annual price
+hypothesis and an assumed 10% fit/serviceability share, they imply $20.19m and
+$490,800 annual spend respectively. Neither rate nor price is measured demand,
+and no worldwide TAM is established. The [Qatar buyer map](QATAR_BUYER_MAP.md)
+provides research targets and explicit qualification gaps, not a sales pipeline.
 
-LangChain's June 2026 survey of more than 1,300 professionals reports 57% with agents in production, 32% naming quality as a leading barrier and approximately 52% running offline evaluations.[3] These are findings from a vendor's respondent sample, not population estimates or evidence that these respondents would buy this product.
-
-LangSmith already documents custom code evaluation and regression tests, while Promptfoo documents evaluation, red teaming and CI use.[4][5] The Lab must demonstrate a useful improvement over those tools or the buyer's own checks, including integration and maintenance effort.
+Existing LangSmith and Promptfoo documentation establishes that buyers already
+have code-based checks and evaluation workflows. Our pilot must demonstrate a
+useful improvement against the buyer's normal baseline, including installation,
+review and maintenance effort. Sourced company counts alone cannot show that.
 
 ## One product across sectors
 

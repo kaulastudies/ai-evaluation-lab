@@ -5,6 +5,11 @@ QA workstream from the authors of the new workflow verifier and planning model.
 It is **internal agent review**, not an independent human audit, a customer
 validation, a financial audit or a Startup Qatar committee assessment.
 
+This document records the earlier engineering review. The current proposal's
+initial request is $12,000; $100,000 is a separate stress envelope. See
+[INVESTMENT_CASE.md](INVESTMENT_CASE.md) for the superseding funding recommendation.
+The new finance tests verify that unpriced follow-on reviews add no assumed cash.
+
 ## Disposition
 
 The new material is suitable for a draft PR and founder/technical review after
@@ -36,7 +41,7 @@ polished document can remove.
 | Workflow control report | 12 synthetic controls: 2 PASS, 4 FAIL, 6 HOLD; the mixed suite blocks release. | No new model inference or customer execution; these controls must not be added to the historical 52 attempts. |
 | Evidence snapshot check | Passed: 52 historical attempts, 49 scored-record hashes and 265 input-file hashes. | Checks stored artifacts and arithmetic; does not authenticate their external origin. |
 | Auditor corruption probes in a temporary copy | A changed nested verdict failed its record hash; an inflated qualification rejection count failed its summary check. Restoring bytes reproduced the same snapshot. | Original evidence was unchanged; this does not validate every possible artifact attack. |
-| Financial arithmetic | Pilot direct economic cost $3,750 and contribution $1,250; recurring direct cost $500; proposed ceiling $100,000. Both scenarios reconcile invoices, collections, receivables, costs and cash deltas. | Inputs are unquoted assumptions. Historical accounts remain null. |
+| Financial arithmetic | Pilot direct economic cost $3,750 and contribution $1,250; recurring direct cost $500; separate stress envelope $100,000. Both scenarios reconcile invoices, collections, receivables, costs and cash deltas. | Inputs are unquoted assumptions. Historical accounts remain null. |
 | Financial invalid-input retest | Fourteen separate invalid numeric, month and salary/capacity configurations were rejected after the fix. Committed output check passed. | The script is a planning calculator, not accounting software or a contractual investment model. |
 | Proposal consistency | Reviewed the pitch, founder profile, application, jury, evidence, commercial, pilot, finance, operating and submission documents. Historical evidence, synthetic demonstration, hypotheses and unresolved commitments remain distinct. | No new buyer interviews, program confirmation, identity verification or independent human review was conducted. |
 
@@ -44,7 +49,7 @@ The 46 workflow and 14 financial checks above were additional reviewer probes,
 not new model trials. They are separate from the checked-in unit-test count.
 Two maintained regression tests in `tests/test_startup_qatar_financials.py` now
 cover the nonfinite-input and hiring-timing defects, including parameterized
-invalid cases. The integrated repository suite passes 47 tests.
+invalid cases. The earlier integrated suite passed 47 tests. Current revision validation is recorded in the PR; do not treat this historical count as the current suite total.
 
 ## Reproduce the maintained checks
 

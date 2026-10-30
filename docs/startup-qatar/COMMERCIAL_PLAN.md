@@ -112,44 +112,27 @@ If a pilot needs 100 engineering hours at the same rate, its direct economic cos
 becomes $5,750 and the $5,000 price loses $750 before overhead. That result is a
 reason to narrow scope or change pricing, not evidence of scalable margins.
 
-## Bottom-up market model: inputs still to validate
+## Source-anchored market scenarios
 
-Count organizations, not individual developers, downloads, accelerator applicants,
-or all businesses using AI. Count one purchasing organization once even if it has
-several agents. The initial offer and capacity support a small beachhead; a broad
-global market claim is unnecessary until the definition has been validated.
+The [market sizing note](MARKET_SIZING.md) replaces earlier unsourced 50/200-account
+illustrations. At the $12,000 annual service hypothesis, 16,824 U.S. employer
+software-publishing firms in the 2022 Census with an assumed 5-20% fit produce a
+$10.09m-$40.38m annual-spend reference range, with $20.19m at 10%. Qatar CRA's
+409 displayed ICT companies with an assumed 5-20% screened serviceability produce
+$245,400-$981,600, with $490,800 at 10%.
 
-| Model | Formula | Evidence still needed |
-| --- | --- | --- |
-| Potential global annual spend for the defined workflow offer (TAM) | Verified eligible organizations worldwide × validated annual spend per organization | A reproducible organization list, eligibility screen, and price evidence; neither input is currently established |
-| Reachable serviceable annual spend (SAM) | Eligible organizations in markets the Lab can actually serve × validated annual spend | Procurement, delivery, language, data-location and jurisdiction constraints; access to a prospect is not demand |
-| Capacity-constrained first-year sales (SOM) | Pilots deliverable × pilot price + contracted recurring customer-months × monthly price | Founder capacity, signed scopes, actual conversions, and start dates |
+The qualification rates and price are unvalidated. Worldwide TAM remains
+unmeasured. Qatar is not a subset of the U.S. reference and the scenarios must
+not be nested or summed as a worldwide total. The directory needs activity
+screening and purchasing-group deduplication. Ten [named research targets](QATAR_BUYER_MAP.md)
+provide a starting point, not customers or a qualified pipeline.
 
-Illustrative arithmetic only: 50 qualified reachable organizations at an assumed
-$12,000 annual recurring spend would imply $600,000 in annual SAM. At 200
-organizations the same formula gives $2.4 million. Neither organization count has
-been verified; these are sensitivity examples, not a claimed Qatar or global
-market size. Do not insert them as factual TAM/SAM values in an application.
-
-The [financial model's](FINANCIAL_PLAN.md) illustrative base case uses nine
-$5,000 pilots and 16 total recurring customer-months at $1,000, producing
-$61,000 invoiced revenue. The 16
-months are summed across start dates, not treated as sixteen months for each
-converted customer. This is a modeled scenario, not a validated forecast,
-booked pipeline, or funding request. At 60 hours per pilot plus eight per
-recurring month, delivery requires 668 hours, before research, sales,
-administration, integration overruns, and leave. Invoice value is not cash:
-the financial model projects $52,000 collected in this scenario under its
-one-month collection-lag assumption. Its month-by-month capacity, funding gates,
-and downside case govern whether work can start; this annual total does not
-establish feasible timing or funded runway.
-
-To replace the market placeholders, build a dated list of 30 candidate
-organizations with a public source for the relevant workflow, geography,
-decision-maker role, eligibility reason, and duplicate checks. Keep personal
-contact details and interview notes in a private workspace. Then report the
-qualified subset and observed interview/conversion counts. Do not count uncontacted
-organizations as a pipeline or display their logos as customers.
+The operating model's base scenario remains nine $5,000 pilot invoices and
+16 recurring customer-months at $1,000: $61,000 invoiced, $52,000 collected and
+668 delivery hours. Timing, collection and capacity assumptions govern feasibility.
+The only current initial funding request is $12,000; it funds validation only.
+Month-4 onward delivery requires a new funding/cost decision. See the
+[financial plan](FINANCIAL_PLAN.md) for cash and stop conditions.
 
 ## Discovery that can disprove the idea
 

@@ -1,156 +1,151 @@
-# Startup Qatar START application working draft
+# Startup Qatar application answers
 
-Prepared 30 October 2026 for **AI Evaluation Lab**, with **ProofGate** as the existing demonstrator. This is a public-safe preparation document. It has not been submitted and is not a completed legal or financial declaration. `OPEN` marks a fact or commitment the founder must supply or decide; it must never be silently converted to “yes,” “zero” or “not applicable.”
-
-The 21 headings below paraphrase the F6S form topics inspected during the 30 October research session; they are not a verbatim form export. Recheck the live form and its choice labels before entering answers. The form was not re-accessible through the search fetch used for this document. Keep personal contact details, financial records and private supporting material outside this public repository.
+Updated 30 October 2026. Exact field numbers follow the readable F6S public snapshot inspected in this session: 21 questions, three uploads and two declarations. Labels below are paraphrases. This public-safe draft is unsubmitted. The signed-in form may add validation or profile requirements.
 
 ## 1. Primary contact email
 
-**OPEN — founder to enter the current application email privately.** Do not copy a personal email into this repository merely to complete the draft.
+Use the current application contact privately. Personal contact details are excluded from this public source.
 
-## 2. How did you hear about the program?
+**Record or scope note:** Use the current application contact. Only one email belongs in this field.
 
-**OPEN — founder to select the accurate source.** The application research used Startup Qatar and QDB's public pages. This does not establish how the founder first heard about the program.
+## 2. How you heard about the program
+
+Program research used Startup Qatar and QDB public pages.
+
+**Record or scope note:** The founder's original referral source is unconfirmed. Select the actual source; research discovery is not proof of a referral.
 
 ## 3. Sectors and subsectors
 
-Proposed selections: **AI & ML**, with **B2B SaaS** if it matches the form's definitions and the founder's intended business. The initial offering is a scoped evaluation service with software support; do not describe recurring software revenue as existing. Cybersecurity is relevant to some controls but should not imply an accredited security-certification service.
+AI & ML. B2B SaaS is the intended product direction. We currently offer a proposed evaluation service supported by software for coding-agent releases.
+
+**Record or scope note:** Use the closest actual portal choices. No accredited cybersecurity certification is claimed.
 
 ## 4. Startup stage
 
-Suggested descriptive answer: **Working prototype / early validation.** AI Evaluation Lab has public executable evaluation infrastructure and a ProofGate demonstrator. The commercial pilot, repeatable sales process and Qatar operations remain proposed. Select the closest truthful form option. **OPEN — confirm legal entity and stage details requested elsewhere.**
+Working prototype / early customer validation. AI Evaluation Lab is an unincorporated, founder-led venture. ProofGate demonstrates executable checks and inspectable evidence.
 
-## 5. Working prototype or MVP; launch date
+**Record or scope note:** Commercial deployment and Qatar operations remain proposed.
 
-**Yes, a public prototype exists.** ProofGate exposes inspectable repository-agent evidence and executable checks. It distinguishes historical inference, bundled deterministic checks and source-exact replay.
+## 5. Working prototype and launch date
 
-Public demonstration: https://kaulastudies.github.io/ai-evaluation-lab/proofgate/
+Yes. The public Alpha was published on 13 September 2026. ProofGate's canonical GitHub Pages demonstration was deployed on 29 October 2026: https://kaulastudies.github.io/ai-evaluation-lab/proofgate/
 
-Public source: https://github.com/kaulastudies/ai-evaluation-lab
+**Record or scope note:** These are public publication dates, not incorporation, first-ever research or a commercial launch.
 
-**OPEN — founder to verify the launch date and check current public demo access.** A repository creation date, an early code commit and a commercial launch are different events. The new workflow-release example is a synthetic extension, not a deployed customer MVP.
+## 6. Time working on the solution
 
-## 6. How long have you been working on the solution?
+Public development dates from September 2026, approximately seven weeks as of 30 October 2026.
 
-The public repository contains development and evidence from September–October 2026. **OPEN — verify the actual start month and continuous development period from founder records.** Do not imply six months of operations simply because the form requests six-month milestones.
+**Record or scope note:** Any earlier private work should be entered only from actual founder records.
 
-## 7. Number of technical employees
+## 7. Technical employees
 
-**OPEN — confirm paid employee headcount and whether the form counts working founders.** The verified public position is founder-led implementation. AI review agents, unpaid collaborators and a mentor are not employees.
+The public implementation is founder-led. No paid employee count is established by the reviewed records.
 
-## 8. Is the technology built in-house?
+**Record or scope note:** Enter the actual count under the portal definition. Review agents, unpaid collaborators and planned hires are not employees.
 
-Draft answer: The public repository documents implementation led by the founder, using original synthetic tasks and software built on open-source tools. Sources and dependencies retain their licenses. External models and providers are disclosed in the evidence.
+## 8. In-house technology
 
-**OPEN — founder to confirm ownership, contributor assignments, contractor involvement and the form's precise definition.** Do not claim every dependency or algorithm was invented by the Lab.
+Yes, the founder leads implementation of the Lab's task contracts, verification code, retained-evidence tooling and demonstration. The project uses disclosed open-source dependencies and external model providers.
+
+**Record or scope note:** Confirm legal ownership and contributor arrangements. The Lab does not claim to have invented its dependencies.
 
 ## 9. Business model
 
-Proposed model: **B2B.** Begin with fixed-scope evaluation pilots for teams deploying agents into defined workflows. A successful pilot can lead to recurring regression maintenance and evidence review. Both pricing and repeat purchase assumptions still require customer validation. No government contract is claimed.
+B2B. Start with a fixed-scope coding-agent evaluation pilot, then offer recurring regression maintenance and evidence review for one release workflow. Reusable task packs and lower delivery effort per account are the route to a software product.
 
-The first offer is a coding-agent release-evaluation pilot for a SaaS/software engineering lead or coding-agent integrator. The longer-term model proposes a reusable verification product with workflow packs and connectors across sectors, with support/approval agents as a separate expansion path. Local developer adoption could lead to paid team features or private deployment support. These software capabilities and expansion markets are proposed, not existing subscriptions or sector deployments. See [PLATFORM_STRATEGY.md](PLATFORM_STRATEGY.md).
+**Record or scope note:** The initial offer is a service. Self-service subscriptions and broader sector deployments are not established.
 
-## 10. Customer base, new-market acquisition and TAM/SAM
+## 10. Customers, acquisition and TAM/SAM
 
-No paying AI Evaluation Lab customer or Qatar customer is verified by the public materials used for this draft. **OPEN — reconcile actual customers, users, revenue and signed agreements against founder records.** Repository views, collaborators and demonstration users are not automatically customers.
+No paying Lab customer is established by the reviewed evidence. The first buyer is a software engineering lead or coding-agent integrator. Target 15 interviews, three assisted staging installs and one signed paid scope or budget-authorized LOI in 90 days. At the $12,000 annual service hypothesis, 16,824 U.S. software-publishing firms (2022 Census) with assumed 5-20% fit imply $10.09m-$40.38m annual spend; the central 10% scenario is $20.19m. For Qatar, CRA's 409 ICT directory listings with assumed 5-20% screened serviceability imply $245,400-$981,600 annually; central SAM scenario $490,800. These are separate geographic reference models. Worldwide TAM, price acceptance and qualification shares remain unmeasured.
 
-Initial acquisition plan: identify engineering leads at SaaS/software companies and coding-agent integrators with recurring agent-generated code workflows, authorized test artifacts and a budget owner. Target 15 buyer interviews in days 1–30, three assisted staging installs in days 31–60, and one signed paid scope or budget-authorized LOI in days 61–90. These are proposed targets, not a pipeline or achieved traction. The unchanged base financial model starts paid delivery in month 4 and recurring service in month 6. The objective is to learn whether the problem is costly and whether our evidence changes a real release decision.
+**Record or scope note:** Use the market appendix for method, exclusions and sources. Directory names are not customers. Reconcile any actual agreements or usage from records.
 
-Use [COMMERCIAL_PLAN.md](COMMERCIAL_PLAN.md) for the bottom-up market framework. Its account counts and price scenarios are assumptions to validate, not measured market size. Do not substitute a global AI-market headline for the number of buyers the team can serve.
+## 11. Competitors and URLs
 
-## 11. Current and future competitors, with URLs
+LangSmith: https://docs.langchain.com/langsmith/evaluation-types; Promptfoo: https://www.promptfoo.dev/docs/intro/; internal engineering tests and CI are also direct alternatives. Existing tools already support custom checks. The pilot tests whether our contract design, qualified controls and replayable evidence save useful review effort.
 
-- **LangSmith:** https://docs.langchain.com/langsmith/evaluation-types — existing evaluation, custom checks and regression workflows.
-- **Promptfoo:** https://www.promptfoo.dev/docs/intro/ — application evaluation, assertions, red teaming and CI integration.
-- **Internal engineering:** the buyer's existing tests, CI, logs and custom review scripts. This can be the most direct alternative even without a vendor purchase.
+**Record or scope note:** Compare against the buyer's real baseline. No exclusive-feature or superiority claim is made.
 
-The proposal is not that these alternatives lack deterministic checks. The pilot should test whether the Lab's contract design, verifier qualification, effect evidence and reproducible review deliver enough additional value to justify adoption. No competitive superiority has yet been measured.
+## 12. Unique value proposition and SWOT
 
-## 12. Unique value proposition and brief SWOT
+Proposed value: a release decision supported by a precise task contract, challenged checks and replayable evidence. Strength: public implementation and retained failures. Weakness: small synthetic sample, unverified demand and founder capacity. Opportunity: recurring engineering release checks. Threat: existing tools, internal engineering and custom delivery that fails to become reusable.
 
-**Proposed value:** Help an engineering team decide whether an AI-generated code change satisfies its agreed task contract, using qualified checks and evidence that can be replayed. Start with one repository task family and release decision; retain failures and uncertain outcomes. Support/approval action verification is a separate offline extension.
-
-| Strength | Weakness | Opportunity | Threat |
-| --- | --- | --- | --- |
-| Public implementation, explicit controls, retained failures and reproducible evidence | Small synthetic evidence set; no verified paying customer; founder capacity constraints | Teams with agent workflows where unsupported success or unauthorized effects create review costs | Established evaluation tools, internal engineering, long procurement and custom work that does not become repeatable |
-
-This is a proposed customer benefit, not a unique-feature, patent, market-leadership or ROI claim.
+**Record or scope note:** This is a benefit hypothesis, not a patent or market-leadership claim.
 
 ## 13. Milestones in the last six months
 
-Use the actual September–October development period, without inflating operating history:
+During September-October 2026: published the Lab Alpha, five synthetic repository tasks and 52 retained attempts (44 passes, five failures, three holds); published the 30-trial AP-001 subset within that total; rejected 17 configured critical mutations; deployed the canonical ProofGate demo on 29 October. The founder also contributed a Backstage Jest 30 migration merged on 22 September.
 
-- Published five repository-agent tasks with documented contracts and verifier qualification.
-- Retained **52 attempts: 44 VERIFIED_PASS, 5 VERIFIED_FAIL and 3 HOLD**, including repair attempts.
-- Published a **30-trial AP-001 Phase 12 subset** across three configurations, with 29 passes, one failure and retained source-exact replay evidence. These trials are already included in 52.
-- Published a ProofGate interface for inspecting and exercising bounded checks.
-- Prepared this customer-validation, financial-planning and Qatar diligence package; added a separate offline synthetic support-workflow demonstration. These are preparation outputs, not completed customer milestones.
-- The founder's [Periskop Jest 30 contribution](https://github.com/backstage/community-plugins/pull/10964) was merged by Backstage Community Plugins on 22 September 2026. This is individual execution evidence, not startup revenue or project endorsement.
-
-Use [EVIDENCE_LEDGER.md](EVIDENCE_LEDGER.md) for audit details and current claim boundaries. Do not count open PRs as merged work or external review requests as approvals.
+**Record or scope note:** Do not imply six months of operating history. The Backstage contribution is founder evidence, not a Lab customer or partnership.
 
 ## 14. Revenue and monetization model
 
-Proposed: a paid, fixed-scope pilot followed by recurring regression maintenance when the buyer has an ongoing need. Current planning uses **US$5,000 per pilot** and **US$1,000 per month** for a bounded recurring engagement; these are unvalidated price hypotheses, not achieved sales or quotes accepted by a customer. Scope, capacity and cost assumptions are in [COMMERCIAL_PLAN.md](COMMERCIAL_PLAN.md) and [FINANCIAL_PLAN.md](FINANCIAL_PLAN.md).
+Proposed $5,000 fixed-scope pilot, followed by $1,000 per month for one bounded recurring workflow service. Price, delivery effort and repeat purchase remain unvalidated. Paid delivery begins in month 4 of the base scenario and recurring service in month 6.
 
-**OPEN — founder to supply actual Lab revenue and distinguish it from personal freelance income or unrelated work.**
+**Record or scope note:** These are planning hypotheses, not current revenue or contracted prices.
 
-## 15. Month-on-month revenue growth for the last six months, if applicable
+## 15. Six-month revenue growth, if applicable
 
-**OPEN — provide verified monthly business revenue or explain the genuinely applicable pre-revenue/not-yet-trading status.** Do not manufacture six months of zero accounts from missing data. Percentage growth from a zero denominator is undefined; use actual amounts and an explanation where needed.
+The venture is at prototype/customer-validation stage. Historical Lab revenue has not been reconciled from records, so no month-over-month growth claim is made.
 
-## 16. Funding secured, sources and rounds, if applicable
+**Record or scope note:** The form qualifies this question for established startups. Use actual history where applicable; unknown revenue is not zero and growth from zero is undefined.
 
-No secured investment or grant is verified in the public evidence used here. **OPEN — founder to reconcile awards, received funds, committed funds, debt and founder contributions before answering.** A request, an application under review, cloud credits and cash received are separate categories.
+## 16. Funding raised and sources
 
-The repository's existing **US$10,000 public project-grant request** remains unchanged. It is not a secured award and is not the Startup Qatar investment request. The company-planning scenario must identify and exclude any overlapping costs if another funder supports them.
+No secured award or investment is established by the reviewed evidence. The current Qatar proposal requests an initial $12,000 validation allocation; it is not awarded or received. A separate public $10,000 research request must be reconciled to avoid overlapping funded costs.
 
-## 17. Why Qatar, and what do you expect to gain?
+**Record or scope note:** List actual received funding or signed commitments only with records, separating applications and requests.
 
-Proposed answer: We want to test a focused agent-evaluation offering with teams operating in Qatar and develop local delivery capacity if customer evidence and the program's terms support that plan. The first objective is a buyer-owned coding-agent pilot with a Qatar software team or integrator and an independently reviewed evidence package. Qualified Arabic-English review could become a useful capability where customers require it, but it has not been validated or staffed.
+## 17. Why establish in Qatar
 
-We seek introductions to relevant buyers, guidance on establishing operations, technical and commercial mentorship, and staged investment against measured milestones. In return, the proposed local contribution is evaluation engineering, reproducible methodology and funded local technical capacity as demand develops. We are not claiming a local partner, customer, research relationship or guaranteed procurement access.
+Validate a coding-agent release workflow with a Qatar software team or integrator, then build local evaluation delivery if the pilot supports continued investment. We seek buyer introductions, procurement context, technical/commercial mentorship and establishment guidance. AI/ML and B2B SaaS match the program's priorities.
 
-See [QATAR_OPERATING_PLAN.md](QATAR_OPERATING_PLAN.md). **OPEN — founder to approve the actual Qatar objectives and commitments.**
+**Record or scope note:** Named companies are research targets; no customer, partner or local entity is committed.
 
-## 18. Willingness to establish Qatar operations AND hire full-time staff locally
+## 18. Qatar operations and local full-time hiring
 
-**OPEN — two separate founder decisions are required.**
+Operations: the proposal provides a route to establish in Qatar after program terms, costs and founder presence are agreed. Local hiring: the model includes a conditional engineer from month 7 if funded demand supports the role.
 
-- Establish operations: decide after clarifying entity timing, operating requirements, eligible costs and funding release terms.
-- Local full-time hiring: decide scope, timing and affordability against the funded plan and actual delivery need.
+**Record or scope note:** Answer both parts separately with the founder's actual commitment. The plan does not establish an unconditional yes.
 
-The operating plan proposes conditional steps; it does not authorize the assistant to answer “yes” on the founder's behalf. If the founder cannot make a required commitment, disclose it and ask the program whether the route is appropriate.
+## 19. Founder count and history together
 
-## 19. Number of founders and how long they have worked together
+One founder is identified in the public project record: Rama Chandra Malayanur. The public Lab record dates from September 2026.
 
-Public project lead: **Rama Chandra Malayanur**. **OPEN — confirm founder count, legal ownership and the correct answer if there is one founder.** A mentor or unpaid collaborator must not be added as a cofounder without an actual agreement. Avoid inventing a “years together” figure for a solo founder.
+**Record or scope note:** Confirm actual ownership and founder count. Collaborators and reviewers are not cofounders without an agreement.
 
-## 20. Does a founder or management member plan to reside in Qatar?
+## 20. Founder or management residence in Qatar
 
-**OPEN — founder to make and enter the actual residency decision.** No relocation is committed by this draft. Check the applicable route and expenses separately; do not treat a requirement of a distinct residency scheme as an automatic condition of the investment application.
+The founder is currently based in India. No relocation commitment is established by this pack.
 
-## 21. Commitment to work full-time/part-time during the first two funded years
+**Record or scope note:** Select the actual residence plan. Program compatibility remains to be checked against that decision.
 
-**OPEN — founder to state actual availability and any transition conditions.** The two-year commitment is a personal and operational decision, not a writing choice. Do not claim a full-time team or promise a transition date without authorization and a feasible funding plan.
+## 21. Two-year full-time or part-time commitment
 
-## Required attachments and submission controls
+Actual two-year availability and any transition conditions remain unconfirmed. The capacity model assumes 160 founder hours per month for planning.
 
-The inspected F6S form requires **three attachments, each at most 30 MB**:
+**Record or scope note:** The planning assumption is not a personal commitment. Enter the truthful choice and any required comment.
 
-| Attachment | Preparation source | What must be resolved before upload |
-| --- | --- | --- |
-| Pitch deck | [PITCH.md](PITCH.md) | Final founder-approved ask, current evidence, readable exported deck, version/date |
-| Founder(s) profile | [FOUNDER_PROFILE.md](FOUNDER_PROFILE.md) and approved public contribution history | Accurate roles, dates, availability, qualifications and permission for any third-party profile |
-| Historical and projected financials | [FINANCIAL_PLAN.md](FINANCIAL_PLAN.md) and model | Actual historical records, assumptions, requested amount, scenario reconciliation and founder approval |
+## 22. Pitch deck
 
-These Markdown files are source and review material aligned with the redesigned attachments. Exporting a deck, founder profile and financial plan does not resolve their open factual answers or establish that they are ready to upload unchanged. Keep supporting personal records in a private workspace. Inspect exports, file sizes and the final form before submission.
+Use the revised AI_Evaluation_Lab_Startup_Qatar_Pitch.pdf. The public form lists a 30 MB maximum.
 
-The previously inspected form asks applicants to finish within **30 days of starting** and includes an accuracy declaration. Resolve the open items and check the current draft status and deadline in the portal. This branch does not submit an application. Recheck those instructions at submission because forms can change.
+## 23. Founder profile
 
-## Sources checked on 30 October 2026
+Use Rama_Chandra_Founder_Profile_Startup_Qatar.pdf. Include every actual founder if ownership differs from the present record. Maximum 30 MB.
 
-- [Official Startup Qatar program](https://startupqatar.qa/en/investment-program) and [QDB program FAQ](https://www.qdb.qa/en/Financing-And-Funding/Equity-And-Investment/Startup-Qatar-Investment-Program).
-- [F6S application](https://www.f6s.com/sqinvestmentprogram): topics taken from the earlier direct inspection in this research session; live fetch subsequently returned 403.
-- [LangSmith evaluation types](https://docs.langchain.com/langsmith/evaluation-types) and [Promptfoo introduction](https://www.promptfoo.dev/docs/intro/), used only to establish existing alternatives.
-- Public repository evidence linked through [EVIDENCE_LEDGER.md](EVIDENCE_LEDGER.md) and [ProofGate team acknowledgment](../../hackathon/nebius-nvidia-rarb-demo/TEAM.md).
+## 24. Historical and projected financials
+
+Use AI_Evaluation_Lab_Historical_and_Projected_Financials.pdf after reconciling its historical section. The projections are assumptions, and unknown historical values remain unknown. Maximum 30 MB.
+
+## 25. Accuracy declaration
+
+No declaration has been made. Verify final saved answers and attachments against actual records.
+
+## 26. Completion period
+
+The public form asks applicants to complete within 30 days of starting; otherwise the draft may close. Verify the actual start date in the existing draft. No new deadline is inferred from this document's date.
+
+Sources: [F6S](https://www.f6s.com/sqinvestmentprogram), [QDB](https://www.qdb.qa/en/Financing-And-Funding/Equity-And-Investment/Startup-Qatar-Investment-Program), [market sizing](MARKET_SIZING.md), [technology roadmap](TECHNOLOGY_ROADMAP.md), [financial plan](FINANCIAL_PLAN.md). No revised assets have been uploaded or submitted.

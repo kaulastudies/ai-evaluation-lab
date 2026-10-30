@@ -42,6 +42,30 @@ class PlanningInputTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "same month"):
             MODEL.build(data)
 
+    def test_unpriced_follow_on_cannot_masquerade_as_cash_receipts(self):
+        report = MODEL.build(self.assumptions)
+        base = report["scenarios"]["base_hypothesis"]
+        self.assertEqual(sum(m["initial_request_if_approved_and_received"] for m in base["months"]), 12000)
+        self.assertEqual(base["months"][2]["illustrative_cash_with_initial_request_only"], 1800)
+        self.assertEqual(base["totals"]["first_unfunded_month_if_spending_continues"], 4)
+        self.assertEqual(base["totals"]["illustrative_ending_cash_initial_request_only"], -21550)
+        self.assertEqual(base["totals"]["ending_cash_full_ceiling_sensitivity_only"], 66450)
+        self.assertIsNone(report["historical_actuals"]["cash_balance"])
+        bad = copy.deepcopy(self.assumptions)
+        bad["funding"]["follow_on_reviews"][0]["amount"] = 30000
+        with self.assertRaisesRegex(ValueError, "cannot be counted as funding"):
+            MODEL.build(bad)
+
+    def test_initial_request_must_be_recosted_when_validation_costs_change(self):
+        data = copy.deepcopy(self.assumptions)
+        data["costs"]["founder_draw_monthly"] = 3000
+        with self.assertRaisesRegex(ValueError, "request is stale"):
+            MODEL.build(data)
+        data["funding"]["current_initial_request"] = 16000
+        report = MODEL.build(data)
+        self.assertEqual(report["funding_sizing"]["initial_stage_cash_cost"], 13200)
+        self.assertEqual(report["funding_sizing"]["initial_stage_contingency_not_spent"], 1980)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -1,6 +1,6 @@
 # Customer pilot protocols: coding first, support expansion
 
-Status: proposed customer-validation protocols, version 0.2, 30 October 2026.
+Status: proposed customer-validation protocols, version 0.3, 30 October 2026.
 No customer has accepted it and no customer outcome is reported here. Any local
 synthetic demonstration in this branch is engineering evidence, not execution of
 this buyer pilot.
@@ -11,7 +11,7 @@ The first buyer hypothesis is an engineering lead at a SaaS/software company or
 coding-agent integrator. ProofGate is the existing coding-agent demonstrator.
 The first 90-day targets are 15 buyer interviews, three assisted staging installs,
 and one signed paid scope or budget-authorized LOI. These are preparation targets;
-the unchanged base model begins completed paid delivery in month 4 and recurring
+the base operating model begins completed paid delivery in month 4 and recurring
 service in month 6. Neither a staging install nor an LOI is a completed sale.
 
 ### Decision, access and delivery
@@ -45,12 +45,12 @@ holdout results. Record code provenance and execution errors. Compare both metho
 on the same candidate artifacts; retain every failed or uncertain attempt and
 report repairs separately. Replay from retained artifacts is not fresh inference.
 
-An initial design may use 12 visible development cases and 48 independent holdout
-episodes: 20 contract-compliant, 20 contract-violating and eight with incomplete
-or conflicting evidence. These are proposed case counts, not existing customer
-observations. The buyer and reviewer must confirm that the cases represent its
-workflow. Relevant classes may include data-preservation/API-contract regressions,
-permission isolation, duplicate processing and stale asynchronous results.
+Keep visible development cases separate from at least 30 independent held-out
+cases: 10 valid, 10 known critical violations and 10 with incomplete or
+conflicting evidence. These are proposed counts, not existing customer results.
+The buyer and independent reviewer must freeze reference labels before evaluation.
+Relevant classes include data-preservation and API-contract regressions,
+permission boundaries, duplicate processing and stale asynchronous results.
 Do not reuse the implementation's own verdict as ground truth or treat variants
 of one case as independent customer observations.
 
@@ -69,15 +69,20 @@ paired case-review time, compute costs and rerun effort. Freeze the buyer's norm
 baseline fairly; do not compare only against a deliberately weak success-claim
 baseline. Blind method labels where possible and record failures of blinding.
 
-Proposed continuation thresholds, to be agreed before lock, are: complete artifact
-accounting; zero allowed contract violations; at least 95% decisive coverage of
-the 40 decisive holdouts; at most one false block among 20 compliant cases; all
-eight uncertain cases routed to review; and buyer-accepted incremental detection
-without added false blocks, or at least 20% lower median review time without worse
-false-acceptance/false-block counts. Economic continuation also requires a scope
-and price accepted by the budget owner. These are internal experiment gates,
-not formal START eligibility rules or general deployment approval. Small designed
-case sets do not estimate production incident rates.
+Proposed continuation thresholds, agreed before lock: all 10 known critical
+violations receive FAIL/BLOCK with no PASS; at least 9 of 10 valid outcomes
+receive PASS/ALLOW; all 10 incomplete-evidence cases receive HOLD/REVIEW.
+This requires at least 19/20 decisive outcomes on valid and violation cases.
+A HOLD is not counted as detection of a known violation. Preserve every error.
+Target at least 20% lower median active human review time on paired cases against
+the buyer's normal process, including uncertainty resolution and failure review.
+Keep setup time and end-to-end elapsed time visible. Independent replay must match
+all delivered holdout verdicts given the same pinned inputs and environment.
+The assisted-installation target is at most one engineer-day of total active
+setup effort, including founder support. Price and scope need buyer acceptance.
+These are proposed pilot gates, not official START rules or general deployment
+approval. Do not change labels, omit cases or turn holds into passes to meet them.
+Small designed samples do not estimate production incident rates.
 
 The handover contains the frozen contract, full candidate and result ledger,
 reference-case provenance, source/runtime identifiers, controls, errors, hashes,

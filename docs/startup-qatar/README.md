@@ -1,37 +1,22 @@
-# Startup Qatar START review pack
+# Startup Qatar START proposal
 
-Prepared 30 October 2026. This is a proposal under review, not a submitted application or an investment commitment.
+Updated 30 October 2026. AI Evaluation Lab develops release checks for coding agents. ProofGate is its working demonstration. This proposal asks for an initial **$12,000 validation allocation**, subject to program eligibility and agreed investment terms. Later funding requires new evidence and a revised cash calculation. The $100,000 no-collection planning envelope is not the amount requested upfront.
 
-AI Evaluation Lab proposes a first commercial offer around **verifiable release checks for coding agents**. The first buyer hypothesis is an engineering lead at a SaaS/software company or coding-agent integrator with a recurring code-release decision. ProofGate supplies the existing coding-agent demonstration and repository-agent evidence. A separate offline support/approval example explores a later workflow extension. Qatar demand, customer adoption and willingness to pay still require external validation.
+## Reviewer entry points
 
-The redesigned pitch, founder profile and financial attachments follow this sequence. The first 90-day targets are 15 buyer interviews, three assisted staging installs and one signed paid scope or budget-authorized letter of intent (LOI). The unchanged base financial scenario starts paid delivery in month 4 and recurring service in month 6. Targets, a scope and an LOI are not completed sales or collected cash.
-
-## Read in this order
-
-| Material | Decision it supports |
+| Decision | Evidence |
 | --- | --- |
-| [Jury review](JURY_REVIEW.md) | Why advance to diligence, why defer investment, and what evidence would change that decision |
-| [Pitch narrative](PITCH.md) | A concise investment story, with observed results separated from proposed work |
-| [Platform and launch strategy](PLATFORM_STRATEGY.md) | How one verification product could serve several sectors, and what adoption evidence would justify expansion |
-| [Evidence ledger](EVIDENCE_LEDGER.md) | What the existing research actually demonstrates and how to reproduce the audit |
-| [Workflow demonstration](DEMO.md) | Inspect the separate offline support/approval expansion example and its trust limits |
-| [Commercial plan](COMMERCIAL_PLAN.md) | First buyer, alternatives, pricing hypotheses and customer discovery |
-| [Pilot protocol](PILOT_PROTOCOL.md) | First coding-agent pilot design, plus a separately labeled support-workflow extension |
-| [Financial plan](FINANCIAL_PLAN.md) | Reproducible scenarios, cash needs, capacity and unresolved actual accounts |
-| [Qatar operating plan](QATAR_OPERATING_PLAN.md) | Conditional establishment, hiring and local value creation |
-| [Application draft](APPLICATION_DRAFT.md) | The 21 public application topics, including explicit unresolved answers |
-| [Founder profile](FOUNDER_PROFILE.md) | Public evidence of founder capability and gaps that need confirmation |
-| [Internal QA review](INDEPENDENT_REVIEW.md) | A separate agent's checks, defects and remaining technical limits |
-| [Submission gates](SUBMISSION_GATES.md) | Required evidence and founder decisions before sending an application |
+| What does the product do? | [Pitch](PITCH.md), [public demonstration](https://kaulastudies.github.io/ai-evaluation-lab/proofgate/) and [evidence ledger](EVIDENCE_LEDGER.md) |
+| Who would buy and why? | [Commercial plan](COMMERCIAL_PLAN.md), [market sizing](MARKET_SIZING.md), [Qatar research targets](QATAR_BUYER_MAP.md) |
+| What will funding produce? | [Technology roadmap](TECHNOLOGY_ROADMAP.md), [pilot protocol](PILOT_PROTOCOL.md), [investment case](INVESTMENT_CASE.md) |
+| Can the team execute in Qatar? | [Founder profile](FOUNDER_PROFILE.md), [operating plan](QATAR_OPERATING_PLAN.md), [financial plan](FINANCIAL_PLAN.md) |
+| Does the application answer the form? | [Exact-numbered draft](APPLICATION_DRAFT.md), [requirements map](PROGRAM_REQUIREMENTS.md), [submission status](SUBMISSION_GATES.md) |
+| What might change the investment decision? | [Jury review](JURY_REVIEW.md), [expansion strategy](PLATFORM_STRATEGY.md) |
 
-## Evidence boundaries
+## Evidence and publication boundaries
 
-The retained repository-agent experiments are historical model runs. The new support-workflow demonstration is synthetic and offline. A financial scenario is an assumption, and a proposed pilot is a plan. None of these constitutes a customer endorsement, independent human review, secured financing or evidence of Qatar product-market fit.
+The public ledger remains 52 retained attempts across five synthetic repository tasks: 44 passes, five failures and three holds. The 30-trial AP-001 experiment is included. These are technical results, not customer traction. The separate support-workflow prototype has 12 offline controls. No live customer installation, secured award or Qatar partnership is claimed.
 
-The reviews in this directory were prepared with AI assistance in separate product, engineering, evidence, finance, jury and QA workstreams. They are internal preparation. They do not represent actual Startup Qatar committee opinions or additional employees of the Lab.
+This work stays within the dedicated Startup Qatar proposal branch. Core Lab evaluation code, main-branch evidence and the public demo remain unchanged. The companion application PDFs and editable pitch are private handoff files; public source documentation excludes bank records, personal commitments and private customer data. Reproducible authoring sources are in [assets](assets/README.md).
 
-No application, email, investment acceptance, relocation commitment or customer contract was sent through this work. The existing [public grant request](../../FUNDING.md) remains a separate scope. Costs and labor shared across future funding sources must be allocated once.
-
-## Review status
-
-**Redesigned for founder and technical review. Not ready to submit unchanged.** The submission gates list factual decisions and external evidence that repository work cannot supply. An absent answer stays open, even when a form demands a number or yes/no response.
+The existing F6S draft has not been submitted. Revised assets have not been uploaded. The founder will upload manually. Historical finances and definitive personal/company answers still require factual reconciliation. These gaps are visible, not filled with invented zeros or commitments.

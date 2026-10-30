@@ -1,9 +1,9 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.1",
   "as_of": "2026-10-30",
   "currency": "USD",
   "status": "Planning assumptions only; not historical accounts, booked revenue, vendor quotations or a funding commitment.",
-  "assumptions_sha256": "5dc5e8c86aa4844418e30348a1f20287a44fb918bafdedf3a67daad52386fe1e",
+  "assumptions_sha256": "b246483d313504adf6957e7b102ffd6e400a560cfe1853829405b47220ec0317",
   "historical_actuals": {
     "product_revenue": null,
     "cash_balance": null,
@@ -21,27 +21,28 @@
     "note": "Labor is valued at replacement cost here; cash model pays monthly founder draw and funded engineer, not a second hourly labor payment."
   },
   "funding_sizing": {
-    "no_collection_stress_cash_cost": 85550,
-    "contingency_reserve_not_spent": 12832.5,
-    "rounded_indicative_ceiling": 100000,
-    "conditional_tranches": [
-      {
-        "month": 1,
-        "amount": 20000,
-        "gate": "Founder approves operating/availability assumptions; written programme eligibility and investment terms; funds received before spending."
-      },
+    "current_initial_request": 12000,
+    "initial_stage_months": 3,
+    "initial_stage_cash_cost": 10200,
+    "initial_stage_contingency_not_spent": 1530.0,
+    "initial_request_rounding_headroom": 270.0,
+    "initial_request_gate": "Founder approves operating/availability assumptions; programme confirms the validation scope and eligible costs; written investment terms; funds received before spending.",
+    "follow_on_reviews": [
       {
         "month": 4,
-        "amount": 30000,
-        "gate": "Evidence review complete, demand interviews support buyer need, one signed paid-pilot scope or budget-authorised LOI, Qatar formation and cash requirements quoted."
+        "amount": null,
+        "gate": "Evidence review complete, demand interviews support buyer need, one signed paid-pilot scope or budget-authorised LOI, Qatar formation and cash requirements quoted. Size any request from remaining approved costs and available cash."
       },
       {
         "month": 7,
-        "amount": 50000,
-        "gate": "Pilot independently reviewed and customer accepts value; at least one paid continuation or second paying buyer; local hiring plan and remaining cash need re-costed."
+        "amount": null,
+        "gate": "Pilot independently reviewed and customer accepts value; at least one paid continuation or second paying buyer; local hiring plan and remaining cash need re-costed. No automatic follow-on funding."
       }
     ],
-    "note": "Neither investment approval nor cash receipt is assumed. Full conditional cash columns show only a hypothetical all-gates-pass path. Re-size later tranches for collected revenue, verified benefits and grant overlap; halt spending when gates fail."
+    "no_collection_stress_cash_cost": 85550,
+    "contingency_reserve_not_spent": 12832.5,
+    "rounded_indicative_ceiling": 100000,
+    "note": "The only current proposed request is the initial validation amount. It is not approved or received. Follow-on amounts remain unknown and do not enter cash receipts. Monthly initial-only cash shows the shortfall if the full operating plan continues without new funding; stop or re-scope before that happens. The full-ceiling ending-cash sensitivity is separate and is not a financing schedule or upfront ask."
   },
   "scenarios": {
     "base_hypothesis": {
@@ -60,9 +61,10 @@
           "delivery_hours_required": 0,
           "delivery_hours_available": 80,
           "capacity_exceeded": false,
-          "conditional_tranche_if_all_gates_pass": 20000,
+          "initial_request_if_approved_and_received": 12000,
           "cumulative_unfinanced_cash_delta": -2400,
-          "illustrative_cash_with_all_conditional_tranches": 17600
+          "illustrative_cash_with_initial_request_only": 9600,
+          "additional_funding_required_before_continuing": false
         },
         {
           "month": 2,
@@ -77,9 +79,10 @@
           "delivery_hours_required": 0,
           "delivery_hours_available": 80,
           "capacity_exceeded": false,
-          "conditional_tranche_if_all_gates_pass": 0,
+          "initial_request_if_approved_and_received": 0,
           "cumulative_unfinanced_cash_delta": -6300,
-          "illustrative_cash_with_all_conditional_tranches": 13700
+          "illustrative_cash_with_initial_request_only": 5700,
+          "additional_funding_required_before_continuing": false
         },
         {
           "month": 3,
@@ -94,9 +97,10 @@
           "delivery_hours_required": 0,
           "delivery_hours_available": 80,
           "capacity_exceeded": false,
-          "conditional_tranche_if_all_gates_pass": 0,
+          "initial_request_if_approved_and_received": 0,
           "cumulative_unfinanced_cash_delta": -10200,
-          "illustrative_cash_with_all_conditional_tranches": 9800
+          "illustrative_cash_with_initial_request_only": 1800,
+          "additional_funding_required_before_continuing": false
         },
         {
           "month": 4,
@@ -111,9 +115,10 @@
           "delivery_hours_required": 60,
           "delivery_hours_available": 80,
           "capacity_exceeded": false,
-          "conditional_tranche_if_all_gates_pass": 30000,
+          "initial_request_if_approved_and_received": 0,
           "cumulative_unfinanced_cash_delta": -21950,
-          "illustrative_cash_with_all_conditional_tranches": 28050
+          "illustrative_cash_with_initial_request_only": -9950,
+          "additional_funding_required_before_continuing": true
         },
         {
           "month": 5,
@@ -128,9 +133,10 @@
           "delivery_hours_required": 60,
           "delivery_hours_available": 80,
           "capacity_exceeded": false,
-          "conditional_tranche_if_all_gates_pass": 0,
+          "initial_request_if_approved_and_received": 0,
           "cumulative_unfinanced_cash_delta": -24200,
-          "illustrative_cash_with_all_conditional_tranches": 25800
+          "illustrative_cash_with_initial_request_only": -12200,
+          "additional_funding_required_before_continuing": true
         },
         {
           "month": 6,
@@ -145,9 +151,10 @@
           "delivery_hours_required": 68,
           "delivery_hours_available": 80,
           "capacity_exceeded": false,
-          "conditional_tranche_if_all_gates_pass": 0,
+          "initial_request_if_approved_and_received": 0,
           "cumulative_unfinanced_cash_delta": -23550,
-          "illustrative_cash_with_all_conditional_tranches": 26450
+          "illustrative_cash_with_initial_request_only": -11550,
+          "additional_funding_required_before_continuing": true
         },
         {
           "month": 7,
@@ -162,9 +169,10 @@
           "delivery_hours_required": 68,
           "delivery_hours_available": 200,
           "capacity_exceeded": false,
-          "conditional_tranche_if_all_gates_pass": 50000,
+          "initial_request_if_approved_and_received": 0,
           "cumulative_unfinanced_cash_delta": -25400,
-          "illustrative_cash_with_all_conditional_tranches": 74600
+          "illustrative_cash_with_initial_request_only": -13400,
+          "additional_funding_required_before_continuing": true
         },
         {
           "month": 8,
@@ -179,9 +187,10 @@
           "delivery_hours_required": 76,
           "delivery_hours_available": 200,
           "capacity_exceeded": false,
-          "conditional_tranche_if_all_gates_pass": 0,
+          "initial_request_if_approved_and_received": 0,
           "cumulative_unfinanced_cash_delta": -29350,
-          "illustrative_cash_with_all_conditional_tranches": 70650
+          "illustrative_cash_with_initial_request_only": -17350,
+          "additional_funding_required_before_continuing": true
         },
         {
           "month": 9,
@@ -196,9 +205,10 @@
           "delivery_hours_required": 76,
           "delivery_hours_available": 200,
           "capacity_exceeded": false,
-          "conditional_tranche_if_all_gates_pass": 0,
+          "initial_request_if_approved_and_received": 0,
           "cumulative_unfinanced_cash_delta": -30300,
-          "illustrative_cash_with_all_conditional_tranches": 69700
+          "illustrative_cash_with_initial_request_only": -18300,
+          "additional_funding_required_before_continuing": true
         },
         {
           "month": 10,
@@ -213,9 +223,10 @@
           "delivery_hours_required": 84,
           "delivery_hours_available": 200,
           "capacity_exceeded": false,
-          "conditional_tranche_if_all_gates_pass": 0,
+          "initial_request_if_approved_and_received": 0,
           "cumulative_unfinanced_cash_delta": -31350,
-          "illustrative_cash_with_all_conditional_tranches": 68650
+          "illustrative_cash_with_initial_request_only": -19350,
+          "additional_funding_required_before_continuing": true
         },
         {
           "month": 11,
@@ -230,9 +241,10 @@
           "delivery_hours_required": 84,
           "delivery_hours_available": 200,
           "capacity_exceeded": false,
-          "conditional_tranche_if_all_gates_pass": 0,
+          "initial_request_if_approved_and_received": 0,
           "cumulative_unfinanced_cash_delta": -33400,
-          "illustrative_cash_with_all_conditional_tranches": 66600
+          "illustrative_cash_with_initial_request_only": -21400,
+          "additional_funding_required_before_continuing": true
         },
         {
           "month": 12,
@@ -247,9 +259,10 @@
           "delivery_hours_required": 92,
           "delivery_hours_available": 200,
           "capacity_exceeded": false,
-          "conditional_tranche_if_all_gates_pass": 0,
+          "initial_request_if_approved_and_received": 0,
           "cumulative_unfinanced_cash_delta": -33550,
-          "illustrative_cash_with_all_conditional_tranches": 66450
+          "illustrative_cash_with_initial_request_only": -21550,
+          "additional_funding_required_before_continuing": true
         }
       ],
       "totals": {
@@ -261,8 +274,10 @@
         "cash_cost": 85550,
         "unfinanced_cash_delta": -33550,
         "peak_unfinanced_cash_requirement": 33550,
-        "illustrative_ending_cash_all_tranches": 66450,
-        "capacity_exceeded_months": []
+        "illustrative_ending_cash_initial_request_only": -21550,
+        "first_unfunded_month_if_spending_continues": 4,
+        "capacity_exceeded_months": [],
+        "ending_cash_full_ceiling_sensitivity_only": 66450
       }
     },
     "downside_hypothesis": {
@@ -281,9 +296,10 @@
           "delivery_hours_required": 0,
           "delivery_hours_available": 80,
           "capacity_exceeded": false,
-          "conditional_tranche_if_all_gates_pass": 20000,
+          "initial_request_if_approved_and_received": 12000,
           "cumulative_unfinanced_cash_delta": -2400,
-          "illustrative_cash_with_all_conditional_tranches": 17600
+          "illustrative_cash_with_initial_request_only": 9600,
+          "additional_funding_required_before_continuing": false
         },
         {
           "month": 2,
@@ -298,9 +314,10 @@
           "delivery_hours_required": 0,
           "delivery_hours_available": 80,
           "capacity_exceeded": false,
-          "conditional_tranche_if_all_gates_pass": 0,
+          "initial_request_if_approved_and_received": 0,
           "cumulative_unfinanced_cash_delta": -6300,
-          "illustrative_cash_with_all_conditional_tranches": 13700
+          "illustrative_cash_with_initial_request_only": 5700,
+          "additional_funding_required_before_continuing": false
         },
         {
           "month": 3,
@@ -315,9 +332,10 @@
           "delivery_hours_required": 0,
           "delivery_hours_available": 80,
           "capacity_exceeded": false,
-          "conditional_tranche_if_all_gates_pass": 0,
+          "initial_request_if_approved_and_received": 0,
           "cumulative_unfinanced_cash_delta": -10200,
-          "illustrative_cash_with_all_conditional_tranches": 9800
+          "illustrative_cash_with_initial_request_only": 1800,
+          "additional_funding_required_before_continuing": false
         },
         {
           "month": 4,
@@ -332,9 +350,10 @@
           "delivery_hours_required": 0,
           "delivery_hours_available": 80,
           "capacity_exceeded": false,
-          "conditional_tranche_if_all_gates_pass": 30000,
+          "initial_request_if_approved_and_received": 0,
           "cumulative_unfinanced_cash_delta": -21200,
-          "illustrative_cash_with_all_conditional_tranches": 28800
+          "illustrative_cash_with_initial_request_only": -9200,
+          "additional_funding_required_before_continuing": true
         },
         {
           "month": 5,
@@ -349,9 +368,10 @@
           "delivery_hours_required": 0,
           "delivery_hours_available": 80,
           "capacity_exceeded": false,
-          "conditional_tranche_if_all_gates_pass": 0,
+          "initial_request_if_approved_and_received": 0,
           "cumulative_unfinanced_cash_delta": -27700,
-          "illustrative_cash_with_all_conditional_tranches": 22300
+          "illustrative_cash_with_initial_request_only": -15700,
+          "additional_funding_required_before_continuing": true
         },
         {
           "month": 6,
@@ -366,9 +386,10 @@
           "delivery_hours_required": 0,
           "delivery_hours_available": 80,
           "capacity_exceeded": false,
-          "conditional_tranche_if_all_gates_pass": 0,
+          "initial_request_if_approved_and_received": 0,
           "cumulative_unfinanced_cash_delta": -31200,
-          "illustrative_cash_with_all_conditional_tranches": 18800
+          "illustrative_cash_with_initial_request_only": -19200,
+          "additional_funding_required_before_continuing": true
         },
         {
           "month": 7,
@@ -383,9 +404,10 @@
           "delivery_hours_required": 60,
           "delivery_hours_available": 200,
           "capacity_exceeded": false,
-          "conditional_tranche_if_all_gates_pass": 50000,
+          "initial_request_if_approved_and_received": 0,
           "cumulative_unfinanced_cash_delta": -38950,
-          "illustrative_cash_with_all_conditional_tranches": 61050
+          "illustrative_cash_with_initial_request_only": -26950,
+          "additional_funding_required_before_continuing": true
         },
         {
           "month": 8,
@@ -400,9 +422,10 @@
           "delivery_hours_required": 0,
           "delivery_hours_available": 200,
           "capacity_exceeded": false,
-          "conditional_tranche_if_all_gates_pass": 0,
+          "initial_request_if_approved_and_received": 0,
           "cumulative_unfinanced_cash_delta": -47950,
-          "illustrative_cash_with_all_conditional_tranches": 52050
+          "illustrative_cash_with_initial_request_only": -35950,
+          "additional_funding_required_before_continuing": true
         },
         {
           "month": 9,
@@ -417,9 +440,10 @@
           "delivery_hours_required": 60,
           "delivery_hours_available": 200,
           "capacity_exceeded": false,
-          "conditional_tranche_if_all_gates_pass": 0,
+          "initial_request_if_approved_and_received": 0,
           "cumulative_unfinanced_cash_delta": -55700,
-          "illustrative_cash_with_all_conditional_tranches": 44300
+          "illustrative_cash_with_initial_request_only": -43700,
+          "additional_funding_required_before_continuing": true
         },
         {
           "month": 10,
@@ -434,9 +458,10 @@
           "delivery_hours_required": 0,
           "delivery_hours_available": 200,
           "capacity_exceeded": false,
-          "conditional_tranche_if_all_gates_pass": 0,
+          "initial_request_if_approved_and_received": 0,
           "cumulative_unfinanced_cash_delta": -57700,
-          "illustrative_cash_with_all_conditional_tranches": 42300
+          "illustrative_cash_with_initial_request_only": -45700,
+          "additional_funding_required_before_continuing": true
         },
         {
           "month": 11,
@@ -451,9 +476,10 @@
           "delivery_hours_required": 60,
           "delivery_hours_available": 200,
           "capacity_exceeded": false,
-          "conditional_tranche_if_all_gates_pass": 0,
+          "initial_request_if_approved_and_received": 0,
           "cumulative_unfinanced_cash_delta": -67450,
-          "illustrative_cash_with_all_conditional_tranches": 32550
+          "illustrative_cash_with_initial_request_only": -55450,
+          "additional_funding_required_before_continuing": true
         },
         {
           "month": 12,
@@ -468,9 +494,10 @@
           "delivery_hours_required": 8,
           "delivery_hours_available": 200,
           "capacity_exceeded": false,
-          "conditional_tranche_if_all_gates_pass": 0,
+          "initial_request_if_approved_and_received": 0,
           "cumulative_unfinanced_cash_delta": -69550,
-          "illustrative_cash_with_all_conditional_tranches": 30450
+          "illustrative_cash_with_initial_request_only": -57550,
+          "additional_funding_required_before_continuing": true
         }
       ],
       "totals": {
@@ -482,8 +509,10 @@
         "cash_cost": 79550,
         "unfinanced_cash_delta": -69550,
         "peak_unfinanced_cash_requirement": 69550,
-        "illustrative_ending_cash_all_tranches": 30450,
-        "capacity_exceeded_months": []
+        "illustrative_ending_cash_initial_request_only": -57550,
+        "first_unfunded_month_if_spending_continues": 4,
+        "capacity_exceeded_months": [],
+        "ending_cash_full_ceiling_sensitivity_only": 30450
       }
     }
   },

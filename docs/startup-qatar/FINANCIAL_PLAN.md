@@ -1,22 +1,24 @@
 # Financial plan for diligence
 
-Status: **illustrative assumptions for comparison, 30 October 2026**. This is not a selected investment ask, historical financial statement, vendor quotation, signed offer or forecast of customer demand. Founder accounts and programme terms still need reconciliation. All amounts are USD.
+Status: **proposed $12,000 initial validation request, 30 October 2026**, supported by illustrative operating assumptions. This is not an approved investment, historical financial statement, vendor quotation, signed offer or forecast of customer demand. Founder accounts and programme terms still need reconciliation. All amounts are USD.
 
 ## The investment decision
 
-The programme maximum is not the budget. A bottom-up, no-collection stress case gives an indicative **$100,000 12-month ceiling**: $85,550 operating cash cost plus a 15% unspent contingency of $12,832.50, rounded to the next $10,000. The costs include planned work even if customers fail to pay. The plan is incomplete until Qatar costs, statutory obligations and founder availability are quoted or confirmed.
+The current proposal is **$12,000 for three months of validation**: $10,200 scheduled cash costs plus $1,530 contingency, rounded to the next $1,000. The $270 rounding headroom is explicit. Funding, founder availability and eligible costs must be confirmed before this work incurs spending. If the programme requires immediate Qatar establishment or relocation, obtain the necessary costs and re-scope before presenting this allocation as sufficient.
 
-The proposed internal release gates are $20,000 / $30,000 / $50,000. These are negotiation scenarios, not the programme's approved tranche structure. Begin with a small validation allocation; do not ask the jury to underwrite an unproven expansion plan simply because START advertises up to $1.1 million. The programme states that funding is tied to mutually agreed milestones.[1]
+The programme maximum is not the budget. A separate no-collection stress case gives an indicative **$100,000 12-month planning envelope**: $85,550 operating cash cost plus a 15% unspent contingency of $12,832.50, rounded to the next $10,000. This is a sensitivity, not the upfront request or an approved funding schedule. START advertises up to $1.1 million and milestone-based disbursement.[1] Follow-on amounts will be sized after evidence and Qatar quotations. The earlier $20,000 / $30,000 / $50,000 financing example is superseded as a recommendation.
 
-| Gate | Internal ceiling | What would justify progressing |
+| Gate | Proposed amount | What would justify progressing |
 |---|---:|---|
-| Months 1–3: validation | $20,000 | Written programme eligibility/terms, founder agreement on availability, scoped technical review and buyer interviews. Initial three-month scheduled cash cost is $10,200, before contingency; the remainder is unspent working-capital headroom, not a spending target. |
-| Months 4–6: first delivery and establishment | $30,000 | One paid-pilot scope or budget-authorised LOI, buyer-approved acceptance criteria, independent evidence review, and written Qatar establishment/visa/cost answers. A non-binding LOI does not equal collected revenue. |
-| Months 7–12: repeatability | Up to $50,000 | Customer-accepted pilot evidence and one paid continuation or second paying buyer; a costed local hiring plan; sufficient cash before commitments. |
+| Months 1–3: validation | $12,000 | Written programme eligibility/terms, founder agreement on availability, scoped technical review, buyer interviews and staging work. |
+| Month 4 review: first delivery and establishment | Unpriced; no automatic funding | One paid-pilot scope or budget-authorised LOI, buyer-approved acceptance criteria, independent evidence review, and written Qatar establishment/visa/cost answers. A non-binding LOI does not equal collected revenue. |
+| Month 7 review: repeatability | Unpriced; no automatic funding | Customer-accepted pilot evidence and one paid continuation or second paying buyer; a costed local hiring plan; sufficient cash before commitments. |
 
 Founder owns cost and scope reconciliation. A customer budget owner validates willingness to pay; an independent reviewer checks technical evidence. The investor approves any investment release. If a gate fails, stop discretionary spending, report the failure and re-scope. Do not continue automatically because a date arrives.
 
-At every release, recalculate remaining funded work and reserve, then deduct cash actually on hand and confirmed credits against those exact costs. Reduce or cancel later tranches where collections or benefits make them unnecessary. Under the illustrative base path, drawing the entire ceiling would leave $66,450 at year-end; that is a clear reason to resize later releases, not permission to spend it.
+At every review, recalculate remaining approved cash costs and reserve, then deduct cash actually available for that scope and confirmed credits against those exact costs. Reduce or cancel later requests where collections or benefits make them unnecessary. Do not count forecast invoices as available cash. The full-ceiling sensitivity would leave $66,450 at year-end under the illustrative base path; that is a clear reason not to request the entire envelope upfront.
+
+The monthly model counts only the proposed $12,000 initial receipt, conditionally in month 1. It shows a funding shortfall from month 4 if the full operating plan continues: year-end cash would be negative $21,550 in the base case and negative $57,550 in the downside. Those figures are unfunded-plan warnings, not authority to borrow or spend. Stop or re-scope before that point unless a separately justified follow-on is approved and received. See the [investment case](INVESTMENT_CASE.md).
 
 ## Pricing and delivery economics to validate
 
@@ -53,7 +55,9 @@ The cash model pays a proposed founder draw of $2,000/month and, conditionally f
 | Year-end receivables assumed | $9,000 | $6,000 |
 | Scheduled cash cost | $85,550 | $79,550 |
 | Peak additional cash requirement from a modelled zero opening balance | $33,550 | $69,550 |
-| Cash remaining if all $100,000 conditional tranches were received | $66,450 | $30,450 |
+| Year-end cash if only the proposed initial $12,000 is received and all planned spending continues | ($21,550) | ($57,550) |
+| First month requiring more cash if spending continues | Month 4 | Month 4 |
+| Separate sensitivity: ending cash if the entire $100,000 envelope were received | $66,450 | $30,450 |
 
 Zero opening cash is a mathematical origin for the incremental plan, not the founder's bank balance. The first 90-day validation targets are 15 buyer interviews, three assisted staging installs and one signed paid scope or budget-authorized LOI. The base cash model records the first completed pilot invoice in month 4 and recurring service from month 6; a one-month collection lag means the first pilot cash arrives in month 5. Staging installations and signed scopes do not count as completed paid delivery. The commercial plan and attachments use this same schedule. The downside keeps fixed spending unchanged to expose the cost of continuing despite weak sales; actual milestone gates should stop that continuation. Neither scenario estimates acceptance probability. Delayed investment is a separate constraint: do not incur costs before available cash or a committed payment schedule covers them.
 

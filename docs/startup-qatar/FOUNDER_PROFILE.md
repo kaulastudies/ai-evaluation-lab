@@ -4,6 +4,10 @@ Aligned with the redesigned founder attachment, 30 October 2026. This public sou
 
 **Rama Chandra Malayanur** is the founder and independent engineer leading **AI Evaluation Lab**, based in India. He builds software and evaluation tools that make AI-agent outcomes inspectable through task contracts, deterministic checks and retained evidence.
 
+## Public publication dates
+
+The Lab Alpha was published on 13 September 2026 ([root commit](https://github.com/kaulastudies/ai-evaluation-lab/commit/e1a7226f59174608a69c2ca7799e96883bfa5212)). ProofGate's canonical GitHub Pages deployment completed on 29 October 2026 ([deployment run](https://github.com/kaulastudies/ai-evaluation-lab/actions/runs/40838837507)). These dates establish public releases, not incorporation or the beginning of all private research.
+
 ## Execution record
 
 - **AI Evaluation Lab and ProofGate — September 2026 onward.** Founder-led implementation of the repository-agent evaluation pipeline and public coding-agent demonstration. The retained evidence includes five synthetic tasks and 52 attempts, preserving failures and HOLD outcomes. The 30-trial AP-001 replication is included in that total.
@@ -27,6 +31,6 @@ The next capacity needs are independent human review and customer delivery. Prop
 
 ## Founder confirmation required
 
-Confirm legal/applicant identity, incorporation and ownership, founder and paid-employee counts, exact start/launch dates, current availability and prior-role details before submission. The model's founder-hours assumption is not a personal full-time commitment. Qatar residence, local hiring and two-year availability remain separate founder decisions.
+Confirm legal/applicant identity, incorporation and ownership, founder and paid-employee counts, any earlier private work dates, current availability and prior-role details before submission. The model's founder-hours assumption is not a personal full-time commitment. Qatar residence, local hiring and two-year availability remain separate founder decisions.
 
 Use verified experience and authorized public links. Unreconciled qualifications, employment status, customer references, personal addresses, identity documents, bank evidence and signatures do not belong in this public repository. The separate resume and portfolio can provide approved detail without turning the pitch into a list of unrelated products.
