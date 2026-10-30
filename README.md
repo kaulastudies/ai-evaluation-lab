@@ -38,7 +38,9 @@ runner, replay, repair-replay, metrics, and demo-evidence checks are gated in CI
 
 **ProofGate** is a hackathon application built on AI Evaluation Lab's Repository Agent Reliability Program (RARB). **AI Evaluation Lab remains the parent project**, with its provider-neutral research programs, canonical evidence, and roadmap. The ProofGate app and Nebius × NVIDIA submission materials are maintained within [`hackathon/nebius-nvidia-rarb-demo/`](hackathon/nebius-nvidia-rarb-demo/README.md).
 
-[ProofGate demo](https://kaulastudies.github.io/ai-evaluation-lab/proofgate/) · [Project README](hackathon/nebius-nvidia-rarb-demo/README.md) · [Judge instructions](hackathon/nebius-nvidia-rarb-demo/submission/JUDGE_TESTING.md)
+[Lab website](https://aievaluationlab.tech/) · [ProofGate demo](https://aievaluationlab.tech/proofgate/) · [Project README](hackathon/nebius-nvidia-rarb-demo/README.md) · [Judge instructions](hackathon/nebius-nvidia-rarb-demo/submission/JUDGE_TESTING.md)
+
+For a concise product explanation, reproducible evidence and the proposed path to paid customer workflows, see the [YC product and evidence brief](docs/yc/README.md).
 
 ProofGate is developed with mentorship from Prof. Nithya Ravi Kumar. See the [project's team and proposed research review responsibilities](hackathon/nebius-nvidia-rarb-demo/TEAM.md).
 
@@ -377,7 +379,7 @@ Third-party dependencies and referenced external materials remain subject to the
 
 **Alpha v0.2A is complete, and AS-002 is now merged into the public Agent Safety Evaluation Program.**
 
-**RARB v0.1 is merged and CI-gated.** Its promoted evidence now contains 51 live attempts across five verifier-qualified tasks: 43 `VERIFIED_PASS`, 5 `VERIFIED_FAIL`, and 3 `HOLD`. Configured critical verifier mutations show 0 / 17 escapes, and one of two bounded-repair episodes converted to `VERIFIED_PASS`.
+**RARB v0.1 is merged and CI-gated.** Its promoted evidence contains 52 retained attempts across five verifier-qualified synthetic tasks: 44 `VERIFIED_PASS`, 5 `VERIFIED_FAIL`, and 3 `HOLD`. Configured critical verifier mutations show 0 / 17 escapes, and one of two bounded-repair episodes converted to `VERIFIED_PASS`. These descriptive results apply to the committed evidence set, not general model accuracy or production reliability. See the [metric definitions and coverage](programs/repository-agent-reliability/metrics/metrics.md).
 
 Phase 12 adds a preregistered AP-001 matrix of exactly 30 initial attempts across three fixed configurations, ten trials each: Ollama `llama3:latest` (9 pass, 1 fail), Ollama `qwen2.5-coder:7b` (10 pass), and Nebius/NVIDIA `nvidia/nemotron-3-super-120b-a12b` (10 pass). All 30 outcomes passed source-exact no-model replay; there were no false-greens or repair attempts.
 
