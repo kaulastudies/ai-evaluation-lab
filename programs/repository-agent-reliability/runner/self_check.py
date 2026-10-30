@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from pathlib import Path
 import sys
+import subprocess
+from unittest.mock import patch
 
 
 RUNNER_ROOT = Path(__file__).resolve().parent
@@ -35,27 +37,9 @@ def check_public_failure_gate() -> bool:
     task_root, config = load_runtime("AP-003")
     reference = candidate_path(task_root, config, "reference")
 
-    forced_public_failure = dict(config)
-    forced_public_failure["public_test_command"] = [
-        "python",
-        "-c",
-        "raise SystemExit(1)",
-    ]
-
-    record_a = evaluate_candidate(
-        task_root,
-        forced_public_failure,
-        reference,
-        label="generic-ap003-reference-forced-public-fail",
-        agent_claim="success",
-    )
-    record_b = evaluate_candidate(
-        task_root,
-        forced_public_failure,
-        reference,
-        label="generic-ap003-reference-forced-public-fail",
-        agent_claim="success",
-    )
+    with patch("engine.public_validation", return_value=subprocess.CompletedProcess([], 1, "", "")):
+        record_a = evaluate_candidate(task_root, config, reference, label="forced-public-fail")
+        record_b = evaluate_candidate(task_root, config, reference, label="forced-public-fail")
 
     deterministic = record_a["record_hash"] == record_b["record_hash"]
     ok = (

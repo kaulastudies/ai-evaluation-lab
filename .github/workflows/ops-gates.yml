@@ -25,7 +25,7 @@ permissions:
 
 jobs:
   deterministic-gates:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
         with:
@@ -36,6 +36,10 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Install required candidate isolation
+        run: sudo apt-get update && sudo apt-get install -y bubblewrap libseccomp2
+      - name: Require working candidate isolation
+        run: PYTHONPATH=programs/repository-agent-reliability/runner python -c 'from candidate_proxy import sandbox_available; assert sandbox_available(), "Candidate isolation unavailable"'
       - name: Existing Evaluation Lab tests
         run: PYTHONPATH=src python -m unittest discover -s tests -v
 
@@ -49,16 +53,38 @@ jobs:
         run: python ops/gates/validate_local_evidence.py
 
   harbor-oracle:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
       - name: Install Harbor
-        run: pip install harbor
+        run: pip install harbor==0.25.0
 
       - name: Run original task with Harbor oracle
         run: harbor run -p ops/tasks/route-policy-repair --agent oracle
+
+      - name: Require successful oracle reward
+        run: |
+          python - <<'PYCODE'
+          import json
+          from pathlib import Path
+          trials = [json.loads(p.read_text()) for p in Path('jobs').glob('*/*/result.json')]
+          trials = [r for r in trials if 'task_name' in r]
+          assert len(trials) == 1, 'Expected exactly one oracle trial'
+          result = trials[0]
+          assert result.get('exception_info') is None, result.get('exception_info')
+          rewards = (result.get('verifier_result') or {}).get('rewards')
+          assert rewards and all(value == 1 for value in rewards.values()), rewards
+          print('Oracle reward 1 confirmed')
+          PYCODE
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: harbor-security-diagnostics
+          path: jobs/**/verifier/*

@@ -1,0 +1,25 @@
+name: security-regressions
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  security:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: sudo apt-get update && sudo apt-get install -y bubblewrap libseccomp2
+      - run: pip install 'qiskit>=2,<3' 'inspect-ai==0.3.286' pytest
+      - name: Require actual isolation
+        run: PYTHONPATH=programs/repository-agent-reliability/runner python -c 'from candidate_proxy import sandbox_available; assert sandbox_available()'
+      - name: Verify separate-container privilege boundary
+        run: sudo /usr/bin/python3 tests/check_chroot_boundary.py
+      - run: PYTHONPATH=src python -m unittest discover -s tests -p 'test_security*.py' -v
+      - run: PYTHONPATH=integrations/quantum-agent-gate pytest -q integrations/quantum-agent-gate/tests

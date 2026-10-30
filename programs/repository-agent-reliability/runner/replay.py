@@ -10,6 +10,9 @@ import subprocess
 import sys
 import tempfile
 from typing import Any
+from security import component, task_id, read_confined, validate_record, clean_env
+from evidence_trust import authenticate_attempt, validate_response
+from historical_sandbox import run_historical
 
 
 RUNNER_ROOT = Path(__file__).resolve().parent
@@ -175,14 +178,14 @@ def source_exact_trial(
         str(out_path),
     ]
 
-    env = os.environ.copy()
+    env = clean_env()
     env["PYTHONPATH"] = str(source_root / "src")
 
-    process = subprocess.run(
+    process = run_historical(
         command,
+        source_root=source_root,
+        writable_root=out_path.parent,
         cwd=source_root / "programs" / "repository-agent-reliability",
-        text=True,
-        capture_output=True,
         env=env,
     )
 
@@ -225,10 +228,12 @@ def main() -> int:
             "runtime_schema=generic-v1 only"
         )
 
+    authenticate_attempt(evidence_dir, trial_record)
     source_commit = trial_record["source_commit"]
     ensure_commit_exists(source_commit)
 
-    response_bytes = response_path.read_bytes()
+    response_bytes = read_confined(evidence_dir, "model-response.txt")
+    validate_response(trial_record, manifest, response_bytes)
     response_sha = sha256_bytes(response_bytes)
 
     stored_evaluation = trial_record.get("evaluation")
@@ -273,6 +278,8 @@ def main() -> int:
         replay_out = temp / "trial.json"
         replay_candidate = temp / "candidate.py"
 
+        response_path = temp / "model-response.txt"
+        response_path.write_bytes(response_bytes)
         add_detached_worktree(source_root, source_commit)
 
         try:
@@ -296,6 +303,8 @@ def main() -> int:
                 else None
             )
             replayed_evaluation = replayed.get("evaluation")
+            validate_record(replayed_evaluation)
+            validate_record(trial_record.get("evaluation"))
 
             checks = {
                 "task_id_matches_manifest": (

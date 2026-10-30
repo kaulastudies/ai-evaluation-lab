@@ -2,38 +2,23 @@ from __future__ import annotations
 
 import argparse
 import copy
-import importlib.util
 import json
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "runner"))
+from candidate_proxy import remote_class
+
 import sys
 
 
 TASK_ID = "AP-005"
 TASK_VERSION = "0.1.0"
-VERIFIER_VERSION = "0.1.0"
+VERIFIER_VERSION = "0.2.0"
 PUBLIC_KEYS = {"id", "value", "active", "note"}
 
 
 def load_transformer(root: Path):
-    source = root / "app" / "record_transformer.py"
-    if not source.is_file():
-        raise FileNotFoundError(f"Missing candidate source: {source}")
-
-    spec = importlib.util.spec_from_file_location(
-        "rarb_ap005_candidate",
-        source,
-    )
-    if spec is None or spec.loader is None:
-        raise RuntimeError(f"Unable to load candidate: {source}")
-
-    module = importlib.util.module_from_spec(spec)
-    sys.modules.pop("rarb_ap005_candidate", None)
-    spec.loader.exec_module(module)
-
-    if not hasattr(module, "RecordTransformer"):
-        raise RuntimeError("Candidate does not define RecordTransformer")
-
-    return module.RecordTransformer
+    return remote_class(root, "AP-005")
 
 
 def gate(gate_id: str, passed: bool, diagnostic: str) -> dict:
@@ -42,6 +27,16 @@ def gate(gate_id: str, passed: bool, diagnostic: str) -> dict:
         "passed": bool(passed),
         "diagnostic": diagnostic,
     }
+
+
+def type_exact_equal(left, right):
+    if type(left) is not type(right):
+        return False
+    if isinstance(left, dict):
+        return left.keys() == right.keys() and all(type_exact_equal(left[k], right[k]) for k in left)
+    if isinstance(left, (list, tuple)):
+        return len(left) == len(right) and all(type_exact_equal(a, b) for a, b in zip(left, right))
+    return left == right
 
 
 def evaluate(root: Path) -> dict:
@@ -109,7 +104,7 @@ def evaluate(root: Path) -> dict:
     )
 
     g04 = (
-        rows == before
+        type_exact_equal(rows, before)
         and isinstance(result, list)
         and len(result) == 3
         and all(set(item) == PUBLIC_KEYS for item in result)

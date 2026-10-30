@@ -1,4 +1,4 @@
-﻿import argparse
+import argparse
 import hashlib
 import json
 import os
@@ -8,6 +8,9 @@ import sys
 import tempfile
 from pathlib import Path
 from typing import Any
+from security import task_id, component, validate_record, clean_env, read_confined
+from evidence_trust import authenticate_attempt
+from historical_sandbox import run_historical
 
 RUNNER_ROOT = Path(__file__).resolve().parent
 PROGRAM_ROOT = RUNNER_ROOT.parent
@@ -74,6 +77,10 @@ def main():
     if evaluation.get("runtime_schema") != "agent-workspace-v1":
         raise RuntimeError("agent_replay.py only supports agent-workspace-v1.")
 
+    task_id(evaluation["task_id"])
+    component(evaluation["run_label"])
+    validate_record(evaluation)
+    frozen_package = authenticate_attempt(evidence_dir, evaluation)
     validate_consistency(manifest, evaluation)
 
     source_commit = evaluation["source_commit"]
@@ -102,6 +109,16 @@ def main():
 
     adapter_temp_dir = Path(tempfile.mkdtemp(prefix="rarb-adapter-"))
     try:
+        frozen_root = adapter_temp_dir / "evidence"
+        frozen_root.mkdir()
+        for relative, data in frozen_package.items():
+            destination = frozen_root / relative
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            destination.write_bytes(data)
+        candidate_path = frozen_root / candidate_path.name
+        prompt_path = frozen_root / "prompt.txt"
+        summary_path = frozen_root / "model-response.txt"
+        evidence_dir = frozen_root
         with tempfile.TemporaryDirectory(prefix="rarb-agent-replay-") as worktree_dir:
             source_root = Path(worktree_dir) / "source"
             add_detached_worktree(source_root, source_commit)
@@ -119,8 +136,8 @@ def main():
 
                 task_root = source_root / "programs" / "repository-agent-reliability" / "tasks" / evaluation["task_id"]
 
-                replayed_eval_out = source_root / "replayed-evaluation.json"
-                replayed_manifest_out = source_root / "replayed-manifest.json"
+                replayed_eval_out = source_root.parent / "replayed-evaluation.json"
+                replayed_manifest_out = source_root.parent / "replayed-manifest.json"
 
                 cmd = [
                     sys.executable,
@@ -136,14 +153,16 @@ def main():
                     "--out-manifest", str(replayed_manifest_out)
                 ]
 
-                env = os.environ.copy()
+                env = clean_env()
                 env["PYTHONPATH"] = str(historical_runner)
 
-                process = subprocess.run(cmd, env=env, capture_output=True, text=True, cwd=source_root)
+                process = run_historical(cmd, source_root=source_root, writable_root=source_root.parent, env=env, cwd=source_root, extra_readonly=[evidence_dir, adapter_temp_dir])
                 if not replayed_eval_out.exists():
                     raise RuntimeError(f"agent_evaluate.py failed to produce output:\n{process.stderr}")
 
                 replayed_eval = json.loads(replayed_eval_out.read_text(encoding="utf-8"))
+
+                validate_record(replayed_eval)
 
                 expected_exit = 0 if evaluation["final_verdict"] == "VERIFIED_PASS" else (1 if evaluation["final_verdict"] == "VERIFIED_FAIL" else 2)
 
