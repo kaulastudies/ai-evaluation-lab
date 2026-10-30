@@ -3,39 +3,134 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="AI Evaluation Lab: independent, provider-neutral evaluation and reproducible evidence for AI systems and agents.">
-  <title>AI Evaluation Lab</title>
+  <meta name="theme-color" content="#102b32">
+  <meta name="description" content="AI Evaluation Lab builds independent verifiers, reproducible evaluations and inspectable evidence for AI agents. Explore the research and try ProofGate.">
+  <meta property="og:title" content="AI Evaluation Lab — Evidence before trust">
+  <meta property="og:description" content="Independent evaluation and verification for AI systems and agents. Open research. Working tools. Evidence you can inspect.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://aievaluationlab.tech/">
+  <title>AI Evaluation Lab — Evidence before trust</title>
+  <link rel="canonical" href="https://aievaluationlab.tech/">
   <style>
-    :root{color-scheme:light dark;font-family:system-ui,sans-serif;line-height:1.65}
-    body{max-width:52rem;margin:4rem auto;padding:0 1.5rem;background:#f7fafb;color:#17333d}
-    h1{font-size:clamp(2rem,6vw,3.4rem);line-height:1.15;margin-bottom:1rem}
-    a{color:#006b60;text-underline-offset:.2em}a:focus-visible{outline:3px solid #006b60;outline-offset:4px}
-    section{margin-top:2.5rem;padding-top:1rem;border-top:1px solid #b7c9ce}
-    .lead{font-size:1.2rem}.links{display:flex;flex-wrap:wrap;gap:1.25rem}
-    footer{margin-top:3rem;font-size:.9rem}
-    @media(prefers-color-scheme:dark){body{background:#102730;color:#e7f0f2}a{color:#93e6cb}}
+    :root{--ink:#102b32;--muted:#52666b;--mint:#b6efd5;--paper:#f7f8f3;--line:#d5dfd9;--green:#23614a;--mono:ui-monospace,SFMono-Regular,Consolas,monospace}
+    *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:100px}body{margin:0;background:var(--paper);color:var(--ink);font-family:Inter,"Segoe UI",Arial,sans-serif;line-height:1.6}a{color:inherit;text-decoration:none}button,summary{font:inherit}button{cursor:pointer}a,button,summary{-webkit-tap-highlight-color:transparent}a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid #267c62;outline-offset:5px}::selection{background:var(--mint);color:var(--ink)}svg{display:block}h1,h2,h3,p{margin:0}h1,h2,h3{line-height:1.12;letter-spacing:-.045em}p{max-width:65ch}.wrap{width:min(1200px,calc(100% - 80px));margin:auto}.skip{position:absolute;left:20px;top:-80px;z-index:30;background:white;padding:12px 18px}.skip:focus{top:12px}.eyebrow{font-family:var(--mono);font-size:11px;font-weight:600;line-height:1.5;letter-spacing:.13em;text-transform:uppercase}.section-label{display:flex;align-items:center;gap:12px}.section-label:before{content:"";width:24px;height:1px;background:currentColor}.arrow{display:inline-block;font-size:20px;line-height:1}.button{display:inline-flex;justify-content:center;align-items:center;gap:28px;min-height:52px;padding:12px 22px;border:1px solid transparent;font-size:14px;font-weight:650;transition:background .18s,transform .18s}.button:hover{transform:translateY(-2px)}.button-primary{background:var(--mint);color:var(--ink)}.button-primary:hover{background:#d0f9e4}.button-outline{border-color:#61777c;color:#f3f8f5}.button-outline:hover{background:#223e46}.button-dark{background:var(--ink);color:white}.button-dark:hover{background:#25464e}.text-link{display:inline-flex;align-items:center;gap:20px;font-size:14px;font-weight:650;border-bottom:1px solid currentColor;padding-bottom:5px}.text-link:hover{color:var(--green)}
+    .site-header{background:var(--paper);border-bottom:1px solid var(--line)}.header-inner{min-height:86px;display:flex;align-items:center;justify-content:space-between;gap:24px}.brand{display:flex;align-items:center;gap:12px;font-size:16px;font-weight:720;line-height:1.1;letter-spacing:-.04em}.brand-mark{width:35px;height:35px;color:var(--green)}.brand span span{display:block;font-size:11px;font-weight:500;letter-spacing:.1em;margin-top:5px;text-transform:uppercase}.nav{display:flex;align-items:center;gap:30px;font-size:13px;font-weight:550}.nav a:hover{color:var(--green)}.nav .nav-cta{border:1px solid #bccdc4;padding:9px 16px;display:flex;gap:18px;align-items:center}.menu-toggle{display:none;background:none;border:1px solid var(--line);padding:8px 12px;color:var(--ink)}
+    .hero{background:var(--ink);color:#f5f8f4;position:relative;overflow:hidden}.hero:after{content:"";position:absolute;right:0;top:0;bottom:0;width:48%;opacity:.18;pointer-events:none;background-image:linear-gradient(#6f8c8b 1px,transparent 1px),linear-gradient(90deg,#6f8c8b 1px,transparent 1px);background-size:52px 52px;mask-image:linear-gradient(90deg,transparent,#000)}.hero-inner{position:relative;z-index:1;display:grid;grid-template-columns:1.13fr 1fr;align-items:center;gap:76px;padding:88px 0 82px}.hero .eyebrow{color:var(--mint);display:flex;align-items:center;gap:9px}.dot{width:6px;height:6px;background:var(--mint);border-radius:50%;display:inline-block}.hero h1{font-size:clamp(46px,5.2vw,70px);font-weight:560;line-height:1.06;margin:27px 0 25px;max-width:620px}.hero h1 em{font-style:normal;color:var(--mint)}.hero-description{font-size:17px;line-height:1.75;color:#c3d3d2;max-width:490px}.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:32px}.hero-note{color:#9db5b6;font-family:var(--mono);font-size:10px;letter-spacing:.06em;margin-top:20px}.evidence-object{position:relative;padding:20px 0 20px 18px}.evidence-object:before{content:"";position:absolute;inset:0 22px 0 0;border:1px solid #466263;transform:rotate(-3deg);background:#17353c}.evidence-sheet{position:relative;color:var(--ink);background:var(--paper);padding:28px 28px 22px;box-shadow:12px 18px 0 #092127}.sheet-top{display:flex;justify-content:space-between;align-items:center;gap:10px;padding-bottom:20px;border-bottom:1px solid var(--line)}.sheet-id{font-family:var(--mono);font-size:10px;color:#60716b}.sheet-symbol{color:var(--green)}.evidence-sheet h2{font-size:29px;letter-spacing:-.05em;margin:24px 0 10px}.sheet-copy{font-size:12px;color:var(--muted);line-height:1.6}.verdict-row{display:flex;align-items:center;justify-content:space-between;padding:15px 0;border-bottom:1px solid var(--line);gap:15px;font-size:12px;font-weight:550}.verdict-row:first-of-type{margin-top:14px}.badge{font-family:var(--mono);font-size:10px;font-weight:650;letter-spacing:.05em;display:inline-flex;align-items:center;gap:6px;padding:4px 9px;white-space:nowrap}.pass{background:#e0efdf;color:#225132}.fail{background:#f2e5da;color:#874326}.gate-list{display:grid;grid-template-columns:1fr 1fr;gap:9px 10px;margin:20px 0 22px;font-family:var(--mono);font-size:10px;color:#52666b}.gate-list span:before{content:"×";font-size:14px;color:#9c492d;margin-right:7px}.sheet-foot{font-family:var(--mono);font-size:9px;color:#68796d;border-top:1px dashed #bfcbbf;padding-top:15px;line-height:1.8}.hero-base{position:relative;z-index:1;border-top:1px solid #385159;padding:20px 0}.hero-base .wrap{display:flex;justify-content:space-between;gap:20px;color:#a7c0bd;font-family:var(--mono);font-size:10px;letter-spacing:.04em}.hero-base strong{color:#e4eee8;font-weight:500}
+    .section{padding:96px 0}.section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:50px;margin:23px 0 44px}.section h2{font-size:clamp(33px,3.6vw,46px);font-weight:550;max-width:650px}.section-intro{font-size:14px;color:var(--muted);max-width:360px;line-height:1.8}.principles{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.principle{padding:30px 30px 32px 0}.principle+.principle{border-left:1px solid var(--line);padding-left:30px}.number{font-family:var(--mono);font-size:11px;color:var(--green);display:block;margin-bottom:25px}.principle h3{font-size:22px;letter-spacing:-.035em;margin-bottom:14px;font-weight:600}.principle p{font-size:13px;line-height:1.8;color:var(--muted)}
+    .product-section{background:#e9eee7;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.product-layout{display:grid;grid-template-columns:.92fr 1.08fr;gap:80px;align-items:center}.product-copy h2{margin:22px 0 20px}.product-copy>p{color:var(--muted);font-size:15px;line-height:1.8}.product-copy .button{margin-top:28px}.product-caption{font-family:var(--mono);font-size:10px!important;margin-top:15px;max-width:350px}.product-demo{background:var(--ink);color:#edf4ef;border:1px solid #38535a;box-shadow:12px 12px 0 #d2dfd4}.demo-toolbar{border-bottom:1px solid #3b5358;padding:17px 22px;display:flex;justify-content:space-between;gap:12px;font-family:var(--mono);font-size:10px;color:#a7c3b9}.demo-toolbar b{font-size:12px;color:var(--mint);font-weight:500}.demo-steps{padding:4px 26px}.demo-step{padding:23px 0;display:grid;grid-template-columns:28px 1fr;gap:15px;border-bottom:1px solid #385159}.demo-step:last-child{border:0}.step-index{font-family:var(--mono);font-size:10px;color:var(--mint);padding-top:3px}.demo-step h3{font-size:17px;letter-spacing:-.02em;font-weight:550;margin-bottom:9px}.demo-step p{font-size:12px;color:#abc2c1;line-height:1.8}.demo-end{border-top:1px solid #385159;padding:17px 24px;color:#a3bcb6;font-family:var(--mono);font-size:9px}.walkthrough{margin-top:28px;border-top:1px solid #c0cfc2;border-bottom:1px solid #c0cfc2}.walkthrough summary{padding:15px 0;cursor:pointer;font-size:13px;font-weight:600;list-style:none;display:flex;justify-content:space-between;gap:20px}.walkthrough summary::-webkit-details-marker{display:none}.walkthrough summary:after{content:"+";font:20px var(--mono)}.walkthrough[open] summary:after{content:"−"}.walkthrough video{width:100%;display:block;background:#102b32;margin-bottom:15px}.walkthrough a{text-decoration:underline;font-size:12px;display:inline-block;margin-bottom:14px}
+    .research-row{display:grid;grid-template-columns:75px 1.1fr 1fr auto;gap:30px;align-items:center;border-top:1px solid var(--line);padding:31px 0}.research-row:last-child{border-bottom:1px solid var(--line)}.research-code{font-family:var(--mono);font-size:11px;color:var(--green)}.research-row h3{font-size:23px;font-weight:550;letter-spacing:-.035em}.research-row p{font-size:13px;line-height:1.8;color:var(--muted)}.research-row>a{display:flex;align-items:center;justify-content:center;width:46px;height:46px;border:1px solid #bdcdc3;border-radius:50%;font-size:20px}.research-row>a:hover{background:var(--mint)}.research-bottom{margin-top:28px;display:flex;align-items:flex-start;justify-content:space-between;gap:30px}.research-bottom p{font-size:12px;color:var(--muted);max-width:650px}.research-bottom a{white-space:nowrap}
+    .people-section{background:#eff2ec;border-top:1px solid var(--line)}.people-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px}.person{display:grid;grid-template-columns:62px 1fr;gap:22px;padding-top:27px;border-top:1px solid #c7d4c9}.initials{width:60px;height:60px;border:1px solid #b6cbbd;background:#e0e9df;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:17px;color:#2e6550}.person h3{font-size:24px;font-weight:550;letter-spacing:-.035em;margin-bottom:8px}.role{font-family:var(--mono);font-size:10px;color:var(--green);margin-bottom:18px;line-height:1.8}.person p{font-size:13px;line-height:1.8;color:var(--muted);max-width:390px}.person a{margin-top:20px;font-size:12px}.person .text-link{gap:15px}.collaborate{background:var(--mint);border-top:1px solid #a9d6be}.collaborate-inner{display:flex;align-items:center;justify-content:space-between;gap:50px;padding:59px 0}.collaborate h2{font-size:37px;font-weight:550;max-width:620px;margin:12px 0}.collaborate p{font-size:14px;max-width:630px;color:#35594b}.collaborate .button{white-space:nowrap}.site-footer{background:var(--ink);color:#e0eee5;padding:36px 0}.footer-inner{display:flex;align-items:center;justify-content:space-between;gap:30px}.footer-brand{font-weight:600;letter-spacing:-.03em;font-size:15px}.footer-brand span{display:block;color:#9db8b2;font-family:var(--mono);font-weight:400;font-size:9px;margin-top:6px;letter-spacing:.03em}.footer-links{display:flex;gap:27px;color:#b2c8c0;font-size:11px}.footer-links a:hover{color:var(--mint)}
+    .hero .evidence-sheet .eyebrow{color:var(--green)}
+    @media(min-width:1600px){.hero-inner{padding:106px 0 100px}}
+    @media(max-width:1000px){.wrap{width:calc(100% - 48px)}.hero-inner{gap:40px;grid-template-columns:1.05fr 1fr;padding:66px 0}.hero h1{font-size:53px}.evidence-sheet{padding:23px 20px}.evidence-sheet h2{font-size:26px}.hero-actions .button{padding:12px 17px;gap:16px}.product-layout{gap:40px}.section{padding:76px 0}.research-row{grid-template-columns:58px 1.05fr 1fr auto;gap:22px}.people-grid{gap:30px}.person{grid-template-columns:48px 1fr;gap:15px}.initials{width:46px;height:46px;font-size:14px}.person h3{font-size:22px}.collaborate h2{font-size:32px}.nav{gap:22px}}
+    @media(max-width:760px){html{scroll-padding-top:24px}.wrap{width:calc(100% - 40px)}.header-inner{min-height:76px;flex-wrap:wrap;gap:0;padding:18px 0}.brand{font-size:15px}.brand-mark{width:31px;height:31px}.brand span span{font-size:9px}.nav{width:100%;justify-content:space-between;gap:16px;padding-top:21px;font-size:12px}.nav .nav-cta{padding:6px 12px;gap:10px}.js .menu-toggle{display:block;font-size:12px}.js .nav[data-open="false"]{display:none}.hero-inner{grid-template-columns:1fr;gap:48px;padding:53px 0 56px}.hero h1{font-size:clamp(43px,9.6vw,62px);max-width:580px;margin-top:23px}.hero-description{font-size:16px}.hero-actions{margin-top:26px}.hero:after{width:100%;mask-image:linear-gradient(180deg,transparent,#000)}.evidence-object{width:min(460px,100%);margin:auto;padding-left:14px}.evidence-sheet{padding:25px}.hero-base .wrap{flex-direction:column;gap:8px}.hero-base{padding:18px 0}.section{padding:61px 0}.section-head{display:block;margin:21px 0 31px}.section h2{font-size:35px;max-width:500px}.section-intro{margin-top:21px;max-width:510px}.principles{grid-template-columns:1fr}.principle,.principle+.principle{border-left:0;padding:24px 0;border-bottom:1px solid var(--line)}.principle:last-child{border:0}.number{margin-bottom:15px}.principle h3{font-size:22px}.principle p{max-width:520px}.product-layout{grid-template-columns:1fr;gap:38px}.product-copy>p{max-width:570px}.product-demo{box-shadow:7px 7px 0 #d2dfd4}.walkthrough{max-width:600px}.research-row{grid-template-columns:1fr 46px;gap:12px;padding:25px 0}.research-code{grid-column:1}.research-row h3{grid-column:1;font-size:24px}.research-row p{grid-column:1;font-size:13px}.research-row>a{grid-column:2;grid-row:1 / span 3}.research-bottom{display:block}.research-bottom a{margin-top:23px}.people-grid{grid-template-columns:1fr;gap:30px}.person{grid-template-columns:52px 1fr;gap:18px}.initials{width:52px;height:52px}.person p{max-width:500px}.person h3{font-size:23px}.collaborate-inner{display:block;padding:44px 0}.collaborate h2{font-size:33px}.collaborate .button{margin-top:25px}.footer-inner{align-items:flex-start;flex-direction:column;gap:24px}.footer-links{flex-wrap:wrap;gap:22px}.site-footer{padding:30px 0}}
+    @media(max-width:380px){.wrap{width:calc(100% - 32px)}.hero h1{font-size:41px}.hero-actions{flex-direction:column;align-items:stretch}.nav{gap:10px;font-size:11px}.evidence-sheet{padding:22px 18px}.gate-list{font-size:9px;gap:7px}.hero-note{font-size:9px}.person{grid-template-columns:1fr}.collaborate h2{font-size:30px}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important}}
   </style>
 </head>
 <body>
-  <main>
-    <h1>AI Evaluation Lab</h1>
-    <p class="lead">Independent, provider-neutral evaluation and reproducible evidence for AI systems and agents.</p>
-    <p>The Lab develops task contracts, independent verifiers, model and agent evaluations, and evidence that other people can inspect and reproduce.</p>
-    <p class="links"><a href="https://github.com/kaulastudies/ai-evaluation-lab">Explore the main repository</a><a href="https://github.com/kaulastudies/ai-evaluation-lab/blob/main/ROADMAP.md">Research roadmap</a></p>
-    <section aria-labelledby="programs">
-      <h2 id="programs">Research programs</h2>
-      <ul>
-        <li><a href="https://github.com/kaulastudies/ai-evaluation-lab/blob/main/docs/AGENT_SAFETY_PROGRAM.md">Agent Safety Evaluation Program</a></li>
-        <li><a href="https://github.com/kaulastudies/ai-evaluation-lab/tree/main/programs/repository-agent-reliability">Repository Agent Reliability Program (RARB)</a></li>
-      </ul>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="#main" aria-label="AI Evaluation Lab home">
+        <svg class="brand-mark" viewBox="0 0 36 36" fill="none" aria-hidden="true"><path d="M12 3H3v30h9M24 3h9v30h-9" stroke="currentColor" stroke-width="2.5"/><path d="m11 18 5 5 10-11" stroke="currentColor" stroke-width="2.5"/></svg>
+        <span>AI Evaluation Lab<span>Evidence before trust</span></span>
+      </a>
+      <button class="menu-toggle" aria-controls="main-nav" aria-expanded="false" type="button">Menu <span aria-hidden="true">+</span></button>
+      <nav class="nav" id="main-nav" data-open="false" aria-label="Main navigation">
+        <a href="#work">Our work</a><a href="#approach">Approach</a><a href="#people">People</a>
+        <a class="nav-cta" href="https://github.com/kaulastudies/ai-evaluation-lab">GitHub <span aria-hidden="true">↗</span></a>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="wrap hero-inner">
+        <div>
+          <p class="eyebrow"><span class="dot" aria-hidden="true"></span> Independent AI evaluation &amp; verification</p>
+          <h1 id="hero-title">Before you trust<br>the result,<br><em>check the evidence.</em></h1>
+          <p class="hero-description">We build verifiers, evaluation tools and reproducible evidence for AI systems and agents. So a successful run comes with something you can actually inspect.</p>
+          <div class="hero-actions"><a class="button button-primary" href="proofgate/">Try ProofGate <span class="arrow" aria-hidden="true">↗</span></a><a class="button button-outline" href="#work">Explore the research <span aria-hidden="true">↓</span></a></div>
+          <p class="hero-note">OPEN SOURCE · PROVIDER-NEUTRAL · REPRODUCIBLE</p>
+        </div>
+        <div class="evidence-object">
+          <div class="evidence-sheet" aria-label="Recorded AP-005 example: public tests passed, independent checks failed">
+            <div class="sheet-top"><span class="eyebrow">Inside the evidence</span><svg class="sheet-symbol" width="23" height="23" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 3H3v18h4M17 3h4v18h-4M8 12l3 3 6-7" stroke="currentColor" stroke-width="1.7"/></svg></div>
+            <h2>A pass is a claim.<br>Verification checks it.</h2>
+            <p class="sheet-copy">A recorded coding-agent patch passed its public test. The independent verifier caught four contract violations.</p>
+            <div class="verdict-row"><span>Public tests</span><span class="badge pass">✓ PASS</span></div>
+            <div class="verdict-row"><span>Independent checks</span><span class="badge fail">× FAIL</span></div>
+            <div class="gate-list"><span>Row preservation</span><span>Value &amp; type fidelity</span><span>Optional fields</span><span>Input integrity</span></div>
+            <p class="sheet-foot">RECORDED EXAMPLE · AP-005<br>Run the actual Python checks in ProofGate.</p>
+          </div>
+        </div>
+      </div>
+      <div class="hero-base"><div class="wrap"><span>FOR <strong>ENGINEERS BUILDING WITH AI AGENTS</strong></span><span>A task contract. An independent check. An inspectable result.</span></div></div>
     </section>
-    <section aria-labelledby="applications">
-      <h2 id="applications">Applications built on the Lab</h2>
-      <h3>ProofGate</h3>
-      <p>A coding-agent verification application built on RARB for the Nebius × NVIDIA hackathon. Run Python verifier checks against recorded candidates, inspect failed gates, and explore the preserved evidence.</p>
-      <p class="links"><a href="proofgate/">Open ProofGate</a><a href="https://github.com/kaulastudies/ai-evaluation-lab/tree/main/hackathon/nebius-nvidia-rarb-demo">Source, setup and media</a></p>
+    <section class="section wrap" id="approach" aria-labelledby="approach-title">
+      <p class="eyebrow section-label">01 / The approach</p>
+      <div class="section-head"><h2 id="approach-title">Make the verdict<br>worth trusting.</h2><p class="section-intro">We start with a bounded task, test the verifier itself, and retain the evidence behind the result.</p></div>
+      <div class="principles">
+        <article class="principle"><span class="number">01 — DEFINE</span><h3>Write the contract.</h3><p>Make success and failure explicit before the run. Specify the inputs, constraints and behaviour the task actually requires.</p></article>
+        <article class="principle"><span class="number">02 — CHALLENGE</span><h3>Check the checker.</h3><p>Use reference implementations, known-bad candidates and deliberate mutations to test whether a verifier catches the faults it should.</p></article>
+        <article class="principle"><span class="number">03 — REPRODUCE</span><h3>Keep the evidence.</h3><p>Retain the code, failed checks, source references and execution reports. Make the result available for inspection and replay.</p></article>
+      </div>
     </section>
+    <section class="section product-section" aria-labelledby="product-title">
+      <div class="wrap product-layout">
+        <div class="product-copy">
+          <p class="eyebrow section-label">Working application / ProofGate</p>
+          <h2 id="product-title">Put a verdict<br>to the test.</h2>
+          <p>ProofGate brings the Lab’s verification work into an executable demo. Test recorded coding-agent patches, inspect the failed gates, and see what changes when a candidate is repaired.</p>
+          <a class="button button-dark" href="proofgate/">Open the working demo <span class="arrow" aria-hidden="true">↗</span></a>
+          <p class="product-caption">Runs Python checks in your browser.<br>No account, API key or model call required.</p>
+          <details class="walkthrough"><summary>Watch the 2-minute walkthrough</summary><video controls preload="none" playsinline aria-label="ProofGate captioned walkthrough"><source src="proofgate/proofgate-walkthrough.mp4" type="video/mp4">Your browser does not support embedded video.</video><a href="proofgate/proofgate-walkthrough.mp4">Open the captioned video directly ↗</a></details>
+        </div>
+        <div class="product-demo">
+          <div class="demo-toolbar"><b>ProofGate</b><span>WHAT YOU CAN TRY</span></div>
+          <div class="demo-steps">
+            <div class="demo-step"><span class="step-index">01</span><div><h3>Catch a false-green.</h3><p>Run a recorded candidate that passed public tests but failed the independent task contract.</p></div></div>
+            <div class="demo-step"><span class="step-index">02</span><div><h3>Inspect the repair.</h3><p>Compare a corrected candidate against the same verifier. Read the gate results and retained report.</p></div></div>
+            <div class="demo-step"><span class="step-index">03</span><div><h3>Challenge the verifier.</h3><p>Execute six fixed controls: a reference, a known-bad baseline and four deliberate mutations.</p></div></div>
+          </div>
+          <p class="demo-end">PUBLIC CODE · EXECUTABLE CHECKS · INSPECTABLE REPORTS</p>
+        </div>
+      </div>
+    </section>
+    <section class="section wrap" id="work" aria-labelledby="work-title">
+      <p class="eyebrow section-label">02 / Research programs</p>
+      <div class="section-head"><h2 id="work-title">Specific questions.<br>Reproducible work.</h2><p class="section-intro">The Lab develops open task contracts, verifiers and evaluation records around concrete agent behaviours.</p></div>
+      <article class="research-row"><span class="research-code">RARB</span><h3>Repository Agent<br>Reliability</h3><p>Evaluate coding agents against explicit repository tasks. Examine false passes, bounded repairs and whether a result can be replayed.</p><a href="https://github.com/kaulastudies/ai-evaluation-lab/tree/main/programs/repository-agent-reliability" aria-label="Explore Repository Agent Reliability research">↗</a></article>
+      <article class="research-row"><span class="research-code">SAFETY</span><h3>Agent Safety<br>Evaluation</h3><p>Study permission boundaries, constraint adherence and regressions through bounded tasks with explicit criteria and limitations.</p><a href="https://github.com/kaulastudies/ai-evaluation-lab/blob/main/docs/AGENT_SAFETY_PROGRAM.md" aria-label="Read the Agent Safety Evaluation Program">↗</a></article>
+      <div class="research-bottom"><p>Results apply to the tasks and conditions tested. They are not a general safety certification or a guarantee of production reliability.</p><a class="text-link" href="https://github.com/kaulastudies/ai-evaluation-lab/blob/main/ROADMAP.md">Read the roadmap <span aria-hidden="true">↗</span></a></div>
+    </section>
+    <section class="section people-section" id="people" aria-labelledby="people-title">
+      <div class="wrap">
+        <p class="eyebrow section-label">03 / People &amp; mentorship</p>
+        <div class="section-head"><h2 id="people-title">Independent work.<br>Thoughtful guidance.</h2><p class="section-intro">Founded and built by Rama Chandra Malayanur, with mentorship acknowledged separately for the ProofGate project.</p></div>
+        <div class="people-grid">
+          <article class="person"><div class="initials" aria-hidden="true">RC</div><div><h3>Rama Chandra Malayanur</h3><div class="role">FOUNDER &amp; IMPLEMENTATION LEAD</div><p>Leads the Lab’s software implementation, evaluation experiments and evidence curation, with a focus on reproducible checks for AI agents.</p><a class="text-link" href="https://www.linkedin.com/in/ramachandraai/">Connect on LinkedIn <span aria-hidden="true">↗</span></a></div></article>
+          <article class="person"><div class="initials" aria-hidden="true">NR</div><div><h3>Prof. Nithya Ravi Kumar</h3><div class="role">MENTOR · PROOFGATE</div><p>Acknowledged for her mentorship on ProofGate. The project’s contribution record sets out the proposed methodology and evidence review work.</p><a class="text-link" href="https://github.com/kaulastudies/ai-evaluation-lab/blob/main/hackathon/nebius-nvidia-rarb-demo/TEAM.md">Mentorship &amp; contribution record <span aria-hidden="true">↗</span></a></div></article>
+        </div>
+      </div>
+    </section>
+    <section class="collaborate" aria-labelledby="collaborate-title"><div class="wrap collaborate-inner"><div><p class="eyebrow">Build on the evidence</p><h2 id="collaborate-title">Have a task worth verifying?</h2><p>Explore the tools, inspect the research, or get in touch about evaluation work and research collaboration.</p></div><a class="button button-dark" href="https://www.linkedin.com/in/ramachandraai/">Start a conversation <span class="arrow" aria-hidden="true">↗</span></a></div></section>
   </main>
-  <footer>AI Evaluation Lab · Rama Chandra · <a href="https://github.com/kaulastudies/ai-evaluation-lab/blob/main/LICENSE">Apache 2.0</a></footer>
+  <footer class="site-footer"><div class="wrap footer-inner"><div class="footer-brand">AI Evaluation Lab<span>Independent evaluation. Evidence you can inspect.</span></div><nav class="footer-links" aria-label="Footer"><a href="https://github.com/kaulastudies/ai-evaluation-lab">GitHub ↗</a><a href="https://github.com/kaulastudies/ai-evaluation-lab/blob/main/docs/RESEARCH_PRINCIPLES.md">Research principles</a><a href="https://github.com/kaulastudies/ai-evaluation-lab/blob/main/LICENSE">Apache 2.0</a><a href="#main">Back to top ↑</a></nav></div></footer>
+  <script>
+    document.documentElement.classList.add('js');
+    const menuButton = document.querySelector('.menu-toggle');
+    const menu = document.getElementById('main-nav');
+    function setMenu(open) {
+      menu.dataset.open = String(open);
+      menuButton.setAttribute('aria-expanded', String(open));
+      menuButton.querySelector('span').textContent = open ? '−' : '+';
+    }
+    menuButton.addEventListener('click', () => setMenu(menu.dataset.open !== 'true'));
+    menu.addEventListener('click', event => { if (event.target.closest('a')) setMenu(false); });
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && menu.dataset.open === 'true') { setMenu(false); menuButton.focus(); }
+    });
+  </script>
 </body>
 </html>
