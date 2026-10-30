@@ -1,0 +1,1908 @@
+{
+  "as_of": "2026-10-30",
+  "slides": [
+    {
+      "label": "STARTUP QATAR START",
+      "title": "Release checks for\ncoding agents",
+      "type": "cover",
+      "dark": true,
+      "subtitle": "ProofGate by AI Evaluation Lab",
+      "body": "Inspectable evidence for the engineering team deciding whether an AI-generated change is ready to release.",
+      "byline": "Rama Chandra Malayanur / Founder and independent engineer / India",
+      "note": "Working prototype. Canonical demo: kaulastudies.github.io/ai-evaluation-lab/proofgate/",
+      "sources": [
+        "https://kaulastudies.github.io/ai-evaluation-lab/proofgate/",
+        "https://github.com/kaulastudies/ai-evaluation-lab"
+      ]
+    },
+    {
+      "label": "THE PROBLEM",
+      "title": "Passing tests can still hide a broken task",
+      "type": "table",
+      "subtitle": "A recorded agent patch silently dropped inactive records in a synthetic transformation task.",
+      "rows": [
+        [
+          "The same AP-005 patch",
+          "Observed result"
+        ],
+        [
+          "Public tests",
+          "PASS"
+        ],
+        [
+          "Requirement: retain every input record",
+          "FAIL"
+        ],
+        [
+          "Qualified verifier",
+          "VERIFIED_FAIL"
+        ]
+      ],
+      "widths": [
+        740,
+        412
+      ],
+      "size": 27,
+      "note": "A later recorded repair passed the bounded verifier. This example is synthetic, not a customer incident.",
+      "sources": [
+        "https://kaulastudies.github.io/ai-evaluation-lab/proofgate/",
+        "https://github.com/kaulastudies/ai-evaluation-lab/blob/794602108eba47c806543c01b7f8d2b7ba9345cc/programs/repository-agent-reliability/metrics/summary.json"
+      ]
+    },
+    {
+      "label": "WORKING DEMONSTRATION",
+      "title": "A requirement, a check and a reviewable result",
+      "type": "columns",
+      "subtitle": "The existing demonstration links a task contract to retained artifacts and a verdict.",
+      "items": [
+        {
+          "heading": "Define",
+          "body": "State required behavior and forbidden changes. Challenge the verifier with negative controls."
+        },
+        {
+          "heading": "Check",
+          "body": "Inspect the candidate and run the bounded contract checks against pinned evidence."
+        },
+        {
+          "heading": "Review",
+          "body": "Retain PASS, FAIL or HOLD, the reason, source identities and a reproduction path."
+        }
+      ],
+      "note": "Customer installation, execution isolation and release integration are development milestones.",
+      "sources": [
+        "https://kaulastudies.github.io/ai-evaluation-lab/proofgate/",
+        "https://github.com/kaulastudies/ai-evaluation-lab/blob/794602108eba47c806543c01b7f8d2b7ba9345cc/programs/repository-agent-reliability/metrics/summary.json",
+        "https://github.com/kaulastudies/ai-evaluation-lab/blob/feat/startup-qatar-jury-readiness/docs/startup-qatar/TECHNOLOGY_ROADMAP.md"
+      ]
+    },
+    {
+      "label": "TECHNICAL EVIDENCE",
+      "title": "52 retained attempts across five tasks",
+      "type": "evidence",
+      "subtitle": "Failures and unresolved outcomes remain in the public record.",
+      "body": "success claims with passing public tests failed the qualified verifier.",
+      "note": "49 initial attempts + 3 repairs. The 30-trial replication is included. Selected synthetic tasks do not establish a population failure rate.",
+      "sources": [
+        "https://github.com/kaulastudies/ai-evaluation-lab/blob/794602108eba47c806543c01b7f8d2b7ba9345cc/programs/repository-agent-reliability/metrics/summary.json"
+      ]
+    },
+    {
+      "label": "FIRST BUYER",
+      "title": "An engineering lead with a recurring release decision",
+      "type": "rows",
+      "subtitle": "Software companies and coding-agent integrators are the initial customer hypothesis.",
+      "items": [
+        {
+          "heading": "Purchase trigger",
+          "body": "AI-generated changes repeatedly need manual checks beyond the current tests."
+        },
+        {
+          "heading": "Scope",
+          "body": "One authorized repository task family with an engineering owner and a budget route."
+        },
+        {
+          "heading": "Economic test",
+          "body": "At $50 per review hour, a $1,000 monthly fee equals 20 hours of review effort."
+        }
+      ],
+      "note": "The cost comparison is illustrative. Buyer baseline, actual savings, support effort and willingness to pay are unvalidated.",
+      "sources": [
+        "https://github.com/kaulastudies/ai-evaluation-lab/blob/feat/startup-qatar-jury-readiness/docs/startup-qatar/COMMERCIAL_PLAN.md"
+      ]
+    },
+    {
+      "label": "PAID PILOT DESIGN",
+      "title": "A fair comparison on held-out cases",
+      "type": "columns",
+      "subtitle": "A proposed $5,000, four-week scope begins after access and funding are ready.",
+      "headingSize": 32,
+      "bodySize": 25,
+      "items": [
+        {
+          "heading": "Independent cases",
+          "body": "At least 30 buyer/reviewer cases: 10 valid, 10 known critical violations and 10 incomplete-evidence cases."
+        },
+        {
+          "heading": "Clear decisions",
+          "body": "Target all 10 critical violations failed, at least 9 valid cases passed and all incomplete cases held."
+        },
+        {
+          "heading": "Measured effort",
+          "body": "Compare with the buyer's own checks. Target 20% lower median active review time and exact replay."
+        }
+      ],
+      "note": "Proposed thresholds require buyer agreement before testing. Small samples do not establish production accuracy or safety.",
+      "sources": [
+        "https://github.com/kaulastudies/ai-evaluation-lab/blob/feat/startup-qatar-jury-readiness/docs/startup-qatar/PILOT_PROTOCOL.md",
+        "https://github.com/kaulastudies/ai-evaluation-lab/blob/feat/startup-qatar-jury-readiness/docs/startup-qatar/TECHNOLOGY_ROADMAP.md"
+      ]
+    },
+    {
+      "label": "ALTERNATIVES",
+      "title": "The pilot must earn a place beside existing checks",
+      "type": "table",
+      "subtitle": "The advantage to test is useful evidence with less contract-design and review effort.",
+      "rows": [
+        [
+          "Alternative",
+          "What the buyer already has"
+        ],
+        [
+          "Internal tests and CI",
+          "Assertions, logs and engineering review"
+        ],
+        [
+          "LangSmith",
+          "Code evaluators, datasets and regression tests"
+        ],
+        [
+          "Promptfoo",
+          "Assertions, evaluation and CI integration"
+        ],
+        [
+          "AI Evaluation Lab proposal",
+          "Qualified task contracts and replayable evidence handover"
+        ]
+      ],
+      "widths": [
+        345,
+        807
+      ],
+      "height": 292,
+      "top": 307,
+      "size": 22,
+      "note": "No feature monopoly or measured superiority is claimed. The same buyer workflow and cases define the comparison.",
+      "sources": [
+        "https://docs.langchain.com/langsmith/evaluation-types",
+        "https://www.promptfoo.dev/docs/intro/",
+        "https://github.com/kaulastudies/ai-evaluation-lab/blob/feat/startup-qatar-jury-readiness/docs/startup-qatar/COMMERCIAL_PLAN.md"
+      ]
+    },
+    {
+      "label": "MARKET SCENARIOS",
+      "title": "A defined buyer population and explicit assumptions",
+      "type": "columns",
+      "subtitle": "Annual spend at the proposed $12,000 service price. These are separate geographic models.",
+      "headingSize": 43,
+      "bodySize": 26,
+      "items": [
+        {
+          "heading": "$20.19m",
+          "body": "U.S. reference scenario\n16,824 employer software-publishing firms in 2022 × assumed 10% fit × $12,000."
+        },
+        {
+          "heading": "$0.491m",
+          "body": "Qatar entry SAM scenario\n409 ICT directory listings × assumed 10% serviceability × $12,000."
+        }
+      ],
+      "note": "Sources: U.S. Census and Qatar CRA. Qualification shares and price are unvalidated. Worldwide TAM is unmeasured.",
+      "sources": [
+        "https://data.census.gov/table/ECNBRIDGE22022.EC2200BRIDGE2?codeset=naics~511210",
+        "https://www.cra.gov.qa/Services/ICT-Business/ICT-Business-List/ICT-Business-Directory",
+        "https://github.com/kaulastudies/ai-evaluation-lab/blob/feat/startup-qatar-jury-readiness/docs/startup-qatar/MARKET_SIZING.md"
+      ]
+    },
+    {
+      "label": "QATAR CUSTOMER DISCOVERY",
+      "title": "A named starting list for finding the release owner",
+      "type": "rows",
+      "subtitle": "Research targets include iHorizons, malomatia, Mannai and Advancya.",
+      "items": [
+        {
+          "heading": "Days 1-30",
+          "body": "Target 15 interviews. Find three teams with the same recurring release problem."
+        },
+        {
+          "heading": "Days 31-60",
+          "body": "Target three assisted staging installs after access and execution controls are reviewed."
+        },
+        {
+          "heading": "Days 61-90",
+          "body": "Seek one signed paid scope or budget-authorized LOI with acceptance rules and procurement steps."
+        }
+      ],
+      "note": "These companies are research targets, not partners, customers or a qualified pipeline. A LOI is not payment.",
+      "sources": [
+        "https://github.com/kaulastudies/ai-evaluation-lab/blob/feat/startup-qatar-jury-readiness/docs/startup-qatar/QATAR_BUYER_MAP.md",
+        "https://github.com/kaulastudies/ai-evaluation-lab/blob/feat/startup-qatar-jury-readiness/docs/startup-qatar/COMMERCIAL_PLAN.md"
+      ]
+    },
+    {
+      "label": "TECHNOLOGY ROADMAP",
+      "title": "Installation and repeatability before sector expansion",
+      "type": "table",
+      "subtitle": "Milestones begin from an agreed, funded start and actual founder availability.",
+      "rows": [
+        [
+          "Period",
+          "Proposed engineering output",
+          "Gate to proceed"
+        ],
+        [
+          "By day 90",
+          "Pinned package and reviewed runner",
+          "Three installs; independent cases"
+        ],
+        [
+          "By day 180",
+          "Paid pilot and repeat-release handover",
+          "Buyer acceptance; reproducible verdicts"
+        ],
+        [
+          "By day 365",
+          "Reusable task pack and opt-in CI integration",
+          "Two teams reuse the pack with less support"
+        ]
+      ],
+      "widths": [
+        180,
+        510,
+        462
+      ],
+      "height": 278,
+      "size": 22,
+      "note": "Customer isolation is unbuilt. Month-4 onward work requires separate funding and an updated operating plan.",
+      "sources": [
+        "https://github.com/kaulastudies/ai-evaluation-lab/blob/feat/startup-qatar-jury-readiness/docs/startup-qatar/TECHNOLOGY_ROADMAP.md"
+      ]
+    },
+    {
+      "label": "BUSINESS MODEL",
+      "title": "Bounded delivery with visible unit economics",
+      "type": "columns",
+      "subtitle": "Prices and effort are hypotheses to validate through the first purchase.",
+      "headingSize": 47,
+      "bodySize": 27,
+      "items": [
+        {
+          "heading": "$5,000 pilot",
+          "body": "60 hours of delivery\n$3,750 direct economic cost\n$1,250 contribution / 25%\nOne repository task family"
+        },
+        {
+          "heading": "$1,000 / month",
+          "body": "8 hours of recurring support\n$500 direct economic cost\n$500 contribution / 50%\nOne recurring workflow"
+        }
+      ],
+      "note": "Contribution excludes overhead and tax. Current pricing describes a service. Excess custom work requires a new scope.",
+      "sources": [
+        "https://github.com/kaulastudies/ai-evaluation-lab/blob/feat/startup-qatar-jury-readiness/docs/startup-qatar/FINANCIAL_PLAN.md"
+      ]
+    },
+    {
+      "label": "PRODUCT EXPANSION",
+      "title": "Reuse determines whether this becomes a product",
+      "type": "rows",
+      "subtitle": "The reusable unit is a versioned task contract, its controls and evidence interface.",
+      "items": [
+        {
+          "heading": "First",
+          "body": "One coding workflow improves a release decision enough to earn paid repeat use."
+        },
+        {
+          "heading": "Then",
+          "body": "A second team adopts the same pack with less founder setup and support."
+        },
+        {
+          "heading": "Later",
+          "body": "Support approvals or other sectors add domain rules only when two teams need the same pack."
+        }
+      ],
+      "note": "Multi-sector potential is a development hypothesis. Hosted service, authenticated connectors and autonomous enforcement are not current capabilities.",
+      "sources": [
+        "https://github.com/kaulastudies/ai-evaluation-lab/blob/feat/startup-qatar-jury-readiness/docs/startup-qatar/PLATFORM_STRATEGY.md",
+        "https://github.com/kaulastudies/ai-evaluation-lab/blob/feat/startup-qatar-jury-readiness/docs/startup-qatar/TECHNOLOGY_ROADMAP.md"
+      ]
+    },
+    {
+      "label": "FOUNDER",
+      "title": "Public engineering work and operational experience",
+      "type": "rows",
+      "subtitle": "Rama Chandra Malayanur / Solo technical founder / India",
+      "items": [
+        {
+          "heading": "Built and published",
+          "body": "AI Evaluation Lab Alpha in September 2026. ProofGate canonical demo on 29 October."
+        },
+        {
+          "heading": "Accepted upstream",
+          "body": "Backstage Community Plugins merged the Periskop Jest 30 migration on 22 September."
+        },
+        {
+          "heading": "Relevant experience",
+          "body": "AI evaluation project work, Python engineering, systems support and healthcare workflows."
+        }
+      ],
+      "note": "Proposed reviewers and hires are not current employees. Resume and founder profile provide the supporting record.",
+      "sources": [
+        "https://github.com/kaulastudies/ai-evaluation-lab/commit/e1a7226f59174608a69c2ca7799e96883bfa5212",
+        "https://github.com/kaulastudies/ai-evaluation-lab/pull/33",
+        "https://github.com/backstage/community-plugins/pull/10964"
+      ]
+    },
+    {
+      "label": "QATAR OPERATIONS",
+      "title": "A local validation base with a route to delivery",
+      "type": "columns",
+      "subtitle": "The proposal fits the program's AI/ML and B2B SaaS priorities.",
+      "headingSize": 32,
+      "bodySize": 25,
+      "items": [
+        {
+          "heading": "Customer access",
+          "body": "Seek introductions to engineering leads and integrators with authorized staging work."
+        },
+        {
+          "heading": "Local capability",
+          "body": "Develop evaluation delivery and independent review. A local engineer is conditional from month 7."
+        },
+        {
+          "heading": "Operating route",
+          "body": "Agree entity, presence, costs and eligible spending before local commitments. Re-cost after buyer evidence."
+        }
+      ],
+      "note": "No Qatar customer, entity, partner or relocation is committed. Actual residence and two-year availability answers remain unresolved.",
+      "sources": [
+        "https://www.qdb.qa/en/Financing-And-Funding/Equity-And-Investment/Startup-Qatar-Investment-Program",
+        "https://github.com/kaulastudies/ai-evaluation-lab/blob/feat/startup-qatar-jury-readiness/docs/startup-qatar/QATAR_OPERATING_PLAN.md"
+      ]
+    },
+    {
+      "label": "INITIAL FINANCING",
+      "title": "A bounded validation decision",
+      "type": "ask",
+      "dark": true,
+      "subtitle": "Initial funding proposal, subject to program eligibility and agreed investment terms.",
+      "body": "Targets: 15 interviews, three assisted installs and one paid scope or budget-authorized LOI.\n\nFollow-on review before month 4. Amount depends on evidence, local quotes and cash available.",
+      "note": "$100,000 is a separate no-collection planning envelope. It is not an upfront request or an agreed investment.",
+      "sources": [
+        "https://github.com/kaulastudies/ai-evaluation-lab/blob/feat/startup-qatar-jury-readiness/docs/startup-qatar/INVESTMENT_CASE.md",
+        "https://github.com/kaulastudies/ai-evaluation-lab/blob/feat/startup-qatar-jury-readiness/docs/startup-qatar/FINANCIAL_PLAN.md"
+      ]
+    },
+    {
+      "label": "APPENDIX / MARKET METHOD",
+      "title": "Market estimates change with the qualification rate",
+      "type": "table",
+      "subtitle": "Annual spend at $12,000 per account. Percentages below are assumptions, not observed adoption.",
+      "rows": [
+        [
+          "Assumed qualified share",
+          "U.S. reference firms",
+          "Qatar directory listings"
+        ],
+        [
+          "5%",
+          "$10.09m",
+          "$245,400"
+        ],
+        [
+          "10%",
+          "$20.19m",
+          "$490,800"
+        ],
+        [
+          "20%",
+          "$40.38m",
+          "$981,600"
+        ]
+      ],
+      "widths": [
+        412,
+        370,
+        370
+      ],
+      "size": 26,
+      "note": "U.S. reference: 2022 Census, 16,824 firms. Qatar: CRA, 409 listings retrieved 30 Oct 2026. No nested/global total is claimed.",
+      "sources": [
+        "https://data.census.gov/table/ECNBRIDGE22022.EC2200BRIDGE2?codeset=naics~511210",
+        "https://www.cra.gov.qa/Services/ICT-Business/ICT-Business-List/ICT-Business-Directory",
+        "https://github.com/kaulastudies/ai-evaluation-lab/blob/feat/startup-qatar-jury-readiness/docs/startup-qatar/MARKET_SIZING.md"
+      ]
+    },
+    {
+      "label": "APPENDIX / TECHNICAL BOUNDARY",
+      "title": "What the existing evidence establishes",
+      "type": "table",
+      "subtitle": "Public evidence snapshot 7946021. Technical results are separate from customer validation.",
+      "rows": [
+        [
+          "Evidence",
+          "Scope"
+        ],
+        [
+          "52 retained attempts",
+          "44 pass / 5 fail / 3 hold; five synthetic tasks"
+        ],
+        [
+          "30-trial AP-001 replication",
+          "Included in 52; three configurations × 10 trials"
+        ],
+        [
+          "17 configured critical mutations",
+          "All rejected; controls are not exhaustive"
+        ],
+        [
+          "12 support-workflow controls",
+          "Separate offline prototype, no customer connector"
+        ],
+        [
+          "Customer execution and security",
+          "Isolation unbuilt; security PR #34 remains open"
+        ]
+      ],
+      "widths": [
+        460,
+        692
+      ],
+      "height": 300,
+      "size": 21,
+      "top": 305,
+      "note": "Replay uses stored artifacts. Hash consistency depends on a trusted reference and does not authenticate a remote event.",
+      "sources": [
+        "https://github.com/kaulastudies/ai-evaluation-lab/blob/794602108eba47c806543c01b7f8d2b7ba9345cc/programs/repository-agent-reliability/metrics/summary.json",
+        "https://github.com/kaulastudies/ai-evaluation-lab/pull/34",
+        "https://github.com/kaulastudies/ai-evaluation-lab/blob/feat/startup-qatar-jury-readiness/docs/startup-qatar/EVIDENCE_LEDGER.md"
+      ]
+    },
+    {
+      "label": "APPENDIX / FINANCIAL SCENARIOS",
+      "title": "The first allocation does not fund a full year",
+      "type": "table",
+      "subtitle": "Twelve-month operating scenarios if spending continues. USD, before tax and quoted local revisions.",
+      "rows": [
+        [
+          "Measure",
+          "Base hypothesis",
+          "Downside"
+        ],
+        [
+          "Invoices / collections",
+          "$61,000 / $52,000",
+          "$16,000 / $10,000"
+        ],
+        [
+          "Operating cash cost",
+          "$85,550",
+          "$79,550"
+        ],
+        [
+          "Peak unfinanced cash need",
+          "$33,550",
+          "$69,550"
+        ],
+        [
+          "Year-end balance with initial $12k only",
+          "-$21,550",
+          "-$57,550"
+        ]
+      ],
+      "widths": [
+        568,
+        292,
+        292
+      ],
+      "height": 293,
+      "size": 22,
+      "top": 305,
+      "note": "Both scenarios need a funding or stop decision before month 4. Historical financial balances remain unreconciled.",
+      "sources": [
+        "https://github.com/kaulastudies/ai-evaluation-lab/blob/feat/startup-qatar-jury-readiness/docs/startup-qatar/FINANCIAL_PLAN.md"
+      ]
+    }
+  ],
+  "documents": [
+    {
+      "filename": "Rama_Chandra_Founder_Profile_Startup_Qatar.pdf",
+      "title": "Founder profile",
+      "pages": [
+        {
+          "title": "Rama Chandra Malayanur",
+          "subtitle": "Founder and independent engineer / AI Evaluation Lab / India",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "I build evaluation software that makes an AI agent's result inspectable. My work combines Python engineering, explicit task requirements, deterministic checks and retained evidence. Earlier systems, healthcare and accounting work helps me translate operational requirements into software that people can review."
+            },
+            {
+              "type": "h",
+              "text": "Execution record"
+            },
+            {
+              "type": "p",
+              "text": "<b>AI Evaluation Lab and ProofGate.</b> Published the public Alpha in September 2026 and the canonical browser demo on 29 October. The repository contains five synthetic tasks and 52 retained attempts, including failures and holds. The 30-trial replication is part of that total."
+            },
+            {
+              "type": "p",
+              "text": "<b>Accepted upstream contribution.</b> Backstage Community Plugins merged my Periskop workspace migration to Jest 30 on 22 September 2026."
+            },
+            {
+              "type": "p",
+              "text": "<b>Project-based AI evaluation work.</b> Task authoring, reference solutions, fixtures, correctness checks and failure analysis through Handshake AI projects and Turing research-engineering task development."
+            },
+            {
+              "type": "h",
+              "text": "Relevant operating experience"
+            },
+            {
+              "type": "p",
+              "text": "Systems support at ChipEdge Technologies; healthcare administration, claims, billing and software integration; professional QuickBooks use during 2018-2024; Ayurvedic campus planning and stakeholder presentations through Smerkato since 2018."
+            },
+            {
+              "type": "h",
+              "text": "Role in the next stage"
+            },
+            {
+              "type": "p",
+              "text": "I lead implementation, experiments, evidence curation and delivery planning. The next commercial test is a bounded coding-agent verification pilot with an engineering team. Independent human review and customer acceptance are explicit milestones. Planned reviewers and hires are not current employees."
+            },
+            {
+              "type": "small",
+              "text": "AI Evaluation Lab is an unincorporated, founder-led prototype. Qatar establishment, residence and two-year availability are not established personal commitments. No paying Lab customer is claimed from the evidence reviewed."
+            },
+            {
+              "type": "small",
+              "text": "<link href=\"https://github.com/kaulastudies/ai-evaluation-lab\" color=\"#087D82\">Lab source</link> / <link href=\"https://kaulastudies.github.io/ai-evaluation-lab/proofgate/\" color=\"#087D82\">ProofGate demo</link> / <link href=\"https://github.com/backstage/community-plugins/pull/10964\" color=\"#087D82\">Merged Backstage contribution</link><br/>{{APPLICATION_CONTACT}}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "filename": "AI_Evaluation_Lab_Venture_One_Pager.pdf",
+      "title": "Venture summary",
+      "pages": [
+        {
+          "title": "AI Evaluation Lab",
+          "subtitle": "ProofGate / Release checks for coding agents / Startup Qatar START",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "AI Evaluation Lab helps engineering teams decide whether an AI-generated code change satisfies the agreed task contract. ProofGate connects the requirement, candidate artifact and qualified checks to a result that a reviewer can inspect and replay."
+            },
+            {
+              "type": "h",
+              "text": "The problem and existing proof"
+            },
+            {
+              "type": "p",
+              "text": "A retained synthetic patch passed public tests while dropping inactive records. The qualified verifier rejected it. Across five synthetic tasks, the Lab retains 52 attempts: 44 passes, five failures and three holds. Three of 46 success claims with passing public tests failed the verifier. These are technical findings, not customer outcomes."
+            },
+            {
+              "type": "h",
+              "text": "First buyer and paid offer"
+            },
+            {
+              "type": "p",
+              "text": "The initial buyer is a software engineering lead or coding-agent integrator with a recurring release decision. Proposed pricing is $5,000 for one task-family pilot, then $1,000 monthly for a bounded recurring workflow. Compare with the buyer's existing checks using independent held-out cases, review time and repeat use."
+            },
+            {
+              "type": "h",
+              "text": "Market and route to customers"
+            },
+            {
+              "type": "p",
+              "text": "At an assumed $12,000 annual price and 10% qualification share, the 2022 U.S. Census software-publisher count gives a $20.19m reference scenario. Qatar CRA's 409 ICT listings give a separate $490,800 entry SAM scenario at assumed 10% serviceability. Neither share nor price is validated. Global TAM remains unmeasured."
+            },
+            {
+              "type": "h",
+              "text": "What initial funding would produce"
+            },
+            {
+              "type": "p",
+              "text": "Request: $12,000 for three months of validation, covering $10,200 modeled costs plus reserve and rounding. Targets are 15 interviews, three assisted staging installs and one signed paid scope or budget-authorized LOI. Follow-on funding requires evidence, Qatar cost quotations and a new cash calculation before month 4."
+            },
+            {
+              "type": "p",
+              "text": "Founder Rama Chandra Malayanur has published the Lab, built ProofGate and contributed a merged Backstage change. Expansion depends on a second team reusing the same task pack with less founder support."
+            },
+            {
+              "type": "small",
+              "text": "Prototype, unincorporated. Historical accounts and personal Qatar commitments remain unresolved. Customer isolation is a development milestone. Named prospects are research targets only."
+            },
+            {
+              "type": "small",
+              "text": "<link href=\"https://kaulastudies.github.io/ai-evaluation-lab/proofgate/\" color=\"#087D82\">Demo</link> / <link href=\"https://github.com/kaulastudies/ai-evaluation-lab/blob/feat/startup-qatar-jury-readiness/docs/startup-qatar/MARKET_SIZING.md\" color=\"#087D82\">Market method and sources</link> / <link href=\"https://github.com/kaulastudies/ai-evaluation-lab/blob/feat/startup-qatar-jury-readiness/docs/startup-qatar/INVESTMENT_CASE.md\" color=\"#087D82\">Investment case</link> / {{APPLICATION_CONTACT}}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "filename": "AI_Evaluation_Lab_Historical_and_Projected_Financials.pdf",
+      "title": "Historical and projected financials",
+      "pages": [
+        {
+          "title": "Historical and projected financials",
+          "subtitle": "AI Evaluation Lab / USD / Proposal assumptions dated 30 October 2026",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "The current proposal requests <b>$12,000 for initial validation</b>. Later reviews at months 4 and 7 have no assigned funding amount and add no assumed receipts. The $100,000 full-year stress envelope is a separate sensitivity, not the upfront ask."
+            },
+            {
+              "type": "h",
+              "text": "Historical position"
+            },
+            {
+              "type": "table",
+              "rows": [
+                [
+                  "Record",
+                  "Current evidence status"
+                ],
+                [
+                  "Lab revenue and monthly history",
+                  "Unreconciled from actual records"
+                ],
+                [
+                  "Opening cash and founder contributions",
+                  "Unreconciled from actual records"
+                ],
+                [
+                  "Grants/investment received",
+                  "Unreconciled; no secured award assumed"
+                ],
+                [
+                  "Debt, liabilities and unpaid obligations",
+                  "Unreconciled from actual records"
+                ]
+              ],
+              "widths": [
+                236,
+                282
+              ],
+              "padding": 7
+            },
+            {
+              "type": "small",
+              "text": "This section is incomplete for a final historical-financial declaration. Unknown values are not zero. Personal freelance income is separate from Lab revenue. Requests, credits and waivers are not cash received."
+            },
+            {
+              "type": "h",
+              "text": "Initial validation budget"
+            },
+            {
+              "type": "table",
+              "rows": [
+                [
+                  "Three-month use",
+                  "USD"
+                ],
+                [
+                  "Founder draw: $2,000 × 3",
+                  "$6,000"
+                ],
+                [
+                  "Infrastructure: $400 × 3",
+                  "$1,200"
+                ],
+                [
+                  "Independent review allowance",
+                  "$3,000"
+                ],
+                [
+                  "Scheduled cash cost",
+                  "$10,200"
+                ],
+                [
+                  "15% contingency, reserved not spent",
+                  "$1,530"
+                ],
+                [
+                  "Rounding headroom",
+                  "$270"
+                ],
+                [
+                  "Current initial request",
+                  "$12,000"
+                ]
+              ],
+              "widths": [
+                375,
+                143
+              ],
+              "padding": 6
+            },
+            {
+              "type": "small",
+              "text": "Founder draw, availability, review cost and spending eligibility require confirmation. No grant or investment terms are assumed. Spend only after funds and a permitted scope are established."
+            }
+          ]
+        },
+        {
+          "title": "Unit economics and operating cost",
+          "subtitle": "Economic contribution and cash accounting are separate",
+          "blocks": [
+            {
+              "type": "table",
+              "rows": [
+                [
+                  "Offer hypothesis",
+                  "Pilot",
+                  "Monthly service"
+                ],
+                [
+                  "Price",
+                  "$5,000",
+                  "$1,000"
+                ],
+                [
+                  "Delivery time",
+                  "60 hours",
+                  "8 hours"
+                ],
+                [
+                  "Labor valued at $50/hour",
+                  "$3,000",
+                  "$400"
+                ],
+                [
+                  "External review / compute",
+                  "$750",
+                  "$100"
+                ],
+                [
+                  "Direct economic cost",
+                  "$3,750",
+                  "$500"
+                ],
+                [
+                  "Contribution before overhead/tax",
+                  "$1,250 / 25%",
+                  "$500 / 50%"
+                ]
+              ],
+              "widths": [
+                258,
+                130,
+                130
+              ],
+              "padding": 7
+            },
+            {
+              "type": "small",
+              "text": "Pilot external cost is $500 review plus $250 compute. Hourly labor tests economic viability. It is not charged again in the cash model, which already pays the founder draw and conditional engineer."
+            },
+            {
+              "type": "h",
+              "text": "Base twelve-month cash uses"
+            },
+            {
+              "type": "table",
+              "rows": [
+                [
+                  "Planning allowance",
+                  "USD"
+                ],
+                [
+                  "Founder draw",
+                  "$24,000"
+                ],
+                [
+                  "Engineer from month 7",
+                  "$21,000"
+                ],
+                [
+                  "Infrastructure",
+                  "$4,800"
+                ],
+                [
+                  "Workspace/administration from month 4",
+                  "$7,200"
+                ],
+                [
+                  "Business development from month 4",
+                  "$2,700"
+                ],
+                [
+                  "Setup, legal and travel in month 4",
+                  "$7,500"
+                ],
+                [
+                  "Independent review",
+                  "$10,000"
+                ],
+                [
+                  "Pilot and recurring external costs",
+                  "$8,350"
+                ],
+                [
+                  "Operating cash total",
+                  "$85,550"
+                ]
+              ],
+              "widths": [
+                375,
+                143
+              ],
+              "padding": 6
+            },
+            {
+              "type": "small",
+              "text": "These are unquoted planning allowances. Obtain local entity, visa, tax, employment, insurance and workspace costs before obligations. The engineer is conditional on funded demand, not a current employee."
+            }
+          ]
+        },
+        {
+          "title": "Monthly base scenario",
+          "subtitle": "First invoice in month 4 / First collection in month 5 / Recurring service from month 6",
+          "blocks": [
+            {
+              "type": "table",
+              "rows": [
+                [
+                  "Mth",
+                  "Pilots",
+                  "Active recurring",
+                  "Invoiced",
+                  "Collected",
+                  "Cash cost"
+                ],
+                [
+                  1,
+                  0,
+                  0,
+                  "$0",
+                  "$0",
+                  "$2,400"
+                ],
+                [
+                  2,
+                  0,
+                  0,
+                  "$0",
+                  "$0",
+                  "$3,900"
+                ],
+                [
+                  3,
+                  0,
+                  0,
+                  "$0",
+                  "$0",
+                  "$3,900"
+                ],
+                [
+                  4,
+                  1,
+                  0,
+                  "$5,000",
+                  "$0",
+                  "$11,750"
+                ],
+                [
+                  5,
+                  1,
+                  0,
+                  "$5,000",
+                  "$5,000",
+                  "$7,250"
+                ],
+                [
+                  6,
+                  1,
+                  1,
+                  "$6,000",
+                  "$5,000",
+                  "$4,350"
+                ],
+                [
+                  7,
+                  1,
+                  1,
+                  "$6,000",
+                  "$6,000",
+                  "$7,850"
+                ],
+                [
+                  8,
+                  1,
+                  2,
+                  "$7,000",
+                  "$6,000",
+                  "$9,950"
+                ],
+                [
+                  9,
+                  1,
+                  2,
+                  "$7,000",
+                  "$7,000",
+                  "$7,950"
+                ],
+                [
+                  10,
+                  1,
+                  3,
+                  "$8,000",
+                  "$7,000",
+                  "$8,050"
+                ],
+                [
+                  11,
+                  1,
+                  3,
+                  "$8,000",
+                  "$8,000",
+                  "$10,050"
+                ],
+                [
+                  12,
+                  1,
+                  4,
+                  "$9,000",
+                  "$8,000",
+                  "$8,150"
+                ],
+                [
+                  "Total",
+                  9,
+                  "16 months",
+                  "$61,000",
+                  "$52,000",
+                  "$85,550"
+                ]
+              ],
+              "widths": [
+                49,
+                47,
+                94,
+                108,
+                110,
+                110
+              ],
+              "padding": 5
+            },
+            {
+              "type": "h",
+              "text": "Capacity and cash constraints"
+            },
+            {
+              "type": "p",
+              "text": "The capacity assumption is 160 founder hours per month, with 80 for delivery. A funded engineer adds 120 delivery hours per month from month 7. Peak base delivery demand is 92 hours in month 12. These are planning assumptions, not actual availability or hiring commitments."
+            },
+            {
+              "type": "p",
+              "text": "The initial allocation leaves $1,800 after the $10,200 scheduled first-three-month costs. Month 4 requires more funding or a reduced scope before its commitments. Both base and downside scenarios first become unfunded in month 4 if full spending continues."
+            },
+            {
+              "type": "small",
+              "text": "Zero opening cash is the origin of the incremental model, not a claim about a bank balance. Staging installs and LOIs do not count as completed pilot invoices."
+            }
+          ]
+        },
+        {
+          "title": "Scenarios and follow-on decisions",
+          "subtitle": "Negative balances show work that cannot continue without more available cash",
+          "blocks": [
+            {
+              "type": "table",
+              "rows": [
+                [
+                  "Twelve-month measure",
+                  "Base",
+                  "Downside"
+                ],
+                [
+                  "Pilots / recurring customer-months",
+                  "9 / 16",
+                  "3 / 1"
+                ],
+                [
+                  "Invoices",
+                  "$61,000",
+                  "$16,000"
+                ],
+                [
+                  "Cash collections",
+                  "$52,000",
+                  "$10,000"
+                ],
+                [
+                  "Year-end receivables",
+                  "$9,000",
+                  "$6,000"
+                ],
+                [
+                  "Cash operating cost",
+                  "$85,550",
+                  "$79,550"
+                ],
+                [
+                  "Peak unfinanced need",
+                  "$33,550",
+                  "$69,550"
+                ],
+                [
+                  "Ending balance with initial $12k only",
+                  "-$21,550",
+                  "-$57,550"
+                ]
+              ],
+              "widths": [
+                274,
+                122,
+                122
+              ],
+              "padding": 6
+            },
+            {
+              "type": "h",
+              "text": "Funding review before month 4"
+            },
+            {
+              "type": "p",
+              "text": "Review the independent results, buyer need, signed paid scope or budget-owned LOI, contracting route and quoted Qatar costs. Size the next allocation from approved remaining costs and reserve, less cash actually available for that scope and confirmed cost offsets. Stop or reduce work if the gate fails."
+            },
+            {
+              "type": "h",
+              "text": "Funding review before month 7"
+            },
+            {
+              "type": "p",
+              "text": "Require customer-accepted pilot evidence plus paid continuation or a second paying buyer. Re-cost local hiring and measured delivery effort. No amount or disbursement is assumed in advance."
+            },
+            {
+              "type": "h",
+              "text": "Separate full-ceiling sensitivity"
+            },
+            {
+              "type": "p",
+              "text": "The no-collection stress cost is $85,550. A 15% reserve brings it to $98,382.50, rounded to $100,000. If that entire amount arrived, modeled year-end cash would be $66,450 base or $30,450 downside. These balances argue for smaller later requests; they do not justify automatic spending."
+            },
+            {
+              "type": "small",
+              "text": "A separate public $10,000 research request is not received funding. Allocate overlapping costs once. Reconcile actual balances, funding, liabilities and personal operating decisions before declaring the application accurate."
+            },
+            {
+              "type": "small",
+              "text": "<link href=\"https://github.com/kaulastudies/ai-evaluation-lab/blob/feat/startup-qatar-jury-readiness/docs/startup-qatar/FINANCIAL_PLAN.md\" color=\"#087D82\">Financial interpretation</link> / <link href=\"https://github.com/kaulastudies/ai-evaluation-lab/blob/feat/startup-qatar-jury-readiness/programs/startup-qatar/financial-assumptions.json\" color=\"#087D82\">Model inputs</link> / <link href=\"https://github.com/kaulastudies/ai-evaluation-lab/blob/feat/startup-qatar-jury-readiness/programs/startup-qatar/financial_model.py\" color=\"#087D82\">Calculation code</link>"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "filename": "Application_Answers_and_Review_Guide.pdf",
+      "title": "Application answers and review guide",
+      "pages": [
+        {
+          "title": "Application answers and upload guide",
+          "subtitle": "Private founder handoff / Not an application attachment",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "This revision uses the Startup Qatar form's actual numbering: 21 questions, three attachments and two declarations. Copy only the answer relevant to each field, within its live character limit. The prior saved draft may still contain support-first wording."
+            },
+            {
+              "type": "table",
+              "rows": [
+                [
+                  "Portal use",
+                  "File"
+                ],
+                [
+                  "22 Pitch deck",
+                  "AI_Evaluation_Lab_Startup_Qatar_Pitch.pdf"
+                ],
+                [
+                  "23 Founder profile",
+                  "Rama_Chandra_Founder_Profile_Startup_Qatar.pdf"
+                ],
+                [
+                  "24 Financials",
+                  "AI_Evaluation_Lab_Historical_and_Projected_Financials.pdf"
+                ],
+                [
+                  "F6S profile CV",
+                  "Rama_Chandra_Standard_Resume.pdf"
+                ],
+                [
+                  "Optional supporting material",
+                  "Venture One Pager, Diligence Brief, Project Portfolio"
+                ]
+              ],
+              "widths": [
+                147,
+                371
+              ],
+              "padding": 7
+            },
+            {
+              "type": "h",
+              "text": "What is stronger"
+            },
+            {
+              "type": "p",
+              "text": "The pack now includes sourced market reference counts with explicit assumptions, a Qatar research-account map, proposed pilot thresholds for buyer agreement, an engineering roadmap and an initial $12,000 request tied to three months of modeled work. Follow-on funding has no predetermined amount."
+            },
+            {
+              "type": "h",
+              "text": "What records still control"
+            },
+            {
+              "type": "p",
+              "text": "Historical accounts, actual employees, ownership, referral source and personal Qatar/full-time commitments cannot be established through drafting. They remain clearly identified. Publication dates are verified: Lab Alpha 13 September 2026; canonical ProofGate demo 29 October 2026."
+            },
+            {
+              "type": "small",
+              "text": "All three application attachments are below the public 30 MB limit. Check accepted file types and any signed-in profile requirements in the live portal. The form asks for completion within 30 days of starting; confirm the actual draft start date."
+            },
+            {
+              "type": "small",
+              "text": "No revised attachments have been uploaded, no declaration checked and no application submitted. The founder handles uploading."
+            }
+          ]
+        },
+        {
+          "title": "Identity and stage",
+          "subtitle": "Suggested wording / Use actual records for factual fields",
+          "blocks": [
+            {
+              "type": "h",
+              "text": "1. Primary contact email"
+            },
+            {
+              "type": "p",
+              "text": "{{APPLICATION_CONTACT}}"
+            },
+            {
+              "type": "small",
+              "text": "Use the current application contact. Only one email belongs in this field."
+            },
+            {
+              "type": "h",
+              "text": "2. How you heard about the program"
+            },
+            {
+              "type": "p",
+              "text": "Program research used Startup Qatar and QDB public pages."
+            },
+            {
+              "type": "small",
+              "text": "The founder's original referral source is unconfirmed. Select the actual source; research discovery is not proof of a referral."
+            },
+            {
+              "type": "h",
+              "text": "3. Sectors and subsectors"
+            },
+            {
+              "type": "p",
+              "text": "AI &amp; ML. B2B SaaS is the intended product direction. We currently offer a proposed evaluation service supported by software for coding-agent releases."
+            },
+            {
+              "type": "small",
+              "text": "Use the closest actual portal choices. No accredited cybersecurity certification is claimed."
+            },
+            {
+              "type": "h",
+              "text": "4. Startup stage"
+            },
+            {
+              "type": "p",
+              "text": "Working prototype / early customer validation. AI Evaluation Lab is an unincorporated, founder-led venture. ProofGate demonstrates executable checks and inspectable evidence."
+            },
+            {
+              "type": "small",
+              "text": "Commercial deployment and Qatar operations remain proposed."
+            }
+          ]
+        },
+        {
+          "title": "Product and team",
+          "subtitle": "Suggested wording / Use actual records for factual fields",
+          "blocks": [
+            {
+              "type": "h",
+              "text": "5. Working prototype and launch date"
+            },
+            {
+              "type": "p",
+              "text": "Yes. The public Alpha was published on 13 September 2026. ProofGate's canonical GitHub Pages demonstration was deployed on 29 October 2026: https://kaulastudies.github.io/ai-evaluation-lab/proofgate/"
+            },
+            {
+              "type": "small",
+              "text": "These are public publication dates, not incorporation, first-ever research or a commercial launch."
+            },
+            {
+              "type": "h",
+              "text": "6. Time working on the solution"
+            },
+            {
+              "type": "p",
+              "text": "Public development dates from September 2026, approximately seven weeks as of 30 October 2026."
+            },
+            {
+              "type": "small",
+              "text": "Any earlier private work should be entered only from actual founder records."
+            },
+            {
+              "type": "h",
+              "text": "7. Technical employees"
+            },
+            {
+              "type": "p",
+              "text": "The public implementation is founder-led. No paid employee count is established by the reviewed records."
+            },
+            {
+              "type": "small",
+              "text": "Enter the actual count under the portal definition. Review agents, unpaid collaborators and planned hires are not employees."
+            },
+            {
+              "type": "h",
+              "text": "8. In-house technology"
+            },
+            {
+              "type": "p",
+              "text": "Yes, the founder leads implementation of the Lab's task contracts, verification code, retained-evidence tooling and demonstration. The project uses disclosed open-source dependencies and external model providers."
+            },
+            {
+              "type": "small",
+              "text": "Confirm legal ownership and contributor arrangements. The Lab does not claim to have invented its dependencies."
+            }
+          ]
+        },
+        {
+          "title": "Business model and market",
+          "subtitle": "Suggested wording / Use actual records for factual fields",
+          "blocks": [
+            {
+              "type": "h",
+              "text": "9. Business model"
+            },
+            {
+              "type": "p",
+              "text": "B2B. Start with a fixed-scope coding-agent evaluation pilot, then offer recurring regression maintenance and evidence review for one release workflow. Reusable task packs and lower delivery effort per account are the route to a software product."
+            },
+            {
+              "type": "small",
+              "text": "The initial offer is a service. Self-service subscriptions and broader sector deployments are not established."
+            },
+            {
+              "type": "h",
+              "text": "10. Customers, acquisition and TAM/SAM"
+            },
+            {
+              "type": "p",
+              "text": "No paying Lab customer is established by the reviewed evidence. The first buyer is a software engineering lead or coding-agent integrator. Target 15 interviews, three assisted staging installs and one signed paid scope or budget-authorized LOI in 90 days. At the $12,000 annual service hypothesis, 16,824 U.S. software-publishing firms (2022 Census) with assumed 5-20% fit imply $10.09m-$40.38m annual spend; the central 10% scenario is $20.19m. For Qatar, CRA's 409 ICT directory listings with assumed 5-20% screened serviceability imply $245,400-$981,600 annually; central SAM scenario $490,800. These are separate geographic reference models. Worldwide TAM, price acceptance and qualification shares remain unmeasured."
+            },
+            {
+              "type": "small",
+              "text": "Use the market appendix for method, exclusions and sources. Directory names are not customers. Reconcile any actual agreements or usage from records."
+            }
+          ]
+        },
+        {
+          "title": "Competition and progress",
+          "subtitle": "Suggested wording / Use actual records for factual fields",
+          "blocks": [
+            {
+              "type": "h",
+              "text": "11. Competitors and URLs"
+            },
+            {
+              "type": "p",
+              "text": "LangSmith: https://docs.langchain.com/langsmith/evaluation-types; Promptfoo: https://www.promptfoo.dev/docs/intro/; internal engineering tests and CI are also direct alternatives. Existing tools already support custom checks. The pilot tests whether our contract design, qualified controls and replayable evidence save useful review effort."
+            },
+            {
+              "type": "small",
+              "text": "Compare against the buyer's real baseline. No exclusive-feature or superiority claim is made."
+            },
+            {
+              "type": "h",
+              "text": "12. Unique value proposition and SWOT"
+            },
+            {
+              "type": "p",
+              "text": "Proposed value: a release decision supported by a precise task contract, challenged checks and replayable evidence. Strength: public implementation and retained failures. Weakness: small synthetic sample, unverified demand and founder capacity. Opportunity: recurring engineering release checks. Threat: existing tools, internal engineering and custom delivery that fails to become reusable."
+            },
+            {
+              "type": "small",
+              "text": "This is a benefit hypothesis, not a patent or market-leadership claim."
+            },
+            {
+              "type": "h",
+              "text": "13. Milestones in the last six months"
+            },
+            {
+              "type": "p",
+              "text": "During September-October 2026: published the Lab Alpha, five synthetic repository tasks and 52 retained attempts (44 passes, five failures, three holds); published the 30-trial AP-001 subset within that total; rejected 17 configured critical mutations; deployed the canonical ProofGate demo on 29 October. The founder also contributed a Backstage Jest 30 migration merged on 22 September."
+            },
+            {
+              "type": "small",
+              "text": "Do not imply six months of operating history. The Backstage contribution is founder evidence, not a Lab customer or partnership."
+            },
+            {
+              "type": "h",
+              "text": "14. Revenue and monetization model"
+            },
+            {
+              "type": "p",
+              "text": "Proposed $5,000 fixed-scope pilot, followed by $1,000 per month for one bounded recurring workflow service. Price, delivery effort and repeat purchase remain unvalidated. Paid delivery begins in month 4 of the base scenario and recurring service in month 6."
+            },
+            {
+              "type": "small",
+              "text": "These are planning hypotheses, not current revenue or contracted prices."
+            }
+          ]
+        },
+        {
+          "title": "Finance and Qatar rationale",
+          "subtitle": "Suggested wording / Use actual records for factual fields",
+          "blocks": [
+            {
+              "type": "h",
+              "text": "15. Six-month revenue growth, if applicable"
+            },
+            {
+              "type": "p",
+              "text": "The venture is at prototype/customer-validation stage. Historical Lab revenue has not been reconciled from records, so no month-over-month growth claim is made."
+            },
+            {
+              "type": "small",
+              "text": "The form qualifies this question for established startups. Use actual history where applicable; unknown revenue is not zero and growth from zero is undefined."
+            },
+            {
+              "type": "h",
+              "text": "16. Funding raised and sources"
+            },
+            {
+              "type": "p",
+              "text": "No secured award or investment is established by the reviewed evidence. The current Qatar proposal requests an initial $12,000 validation allocation; it is not awarded or received. A separate public $10,000 research request must be reconciled to avoid overlapping funded costs."
+            },
+            {
+              "type": "small",
+              "text": "List actual received funding or signed commitments only with records, separating applications and requests."
+            },
+            {
+              "type": "h",
+              "text": "17. Why establish in Qatar"
+            },
+            {
+              "type": "p",
+              "text": "Validate a coding-agent release workflow with a Qatar software team or integrator, then build local evaluation delivery if the pilot supports continued investment. We seek buyer introductions, procurement context, technical/commercial mentorship and establishment guidance. AI/ML and B2B SaaS match the program's priorities."
+            },
+            {
+              "type": "small",
+              "text": "Named companies are research targets; no customer, partner or local entity is committed."
+            }
+          ]
+        },
+        {
+          "title": "Operations and personal commitments",
+          "subtitle": "Suggested wording / Use actual records for factual fields",
+          "blocks": [
+            {
+              "type": "h",
+              "text": "18. Qatar operations and local full-time hiring"
+            },
+            {
+              "type": "p",
+              "text": "Operations: the proposal provides a route to establish in Qatar after program terms, costs and founder presence are agreed. Local hiring: the model includes a conditional engineer from month 7 if funded demand supports the role."
+            },
+            {
+              "type": "small",
+              "text": "Answer both parts separately with the founder's actual commitment. The plan does not establish an unconditional yes."
+            },
+            {
+              "type": "h",
+              "text": "19. Founder count and history together"
+            },
+            {
+              "type": "p",
+              "text": "One founder is identified in the public project record: Rama Chandra Malayanur. The public Lab record dates from September 2026."
+            },
+            {
+              "type": "small",
+              "text": "Confirm actual ownership and founder count. Collaborators and reviewers are not cofounders without an agreement."
+            },
+            {
+              "type": "h",
+              "text": "20. Founder or management residence in Qatar"
+            },
+            {
+              "type": "p",
+              "text": "The founder is currently based in India. No relocation commitment is established by this pack."
+            },
+            {
+              "type": "small",
+              "text": "Select the actual residence plan. Program compatibility remains to be checked against that decision."
+            },
+            {
+              "type": "h",
+              "text": "21. Two-year full-time or part-time commitment"
+            },
+            {
+              "type": "p",
+              "text": "Actual two-year availability and any transition conditions remain unconfirmed. The capacity model assumes 160 founder hours per month for planning."
+            },
+            {
+              "type": "small",
+              "text": "The planning assumption is not a personal commitment. Enter the truthful choice and any required comment."
+            }
+          ]
+        },
+        {
+          "title": "Attachments and final checks",
+          "subtitle": "Fields 22-26 / Keep supporting material separate",
+          "blocks": [
+            {
+              "type": "h",
+              "text": "22-24. The three required files"
+            },
+            {
+              "type": "p",
+              "text": "Upload the pitch, founder profile and financial attachment in their matching fields. The financial attachment explicitly discloses unreconciled history; replace that section with actual figures before treating it as complete historical financials. A resume is not a substitute for the company financials."
+            },
+            {
+              "type": "h",
+              "text": "25. Accuracy declaration"
+            },
+            {
+              "type": "p",
+              "text": "Check the saved answers and PDFs together. Ensure the current request is $12,000 everywhere, not the old $20,000/$30,000/$50,000 schedule. AI Evaluation Lab is the venture, ProofGate the coding-agent demo. ProofQ is separate quantum-count research."
+            },
+            {
+              "type": "h",
+              "text": "26. Completion period"
+            },
+            {
+              "type": "p",
+              "text": "The public form asks for completion within 30 days from starting. Use the actual draft creation date. The date on these documents does not reset that period."
+            },
+            {
+              "type": "h",
+              "text": "Selection evidence versus formal rules"
+            },
+            {
+              "type": "p",
+              "text": "Our 15 interviews, three installs, one paid scope/LOI and pilot thresholds are internal validation targets. The public instructions do not specify a mandatory customer count or LOI. QDB does expect a validated concept, market readiness, an execution plan and a detailed technology roadmap."
+            },
+            {
+              "type": "h",
+              "text": "Remaining factual entries"
+            },
+            {
+              "type": "p",
+              "text": "Reconcile Lab revenue, cash, contributions, received funding and liabilities. Confirm actual employees and ownership. Enter truthful operations, local hiring, residence and two-year availability answers. Preserve distinct personal freelance income and any separately funded research costs."
+            },
+            {
+              "type": "small",
+              "text": "<link href=\"https://www.f6s.com/sqinvestmentprogram\" color=\"#087D82\">Current F6S application</link> / <link href=\"https://www.qdb.qa/en/Financing-And-Funding/Equity-And-Investment/Startup-Qatar-Investment-Program\" color=\"#087D82\">QDB eligibility and program details</link> / <link href=\"https://github.com/kaulastudies/ai-evaluation-lab/blob/feat/startup-qatar-jury-readiness/docs/startup-qatar/PROGRAM_REQUIREMENTS.md\" color=\"#087D82\">Field-by-field source map</link>"
+            },
+            {
+              "type": "small",
+              "text": "Resume and portfolio retain the previously reconciled experience record. Conflicting university credentials remain excluded. No new qualifications, customer results or revenue were added."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "filename": "AI_Evaluation_Lab_Startup_Qatar_Diligence_Brief.pdf",
+      "title": "Startup Qatar diligence brief",
+      "pages": [
+        {
+          "title": "The investment case",
+          "subtitle": "AI Evaluation Lab / ProofGate / Optional diligence brief",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "The proposed investment tests a specific commercial question: can an engineering team use qualified task checks to make recurring coding-agent release decisions with less review work? The existing synthetic evidence establishes technical feasibility for bounded cases. The next stage must establish buyer value and repeatability."
+            },
+            {
+              "type": "h",
+              "text": "Why consider the proposal"
+            },
+            {
+              "type": "p",
+              "text": "The founder has already published executable evaluation work, retained failures and unresolved outcomes, and shipped a browser demonstration. A merged Backstage contribution provides external evidence of software contribution. The product starts with one buyer and one task family, with explicit comparison against existing tests."
+            },
+            {
+              "type": "h",
+              "text": "Initial request and decision"
+            },
+            {
+              "type": "p",
+              "text": "The current request is $12,000: $10,200 first-three-month cost, $1,530 reserve and $270 rounding. Targets are 15 interviews, three assisted staging installs and one signed paid scope or budget-authorized LOI. The next funding decision occurs before month 4, using actual evidence and quoted local costs."
+            },
+            {
+              "type": "h",
+              "text": "What would justify continued investment"
+            },
+            {
+              "type": "p",
+              "text": "A buyer confirms a recurring problem, independent cases establish useful findings, the delivered evidence reproduces, and an agreed price leads to paid use. A second team then uses the same contract family with less founder assistance. These are proposed milestones, not existing traction."
+            },
+            {
+              "type": "h",
+              "text": "Reasons a committee could decline"
+            },
+            {
+              "type": "p",
+              "text": "No paying Lab customer is established. Pricing may not cover delivery and acquisition. Existing tools can already implement checks. Customer isolation remains unbuilt. Qatar presence and historical finances are unresolved. The stage is suitable for diligence and a bounded validation discussion, not an unconditional scale claim."
+            },
+            {
+              "type": "small",
+              "text": "<link href=\"https://github.com/kaulastudies/ai-evaluation-lab/blob/feat/startup-qatar-jury-readiness/docs/startup-qatar/INVESTMENT_CASE.md\" color=\"#087D82\">Investment details</link> / <link href=\"https://github.com/kaulastudies/ai-evaluation-lab/blob/feat/startup-qatar-jury-readiness/docs/startup-qatar/JURY_REVIEW.md\" color=\"#087D82\">Selection risk assessment</link> / <link href=\"https://kaulastudies.github.io/ai-evaluation-lab/proofgate/\" color=\"#087D82\">Working demo</link>"
+            }
+          ]
+        },
+        {
+          "title": "Market method and sensitivity",
+          "subtitle": "Source counts are observable; qualification and price are assumptions",
+          "blocks": [
+            {
+              "type": "table",
+              "rows": [
+                [
+                  "Population anchor",
+                  "Source count"
+                ],
+                [
+                  "U.S. employer software-publishing firms, 2022 Census",
+                  "16,824 firms"
+                ],
+                [
+                  "Qatar CRA ICT directory, retrieved 30 Oct 2026",
+                  "409 displayed companies"
+                ]
+              ],
+              "widths": [
+                375,
+                143
+              ],
+              "padding": 7
+            },
+            {
+              "type": "p",
+              "text": "Count a purchasing organization once. Do not count developers, repositories, establishments or subsidiary brands as independent buyers. The U.S. firm count is historical. The Qatar directory includes unrelated activities and has not been fully deduplicated into purchasing groups."
+            },
+            {
+              "type": "table",
+              "rows": [
+                [
+                  "Assumed eligible/serviceable share",
+                  "U.S. annual spend",
+                  "Qatar annual spend"
+                ],
+                [
+                  "5%",
+                  "$10,094,400",
+                  "$245,400"
+                ],
+                [
+                  "10%",
+                  "$20,188,800",
+                  "$490,800"
+                ],
+                [
+                  "20%",
+                  "$40,377,600",
+                  "$981,600"
+                ]
+              ],
+              "widths": [
+                258,
+                130,
+                130
+              ],
+              "padding": 7
+            },
+            {
+              "type": "p",
+              "text": "Each scenario uses $12,000 annual recurring-service spend. Eligibility requires a recurring coding-agent workflow, usable authorized evidence, an unmet release-check need and a budget. The 5-20% range is sensitivity, not a confidence interval or observed adoption rate."
+            },
+            {
+              "type": "p",
+              "text": "The U.S. unscreened 100% ceiling is $201.888m; it is not qualified or worldwide TAM. Qatar and U.S. populations are separate geographic references, so they are not nested or summed into a global total. Worldwide TAM remains unmeasured."
+            },
+            {
+              "type": "h",
+              "text": "Obtainable first-year planning"
+            },
+            {
+              "type": "p",
+              "text": "The base operating scenario gives nine pilot invoices and 16 recurring customer-months: $61,000 invoiced and $52,000 collected. This reflects a proposed delivery schedule and is not booked business or an arbitrary market-share target."
+            },
+            {
+              "type": "small",
+              "text": "<link href=\"https://data.census.gov/table/ECNBRIDGE22022.EC2200BRIDGE2?codeset=naics~511210\" color=\"#087D82\">U.S. Census EC2200BRIDGE2</link> / <link href=\"https://www.cra.gov.qa/Services/ICT-Business/ICT-Business-List/ICT-Business-Directory\" color=\"#087D82\">Qatar CRA ICT directory</link> / <link href=\"https://github.com/kaulastudies/ai-evaluation-lab/blob/feat/startup-qatar-jury-readiness/docs/startup-qatar/MARKET_SIZING.md\" color=\"#087D82\">Full method, sensitivity and exclusions</link>"
+            }
+          ]
+        },
+        {
+          "title": "Qatar buyer discovery",
+          "subtitle": "Named research targets / No customer or partnership claim",
+          "blocks": [
+            {
+              "type": "table",
+              "rows": [
+                [
+                  "Initial research target",
+                  "Public relevance",
+                  "Qualification still needed"
+                ],
+                [
+                  "iHorizons",
+                  "Agentic workflows and evaluation services",
+                  "Recurring code-release problem beyond existing checks"
+                ],
+                [
+                  "malomatia",
+                  "Data/AI and application development",
+                  "Engineering owner, permitted staging task and budget"
+                ],
+                [
+                  "Mannai",
+                  "Application development and integration",
+                  "Coding-agent use and independent purchasing authority"
+                ],
+                [
+                  "Advancya",
+                  "CRA lists development and AI/ML services",
+                  "Active workflow, repository rights and release owner"
+                ]
+              ],
+              "widths": [
+                115,
+                183,
+                220
+              ],
+              "padding": 7
+            },
+            {
+              "type": "p",
+              "text": "The full research map includes ten organizations. Each has unknown coding-agent usage, budget and purchase interest. Website relevance is not a qualified pipeline. Mannai units are counted together provisionally; a supplier and its client are not both counted for the same procurement budget."
+            },
+            {
+              "type": "h",
+              "text": "Discovery sequence"
+            },
+            {
+              "type": "p",
+              "text": "First establish the current release decision, checks and human effort. Seek one recent example and the owner who accepts or rejects it. Show the demonstration only after understanding the baseline. A synthetic or authorized staging task is sufficient for initial discovery."
+            },
+            {
+              "type": "p",
+              "text": "Advance only when the engineering owner, budget route, authorized artifacts and unmet need are identified. Stop qualification if the current process is adequate, repository rights are unavailable or procurement is infeasible."
+            },
+            {
+              "type": "h",
+              "text": "Local value and establishment"
+            },
+            {
+              "type": "p",
+              "text": "A successful pilot could support evaluation-engineering capability and a local hire. Formation, founder presence, eligible spending and employment costs must fit actual program terms. No local partner, entity, relocation or full-time commitment is assumed."
+            },
+            {
+              "type": "small",
+              "text": "<link href=\"https://github.com/kaulastudies/ai-evaluation-lab/blob/feat/startup-qatar-jury-readiness/docs/startup-qatar/QATAR_BUYER_MAP.md\" color=\"#087D82\">All ten targets and primary company sources</link> / <link href=\"https://github.com/kaulastudies/ai-evaluation-lab/blob/feat/startup-qatar-jury-readiness/docs/startup-qatar/QATAR_OPERATING_PLAN.md\" color=\"#087D82\">Operating sequence and costs</link> / <link href=\"https://www.qdb.qa/en/Financing-And-Funding/Equity-And-Investment/Startup-Qatar-Investment-Program\" color=\"#087D82\">Program context</link>"
+            }
+          ]
+        },
+        {
+          "title": "Pilot acceptance and buyer value",
+          "subtitle": "Targets to agree before running independent held-out cases",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "The first paid offer is one repository task family and one release decision. Proposed price is $5,000 for four weeks after access is ready. Development cases remain separate from a minimum 30 buyer/reviewer-authored holdouts."
+            },
+            {
+              "type": "table",
+              "rows": [
+                [
+                  "Proposed group or measure",
+                  "Continuation target"
+                ],
+                [
+                  "10 known critical violations",
+                  "All 10 receive FAIL; none receive PASS"
+                ],
+                [
+                  "10 valid outcomes",
+                  "At least 9 receive PASS"
+                ],
+                [
+                  "10 missing/inconsistent-evidence cases",
+                  "All receive HOLD/REVIEW with reason"
+                ],
+                [
+                  "Review effort versus current baseline",
+                  "At least 20% lower median active human review time"
+                ],
+                [
+                  "Replay on identical pinned inputs",
+                  "Same verdict on every delivered holdout"
+                ],
+                [
+                  "Assisted installation",
+                  "Within one engineer-day of total active setup effort"
+                ]
+              ],
+              "widths": [
+                263,
+                255
+              ],
+              "padding": 7
+            },
+            {
+              "type": "p",
+              "text": "Report every denominator, false block, hold, execution error and unexecuted case. Include time spent resolving uncertainty and failures. Keep setup effort and end-to-end elapsed time visible. If the small sample fails a target, disclose it and revise or stop; do not drop cases or change labels after seeing results."
+            },
+            {
+              "type": "h",
+              "text": "Economic threshold"
+            },
+            {
+              "type": "p",
+              "text": "At an assumed $50 per review hour, $1,000 monthly equals 20 review hours. That is a comparison point, not observed savings. The buyer must establish actual review cost, useful findings and willingness to pay. A faster report with hidden error-handling work does not establish value."
+            },
+            {
+              "type": "small",
+              "text": "Independent human review requires a person separate from verifier implementation. AI-assisted QA does not satisfy that role. Thresholds are internal proposals, not official program rules or a production-accuracy claim."
+            },
+            {
+              "type": "small",
+              "text": "<link href=\"https://github.com/kaulastudies/ai-evaluation-lab/blob/feat/startup-qatar-jury-readiness/docs/startup-qatar/TECHNOLOGY_ROADMAP.md\" color=\"#087D82\">Full acceptance method</link> / <link href=\"https://github.com/kaulastudies/ai-evaluation-lab/blob/feat/startup-qatar-jury-readiness/docs/startup-qatar/PILOT_PROTOCOL.md\" color=\"#087D82\">Pilot scope and comparison</link>"
+            }
+          ]
+        },
+        {
+          "title": "Technology delivery and boundaries",
+          "subtitle": "90, 180 and 365-day roadmap from a funded start",
+          "blocks": [
+            {
+              "type": "table",
+              "rows": [
+                [
+                  "Period",
+                  "Deliverable",
+                  "Acceptance evidence"
+                ],
+                [
+                  "By day 90",
+                  "Pinned package, reviewed isolated staging design, independent challenge cases",
+                  "Reproduction transcript, executed isolation controls, three attempted assisted installs and their outcomes"
+                ],
+                [
+                  "By day 180",
+                  "One paid task-family pilot, review report and repeat-release handover",
+                  "Buyer baseline comparison, exact replay, actual support effort and purchase decision"
+                ],
+                [
+                  "By day 365",
+                  "Shared task pack and opt-in release integration",
+                  "Two teams reuse the pack, lower setup effort, scoped permissions and a repeat-use record"
+                ]
+              ],
+              "widths": [
+                84,
+                202,
+                232
+              ],
+              "padding": 7
+            },
+            {
+              "type": "h",
+              "text": "Customer execution is a gated dependency"
+            },
+            {
+              "type": "p",
+              "text": "The current local runner is not a security sandbox. The proposed staging design requires disposable isolated execution, no production credentials, separate candidate/verifier write boundaries, restricted networking, resource limits and safe cleanup. Test tampering, state leakage, revoked access, cancellation and resource failures before customer code execution."
+            },
+            {
+              "type": "p",
+              "text": "If review cannot establish the boundary within the budget, restrict demonstrations to trusted synthetic artifacts and defer execution of customer candidates. The buyer retains merge and release authority. Security remediation PR #34 remains open and separate."
+            },
+            {
+              "type": "h",
+              "text": "Expansion follows reuse"
+            },
+            {
+              "type": "p",
+              "text": "Support approvals, commerce and administrative workflows require domain rules, authenticated observations and a qualified reviewer. The offline support prototype does not establish those integrations. Do not add multi-tenancy, billing or sector packs before repeated buyer need supports them."
+            },
+            {
+              "type": "small",
+              "text": "<link href=\"https://github.com/kaulastudies/ai-evaluation-lab/blob/feat/startup-qatar-jury-readiness/docs/startup-qatar/TECHNOLOGY_ROADMAP.md\" color=\"#087D82\">Detailed deliverables, owners and dependencies</link> / <link href=\"https://github.com/kaulastudies/ai-evaluation-lab/pull/34\" color=\"#087D82\">Security remediation status</link>"
+            }
+          ]
+        },
+        {
+          "title": "Evidence register and program fit",
+          "subtitle": "What a reviewer can verify and what remains unresolved",
+          "blocks": [
+            {
+              "type": "table",
+              "rows": [
+                [
+                  "Claim",
+                  "Evidence / limitation"
+                ],
+                [
+                  "Prototype publication",
+                  "Alpha 13 Sep 2026; canonical ProofGate deployment 29 Oct 2026"
+                ],
+                [
+                  "Retained model attempts",
+                  "52 total: 44 pass, 5 fail, 3 hold; five synthetic tasks"
+                ],
+                [
+                  "Configured controls",
+                  "17 critical verifier mutations rejected; not exhaustive"
+                ],
+                [
+                  "Separate expansion example",
+                  "12 offline support controls; no customer connector"
+                ],
+                [
+                  "Founder contribution",
+                  "Backstage 10964 merged 22 Sep 2026"
+                ],
+                [
+                  "Commercial stage",
+                  "No paying Lab customer established by reviewed evidence"
+                ]
+              ],
+              "widths": [
+                190,
+                328
+              ],
+              "padding": 7
+            },
+            {
+              "type": "h",
+              "text": "Program alignment"
+            },
+            {
+              "type": "p",
+              "text": "START targets PoC/MVP ventures launching in Qatar. AI/ML and B2B SaaS are priority sectors. QDB also expects an unmet need, validated concept, researched business model, clear execution plan and detailed technology roadmap. The proposal addresses these topics, while customer validation and actual founder operating commitments remain open."
+            },
+            {
+              "type": "h",
+              "text": "Application facts still requiring reconciliation"
+            },
+            {
+              "type": "p",
+              "text": "Actual Lab financial history, employee count, ownership, referral source, Qatar operations/hiring, residence and two-year availability. The public form has three attachments of up to 30 MB each, an accuracy declaration and a 30-day completion instruction. These cannot be completed by extrapolating from plans."
+            },
+            {
+              "type": "h",
+              "text": "Primary sources"
+            },
+            {
+              "type": "small",
+              "text": "<link href=\"https://github.com/kaulastudies/ai-evaluation-lab/blob/794602108eba47c806543c01b7f8d2b7ba9345cc/programs/repository-agent-reliability/metrics/summary.json\" color=\"#087D82\">Pinned technical aggregate</link><br/><link href=\"https://github.com/kaulastudies/ai-evaluation-lab/commit/e1a7226f59174608a69c2ca7799e96883bfa5212\" color=\"#087D82\">Alpha publication commit</link> / <link href=\"https://github.com/kaulastudies/ai-evaluation-lab/actions/runs/40838837507\" color=\"#087D82\">Canonical demo deployment</link><br/><link href=\"https://github.com/backstage/community-plugins/pull/10964\" color=\"#087D82\">Accepted external contribution</link><br/><link href=\"https://www.qdb.qa/en/Financing-And-Funding/Equity-And-Investment/Startup-Qatar-Investment-Program\" color=\"#087D82\">QDB program</link> / <link href=\"https://www.f6s.com/sqinvestmentprogram\" color=\"#087D82\">F6S form</link> / <link href=\"https://docs.langchain.com/langsmith/evaluation-types\" color=\"#087D82\">LangSmith documentation</link> / <link href=\"https://www.promptfoo.dev/docs/intro/\" color=\"#087D82\">Promptfoo documentation</link>"
+            },
+            {
+              "type": "small",
+              "text": "All facts and source checks are dated 30 October 2026. Public prototypes, projected revenue and research targets remain distinct from customers and awards. The founder retains final responsibility for factual declarations."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

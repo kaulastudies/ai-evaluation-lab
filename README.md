@@ -42,6 +42,16 @@ runner, replay, repair-replay, metrics, and demo-evidence checks are gated in CI
 
 ProofGate is developed with mentorship from Prof. Nithya Ravi Kumar. See the [project's team and proposed research review responsibilities](hackathon/nebius-nvidia-rarb-demo/TEAM.md).
 
+### Startup Qatar proposal under review
+
+The [Startup Qatar review pack](docs/startup-qatar/README.md) evaluates a proposed
+commercial use for the Lab: verifiable release checks for a bounded support-agent
+workflow. It includes an offline synthetic demonstration, a reproducible audit of
+existing evidence, a pilot protocol, and conditional financial and operating plans.
+The pack distinguishes observed results from assumptions and records the open
+founder and customer-validation decisions. It is not a submitted application,
+secured investment, or customer deployment.
+
 ---
 
 ## Capabilities

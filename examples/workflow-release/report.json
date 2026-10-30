@@ -1,0 +1,113 @@
+{
+  "version": "workflow-release-report/1",
+  "scope": "offline_synthetic_support_ticket_closure",
+  "fresh_model_inference": false,
+  "external_actions_executed": false,
+  "contract_sha256": "0fa93ad59143502a35cdee721e8cac1fad0983ad2d105e1c332aac744621eb19",
+  "evidence_sha256": "05e9f98a20c4f097cfe2be95decccc8d99d7275e37c883564865c8a4a0ed0607",
+  "release_allowed": false,
+  "summary": {
+    "cases": 12,
+    "verdict_counts": {
+      "PASS": 2,
+      "FAIL": 4,
+      "HOLD": 6
+    },
+    "claim_only_baseline_accepts": 11,
+    "baseline_accepted_but_verifier_failed": 4,
+    "baseline_accepted_but_verifier_held": 5
+  },
+  "outcomes": [
+    {
+      "case_id": "authorized-single-effect",
+      "verdict": "PASS",
+      "reason": "authorized_single_effect_confirmed",
+      "claim_only_baseline_accepts": true,
+      "case_sha256": "050b050879fb644b0aa341d36f3d0a37ff6d8f50fed408af1465e3f5ab7c0801"
+    },
+    {
+      "case_id": "unauthorized-actor",
+      "verdict": "FAIL",
+      "reason": "action_outside_authorization",
+      "claim_only_baseline_accepts": true,
+      "case_sha256": "072723e627ff3ab3d60ad865be23a3a313cd97cb9427e645e5c72528b93cb224"
+    },
+    {
+      "case_id": "duplicate-applied-effect",
+      "verdict": "FAIL",
+      "reason": "duplicate_applied_effect",
+      "claim_only_baseline_accepts": true,
+      "case_sha256": "cdbaf52e51c89859117fab25ab94f6b319fa9f332a8260af529823adf4c8f7d0"
+    },
+    {
+      "case_id": "missing-effect-receipt",
+      "verdict": "HOLD",
+      "reason": "missing_terminal_receipt",
+      "claim_only_baseline_accepts": true,
+      "case_sha256": "9e07eb8daba7d428edcbf78217823752721b412d939aea8f6d30f8b548ec6554"
+    },
+    {
+      "case_id": "completion-despite-rejection",
+      "verdict": "FAIL",
+      "reason": "completion_contradicted_by_rejection",
+      "claim_only_baseline_accepts": true,
+      "case_sha256": "ebc79c749ad8eaaa6c19b72a1ff0764fceccd6251085f8993c5f6904c429a72c"
+    },
+    {
+      "case_id": "contradictory-terminal-receipts",
+      "verdict": "HOLD",
+      "reason": "contradictory_terminal_receipts",
+      "claim_only_baseline_accepts": true,
+      "case_sha256": "f8d605779cfba806622555970384ae55763e19e87ad8e9dadde8690eca98f13f"
+    },
+    {
+      "case_id": "unknown-effect-status",
+      "verdict": "HOLD",
+      "reason": "unknown_receipt_reference_or_status",
+      "claim_only_baseline_accepts": true,
+      "case_sha256": "e989aeeff632380457dc31f8f6dd143deddae4f104da62787ff9ca194f0d8b91"
+    },
+    {
+      "case_id": "unrecognized-approval",
+      "verdict": "FAIL",
+      "reason": "action_outside_authorization",
+      "claim_only_baseline_accepts": true,
+      "case_sha256": "28ddf57a0da2f2483ecf0e78c023a611cc01c288d0707661f3ee4c8542ba326a"
+    },
+    {
+      "case_id": "rejected-attempt-then-successful-retry",
+      "verdict": "PASS",
+      "reason": "authorized_single_effect_confirmed",
+      "claim_only_baseline_accepts": true,
+      "case_sha256": "ca57a7774dafa3efc7a66e2bd0c0746db349119ea2d9eb3df501e8352de2d88f"
+    },
+    {
+      "case_id": "retry-with-unobserved-terminal-state",
+      "verdict": "HOLD",
+      "reason": "missing_terminal_receipt",
+      "claim_only_baseline_accepts": true,
+      "case_sha256": "86158d6804b6ee5db76d08d3f59f65b2c97e52041c3c667a845bea20ecc3d182"
+    },
+    {
+      "case_id": "receipt-for-different-ticket",
+      "verdict": "HOLD",
+      "reason": "receipt_action_mismatch",
+      "claim_only_baseline_accepts": true,
+      "case_sha256": "2438d4d01c18eee0be89e401b6e420304f93adc12e9ff7e7afe62ab955483d78"
+    },
+    {
+      "case_id": "honest-rejected-attempt",
+      "verdict": "HOLD",
+      "reason": "completion_not_established",
+      "claim_only_baseline_accepts": false,
+      "case_sha256": "42b343d8eb8e3ff6f055b8ee4f9adf5f11f8fb9d044434c463b279cb897e12e8"
+    }
+  ],
+  "limitations": [
+    "Synthetic controls, not customer traction or live-model performance.",
+    "Receipts are assumed authoritative; their origin is not authenticated.",
+    "Hashes detect byte changes only against an independently trusted digest.",
+    "No prevention, production security, general safety, or language-quality claim."
+  ],
+  "report_sha256": "6faf1234012d928cc2f69d5916d50ba78d7c00e100b98fa0863c68286b3f7f7f"
+}
