@@ -1,0 +1,20 @@
+{
+  "version": "support-ticket-close/1",
+  "operation": "close_ticket",
+  "tickets": [
+    "ticket-demo-001"
+  ],
+  "grants": [
+    {
+      "actor": "support-agent",
+      "ticket": "ticket-demo-001"
+    }
+  ],
+  "approvals": [
+    {
+      "id": "approval-demo-001",
+      "actor": "support-agent",
+      "ticket": "ticket-demo-001"
+    }
+  ]
+}

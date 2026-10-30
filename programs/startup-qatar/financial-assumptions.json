@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0",
+  "currency": "USD",
+  "as_of": "2026-10-30",
+  "status": "Planning assumptions only; not historical accounts, booked revenue, vendor quotations or a funding commitment.",
+  "historical_actuals": {
+    "product_revenue": null,
+    "cash_balance": null,
+    "funding_received": null,
+    "liabilities": null,
+    "reason": "Founder records have not been reconciled for this model. Absence of evidence must not be recorded as a zero balance."
+  },
+  "unit_economics": {
+    "pilot_price": 5000,
+    "pilot_delivery_hours": 60,
+    "labor_economic_hourly_rate": 50,
+    "pilot_external_review_cash": 500,
+    "pilot_compute_cash": 250,
+    "recurring_monthly_price": 1000,
+    "recurring_delivery_hours": 8,
+    "recurring_compute_cash": 100
+  },
+  "monthly_capacity": {
+    "founder_total_hours": 160,
+    "founder_non_delivery_hours": 80,
+    "funded_engineer_total_hours": 120,
+    "funded_engineer_start_month": 7
+  },
+  "costs": {
+    "founder_draw_monthly": 2000,
+    "infrastructure_monthly": 400,
+    "qatar_workspace_admin_monthly": 800,
+    "qatar_workspace_admin_start_month": 4,
+    "qatar_business_development_monthly": 300,
+    "qatar_business_development_start_month": 4,
+    "local_engineer_all_in_monthly": 3500,
+    "local_engineer_start_month": 7,
+    "setup_legal_travel_by_month": [0, 0, 0, 7500, 0, 0, 0, 0, 0, 0, 0, 0],
+    "independent_security_review_by_month": [0, 1500, 1500, 0, 3000, 0, 0, 2000, 0, 0, 2000, 0]
+  },
+  "funding": {
+    "contingency_percent": 15,
+    "rounding_increment": 10000,
+    "conditional_tranches": [
+      {"month": 1, "amount": 20000, "gate": "Founder approves operating/availability assumptions; written programme eligibility and investment terms; funds received before spending."},
+      {"month": 4, "amount": 30000, "gate": "Evidence review complete, demand interviews support buyer need, one signed paid-pilot scope or budget-authorised LOI, Qatar formation and cash requirements quoted."},
+      {"month": 7, "amount": 50000, "gate": "Pilot independently reviewed and customer accepts value; at least one paid continuation or second paying buyer; local hiring plan and remaining cash need re-costed."}
+    ]
+  },
+  "scenarios": {
+    "base_hypothesis": {
+      "description": "Illustrative execution path, not a forecast. One new paid pilot/month from month 4, recurring service grows after pilots.",
+      "pilots_completed_by_month": [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+      "active_recurring_customers_by_month": [0, 0, 0, 0, 0, 1, 1, 2, 2, 3, 3, 4],
+      "collection_lag_months": 1
+    },
+    "downside_hypothesis": {
+      "description": "Stress path only: later, fewer pilots; 90-day collection lag. Spending is held at the same envelope to expose risk, although actual gates should stop it earlier.",
+      "pilots_completed_by_month": [0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0],
+      "active_recurring_customers_by_month": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+      "collection_lag_months": 3
+    }
+  },
+  "unpriced_exclusions": [
+    "Tax, withholding, social insurance, visa and employment obligations depend on the eventual entity and contracts; the administrative and all-in employment allowances require qualified local quotes.",
+    "Founder relocation, family support and residency proof-of-funds are not established or committed. A separate required blocked/bank balance would be additional capital, not an operating expense.",
+    "No credits, waived fees, free office, awarded grants, unpaid invoices or future investment count as cash receipts."
+  ]
+}

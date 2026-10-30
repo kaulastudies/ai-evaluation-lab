@@ -1,0 +1,361 @@
+{
+  "version": "workflow-evidence/1",
+  "provenance": "synthetic_controls_no_model_inference",
+  "cases": [
+    {
+      "id": "authorized-single-effect",
+      "claim": {
+        "completed": true,
+        "action_id": "action-001"
+      },
+      "actions": [
+        {
+          "id": "action-001",
+          "actor": "support-agent",
+          "ticket": "ticket-demo-001",
+          "operation": "close_ticket",
+          "approval_id": "approval-demo-001",
+          "idempotency_key": "closure-demo-001"
+        }
+      ],
+      "receipts": [
+        {
+          "id": "receipt-001",
+          "action_id": "action-001",
+          "ticket": "ticket-demo-001",
+          "operation": "close_ticket",
+          "idempotency_key": "closure-demo-001",
+          "status": "applied"
+        }
+      ]
+    },
+    {
+      "id": "unauthorized-actor",
+      "claim": {
+        "completed": true,
+        "action_id": "action-001"
+      },
+      "actions": [
+        {
+          "id": "action-001",
+          "actor": "unapproved-agent",
+          "ticket": "ticket-demo-001",
+          "operation": "close_ticket",
+          "approval_id": "approval-demo-001",
+          "idempotency_key": "closure-demo-001"
+        }
+      ],
+      "receipts": [
+        {
+          "id": "receipt-001",
+          "action_id": "action-001",
+          "ticket": "ticket-demo-001",
+          "operation": "close_ticket",
+          "idempotency_key": "closure-demo-001",
+          "status": "applied"
+        }
+      ]
+    },
+    {
+      "id": "duplicate-applied-effect",
+      "claim": {
+        "completed": true,
+        "action_id": "action-001"
+      },
+      "actions": [
+        {
+          "id": "action-001",
+          "actor": "support-agent",
+          "ticket": "ticket-demo-001",
+          "operation": "close_ticket",
+          "approval_id": "approval-demo-001",
+          "idempotency_key": "closure-demo-001"
+        }
+      ],
+      "receipts": [
+        {
+          "id": "receipt-001",
+          "action_id": "action-001",
+          "ticket": "ticket-demo-001",
+          "operation": "close_ticket",
+          "idempotency_key": "closure-demo-001",
+          "status": "applied"
+        },
+        {
+          "id": "receipt-002",
+          "action_id": "action-001",
+          "ticket": "ticket-demo-001",
+          "operation": "close_ticket",
+          "idempotency_key": "closure-demo-001",
+          "status": "applied"
+        }
+      ]
+    },
+    {
+      "id": "missing-effect-receipt",
+      "claim": {
+        "completed": true,
+        "action_id": "action-001"
+      },
+      "actions": [
+        {
+          "id": "action-001",
+          "actor": "support-agent",
+          "ticket": "ticket-demo-001",
+          "operation": "close_ticket",
+          "approval_id": "approval-demo-001",
+          "idempotency_key": "closure-demo-001"
+        }
+      ],
+      "receipts": []
+    },
+    {
+      "id": "completion-despite-rejection",
+      "claim": {
+        "completed": true,
+        "action_id": "action-001"
+      },
+      "actions": [
+        {
+          "id": "action-001",
+          "actor": "support-agent",
+          "ticket": "ticket-demo-001",
+          "operation": "close_ticket",
+          "approval_id": "approval-demo-001",
+          "idempotency_key": "closure-demo-001"
+        }
+      ],
+      "receipts": [
+        {
+          "id": "receipt-001",
+          "action_id": "action-001",
+          "ticket": "ticket-demo-001",
+          "operation": "close_ticket",
+          "idempotency_key": "closure-demo-001",
+          "status": "rejected"
+        }
+      ]
+    },
+    {
+      "id": "contradictory-terminal-receipts",
+      "claim": {
+        "completed": true,
+        "action_id": "action-001"
+      },
+      "actions": [
+        {
+          "id": "action-001",
+          "actor": "support-agent",
+          "ticket": "ticket-demo-001",
+          "operation": "close_ticket",
+          "approval_id": "approval-demo-001",
+          "idempotency_key": "closure-demo-001"
+        }
+      ],
+      "receipts": [
+        {
+          "id": "receipt-001",
+          "action_id": "action-001",
+          "ticket": "ticket-demo-001",
+          "operation": "close_ticket",
+          "idempotency_key": "closure-demo-001",
+          "status": "applied"
+        },
+        {
+          "id": "receipt-002",
+          "action_id": "action-001",
+          "ticket": "ticket-demo-001",
+          "operation": "close_ticket",
+          "idempotency_key": "closure-demo-001",
+          "status": "rejected"
+        }
+      ]
+    },
+    {
+      "id": "unknown-effect-status",
+      "claim": {
+        "completed": true,
+        "action_id": "action-001"
+      },
+      "actions": [
+        {
+          "id": "action-001",
+          "actor": "support-agent",
+          "ticket": "ticket-demo-001",
+          "operation": "close_ticket",
+          "approval_id": "approval-demo-001",
+          "idempotency_key": "closure-demo-001"
+        }
+      ],
+      "receipts": [
+        {
+          "id": "receipt-001",
+          "action_id": "action-001",
+          "ticket": "ticket-demo-001",
+          "operation": "close_ticket",
+          "idempotency_key": "closure-demo-001",
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "id": "unrecognized-approval",
+      "claim": {
+        "completed": true,
+        "action_id": "action-001"
+      },
+      "actions": [
+        {
+          "id": "action-001",
+          "actor": "support-agent",
+          "ticket": "ticket-demo-001",
+          "operation": "close_ticket",
+          "approval_id": "approval-not-issued",
+          "idempotency_key": "closure-demo-001"
+        }
+      ],
+      "receipts": [
+        {
+          "id": "receipt-001",
+          "action_id": "action-001",
+          "ticket": "ticket-demo-001",
+          "operation": "close_ticket",
+          "idempotency_key": "closure-demo-001",
+          "status": "applied"
+        }
+      ]
+    },
+    {
+      "id": "rejected-attempt-then-successful-retry",
+      "claim": {
+        "completed": true,
+        "action_id": "action-002"
+      },
+      "actions": [
+        {
+          "id": "action-001",
+          "actor": "support-agent",
+          "ticket": "ticket-demo-001",
+          "operation": "close_ticket",
+          "approval_id": "approval-demo-001",
+          "idempotency_key": "closure-demo-001"
+        },
+        {
+          "id": "action-002",
+          "actor": "support-agent",
+          "ticket": "ticket-demo-001",
+          "operation": "close_ticket",
+          "approval_id": "approval-demo-001",
+          "idempotency_key": "closure-demo-001"
+        }
+      ],
+      "receipts": [
+        {
+          "id": "receipt-001",
+          "action_id": "action-001",
+          "ticket": "ticket-demo-001",
+          "operation": "close_ticket",
+          "idempotency_key": "closure-demo-001",
+          "status": "rejected"
+        },
+        {
+          "id": "receipt-002",
+          "action_id": "action-002",
+          "ticket": "ticket-demo-001",
+          "operation": "close_ticket",
+          "idempotency_key": "closure-demo-001",
+          "status": "applied"
+        }
+      ]
+    },
+    {
+      "id": "retry-with-unobserved-terminal-state",
+      "claim": {
+        "completed": true,
+        "action_id": "action-001"
+      },
+      "actions": [
+        {
+          "id": "action-001",
+          "actor": "support-agent",
+          "ticket": "ticket-demo-001",
+          "operation": "close_ticket",
+          "approval_id": "approval-demo-001",
+          "idempotency_key": "closure-demo-001"
+        },
+        {
+          "id": "action-002",
+          "actor": "support-agent",
+          "ticket": "ticket-demo-001",
+          "operation": "close_ticket",
+          "approval_id": "approval-demo-001",
+          "idempotency_key": "closure-demo-001"
+        }
+      ],
+      "receipts": [
+        {
+          "id": "receipt-001",
+          "action_id": "action-001",
+          "ticket": "ticket-demo-001",
+          "operation": "close_ticket",
+          "idempotency_key": "closure-demo-001",
+          "status": "applied"
+        }
+      ]
+    },
+    {
+      "id": "receipt-for-different-ticket",
+      "claim": {
+        "completed": true,
+        "action_id": "action-001"
+      },
+      "actions": [
+        {
+          "id": "action-001",
+          "actor": "support-agent",
+          "ticket": "ticket-demo-001",
+          "operation": "close_ticket",
+          "approval_id": "approval-demo-001",
+          "idempotency_key": "closure-demo-001"
+        }
+      ],
+      "receipts": [
+        {
+          "id": "receipt-001",
+          "action_id": "action-001",
+          "ticket": "ticket-demo-999",
+          "operation": "close_ticket",
+          "idempotency_key": "closure-demo-001",
+          "status": "applied"
+        }
+      ]
+    },
+    {
+      "id": "honest-rejected-attempt",
+      "claim": {
+        "completed": false,
+        "action_id": "action-001"
+      },
+      "actions": [
+        {
+          "id": "action-001",
+          "actor": "support-agent",
+          "ticket": "ticket-demo-001",
+          "operation": "close_ticket",
+          "approval_id": "approval-demo-001",
+          "idempotency_key": "closure-demo-001"
+        }
+      ],
+      "receipts": [
+        {
+          "id": "receipt-001",
+          "action_id": "action-001",
+          "ticket": "ticket-demo-001",
+          "operation": "close_ticket",
+          "idempotency_key": "closure-demo-001",
+          "status": "rejected"
+        }
+      ]
+    }
+  ]
+}

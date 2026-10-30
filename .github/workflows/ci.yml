@@ -19,6 +19,10 @@ jobs:
         with:
           python-version: "3.12"
       - run: PYTHONPATH=src python -m unittest discover -s tests -v
+      - name: Startup Qatar evidence snapshot
+        run: python programs/startup-qatar/evidence_snapshot.py --check
+      - name: Startup Qatar planning arithmetic
+        run: python programs/startup-qatar/financial_model.py --check
       - run: python ops/gates/validate_as001.py
       - run: python ops/gates/validate_as001_live_evidence.py
       - run: python ops/gates/validate_as001_groq_evidence.py
