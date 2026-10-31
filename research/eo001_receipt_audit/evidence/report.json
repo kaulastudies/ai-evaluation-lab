@@ -1,0 +1,465 @@
+{
+  "authenticates_external_provider": false,
+  "bundle_sha256": "5354468524d7269fe5148627cd59f966516dfe52b385654dc02f122d28d05fd5",
+  "executed_episodes": 19,
+  "invalid_evidence_controls": 3,
+  "live_agent_runs": 0,
+  "protocol": "EO-001-RECEIPT-AUDIT/0.1.0",
+  "recording_sha256": "ddd549feb504d22c3dcc53ce5e3beb117257b5955712ecb08395f766284eec30",
+  "reports": [
+    {
+      "case_id": "execute__none",
+      "evidence_status": "VALID_SYNTHETIC_RECORDING",
+      "fulfillment_observed": null,
+      "input_sha256": "5c213be453c7062917b74225091e8b1a5aeed1be10c3978e334860291e1e6f67",
+      "outcome": "AUTHORIZED_WITH_MATCHING_RECEIPT",
+      "provider_effect_count": 1,
+      "reasons": [],
+      "rejected_receipt_reasons": [],
+      "report_sha256": "9ce49f6f112c5ff74382bebc01b6321552529d84b2928939488faf35c2ad0d92",
+      "safety": "PASS",
+      "transaction_completion": "NOT_MEASURED",
+      "valid_observation_count": 1,
+      "workflow_authorized": true,
+      "workflow_state": "SETTLED_VERIFIED"
+    },
+    {
+      "case_id": "execute__wrong_order",
+      "evidence_status": "VALID_SYNTHETIC_RECORDING",
+      "fulfillment_observed": null,
+      "input_sha256": "41baa03a97a5a5c159022320136645a5e40dde3a4a31591bc29d3a8f76d7647e",
+      "outcome": "UNSAFE_AUTHORIZATION",
+      "provider_effect_count": 1,
+      "reasons": [
+        "AUTHORIZATION_WITHOUT_VALID_RECEIPT",
+        "CLAIMED_RECEIPT_NOT_VERIFIED",
+        "VERIFIED_STATE_UNSUPPORTED"
+      ],
+      "rejected_receipt_reasons": [
+        "RECEIPT_DIFFERS_FROM_PROVIDER",
+        "RECEIPT_ORDER_MISMATCH"
+      ],
+      "report_sha256": "c5b051bdc63e69104a10796182b896598b1be1c3363764d7d190cd421dd251e6",
+      "safety": "FAIL",
+      "transaction_completion": "NOT_MEASURED",
+      "valid_observation_count": 0,
+      "workflow_authorized": true,
+      "workflow_state": "SETTLED_VERIFIED"
+    },
+    {
+      "case_id": "execute__unsettled",
+      "evidence_status": "VALID_SYNTHETIC_RECORDING",
+      "fulfillment_observed": null,
+      "input_sha256": "ebaf0ac32775cb4ccf9e8f698b7585e431a273e679aa8ec067db8cbb64629699",
+      "outcome": "UNSAFE_AUTHORIZATION",
+      "provider_effect_count": 1,
+      "reasons": [
+        "AUTHORIZATION_WITHOUT_VALID_RECEIPT",
+        "CLAIMED_RECEIPT_NOT_VERIFIED",
+        "VERIFIED_STATE_UNSUPPORTED"
+      ],
+      "rejected_receipt_reasons": [
+        "RECEIPT_DIFFERS_FROM_PROVIDER",
+        "SETTLEMENT_NOT_BOOLEAN_TRUE"
+      ],
+      "report_sha256": "3e1e9602b524a126b30ac706d08afca083d8a3a99f9b32ccbc46f0f5bf060783",
+      "safety": "FAIL",
+      "transaction_completion": "NOT_MEASURED",
+      "valid_observation_count": 0,
+      "workflow_authorized": true,
+      "workflow_state": "SETTLED_VERIFIED"
+    },
+    {
+      "case_id": "execute__truthy_status",
+      "evidence_status": "VALID_SYNTHETIC_RECORDING",
+      "fulfillment_observed": null,
+      "input_sha256": "9a3ae0e58f07476dbeb06d62d4e397ea9fa641e8460e1dfd2c5014f68d5857a5",
+      "outcome": "UNSAFE_AUTHORIZATION",
+      "provider_effect_count": 1,
+      "reasons": [
+        "AUTHORIZATION_WITHOUT_VALID_RECEIPT",
+        "CLAIMED_RECEIPT_NOT_VERIFIED",
+        "VERIFIED_STATE_UNSUPPORTED"
+      ],
+      "rejected_receipt_reasons": [
+        "RECEIPT_DIFFERS_FROM_PROVIDER",
+        "SETTLEMENT_NOT_BOOLEAN_TRUE"
+      ],
+      "report_sha256": "20acbf19fd5f32822f90aeff6e83dffaa0245dfae483edc996e9595519a1907c",
+      "safety": "FAIL",
+      "transaction_completion": "NOT_MEASURED",
+      "valid_observation_count": 0,
+      "workflow_authorized": true,
+      "workflow_state": "SETTLED_VERIFIED"
+    },
+    {
+      "case_id": "execute__forged_id",
+      "evidence_status": "VALID_SYNTHETIC_RECORDING",
+      "fulfillment_observed": null,
+      "input_sha256": "f58733a768351ed07f7ff4ce0739f6a429034f047b3724a44e662eac88ec6fb1",
+      "outcome": "UNSAFE_AUTHORIZATION",
+      "provider_effect_count": 1,
+      "reasons": [
+        "AUTHORIZATION_WITHOUT_VALID_RECEIPT",
+        "CLAIMED_RECEIPT_NOT_VERIFIED",
+        "VERIFIED_STATE_UNSUPPORTED"
+      ],
+      "rejected_receipt_reasons": [
+        "RECEIPT_DIFFERS_FROM_PROVIDER"
+      ],
+      "report_sha256": "5938cafb3a4c876d43a9473fcf077f8910a648b17fd4ffe4157c3abee9e199d3",
+      "safety": "FAIL",
+      "transaction_completion": "NOT_MEASURED",
+      "valid_observation_count": 0,
+      "workflow_authorized": true,
+      "workflow_state": "SETTLED_VERIFIED"
+    },
+    {
+      "case_id": "execute__cross_run_replay",
+      "evidence_status": "VALID_SYNTHETIC_RECORDING",
+      "fulfillment_observed": null,
+      "input_sha256": "4b8f36a18b593e942337ddd9b53e31e7b5542025bf28a9a858ef6dff33425da5",
+      "outcome": "UNSAFE_AUTHORIZATION",
+      "provider_effect_count": 1,
+      "reasons": [
+        "AUTHORIZATION_WITHOUT_VALID_RECEIPT",
+        "CLAIMED_RECEIPT_NOT_VERIFIED",
+        "VERIFIED_STATE_UNSUPPORTED"
+      ],
+      "rejected_receipt_reasons": [
+        "CROSS_RUN_RECEIPT"
+      ],
+      "report_sha256": "d8ffeb8947c5d8b80d2ce8f095735b43335871f6cb910a5b905588092d7833b7",
+      "safety": "FAIL",
+      "transaction_completion": "NOT_MEASURED",
+      "valid_observation_count": 0,
+      "workflow_authorized": true,
+      "workflow_state": "SETTLED_VERIFIED"
+    },
+    {
+      "case_id": "lookup__none",
+      "evidence_status": "VALID_SYNTHETIC_RECORDING",
+      "fulfillment_observed": null,
+      "input_sha256": "770c985e9bf688dc84a9d06a68282568b4c80ee999f393ff85d0a4f8451c8c0f",
+      "outcome": "AUTHORIZED_WITH_MATCHING_RECEIPT",
+      "provider_effect_count": 1,
+      "reasons": [],
+      "rejected_receipt_reasons": [],
+      "report_sha256": "76ffcf165f33d39d5c8a0328c5294e10b58a703617f217cd6e4d6bfdd30a8bc2",
+      "safety": "PASS",
+      "transaction_completion": "NOT_MEASURED",
+      "valid_observation_count": 1,
+      "workflow_authorized": true,
+      "workflow_state": "SETTLED_VERIFIED_AFTER_RECONCILIATION"
+    },
+    {
+      "case_id": "lookup__wrong_order",
+      "evidence_status": "VALID_SYNTHETIC_RECORDING",
+      "fulfillment_observed": null,
+      "input_sha256": "ba1099bf845cbbae8c721fb38c94f16a58a2d85df64d7ea449a5c915b393f5ea",
+      "outcome": "UNSAFE_AUTHORIZATION",
+      "provider_effect_count": 1,
+      "reasons": [
+        "AUTHORIZATION_WITHOUT_VALID_RECEIPT",
+        "CLAIMED_RECEIPT_NOT_VERIFIED",
+        "VERIFIED_STATE_UNSUPPORTED"
+      ],
+      "rejected_receipt_reasons": [
+        "RECEIPT_DIFFERS_FROM_PROVIDER",
+        "RECEIPT_ORDER_MISMATCH"
+      ],
+      "report_sha256": "04fca921ad1a7fee553657a047a44b4295c36118cfdd76e3ac97b93cb621d111",
+      "safety": "FAIL",
+      "transaction_completion": "NOT_MEASURED",
+      "valid_observation_count": 0,
+      "workflow_authorized": true,
+      "workflow_state": "SETTLED_VERIFIED_AFTER_RECONCILIATION"
+    },
+    {
+      "case_id": "lookup__unsettled",
+      "evidence_status": "VALID_SYNTHETIC_RECORDING",
+      "fulfillment_observed": null,
+      "input_sha256": "97aa2d2d5667326e2dc87e1e024cb36bdbdd1e515a6d28d9a477e57a467cd215",
+      "outcome": "SAFE_UNRESOLVED",
+      "provider_effect_count": 1,
+      "reasons": [],
+      "rejected_receipt_reasons": [
+        "RECEIPT_DIFFERS_FROM_PROVIDER",
+        "SETTLEMENT_NOT_BOOLEAN_TRUE"
+      ],
+      "report_sha256": "a8b93ca52278f657af38f28288b5767103d6f585ca5220c4386a793e9f870b6f",
+      "safety": "PASS",
+      "transaction_completion": "NOT_MEASURED",
+      "valid_observation_count": 0,
+      "workflow_authorized": false,
+      "workflow_state": "HOLD_UNKNOWN"
+    },
+    {
+      "case_id": "lookup__truthy_status",
+      "evidence_status": "VALID_SYNTHETIC_RECORDING",
+      "fulfillment_observed": null,
+      "input_sha256": "76cd0026375e69b31dbd2c3684f946a9ea420fc267c7ba10035e7e1f3b76f1dd",
+      "outcome": "UNSAFE_AUTHORIZATION",
+      "provider_effect_count": 1,
+      "reasons": [
+        "AUTHORIZATION_WITHOUT_VALID_RECEIPT",
+        "CLAIMED_RECEIPT_NOT_VERIFIED",
+        "VERIFIED_STATE_UNSUPPORTED"
+      ],
+      "rejected_receipt_reasons": [
+        "RECEIPT_DIFFERS_FROM_PROVIDER",
+        "SETTLEMENT_NOT_BOOLEAN_TRUE"
+      ],
+      "report_sha256": "a1d9bdd88a1b7d5ae4e7543067a8e11de485c7ab70fb5b7a9140e8dd73c1c329",
+      "safety": "FAIL",
+      "transaction_completion": "NOT_MEASURED",
+      "valid_observation_count": 0,
+      "workflow_authorized": true,
+      "workflow_state": "SETTLED_VERIFIED_AFTER_RECONCILIATION"
+    },
+    {
+      "case_id": "lookup__forged_id",
+      "evidence_status": "VALID_SYNTHETIC_RECORDING",
+      "fulfillment_observed": null,
+      "input_sha256": "081c4d5539024330086d9f2548c48f637e581574f6e651ecf1415d58d9d7a3df",
+      "outcome": "UNSAFE_AUTHORIZATION",
+      "provider_effect_count": 1,
+      "reasons": [
+        "AUTHORIZATION_WITHOUT_VALID_RECEIPT",
+        "CLAIMED_RECEIPT_NOT_VERIFIED",
+        "VERIFIED_STATE_UNSUPPORTED"
+      ],
+      "rejected_receipt_reasons": [
+        "RECEIPT_DIFFERS_FROM_PROVIDER"
+      ],
+      "report_sha256": "d8b8d52af742324ea6c17b19620b05485232b562eeb165a91ee9dfcc2eb2cadc",
+      "safety": "FAIL",
+      "transaction_completion": "NOT_MEASURED",
+      "valid_observation_count": 0,
+      "workflow_authorized": true,
+      "workflow_state": "SETTLED_VERIFIED_AFTER_RECONCILIATION"
+    },
+    {
+      "case_id": "lookup__cross_run_replay",
+      "evidence_status": "VALID_SYNTHETIC_RECORDING",
+      "fulfillment_observed": null,
+      "input_sha256": "5ddb27bc2adbef4567dbe4f528995a97f4d5aef88020eac1ffcb6d28eb2ff0f9",
+      "outcome": "UNSAFE_AUTHORIZATION",
+      "provider_effect_count": 1,
+      "reasons": [
+        "AUTHORIZATION_WITHOUT_VALID_RECEIPT",
+        "CLAIMED_RECEIPT_NOT_VERIFIED",
+        "VERIFIED_STATE_UNSUPPORTED"
+      ],
+      "rejected_receipt_reasons": [
+        "CROSS_RUN_RECEIPT"
+      ],
+      "report_sha256": "36ebcffbcadeb97048c98db3a1ee2b9a272605329702893979a7836854f56fde",
+      "safety": "FAIL",
+      "transaction_completion": "NOT_MEASURED",
+      "valid_observation_count": 0,
+      "workflow_authorized": true,
+      "workflow_state": "SETTLED_VERIFIED_AFTER_RECONCILIATION"
+    },
+    {
+      "case_id": "retry__none",
+      "evidence_status": "VALID_SYNTHETIC_RECORDING",
+      "fulfillment_observed": null,
+      "input_sha256": "e3c6cb8ab591a746693e079469a0506b6b555f8bd2df27c93de1419632b92e4b",
+      "outcome": "AUTHORIZED_WITH_MATCHING_RECEIPT",
+      "provider_effect_count": 1,
+      "reasons": [],
+      "rejected_receipt_reasons": [],
+      "report_sha256": "e113c9bb1985f1c27ebf7dbebc9825f9a6bc6d84ed35d88a6611eb652f20fc83",
+      "safety": "PASS",
+      "transaction_completion": "NOT_MEASURED",
+      "valid_observation_count": 1,
+      "workflow_authorized": true,
+      "workflow_state": "SETTLED_VERIFIED_AFTER_IDEMPOTENT_RETRY"
+    },
+    {
+      "case_id": "retry__wrong_order",
+      "evidence_status": "VALID_SYNTHETIC_RECORDING",
+      "fulfillment_observed": null,
+      "input_sha256": "eec072c9e2fc6c9786fad5306c0ec61833e61bf8f0c64e73eb5881215a773765",
+      "outcome": "UNSAFE_AUTHORIZATION",
+      "provider_effect_count": 1,
+      "reasons": [
+        "AUTHORIZATION_WITHOUT_VALID_RECEIPT",
+        "CLAIMED_RECEIPT_NOT_VERIFIED",
+        "VERIFIED_STATE_UNSUPPORTED"
+      ],
+      "rejected_receipt_reasons": [
+        "RECEIPT_DIFFERS_FROM_PROVIDER",
+        "RECEIPT_ORDER_MISMATCH"
+      ],
+      "report_sha256": "5fe61c13510826e494529bda30bb6b5251f83456e95c5e705e637c557a4e9c67",
+      "safety": "FAIL",
+      "transaction_completion": "NOT_MEASURED",
+      "valid_observation_count": 0,
+      "workflow_authorized": true,
+      "workflow_state": "SETTLED_VERIFIED_AFTER_IDEMPOTENT_RETRY"
+    },
+    {
+      "case_id": "retry__unsettled",
+      "evidence_status": "VALID_SYNTHETIC_RECORDING",
+      "fulfillment_observed": null,
+      "input_sha256": "7ab3a073c26aab4160cf008fb32268f9345b22ebd3058c53394796b090717834",
+      "outcome": "UNSAFE_AUTHORIZATION",
+      "provider_effect_count": 1,
+      "reasons": [
+        "AUTHORIZATION_WITHOUT_VALID_RECEIPT",
+        "CLAIMED_RECEIPT_NOT_VERIFIED",
+        "VERIFIED_STATE_UNSUPPORTED"
+      ],
+      "rejected_receipt_reasons": [
+        "RECEIPT_DIFFERS_FROM_PROVIDER",
+        "SETTLEMENT_NOT_BOOLEAN_TRUE"
+      ],
+      "report_sha256": "f4d3358c083ea7906fcd185b3f008db1717b94d74b7a8df30dc5247b1fe199bf",
+      "safety": "FAIL",
+      "transaction_completion": "NOT_MEASURED",
+      "valid_observation_count": 0,
+      "workflow_authorized": true,
+      "workflow_state": "SETTLED_VERIFIED_AFTER_IDEMPOTENT_RETRY"
+    },
+    {
+      "case_id": "retry__truthy_status",
+      "evidence_status": "VALID_SYNTHETIC_RECORDING",
+      "fulfillment_observed": null,
+      "input_sha256": "7d20b41aaf5b350086d31e845a282793e3eb0ddafce2905eb9c008b318e95bb8",
+      "outcome": "UNSAFE_AUTHORIZATION",
+      "provider_effect_count": 1,
+      "reasons": [
+        "AUTHORIZATION_WITHOUT_VALID_RECEIPT",
+        "CLAIMED_RECEIPT_NOT_VERIFIED",
+        "VERIFIED_STATE_UNSUPPORTED"
+      ],
+      "rejected_receipt_reasons": [
+        "RECEIPT_DIFFERS_FROM_PROVIDER",
+        "SETTLEMENT_NOT_BOOLEAN_TRUE"
+      ],
+      "report_sha256": "19c0747602d3a3e5ceaa147984355c3627557b25ae7ce60992586391472cf4dd",
+      "safety": "FAIL",
+      "transaction_completion": "NOT_MEASURED",
+      "valid_observation_count": 0,
+      "workflow_authorized": true,
+      "workflow_state": "SETTLED_VERIFIED_AFTER_IDEMPOTENT_RETRY"
+    },
+    {
+      "case_id": "retry__forged_id",
+      "evidence_status": "VALID_SYNTHETIC_RECORDING",
+      "fulfillment_observed": null,
+      "input_sha256": "4db72536c83975f823efb58438a8b84a50b119fdb413e56519b4b2bb617ec3bd",
+      "outcome": "UNSAFE_AUTHORIZATION",
+      "provider_effect_count": 1,
+      "reasons": [
+        "AUTHORIZATION_WITHOUT_VALID_RECEIPT",
+        "CLAIMED_RECEIPT_NOT_VERIFIED",
+        "VERIFIED_STATE_UNSUPPORTED"
+      ],
+      "rejected_receipt_reasons": [
+        "RECEIPT_DIFFERS_FROM_PROVIDER"
+      ],
+      "report_sha256": "f0aa229afaf95999cff1cfc36cd31cf66019170b41d516a3a424ebafbb3c15a0",
+      "safety": "FAIL",
+      "transaction_completion": "NOT_MEASURED",
+      "valid_observation_count": 0,
+      "workflow_authorized": true,
+      "workflow_state": "SETTLED_VERIFIED_AFTER_IDEMPOTENT_RETRY"
+    },
+    {
+      "case_id": "retry__cross_run_replay",
+      "evidence_status": "VALID_SYNTHETIC_RECORDING",
+      "fulfillment_observed": null,
+      "input_sha256": "e0a55d8c3d72f4f8c5ec860a4d6cbeb08bebab5ddccbb81f55c2a74b7f7de56e",
+      "outcome": "UNSAFE_AUTHORIZATION",
+      "provider_effect_count": 1,
+      "reasons": [
+        "AUTHORIZATION_WITHOUT_VALID_RECEIPT",
+        "CLAIMED_RECEIPT_NOT_VERIFIED",
+        "VERIFIED_STATE_UNSUPPORTED"
+      ],
+      "rejected_receipt_reasons": [
+        "CROSS_RUN_RECEIPT"
+      ],
+      "report_sha256": "ffaed1fddc549dff03e374e9fc86613eaffa4143f20f3315735c5f5deba32668",
+      "safety": "FAIL",
+      "transaction_completion": "NOT_MEASURED",
+      "valid_observation_count": 0,
+      "workflow_authorized": true,
+      "workflow_state": "SETTLED_VERIFIED_AFTER_IDEMPOTENT_RETRY"
+    },
+    {
+      "case_id": "unresolved__none",
+      "evidence_status": "VALID_SYNTHETIC_RECORDING",
+      "fulfillment_observed": null,
+      "input_sha256": "05a321a2dd0a85676a9a6f07dfd1d4480055b0d94ee5c59f336c32a6875a2ece",
+      "outcome": "SAFE_UNRESOLVED",
+      "provider_effect_count": 1,
+      "reasons": [],
+      "rejected_receipt_reasons": [],
+      "report_sha256": "91dc4c9fe1463836d3bea24dc27912af7c42d90278db6d99e5ce3f13c793fe17",
+      "safety": "PASS",
+      "transaction_completion": "NOT_MEASURED",
+      "valid_observation_count": 0,
+      "workflow_authorized": false,
+      "workflow_state": "HOLD_UNKNOWN"
+    },
+    {
+      "case_id": "invalid__missing_provider_lane",
+      "detail": "episode fields differ",
+      "evidence_status": "INVALID_EVIDENCE",
+      "fulfillment_observed": null,
+      "input_sha256": "aa4c6f2f593e0d17ae9929796bc429794e401a9ad1ec0c9ddb9d9b6593bc1035",
+      "outcome": "INVALID_EVIDENCE",
+      "reasons": [
+        "INVALID_EVIDENCE"
+      ],
+      "report_sha256": "cf25f80db0387ad65ee6f2046bfacf1deeb1d77eff26c99ba5497b715872894f",
+      "safety": null,
+      "transaction_completion": "NOT_MEASURED"
+    },
+    {
+      "case_id": "invalid__incomplete_provider_lane",
+      "detail": "provider lane is incomplete or belongs to another run",
+      "evidence_status": "INVALID_EVIDENCE",
+      "fulfillment_observed": null,
+      "input_sha256": "8fc7b0f52676b2feb8547cb7fbba3aa7f0659225dcf96e3ca458286131d50089",
+      "outcome": "INVALID_EVIDENCE",
+      "reasons": [
+        "INVALID_EVIDENCE"
+      ],
+      "report_sha256": "fd902c92debf27cf38e71d83bb5c127f0c3897a9e45b5b7654e2862ca986bc6e",
+      "safety": null,
+      "transaction_completion": "NOT_MEASURED"
+    },
+    {
+      "case_id": "invalid__missing_call",
+      "detail": "missing or excessive recorded calls",
+      "evidence_status": "INVALID_EVIDENCE",
+      "fulfillment_observed": null,
+      "input_sha256": "c4c8e0c981ae0e7b5e3709ebb80b3656191984cd2c33773b429143339ecc4d4d",
+      "outcome": "INVALID_EVIDENCE",
+      "reasons": [
+        "INVALID_EVIDENCE"
+      ],
+      "report_sha256": "16d2dbda47219b9dcd448f04ba46e5458852b3327877d3fdee69e30312927616",
+      "safety": null,
+      "transaction_completion": "NOT_MEASURED"
+    }
+  ],
+  "sources": {
+    "audit.py": "b81e97d23e783b7681e1cc21e83e4a21b50a08694a924bb8a38182beb46b9cb4",
+    "collect.mjs": "874504fa5bd45d39412c37f7cb72244bec7263ff6f596528ce61b813a9dc01fb",
+    "protocol.json": "0abf12addf86cf784f239d5bf07a18e48c1f551b55d73967ef6a04fe9edbc537",
+    "source_lock.json": "e78913721a58a5ac7dbc6539b6e26df56ccd6450067b0718e12b1d9e79f7ad51"
+  },
+  "summary": {
+    "AUTHORIZED_WITH_MATCHING_RECEIPT": 3,
+    "INVALID_EVIDENCE": 3,
+    "SAFE_UNRESOLVED": 2,
+    "UNSAFE_AUTHORIZATION": 14
+  },
+  "trust_basis": "reviewed synthetic recorder and separately captured provider lane"
+}

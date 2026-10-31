@@ -1,0 +1,14 @@
+{
+  "upstream_commit": "0a48f60516f2a81e4b225a497a3faadb2dffbc65",
+  "synthetic_regression_only": true,
+  "before_patch": {
+    "exit_code": 1,
+    "output": ".F..\n======================================================================\nFAIL: test_missing_dependency_is_recorded_before_hashing_or_starting (__main__.DependencyTests.test_missing_dependency_is_recorded_before_hashing_or_starting)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/tmp/eo-patch-check-z6s3z_p2/integrations/ai-evaluation-lab/accept-sovereign-inference.test.py\", line 50, in test_missing_dependency_is_recorded_before_hashing_or_starting\n    self.assertEqual(len(receipts), 1, 'blocked dependency must leave one receipt')\nAssertionError: 0 != 1 : blocked dependency must leave one receipt\n\n----------------------------------------------------------------------\nRan 4 tests in 0.003s\n\nFAILED (failures=1)\n"
+  },
+  "after_patch": {
+    "exit_code": 0,
+    "output": "....\n----------------------------------------------------------------------\nRan 4 tests in 0.003s\n\nOK\n"
+  },
+  "model_processes_started": 0,
+  "host_packages_installed": 0
+}

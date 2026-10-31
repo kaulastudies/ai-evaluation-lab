@@ -1,0 +1,18 @@
+{
+  "repository": "jgaethle10/forge-operator",
+  "commit": "171a49b2a5cf81ff8922ebe2c69a182e91c1bd54",
+  "pr": 1744,
+  "issue": 1705,
+  "files": {
+    "integrations/ai-evaluation-lab/eo001-lab-candidate.mjs": "fa3a9a8fb3c6ae2b42437355c82b8d9f4c57cd68c3addd70fdbcbbdd495b090e",
+    "integrations/ai-evaluation-lab/eo001-lab-candidate.test.mjs": "13067a0f8863d7f28cd9070e0541fd6cb6ede9f35a2ce3fc81f538b215ce3015",
+    "systemia/organism/goal-cli.mjs": "afc1487411bb49c650bfab4c9569226bcfc15028597e946d822ba6e99d5d7d00",
+    "systemia/organism/goal-runtime.mjs": "6ff397f35a4d874f4b2595e92dcf7dcc58814dfd682cd83cece74154ebfa884d",
+    "systemia/organism/goal-recovery.mjs": "fbab9d155e39c39fb1c1fd745be413aee90d0d22fe72a77c5aa69bcb9d3ae830",
+    "systemia/organism/goal-provider-observation.mjs": "f0f7a741618cb77d230587f4bb4caca1deedd171c9f09d07ace2f4db630df3e2",
+    "systemia/organism/goal-human-approval.mjs": "862073013074991558ada0deb2b355bbbab9a1315821bbf97b0ef21f32d499e5",
+    "systemia/organism/goal-store.mjs": "2d4dc7b736a1a630bf3b996a81d5500c5c721b00c28302f522c6c3dadbbc3f4c",
+    "systemia/organism/capability-runtime.mjs": "a0ae8e8dfb7822a5b1398aa8f91dc6bc22c41dc0be4a9ac68ed1de8042c4eb82",
+    "systemia/organism/goal-provider-observation.test.mjs": "9fcb3de9798293d8f39f68d54dca57d51311e5086d9c7ecb9f2f8aaa23a50f8d"
+  }
+}

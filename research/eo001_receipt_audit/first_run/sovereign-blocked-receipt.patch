@@ -1,0 +1,103 @@
+diff --git a/integrations/ai-evaluation-lab/accept-sovereign-inference.py b/integrations/ai-evaluation-lab/accept-sovereign-inference.py
+index ab41211..b6dcdf1 100644
+--- a/integrations/ai-evaluation-lab/accept-sovereign-inference.py
++++ b/integrations/ai-evaluation-lab/accept-sovereign-inference.py
+@@ -145,23 +145,8 @@ def main():
+     library=root/'opt/evercraft-ai/current/lib'
+     if not executable.is_file() or not os.access(executable,os.X_OK):
+         raise RuntimeError('llama_server_not_executable')
+-    # A signed binary can still lack host shared-library dependencies.
+-    # Inspect before hashing ~2.5 GiB or trying to launch it.
+-    dependencies=subprocess.run(['ldd',str(executable)],capture_output=True,
+-                                text=True,timeout=15,check=False)
+-    if dependencies.returncode!=0:
+-        raise RuntimeError('llama_dependency_inspection_failed')
+-    missing=[line.split('=>',1)[0].strip() for line in dependencies.stdout.splitlines()
+-             if '=> not found' in line]
+-    if missing:
+-        hint=' (Ubuntu package: libgomp1)' if 'libgomp.so.1' in missing else ''
+-        raise RuntimeError('llama_missing_shared_libraries: '+', '.join(missing)+hint)
+     if not (library/'evercraft_ai/cli.py').is_file():
+         raise RuntimeError('evercraft_gateway_missing')
+-    print('Checking model and runtime SHA-256...',flush=True)
+-    check_digest(model,MODEL_SHA)
+-    check_digest(runtime,RUNTIME_SHA)
+-    print('SOVEREIGN_PROVENANCE: PASS',flush=True)
+     model_port=free_port()
+     gateway_port=free_port()
+     while model_port==gateway_port:
+@@ -195,6 +180,10 @@ def main():
+         log2=open(folder/'gateway.log','w')
+         preflight_runtime_linker(executable)
+         print('SOVEREIGN_RUNTIME_LINKER: PASS',flush=True)
++        print('Checking model and runtime SHA-256...',flush=True)
++        check_digest(model,MODEL_SHA)
++        check_digest(runtime,RUNTIME_SHA)
++        print('SOVEREIGN_PROVENANCE: PASS',flush=True)
+         print('Starting signed llama.cpp model on loopback...',flush=True)
+         model_process=subprocess.Popen([
+             str(executable),'--host','127.0.0.1','--port',str(model_port),
+diff --git a/integrations/ai-evaluation-lab/accept-sovereign-inference.test.py b/integrations/ai-evaluation-lab/accept-sovereign-inference.test.py
+index b3f1100..3bc6eea 100644
+--- a/integrations/ai-evaluation-lab/accept-sovereign-inference.test.py
++++ b/integrations/ai-evaluation-lab/accept-sovereign-inference.test.py
+@@ -2,6 +2,13 @@
+ import importlib.util
+ from pathlib import Path
+ import unittest
++from contextlib import redirect_stdout, redirect_stderr
++import io
++import json
++import os
++import subprocess
++import tempfile
++from unittest.mock import patch
+
+ module_path = Path(__file__).resolve().parent / 'accept-sovereign-inference.py'
+ spec = importlib.util.spec_from_file_location('sovereign_acceptance', module_path)
+@@ -9,6 +16,45 @@ mod = importlib.util.module_from_spec(spec)
+ spec.loader.exec_module(mod)
+
+ class DependencyTests(unittest.TestCase):
++    def test_missing_dependency_is_recorded_before_hashing_or_starting(self):
++        with tempfile.TemporaryDirectory() as temporary:
++            base = Path(temporary)
++            root = base / 'verified-test' / 'stage-root'
++            executable = root / 'opt/evercraft-ai/runtime/current/bin/llama-server'
++            executable.parent.mkdir(parents=True)
++            executable.write_text('synthetic test executable; never run')
++            executable.chmod(0o700)
++            gateway = root / 'opt/evercraft-ai/current/lib/evercraft_ai/cli.py'
++            gateway.parent.mkdir(parents=True)
++            gateway.write_text('# synthetic fixture')
++            (root.parent / 'stage-receipt.json').write_text(json.dumps({
++                'signed_manifest_verified': True, 'state': 'verified_staged_only_not_deployed',
++                'stage_root': str(root)}))
++            provision = root / 'var/lib/evercraft-ai/receipts/node001-provision.json'
++            provision.parent.mkdir(parents=True)
++            provision.write_text(json.dumps({'status': 'provisioned-not-certified',
++                'runtime': {'sha256': mod.RUNTIME_SHA}, 'model': {'sha256': mod.MODEL_SHA}}))
++            diagnostic = subprocess.CompletedProcess(['ldd'], 0, 'libgomp.so.1 => not found\n', '')
++            with patch.object(mod, 'ROOT_BASE', base), patch.object(mod.os, 'geteuid', return_value=1000), \
++                 patch.object(mod.sys, 'argv', ['accept', '--stage-root', str(root)]), \
++                 patch.object(mod.subprocess, 'run', return_value=diagnostic) as probe, \
++                 patch.object(mod.subprocess, 'Popen') as launch, \
++                 patch.object(mod, 'check_digest') as digest, \
++                 redirect_stdout(io.StringIO()), redirect_stderr(io.StringIO()):
++                with self.assertRaisesRegex(RuntimeError, 'libgomp'):
++                    mod.main()
++            self.assertEqual(probe.call_count, 1)
++            digest.assert_not_called()
++            launch.assert_not_called()
++            receipts = list(root.parent.glob('inference-*/inference-receipt.json'))
++            self.assertEqual(len(receipts), 1, 'blocked dependency must leave one receipt')
++            receipt = json.loads(receipts[0].read_text())
++            self.assertEqual(receipt['state'], 'FIRST_INFERENCE_BLOCKED')
++            self.assertIs(receipt['real_local_inference'], False)
++            self.assertIs(receipt['child_processes_stopped'], True)
++            self.assertIn('libgomp.so.1', receipt['error'])
++            self.assertEqual(os.stat(receipts[0]).st_mode & 0o777, 0o600)
++
+     def test_missing_libgomp_detected(self):
+         output = '''
+             linux-vdso.so.1 (0x123)
