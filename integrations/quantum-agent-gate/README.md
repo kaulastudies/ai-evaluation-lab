@@ -1,6 +1,10 @@
 # Quantum Agent Gate (QAG)
 
-**Experimental local-only Qiskit 2.x integration for testing the execution decisions of quantum-programming agents.** A research component of [AI Evaluation Lab](https://github.com/kaulastudies/ai-evaluation-lab). Independent of IBM and Qiskit; not endorsed or accepted by the Qiskit Ecosystem at submission time.
+[![Qiskit Ecosystem](https://qisk.it/e-7fac1a8e)](https://qisk.it/e)
+
+[Official Qiskit Ecosystem project profile](https://qiskit.github.io/ecosystem/p/7fac1a8e/) · [Accepted submission PR #1427](https://github.com/Qiskit/ecosystem/pull/1427)
+
+**Experimental local-only Qiskit 2.x integration for testing the execution decisions of quantum-programming agents.** A research component of [AI Evaluation Lab](https://github.com/kaulastudies/ai-evaluation-lab). Accepted as a Qiskit Ecosystem member on November 1, 2026 (UTC), via maintainer-reviewed PR #1427. The integration remains independently maintained by AI Evaluation Lab; ecosystem membership does not imply IBM or Qiskit endorsement or security certification.
 
 Agents can create mathematically valid quantum circuits yet request unauthorized backends, excess shots, or duplicate jobs. QAG turns these requests into testable safety contracts. Unlike quantum correctness benchmarks, QAG checks the **decision to execute**. The current SDK adapter reads actual Qiskit QuantumCircuit facts, enforces trusted backend and resource policy, reserves request IDs atomically in SQLite, then calls the **real Qiskit V2 StatevectorSampler locally**. Hardware/QPU execution is deliberately absent.
 
@@ -51,4 +55,4 @@ The qag.evidence adapter exports SHA-256 hashed records using fields from the La
 
 ## Status and eligibility
 
-Apache-2.0 licensed (see the [repository license](../../LICENSE); the package includes the same text in [LICENSE-APACHE-2.0](LICENSE-APACHE-2.0)), follows Qiskit's Code of Conduct, targets Qiskit SDK 2.x and V2 StatevectorSampler, with best-effort experimental support. CI must pass before submitting to the official ecosystem form. This package is not a production security system and has no paid-hardware execution path.
+Apache-2.0 licensed (see the [repository license](../../LICENSE); the package includes the same text in [LICENSE-APACHE-2.0](LICENSE-APACHE-2.0)), follows Qiskit's Code of Conduct, targets Qiskit SDK 2.x and V2 StatevectorSampler, with best-effort experimental support. The Qiskit Ecosystem submission was accepted and merged on November 1, 2026 (UTC). The [official project page](https://qiskit.github.io/ecosystem/p/7fac1a8e/) currently classifies the project as experimental and very early; checkups are reported there. This package is not a production security system and has no paid-hardware execution path.
