@@ -7,6 +7,7 @@ on:
       - 'hackathon/nebius-nvidia-rarb-demo/**'
       - 'programs/repository-agent-reliability/**'
       - 'applications/sevasetu-careers/**'
+      - 'applications/sevasetu-placement-desk/**'
       - '.github/workflows/proofgate-pages.yml'
       - 'LICENSE'
   pull_request:
@@ -14,6 +15,7 @@ on:
       - 'hackathon/nebius-nvidia-rarb-demo/**'
       - 'programs/repository-agent-reliability/**'
       - 'applications/sevasetu-careers/**'
+      - 'applications/sevasetu-placement-desk/**'
       - '.github/workflows/proofgate-pages.yml'
       - 'LICENSE'
   workflow_dispatch:

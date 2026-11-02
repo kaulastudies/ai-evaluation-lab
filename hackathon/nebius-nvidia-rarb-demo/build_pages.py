@@ -68,6 +68,23 @@ def build_pages(output: Path) -> Path:
         "mode": "synthetic_data_no_live_model_inference",
         "files_sha256": careers_hashes,
     }, indent=2) + "\n")
+    # Option B is a separate, explicitly fictional record-led demonstration.
+    # Its public fixture is never used by the loopback API's static-file router.
+    desk = output / "sevasetu-desk"
+    desk_source = ROOT / "applications/sevasetu-placement-desk"
+    shutil.copytree(desk_source / "web", desk)
+    shutil.copy2(desk_source / "fixtures/sample-data.json", desk / "sample-data.json")
+    desk_hashes = {
+        p.relative_to(desk).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest()
+        for p in sorted(desk.rglob("*")) if p.is_file()
+    }
+    (desk / "deployment.json").write_text(json.dumps({
+        "repository": "https://github.com/kaulastudies/ai-evaluation-lab",
+        "source_commit": revision,
+        "mode": "static_fixture_demo",
+        "synthetic": True,
+        "files_sha256": desk_hashes,
+    }, indent=2) + "\n")
     (output / ".nojekyll").write_text("")
     print(f"Built {len(hashes)} public app files at {app}")
     return app

@@ -1,0 +1,14 @@
+{
+  "name": "sevasetu-placement-desk",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "start": "node server.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "evaluate": "node scripts/evaluate.mjs",
+    "check": "node --check web/app.mjs && node --check web/domain.mjs && node --check web/service.mjs && node --check server.mjs"
+  },
+  "license": "Apache-2.0"
+}

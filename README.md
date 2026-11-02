@@ -48,6 +48,8 @@ ProofGate is developed with mentorship from Prof. Nithya Ravi Kumar. See the [pr
 
 **[SevaSetu Careers](applications/sevasetu-careers/README.md)** is an independent prototype for ex-servicemen employment search and candidate-fact-based CV preparation, addressing published PDS 6 in the Army Design Compendium 2025. It includes source/lifecycle checks, explainable matching, CV evidence receipts and an optional local-model fact selector. The [working demonstration](https://kaulastudies.github.io/ai-evaluation-lab/sevasetu/) uses synthetic data; no Army/AWPO affiliation or authorised database integration is claimed. Its [live validation record](applications/sevasetu-careers/evidence/LIVE_VALIDATION.md) distinguishes public-URL browser tests, synthetic internet ingestion and real local-model fact-selection checks.
 
+**[SevaSetu Placement Desk](applications/sevasetu-placement-desk/README.md)** is the separate record-led Option B: a fictional candidate ID retrieves a source-labelled record, later qualifications stay pending until a sample issuer check, and explicit role checks support a verified-facts CV. The [Option B demo](https://aievaluationlab.tech/sevasetu-desk/) and local server use synthetic records only; the stable Careers application remains unchanged.
+
 ---
 
 ## Capabilities
