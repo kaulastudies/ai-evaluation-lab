@@ -1,0 +1,53 @@
+{
+  "id": "logistics",
+  "name": "Arun Kumar (sample)",
+  "location": "Varanasi",
+  "contact": "",
+  "esm": true,
+  "synthetic": true,
+  "facts": [
+    {
+      "id": "exp_stores",
+      "kind": "experience",
+      "text": "Maintained stores and inventory records during 16 years of service.",
+      "skills": [
+        "inventory",
+        "record keeping"
+      ],
+      "years": 16
+    },
+    {
+      "id": "exp_admin",
+      "kind": "experience",
+      "text": "Prepared office records and coordinated routine administrative work.",
+      "skills": [
+        "administration"
+      ]
+    },
+    {
+      "id": "exp_excel",
+      "kind": "experience",
+      "text": "Used Excel to maintain stock registers and reconcile inventory records.",
+      "skills": [
+        "excel",
+        "inventory"
+      ]
+    },
+    {
+      "id": "edu_12",
+      "kind": "education",
+      "text": "Completed 10+2.",
+      "skills": [],
+      "level": "10+2"
+    },
+    {
+      "id": "cert_computer",
+      "kind": "certificate",
+      "text": "Completed a basic computer applications course.",
+      "skills": [
+        "excel"
+      ],
+      "certificate": "computer applications"
+    }
+  ]
+}

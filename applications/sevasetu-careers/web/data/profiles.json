@@ -1,0 +1,135 @@
+[
+  {
+    "id": "logistics",
+    "name": "Arun Kumar (sample)",
+    "location": "Varanasi",
+    "contact": "",
+    "esm": true,
+    "synthetic": true,
+    "facts": [
+      {
+        "id": "exp_stores",
+        "kind": "experience",
+        "text": "Maintained stores and inventory records during 16 years of service.",
+        "skills": [
+          "inventory",
+          "record keeping"
+        ],
+        "years": 16
+      },
+      {
+        "id": "exp_admin",
+        "kind": "experience",
+        "text": "Prepared office records and coordinated routine administrative work.",
+        "skills": [
+          "administration"
+        ]
+      },
+      {
+        "id": "exp_excel",
+        "kind": "experience",
+        "text": "Used Excel to maintain stock registers and reconcile inventory records.",
+        "skills": [
+          "excel",
+          "inventory"
+        ]
+      },
+      {
+        "id": "edu_12",
+        "kind": "education",
+        "text": "Completed 10+2.",
+        "skills": [],
+        "level": "10+2"
+      },
+      {
+        "id": "cert_computer",
+        "kind": "certificate",
+        "text": "Completed a basic computer applications course.",
+        "skills": [
+          "excel"
+        ],
+        "certificate": "computer applications"
+      }
+    ]
+  },
+  {
+    "id": "it",
+    "name": "Meera Singh (sample)",
+    "location": "Lucknow",
+    "contact": "",
+    "esm": true,
+    "synthetic": true,
+    "facts": [
+      {
+        "id": "exp_it",
+        "kind": "experience",
+        "text": "Provided IT helpdesk support for 8 years.",
+        "skills": [
+          "it support"
+        ],
+        "years": 8
+      },
+      {
+        "id": "exp_network",
+        "kind": "experience",
+        "text": "Maintained computer networks and documented connectivity incidents.",
+        "skills": [
+          "networking",
+          "record keeping"
+        ]
+      },
+      {
+        "id": "exp_excel",
+        "kind": "experience",
+        "text": "Used Excel for support logs.",
+        "skills": [
+          "excel"
+        ]
+      },
+      {
+        "id": "edu_12",
+        "kind": "education",
+        "text": "Completed 10+2.",
+        "skills": [],
+        "level": "10+2"
+      }
+    ]
+  },
+  {
+    "id": "healthcare",
+    "name": "Suresh Rao (sample)",
+    "location": "Varanasi",
+    "contact": "",
+    "esm": true,
+    "synthetic": true,
+    "facts": [
+      {
+        "id": "exp_records",
+        "kind": "experience",
+        "text": "Maintained hospital medical records and supported administrative workflows for 10 years.",
+        "skills": [
+          "medical records",
+          "administration",
+          "record keeping"
+        ],
+        "years": 10
+      },
+      {
+        "id": "exp_billing",
+        "kind": "experience",
+        "text": "Supported billing records and payment reconciliation.",
+        "skills": [
+          "billing",
+          "excel"
+        ]
+      },
+      {
+        "id": "edu_12",
+        "kind": "education",
+        "text": "Completed 10+2.",
+        "skills": [],
+        "level": "10+2"
+      }
+    ]
+  }
+]

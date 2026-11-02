@@ -1,0 +1,53 @@
+{
+  "version": "0.1.0",
+  "assessment_date": "2026-11-02T12:00:00Z",
+  "scope": "Three author-labelled synthetic candidates. No real candidate, vacancy-feed, placement or live-model quality evaluation.",
+  "input_records": 15,
+  "unique_jobs": 13,
+  "rejected_records": 1,
+  "cases": [
+    {
+      "profile": "logistics",
+      "first_result": "sample-warehouse",
+      "checks": {
+        "acceptable_first": true,
+        "unsafe_lifecycle_withheld": true,
+        "qualification_gaps_visible": true,
+        "cv_claims_supported": true
+      },
+      "passed": true,
+      "cv_sha256": "8a43786f6f7b6563423c1664b8eba354dfdf1b2cb406c394e3eb668ed94fb0a5"
+    },
+    {
+      "profile": "it",
+      "first_result": "sample-helpdesk",
+      "checks": {
+        "acceptable_first": true,
+        "unsafe_lifecycle_withheld": true,
+        "qualification_gaps_visible": true,
+        "cv_claims_supported": true
+      },
+      "passed": true,
+      "cv_sha256": "fa446dee6c173abc1d27a7b9a457ebb4c52ffe26d028ee8c9c01184a43f319c8"
+    },
+    {
+      "profile": "healthcare",
+      "first_result": "sample-hospital",
+      "checks": {
+        "acceptable_first": true,
+        "unsafe_lifecycle_withheld": true,
+        "qualification_gaps_visible": true,
+        "cv_claims_supported": true
+      },
+      "passed": true,
+      "cv_sha256": "a230868a127ea71c61c3a824b652eda400962717d85ad5cc9793c415e3ff809e"
+    }
+  ],
+  "passed": true,
+  "inputs_sha256": {
+    "web/data/jobs.json": "98f940af2a049c16386b703fcb13151638665251879152d3a0b0c54b7591bd35",
+    "web/data/profiles.json": "92c55da6c3f193e4e27fb71c071f166601582854a2f7f071b7f8f4350507aa88",
+    "tests/relevance-labels.json": "13f2d370d03d64fdf519feeef20fc2101301de0047051b83171b980bba208892",
+    "web/core.mjs": "fade91ddc84c15c61cfd7365f8617bdd25b70fe49cc0be8679a9c7c12dbde0b7"
+  }
+}
