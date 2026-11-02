@@ -23,6 +23,10 @@ The first public browser run completed the desktop interactions but crashed whil
 
 The internet source example also exposed a compatibility gap: raw repository JSON uses `text/plain`. Explicit JSON sources now accept that type while retaining strict JSON parsing, exact host approval, public DNS checks/pinning, size limits and timeouts. HTML and binary bodies are not accepted as JSON sources. A contract test covers this boundary.
 
+## Short desktop window regression
+
+A subsequent connected-Chrome check exposed a separate viewport issue: at 1440 × 675, a tall sticky role panel could keep the CV button outside the reachable area. The panel now has a viewport-bounded internal scroll area. `tests/compact-browser-check.mjs` exercises the CV action at that size. The live workflow checks the proposed branch locally before merge and checks the public URL after a successful Pages deployment; the environments are recorded separately.
+
 ## Reproduce
 
 Run the **SevaSetu live verification** workflow in GitHub Actions, or run `scripts/live-ingestion-check.mjs`, `tests/browser-check.mjs` with `SEVASETU_BASE_URL=https://aievaluationlab.tech/sevasetu/`, and `scripts/live-model-check.mjs` with an installed `qwen2.5:0.5b` model and a loopback Ollama server. The workflow pins and verifies the official Ollama archive and records the pulled model's digest.
