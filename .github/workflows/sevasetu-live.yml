@@ -1,0 +1,88 @@
+name: SevaSetu live verification
+
+on:
+  pull_request:
+    paths:
+      - 'applications/sevasetu-careers/**'
+      - '.github/workflows/sevasetu-live.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deployed-browser-and-source:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    defaults:
+      run:
+        working-directory: applications/sevasetu-careers
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: '22'
+      - name: Fetch and qualify an actual internet response
+        run: node scripts/live-ingestion-check.mjs
+      - name: Install isolated browser test tooling
+        run: |
+          npm install --no-save --package-lock=false playwright@1.62.1
+          npx playwright install --with-deps chromium
+      - name: Exercise the public HTTPS deployment
+        env:
+          SEVASETU_BASE_URL: https://aievaluationlab.tech/sevasetu/
+          SEVASETU_SCREENSHOTS: live-results/browser
+        run: node tests/browser-check.mjs
+      - name: Retain public-site observations and exports
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: sevasetu-public-site-and-ingestion
+          path: applications/sevasetu-careers/live-results/
+
+  real-local-model:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: applications/sevasetu-careers
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: '22'
+      - name: Verify and install pinned official Ollama release
+        env:
+          OLLAMA_ARCHIVE_SHA256: c9490e0f520be21271d969e6703f012268b1d39f8b70dd58854e5bfef7a75bb6
+        run: |
+          curl --fail --location --retry 2 --max-time 240 https://github.com/ollama/ollama/releases/download/v0.40.13/ollama-linux-amd64.tar.zst --output "$RUNNER_TEMP/ollama.tar.zst"
+          printf '%s  %s\n' "$OLLAMA_ARCHIVE_SHA256" "$RUNNER_TEMP/ollama.tar.zst" | sha256sum --check
+          mkdir -p "$RUNNER_TEMP/ollama"
+          tar --zstd -xf "$RUNNER_TEMP/ollama.tar.zst" -C "$RUNNER_TEMP/ollama"
+          echo "$RUNNER_TEMP/ollama/bin" >> "$GITHUB_PATH"
+      - name: Run a real CPU model through the production adapter
+        env:
+          OLLAMA_HOST: 127.0.0.1:11434
+          OLLAMA_MODELS: /tmp/sevasetu-ollama-models
+          OLLAMA_NUM_PARALLEL: '1'
+          SEVASETU_TEST_MODEL: qwen2.5:0.5b
+        run: |
+          ollama serve > "$RUNNER_TEMP/ollama.log" 2>&1 &
+          SEVASETU_OLLAMA_PID=$!
+          trap 'kill "$SEVASETU_OLLAMA_PID" 2>/dev/null || true' EXIT
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent http://127.0.0.1:11434/api/version > /dev/null; then break; fi
+            sleep 1
+          done
+          ollama pull "$SEVASETU_TEST_MODEL"
+          node scripts/live-model-check.mjs
+      - name: Retain actual model outcomes
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: sevasetu-real-local-model
+          path: applications/sevasetu-careers/live-results/

@@ -47,9 +47,9 @@ The test suite covers source lifecycle, conflicting duplicates, qualification ga
 | Deadline checks | Expired/withdrawn listings and source snapshots older than seven days are withheld. Unknown, future-dated or conflicting records require review. Date-only deadlines use end of day in India. |
 | Candidate matching | Transparent skill aliases, corpus-derived TF-IDF text relevance, location and explicit structured requirements. Search-query terms filter the result set. Missing qualifications remain visible. |
 | CV preparation | Candidate fact selection, ordering and verbatim rendering. Plain-text export, browser print/PDF and SHA-256 receipt with a fact ID for every claim. |
-| Optional local AI | Ollama structured-output adapter selects fact IDs; deterministic validation rejects extra prose, unknown IDs, duplicate claims and omitted education/licences. |
+| Optional local AI | Ollama structured-output adapter selects fact IDs; deterministic validation rejects extra prose, unknown IDs and duplicate claims. Education and licences are preserved by the application outside model selection. |
 
-The browser path is an explainable retrieval and template baseline, not a trained semantic model. The optional local-model path is implemented and its contract is tested with simulated responses. **A live Ollama model has not been run or evaluated for this release.** It cannot rewrite candidate claims: this deliberately limits fluency to preserve fact boundaries. The receipt proves correspondence and detects changes; it does not prove that a candidate's claims are true.
+The browser path is an explainable retrieval and template baseline, not a trained semantic model. The optional local-model path has been exercised with a real Qwen2.5 0.5B model on CPU: three synthetic fact-selection cases passed after the follow-up described in the [live validation report](evidence/LIVE_VALIDATION.md). Public-URL desktop/mobile and real HTTPS ingestion checks also passed. These are scoped integration checks, not real-candidate ranking or placement results. It cannot rewrite candidate claims: this deliberately limits fluency to preserve fact boundaries. The receipt proves correspondence and detects changes; it does not prove that a candidate's claims are true.
 
 ## Import a vacancy source
 
@@ -110,6 +110,8 @@ Only `http://127.0.0.1:11434` is used by the CLI. Candidate name and contact are
 ## Boundaries and next validation
 
 This is a functional prototype for a capability discussion and supervised pilot. It has no authorised AWPO integration, actual candidate trial, verified credential service, production authentication, hosted profile database, trained multilingual ranker or recruitment integration. English UI and a small explicit English/Hindi skill-alias dictionary are implemented; this is not general Hindi language support. It never applies for a job or sends an email.
+
+See the [live verification workflow](https://github.com/kaulastudies/ai-evaluation-lab/actions/workflows/sevasetu-live.yml) and [recorded live results](evidence/LIVE_VALIDATION.md). It uses actual network requests and real CPU inference with synthetic records. The original offline report remains available separately.
 
 The next partner contribution is access to a consented, minimal candidate export and approved vacancy data; confirmation of the problem's current ownership and availability; and a counsellor who can review requirement interpretations. The [pilot plan](docs/PILOT.md) gives proposed acceptance criteria, not achieved results or a funding commitment.
 

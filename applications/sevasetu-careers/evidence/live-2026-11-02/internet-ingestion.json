@@ -1,0 +1,13 @@
+{
+  "tested_at": "2026-11-02T12:34:27.596Z",
+  "transport": "real_https_requests_with_public_dns_pinning",
+  "source": "https://raw.githubusercontent.com/kaulastudies/ai-evaluation-lab/main/applications/sevasetu-careers/web/data/jobs.json",
+  "scope": "Public synthetic feed. No official vacancy feed or actual candidate data.",
+  "status": "PASS",
+  "jobs": 13,
+  "rejected_controls": 1,
+  "synthetic_status_preserved": true,
+  "normalized_roundtrip": true,
+  "elapsed_ms": 170,
+  "normalized_feed_sha256": "17f4c2d32767206d5deaf5ef9a7685df804c47dfc343d007ef31a2c159b477bb"
+}

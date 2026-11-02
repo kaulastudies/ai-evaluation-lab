@@ -45,7 +45,7 @@ Matching is a deterministic baseline: 60% declared-skill coverage, 30% TF-IDF co
 
 Skill aliases are explicit and inspectable. They assist retrieval; rank does not confer a degree, certificate or civilian licence. Education equivalence is conservative, especially for diplomas. Experience durations from separate roles are not added, because they may overlap. Profile fields and facts remain self-declared.
 
-The optional Ollama adapter receives a role and fact objects, excluding candidate name/contact. It returns fact IDs in a JSON schema. The core rejects extra keys/prose, unknown or duplicate IDs, and omission of supplied education/certificates. The renderer obtains text from validated profile facts; model-generated text never enters a CV claim. Prompt injection can still distort selection/ranking, but cannot add candidate prose through this interface. Candidate review remains required.
+The optional Ollama adapter receives a role and fact objects, excluding candidate name/contact. It returns experience/achievement fact IDs in a JSON schema. Education and certificate IDs are outside the model choice and are retained by the application. The core rejects extra keys/prose and unknown or duplicate IDs, then validates the complete selection. The renderer obtains text from validated profile facts; model-generated text never enters a CV claim. Prompt injection can still distort selection/ranking, but cannot add candidate prose through this interface. Candidate review remains required.
 
 Every receipt contains the selected claim text and fact IDs, requirement assessment, source observations, and hashes of the CV text and normalised profile. SHA-256 is an integrity checksum, not a signature, authority attestation or credential verification. It should never be described as Army validation.
 
@@ -53,7 +53,7 @@ Every receipt contains the selected claim text and fact IDs, requirement assessm
 
 `npm test` exercises normal and adverse input. `npm run evaluate` reproduces three author-labelled synthetic cases and hashes its inputs. The sample feed has 15 records: 13 unique valid listings, one duplicate and one invalid record. Of the 13, ten are within their sample deadlines, one is expired, one is stale and one lacks a deadline.
 
-These small controlled examples do not support placement-rate, accuracy, fairness, multilingual-quality or production-readiness claims. A live local model, real vacancy transport and a consented user study are separate validations. See the release evidence for what was actually run.
+These small controlled examples do not support placement-rate, accuracy, fairness, multilingual-quality or production-readiness claims. A real local model and actual internet transport have now been exercised on synthetic data; see [live validation](../evidence/LIVE_VALIDATION.md). An authorised official feed and a consented user study remain separate validations.
 
 ## Sources checked on 2 November 2026
 
