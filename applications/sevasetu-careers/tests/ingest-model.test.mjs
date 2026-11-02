@@ -54,14 +54,15 @@ test('source hosts require explicit approval and may not resolve to private IPs'
   const result = await resolveSource(config, async () => [{ address: '8.8.8.8', family: 4 }]); assert.equal(result.address.address, '8.8.8.8');
 });
 test('optional local model uses loopback, excludes name/contact and validates selected facts', async () => {
-  const ids = p.facts.map(f => f.id).reverse(); let called = false;
+  const ids = p.facts.filter(f => f.kind === 'experience').map(f => f.id).reverse(); let called = false;
   const selected = await modelSelection({ ...p, contact: 'private@example.org' }, job, { model: 'local:test', fetcher: async (url, opts) => {
     called = true; assert.equal(url.hostname, '127.0.0.1');
     const body = JSON.parse(opts.body); assert.ok(!body.prompt.includes('private@example.org')); assert.ok(!body.prompt.includes(p.name));
+    assert.ok(!body.format.properties.fact_ids.items.enum.includes('edu_12'));
     assert.equal(body.stream, false);
     return new Response(JSON.stringify({ done: true, response: JSON.stringify({ fact_ids: ids }) }));
   } });
-  assert.ok(called); assert.deepEqual(selected, ids); assert.equal(buildCV(p, job, selected).receipt.claims.length, ids.length);
+  assert.ok(called); assert.deepEqual(selected, [...ids, 'edu_12', 'cert_computer']); assert.equal(buildCV(p, job, selected).receipt.claims.length, p.facts.length);
 });
 test('model endpoint cannot become a remote profile-exfiltration URL', async () => {
   for (const endpoint of ['https://example.org', 'http://localhost:11434', 'http://127.0.0.1.evil.example', 'http://127.0.0.1:11434/other']) await assert.rejects(modelSelection(p, job, { model: 'test', endpoint }));

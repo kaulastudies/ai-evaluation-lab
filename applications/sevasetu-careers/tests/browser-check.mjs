@@ -9,7 +9,8 @@ fs.mkdirSync(output,{recursive:true});
 const base = process.env.SEVASETU_BASE_URL || 'http://127.0.0.1:8090/';
 (async()=>{
  const proxy = process.env.SEVASETU_PROXY_SERVER ? { server: process.env.SEVASETU_PROXY_SERVER } : undefined;
- const browser=await chromium.launch({headless:true,proxy,executablePath:process.env.CHROMIUM_PATH || undefined,args:['--no-sandbox','--disable-dev-shm-usage','--disable-gpu','--no-zygote','--single-process']});
+ const args=process.env.SEVASETU_SINGLE_PROCESS==='1'?['--no-sandbox','--disable-dev-shm-usage','--disable-gpu','--no-zygote','--single-process']:['--disable-dev-shm-usage'];
+ const browser=await chromium.launch({headless:true,proxy,executablePath:process.env.CHROMIUM_PATH || undefined,args});
  const page=await browser.newPage({viewport:{width:1440,height:1100},deviceScaleFactor:1});
  const errors=[]; page.on('pageerror',e=>errors.push(e.message));
  await page.goto(base);
