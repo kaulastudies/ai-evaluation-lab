@@ -6,7 +6,7 @@
 [![Qiskit SDK 2.x tests](https://github.com/kaulastudies/ai-evaluation-lab/actions/workflows/qag-qiskit.yml/badge.svg)](https://github.com/kaulastudies/ai-evaluation-lab/actions/workflows/qag-qiskit.yml)
 [![OpenSSF Scorecard assessment workflow](https://github.com/kaulastudies/ai-evaluation-lab/actions/workflows/scorecard-analysis.yml/badge.svg)](https://github.com/kaulastudies/ai-evaluation-lab/actions/workflows/scorecard-analysis.yml)
 
-*These badges report GitHub Actions workflow results, not Qiskit Ecosystem approval, OpenSSF certification, or organization membership.*
+*The CI badges report GitHub Actions results, not independent certification. Qiskit Ecosystem membership applies specifically to the Quantum Agent Gate integration; it is not IBM or Qiskit endorsement of the broader Lab.*
 
 ## Reproducible evidence for AI systems and agents
 
@@ -33,6 +33,10 @@ runner, replay, repair-replay, metrics, and demo-evidence checks are gated in CI
 [RARB program](programs/repository-agent-reliability/README.md) | [RARB evidence brief](programs/repository-agent-reliability/demo/EVIDENCE_BRIEF.md) | [RARB demo status](programs/repository-agent-reliability/demo/DEMO_STATUS.md)
 
 [Capabilities](docs/CAPABILITIES.md) | [Evidence catalog](docs/EVIDENCE_CATALOG.md) | [Private engagements](docs/ENGAGEMENTS.md)
+
+### Qiskit Ecosystem member: Quantum Agent Gate
+
+[Quantum Agent Gate (QAG)](integrations/quantum-agent-gate/README.md) is an experimental, local-only Qiskit 2.x integration that checks execution permissions, resource limits, and duplicate requests before running quantum circuits. QAG was [accepted into the Qiskit Ecosystem via maintainer-reviewed PR #1427](https://github.com/Qiskit/ecosystem/pull/1427), merged November 1, 2026 (UTC). See its [official Qiskit Ecosystem profile](https://qiskit.github.io/ecosystem/p/7fac1a8e/). Membership covers QAG, not AI Evaluation Lab as a whole; it is not a security certification or endorsement.
 
 ### Applications built on the Lab
 
