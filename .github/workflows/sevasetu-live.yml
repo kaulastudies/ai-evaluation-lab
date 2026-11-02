@@ -6,12 +6,17 @@ on:
       - 'applications/sevasetu-careers/**'
       - '.github/workflows/sevasetu-live.yml'
   workflow_dispatch:
+  workflow_run:
+    workflows: ['ProofGate GitHub Pages']
+    types: [completed]
+    branches: [main]
 
 permissions:
   contents: read
 
 jobs:
   deployed-browser-and-source:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     timeout-minutes: 8
     defaults:
@@ -35,6 +40,21 @@ jobs:
           SEVASETU_BASE_URL: https://aievaluationlab.tech/sevasetu/
           SEVASETU_SCREENSHOTS: live-results/browser
         run: node tests/browser-check.mjs
+      - name: Check a short desktop window against the proposed branch
+        if: github.event_name == 'pull_request'
+        env:
+          SEVASETU_SCREENSHOTS: live-results/compact-candidate
+        run: |
+          node scripts/serve.mjs > "$RUNNER_TEMP/sevasetu.log" 2>&1 &
+          SEVASETU_SERVER_PID=$!
+          trap 'kill "$SEVASETU_SERVER_PID" 2>/dev/null || true' EXIT
+          node tests/compact-browser-check.mjs
+      - name: Check a short desktop window after deployment
+        if: github.event_name != 'pull_request'
+        env:
+          SEVASETU_BASE_URL: https://aievaluationlab.tech/sevasetu/
+          SEVASETU_SCREENSHOTS: live-results/compact-deployed
+        run: node tests/compact-browser-check.mjs
       - name: Retain public-site observations and exports
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
@@ -43,6 +63,7 @@ jobs:
           path: applications/sevasetu-careers/live-results/
 
   real-local-model:
+    if: github.event_name != 'workflow_run'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     defaults:
