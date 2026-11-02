@@ -24,7 +24,8 @@ try{
  const record=await text(page,'#record');assert(record.includes('Withheld in this view'));assert(!record.includes('1982-06-14'));assert(!record.includes('72,000'));
  await page.screenshot({path:output+'/desktop-record.png',fullPage:true});observations.push('record lookup with masked DOB and pay');
  await tab(page,'roles');await select(page,'#job','warehouse-supervisor');assert((await text(page,'#role-result')).includes('Recorded requirement gap'));
- await tab(page,'qualifications');await page.getByRole('button',{name:'Fill sample certificate',exact:true}).click();await page.getByRole('button',{name:'Submit for sample verification',exact:true}).click();await ready(page);
+ await tab(page,'qualifications');await page.getByRole('button',{name:'Fill sample certificate',exact:true}).click();await page.locator('#qualification-file').setInputFiles({name:'invalid.pdf',mimeType:'application/pdf',buffer:Buffer.from('not a PDF')});await ready(page);assert.equal(await page.locator('#qualification-hash').inputValue(),'');assert((await text(page,'#notice')).includes('file header'));
+ await page.getByRole('button',{name:'Fill sample certificate',exact:true}).click();assert.equal(await page.locator('#qualification-file').evaluate(el=>el.files.length),0);await page.getByRole('button',{name:'Submit for sample verification',exact:true}).click();await ready(page);
  assert((await text(page,'#qualification-list')).includes('Awaiting verification'));
  await tab(page,'roles');assert((await text(page,'#role-result')).includes('Evidence review needed'));
  await page.getByRole('button',{name:'Prepare verified-facts CV',exact:true}).click();await page.getByRole('dialog').waitFor();assert(!(await text(page,'#cv-text')).includes('Warehouse supervision certificate.'));await page.getByRole('button',{name:'Close CV preview',exact:true}).click();observations.push('submitted qualification stays pending and is excluded from CV');
