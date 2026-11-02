@@ -1,8 +1,11 @@
 # Evidence-to-Governance: Prospective Human-Review Study Protocol (DRAFT v0.2)
 
-**Author:** Rama Chandra M, AI Evaluation Lab  
-**Prepared:** 31 October 2026  
-**State:** Working protocol for critique, not preregistered; no human-review data have been collected and no outcome has been measured.  
+**Author:** Rama Chandra M, AI Evaluation Lab
+
+**Prepared:** 31 October 2026
+
+**State:** Working protocol for critique, not preregistered; no human-review data have been collected and no outcome has been measured.
+
 **Related outline:** [Research outline](OUTLINE_2026-10-31.md) | [Evidence version register](EVIDENCE_VERSION_REGISTER.md) | [Case-sheet template](REVIEWER_CASE_SHEET_TEMPLATE.md)
 
 ## 1. Narrow research question

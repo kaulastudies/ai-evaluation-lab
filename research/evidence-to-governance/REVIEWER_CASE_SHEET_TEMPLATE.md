@@ -1,6 +1,7 @@
 # Reviewer Case Sheet and Scoring Template — DRAFT (no collected responses)
 
-**Study protocol:** [PROTOCOL_DRAFT_v0.2.md](PROTOCOL_DRAFT_v0.2.md).  
+**Study protocol:** [PROTOCOL_DRAFT_v0.2.md](PROTOCOL_DRAFT_v0.2.md).
+
 **Status:** Template only; do not treat sample fields as human-review data. Final case packets, rubric, consent, and procedures must be frozen before recruitment.
 
 ## A. Case preparation (researcher, not shown to participant)
