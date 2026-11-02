@@ -1,0 +1,6 @@
+node_modules/
+package-lock.json
+imported-jobs.json
+candidate-cv.txt
+candidate-cv.txt.receipt.json
+live-results/

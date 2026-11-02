@@ -10,6 +10,13 @@ global6.addSubnet('2000::', 3, 'ipv6');
 for (const [ip, bits] of [['0.0.0.0', 8], ['10.0.0.0', 8], ['100.64.0.0', 10], ['127.0.0.0', 8], ['169.254.0.0', 16], ['172.16.0.0', 12], ['192.0.0.0', 24], ['192.0.2.0', 24], ['192.168.0.0', 16], ['198.18.0.0', 15], ['198.51.100.0', 24], ['203.0.113.0', 24], ['224.0.0.0', 4], ['240.0.0.0', 4]]) blocked4.addSubnet(ip, bits, 'ipv4');
 for (const [ip, bits] of [['::', 96], ['::ffff:0:0', 96], ['64:ff9b::', 96], ['100::', 64], ['2001::', 32], ['2001:db8::', 32], ['2002::', 16], ['fc00::', 7], ['fe80::', 10], ['ff00::', 8]]) blocked6.addSubnet(ip, bits, 'ipv6');
 export const publicIP = address => isIP(address) === 4 ? !blocked4.check(address, 'ipv4') : isIP(address) === 6 ? global6.check(address, 'ipv6') && !blocked6.check(address, 'ipv6') : false;
+export function acceptsContentType(value, format) {
+  const media = String(value).split(';')[0].trim().toLowerCase();
+  // Raw repository JSON is served as text/plain. It is still parsed strictly as
+  // JSON after the same host, DNS, size and timeout checks; never executed.
+  return format === 'json' ? ['application/json', 'text/json', 'text/plain'].includes(media) || /^application\/[\w.-]+\+json$/.test(media)
+    : format === 'jsonld' && ['text/html', 'application/xhtml+xml'].includes(media);
+}
 export async function resolveSource(config, resolve = lookup) {
   const u = new URL(canonicalURL(config.url));
   if (!Array.isArray(config.allowed_hosts) || !config.allowed_hosts.includes(u.hostname) || u.port && u.port !== '443') throw new Error('Source host/port is not explicitly approved');
@@ -29,7 +36,7 @@ export async function fetchSource(config) {
     }, res => {
       if (res.statusCode !== 200) { res.resume(); reject(new Error(`Source returned HTTP ${res.statusCode}; redirects are not followed`)); return; }
       const contentType = String(res.headers['content-type'] || '');
-      if (!/application\/(?:ld\+)?json|text\/html/i.test(contentType)) { res.destroy(); reject(new Error('Unsupported source content type')); return; }
+      if (!acceptsContentType(contentType, config.format)) { res.destroy(); reject(new Error('Unsupported source content type')); return; }
       const chunks = []; let bytes = 0;
       res.on('data', chunk => { bytes += chunk.length; if (bytes > 2_000_000) res.destroy(new Error('Source exceeds 2 MB')); else chunks.push(chunk); });
       res.on('error', reject);

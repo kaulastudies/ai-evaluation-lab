@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
-import { parseSource, ingest, resolveSource, publicIP } from '../scripts/ingest.mjs';
+import { parseSource, ingest, resolveSource, publicIP, acceptsContentType } from '../scripts/ingest.mjs';
 import { modelSelection } from '../scripts/local-model.mjs';
 import { prepareFeed, buildCV } from '../web/core.mjs';
 
@@ -10,6 +10,13 @@ const p = JSON.parse(await readFile(new URL('../web/data/profile.example.json', 
 const job = prepareFeed(JSON.parse(fixture)).jobs[0];
 const config = { name: 'Test source', url: 'https://jobs.example.org/export.json', allowed_hosts: ['jobs.example.org'], format: 'json', synthetic: true };
 const now = '2026-11-02T12:00:00Z';
+test('configured JSON sources accept raw-hosted JSON without accepting arbitrary binary or HTML', () => {
+  assert.equal(acceptsContentType('text/plain; charset=utf-8', 'json'), true);
+  assert.equal(acceptsContentType('application/json; charset=utf-8', 'json'), true);
+  assert.equal(acceptsContentType('application/octet-stream', 'json'), false);
+  assert.equal(acceptsContentType('text/html', 'json'), false);
+  assert.equal(acceptsContentType('text/html; charset=utf-8', 'jsonld'), true);
+});
 test('JSON source adapter preserves rejection evidence and synthetic status', () => {
   const result = parseSource(fixture, config, now);
   assert.equal(result.jobs.length, 13); assert.equal(result.rejected.length, 1);
