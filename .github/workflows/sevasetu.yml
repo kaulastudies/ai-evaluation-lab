@@ -1,0 +1,38 @@
+name: SevaSetu Careers checks
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'applications/sevasetu-careers/**'
+      - '.github/workflows/sevasetu.yml'
+  pull_request:
+    paths:
+      - 'applications/sevasetu-careers/**'
+      - '.github/workflows/sevasetu.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: applications/sevasetu-careers
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: '22'
+      - name: Syntax and contract tests
+        run: |
+          npm run check
+          npm test
+      - name: Reproduce synthetic evaluation evidence
+        run: |
+          npm run evaluate
+          git diff --exit-code -- evidence/offline-evaluation.json

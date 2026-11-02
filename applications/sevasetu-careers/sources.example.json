@@ -1,0 +1,9 @@
+[
+  {
+    "name": "SevaSetu public synthetic fixture",
+    "url": "https://raw.githubusercontent.com/kaulastudies/ai-evaluation-lab/main/applications/sevasetu-careers/web/data/jobs.json",
+    "format": "json",
+    "allowed_hosts": ["raw.githubusercontent.com"],
+    "synthetic": true
+  }
+]

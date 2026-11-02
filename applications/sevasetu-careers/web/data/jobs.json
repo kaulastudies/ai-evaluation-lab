@@ -1,0 +1,391 @@
+{
+  "schema_version": "0.1",
+  "reference_date": "2026-11-02T12:00:00Z",
+  "synthetic": true,
+  "source": {
+    "name": "Synthetic demonstration vacancies",
+    "url": "https://vacancies.example.org/",
+    "synthetic": true
+  },
+  "jobs": [
+    {
+      "id": "sample-warehouse",
+      "title": "Warehouse Coordinator",
+      "employer": "Sample Logistics Cooperative",
+      "url": "https://vacancies.example.org/sample-warehouse",
+      "domain": "logistics",
+      "location": "Varanasi",
+      "remote": false,
+      "skills": [
+        "inventory",
+        "excel",
+        "administration"
+      ],
+      "description": "Synthetic role for demonstrating warehouse coordinator matching. Review the employer advertisement before deciding whether to apply.",
+      "esm": true,
+      "salary": "Illustrative; not an actual offer",
+      "posted_at": "2026-10-28",
+      "valid_until": "2026-11-20",
+      "observed_at": "2026-11-02T08:00:00Z",
+      "synthetic": true,
+      "requirements": {
+        "education": "10+2",
+        "min_years": 2,
+        "certificates": [],
+        "review_required": false
+      }
+    },
+    {
+      "id": "sample-stores",
+      "title": "Stores and Records Assistant",
+      "employer": "Sample Facilities Services",
+      "url": "https://vacancies.example.org/sample-stores",
+      "domain": "logistics",
+      "location": "Lucknow",
+      "remote": false,
+      "skills": [
+        "inventory",
+        "record keeping",
+        "excel"
+      ],
+      "description": "Synthetic role for demonstrating stores and records assistant matching. Review the employer advertisement before deciding whether to apply.",
+      "esm": true,
+      "salary": "Illustrative; not an actual offer",
+      "posted_at": "2026-10-28",
+      "valid_until": "2026-11-20",
+      "observed_at": "2026-11-02T08:00:00Z",
+      "synthetic": true,
+      "requirements": {
+        "education": "10+2",
+        "min_years": 2,
+        "certificates": [],
+        "review_required": false
+      }
+    },
+    {
+      "id": "sample-fleet",
+      "title": "Fleet Operations Coordinator",
+      "employer": "Sample Transport Company",
+      "url": "https://vacancies.example.org/sample-fleet",
+      "domain": "logistics",
+      "location": "Delhi",
+      "remote": false,
+      "skills": [
+        "fleet operations",
+        "administration",
+        "excel"
+      ],
+      "description": "Synthetic role for demonstrating fleet operations coordinator matching. Review the employer advertisement before deciding whether to apply.",
+      "esm": true,
+      "salary": "Illustrative; not an actual offer",
+      "posted_at": "2026-10-28",
+      "valid_until": "2026-11-20",
+      "observed_at": "2026-11-02T08:00:00Z",
+      "synthetic": true,
+      "requirements": {
+        "education": "10+2",
+        "min_years": 2,
+        "certificates": [],
+        "review_required": false
+      }
+    },
+    {
+      "id": "sample-helpdesk",
+      "title": "IT Support Associate",
+      "employer": "Sample Support Services",
+      "url": "https://vacancies.example.org/sample-helpdesk",
+      "domain": "it",
+      "location": "Remote",
+      "remote": true,
+      "skills": [
+        "it support",
+        "networking",
+        "excel"
+      ],
+      "description": "Synthetic role for demonstrating it support associate matching. Review the employer advertisement before deciding whether to apply.",
+      "esm": true,
+      "salary": "Illustrative; not an actual offer",
+      "posted_at": "2026-10-28",
+      "valid_until": "2026-11-20",
+      "observed_at": "2026-11-02T08:00:00Z",
+      "synthetic": true,
+      "requirements": {
+        "education": "10+2",
+        "min_years": 2,
+        "certificates": [],
+        "review_required": false
+      }
+    },
+    {
+      "id": "sample-network",
+      "title": "Network Support Technician",
+      "employer": "Sample Digital Services",
+      "url": "https://vacancies.example.org/sample-network",
+      "domain": "it",
+      "location": "Noida",
+      "remote": false,
+      "skills": [
+        "networking",
+        "it support"
+      ],
+      "description": "Synthetic role for demonstrating network support technician matching. Review the employer advertisement before deciding whether to apply.",
+      "esm": true,
+      "salary": "Illustrative; not an actual offer",
+      "posted_at": "2026-10-28",
+      "valid_until": "2026-11-20",
+      "observed_at": "2026-11-02T08:00:00Z",
+      "synthetic": true,
+      "requirements": {
+        "education": "10+2",
+        "min_years": 2,
+        "certificates": [
+          "network certification"
+        ],
+        "review_required": false
+      }
+    },
+    {
+      "id": "sample-admin",
+      "title": "Administration Executive",
+      "employer": "Sample Business Services",
+      "url": "https://vacancies.example.org/sample-admin",
+      "domain": "administration",
+      "location": "Varanasi",
+      "remote": false,
+      "skills": [
+        "administration",
+        "record keeping",
+        "excel"
+      ],
+      "description": "Synthetic role for demonstrating administration executive matching. Review the employer advertisement before deciding whether to apply.",
+      "esm": true,
+      "salary": "Illustrative; not an actual offer",
+      "posted_at": "2026-10-28",
+      "valid_until": "2026-11-20",
+      "observed_at": "2026-11-02T08:00:00Z",
+      "synthetic": true,
+      "requirements": {
+        "education": "10+2",
+        "min_years": 2,
+        "certificates": [],
+        "review_required": false
+      }
+    },
+    {
+      "id": "sample-facilities",
+      "title": "Facilities Supervisor",
+      "employer": "Sample Property Services",
+      "url": "https://vacancies.example.org/sample-facilities",
+      "domain": "facilities",
+      "location": "Pune",
+      "remote": false,
+      "skills": [
+        "facilities",
+        "administration",
+        "inventory"
+      ],
+      "description": "Synthetic role for demonstrating facilities supervisor matching. Review the employer advertisement before deciding whether to apply.",
+      "esm": true,
+      "salary": "Illustrative; not an actual offer",
+      "posted_at": "2026-10-28",
+      "valid_until": "2026-11-20",
+      "observed_at": "2026-11-02T08:00:00Z",
+      "synthetic": true,
+      "requirements": {
+        "education": "10+2",
+        "min_years": 2,
+        "certificates": [],
+        "review_required": false
+      }
+    },
+    {
+      "id": "sample-hospital",
+      "title": "Hospital Records Coordinator",
+      "employer": "Sample Healthcare Trust",
+      "url": "https://vacancies.example.org/sample-hospital",
+      "domain": "healthcare",
+      "location": "Varanasi",
+      "remote": false,
+      "skills": [
+        "medical records",
+        "billing",
+        "administration"
+      ],
+      "description": "Synthetic role for demonstrating hospital records coordinator matching. Review the employer advertisement before deciding whether to apply.",
+      "esm": true,
+      "salary": "Illustrative; not an actual offer",
+      "posted_at": "2026-10-28",
+      "valid_until": "2026-11-20",
+      "observed_at": "2026-11-02T08:00:00Z",
+      "synthetic": true,
+      "requirements": {
+        "education": "10+2",
+        "min_years": 2,
+        "certificates": [],
+        "review_required": false
+      }
+    },
+    {
+      "id": "sample-graduate",
+      "title": "Graduate Operations Analyst",
+      "employer": "Sample Analytics Company",
+      "url": "https://vacancies.example.org/sample-graduate",
+      "domain": "administration",
+      "location": "Delhi",
+      "remote": false,
+      "skills": [
+        "excel",
+        "administration"
+      ],
+      "description": "Synthetic role for demonstrating graduate operations analyst matching. Review the employer advertisement before deciding whether to apply.",
+      "esm": true,
+      "salary": "Illustrative; not an actual offer",
+      "posted_at": "2026-10-28",
+      "valid_until": "2026-11-20",
+      "observed_at": "2026-11-02T08:00:00Z",
+      "synthetic": true,
+      "requirements": {
+        "education": "graduate",
+        "min_years": 2,
+        "certificates": [],
+        "review_required": false
+      }
+    },
+    {
+      "id": "sample-driver",
+      "title": "Heavy Vehicle Driver",
+      "employer": "Sample Mobility Services",
+      "url": "https://vacancies.example.org/sample-driver",
+      "domain": "logistics",
+      "location": "Lucknow",
+      "remote": false,
+      "skills": [
+        "fleet operations"
+      ],
+      "description": "Synthetic role for demonstrating heavy vehicle driver matching. Review the employer advertisement before deciding whether to apply.",
+      "esm": true,
+      "salary": "Illustrative; not an actual offer",
+      "posted_at": "2026-10-28",
+      "valid_until": "2026-11-20",
+      "observed_at": "2026-11-02T08:00:00Z",
+      "synthetic": true,
+      "requirements": {
+        "education": "10",
+        "min_years": 2,
+        "certificates": [
+          "heavy vehicle licence"
+        ],
+        "review_required": false
+      }
+    },
+    {
+      "id": "sample-expired",
+      "title": "Stores Supervisor \u2014 Closed Example",
+      "employer": "Sample Archived Employer",
+      "url": "https://vacancies.example.org/sample-expired",
+      "domain": "logistics",
+      "location": "Varanasi",
+      "remote": false,
+      "skills": [
+        "inventory"
+      ],
+      "description": "Synthetic role for demonstrating stores supervisor \u2014 closed example matching. Review the employer advertisement before deciding whether to apply.",
+      "esm": true,
+      "salary": "Illustrative; not an actual offer",
+      "posted_at": "2026-10-28",
+      "valid_until": "2026-10-30",
+      "observed_at": "2026-11-02T08:00:00Z",
+      "synthetic": true,
+      "requirements": {
+        "education": "10+2",
+        "min_years": 2,
+        "certificates": [],
+        "review_required": false
+      }
+    },
+    {
+      "id": "sample-stale",
+      "title": "Inventory Assistant \u2014 Old Snapshot",
+      "employer": "Sample Unchecked Employer",
+      "url": "https://vacancies.example.org/sample-stale",
+      "domain": "logistics",
+      "location": "Varanasi",
+      "remote": false,
+      "skills": [
+        "inventory"
+      ],
+      "description": "Synthetic role for demonstrating inventory assistant \u2014 old snapshot matching. Review the employer advertisement before deciding whether to apply.",
+      "esm": true,
+      "salary": "Illustrative; not an actual offer",
+      "posted_at": "2026-10-28",
+      "valid_until": "2026-11-20",
+      "observed_at": "2026-10-15T08:00:00Z",
+      "synthetic": true,
+      "requirements": {
+        "education": "10+2",
+        "min_years": 2,
+        "certificates": [],
+        "review_required": false
+      }
+    },
+    {
+      "id": "sample-unknown",
+      "title": "Operations Assistant \u2014 Deadline Missing",
+      "employer": "Sample Review Queue",
+      "url": "https://vacancies.example.org/sample-unknown",
+      "domain": "administration",
+      "location": "Varanasi",
+      "remote": false,
+      "skills": [
+        "administration"
+      ],
+      "description": "Synthetic role for demonstrating operations assistant \u2014 deadline missing matching. Review the employer advertisement before deciding whether to apply.",
+      "esm": true,
+      "salary": "Illustrative; not an actual offer",
+      "posted_at": "2026-10-28",
+      "valid_until": null,
+      "observed_at": "2026-11-02T08:00:00Z",
+      "synthetic": true,
+      "requirements": {
+        "education": "10+2",
+        "min_years": 2,
+        "certificates": [],
+        "review_required": false
+      }
+    },
+    {
+      "id": "sample-warehouse-duplicate",
+      "title": "Warehouse Coordinator",
+      "employer": "Sample Logistics Cooperative",
+      "url": "https://vacancies.example.org/sample-warehouse?utm_source=sample",
+      "domain": "logistics",
+      "location": "Varanasi",
+      "remote": false,
+      "skills": [
+        "inventory",
+        "excel",
+        "administration"
+      ],
+      "description": "Synthetic role for demonstrating warehouse coordinator matching. Review the employer advertisement before deciding whether to apply.",
+      "esm": true,
+      "salary": "Illustrative; not an actual offer",
+      "posted_at": "2026-10-28",
+      "valid_until": "2026-11-20",
+      "observed_at": "2026-11-02T08:00:00Z",
+      "synthetic": true,
+      "requirements": {
+        "education": "10+2",
+        "min_years": 2,
+        "certificates": [],
+        "review_required": false
+      }
+    },
+    {
+      "id": "invalid-example",
+      "title": "Malformed record for rejection control",
+      "employer": "Sample Bad Import",
+      "url": "javascript:alert(1)",
+      "valid_until": "30/11/2026"
+    }
+  ]
+}

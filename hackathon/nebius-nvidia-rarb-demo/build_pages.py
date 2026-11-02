@@ -54,6 +54,20 @@ def build_pages(output: Path) -> Path:
         "mode": "static_browser_verification_no_fresh_inference",
     }, indent=2) + "\n")
     shutil.copy2(HERE / "pages-index.html", output / "index.html")
+    # Publish the independent PDS 6 prototype beside ProofGate; no private profiles
+    # or network/model services are included in the static deployment.
+    careers = output / "sevasetu"
+    shutil.copytree(ROOT / "applications/sevasetu-careers/web", careers)
+    careers_hashes = {
+        p.relative_to(careers).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest()
+        for p in sorted(careers.rglob("*")) if p.is_file()
+    }
+    (careers / "deployment.json").write_text(json.dumps({
+        "repository": "https://github.com/kaulastudies/ai-evaluation-lab",
+        "source_commit": revision,
+        "mode": "synthetic_data_no_live_model_inference",
+        "files_sha256": careers_hashes,
+    }, indent=2) + "\n")
     (output / ".nojekyll").write_text("")
     print(f"Built {len(hashes)} public app files at {app}")
     return app

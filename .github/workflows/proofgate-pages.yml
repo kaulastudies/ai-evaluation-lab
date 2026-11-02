@@ -6,12 +6,14 @@ on:
     paths:
       - 'hackathon/nebius-nvidia-rarb-demo/**'
       - 'programs/repository-agent-reliability/**'
+      - 'applications/sevasetu-careers/**'
       - '.github/workflows/proofgate-pages.yml'
       - 'LICENSE'
   pull_request:
     paths:
       - 'hackathon/nebius-nvidia-rarb-demo/**'
       - 'programs/repository-agent-reliability/**'
+      - 'applications/sevasetu-careers/**'
       - '.github/workflows/proofgate-pages.yml'
       - 'LICENSE'
   workflow_dispatch:

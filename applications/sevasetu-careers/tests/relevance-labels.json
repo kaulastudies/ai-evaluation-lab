@@ -1,0 +1,8 @@
+{
+  "description": "Author-defined acceptance cases on synthetic fixtures, not human placement labels or a trained-model benchmark.",
+  "cases": [
+    { "profile": "logistics", "acceptable_first": ["sample-warehouse", "sample-stores", "sample-admin"], "must_withhold": ["sample-expired", "sample-stale", "sample-unknown"], "must_flag_gap": ["sample-graduate", "sample-driver", "sample-network"] },
+    { "profile": "it", "acceptable_first": ["sample-helpdesk"], "must_withhold": ["sample-expired", "sample-stale", "sample-unknown"], "must_flag_gap": ["sample-graduate", "sample-driver", "sample-network"] },
+    { "profile": "healthcare", "acceptable_first": ["sample-hospital"], "must_withhold": ["sample-expired", "sample-stale", "sample-unknown"], "must_flag_gap": ["sample-graduate", "sample-driver", "sample-network"] }
+  ]
+}

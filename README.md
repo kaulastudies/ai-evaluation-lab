@@ -46,6 +46,8 @@ runner, replay, repair-replay, metrics, and demo-evidence checks are gated in CI
 
 ProofGate is developed with mentorship from Prof. Nithya Ravi Kumar. See the [project's team and proposed research review responsibilities](hackathon/nebius-nvidia-rarb-demo/TEAM.md).
 
+**[SevaSetu Careers](applications/sevasetu-careers/README.md)** is an independent prototype for ex-servicemen employment search and candidate-fact-based CV preparation, addressing published PDS 6 in the Army Design Compendium 2025. It includes source/lifecycle checks, explainable matching, CV evidence receipts and an optional local-model fact selector. The [working demonstration](https://kaulastudies.github.io/ai-evaluation-lab/sevasetu/) uses synthetic data; no Army/AWPO affiliation, authorised database integration or live-model evaluation is claimed.
+
 ---
 
 ## Capabilities
