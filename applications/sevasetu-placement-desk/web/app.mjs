@@ -1,0 +1,57 @@
+import { connect } from './service.mjs';
+import { esc as e, digest, DeskError } from './domain.mjs';
+const $=s=>document.querySelector(s);
+let service,catalog,view,result,cv,busy=false,tab='record';
+const labels={documented_checks_met:'Documented checks met',needs_review:'Evidence review needed',recorded_gap:'Recorded requirement gap',not_open:'Application window closed'};
+const qLabel={verified:'Verified in sample source',pending:'Awaiting verification',conflicting:'Conflicting evidence',expired:'Expired at cutoff',revoked:'Revoked in sample source',needs_review:'Date or source review needed'};
+function note(message,error=false){$('#notice').textContent=message;$('#notice').className=error?'error':'success';}
+function show(name){tab=name;for(const p of document.querySelectorAll('.pane'))p.classList.toggle('hidden',p.id!==name+'-tab');for(const b of document.querySelectorAll('.nav'))b.classList.toggle('active',b.dataset.tab===name);}
+function download(name,value,type='application/json'){const u=URL.createObjectURL(new Blob([value],{type}));const a=document.createElement('a');a.href=u;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(u),1000);}
+async function act(fn){if(busy)return;busy=true;document.body.classList.add('busy');try{await fn();}catch(err){note(err.message,true);}finally{busy=false;document.body.classList.remove('busy');}}
+function purpose(){return $('#purpose').value;}
+function role(){return catalog.roles.find(r=>r.id===$('#job').value)||catalog.roles[0];}
+function empty(){const html='<div class="panel empty"><h3>No case open</h3><p>Retrieve an authorised sample record to continue. A failed lookup never leaves the previous record on screen.</p></div>';$('#record').innerHTML=html;$('#qualification-list').innerHTML=html;$('#role-result').innerHTML=html;$('#audit').innerHTML='No case open.';}
+async function lookup(){
+  const id=$('#candidate-id').value.trim().toUpperCase();view=null;result=null;cv=null;$('#cv-dialog').close();empty();
+  view=await service.lookup(id,purpose(),role().cutoff);result=await service.assess(id,role().id,purpose());render();
+  note('Sample record retrieved. Sources and review status are shown below.');
+}
+function field(label,value,source,warning=false){return `<div class="field"><span>${label}</span><strong class="${warning?'withheld':''}">${e(value)}</strong><small>${e(source)}</small></div>`;}
+function renderRecord(){
+  const s=view.service,du=s.duration;
+  $('#record').innerHTML=`<div class="case-head"><div><p class="eyebrow">${e(view.id)} / ${e(view.status.toUpperCase())}</p><h2>${e(view.name)}</h2><p class="small">Sample source checked ${e(view.snapshot.checked_on)} · ${e(view.snapshot.reference)}</p></div><span class="pill">Fictional source record</span></div><div class="field-grid panel">${field('Age at selected role cutoff',view.age_at_cutoff===null?'Needs DOB verification':view.age_at_cutoff+' completed years',view.cutoff+' · '+view.dob_reference)}${field('Date of birth',view.dob||'Withheld in this view',view.protected_fields.dob||'Sample source: '+view.dob_reference,!view.dob)}${field('Service period',s.start+' → '+s.end,s.source_ref)}${field('Recorded calendar service',du?du.years+' years, '+du.months+' months':'Needs source clarification','Completed intervals as of '+view.as_of+'; official reckonable service requires source confirmation')}${field('Last pay reference',view.last_pay?'INR '+view.last_pay.amount.toLocaleString('en-IN')+' / '+view.last_pay.period:'Withheld in this view',view.protected_fields.last_pay||view.last_pay.source_ref,!view.last_pay)}${field('Placement-use permission',view.consent.placement?'Enabled in sample record':'Not enabled','Purpose: '+purpose().replaceAll('_',' '))}</div><div class="panel"><div class="section-head"><div><h3>Qualifications already in the record</h3><p class="small">Being present in a database does not automatically make an item verified or current.</p></div><button id="open-qualifications" class="secondary">Review qualifications →</button></div>${qualificationRows(false)}</div><div class="callout"><strong>Role comparison:</strong> ${e(labels[result.state])}. Open Role checks & CV to see each requirement and its evidence.</div>`;
+  $('#open-qualifications').addEventListener('click',()=>show('qualifications'));
+}
+function qualificationRows(actions=true){return view.qualifications.map(q=>`<article class="qual-row"><div><h4>${e(q.title)}</h4><p>${e(q.issuer)} · ${e(q.serial)}</p><p class="small">${e(q.stage)} · awarded ${e(q.awarded_on)}${q.expires_on?' · valid until '+e(q.expires_on):' · no expiry supplied'}</p><p class="small">${e(q.verification?.reference||'No issuer/source confirmation recorded')}</p></div><div class="qual-state"><span class="status ${q.assessed_status==='verified'?'pass':'review'}">${e(qLabel[q.assessed_status])}</span>${actions&&q.assessed_status!=='verified'?catalog.actor.role==='verifier'&&purpose()==='record_verification'?`<button class="secondary verify" data-id="${e(q.id)}">Check sample issuer</button>`:'<p class="small">Verification requires the records-verifier role and record-verification purpose.</p>':''}</div></article>`).join('');}
+function renderQual(){
+  $('#qualification-list').innerHTML=`<div class="panel">${qualificationRows()}</div>`;
+  for(const button of document.querySelectorAll('.verify'))button.addEventListener('click',()=>act(async()=>{const response=await service.verify(view.id,button.dataset.id,purpose());await lookup();show('qualifications');note(response.explanation,response.status!=='verified');}));
+}
+function renderRole(){
+  $('#role-result').innerHTML=`<div class="result-banner ${result.state==='documented_checks_met'?'pass':'review'}"><p class="eyebrow">${e(result.role_title)}</p><h2>${e(labels[result.state])}</h2><p>Age and qualification cutoff: ${e(result.cutoff)} · sample application deadline ${e(role().deadline)}</p></div><div class="panel check-list">${result.rows.map(r=>`<div class="rule"><span class="rule-icon ${r.state}">${r.state==='pass'?'✓':r.state==='gap'?'!':'?'}</span><div><h4>${e(r.code.replaceAll('_',' ').replaceAll(':',' / '))}</h4><p>${e(r.message)}</p><small>${e(r.evidence.join(' · ')||'No supporting source reference')}</small></div><span class="status ${r.state}">${r.state==='pass'?'Supported':r.state==='gap'?'Not evidenced':'Review'}</span></div>`).join('')}</div><p class="small disclaimer">${e(result.disclaimer)}</p>`;
+}
+async function audit(){if(!view)return;const current=view,accessPurpose=purpose();const entries=await service.history(current.id,accessPurpose);if(view!==current||purpose()!==accessPurpose)return;$('#audit').innerHTML=entries.length?`<div class="audit-list">${entries.map(x=>`<div><strong>#${x.sequence} ${e(x.action.replaceAll('_',' '))}</strong><span>${e(x.role)} · ${e(x.purpose)} · ${e(x.result)}</span><code>${e(x.hash.slice(0,20))}…</code></div>`).join('')}</div>`:'No actions recorded for this sample case.';}
+function render(){if(!view)return empty();renderRecord();renderQual();renderRole();audit().catch(err=>note(err.message,true));}
+async function init(){
+  const connection=await connect();service=connection.service;await service.setRole('counsellor');catalog=await service.catalog();
+  $('#mode').textContent=connection.mode==='local_fixture_api'?'Local API demonstration · server checks access to sample records':'Public static demonstration · role permissions are simulated';
+  $('#sample-ids').innerHTML=catalog.sample_ids.map(x=>`<option value="${e(x.id)}">${e(x.name)}</option>`).join('');
+  $('#job').innerHTML=catalog.roles.map(r=>`<option value="${e(r.id)}">${e(r.title)}</option>`).join('');
+  for(const button of document.querySelectorAll('.nav'))button.addEventListener('click',()=>show(button.dataset.tab));
+  $('#lookup-form').addEventListener('submit',event=>{event.preventDefault();act(lookup);});
+  $('#actor').addEventListener('change',()=>act(async()=>{const next=$('#actor').value;view=null;empty();await service.setRole(next);catalog=await service.catalog();$('#sample-ids').innerHTML=catalog.sample_ids.map(x=>`<option value="${e(x.id)}">${e(x.name)}</option>`).join('');$('#purpose').value=next==='verifier'?'record_verification':'placement_review';$('#candidate-id').value=next==='candidate'?'ESM-DEMO-1001':$('#candidate-id').value;await lookup();}));
+  $('#purpose').addEventListener('change',()=>act(lookup));
+  $('#job').addEventListener('change',()=>act(lookup));
+  $('#sample-qualification').addEventListener('click',()=>{const q=catalog.submission_example;for(const [id,key]of[['title','title'],['issuer','issuer'],['serial','serial'],['code','code'],['awarded','awarded_on'],['expires','expires_on'],['hash','document_sha256']])$('#qualification-'+id).value=q[key]||'';note('Fictional certificate loaded. Submission will remain pending until the sample issuer check matches.');});
+  $('#qualification-file').addEventListener('change',()=>act(async()=>{const f=$('#qualification-file').files[0];if(!f)return;if(f.size>2000000)throw new DeskError('Use a test document no larger than 2 MB');const bytes=new Uint8Array(await f.arrayBuffer());const pdf=String.fromCharCode(...bytes.slice(0,5))==='%PDF-',png=bytes.slice(0,8).join(',')==='137,80,78,71,13,10,26,10',jpeg=bytes[0]===255&&bytes[1]===216&&bytes[2]===255;if(!pdf&&!png&&!jpeg)throw new DeskError('Test file header must be PDF, PNG or JPEG; this is not an authenticity check');$('#qualification-hash').value=[...new Uint8Array(await crypto.subtle.digest('SHA-256',bytes))].map(b=>b.toString(16).padStart(2,'0')).join('');note('Test document fingerprint recorded locally. Document contents have not been uploaded.');}));
+  $('#qualification-form').addEventListener('submit',event=>{event.preventDefault();act(async()=>{if(!view)throw new DeskError('Retrieve a sample record first');const q={kind:'certificate',code:$('#qualification-code').value,title:$('#qualification-title').value,issuer:$('#qualification-issuer').value,serial:$('#qualification-serial').value,awarded_on:$('#qualification-awarded').value,expires_on:$('#qualification-expires').value||null,document_sha256:$('#qualification-hash').value};await service.submit(view.id,q,purpose());await lookup();show('qualifications');note('Qualification submitted as pending. It is not credited in the CV or role checks until confirmed.');});});
+  $('#prepare-cv').addEventListener('click',()=>act(async()=>{if(!view)throw new DeskError('Retrieve a sample record first');cv=await service.cv(view.id,role().id,purpose());$('#cv-text').textContent=cv.text;$('#cv-dialog').showModal();}));
+  $('#close-cv').addEventListener('click',()=>$('#cv-dialog').close());
+  $('#download-cv').addEventListener('click',()=>cv&&download('placement-desk-cv.txt',cv.text,'text/plain;charset=utf-8'));
+  $('#download-receipt').addEventListener('click',()=>cv&&download('placement-desk-evidence.json',JSON.stringify(cv.receipt,null,2)));
+  $('#print-cv').addEventListener('click',()=>window.print());
+  $('#download-case').addEventListener('click',()=>act(async()=>{if(!view)throw new DeskError('Retrieve a sample record first');const payload={candidate_id:view.id,synthetic:true,role_comparison:result,audit:await service.history(view.id,purpose())};download('placement-desk-case-review.json',JSON.stringify(payload,null,2));}));
+  $('#refresh-audit').addEventListener('click',()=>act(audit));
+  await lookup();
+}
+init().catch(err=>{empty();note('Demonstration could not start: '+err.message,true);});

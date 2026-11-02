@@ -1,0 +1,97 @@
+name: SevaSetu Placement Desk verification
+
+on:
+  pull_request:
+    paths:
+      - 'applications/sevasetu-placement-desk/**'
+      - '.github/workflows/sevasetu-desk.yml'
+      - 'hackathon/nebius-nvidia-rarb-demo/build_pages.py'
+  workflow_dispatch:
+  workflow_run:
+    workflows: ['ProofGate GitHub Pages']
+    types: [completed]
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  candidate-api-and-static:
+    if: github.event_name != 'workflow_run'
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    defaults:
+      run:
+        working-directory: applications/sevasetu-placement-desk
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: '22'
+      - name: Test permissions, provenance, rules, HTTP API and Option A integrity
+        run: npm test && npm run evaluate && npm run check
+      - name: Install isolated browser tooling
+        run: |
+          npm install --no-save --package-lock=false playwright@1.62.1
+          npx playwright install --with-deps chromium
+      - name: Exercise the running Node API through the browser
+        env:
+          DESK_SOURCE_COMMIT: ${{ github.sha }}
+          DESK_EXPECT_COMMIT: ${{ github.sha }}
+          DESK_RESULTS: live-results/api-browser
+        run: |
+          node server.mjs > "$RUNNER_TEMP/desk-api.log" 2>&1 &
+          DESK_API_PID=$!
+          trap 'kill "$DESK_API_PID" 2>/dev/null || true' EXIT
+          node tests/browser-check.mjs
+      - name: Exercise the separate static build through the browser
+        env:
+          DESK_BASE_URL: http://127.0.0.1:8093/
+          DESK_EXPECT_COMMIT: ${{ github.sha }}
+          DESK_RESULTS: live-results/static-browser
+        run: |
+          node scripts/build-static.mjs "$RUNNER_TEMP/desk-static"
+          python3 -m http.server 8093 --bind 127.0.0.1 --directory "$RUNNER_TEMP/desk-static" > "$RUNNER_TEMP/desk-static.log" 2>&1 &
+          DESK_STATIC_PID=$!
+          trap 'kill "$DESK_STATIC_PID" 2>/dev/null || true' EXIT
+          node tests/browser-check.mjs
+      - name: Retain observations and screenshots
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: sevasetu-desk-candidate-validation
+          path: applications/sevasetu-placement-desk/live-results/
+
+  public-deployment:
+    if: github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    defaults:
+      run:
+        working-directory: applications/sevasetu-placement-desk
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: '22'
+      - name: Install isolated browser tooling
+        run: |
+          npm install --no-save --package-lock=false playwright@1.62.1
+          npx playwright install --with-deps chromium
+      - name: Test the actual public HTTPS demonstration
+        env:
+          DESK_BASE_URL: https://aievaluationlab.tech/sevasetu-desk/
+          DESK_EXPECT_COMMIT: ${{ github.event.workflow_run.head_sha }}
+          DESK_RESULTS: live-results/public-browser
+        run: node tests/browser-check.mjs
+      - name: Retain public-site observations and screenshots
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: sevasetu-desk-public-validation
+          path: applications/sevasetu-placement-desk/live-results/

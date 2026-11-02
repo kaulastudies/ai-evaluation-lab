@@ -1,0 +1,551 @@
+{
+  "reference_date": "2026-11-02",
+  "records": [
+    {
+      "id": "ESM-DEMO-1001",
+      "name": "Arun Kumar (sample)",
+      "status": "retired",
+      "dob": {
+        "value": "1982-06-14",
+        "status": "verified",
+        "source_ref": "DOB:ESM-DEMO-1001"
+      },
+      "service": {
+        "start": "2000-09-01",
+        "end": "2024-08-31",
+        "verification": "verified",
+        "source_ref": "RELEASE:ESM-DEMO-1001",
+        "trade": "Stores administration"
+      },
+      "last_pay": {
+        "amount": 72000,
+        "currency": "INR",
+        "period": "monthly",
+        "source_ref": "PAY:ESM-DEMO-1001"
+      },
+      "consent": {
+        "placement": true,
+        "pay_reference": true
+      },
+      "snapshot": {
+        "reference": "SNAPSHOT:ESM-DEMO-1001",
+        "checked_on": "2026-11-01"
+      },
+      "qualifications": [
+        {
+          "id": "school-ESM-DEMO-1001",
+          "title": "Completed 10+2.",
+          "kind": "education",
+          "level": "10+2",
+          "code": "school",
+          "issuer": "Sample Record Authority",
+          "serial": "SCHOOL-ESM-DEMO-1001",
+          "awarded_on": "1999-04-01",
+          "expires_on": null,
+          "status": "verified",
+          "document_sha256": "e6a7af9cfb782d098bfa71fb5cb21bd5cfebb52c44498b34c5c0109e27a9845d",
+          "verification": {
+            "reference": "REGISTER:school-ESM-DEMO-1001",
+            "authority": "Sample Record Authority",
+            "checked_on": "2026-11-01",
+            "reviewer": "sample-register"
+          }
+        },
+        {
+          "id": "computer-1001",
+          "title": "Basic computer applications course.",
+          "kind": "certificate",
+          "level": null,
+          "code": "computer-applications",
+          "issuer": "Sample Record Authority",
+          "serial": "COMPUTER-1001",
+          "awarded_on": "2018-04-01",
+          "expires_on": null,
+          "status": "verified",
+          "document_sha256": "6f46d10e107a0ab8019c9d2c3504d3159a7f19bea1a5fd7eaf9723bd572e1988",
+          "verification": {
+            "reference": "REGISTER:computer-1001",
+            "authority": "Sample Record Authority",
+            "checked_on": "2026-11-01",
+            "reviewer": "sample-register"
+          }
+        }
+      ],
+      "competencies": [
+        {
+          "skill": "inventory",
+          "years": 12,
+          "status": "verified",
+          "source_ref": "TRADE:ESM-DEMO-1001"
+        },
+        {
+          "skill": "excel",
+          "years": 6,
+          "status": "verified",
+          "source_ref": "COURSE:ESM-DEMO-1001"
+        }
+      ]
+    },
+    {
+      "id": "ESM-DEMO-1002",
+      "name": "Meera Singh (sample)",
+      "status": "retired",
+      "dob": {
+        "value": "1987-02-20",
+        "status": "verified",
+        "source_ref": "DOB:ESM-DEMO-1002"
+      },
+      "service": {
+        "start": "2006-08-01",
+        "end": "2024-08-01",
+        "verification": "verified",
+        "source_ref": "RELEASE:ESM-DEMO-1002",
+        "trade": "IT support"
+      },
+      "last_pay": {
+        "amount": 72000,
+        "currency": "INR",
+        "period": "monthly",
+        "source_ref": "PAY:ESM-DEMO-1002"
+      },
+      "consent": {
+        "placement": true,
+        "pay_reference": true
+      },
+      "snapshot": {
+        "reference": "SNAPSHOT:ESM-DEMO-1002",
+        "checked_on": "2026-11-01"
+      },
+      "qualifications": [
+        {
+          "id": "school-ESM-DEMO-1002",
+          "title": "Completed 10+2.",
+          "kind": "education",
+          "level": "10+2",
+          "code": "school",
+          "issuer": "Sample Record Authority",
+          "serial": "SCHOOL-ESM-DEMO-1002",
+          "awarded_on": "1999-04-01",
+          "expires_on": null,
+          "status": "verified",
+          "document_sha256": "4fdea97a319ae18c50450bd9914aaae112b8d61f6dfc4dd4501baabd99495599",
+          "verification": {
+            "reference": "REGISTER:school-ESM-DEMO-1002",
+            "authority": "Sample Record Authority",
+            "checked_on": "2026-11-01",
+            "reviewer": "sample-register"
+          }
+        },
+        {
+          "id": "network-1002",
+          "title": "Network support certification.",
+          "kind": "certificate",
+          "level": null,
+          "code": "network-support",
+          "issuer": "Sample Record Authority",
+          "serial": "NETWORK-1002",
+          "awarded_on": "2025-05-01",
+          "expires_on": "2028-05-01",
+          "status": "verified",
+          "document_sha256": "a1cf1ca0edf1a148ed19af2411cc05a5cc50125078fc6c63f93522a30ec0b79c",
+          "verification": {
+            "reference": "REGISTER:network-1002",
+            "authority": "Sample Record Authority",
+            "checked_on": "2026-11-01",
+            "reviewer": "sample-register"
+          }
+        }
+      ],
+      "competencies": [
+        {
+          "skill": "it support",
+          "years": 8,
+          "status": "verified",
+          "source_ref": "TRADE:1002"
+        },
+        {
+          "skill": "networking",
+          "years": 5,
+          "status": "verified",
+          "source_ref": "TRADE:1002-N"
+        }
+      ]
+    },
+    {
+      "id": "ESM-DEMO-1003",
+      "name": "Suresh Rao (sample)",
+      "status": "retired",
+      "dob": {
+        "value": "1974-11-20",
+        "status": "pending",
+        "source_ref": "DOB:ESM-DEMO-1003"
+      },
+      "service": {
+        "start": "2000-09-01",
+        "end": "2024-08-31",
+        "verification": "verified",
+        "source_ref": "RELEASE:ESM-DEMO-1003",
+        "trade": "Stores administration"
+      },
+      "last_pay": {
+        "amount": 72000,
+        "currency": "INR",
+        "period": "monthly",
+        "source_ref": "PAY:ESM-DEMO-1003"
+      },
+      "consent": {
+        "placement": true,
+        "pay_reference": true
+      },
+      "snapshot": {
+        "reference": "SNAPSHOT:ESM-DEMO-1003",
+        "checked_on": "2026-08-01"
+      },
+      "qualifications": [
+        {
+          "id": "school-ESM-DEMO-1003",
+          "title": "Completed 10+2.",
+          "kind": "education",
+          "level": "10+2",
+          "code": "school",
+          "issuer": "Sample Record Authority",
+          "serial": "SCHOOL-ESM-DEMO-1003",
+          "awarded_on": "1999-04-01",
+          "expires_on": null,
+          "status": "verified",
+          "document_sha256": "9a60171b5834a796edcdd9cb1bf6e4bce2b6d8693714c097850ddea392226f8e",
+          "verification": {
+            "reference": "REGISTER:school-ESM-DEMO-1003",
+            "authority": "Sample Record Authority",
+            "checked_on": "2026-11-01",
+            "reviewer": "sample-register"
+          }
+        },
+        {
+          "id": "licence-1003",
+          "title": "Heavy vehicle driving licence.",
+          "kind": "certificate",
+          "level": null,
+          "code": "heavy-vehicle-licence",
+          "issuer": "Sample Record Authority",
+          "serial": "LICENCE-1003",
+          "awarded_on": "2024-01-01",
+          "expires_on": "2028-01-01",
+          "status": "revoked",
+          "document_sha256": "0631243f6fa30e1e8531eb54b7f9e113f0406542f24910390f30ef8baba47442",
+          "verification": null
+        }
+      ],
+      "competencies": [
+        {
+          "skill": "inventory",
+          "years": 12,
+          "status": "verified",
+          "source_ref": "TRADE:ESM-DEMO-1003"
+        },
+        {
+          "skill": "excel",
+          "years": 6,
+          "status": "verified",
+          "source_ref": "COURSE:ESM-DEMO-1003"
+        }
+      ]
+    },
+    {
+      "id": "ESM-DEMO-1004",
+      "name": "Dev Patel (sample)",
+      "status": "retiring",
+      "dob": {
+        "value": "1985-03-05",
+        "status": "verified",
+        "source_ref": "DOB:ESM-DEMO-1004"
+      },
+      "service": {
+        "start": "2000-09-01",
+        "end": "2026-12-31",
+        "verification": "verified",
+        "source_ref": "RELEASE:ESM-DEMO-1004",
+        "trade": "Stores administration"
+      },
+      "last_pay": {
+        "amount": 81000,
+        "currency": "INR",
+        "period": "monthly",
+        "source_ref": "PAY:ESM-DEMO-1004"
+      },
+      "consent": {
+        "placement": true,
+        "pay_reference": true
+      },
+      "snapshot": {
+        "reference": "SNAPSHOT:ESM-DEMO-1004",
+        "checked_on": "2026-11-01"
+      },
+      "qualifications": [
+        {
+          "id": "school-ESM-DEMO-1004",
+          "title": "Completed 10+2.",
+          "kind": "education",
+          "level": "10+2",
+          "code": "school",
+          "issuer": "Sample Record Authority",
+          "serial": "SCHOOL-ESM-DEMO-1004",
+          "awarded_on": "1999-04-01",
+          "expires_on": null,
+          "status": "verified",
+          "document_sha256": "9666adb8b4996f02949217730ed03c5fa83dd68881eaf30d23ebc6ad03344d4b",
+          "verification": {
+            "reference": "REGISTER:school-ESM-DEMO-1004",
+            "authority": "Sample Record Authority",
+            "checked_on": "2026-11-01",
+            "reviewer": "sample-register"
+          }
+        }
+      ],
+      "competencies": [
+        {
+          "skill": "inventory",
+          "years": 12,
+          "status": "verified",
+          "source_ref": "TRADE:ESM-DEMO-1004"
+        },
+        {
+          "skill": "excel",
+          "years": 6,
+          "status": "verified",
+          "source_ref": "COURSE:ESM-DEMO-1004"
+        }
+      ]
+    },
+    {
+      "id": "ESM-DEMO-1005",
+      "name": "Protected record (sample)",
+      "status": "retired",
+      "dob": {
+        "value": "1988-04-14",
+        "status": "verified",
+        "source_ref": "DOB:ESM-DEMO-1005"
+      },
+      "service": {
+        "start": "2000-09-01",
+        "end": "2024-08-31",
+        "verification": "verified",
+        "source_ref": "RELEASE:ESM-DEMO-1005",
+        "trade": "Stores administration"
+      },
+      "last_pay": {
+        "amount": 72000,
+        "currency": "INR",
+        "period": "monthly",
+        "source_ref": "PAY:ESM-DEMO-1005"
+      },
+      "consent": {
+        "placement": false,
+        "pay_reference": true
+      },
+      "snapshot": {
+        "reference": "SNAPSHOT:ESM-DEMO-1005",
+        "checked_on": "2026-11-01"
+      },
+      "qualifications": [
+        {
+          "id": "school-ESM-DEMO-1005",
+          "title": "Completed 10+2.",
+          "kind": "education",
+          "level": "10+2",
+          "code": "school",
+          "issuer": "Sample Record Authority",
+          "serial": "SCHOOL-ESM-DEMO-1005",
+          "awarded_on": "1999-04-01",
+          "expires_on": null,
+          "status": "verified",
+          "document_sha256": "e900abf65ad2a70173762aae811027f576a5cd17a98e66f4a6b43379f028a693",
+          "verification": {
+            "reference": "REGISTER:school-ESM-DEMO-1005",
+            "authority": "Sample Record Authority",
+            "checked_on": "2026-11-01",
+            "reviewer": "sample-register"
+          }
+        }
+      ],
+      "competencies": [
+        {
+          "skill": "inventory",
+          "years": 12,
+          "status": "verified",
+          "source_ref": "TRADE:ESM-DEMO-1005"
+        },
+        {
+          "skill": "excel",
+          "years": 6,
+          "status": "verified",
+          "source_ref": "COURSE:ESM-DEMO-1005"
+        }
+      ]
+    }
+  ],
+  "roles": [
+    {
+      "id": "warehouse-assistant",
+      "title": "Warehouse Coordinator",
+      "employer": "Sample employer \u2014 not an actual vacancy",
+      "education": "10+2",
+      "certificates": [],
+      "experience": [
+        {
+          "skill": "inventory",
+          "min_years": 2
+        }
+      ],
+      "min_age": 18,
+      "max_age": 55,
+      "accepted_statuses": [
+        "retired"
+      ],
+      "deadline": "2026-11-20",
+      "cutoff": "2026-11-20",
+      "source_ref": "ROLE:warehouse-assistant",
+      "synthetic": true
+    },
+    {
+      "id": "warehouse-supervisor",
+      "title": "Warehouse Supervisor",
+      "employer": "Sample employer \u2014 not an actual vacancy",
+      "education": "10+2",
+      "certificates": [
+        "warehouse-supervision"
+      ],
+      "experience": [
+        {
+          "skill": "inventory",
+          "min_years": 2
+        }
+      ],
+      "min_age": 18,
+      "max_age": 55,
+      "accepted_statuses": [
+        "retired"
+      ],
+      "deadline": "2026-11-20",
+      "cutoff": "2026-11-20",
+      "source_ref": "ROLE:warehouse-supervisor",
+      "synthetic": true
+    },
+    {
+      "id": "network-support",
+      "title": "Network Support Technician",
+      "employer": "Sample employer \u2014 not an actual vacancy",
+      "education": "10+2",
+      "certificates": [
+        "network-support"
+      ],
+      "experience": [
+        {
+          "skill": "networking",
+          "min_years": 2
+        }
+      ],
+      "min_age": 18,
+      "max_age": 55,
+      "accepted_statuses": [
+        "retired"
+      ],
+      "deadline": "2026-11-20",
+      "cutoff": "2026-11-20",
+      "source_ref": "ROLE:network-support",
+      "synthetic": true
+    },
+    {
+      "id": "graduate-analyst",
+      "title": "Graduate Operations Analyst",
+      "employer": "Sample employer \u2014 not an actual vacancy",
+      "education": "graduate",
+      "certificates": [],
+      "experience": [
+        {
+          "skill": "excel",
+          "min_years": 2
+        }
+      ],
+      "min_age": 18,
+      "max_age": 55,
+      "accepted_statuses": [
+        "retired"
+      ],
+      "deadline": "2026-11-20",
+      "cutoff": "2026-11-20",
+      "source_ref": "ROLE:graduate-analyst",
+      "synthetic": true
+    },
+    {
+      "id": "driver",
+      "title": "Heavy Vehicle Driver",
+      "employer": "Sample employer \u2014 not an actual vacancy",
+      "education": "10+2",
+      "certificates": [
+        "heavy-vehicle-licence"
+      ],
+      "experience": [
+        {
+          "skill": "fleet operations",
+          "min_years": 2
+        }
+      ],
+      "min_age": 18,
+      "max_age": 55,
+      "accepted_statuses": [
+        "retired"
+      ],
+      "deadline": "2026-11-20",
+      "cutoff": "2026-11-20",
+      "source_ref": "ROLE:driver",
+      "synthetic": true
+    },
+    {
+      "id": "closed",
+      "title": "Closed sample vacancy",
+      "employer": "Sample employer \u2014 not an actual vacancy",
+      "education": "10+2",
+      "certificates": [],
+      "experience": [
+        {
+          "skill": "inventory",
+          "min_years": 2
+        }
+      ],
+      "min_age": 18,
+      "max_age": 55,
+      "accepted_statuses": [
+        "retired"
+      ],
+      "deadline": "2026-10-20",
+      "cutoff": "2026-11-20",
+      "source_ref": "ROLE:closed",
+      "synthetic": true
+    }
+  ],
+  "submission_example": {
+    "kind": "certificate",
+    "code": "warehouse-supervision",
+    "title": "Warehouse supervision certificate.",
+    "issuer": "Sample Skills Institute",
+    "serial": "WS-DEMO-1001",
+    "awarded_on": "2026-10-10",
+    "expires_on": "2027-10-10",
+    "document_sha256": "96379d72beeb7ebd60ae7f0fd6b70d80671dbd6227365e48815ab7e04cccc0d0"
+  },
+  "issuer_registry": [
+    {
+      "kind": "certificate",
+      "code": "warehouse-supervision",
+      "title": "Warehouse supervision certificate.",
+      "issuer": "Sample Skills Institute",
+      "serial": "WS-DEMO-1001",
+      "awarded_on": "2026-10-10",
+      "expires_on": "2027-10-10",
+      "document_sha256": "96379d72beeb7ebd60ae7f0fd6b70d80671dbd6227365e48815ab7e04cccc0d0",
+      "candidate_id": "ESM-DEMO-1001",
+      "revoked": false
+    }
+  ]
+}
