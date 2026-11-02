@@ -1,0 +1,18 @@
+{
+  "base_url": "https://aievaluationlab.tech/sevasetu/",
+  "environment": "public_deployment",
+  "tested_at": "2026-11-02T12:35:08.837Z",
+  "deployed_source_commit": "124d22d0ffd448c3c9eeac342e361a2fec0161b9",
+  "desktop": "PASS",
+  "cv_export": "PASS",
+  "receipt_export": "PASS",
+  "cv_hash_matches_download": true,
+  "print": "generated for visual review",
+  "review_queue": "PASS",
+  "profile_switch": "PASS",
+  "vacancy_import": "PASS",
+  "filters": "PASS",
+  "demo_checks": 5,
+  "mobile_overflow": "none",
+  "page_errors": []
+}
