@@ -89,6 +89,9 @@ def build_pages(output: Path) -> Path:
     rtih_preview = output / "rtih"
     rtih_preview.mkdir(parents=True, exist_ok=True)
     shutil.copy2(HERE / "rtih-preview.html", rtih_preview / "index.html")
+    rtih_guest = rtih_preview / "demo"
+    rtih_guest.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(HERE / "rtih-demo.html", rtih_guest / "index.html")
     (output / ".nojekyll").write_text("")
     print(f"Built {len(hashes)} public app files at {app}")
     return app
