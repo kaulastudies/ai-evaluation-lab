@@ -85,6 +85,10 @@ def build_pages(output: Path) -> Path:
         "synthetic": True,
         "files_sha256": desk_hashes,
     }, indent=2) + "\n")
+    # Deliberately public presentation only; private RTIH implementation is never copied.
+    rtih_preview = output / "rtih"
+    rtih_preview.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(HERE / "rtih-preview.html", rtih_preview / "index.html")
     (output / ".nojekyll").write_text("")
     print(f"Built {len(hashes)} public app files at {app}")
     return app
