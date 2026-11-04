@@ -1,0 +1,107 @@
+{
+  "schema": "proofgate-work-sample/0.1",
+  "declaration": {
+    "alias": "Demonstration participant — not a real beneficiary",
+    "contribution": "Illustrative review note: the initial patch passes the public test but loses duplicate rows and changes zero, False and empty-note values. A reviewer should check the task contract and the four independent gates before accepting the result. The repair preserves the required values. This note is an example, not evidence that a person independently completed the task.",
+    "ai_assistance": "This demonstration packet and explanation were prepared with AI assistance. Both candidate patches are recorded outputs of Ollama llama3:latest from the public RARB experiment. No human authorship claim is made for them.",
+    "sharing_consent": true
+  },
+  "declaration_status": "SELF_REPORTED_NOT_IDENTITY_VERIFIED",
+  "samples": [
+    {
+      "task": "AP-005",
+      "run": "ap005-ollama-llama3-001",
+      "verdict": "VERIFIED_FAIL",
+      "public_tests_passed": true,
+      "false_green": true,
+      "gates": [
+        {
+          "id": "AP005-G01",
+          "passed": false,
+          "diagnostic": "row cardinality/order or duplicate identifier preservation changed"
+        },
+        {
+          "id": "AP005-G02",
+          "passed": false,
+          "diagnostic": "integer/boolean edge-case values or types changed"
+        },
+        {
+          "id": "AP005-G03",
+          "passed": false,
+          "diagnostic": "optional note semantics collapsed distinct states"
+        },
+        {
+          "id": "AP005-G04",
+          "passed": false,
+          "diagnostic": "source rows were mutated or output field surface changed"
+        }
+      ],
+      "record_hash": "605d66987eaddd08bb1513873f3c6dee2b865bcdf3481079a5e0f4a9955a5c9c",
+      "evidence_commit": "19ab17439f24a5b010e7136e37ba505d23785225",
+      "evaluator_commit": "a364e12c3c4c86e077810a9c9eea8f3756bb50e4",
+      "evidence_url": "https://github.com/kaulastudies/ai-evaluation-lab/tree/19ab17439f24a5b010e7136e37ba505d23785225/programs/repository-agent-reliability/tasks/AP-005/evidence/live/ap005-ollama-llama3-001",
+      "task_url": "https://github.com/kaulastudies/ai-evaluation-lab/blob/19ab17439f24a5b010e7136e37ba505d23785225/programs/repository-agent-reliability/tasks/AP-005/agent_brief.md",
+      "model": "llama3:latest",
+      "provider": "ollama",
+      "code_origin": "Recorded AI-generated candidate; not claimant-authored code",
+      "artifact_hashes": {
+        "evaluation.json": "70660a06c1806d0f8510a50b9d5b9aeaaf413c2b8ea3c6b1a5a75cd22d28e142",
+        "manifest.json": "43007f47f5d93426ad495b0f919e77b87a8668bed6c4a21ddf87d93ca29967db",
+        "model-response.txt": "414a736158e7be5982eec75c77444e6e06f7fb8c54cc55d195e4997f088f4fb4",
+        "candidate-record_transformer.py": "c0c00d9815fff64e60ad16b66980cafcabae7282a7993bc4f488cd9c8459743d",
+        "replay-report.json": "df2ab9ca1b0bf4ac6e87145904ff96eac7f87113e73dca9c5b18d189120e62de"
+      },
+      "integrity_status": "MATCHED_PINNED_PUBLIC_EVIDENCE",
+      "replay_status": "Stored historical source-exact replay; export does not rerun the verifier"
+    },
+    {
+      "task": "AP-005",
+      "run": "ap005-ollama-llama3-002-repair",
+      "verdict": "VERIFIED_PASS",
+      "public_tests_passed": true,
+      "false_green": false,
+      "gates": [
+        {
+          "id": "AP005-G01",
+          "passed": true,
+          "diagnostic": "row cardinality/order and duplicate identifiers are preserved"
+        },
+        {
+          "id": "AP005-G02",
+          "passed": true,
+          "diagnostic": "integer and boolean values preserve exact values and types"
+        },
+        {
+          "id": "AP005-G03",
+          "passed": true,
+          "diagnostic": "missing, empty-string, and explicit-null note semantics are preserved"
+        },
+        {
+          "id": "AP005-G04",
+          "passed": true,
+          "diagnostic": "source rows are unchanged and outputs expose exactly public fields"
+        }
+      ],
+      "record_hash": "a14947497ef4f519f7d485f7a498ed31193197ee55241cfd0b963471c9e7f946",
+      "evidence_commit": "19ab17439f24a5b010e7136e37ba505d23785225",
+      "evaluator_commit": "3ddedc0247eb5af6506d033703e87cf9a420fd1c",
+      "evidence_url": "https://github.com/kaulastudies/ai-evaluation-lab/tree/19ab17439f24a5b010e7136e37ba505d23785225/programs/repository-agent-reliability/tasks/AP-005/evidence/live/ap005-ollama-llama3-002-repair",
+      "task_url": "https://github.com/kaulastudies/ai-evaluation-lab/blob/19ab17439f24a5b010e7136e37ba505d23785225/programs/repository-agent-reliability/tasks/AP-005/agent_brief.md",
+      "model": "llama3:latest",
+      "provider": "ollama",
+      "code_origin": "Recorded AI-generated candidate; not claimant-authored code",
+      "artifact_hashes": {
+        "evaluation.json": "b1240a91d487eb139a19dffa138be87c3b8e4fcfd4770da8eeea4850f40c2257",
+        "manifest.json": "0940e5d67c2338f88a1a3d00a8f266e6f7e401c150df6bbeec6d82949415dfa3",
+        "model-response.txt": "dc993bab09efaab3dc5f388c1fb8ddd078c03f5ae43c87d49e3fe8ab96c3c7cd",
+        "candidate-record_transformer.py": "181a0d0f7b9ddb15679563ef8ead1cf6d9dfcd4521037b0924233dadd68283f0",
+        "replay-report.json": "41550c69b57c6ba9f9f573fb3c0f5696af97fcf509e374d518100ccd892a89c2"
+      },
+      "integrity_status": "MATCHED_PINNED_PUBLIC_EVIDENCE",
+      "replay_status": "Stored historical source-exact replay; export does not rerun the verifier"
+    }
+  ],
+  "boundary": "This packet documents a software artifact and a self-reported contribution. It does not verify identity, authorship, independent ability, qualifications, or suitability for employment. These public practice samples can be studied and copied; they are unsuitable as a secret or proctored hiring test.",
+  "employment_outcomes": "No measured employment or income outcomes",
+  "packet_sha256": "b26f2c2746d5e42cebc66ad6cf536a5146427864d7bb07a29094febad4d93faf"
+}
