@@ -15,6 +15,8 @@ if str(RUNNER_ROOT) not in sys.path:
     sys.path.insert(0, str(RUNNER_ROOT))
 
 from engine import canonical_json_hash
+from security import validate_record
+from evidence_trust import authenticate_directory, authenticate_attempt
 
 
 EXPERIMENT_ID = "phase-12-cross-model-replication-v1"
@@ -48,6 +50,7 @@ def sha256_file(path: Path) -> str:
 
 def main() -> int:
     plan = load_json(PLAN)
+    authenticate_directory(RESULT_ROOT, "experiments/results/" + EXPERIMENT_ID)
     promotion = load_json(RESULT_ROOT / "promotion.json")
     ledger = load_json(RESULT_ROOT / "batch-ledger.json")
     summary = load_json(RESULT_ROOT / "batch-summary.json")
@@ -70,7 +73,11 @@ def main() -> int:
         manifest = load_json(evidence / "manifest.json")
         record = load_json(evidence / "evaluation.json")
         replay = load_json(evidence / "replay.json")
+        authenticate_attempt(evidence, record)
         scored = record["evaluation"]
+        validate_record(scored)
+        if manifest["candidate_sha256"] != record["candidate_sha256"] or scored["candidate_sha256"] != record["candidate_sha256"]:
+            raise ValueError("Candidate identity differs between evaluation and manifest")
 
         files_ok = all(
             (evidence / name).is_file()

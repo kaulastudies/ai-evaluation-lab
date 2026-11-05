@@ -1,20 +1,18 @@
 from __future__ import annotations
-import argparse, importlib.util, json, sys
+import argparse, json, sys
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "runner"))
+from candidate_proxy import remote_class
+
 
 TASK_ID="AP-002"
 TASK_VERSION="0.1.0"
-VERIFIER_VERSION="0.1.0"
+VERIFIER_VERSION = "0.2.0"
 
 def load_policy(root: Path):
-    source=root/"app"/"workspace_policy.py"
-    if not source.is_file(): raise FileNotFoundError(f"Missing candidate source: {source}")
-    spec=importlib.util.spec_from_file_location("rarb_ap002_candidate",source)
-    if spec is None or spec.loader is None: raise RuntimeError(f"Unable to load candidate: {source}")
-    module=importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    if not hasattr(module,"WorkspacePolicy"): raise RuntimeError("Candidate does not define WorkspacePolicy")
-    return module.WorkspacePolicy()
+    return remote_class(root, "AP-002")()
+
 
 def gate(i,p,d): return {"id":i,"passed":bool(p),"diagnostic":d}
 

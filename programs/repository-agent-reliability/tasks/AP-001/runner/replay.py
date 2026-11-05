@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import argparse
 import hashlib
 import json
 from pathlib import Path
@@ -50,6 +51,19 @@ def run(command: list[str], cwd: Path) -> subprocess.CompletedProcess[str]:
 
 
 def main() -> int:
+    global BUNDLE_ROOT
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--bundle-dir", type=Path, default=BUNDLE_ROOT)
+    BUNDLE_ROOT = parser.parse_args().bundle_dir.resolve()
+    # A bundle's self-supplied verifier and manifest are not a trust anchor.
+    # Invoke this entry point from a reviewed repository checkout.
+    task_root = Path(__file__).resolve().parents[1]
+    trusted_runner = task_root.parents[1] / "runner"
+    if not (trusted_runner / "candidate_proxy.py").is_file():
+        raise RuntimeError("HOLD: standalone legacy bundles require a reviewed secure runner checkout")
+    sys.path.insert(0, str(trusted_runner))
+    from candidate_proxy import public_validation, verify
+    from security import read_confined
     manifest = json.loads(
         (BUNDLE_ROOT / "manifest.json").read_text(encoding="utf-8")
     )
@@ -65,7 +79,7 @@ def main() -> int:
         if not path.is_file():
             hash_failures.append(f"{relative}: missing")
             continue
-        actual = sha256_file(path)
+        actual = hashlib.sha256(read_confined(BUNDLE_ROOT, relative)).hexdigest()
         if actual != expected_hash:
             hash_failures.append(
                 f"{relative}: expected {expected_hash}, actual {actual}"
@@ -80,41 +94,14 @@ def main() -> int:
     record_hash_ok = canonical_hash(record) == record.get("record_hash")
 
     candidate_root = BUNDLE_ROOT / "candidate"
-    public = run(
-        [
-            sys.executable,
-            "-m",
-            "unittest",
-            "discover",
-            "-s",
-            "tests/public",
-            "-v",
-        ],
-        candidate_root,
-    )
+    if not record_hash_ok:
+        raise ValueError("Evaluation record hash mismatch before execution")
+    if hashlib.sha256(read_confined(BUNDLE_ROOT, "candidate/app/resource_view.py")).hexdigest() != record["candidate_sha256"]:
+        raise ValueError("Candidate identity mismatch before execution")
+    public = public_validation(task_root, candidate_root, "AP-001")
     public_passed = public.returncode == 0
-    public_match = (
-        public_passed
-        == bool(record["public_validation"]["passed"])
-    )
-
-    verifier_process = run(
-        [
-            sys.executable,
-            str(BUNDLE_ROOT / "verifier" / "acceptance.py"),
-            str(candidate_root),
-            "--json",
-        ],
-        BUNDLE_ROOT,
-    )
-
-    try:
-        raw_verification = json.loads(verifier_process.stdout)
-    except json.JSONDecodeError:
-        print("VERIFIER OUTPUT WAS NOT VALID JSON")
-        print(verifier_process.stdout)
-        print(verifier_process.stderr, file=sys.stderr)
-        return 3
+    public_match = public_passed == bool(record["public_validation"]["passed"])
+    raw_verification = verify(task_root, candidate_root)
 
     verification = normalize_verification(raw_verification)
     verifier_match = verification == record["verification"]

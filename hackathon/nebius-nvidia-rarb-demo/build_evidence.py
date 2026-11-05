@@ -27,7 +27,8 @@ def evidence_path(case: str) -> Path:
 def build() -> dict:
     # Bind links to the commit that last changed canonical evidence, not UI commits.
     ref = subprocess.check_output(
-        ["git", "log", "-1", "--format=%H", "--", "programs/repository-agent-reliability"],
+        ["git", "log", "-1", "--format=%H", "--", "programs/repository-agent-reliability/tasks/*/evidence/live",
+         "programs/repository-agent-reliability/metrics/summary.json"],
         cwd=ROOT, text=True,
     ).strip()
     bundle = {
@@ -79,7 +80,7 @@ def build_browser() -> dict:
         root = PROGRAM / "tasks" / task_id
         config = json.loads((root / "runtime.json").read_text())
         public = next((root / "fixture/tests/public").glob("test_*.py"))
-        verifier = root / config["verifier_path"]
+        verifier = HERE / "browser-verifiers" / f"{task_id}.py"
         result["tasks"][task_id] = {
             "candidate_path": config["candidate_path"], "admission": config["admission"],
             "public_source": public.read_bytes().decode(), "verifier_source": verifier.read_bytes().decode(),

@@ -1,38 +1,23 @@
 from __future__ import annotations
 
 import argparse
-import importlib.util
 import json
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "runner"))
+from candidate_proxy import remote_class
+
 import sys
 
 
 TASK_ID = "AP-004"
 TASK_VERSION = "0.1.0"
-VERIFIER_VERSION = "0.1.0"
+VERIFIER_VERSION = "0.2.0"
 PUBLIC_KEYS = {"id", "name", "email", "nickname"}
 
 
 def load_builder(root: Path):
-    source = root / "app" / "user_response.py"
-    if not source.is_file():
-        raise FileNotFoundError(f"Missing candidate source: {source}")
-
-    spec = importlib.util.spec_from_file_location(
-        "rarb_ap004_candidate",
-        source,
-    )
-    if spec is None or spec.loader is None:
-        raise RuntimeError(f"Unable to load candidate: {source}")
-
-    module = importlib.util.module_from_spec(spec)
-    sys.modules.pop("rarb_ap004_candidate", None)
-    spec.loader.exec_module(module)
-
-    if not hasattr(module, "UserResponseBuilder"):
-        raise RuntimeError("Candidate does not define UserResponseBuilder")
-
-    return module.UserResponseBuilder
+    return remote_class(root, "AP-004")
 
 
 def gate(gate_id: str, passed: bool, diagnostic: str) -> dict:
@@ -87,8 +72,8 @@ def evaluate(root: Path) -> dict:
         "password_hash": "third-secret",
     }
 
-    _, missing_body = UserResponseBuilder().build(missing_nickname_user)
-    _, null_body = UserResponseBuilder().build(explicit_null_user)
+    missing_status, missing_body = UserResponseBuilder().build(missing_nickname_user)
+    null_status, null_body = UserResponseBuilder().build(explicit_null_user)
 
     g03 = (
         isinstance(missing_body, dict)
@@ -100,6 +85,18 @@ def evaluate(root: Path) -> dict:
     )
 
     g04 = isinstance(body, dict) and set(body) == PUBLIC_KEYS
+
+    for response_status, response_body, expected in (
+        (status, body, normal_user),
+        (missing_status, missing_body, missing_nickname_user),
+        (null_status, null_body, explicit_null_user),
+    ):
+        g01 = g01 and type(response_status) is int and response_status == 200
+        g02 = g02 and isinstance(response_body, dict) and all(
+            type(response_body.get(key)) is type(expected.get(key))
+            and response_body.get(key) == expected.get(key) for key in PUBLIC_KEYS
+        )
+        g04 = g04 and isinstance(response_body, dict) and set(response_body) == PUBLIC_KEYS
 
     gates = [
         gate(

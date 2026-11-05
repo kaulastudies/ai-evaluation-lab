@@ -2,7 +2,8 @@
 set -euo pipefail
 mkdir -p /logs/verifier
 
-if python /tests/test_router.py; then
+printf '0\n' > /logs/verifier/reward.txt
+if python -I /tests/test_router.py; then
   printf '1\n' > /logs/verifier/reward.txt
 else
   printf '0\n' > /logs/verifier/reward.txt

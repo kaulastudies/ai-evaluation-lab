@@ -1,29 +1,21 @@
 from __future__ import annotations
 
 import argparse
-import importlib.util
 import json
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "runner"))
+from candidate_proxy import remote_class
+
 import sys
 
 TASK_ID = "AP-003"
 TASK_VERSION = "0.1.0"
-VERIFIER_VERSION = "0.1.0"
+VERIFIER_VERSION = "0.2.0"
 
 
 def load_processor(root: Path):
-    source = root / "app" / "event_processor.py"
-    if not source.is_file():
-        raise FileNotFoundError(f"Missing candidate source: {source}")
-    spec = importlib.util.spec_from_file_location("rarb_ap003_candidate", source)
-    if spec is None or spec.loader is None:
-        raise RuntimeError(f"Unable to load candidate: {source}")
-    module = importlib.util.module_from_spec(spec)
-    sys.modules.pop("rarb_ap003_candidate", None)
-    spec.loader.exec_module(module)
-    if not hasattr(module, "EventProcessor"):
-        raise RuntimeError("Candidate does not define EventProcessor")
-    return module.EventProcessor
+    return remote_class(root, "AP-003")
 
 
 def gate(gate_id: str, passed: bool, diagnostic: str) -> dict:
@@ -51,6 +43,14 @@ def evaluate(root: Path) -> dict:
     first_changed = p4.handle("evt-1", 10)
     changed_retry = p4.handle("evt-1", 99)
     g04 = first_changed is True and changed_retry is False and p4.total == 10
+
+    # An old ID must remain deduplicated after other IDs have been handled.
+    for retry_amount in (10, 99):
+        interleaved = EventProcessor()
+        first = interleaved.handle("old", 10)
+        second = interleaved.handle("new", 10)
+        retry = interleaved.handle("old", retry_amount)
+        g04 = g04 and first is True and second is True and retry is False and interleaved.total == 20
 
     gates = [
         gate("AP003-G01", g01, "first delivery applied exactly once" if g01 else "first delivery behavior is incorrect"),
