@@ -2,13 +2,21 @@
 
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](../../LICENSE)
 
-ProofGate is the judge-facing product built on AI Evaluation Lab's Repository Agent Reliability Benchmark (RARB). It is the existing **Nebius × NVIDIA Global AI Hackathon** entry, in **Coding and Agentic Engineering**.
+ProofGate is AI Evaluation Lab's working prototype for independent verification of coding-agent patches, built on the Repository Agent Reliability Benchmark (RARB). It is intended for engineering leads and coding-agent builders reviewing code before a release.
 
 A coding agent can pass ordinary tests and still break the task contract. ProofGate qualifies the verifier, evaluates the candidate, preserves failures and HOLDs, and supports bounded repair with reproducible evidence.
 
+## Product scope and demo history
+
+AI Evaluation Lab is the parent venture; ProofGate is the coding-agent verification product. ProofQ is separate quantum research and is not another name for ProofGate.
+
+The hosted prototype runs fixed, bundled recorded candidates. The next commercial step is a scoped evaluation pilot for one team's release workflow, followed by repeat checks if customers find them useful. Customer-repository integration and isolated execution are development milestones, not existing hosted features.
+
+This demo was developed for the **Nebius × NVIDIA Global AI Hackathon**, in **Coding and Agentic Engineering**. The AP-001 experiment uses NVIDIA Nemotron on Nebius Token Factory; the AP-005 failure and repair use Ollama. These are experiment provenance, not a requirement to use those providers for browser verification. The hackathon materials and recorded evidence remain available below.
+
 ## Team and mentorship
 
-**With mentorship from Prof. Nithya Ravi Kumar.** Rama Chandra leads implementation, experiments and evidence curation. We thank Prof. Nithya Ravi Kumar for her mentorship.
+**With mentorship from Prof. Nithya Ravi Kumar.** Rama Chandra M leads implementation, experiments and evidence curation. We thank Prof. Nithya Ravi Kumar for her mentorship.
 
 Her proposed methodology and evidence review responsibilities are documented in the [team record](TEAM.md), with a [research review pack prepared for her](submission/MENTOR_REVIEW_PACK.md). These reviews are pending; no completed review or approval is claimed.
 
@@ -20,8 +28,8 @@ The first page now runs the actual Python public tests and qualified verifier us
 
 ## Start here
 
-- [Open the browser demo](https://kaulastudies.github.io/ai-evaluation-lab/proofgate/)
-- [Watch the 119-second captioned walkthrough](https://kaulastudies.github.io/ai-evaluation-lab/proofgate/proofgate-walkthrough.mp4)
+- [Open the browser demo](https://aievaluationlab.tech/proofgate/)
+- [Watch the 119-second captioned walkthrough](https://aievaluationlab.tech/proofgate/proofgate-walkthrough.mp4)
 
 - [Recovered project context and completion checklist](submission/PROJECT_CONTEXT.md)
 - [Devpost description](submission/DEVPOST_DRAFT.md)
@@ -54,7 +62,7 @@ The interface contains secure PowerShell setup commands. Do not put keys in sour
 
 The static site includes the executable Python verifier lab and supports five stored evidence cases, code/gate/provenance inspection, a searchable 52-attempt ledger, qualification controls, SHA-256 artifact checks, and evidence download. It clearly labels stored evidence and enables browser verification. Only server-side inference and full historical replay require the local server. It does not claim that browser hash checks execute the evaluator or call Nebius.
 
-The canonical public demo is deployed from this repository by [ProofGate GitHub Pages](../../.github/workflows/proofgate-pages.yml): https://kaulastudies.github.io/ai-evaluation-lab/proofgate/ . Pull requests build the site; changes merged into `main` publish it. The root Pages URL presents AI Evaluation Lab as the parent project.
+The canonical public demo is deployed from this repository by [ProofGate GitHub Pages](../../.github/workflows/proofgate-pages.yml): https://aievaluationlab.tech/proofgate/ . Pull requests build the site; changes merged into `main` publish it. The root URL presents AI Evaluation Lab as the parent venture.
 
 The app, local server, evidence generators, deployment workflow, media, screenshots and media-build script are all in this public repository. The build downloads the pinned open-source Pyodide runtime and verifies its file sizes and SHA-256 hashes before publishing. The running site serves these runtime files from GitHub Pages. It has no dependency on the earlier ChatGPT-hosted demo.
 
