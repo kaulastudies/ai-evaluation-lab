@@ -8,6 +8,7 @@ on:
       - 'programs/repository-agent-reliability/**'
       - 'applications/sevasetu-careers/**'
       - 'applications/sevasetu-placement-desk/**'
+      - 'applications/lab-operations-entry/**'
       - '.github/workflows/proofgate-pages.yml'
       - 'LICENSE'
   pull_request:
@@ -16,6 +17,7 @@ on:
       - 'programs/repository-agent-reliability/**'
       - 'applications/sevasetu-careers/**'
       - 'applications/sevasetu-placement-desk/**'
+      - 'applications/lab-operations-entry/**'
       - '.github/workflows/proofgate-pages.yml'
       - 'LICENSE'
   workflow_dispatch:
@@ -36,6 +38,10 @@ jobs:
           python-version: '3.12'
       - name: Build from public source and verify pinned runtime
         run: python hackathon/nebius-nvidia-rarb-demo/build_pages.py --output "$RUNNER_TEMP/proofgate-pages"
+      - name: Include public Lab operations entry
+        run: |
+          mkdir -p "$RUNNER_TEMP/proofgate-pages/operations"
+          cp applications/lab-operations-entry/index.html "$RUNNER_TEMP/proofgate-pages/operations/index.html"
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4
         with:
