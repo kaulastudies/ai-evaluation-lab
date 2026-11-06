@@ -1,0 +1,32 @@
+{
+  "lab_adapter_commit": null,
+  "forge_adapter_commit": null,
+  "model_sha256": null,
+  "runtime_sha256": null,
+  "prompt_sha256": null,
+  "context_serialization_sha256": null,
+  "warmup_prompt_sha256": null,
+  "schema": "EO001-RUN-PLAN/0.1.0",
+  "context_serialization": null,
+  "host_configuration": null,
+  "output_naming": null,
+  "cleanup_checks": null,
+  "generation_parameters": null,
+  "review_references": {
+    "lab": null,
+    "evercraft": null
+  },
+  "max_output_tokens": null,
+  "warmup_timeout_seconds": null,
+  "decision_timeout_seconds": 15,
+  "max_decisions_per_case": 6,
+  "warmup_requests": 1,
+  "scenario_order": [
+    "none",
+    "ack_loss",
+    "lookup_outage",
+    "tamper"
+  ],
+  "stop_on_timeout": true,
+  "replace_failed_attempts": false
+}
