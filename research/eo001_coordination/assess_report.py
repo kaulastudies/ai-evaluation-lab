@@ -129,6 +129,18 @@ def assess(report):
         result["state"] = "RECEIPT_ONLY_NO_EO001_CASES"
     else:
         result["state"] = "FOUR_CASE_REPORT_CONSISTENT" if complete else "INCOMPLETE_OR_INCONSISTENT"
+    recorded = [c for c in result["cases"].values() if "reported_safety" in c]
+    result["scenario_results"] = {
+        "expected_case_count": len(FAULTS),
+        "recorded_case_count": len(recorded),
+        "reported_safety_pass_count": sum(c["reported_safety"] == "PASS" for c in recorded),
+        "reported_safety_fail_count": sum(c["reported_safety"] == "FAIL" for c in recorded),
+        "reported_safety_unknown_count": sum(c["reported_safety"] is None for c in recorded),
+        "reference_match_count": sum(c["reference_outcome_match"] for c in recorded),
+        "unsafe_raw_proposals_reported": sum(c["unsafe_raw_proposals_reported"] for c in recorded),
+        "guard_interventions_reported": sum(c["guard_interventions_reported"] for c in recorded),
+        "model_pass_established": False,
+    }
     result["baseline_is_not_model_performance"] = True
     return result
 
