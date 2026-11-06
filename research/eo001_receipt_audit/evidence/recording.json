@@ -1,0 +1,2041 @@
+{
+  "episodes": [
+    {
+      "calls": [
+        {
+          "delivered_receipt": {
+            "id": "SYNTHETIC-RECEIPT-001",
+            "orderId": "DEMO-1001",
+            "settled": true,
+            "synthetic": true
+          },
+          "error": null,
+          "idempotency_key": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+          "op": "execute",
+          "outcome": "returned",
+          "provider_receipt": {
+            "id": "SYNTHETIC-RECEIPT-001",
+            "orderId": "DEMO-1001",
+            "settled": true,
+            "synthetic": true
+          },
+          "receipt_origin_run_id": "EO001-RECEIPT/execute__none",
+          "request": {
+            "cents": 4200,
+            "currency": "USD",
+            "orderId": "DEMO-1001"
+          },
+          "seq": 1
+        }
+      ],
+      "case_id": "execute__none",
+      "fault": "none",
+      "lane": "execute",
+      "provider_lane": {
+        "attempts": 1,
+        "complete": true,
+        "effects": 1,
+        "lookups": 0,
+        "receipts": [
+          {
+            "checksum": "17895d7a00531725335a557d5af3a2a1852f40b92dc0bafa70a1599f835fb4e7",
+            "idempotency_key": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+            "receipt": {
+              "id": "SYNTHETIC-RECEIPT-001",
+              "orderId": "DEMO-1001",
+              "settled": true,
+              "synthetic": true
+            }
+          }
+        ],
+        "run_id": "EO001-RECEIPT/execute__none"
+      },
+      "request": {
+        "cents": 4200,
+        "currency": "USD",
+        "orderId": "DEMO-1001"
+      },
+      "run_id": "EO001-RECEIPT/execute__none",
+      "workflow": {
+        "evidence": {
+          "authoritativeReceipt": {
+            "id": "SYNTHETIC-RECEIPT-001",
+            "orderId": "DEMO-1001",
+            "settled": true,
+            "synthetic": true
+          },
+          "fulfillmentAuthorized": true,
+          "idempotencyKey": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+          "orderId": "DEMO-1001",
+          "state": "SETTLED_VERIFIED",
+          "synthetic": true
+        },
+        "journal": [
+          {
+            "event": "provider.execute",
+            "output": {
+              "receipt": "SYNTHETIC-RECEIPT-001",
+              "synthetic": true
+            },
+            "status": "OK"
+          },
+          {
+            "event": "fulfillment.decision",
+            "output": {
+              "fulfillmentAuthorized": true,
+              "receipt": "SYNTHETIC-RECEIPT-001",
+              "state": "SETTLED_VERIFIED"
+            },
+            "status": "OK"
+          }
+        ]
+      }
+    },
+    {
+      "calls": [
+        {
+          "delivered_receipt": {
+            "id": "SYNTHETIC-RECEIPT-001",
+            "orderId": "DEMO-9999",
+            "settled": true,
+            "synthetic": true
+          },
+          "error": null,
+          "idempotency_key": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+          "op": "execute",
+          "outcome": "returned",
+          "provider_receipt": {
+            "id": "SYNTHETIC-RECEIPT-001",
+            "orderId": "DEMO-1001",
+            "settled": true,
+            "synthetic": true
+          },
+          "receipt_origin_run_id": "EO001-RECEIPT/execute__wrong_order",
+          "request": {
+            "cents": 4200,
+            "currency": "USD",
+            "orderId": "DEMO-1001"
+          },
+          "seq": 1
+        }
+      ],
+      "case_id": "execute__wrong_order",
+      "fault": "wrong_order",
+      "lane": "execute",
+      "provider_lane": {
+        "attempts": 1,
+        "complete": true,
+        "effects": 1,
+        "lookups": 0,
+        "receipts": [
+          {
+            "checksum": "17895d7a00531725335a557d5af3a2a1852f40b92dc0bafa70a1599f835fb4e7",
+            "idempotency_key": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+            "receipt": {
+              "id": "SYNTHETIC-RECEIPT-001",
+              "orderId": "DEMO-1001",
+              "settled": true,
+              "synthetic": true
+            }
+          }
+        ],
+        "run_id": "EO001-RECEIPT/execute__wrong_order"
+      },
+      "request": {
+        "cents": 4200,
+        "currency": "USD",
+        "orderId": "DEMO-1001"
+      },
+      "run_id": "EO001-RECEIPT/execute__wrong_order",
+      "workflow": {
+        "evidence": {
+          "authoritativeReceipt": {
+            "id": "SYNTHETIC-RECEIPT-001",
+            "orderId": "DEMO-9999",
+            "settled": true,
+            "synthetic": true
+          },
+          "fulfillmentAuthorized": true,
+          "idempotencyKey": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+          "orderId": "DEMO-1001",
+          "state": "SETTLED_VERIFIED",
+          "synthetic": true
+        },
+        "journal": [
+          {
+            "event": "provider.execute",
+            "output": {
+              "receipt": "SYNTHETIC-RECEIPT-001",
+              "synthetic": true
+            },
+            "status": "OK"
+          },
+          {
+            "event": "fulfillment.decision",
+            "output": {
+              "fulfillmentAuthorized": true,
+              "receipt": "SYNTHETIC-RECEIPT-001",
+              "state": "SETTLED_VERIFIED"
+            },
+            "status": "OK"
+          }
+        ]
+      }
+    },
+    {
+      "calls": [
+        {
+          "delivered_receipt": {
+            "id": "SYNTHETIC-RECEIPT-001",
+            "orderId": "DEMO-1001",
+            "settled": false,
+            "synthetic": true
+          },
+          "error": null,
+          "idempotency_key": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+          "op": "execute",
+          "outcome": "returned",
+          "provider_receipt": {
+            "id": "SYNTHETIC-RECEIPT-001",
+            "orderId": "DEMO-1001",
+            "settled": true,
+            "synthetic": true
+          },
+          "receipt_origin_run_id": "EO001-RECEIPT/execute__unsettled",
+          "request": {
+            "cents": 4200,
+            "currency": "USD",
+            "orderId": "DEMO-1001"
+          },
+          "seq": 1
+        }
+      ],
+      "case_id": "execute__unsettled",
+      "fault": "unsettled",
+      "lane": "execute",
+      "provider_lane": {
+        "attempts": 1,
+        "complete": true,
+        "effects": 1,
+        "lookups": 0,
+        "receipts": [
+          {
+            "checksum": "17895d7a00531725335a557d5af3a2a1852f40b92dc0bafa70a1599f835fb4e7",
+            "idempotency_key": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+            "receipt": {
+              "id": "SYNTHETIC-RECEIPT-001",
+              "orderId": "DEMO-1001",
+              "settled": true,
+              "synthetic": true
+            }
+          }
+        ],
+        "run_id": "EO001-RECEIPT/execute__unsettled"
+      },
+      "request": {
+        "cents": 4200,
+        "currency": "USD",
+        "orderId": "DEMO-1001"
+      },
+      "run_id": "EO001-RECEIPT/execute__unsettled",
+      "workflow": {
+        "evidence": {
+          "authoritativeReceipt": {
+            "id": "SYNTHETIC-RECEIPT-001",
+            "orderId": "DEMO-1001",
+            "settled": false,
+            "synthetic": true
+          },
+          "fulfillmentAuthorized": true,
+          "idempotencyKey": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+          "orderId": "DEMO-1001",
+          "state": "SETTLED_VERIFIED",
+          "synthetic": true
+        },
+        "journal": [
+          {
+            "event": "provider.execute",
+            "output": {
+              "receipt": "SYNTHETIC-RECEIPT-001",
+              "synthetic": true
+            },
+            "status": "OK"
+          },
+          {
+            "event": "fulfillment.decision",
+            "output": {
+              "fulfillmentAuthorized": true,
+              "receipt": "SYNTHETIC-RECEIPT-001",
+              "state": "SETTLED_VERIFIED"
+            },
+            "status": "OK"
+          }
+        ]
+      }
+    },
+    {
+      "calls": [
+        {
+          "delivered_receipt": {
+            "id": "SYNTHETIC-RECEIPT-001",
+            "orderId": "DEMO-1001",
+            "settled": "true",
+            "synthetic": true
+          },
+          "error": null,
+          "idempotency_key": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+          "op": "execute",
+          "outcome": "returned",
+          "provider_receipt": {
+            "id": "SYNTHETIC-RECEIPT-001",
+            "orderId": "DEMO-1001",
+            "settled": true,
+            "synthetic": true
+          },
+          "receipt_origin_run_id": "EO001-RECEIPT/execute__truthy_status",
+          "request": {
+            "cents": 4200,
+            "currency": "USD",
+            "orderId": "DEMO-1001"
+          },
+          "seq": 1
+        }
+      ],
+      "case_id": "execute__truthy_status",
+      "fault": "truthy_status",
+      "lane": "execute",
+      "provider_lane": {
+        "attempts": 1,
+        "complete": true,
+        "effects": 1,
+        "lookups": 0,
+        "receipts": [
+          {
+            "checksum": "17895d7a00531725335a557d5af3a2a1852f40b92dc0bafa70a1599f835fb4e7",
+            "idempotency_key": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+            "receipt": {
+              "id": "SYNTHETIC-RECEIPT-001",
+              "orderId": "DEMO-1001",
+              "settled": true,
+              "synthetic": true
+            }
+          }
+        ],
+        "run_id": "EO001-RECEIPT/execute__truthy_status"
+      },
+      "request": {
+        "cents": 4200,
+        "currency": "USD",
+        "orderId": "DEMO-1001"
+      },
+      "run_id": "EO001-RECEIPT/execute__truthy_status",
+      "workflow": {
+        "evidence": {
+          "authoritativeReceipt": {
+            "id": "SYNTHETIC-RECEIPT-001",
+            "orderId": "DEMO-1001",
+            "settled": "true",
+            "synthetic": true
+          },
+          "fulfillmentAuthorized": true,
+          "idempotencyKey": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+          "orderId": "DEMO-1001",
+          "state": "SETTLED_VERIFIED",
+          "synthetic": true
+        },
+        "journal": [
+          {
+            "event": "provider.execute",
+            "output": {
+              "receipt": "SYNTHETIC-RECEIPT-001",
+              "synthetic": true
+            },
+            "status": "OK"
+          },
+          {
+            "event": "fulfillment.decision",
+            "output": {
+              "fulfillmentAuthorized": true,
+              "receipt": "SYNTHETIC-RECEIPT-001",
+              "state": "SETTLED_VERIFIED"
+            },
+            "status": "OK"
+          }
+        ]
+      }
+    },
+    {
+      "calls": [
+        {
+          "delivered_receipt": {
+            "id": "SYNTHETIC-RECEIPT-FORGED",
+            "orderId": "DEMO-1001",
+            "settled": true,
+            "synthetic": true
+          },
+          "error": null,
+          "idempotency_key": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+          "op": "execute",
+          "outcome": "returned",
+          "provider_receipt": {
+            "id": "SYNTHETIC-RECEIPT-001",
+            "orderId": "DEMO-1001",
+            "settled": true,
+            "synthetic": true
+          },
+          "receipt_origin_run_id": "EO001-RECEIPT/execute__forged_id",
+          "request": {
+            "cents": 4200,
+            "currency": "USD",
+            "orderId": "DEMO-1001"
+          },
+          "seq": 1
+        }
+      ],
+      "case_id": "execute__forged_id",
+      "fault": "forged_id",
+      "lane": "execute",
+      "provider_lane": {
+        "attempts": 1,
+        "complete": true,
+        "effects": 1,
+        "lookups": 0,
+        "receipts": [
+          {
+            "checksum": "17895d7a00531725335a557d5af3a2a1852f40b92dc0bafa70a1599f835fb4e7",
+            "idempotency_key": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+            "receipt": {
+              "id": "SYNTHETIC-RECEIPT-001",
+              "orderId": "DEMO-1001",
+              "settled": true,
+              "synthetic": true
+            }
+          }
+        ],
+        "run_id": "EO001-RECEIPT/execute__forged_id"
+      },
+      "request": {
+        "cents": 4200,
+        "currency": "USD",
+        "orderId": "DEMO-1001"
+      },
+      "run_id": "EO001-RECEIPT/execute__forged_id",
+      "workflow": {
+        "evidence": {
+          "authoritativeReceipt": {
+            "id": "SYNTHETIC-RECEIPT-FORGED",
+            "orderId": "DEMO-1001",
+            "settled": true,
+            "synthetic": true
+          },
+          "fulfillmentAuthorized": true,
+          "idempotencyKey": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+          "orderId": "DEMO-1001",
+          "state": "SETTLED_VERIFIED",
+          "synthetic": true
+        },
+        "journal": [
+          {
+            "event": "provider.execute",
+            "output": {
+              "receipt": "SYNTHETIC-RECEIPT-FORGED",
+              "synthetic": true
+            },
+            "status": "OK"
+          },
+          {
+            "event": "fulfillment.decision",
+            "output": {
+              "fulfillmentAuthorized": true,
+              "receipt": "SYNTHETIC-RECEIPT-FORGED",
+              "state": "SETTLED_VERIFIED"
+            },
+            "status": "OK"
+          }
+        ]
+      }
+    },
+    {
+      "calls": [
+        {
+          "delivered_receipt": {
+            "id": "SYNTHETIC-RECEIPT-001",
+            "orderId": "DEMO-1001",
+            "settled": true,
+            "synthetic": true
+          },
+          "error": null,
+          "idempotency_key": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+          "op": "execute",
+          "outcome": "returned",
+          "provider_receipt": {
+            "id": "SYNTHETIC-RECEIPT-001",
+            "orderId": "DEMO-1001",
+            "settled": true,
+            "synthetic": true
+          },
+          "receipt_origin_run_id": "EO001-RECEIPT/previous-run",
+          "request": {
+            "cents": 4200,
+            "currency": "USD",
+            "orderId": "DEMO-1001"
+          },
+          "seq": 1
+        }
+      ],
+      "case_id": "execute__cross_run_replay",
+      "fault": "cross_run_replay",
+      "lane": "execute",
+      "provider_lane": {
+        "attempts": 1,
+        "complete": true,
+        "effects": 1,
+        "lookups": 0,
+        "receipts": [
+          {
+            "checksum": "17895d7a00531725335a557d5af3a2a1852f40b92dc0bafa70a1599f835fb4e7",
+            "idempotency_key": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+            "receipt": {
+              "id": "SYNTHETIC-RECEIPT-001",
+              "orderId": "DEMO-1001",
+              "settled": true,
+              "synthetic": true
+            }
+          }
+        ],
+        "run_id": "EO001-RECEIPT/execute__cross_run_replay"
+      },
+      "request": {
+        "cents": 4200,
+        "currency": "USD",
+        "orderId": "DEMO-1001"
+      },
+      "run_id": "EO001-RECEIPT/execute__cross_run_replay",
+      "workflow": {
+        "evidence": {
+          "authoritativeReceipt": {
+            "id": "SYNTHETIC-RECEIPT-001",
+            "orderId": "DEMO-1001",
+            "settled": true,
+            "synthetic": true
+          },
+          "fulfillmentAuthorized": true,
+          "idempotencyKey": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+          "orderId": "DEMO-1001",
+          "state": "SETTLED_VERIFIED",
+          "synthetic": true
+        },
+        "journal": [
+          {
+            "event": "provider.execute",
+            "output": {
+              "receipt": "SYNTHETIC-RECEIPT-001",
+              "synthetic": true
+            },
+            "status": "OK"
+          },
+          {
+            "event": "fulfillment.decision",
+            "output": {
+              "fulfillmentAuthorized": true,
+              "receipt": "SYNTHETIC-RECEIPT-001",
+              "state": "SETTLED_VERIFIED"
+            },
+            "status": "OK"
+          }
+        ]
+      }
+    },
+    {
+      "calls": [
+        {
+          "delivered_receipt": null,
+          "error": "ACK_LOST_AFTER_COMMIT",
+          "idempotency_key": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+          "op": "execute",
+          "outcome": "error",
+          "provider_receipt": null,
+          "receipt_origin_run_id": null,
+          "request": {
+            "cents": 4200,
+            "currency": "USD",
+            "orderId": "DEMO-1001"
+          },
+          "seq": 1
+        },
+        {
+          "delivered_receipt": {
+            "id": "SYNTHETIC-RECEIPT-001",
+            "orderId": "DEMO-1001",
+            "settled": true,
+            "synthetic": true
+          },
+          "error": null,
+          "idempotency_key": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+          "op": "lookup",
+          "outcome": "returned",
+          "provider_receipt": {
+            "id": "SYNTHETIC-RECEIPT-001",
+            "orderId": "DEMO-1001",
+            "settled": true,
+            "synthetic": true
+          },
+          "receipt_origin_run_id": "EO001-RECEIPT/lookup__none",
+          "request": null,
+          "seq": 2
+        }
+      ],
+      "case_id": "lookup__none",
+      "fault": "none",
+      "lane": "lookup",
+      "provider_lane": {
+        "attempts": 1,
+        "complete": true,
+        "effects": 1,
+        "lookups": 1,
+        "receipts": [
+          {
+            "checksum": "17895d7a00531725335a557d5af3a2a1852f40b92dc0bafa70a1599f835fb4e7",
+            "idempotency_key": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+            "receipt": {
+              "id": "SYNTHETIC-RECEIPT-001",
+              "orderId": "DEMO-1001",
+              "settled": true,
+              "synthetic": true
+            }
+          }
+        ],
+        "run_id": "EO001-RECEIPT/lookup__none"
+      },
+      "request": {
+        "cents": 4200,
+        "currency": "USD",
+        "orderId": "DEMO-1001"
+      },
+      "run_id": "EO001-RECEIPT/lookup__none",
+      "workflow": {
+        "evidence": {
+          "authoritativeReceipt": {
+            "id": "SYNTHETIC-RECEIPT-001",
+            "orderId": "DEMO-1001",
+            "settled": true,
+            "synthetic": true
+          },
+          "fulfillmentAuthorized": true,
+          "idempotencyKey": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+          "orderId": "DEMO-1001",
+          "state": "SETTLED_VERIFIED_AFTER_RECONCILIATION",
+          "synthetic": true
+        },
+        "journal": [
+          {
+            "error": "ACK_LOST_AFTER_COMMIT",
+            "event": "provider.execute",
+            "status": "ERROR"
+          },
+          {
+            "event": "provider.lookup",
+            "output": {
+              "receipt": "SYNTHETIC-RECEIPT-001",
+              "synthetic": true
+            },
+            "status": "OK"
+          },
+          {
+            "event": "fulfillment.decision",
+            "output": {
+              "fulfillmentAuthorized": true,
+              "receipt": "SYNTHETIC-RECEIPT-001",
+              "state": "SETTLED_VERIFIED_AFTER_RECONCILIATION"
+            },
+            "status": "OK"
+          }
+        ]
+      }
+    },
+    {
+      "calls": [
+        {
+          "delivered_receipt": null,
+          "error": "ACK_LOST_AFTER_COMMIT",
+          "idempotency_key": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+          "op": "execute",
+          "outcome": "error",
+          "provider_receipt": null,
+          "receipt_origin_run_id": null,
+          "request": {
+            "cents": 4200,
+            "currency": "USD",
+            "orderId": "DEMO-1001"
+          },
+          "seq": 1
+        },
+        {
+          "delivered_receipt": {
+            "id": "SYNTHETIC-RECEIPT-001",
+            "orderId": "DEMO-9999",
+            "settled": true,
+            "synthetic": true
+          },
+          "error": null,
+          "idempotency_key": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+          "op": "lookup",
+          "outcome": "returned",
+          "provider_receipt": {
+            "id": "SYNTHETIC-RECEIPT-001",
+            "orderId": "DEMO-1001",
+            "settled": true,
+            "synthetic": true
+          },
+          "receipt_origin_run_id": "EO001-RECEIPT/lookup__wrong_order",
+          "request": null,
+          "seq": 2
+        }
+      ],
+      "case_id": "lookup__wrong_order",
+      "fault": "wrong_order",
+      "lane": "lookup",
+      "provider_lane": {
+        "attempts": 1,
+        "complete": true,
+        "effects": 1,
+        "lookups": 1,
+        "receipts": [
+          {
+            "checksum": "17895d7a00531725335a557d5af3a2a1852f40b92dc0bafa70a1599f835fb4e7",
+            "idempotency_key": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+            "receipt": {
+              "id": "SYNTHETIC-RECEIPT-001",
+              "orderId": "DEMO-1001",
+              "settled": true,
+              "synthetic": true
+            }
+          }
+        ],
+        "run_id": "EO001-RECEIPT/lookup__wrong_order"
+      },
+      "request": {
+        "cents": 4200,
+        "currency": "USD",
+        "orderId": "DEMO-1001"
+      },
+      "run_id": "EO001-RECEIPT/lookup__wrong_order",
+      "workflow": {
+        "evidence": {
+          "authoritativeReceipt": {
+            "id": "SYNTHETIC-RECEIPT-001",
+            "orderId": "DEMO-9999",
+            "settled": true,
+            "synthetic": true
+          },
+          "fulfillmentAuthorized": true,
+          "idempotencyKey": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+          "orderId": "DEMO-1001",
+          "state": "SETTLED_VERIFIED_AFTER_RECONCILIATION",
+          "synthetic": true
+        },
+        "journal": [
+          {
+            "error": "ACK_LOST_AFTER_COMMIT",
+            "event": "provider.execute",
+            "status": "ERROR"
+          },
+          {
+            "event": "provider.lookup",
+            "output": {
+              "receipt": "SYNTHETIC-RECEIPT-001",
+              "synthetic": true
+            },
+            "status": "OK"
+          },
+          {
+            "event": "fulfillment.decision",
+            "output": {
+              "fulfillmentAuthorized": true,
+              "receipt": "SYNTHETIC-RECEIPT-001",
+              "state": "SETTLED_VERIFIED_AFTER_RECONCILIATION"
+            },
+            "status": "OK"
+          }
+        ]
+      }
+    },
+    {
+      "calls": [
+        {
+          "delivered_receipt": null,
+          "error": "ACK_LOST_AFTER_COMMIT",
+          "idempotency_key": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+          "op": "execute",
+          "outcome": "error",
+          "provider_receipt": null,
+          "receipt_origin_run_id": null,
+          "request": {
+            "cents": 4200,
+            "currency": "USD",
+            "orderId": "DEMO-1001"
+          },
+          "seq": 1
+        },
+        {
+          "delivered_receipt": {
+            "id": "SYNTHETIC-RECEIPT-001",
+            "orderId": "DEMO-1001",
+            "settled": false,
+            "synthetic": true
+          },
+          "error": null,
+          "idempotency_key": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+          "op": "lookup",
+          "outcome": "returned",
+          "provider_receipt": {
+            "id": "SYNTHETIC-RECEIPT-001",
+            "orderId": "DEMO-1001",
+            "settled": true,
+            "synthetic": true
+          },
+          "receipt_origin_run_id": "EO001-RECEIPT/lookup__unsettled",
+          "request": null,
+          "seq": 2
+        }
+      ],
+      "case_id": "lookup__unsettled",
+      "fault": "unsettled",
+      "lane": "lookup",
+      "provider_lane": {
+        "attempts": 1,
+        "complete": true,
+        "effects": 1,
+        "lookups": 1,
+        "receipts": [
+          {
+            "checksum": "17895d7a00531725335a557d5af3a2a1852f40b92dc0bafa70a1599f835fb4e7",
+            "idempotency_key": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+            "receipt": {
+              "id": "SYNTHETIC-RECEIPT-001",
+              "orderId": "DEMO-1001",
+              "settled": true,
+              "synthetic": true
+            }
+          }
+        ],
+        "run_id": "EO001-RECEIPT/lookup__unsettled"
+      },
+      "request": {
+        "cents": 4200,
+        "currency": "USD",
+        "orderId": "DEMO-1001"
+      },
+      "run_id": "EO001-RECEIPT/lookup__unsettled",
+      "workflow": {
+        "evidence": {
+          "authoritativeReceipt": null,
+          "fulfillmentAuthorized": false,
+          "idempotencyKey": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+          "orderId": "DEMO-1001",
+          "state": "HOLD_UNKNOWN",
+          "synthetic": true
+        },
+        "journal": [
+          {
+            "error": "ACK_LOST_AFTER_COMMIT",
+            "event": "provider.execute",
+            "status": "ERROR"
+          },
+          {
+            "event": "provider.lookup",
+            "output": {
+              "receipt": "SYNTHETIC-RECEIPT-001",
+              "synthetic": true
+            },
+            "status": "OK"
+          },
+          {
+            "event": "fulfillment.decision",
+            "output": {
+              "fulfillmentAuthorized": false,
+              "receipt": null,
+              "state": "HOLD_UNKNOWN"
+            },
+            "status": "OK"
+          }
+        ]
+      }
+    },
+    {
+      "calls": [
+        {
+          "delivered_receipt": null,
+          "error": "ACK_LOST_AFTER_COMMIT",
+          "idempotency_key": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+          "op": "execute",
+          "outcome": "error",
+          "provider_receipt": null,
+          "receipt_origin_run_id": null,
+          "request": {
+            "cents": 4200,
+            "currency": "USD",
+            "orderId": "DEMO-1001"
+          },
+          "seq": 1
+        },
+        {
+          "delivered_receipt": {
+            "id": "SYNTHETIC-RECEIPT-001",
+            "orderId": "DEMO-1001",
+            "settled": "true",
+            "synthetic": true
+          },
+          "error": null,
+          "idempotency_key": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+          "op": "lookup",
+          "outcome": "returned",
+          "provider_receipt": {
+            "id": "SYNTHETIC-RECEIPT-001",
+            "orderId": "DEMO-1001",
+            "settled": true,
+            "synthetic": true
+          },
+          "receipt_origin_run_id": "EO001-RECEIPT/lookup__truthy_status",
+          "request": null,
+          "seq": 2
+        }
+      ],
+      "case_id": "lookup__truthy_status",
+      "fault": "truthy_status",
+      "lane": "lookup",
+      "provider_lane": {
+        "attempts": 1,
+        "complete": true,
+        "effects": 1,
+        "lookups": 1,
+        "receipts": [
+          {
+            "checksum": "17895d7a00531725335a557d5af3a2a1852f40b92dc0bafa70a1599f835fb4e7",
+            "idempotency_key": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+            "receipt": {
+              "id": "SYNTHETIC-RECEIPT-001",
+              "orderId": "DEMO-1001",
+              "settled": true,
+              "synthetic": true
+            }
+          }
+        ],
+        "run_id": "EO001-RECEIPT/lookup__truthy_status"
+      },
+      "request": {
+        "cents": 4200,
+        "currency": "USD",
+        "orderId": "DEMO-1001"
+      },
+      "run_id": "EO001-RECEIPT/lookup__truthy_status",
+      "workflow": {
+        "evidence": {
+          "authoritativeReceipt": {
+            "id": "SYNTHETIC-RECEIPT-001",
+            "orderId": "DEMO-1001",
+            "settled": "true",
+            "synthetic": true
+          },
+          "fulfillmentAuthorized": true,
+          "idempotencyKey": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+          "orderId": "DEMO-1001",
+          "state": "SETTLED_VERIFIED_AFTER_RECONCILIATION",
+          "synthetic": true
+        },
+        "journal": [
+          {
+            "error": "ACK_LOST_AFTER_COMMIT",
+            "event": "provider.execute",
+            "status": "ERROR"
+          },
+          {
+            "event": "provider.lookup",
+            "output": {
+              "receipt": "SYNTHETIC-RECEIPT-001",
+              "synthetic": true
+            },
+            "status": "OK"
+          },
+          {
+            "event": "fulfillment.decision",
+            "output": {
+              "fulfillmentAuthorized": true,
+              "receipt": "SYNTHETIC-RECEIPT-001",
+              "state": "SETTLED_VERIFIED_AFTER_RECONCILIATION"
+            },
+            "status": "OK"
+          }
+        ]
+      }
+    },
+    {
+      "calls": [
+        {
+          "delivered_receipt": null,
+          "error": "ACK_LOST_AFTER_COMMIT",
+          "idempotency_key": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+          "op": "execute",
+          "outcome": "error",
+          "provider_receipt": null,
+          "receipt_origin_run_id": null,
+          "request": {
+            "cents": 4200,
+            "currency": "USD",
+            "orderId": "DEMO-1001"
+          },
+          "seq": 1
+        },
+        {
+          "delivered_receipt": {
+            "id": "SYNTHETIC-RECEIPT-FORGED",
+            "orderId": "DEMO-1001",
+            "settled": true,
+            "synthetic": true
+          },
+          "error": null,
+          "idempotency_key": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+          "op": "lookup",
+          "outcome": "returned",
+          "provider_receipt": {
+            "id": "SYNTHETIC-RECEIPT-001",
+            "orderId": "DEMO-1001",
+            "settled": true,
+            "synthetic": true
+          },
+          "receipt_origin_run_id": "EO001-RECEIPT/lookup__forged_id",
+          "request": null,
+          "seq": 2
+        }
+      ],
+      "case_id": "lookup__forged_id",
+      "fault": "forged_id",
+      "lane": "lookup",
+      "provider_lane": {
+        "attempts": 1,
+        "complete": true,
+        "effects": 1,
+        "lookups": 1,
+        "receipts": [
+          {
+            "checksum": "17895d7a00531725335a557d5af3a2a1852f40b92dc0bafa70a1599f835fb4e7",
+            "idempotency_key": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+            "receipt": {
+              "id": "SYNTHETIC-RECEIPT-001",
+              "orderId": "DEMO-1001",
+              "settled": true,
+              "synthetic": true
+            }
+          }
+        ],
+        "run_id": "EO001-RECEIPT/lookup__forged_id"
+      },
+      "request": {
+        "cents": 4200,
+        "currency": "USD",
+        "orderId": "DEMO-1001"
+      },
+      "run_id": "EO001-RECEIPT/lookup__forged_id",
+      "workflow": {
+        "evidence": {
+          "authoritativeReceipt": {
+            "id": "SYNTHETIC-RECEIPT-FORGED",
+            "orderId": "DEMO-1001",
+            "settled": true,
+            "synthetic": true
+          },
+          "fulfillmentAuthorized": true,
+          "idempotencyKey": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+          "orderId": "DEMO-1001",
+          "state": "SETTLED_VERIFIED_AFTER_RECONCILIATION",
+          "synthetic": true
+        },
+        "journal": [
+          {
+            "error": "ACK_LOST_AFTER_COMMIT",
+            "event": "provider.execute",
+            "status": "ERROR"
+          },
+          {
+            "event": "provider.lookup",
+            "output": {
+              "receipt": "SYNTHETIC-RECEIPT-FORGED",
+              "synthetic": true
+            },
+            "status": "OK"
+          },
+          {
+            "event": "fulfillment.decision",
+            "output": {
+              "fulfillmentAuthorized": true,
+              "receipt": "SYNTHETIC-RECEIPT-FORGED",
+              "state": "SETTLED_VERIFIED_AFTER_RECONCILIATION"
+            },
+            "status": "OK"
+          }
+        ]
+      }
+    },
+    {
+      "calls": [
+        {
+          "delivered_receipt": null,
+          "error": "ACK_LOST_AFTER_COMMIT",
+          "idempotency_key": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+          "op": "execute",
+          "outcome": "error",
+          "provider_receipt": null,
+          "receipt_origin_run_id": null,
+          "request": {
+            "cents": 4200,
+            "currency": "USD",
+            "orderId": "DEMO-1001"
+          },
+          "seq": 1
+        },
+        {
+          "delivered_receipt": {
+            "id": "SYNTHETIC-RECEIPT-001",
+            "orderId": "DEMO-1001",
+            "settled": true,
+            "synthetic": true
+          },
+          "error": null,
+          "idempotency_key": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+          "op": "lookup",
+          "outcome": "returned",
+          "provider_receipt": {
+            "id": "SYNTHETIC-RECEIPT-001",
+            "orderId": "DEMO-1001",
+            "settled": true,
+            "synthetic": true
+          },
+          "receipt_origin_run_id": "EO001-RECEIPT/previous-run",
+          "request": null,
+          "seq": 2
+        }
+      ],
+      "case_id": "lookup__cross_run_replay",
+      "fault": "cross_run_replay",
+      "lane": "lookup",
+      "provider_lane": {
+        "attempts": 1,
+        "complete": true,
+        "effects": 1,
+        "lookups": 1,
+        "receipts": [
+          {
+            "checksum": "17895d7a00531725335a557d5af3a2a1852f40b92dc0bafa70a1599f835fb4e7",
+            "idempotency_key": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+            "receipt": {
+              "id": "SYNTHETIC-RECEIPT-001",
+              "orderId": "DEMO-1001",
+              "settled": true,
+              "synthetic": true
+            }
+          }
+        ],
+        "run_id": "EO001-RECEIPT/lookup__cross_run_replay"
+      },
+      "request": {
+        "cents": 4200,
+        "currency": "USD",
+        "orderId": "DEMO-1001"
+      },
+      "run_id": "EO001-RECEIPT/lookup__cross_run_replay",
+      "workflow": {
+        "evidence": {
+          "authoritativeReceipt": {
+            "id": "SYNTHETIC-RECEIPT-001",
+            "orderId": "DEMO-1001",
+            "settled": true,
+            "synthetic": true
+          },
+          "fulfillmentAuthorized": true,
+          "idempotencyKey": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+          "orderId": "DEMO-1001",
+          "state": "SETTLED_VERIFIED_AFTER_RECONCILIATION",
+          "synthetic": true
+        },
+        "journal": [
+          {
+            "error": "ACK_LOST_AFTER_COMMIT",
+            "event": "provider.execute",
+            "status": "ERROR"
+          },
+          {
+            "event": "provider.lookup",
+            "output": {
+              "receipt": "SYNTHETIC-RECEIPT-001",
+              "synthetic": true
+            },
+            "status": "OK"
+          },
+          {
+            "event": "fulfillment.decision",
+            "output": {
+              "fulfillmentAuthorized": true,
+              "receipt": "SYNTHETIC-RECEIPT-001",
+              "state": "SETTLED_VERIFIED_AFTER_RECONCILIATION"
+            },
+            "status": "OK"
+          }
+        ]
+      }
+    },
+    {
+      "calls": [
+        {
+          "delivered_receipt": null,
+          "error": "ACK_LOST_AFTER_COMMIT",
+          "idempotency_key": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+          "op": "execute",
+          "outcome": "error",
+          "provider_receipt": null,
+          "receipt_origin_run_id": null,
+          "request": {
+            "cents": 4200,
+            "currency": "USD",
+            "orderId": "DEMO-1001"
+          },
+          "seq": 1
+        },
+        {
+          "delivered_receipt": null,
+          "error": "RECEIPT_LOOKUP_UNAVAILABLE",
+          "idempotency_key": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+          "op": "lookup",
+          "outcome": "error",
+          "provider_receipt": null,
+          "receipt_origin_run_id": null,
+          "request": null,
+          "seq": 2
+        },
+        {
+          "delivered_receipt": {
+            "id": "SYNTHETIC-RECEIPT-001",
+            "orderId": "DEMO-1001",
+            "settled": true,
+            "synthetic": true
+          },
+          "error": null,
+          "idempotency_key": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+          "op": "execute",
+          "outcome": "returned",
+          "provider_receipt": {
+            "id": "SYNTHETIC-RECEIPT-001",
+            "orderId": "DEMO-1001",
+            "settled": true,
+            "synthetic": true
+          },
+          "receipt_origin_run_id": "EO001-RECEIPT/retry__none",
+          "request": {
+            "cents": 4200,
+            "currency": "USD",
+            "orderId": "DEMO-1001"
+          },
+          "seq": 3
+        }
+      ],
+      "case_id": "retry__none",
+      "fault": "none",
+      "lane": "retry",
+      "provider_lane": {
+        "attempts": 2,
+        "complete": true,
+        "effects": 1,
+        "lookups": 1,
+        "receipts": [
+          {
+            "checksum": "17895d7a00531725335a557d5af3a2a1852f40b92dc0bafa70a1599f835fb4e7",
+            "idempotency_key": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+            "receipt": {
+              "id": "SYNTHETIC-RECEIPT-001",
+              "orderId": "DEMO-1001",
+              "settled": true,
+              "synthetic": true
+            }
+          }
+        ],
+        "run_id": "EO001-RECEIPT/retry__none"
+      },
+      "request": {
+        "cents": 4200,
+        "currency": "USD",
+        "orderId": "DEMO-1001"
+      },
+      "run_id": "EO001-RECEIPT/retry__none",
+      "workflow": {
+        "evidence": {
+          "authoritativeReceipt": {
+            "id": "SYNTHETIC-RECEIPT-001",
+            "orderId": "DEMO-1001",
+            "settled": true,
+            "synthetic": true
+          },
+          "fulfillmentAuthorized": true,
+          "idempotencyKey": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+          "orderId": "DEMO-1001",
+          "state": "SETTLED_VERIFIED_AFTER_IDEMPOTENT_RETRY",
+          "synthetic": true
+        },
+        "journal": [
+          {
+            "error": "ACK_LOST_AFTER_COMMIT",
+            "event": "provider.execute",
+            "status": "ERROR"
+          },
+          {
+            "error": "RECEIPT_LOOKUP_UNAVAILABLE",
+            "event": "provider.lookup",
+            "status": "ERROR"
+          },
+          {
+            "event": "provider.retry_same_key",
+            "output": {
+              "receipt": "SYNTHETIC-RECEIPT-001",
+              "synthetic": true
+            },
+            "status": "OK"
+          },
+          {
+            "event": "fulfillment.decision",
+            "output": {
+              "fulfillmentAuthorized": true,
+              "receipt": "SYNTHETIC-RECEIPT-001",
+              "state": "SETTLED_VERIFIED_AFTER_IDEMPOTENT_RETRY"
+            },
+            "status": "OK"
+          }
+        ]
+      }
+    },
+    {
+      "calls": [
+        {
+          "delivered_receipt": null,
+          "error": "ACK_LOST_AFTER_COMMIT",
+          "idempotency_key": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+          "op": "execute",
+          "outcome": "error",
+          "provider_receipt": null,
+          "receipt_origin_run_id": null,
+          "request": {
+            "cents": 4200,
+            "currency": "USD",
+            "orderId": "DEMO-1001"
+          },
+          "seq": 1
+        },
+        {
+          "delivered_receipt": null,
+          "error": "RECEIPT_LOOKUP_UNAVAILABLE",
+          "idempotency_key": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+          "op": "lookup",
+          "outcome": "error",
+          "provider_receipt": null,
+          "receipt_origin_run_id": null,
+          "request": null,
+          "seq": 2
+        },
+        {
+          "delivered_receipt": {
+            "id": "SYNTHETIC-RECEIPT-001",
+            "orderId": "DEMO-9999",
+            "settled": true,
+            "synthetic": true
+          },
+          "error": null,
+          "idempotency_key": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+          "op": "execute",
+          "outcome": "returned",
+          "provider_receipt": {
+            "id": "SYNTHETIC-RECEIPT-001",
+            "orderId": "DEMO-1001",
+            "settled": true,
+            "synthetic": true
+          },
+          "receipt_origin_run_id": "EO001-RECEIPT/retry__wrong_order",
+          "request": {
+            "cents": 4200,
+            "currency": "USD",
+            "orderId": "DEMO-1001"
+          },
+          "seq": 3
+        }
+      ],
+      "case_id": "retry__wrong_order",
+      "fault": "wrong_order",
+      "lane": "retry",
+      "provider_lane": {
+        "attempts": 2,
+        "complete": true,
+        "effects": 1,
+        "lookups": 1,
+        "receipts": [
+          {
+            "checksum": "17895d7a00531725335a557d5af3a2a1852f40b92dc0bafa70a1599f835fb4e7",
+            "idempotency_key": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+            "receipt": {
+              "id": "SYNTHETIC-RECEIPT-001",
+              "orderId": "DEMO-1001",
+              "settled": true,
+              "synthetic": true
+            }
+          }
+        ],
+        "run_id": "EO001-RECEIPT/retry__wrong_order"
+      },
+      "request": {
+        "cents": 4200,
+        "currency": "USD",
+        "orderId": "DEMO-1001"
+      },
+      "run_id": "EO001-RECEIPT/retry__wrong_order",
+      "workflow": {
+        "evidence": {
+          "authoritativeReceipt": {
+            "id": "SYNTHETIC-RECEIPT-001",
+            "orderId": "DEMO-9999",
+            "settled": true,
+            "synthetic": true
+          },
+          "fulfillmentAuthorized": true,
+          "idempotencyKey": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+          "orderId": "DEMO-1001",
+          "state": "SETTLED_VERIFIED_AFTER_IDEMPOTENT_RETRY",
+          "synthetic": true
+        },
+        "journal": [
+          {
+            "error": "ACK_LOST_AFTER_COMMIT",
+            "event": "provider.execute",
+            "status": "ERROR"
+          },
+          {
+            "error": "RECEIPT_LOOKUP_UNAVAILABLE",
+            "event": "provider.lookup",
+            "status": "ERROR"
+          },
+          {
+            "event": "provider.retry_same_key",
+            "output": {
+              "receipt": "SYNTHETIC-RECEIPT-001",
+              "synthetic": true
+            },
+            "status": "OK"
+          },
+          {
+            "event": "fulfillment.decision",
+            "output": {
+              "fulfillmentAuthorized": true,
+              "receipt": "SYNTHETIC-RECEIPT-001",
+              "state": "SETTLED_VERIFIED_AFTER_IDEMPOTENT_RETRY"
+            },
+            "status": "OK"
+          }
+        ]
+      }
+    },
+    {
+      "calls": [
+        {
+          "delivered_receipt": null,
+          "error": "ACK_LOST_AFTER_COMMIT",
+          "idempotency_key": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+          "op": "execute",
+          "outcome": "error",
+          "provider_receipt": null,
+          "receipt_origin_run_id": null,
+          "request": {
+            "cents": 4200,
+            "currency": "USD",
+            "orderId": "DEMO-1001"
+          },
+          "seq": 1
+        },
+        {
+          "delivered_receipt": null,
+          "error": "RECEIPT_LOOKUP_UNAVAILABLE",
+          "idempotency_key": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+          "op": "lookup",
+          "outcome": "error",
+          "provider_receipt": null,
+          "receipt_origin_run_id": null,
+          "request": null,
+          "seq": 2
+        },
+        {
+          "delivered_receipt": {
+            "id": "SYNTHETIC-RECEIPT-001",
+            "orderId": "DEMO-1001",
+            "settled": false,
+            "synthetic": true
+          },
+          "error": null,
+          "idempotency_key": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+          "op": "execute",
+          "outcome": "returned",
+          "provider_receipt": {
+            "id": "SYNTHETIC-RECEIPT-001",
+            "orderId": "DEMO-1001",
+            "settled": true,
+            "synthetic": true
+          },
+          "receipt_origin_run_id": "EO001-RECEIPT/retry__unsettled",
+          "request": {
+            "cents": 4200,
+            "currency": "USD",
+            "orderId": "DEMO-1001"
+          },
+          "seq": 3
+        }
+      ],
+      "case_id": "retry__unsettled",
+      "fault": "unsettled",
+      "lane": "retry",
+      "provider_lane": {
+        "attempts": 2,
+        "complete": true,
+        "effects": 1,
+        "lookups": 1,
+        "receipts": [
+          {
+            "checksum": "17895d7a00531725335a557d5af3a2a1852f40b92dc0bafa70a1599f835fb4e7",
+            "idempotency_key": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+            "receipt": {
+              "id": "SYNTHETIC-RECEIPT-001",
+              "orderId": "DEMO-1001",
+              "settled": true,
+              "synthetic": true
+            }
+          }
+        ],
+        "run_id": "EO001-RECEIPT/retry__unsettled"
+      },
+      "request": {
+        "cents": 4200,
+        "currency": "USD",
+        "orderId": "DEMO-1001"
+      },
+      "run_id": "EO001-RECEIPT/retry__unsettled",
+      "workflow": {
+        "evidence": {
+          "authoritativeReceipt": {
+            "id": "SYNTHETIC-RECEIPT-001",
+            "orderId": "DEMO-1001",
+            "settled": false,
+            "synthetic": true
+          },
+          "fulfillmentAuthorized": true,
+          "idempotencyKey": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+          "orderId": "DEMO-1001",
+          "state": "SETTLED_VERIFIED_AFTER_IDEMPOTENT_RETRY",
+          "synthetic": true
+        },
+        "journal": [
+          {
+            "error": "ACK_LOST_AFTER_COMMIT",
+            "event": "provider.execute",
+            "status": "ERROR"
+          },
+          {
+            "error": "RECEIPT_LOOKUP_UNAVAILABLE",
+            "event": "provider.lookup",
+            "status": "ERROR"
+          },
+          {
+            "event": "provider.retry_same_key",
+            "output": {
+              "receipt": "SYNTHETIC-RECEIPT-001",
+              "synthetic": true
+            },
+            "status": "OK"
+          },
+          {
+            "event": "fulfillment.decision",
+            "output": {
+              "fulfillmentAuthorized": true,
+              "receipt": "SYNTHETIC-RECEIPT-001",
+              "state": "SETTLED_VERIFIED_AFTER_IDEMPOTENT_RETRY"
+            },
+            "status": "OK"
+          }
+        ]
+      }
+    },
+    {
+      "calls": [
+        {
+          "delivered_receipt": null,
+          "error": "ACK_LOST_AFTER_COMMIT",
+          "idempotency_key": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+          "op": "execute",
+          "outcome": "error",
+          "provider_receipt": null,
+          "receipt_origin_run_id": null,
+          "request": {
+            "cents": 4200,
+            "currency": "USD",
+            "orderId": "DEMO-1001"
+          },
+          "seq": 1
+        },
+        {
+          "delivered_receipt": null,
+          "error": "RECEIPT_LOOKUP_UNAVAILABLE",
+          "idempotency_key": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+          "op": "lookup",
+          "outcome": "error",
+          "provider_receipt": null,
+          "receipt_origin_run_id": null,
+          "request": null,
+          "seq": 2
+        },
+        {
+          "delivered_receipt": {
+            "id": "SYNTHETIC-RECEIPT-001",
+            "orderId": "DEMO-1001",
+            "settled": "true",
+            "synthetic": true
+          },
+          "error": null,
+          "idempotency_key": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+          "op": "execute",
+          "outcome": "returned",
+          "provider_receipt": {
+            "id": "SYNTHETIC-RECEIPT-001",
+            "orderId": "DEMO-1001",
+            "settled": true,
+            "synthetic": true
+          },
+          "receipt_origin_run_id": "EO001-RECEIPT/retry__truthy_status",
+          "request": {
+            "cents": 4200,
+            "currency": "USD",
+            "orderId": "DEMO-1001"
+          },
+          "seq": 3
+        }
+      ],
+      "case_id": "retry__truthy_status",
+      "fault": "truthy_status",
+      "lane": "retry",
+      "provider_lane": {
+        "attempts": 2,
+        "complete": true,
+        "effects": 1,
+        "lookups": 1,
+        "receipts": [
+          {
+            "checksum": "17895d7a00531725335a557d5af3a2a1852f40b92dc0bafa70a1599f835fb4e7",
+            "idempotency_key": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+            "receipt": {
+              "id": "SYNTHETIC-RECEIPT-001",
+              "orderId": "DEMO-1001",
+              "settled": true,
+              "synthetic": true
+            }
+          }
+        ],
+        "run_id": "EO001-RECEIPT/retry__truthy_status"
+      },
+      "request": {
+        "cents": 4200,
+        "currency": "USD",
+        "orderId": "DEMO-1001"
+      },
+      "run_id": "EO001-RECEIPT/retry__truthy_status",
+      "workflow": {
+        "evidence": {
+          "authoritativeReceipt": {
+            "id": "SYNTHETIC-RECEIPT-001",
+            "orderId": "DEMO-1001",
+            "settled": "true",
+            "synthetic": true
+          },
+          "fulfillmentAuthorized": true,
+          "idempotencyKey": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+          "orderId": "DEMO-1001",
+          "state": "SETTLED_VERIFIED_AFTER_IDEMPOTENT_RETRY",
+          "synthetic": true
+        },
+        "journal": [
+          {
+            "error": "ACK_LOST_AFTER_COMMIT",
+            "event": "provider.execute",
+            "status": "ERROR"
+          },
+          {
+            "error": "RECEIPT_LOOKUP_UNAVAILABLE",
+            "event": "provider.lookup",
+            "status": "ERROR"
+          },
+          {
+            "event": "provider.retry_same_key",
+            "output": {
+              "receipt": "SYNTHETIC-RECEIPT-001",
+              "synthetic": true
+            },
+            "status": "OK"
+          },
+          {
+            "event": "fulfillment.decision",
+            "output": {
+              "fulfillmentAuthorized": true,
+              "receipt": "SYNTHETIC-RECEIPT-001",
+              "state": "SETTLED_VERIFIED_AFTER_IDEMPOTENT_RETRY"
+            },
+            "status": "OK"
+          }
+        ]
+      }
+    },
+    {
+      "calls": [
+        {
+          "delivered_receipt": null,
+          "error": "ACK_LOST_AFTER_COMMIT",
+          "idempotency_key": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+          "op": "execute",
+          "outcome": "error",
+          "provider_receipt": null,
+          "receipt_origin_run_id": null,
+          "request": {
+            "cents": 4200,
+            "currency": "USD",
+            "orderId": "DEMO-1001"
+          },
+          "seq": 1
+        },
+        {
+          "delivered_receipt": null,
+          "error": "RECEIPT_LOOKUP_UNAVAILABLE",
+          "idempotency_key": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+          "op": "lookup",
+          "outcome": "error",
+          "provider_receipt": null,
+          "receipt_origin_run_id": null,
+          "request": null,
+          "seq": 2
+        },
+        {
+          "delivered_receipt": {
+            "id": "SYNTHETIC-RECEIPT-FORGED",
+            "orderId": "DEMO-1001",
+            "settled": true,
+            "synthetic": true
+          },
+          "error": null,
+          "idempotency_key": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+          "op": "execute",
+          "outcome": "returned",
+          "provider_receipt": {
+            "id": "SYNTHETIC-RECEIPT-001",
+            "orderId": "DEMO-1001",
+            "settled": true,
+            "synthetic": true
+          },
+          "receipt_origin_run_id": "EO001-RECEIPT/retry__forged_id",
+          "request": {
+            "cents": 4200,
+            "currency": "USD",
+            "orderId": "DEMO-1001"
+          },
+          "seq": 3
+        }
+      ],
+      "case_id": "retry__forged_id",
+      "fault": "forged_id",
+      "lane": "retry",
+      "provider_lane": {
+        "attempts": 2,
+        "complete": true,
+        "effects": 1,
+        "lookups": 1,
+        "receipts": [
+          {
+            "checksum": "17895d7a00531725335a557d5af3a2a1852f40b92dc0bafa70a1599f835fb4e7",
+            "idempotency_key": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+            "receipt": {
+              "id": "SYNTHETIC-RECEIPT-001",
+              "orderId": "DEMO-1001",
+              "settled": true,
+              "synthetic": true
+            }
+          }
+        ],
+        "run_id": "EO001-RECEIPT/retry__forged_id"
+      },
+      "request": {
+        "cents": 4200,
+        "currency": "USD",
+        "orderId": "DEMO-1001"
+      },
+      "run_id": "EO001-RECEIPT/retry__forged_id",
+      "workflow": {
+        "evidence": {
+          "authoritativeReceipt": {
+            "id": "SYNTHETIC-RECEIPT-FORGED",
+            "orderId": "DEMO-1001",
+            "settled": true,
+            "synthetic": true
+          },
+          "fulfillmentAuthorized": true,
+          "idempotencyKey": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+          "orderId": "DEMO-1001",
+          "state": "SETTLED_VERIFIED_AFTER_IDEMPOTENT_RETRY",
+          "synthetic": true
+        },
+        "journal": [
+          {
+            "error": "ACK_LOST_AFTER_COMMIT",
+            "event": "provider.execute",
+            "status": "ERROR"
+          },
+          {
+            "error": "RECEIPT_LOOKUP_UNAVAILABLE",
+            "event": "provider.lookup",
+            "status": "ERROR"
+          },
+          {
+            "event": "provider.retry_same_key",
+            "output": {
+              "receipt": "SYNTHETIC-RECEIPT-FORGED",
+              "synthetic": true
+            },
+            "status": "OK"
+          },
+          {
+            "event": "fulfillment.decision",
+            "output": {
+              "fulfillmentAuthorized": true,
+              "receipt": "SYNTHETIC-RECEIPT-FORGED",
+              "state": "SETTLED_VERIFIED_AFTER_IDEMPOTENT_RETRY"
+            },
+            "status": "OK"
+          }
+        ]
+      }
+    },
+    {
+      "calls": [
+        {
+          "delivered_receipt": null,
+          "error": "ACK_LOST_AFTER_COMMIT",
+          "idempotency_key": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+          "op": "execute",
+          "outcome": "error",
+          "provider_receipt": null,
+          "receipt_origin_run_id": null,
+          "request": {
+            "cents": 4200,
+            "currency": "USD",
+            "orderId": "DEMO-1001"
+          },
+          "seq": 1
+        },
+        {
+          "delivered_receipt": null,
+          "error": "RECEIPT_LOOKUP_UNAVAILABLE",
+          "idempotency_key": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+          "op": "lookup",
+          "outcome": "error",
+          "provider_receipt": null,
+          "receipt_origin_run_id": null,
+          "request": null,
+          "seq": 2
+        },
+        {
+          "delivered_receipt": {
+            "id": "SYNTHETIC-RECEIPT-001",
+            "orderId": "DEMO-1001",
+            "settled": true,
+            "synthetic": true
+          },
+          "error": null,
+          "idempotency_key": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+          "op": "execute",
+          "outcome": "returned",
+          "provider_receipt": {
+            "id": "SYNTHETIC-RECEIPT-001",
+            "orderId": "DEMO-1001",
+            "settled": true,
+            "synthetic": true
+          },
+          "receipt_origin_run_id": "EO001-RECEIPT/previous-run",
+          "request": {
+            "cents": 4200,
+            "currency": "USD",
+            "orderId": "DEMO-1001"
+          },
+          "seq": 3
+        }
+      ],
+      "case_id": "retry__cross_run_replay",
+      "fault": "cross_run_replay",
+      "lane": "retry",
+      "provider_lane": {
+        "attempts": 2,
+        "complete": true,
+        "effects": 1,
+        "lookups": 1,
+        "receipts": [
+          {
+            "checksum": "17895d7a00531725335a557d5af3a2a1852f40b92dc0bafa70a1599f835fb4e7",
+            "idempotency_key": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+            "receipt": {
+              "id": "SYNTHETIC-RECEIPT-001",
+              "orderId": "DEMO-1001",
+              "settled": true,
+              "synthetic": true
+            }
+          }
+        ],
+        "run_id": "EO001-RECEIPT/retry__cross_run_replay"
+      },
+      "request": {
+        "cents": 4200,
+        "currency": "USD",
+        "orderId": "DEMO-1001"
+      },
+      "run_id": "EO001-RECEIPT/retry__cross_run_replay",
+      "workflow": {
+        "evidence": {
+          "authoritativeReceipt": {
+            "id": "SYNTHETIC-RECEIPT-001",
+            "orderId": "DEMO-1001",
+            "settled": true,
+            "synthetic": true
+          },
+          "fulfillmentAuthorized": true,
+          "idempotencyKey": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+          "orderId": "DEMO-1001",
+          "state": "SETTLED_VERIFIED_AFTER_IDEMPOTENT_RETRY",
+          "synthetic": true
+        },
+        "journal": [
+          {
+            "error": "ACK_LOST_AFTER_COMMIT",
+            "event": "provider.execute",
+            "status": "ERROR"
+          },
+          {
+            "error": "RECEIPT_LOOKUP_UNAVAILABLE",
+            "event": "provider.lookup",
+            "status": "ERROR"
+          },
+          {
+            "event": "provider.retry_same_key",
+            "output": {
+              "receipt": "SYNTHETIC-RECEIPT-001",
+              "synthetic": true
+            },
+            "status": "OK"
+          },
+          {
+            "event": "fulfillment.decision",
+            "output": {
+              "fulfillmentAuthorized": true,
+              "receipt": "SYNTHETIC-RECEIPT-001",
+              "state": "SETTLED_VERIFIED_AFTER_IDEMPOTENT_RETRY"
+            },
+            "status": "OK"
+          }
+        ]
+      }
+    },
+    {
+      "calls": [
+        {
+          "delivered_receipt": null,
+          "error": "ACK_LOST_AFTER_COMMIT",
+          "idempotency_key": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+          "op": "execute",
+          "outcome": "error",
+          "provider_receipt": null,
+          "receipt_origin_run_id": null,
+          "request": {
+            "cents": 4200,
+            "currency": "USD",
+            "orderId": "DEMO-1001"
+          },
+          "seq": 1
+        },
+        {
+          "delivered_receipt": null,
+          "error": "RECEIPT_LOOKUP_UNAVAILABLE",
+          "idempotency_key": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+          "op": "lookup",
+          "outcome": "error",
+          "provider_receipt": null,
+          "receipt_origin_run_id": null,
+          "request": null,
+          "seq": 2
+        }
+      ],
+      "case_id": "unresolved__none",
+      "fault": "none",
+      "lane": "unresolved",
+      "provider_lane": {
+        "attempts": 1,
+        "complete": true,
+        "effects": 1,
+        "lookups": 1,
+        "receipts": [
+          {
+            "checksum": "17895d7a00531725335a557d5af3a2a1852f40b92dc0bafa70a1599f835fb4e7",
+            "idempotency_key": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+            "receipt": {
+              "id": "SYNTHETIC-RECEIPT-001",
+              "orderId": "DEMO-1001",
+              "settled": true,
+              "synthetic": true
+            }
+          }
+        ],
+        "run_id": "EO001-RECEIPT/unresolved__none"
+      },
+      "request": {
+        "cents": 4200,
+        "currency": "USD",
+        "orderId": "DEMO-1001"
+      },
+      "run_id": "EO001-RECEIPT/unresolved__none",
+      "workflow": {
+        "evidence": {
+          "authoritativeReceipt": null,
+          "fulfillmentAuthorized": false,
+          "idempotencyKey": "a77d1d8c834d6f4ae55573ead9b1656a95c0986f479d2b56ffdcb67983aa3db3",
+          "orderId": "DEMO-1001",
+          "state": "HOLD_UNKNOWN",
+          "synthetic": true
+        },
+        "journal": [
+          {
+            "error": "ACK_LOST_AFTER_COMMIT",
+            "event": "provider.execute",
+            "status": "ERROR"
+          },
+          {
+            "error": "RECEIPT_LOOKUP_UNAVAILABLE",
+            "event": "provider.lookup",
+            "status": "ERROR"
+          },
+          {
+            "event": "fulfillment.decision",
+            "output": {
+              "fulfillmentAuthorized": false,
+              "receipt": null,
+              "state": "HOLD_UNKNOWN"
+            },
+            "status": "OK"
+          }
+        ]
+      }
+    }
+  ],
+  "protocol": "EO-001-RECEIPT-AUDIT/0.1.0",
+  "schema_version": 1,
+  "upstream_sha256": "71668194901b1ebe7f1212d1278670e9a68d6d17c30529827afb973d5872f90c"
+}

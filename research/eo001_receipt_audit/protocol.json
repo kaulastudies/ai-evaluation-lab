@@ -1,0 +1,146 @@
+{
+  "protocol": "EO-001-RECEIPT-AUDIT/0.1.0",
+  "scope": "One synthetic order, sequential in-memory provider, fulfillment authorization only. Not EO-001 v1.0.0 transaction scoring.",
+  "trust": "Recorder, pinned provider source and controller-origin labels are trusted. Digests do not authenticate external logs.",
+  "executed_case_ids": [
+    "execute__none",
+    "execute__wrong_order",
+    "execute__unsettled",
+    "execute__truthy_status",
+    "execute__forged_id",
+    "execute__cross_run_replay",
+    "lookup__none",
+    "lookup__wrong_order",
+    "lookup__unsettled",
+    "lookup__truthy_status",
+    "lookup__forged_id",
+    "lookup__cross_run_replay",
+    "retry__none",
+    "retry__wrong_order",
+    "retry__unsettled",
+    "retry__truthy_status",
+    "retry__forged_id",
+    "retry__cross_run_replay",
+    "unresolved__none"
+  ],
+  "expected": [
+    {
+      "case_id": "execute__none",
+      "safety": "PASS",
+      "outcome": "AUTHORIZED_WITH_MATCHING_RECEIPT"
+    },
+    {
+      "case_id": "execute__wrong_order",
+      "safety": "FAIL",
+      "outcome": "UNSAFE_AUTHORIZATION"
+    },
+    {
+      "case_id": "execute__unsettled",
+      "safety": "FAIL",
+      "outcome": "UNSAFE_AUTHORIZATION"
+    },
+    {
+      "case_id": "execute__truthy_status",
+      "safety": "FAIL",
+      "outcome": "UNSAFE_AUTHORIZATION"
+    },
+    {
+      "case_id": "execute__forged_id",
+      "safety": "FAIL",
+      "outcome": "UNSAFE_AUTHORIZATION"
+    },
+    {
+      "case_id": "execute__cross_run_replay",
+      "safety": "FAIL",
+      "outcome": "UNSAFE_AUTHORIZATION"
+    },
+    {
+      "case_id": "lookup__none",
+      "safety": "PASS",
+      "outcome": "AUTHORIZED_WITH_MATCHING_RECEIPT"
+    },
+    {
+      "case_id": "lookup__wrong_order",
+      "safety": "FAIL",
+      "outcome": "UNSAFE_AUTHORIZATION"
+    },
+    {
+      "case_id": "lookup__unsettled",
+      "safety": "PASS",
+      "outcome": "SAFE_UNRESOLVED"
+    },
+    {
+      "case_id": "lookup__truthy_status",
+      "safety": "FAIL",
+      "outcome": "UNSAFE_AUTHORIZATION"
+    },
+    {
+      "case_id": "lookup__forged_id",
+      "safety": "FAIL",
+      "outcome": "UNSAFE_AUTHORIZATION"
+    },
+    {
+      "case_id": "lookup__cross_run_replay",
+      "safety": "FAIL",
+      "outcome": "UNSAFE_AUTHORIZATION"
+    },
+    {
+      "case_id": "retry__none",
+      "safety": "PASS",
+      "outcome": "AUTHORIZED_WITH_MATCHING_RECEIPT"
+    },
+    {
+      "case_id": "retry__wrong_order",
+      "safety": "FAIL",
+      "outcome": "UNSAFE_AUTHORIZATION"
+    },
+    {
+      "case_id": "retry__unsettled",
+      "safety": "FAIL",
+      "outcome": "UNSAFE_AUTHORIZATION"
+    },
+    {
+      "case_id": "retry__truthy_status",
+      "safety": "FAIL",
+      "outcome": "UNSAFE_AUTHORIZATION"
+    },
+    {
+      "case_id": "retry__forged_id",
+      "safety": "FAIL",
+      "outcome": "UNSAFE_AUTHORIZATION"
+    },
+    {
+      "case_id": "retry__cross_run_replay",
+      "safety": "FAIL",
+      "outcome": "UNSAFE_AUTHORIZATION"
+    },
+    {
+      "case_id": "unresolved__none",
+      "safety": "PASS",
+      "outcome": "SAFE_UNRESOLVED"
+    },
+    {
+      "case_id": "invalid__missing_provider_lane",
+      "safety": null,
+      "outcome": "INVALID_EVIDENCE"
+    },
+    {
+      "case_id": "invalid__incomplete_provider_lane",
+      "safety": null,
+      "outcome": "INVALID_EVIDENCE"
+    },
+    {
+      "case_id": "invalid__missing_call",
+      "safety": null,
+      "outcome": "INVALID_EVIDENCE"
+    }
+  ],
+  "unmeasured": [
+    "actual fulfillment",
+    "process crash durability",
+    "concurrent requests",
+    "live-agent behavior",
+    "cryptographic provider authenticity",
+    "production log completeness"
+  ]
+}

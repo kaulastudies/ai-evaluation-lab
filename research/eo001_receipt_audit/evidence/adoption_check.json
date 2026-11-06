@@ -1,0 +1,9 @@
+{
+  "adapter_sha256": "3284599cb2ba94e54404ee04b14fd96c319ce54a9e0517515da06cfad32c4e7e",
+  "evidence_state": "UNVERIFIED_EXTERNAL",
+  "intake_report_sha256": "ec5a60a8fa711efe812ebce7df6accbac6e087f37b70197bd8a16a912d1013bb",
+  "lab_verdict": null,
+  "promotion_allowed": false,
+  "samples_preserved": 22,
+  "scorers_per_sample": 3
+}

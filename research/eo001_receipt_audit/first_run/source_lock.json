@@ -1,0 +1,12 @@
+{
+  "repository": "jgaethle10/forge-operator",
+  "commit": "0a48f60516f2a81e4b225a497a3faadb2dffbc65",
+  "files": {
+    "integrations/ai-evaluation-lab/accept-sovereign-inference.py": "e676a7a470f3da664b9bb543bb09d4f079757ad98586f98335dc0745a69dc7c5",
+    "integrations/ai-evaluation-lab/accept-sovereign-inference.test.py": "096a86f17b6be64d4db4529660fab1a9ab5ae1c4d5bb01fbc6d4c8972accaf53",
+    "integrations/ai-evaluation-lab/eo001-raven-local-candidate.mjs": "51a9fd7b4234ad5876c04de77f039ef61f24b8e38a4e3f0d3e847dc775dd8340",
+    "integrations/ai-evaluation-lab/eo001-lab-candidate.mjs": "fa3a9a8fb3c6ae2b42437355c82b8d9f4c57cd68c3addd70fdbcbbdd495b090e",
+    "systemia/raven/inference-gateway.mjs": "e83980c41c46979a2fc3ec4ea9bbd43a5c6446e687c01b99291e82643d45cf78",
+    "systemia/evercraft-home/credential-vault.mjs": "622fc69402972a90d6419deaa20b302f6e510ecaa8e4477ad402df8988054d3e"
+  }
+}

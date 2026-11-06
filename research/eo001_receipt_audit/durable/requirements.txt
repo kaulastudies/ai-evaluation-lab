@@ -1,0 +1,2 @@
+# Isolated experiment dependency; the existing Lab runtime remains unchanged.
+cryptography==50.0.2

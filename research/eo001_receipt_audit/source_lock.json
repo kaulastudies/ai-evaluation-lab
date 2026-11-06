@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "forge": {
+    "repository": "jgaethle10/forge-operator",
+    "commit": "956a53e171fc8be9ad111cce714aaf1ec89c7006",
+    "path": "integrations/neatroots/ambiguous-external-effect.mjs",
+    "sha256": "71668194901b1ebe7f1212d1278670e9a68d6d17c30529827afb973d5872f90c"
+  },
+  "inspect_intake": {
+    "repository": "kaulastudies/ai-evaluation-lab",
+    "commit": "dc04592b4059f6384fde11ccce269e0f2a3dd4eb",
+    "path": "research/open_source_adoption/adoption.py",
+    "sha256": "3284599cb2ba94e54404ee04b14fd96c319ce54a9e0517515da06cfad32c4e7e",
+    "pull_request": 29
+  }
+}
