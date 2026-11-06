@@ -1,9 +1,9 @@
 # EO-001 / Evercraft: Four-Scenario Independent Review Contract (proposal v0.1)
 
-**Prepared by:** AI Evaluation Lab · **Date:** 5 November 2026  
+**Prepared by:** AI Evaluation Lab · **Date:** 5 November 2026
 **Status:** Review proposal; no new model runs, no independent hardware certification, and no jointly accepted final report.
 
-**Coordination:** [Lab #35](https://github.com/kaulastudies/ai-evaluation-lab/issues/35) ↔ [Forge Operator #1705](https://github.com/jgaethle10/forge-operator/issues/1705).  
+**Coordination:** [Lab #35](https://github.com/kaulastudies/ai-evaluation-lab/issues/35) ↔ [Forge Operator #1705](https://github.com/jgaethle10/forge-operator/issues/1705).
 **Implementations:** [Lab draft PR #30](https://github.com/kaulastudies/ai-evaluation-lab/pull/30) (independent verifier) and [Evercraft draft PR #1744](https://github.com/jgaethle10/forge-operator/pull/1744) (owned candidate and exporter).
 
 ## Why this exists
@@ -64,3 +64,42 @@ python research/eo001_coordination/assess_report.py \
 The input must be the normalized \`EO-FIRST-RUN-REVIEW/0.1.0\` JSON created by Lab PR #30. The assessor writes a new private summary, refuses overwrite, and reports only allowlisted status/count fields. Exit 0 means the source report was consistently interpreted; **it does not mean Qwen passed**. Exit 2 indicates gaps/invalid report. Review any summary before sharing. It does not ingest the original inference receipt or original model text.
 
 **Suggested next check-in:** Jesse supplies the sanitized preflight report when ready; the Lab reviews it asynchronously; both approve the four-case protocol through issues #35/#1705; then proceed to an explicitly bounded model run. No scheduled overlap required.
+
+## Review response — 6 November 2026
+
+Jesse reports six exporter tests passing on NextGen and a local run of the pinned
+Lab reviewer with `INFERENCE_REPORTED`, `UNVERIFIED_EXTERNAL`,
+`evidence_coverage=NOT_SUPPLIED`, no problems, and promotion disabled. The original
+receipt and generated report remain private. The Lab has read his review comment,
+not independently inspected either file. Gate 0 handoff remains pending.
+
+The assessor now returns `scenario_results` separately from report consistency:
+recorded cases, reported safety pass/fail/unknown counts, reference matches, unsafe
+raw proposals, and guard interventions. Missing cases remain visible against the
+expected four. A complete failed report remains reportable. `CONSISTENT` and exit
+0 must never be presented as a model-pass label; `model_pass_established` is false.
+
+### Proposed timing protocol for joint review (not accepted or executed)
+
+- Keep the existing 15-second per-decision wall-time cap and six-decision budget
+  per scenario. Do not silently increase the runner limits for this experiment.
+- Use one separately recorded warm-up request through the same gateway before
+  the fixed scenario order: none, ack_loss, lookup_outage, tamper. Record cold
+  startup and warm-up latency separately; neither is a scored scenario decision.
+  The earlier 17.81-second smoke receipt is not a warmed-decision measurement.
+- Start each decision timer immediately before the candidate request and stop
+  when its complete response is received. Include serialization, gateway,
+  inference and guard processing in that wall time. Preserve timeout/error
+  receipts and partial results; stop on the first overrun. Do not extend a timer
+  or repeat a failed attempt to replace its result.
+- Before execution, jointly record exact Lab/Forge adapter commits, model/runtime
+  hashes, prompt bytes and context serialization/hash, generation parameters,
+  token limit, warm-up prompt/hash and its bounded timeout, host configuration,
+  output naming and cleanup checks. These values remain unresolved; this text
+  alone is not an executable or accepted protocol.
+- If warmed inference cannot fit the current cap, record that limitation. Any
+  larger-budget protocol needs a separate reviewed runner change, version and
+  retained baseline result before another attempt.
+
+Next handoff: a privacy-reviewed sanitized receipt and reviewer JSON, followed by
+agreement on the remaining protocol fields. No new model run is requested yet.
