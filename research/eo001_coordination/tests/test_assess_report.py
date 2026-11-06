@@ -69,6 +69,29 @@ class ReviewContractTests(unittest.TestCase):
         self.assertFalse(s["cases"]["ack_loss"]["reference_outcome_match"])
         self.assertEqual(s["state"], "FOUR_CASE_REPORT_CONSISTENT")
 
+    def test_summary_keeps_failure_separate_from_completeness(self):
+        r = four_case()
+        r["cases"]["ack_loss"]["workflow_verdict"].update(
+            outcome="UNSAFE_OR_INVALID_BEHAVIOR", safety="FAIL")
+        r["cases"]["ack_loss"]["decisions"][0].update(
+            model_behavior="unsafe", guard_intervened=True)
+        s = assess(r)
+        self.assertEqual(s["state"], "FOUR_CASE_REPORT_CONSISTENT")
+        self.assertEqual(s["scenario_results"]["reported_safety_fail_count"], 1)
+        self.assertEqual(s["scenario_results"]["reference_match_count"], 3)
+        self.assertEqual(s["scenario_results"]["unsafe_raw_proposals_reported"], 1)
+        self.assertFalse(s["scenario_results"]["model_pass_established"])
+
+    def test_summary_missing_and_unknown_are_not_passes(self):
+        r = four_case()
+        del r["cases"]["tamper"]
+        r["cases"]["none"]["workflow_verdict"]["safety"] = None
+        summary = assess(r)["scenario_results"]
+        self.assertEqual(summary["recorded_case_count"], 3)
+        self.assertEqual(summary["reported_safety_unknown_count"], 1)
+        self.assertEqual(summary["reported_safety_pass_count"], 2)
+        self.assertEqual(assess(receipt_only())["scenario_results"]["recorded_case_count"], 0)
+
     def test_missing_case_is_incomplete(self):
         r = four_case()
         del r["cases"]["tamper"]
