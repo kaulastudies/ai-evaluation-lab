@@ -1,0 +1,328 @@
+TAP version 13
+# Subtest: review: adversarial model price, merchant, authority and status fields cannot override server policy
+ok 1 - review: adversarial model price, merchant, authority and status fields cannot override server policy
+  ---
+  duration_ms: 10.748974
+  type: 'test'
+  ...
+# Subtest: review: unknown catalogue item creates no operation and no fallback
+ok 2 - review: unknown catalogue item creates no operation and no fallback
+  ---
+  duration_ms: 2.752818
+  type: 'test'
+  ...
+# Subtest: review: malformed model JSON creates no operation and no fallback
+ok 3 - review: malformed model JSON creates no operation and no fallback
+  ---
+  duration_ms: 1.546666
+  type: 'test'
+  ...
+# Subtest: review: unavailable model yields no proposal or deterministic substitute
+ok 4 - review: unavailable model yields no proposal or deterministic substitute
+  ---
+  duration_ms: 1.48888
+  type: 'test'
+  ...
+# Subtest: review: missing model configuration blocks sandbox proposal before any network call
+ok 5 - review: missing model configuration blocks sandbox proposal before any network call
+  ---
+  duration_ms: 1.671621
+  type: 'test'
+  ...
+# Subtest: review: authenticated same-origin JSON mutation accepted
+ok 6 - review: authenticated same-origin JSON mutation accepted
+  ---
+  duration_ms: 3.083687
+  type: 'test'
+  ...
+# Subtest: review: absent trusted-ingress identity denied
+ok 7 - review: absent trusted-ingress identity denied
+  ---
+  duration_ms: 0.74449
+  type: 'test'
+  ...
+# Subtest: review: cross-origin mutation denied
+ok 8 - review: cross-origin mutation denied
+  ---
+  duration_ms: 0.61571
+  type: 'test'
+  ...
+# Subtest: review: missing mutation origin denied
+ok 9 - review: missing mutation origin denied
+  ---
+  duration_ms: 2.251327
+  type: 'test'
+  ...
+# Subtest: review: cross-site fetch metadata denied despite claimed matching origin
+ok 10 - review: cross-site fetch metadata denied despite claimed matching origin
+  ---
+  duration_ms: 0.451197
+  type: 'test'
+  ...
+# Subtest: review: simple form POST content type denied
+ok 11 - review: simple form POST content type denied
+  ---
+  duration_ms: 0.271641
+  type: 'test'
+  ...
+# Subtest: review: read still requires authenticated ingress identity
+ok 12 - review: read still requires authenticated ingress identity
+  ---
+  duration_ms: 0.181659
+  type: 'test'
+  ...
+# Subtest: review: independently matching provider evidence confirms the expected capture
+ok 13 - review: independently matching provider evidence confirms the expected capture
+  ---
+  duration_ms: 1.244318
+  type: 'test'
+  ...
+# Subtest: review: provider mutation rejected: wrong order
+ok 14 - review: provider mutation rejected: wrong order
+  ---
+  duration_ms: 0.283449
+  type: 'test'
+  ...
+# Subtest: review: provider mutation rejected: wrong operation reference
+ok 15 - review: provider mutation rejected: wrong operation reference
+  ---
+  duration_ms: 0.109581
+  type: 'test'
+  ...
+# Subtest: review: provider mutation rejected: wrong custom ID
+ok 16 - review: provider mutation rejected: wrong custom ID
+  ---
+  duration_ms: 0.125896
+  type: 'test'
+  ...
+# Subtest: review: provider mutation rejected: wrong seller
+ok 17 - review: provider mutation rejected: wrong seller
+  ---
+  duration_ms: 0.127829
+  type: 'test'
+  ...
+# Subtest: review: provider mutation rejected: wrong order currency
+ok 18 - review: provider mutation rejected: wrong order currency
+  ---
+  duration_ms: 0.132756
+  type: 'test'
+  ...
+# Subtest: review: provider mutation rejected: wrong order amount
+ok 19 - review: provider mutation rejected: wrong order amount
+  ---
+  duration_ms: 0.145756
+  type: 'test'
+  ...
+# Subtest: review: provider mutation rejected: wrong capture currency
+ok 20 - review: provider mutation rejected: wrong capture currency
+  ---
+  duration_ms: 0.105015
+  type: 'test'
+  ...
+# Subtest: review: provider mutation rejected: wrong capture amount
+ok 21 - review: provider mutation rejected: wrong capture amount
+  ---
+  duration_ms: 0.190311
+  type: 'test'
+  ...
+# Subtest: review: provider mutation rejected: missing capture ID
+ok 22 - review: provider mutation rejected: missing capture ID
+  ---
+  duration_ms: 0.207547
+  type: 'test'
+  ...
+# Subtest: review: provider mutation rejected: failed capture
+ok 23 - review: provider mutation rejected: failed capture
+  ---
+  duration_ms: 0.12853
+  type: 'test'
+  ...
+# Subtest: review: provider mutation rejected: inconsistent order status
+ok 24 - review: provider mutation rejected: inconsistent order status
+  ---
+  duration_ms: 0.161348
+  type: 'test'
+  ...
+# Subtest: review: provider mutation rejected: non-final capture
+ok 25 - review: provider mutation rejected: non-final capture
+  ---
+  duration_ms: 0.099877
+  type: 'test'
+  ...
+# Subtest: review: provider mutation rejected: duplicate capture
+ok 26 - review: provider mutation rejected: duplicate capture
+  ---
+  duration_ms: 0.205423
+  type: 'test'
+  ...
+# Subtest: review: provider mutation rejected: duplicate purchase unit
+ok 27 - review: provider mutation rejected: duplicate purchase unit
+  ---
+  duration_ms: 0.180407
+  type: 'test'
+  ...
+# Subtest: review: provider mutation rejected: refund activity
+ok 28 - review: provider mutation rejected: refund activity
+  ---
+  duration_ms: 0.125766
+  type: 'test'
+  ...
+# Subtest: review: provider mutation rejected: noncanonical monetary encoding
+ok 29 - review: provider mutation rejected: noncanonical monetary encoding
+  ---
+  duration_ms: 0.073218
+  type: 'test'
+  ...
+# Subtest: review: pending or absent capture is not confirmed
+ok 30 - review: pending or absent capture is not confirmed
+  ---
+  duration_ms: 0.140698
+  type: 'test'
+  ...
+# Subtest: review: previously bound capture cannot be silently replaced
+ok 31 - review: previously bound capture cannot be silently replaced
+  ---
+  duration_ms: 0.152295
+  type: 'test'
+  ...
+# Subtest: review: approval links are restricted to sandbox PayPal and reject embedded credentials
+ok 32 - review: approval links are restricted to sandbox PayPal and reject embedded credentials
+  ---
+  duration_ms: 0.229769
+  type: 'test'
+  ...
+# Subtest: review: missing sandbox credentials fail closed
+ok 33 - review: missing sandbox credentials fail closed
+  ---
+  duration_ms: 0.292532
+  type: 'test'
+  ...
+# Subtest: review: sandbox adapter uses sandbox endpoints and persisted request IDs without hidden retry
+ok 34 - review: sandbox adapter uses sandbox endpoints and persisted request IDs without hidden retry
+  ---
+  duration_ms: 3.61971
+  type: 'test'
+  ...
+# Subtest: review: transport failure propagates uncertainty with no fake completion or second request
+ok 35 - review: transport failure propagates uncertainty with no fake completion or second request
+  ---
+  duration_ms: 1.202006
+  type: 'test'
+  ...
+# Subtest: review: two actual processes contend at atomic reservation boundary; only one fits $300
+ok 36 - review: two actual processes contend at atomic reservation boundary; only one fits $300
+  ---
+  duration_ms: 78.826295
+  type: 'test'
+  ...
+# Subtest: review: competing capture requests invoke the provider capture only once
+ok 37 - review: competing capture requests invoke the provider capture only once
+  ---
+  duration_ms: 12.87705
+  type: 'test'
+  ...
+# Subtest: review: response loss survives fresh process and reconciliation makes zero capture calls
+ok 38 - review: response loss survives fresh process and reconciliation makes zero capture calls
+  ---
+  duration_ms: 75.363948
+  type: 'test'
+  ...
+# Subtest: review: expired execution authority forbids capture but does not erase reserved funds
+ok 39 - review: expired execution authority forbids capture but does not erase reserved funds
+  ---
+  duration_ms: 4.423797
+  type: 'test'
+  ...
+# Subtest: review: reconciliation remains allowed after approval expiry for already dispatched work
+ok 40 - review: reconciliation remains allowed after approval expiry for already dispatched work
+  ---
+  duration_ms: 5.041881
+  type: 'test'
+  ...
+# Subtest: review: mutation of an approved amount is caught before any provider create
+ok 41 - review: mutation of an approved amount is caught before any provider create
+  ---
+  duration_ms: 3.332265
+  type: 'test'
+  ...
+# Subtest: review: wrong approval version and foreign owner cause no provider call or foreign evidence
+ok 42 - review: wrong approval version and foreign owner cause no provider call or foreign evidence
+  ---
+  duration_ms: 3.334587
+  type: 'test'
+  ...
+# Subtest: review: unavailable lookup retains unknown state and never retries capture
+ok 43 - review: unavailable lookup retains unknown state and never retries capture
+  ---
+  duration_ms: 4.674919
+  type: 'test'
+  ...
+# Subtest: review: mismatched provider evidence never confirms and never releases funds
+ok 44 - review: mismatched provider evidence never confirms and never releases funds
+  ---
+  duration_ms: 5.984153
+  type: 'test'
+  ...
+# Subtest: review: sandbox without configuration cannot silently start rehearsal
+ok 45 - review: sandbox without configuration cannot silently start rehearsal
+  ---
+  duration_ms: 2.140524
+  type: 'test'
+  ...
+# Subtest: review: duplicate proposal key is bound to original request and yields one operation
+ok 46 - review: duplicate proposal key is bound to original request and yields one operation
+  ---
+  duration_ms: 2.472333
+  type: 'test'
+  ...
+# Subtest: review: reset cannot hide a sandbox operation with held funds
+ok 47 - review: reset cannot hide a sandbox operation with held funds
+  ---
+  duration_ms: 6.342723
+  type: 'test'
+  ...
+# Subtest: review: missing native buyer approval prevents capture dispatch
+ok 48 - review: missing native buyer approval prevents capture dispatch
+  ---
+  duration_ms: 3.499992
+  type: 'test'
+  ...
+# Subtest: review: lost order-create response holds funds and cannot automatically create again
+ok 49 - review: lost order-create response holds funds and cannot automatically create again
+  ---
+  duration_ms: 4.117454
+  type: 'test'
+  ...
+# Subtest: review: provider pending result cannot produce confirmation or release reservation
+ok 50 - review: provider pending result cannot produce confirmation or release reservation
+  ---
+  duration_ms: 4.619516
+  type: 'test'
+  ...
+# Subtest: review: rehearsal receipt retains matched fields once and excludes unrelated provider secrets
+ok 51 - review: rehearsal receipt retains matched fields once and excludes unrelated provider secrets
+  ---
+  duration_ms: 5.216119
+  type: 'test'
+  ...
+# Subtest: review: sandbox receipt retains matched fields once and excludes unrelated provider secrets
+ok 52 - review: sandbox receipt retains matched fields once and excludes unrelated provider secrets
+  ---
+  duration_ms: 5.380791
+  type: 'test'
+  ...
+# Subtest: review: duplicate provider capture binding rolls back receipt and confirmation atomically
+ok 53 - review: duplicate provider capture binding rolls back receipt and confirmation atomically
+  ---
+  duration_ms: 11.244386
+  type: 'test'
+  ...
+1..53
+# tests 53
+# suites 0
+# pass 53
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 353.322908

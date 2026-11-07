@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "recorded_at_utc": "2026-11-07T20:19:30.070717+00:00",
+  "command": "node --test --test-reporter=tap tests/review-provider.mjs tests/review-service.mjs tests/review-auth.mjs tests/review-ai.mjs",
+  "runtime": "v24.22.1",
+  "results": {
+    "tests": 53,
+    "pass": 53,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "evidence_layer": "Local SQLite with real child-process race/restart; synthetic provider and model fixtures; mocked HTTP",
+  "actual_paypal_sandbox_tested": false,
+  "actual_external_model_tested": false,
+  "hosted_d1_tested": false,
+  "hosting_ingress_header_stripping_verified": false,
+  "scope": [
+    "two separate OS processes contend at shared-budget atomic UPDATE",
+    "fresh OS process reopens persisted database after response loss",
+    "no additional capture during repeated reconciliation",
+    "provider evidence matching and mutation rejection",
+    "owner and same-origin request contract",
+    "untrusted model fields cannot set money or authority",
+    "unavailable integrations do not silently become rehearsal",
+    "allowlisted provider verification receipt matches stored approved intent and capture",
+    "receipt privacy rejects unrelated provider secret/personal fields",
+    "duplicate provider capture binding rolls back receipt and confirmation atomically"
+  ],
+  "limitations": [
+    "Node SQLite adapter models the D1 prepared/batch contract; hosted D1 behavior requires separate verification",
+    "Auth depends on trusted Sites ingress stripping/splicing identity headers; local tests do not prove ingress behavior",
+    "Provider and AI records are synthetic; no real PayPal capture or model call established",
+    "Revocation, refunds, multi-provider portability and production safety are not claimed"
+  ],
+  "source_sha256": {
+    "drizzle/0000_greedy_living_lightning.sql": "01e828e3d027116a1bc7ef38abbb25d75bd69393f84e215371dd0cd861edf4cd",
+    "lib/proofpay/ai.ts": "802c7df241cf8755203a9cc522e4cfc2f1cb5f31205bf381c6af74cbb1753f24",
+    "lib/proofpay/auth.ts": "93ccd2b86e0eadbccc32cada78eb17e128aa8af54395784eddaedbea49662540",
+    "lib/proofpay/catalogue.ts": "a0d164afc4d325e95199cdfa1d75f4e7d015f5d62f5c6f1b87f9e6fd7c29dafe",
+    "lib/proofpay/http.ts": "b4498519a2d7403ee968460f4c34883be148610a55a48e25e3b7699b77ed3d67",
+    "lib/proofpay/provider.ts": "91e8742ebbfcf314f4a9b2f9ffe83550ed54760894716cdc400dfecceb520f8c",
+    "lib/proofpay/service.ts": "ab325eaa3a7544cc37a3c0d08ce17ea63ba32c99cdd70d46faa70afdb950d93c",
+    "lib/proofpay/types.ts": "08d48fc99db5dde8253899c29b338e1ddf1744ae5c305a629ccd4e828b06c808",
+    "tests/review-ai.mjs": "5239d280d18b8759a94c4cb07acca2e3433b9f6b358b3f005e82fdea756e1099",
+    "tests/review-auth.mjs": "4af98e6ab0480179e8d52fbfb83080bcdc32763c22befd3b4e65369b7b5c01a5",
+    "tests/review-d1.mjs": "24bf81ecf9ba8832d3577963a58c76dd5fda717a3b65dca6bfc2b3482ea2b8c3",
+    "tests/review-provider.mjs": "9a9461f8d1eb111635b91c21c4607ad2465d732319ebbf3759fe63eb2fd4adad",
+    "tests/review-service.mjs": "4a7d2e2e79dbd5510977d5f00ed1e71bc5cef2b3c604a5204c91f4f4ca56f115",
+    "tests/review-worker.mjs": "3e1f7660e4b28615683832ec4219a41e34e01dba25621bf4987895f0be690094"
+  },
+  "tap_sha256": "f1cc6cb3b3a505e7550bc1df0564e616c6a7d2a6083cac0554bf82673eafe0e3"
+}
