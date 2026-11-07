@@ -1,0 +1,595 @@
+{
+  "scope": "Local SQLite fixture; not Harmonic or live TIP integration",
+  "baseline_log": "test_01_valid_before_revocation_then_reject_after (test_revocation.AuthorityRevocationTests.test_01_valid_before_revocation_then_reject_after) ... ok\ntest_02_revocation_issuer_cannot_be_spoofed (test_revocation.AuthorityRevocationTests.test_02_revocation_issuer_cannot_be_spoofed) ... ok\ntest_03_old_grant_cannot_restore_post_revocation (test_revocation.AuthorityRevocationTests.test_03_old_grant_cannot_restore_post_revocation) ... ok\ntest_04_scope_and_identity_restrictions_remain (test_revocation.AuthorityRevocationTests.test_04_scope_and_identity_restrictions_remain) ... ok\ntest_05_receipt_tampering_is_detected (test_revocation.AuthorityRevocationTests.test_05_receipt_tampering_is_detected) ... ok\n\n----------------------------------------------------------------------\nRan 5 tests in 0.001s\n\nOK\n",
+  "scenarios": [
+    {
+      "scenario": "revocation",
+      "mutation": null,
+      "passed": true,
+      "delivery_results": [
+        "DENIED",
+        "DENIED"
+      ],
+      "receiver_rows": [],
+      "expected_rows": [],
+      "events": [
+        {
+          "body": {
+            "grant_id": "root",
+            "kind": "GRANT",
+            "parent": null,
+            "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+            "resource": "document",
+            "seq": 1
+          },
+          "hash": "a1ed5d09d25492735ba4c53bacdd8fc32880772cdd4e49614fffadfce7839027"
+        },
+        {
+          "body": {
+            "action_id": "action",
+            "grant_id": "root",
+            "kind": "QUEUED",
+            "previous_hash": "a1ed5d09d25492735ba4c53bacdd8fc32880772cdd4e49614fffadfce7839027",
+            "seq": 2
+          },
+          "hash": "8af654766321f31ec61fa79388a1cf0e27ebb55112cf62ff1b7bedbe4ca4aeef"
+        },
+        {
+          "body": {
+            "grant_id": "root",
+            "kind": "REVOKE",
+            "previous_hash": "8af654766321f31ec61fa79388a1cf0e27ebb55112cf62ff1b7bedbe4ca4aeef",
+            "seq": 3
+          },
+          "hash": "475a63acca7f4968887f3587d25d9547c1cb4843f2e6408c760203238b61b558"
+        },
+        {
+          "body": {
+            "action_id": "action",
+            "kind": "DENIED",
+            "previous_hash": "475a63acca7f4968887f3587d25d9547c1cb4843f2e6408c760203238b61b558",
+            "seq": 4
+          },
+          "hash": "adface35fed94d4cf088a755f0d99a5749f286d8821663f34c07efb935a1de16"
+        },
+        {
+          "body": {
+            "action_id": "action",
+            "kind": "DENIED",
+            "previous_hash": "adface35fed94d4cf088a755f0d99a5749f286d8821663f34c07efb935a1de16",
+            "seq": 5
+          },
+          "hash": "3aa17a93101d21a19d8db16abada53b0013cd4db63c78d1d1114aceb2517882f"
+        }
+      ]
+    },
+    {
+      "scenario": "restart_retry",
+      "mutation": null,
+      "passed": true,
+      "delivery_results": [
+        "DENIED",
+        "DENIED"
+      ],
+      "receiver_rows": [],
+      "expected_rows": [],
+      "events": [
+        {
+          "body": {
+            "grant_id": "root",
+            "kind": "GRANT",
+            "parent": null,
+            "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+            "resource": "document",
+            "seq": 1
+          },
+          "hash": "a1ed5d09d25492735ba4c53bacdd8fc32880772cdd4e49614fffadfce7839027"
+        },
+        {
+          "body": {
+            "action_id": "action",
+            "grant_id": "root",
+            "kind": "QUEUED",
+            "previous_hash": "a1ed5d09d25492735ba4c53bacdd8fc32880772cdd4e49614fffadfce7839027",
+            "seq": 2
+          },
+          "hash": "8af654766321f31ec61fa79388a1cf0e27ebb55112cf62ff1b7bedbe4ca4aeef"
+        },
+        {
+          "body": {
+            "grant_id": "root",
+            "kind": "REVOKE",
+            "previous_hash": "8af654766321f31ec61fa79388a1cf0e27ebb55112cf62ff1b7bedbe4ca4aeef",
+            "seq": 3
+          },
+          "hash": "475a63acca7f4968887f3587d25d9547c1cb4843f2e6408c760203238b61b558"
+        },
+        {
+          "body": {
+            "action_id": "action",
+            "kind": "DENIED",
+            "previous_hash": "475a63acca7f4968887f3587d25d9547c1cb4843f2e6408c760203238b61b558",
+            "seq": 4
+          },
+          "hash": "adface35fed94d4cf088a755f0d99a5749f286d8821663f34c07efb935a1de16"
+        },
+        {
+          "body": {
+            "action_id": "action",
+            "kind": "DENIED",
+            "previous_hash": "adface35fed94d4cf088a755f0d99a5749f286d8821663f34c07efb935a1de16",
+            "seq": 5
+          },
+          "hash": "3aa17a93101d21a19d8db16abada53b0013cd4db63c78d1d1114aceb2517882f"
+        }
+      ]
+    },
+    {
+      "scenario": "delegation",
+      "mutation": null,
+      "passed": true,
+      "delivery_results": [
+        "DENIED",
+        "DENIED"
+      ],
+      "receiver_rows": [],
+      "expected_rows": [],
+      "events": [
+        {
+          "body": {
+            "grant_id": "root",
+            "kind": "GRANT",
+            "parent": null,
+            "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+            "resource": "document",
+            "seq": 1
+          },
+          "hash": "a1ed5d09d25492735ba4c53bacdd8fc32880772cdd4e49614fffadfce7839027"
+        },
+        {
+          "body": {
+            "grant_id": "child",
+            "kind": "GRANT",
+            "parent": "root",
+            "previous_hash": "a1ed5d09d25492735ba4c53bacdd8fc32880772cdd4e49614fffadfce7839027",
+            "resource": "document",
+            "seq": 2
+          },
+          "hash": "1b8730d07197e44be97d6d0e8e48601f0bf83c9c621910134389821611bed69c"
+        },
+        {
+          "body": {
+            "grant_id": "wide",
+            "kind": "DELEGATION_DENIED",
+            "previous_hash": "1b8730d07197e44be97d6d0e8e48601f0bf83c9c621910134389821611bed69c",
+            "seq": 3
+          },
+          "hash": "39ec40342c0669d4e57c5bcf816cdd1eeb3ef52476a3764552dd04582def0d78"
+        },
+        {
+          "body": {
+            "action_id": "action",
+            "grant_id": "child",
+            "kind": "QUEUED",
+            "previous_hash": "39ec40342c0669d4e57c5bcf816cdd1eeb3ef52476a3764552dd04582def0d78",
+            "seq": 4
+          },
+          "hash": "f5f165c6ff85b133bfa3d5f346186f6e662ccb4c3e622be92b5765e1ee188bbe"
+        },
+        {
+          "body": {
+            "grant_id": "root",
+            "kind": "REVOKE",
+            "previous_hash": "f5f165c6ff85b133bfa3d5f346186f6e662ccb4c3e622be92b5765e1ee188bbe",
+            "seq": 5
+          },
+          "hash": "32c77e52474b13a92437e40bdde25e63045b74b572b04d0063657c96d32ffdb9"
+        },
+        {
+          "body": {
+            "grant_id": "late",
+            "kind": "DELEGATION_DENIED",
+            "previous_hash": "32c77e52474b13a92437e40bdde25e63045b74b572b04d0063657c96d32ffdb9",
+            "seq": 6
+          },
+          "hash": "5a0b35bca23538f3a535771fe80ab8800241866d1f41610ae302d5abb4eafb29"
+        },
+        {
+          "body": {
+            "action_id": "action",
+            "kind": "DENIED",
+            "previous_hash": "5a0b35bca23538f3a535771fe80ab8800241866d1f41610ae302d5abb4eafb29",
+            "seq": 7
+          },
+          "hash": "1afcf98a31e46583dc85a155455ba25d2f5758e4cf5347e01b74cafe667c7b20"
+        },
+        {
+          "body": {
+            "action_id": "action",
+            "kind": "DENIED",
+            "previous_hash": "1afcf98a31e46583dc85a155455ba25d2f5758e4cf5347e01b74cafe667c7b20",
+            "seq": 8
+          },
+          "hash": "f3570902c186aee84bc9fd7af0f3105649c3a4c387c1e4a5400f466ee2d3cd73"
+        }
+      ]
+    },
+    {
+      "scenario": "unrelated_change",
+      "mutation": null,
+      "passed": true,
+      "delivery_results": [
+        "COMMITTED"
+      ],
+      "receiver_rows": [
+        [
+          "action",
+          "document",
+          "changed"
+        ]
+      ],
+      "expected_rows": [
+        [
+          "action",
+          "document",
+          "changed"
+        ]
+      ],
+      "events": [
+        {
+          "body": {
+            "grant_id": "root",
+            "kind": "GRANT",
+            "parent": null,
+            "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+            "resource": "document",
+            "seq": 1
+          },
+          "hash": "a1ed5d09d25492735ba4c53bacdd8fc32880772cdd4e49614fffadfce7839027"
+        },
+        {
+          "body": {
+            "action_id": "action",
+            "grant_id": "root",
+            "kind": "QUEUED",
+            "previous_hash": "a1ed5d09d25492735ba4c53bacdd8fc32880772cdd4e49614fffadfce7839027",
+            "seq": 2
+          },
+          "hash": "8af654766321f31ec61fa79388a1cf0e27ebb55112cf62ff1b7bedbe4ca4aeef"
+        },
+        {
+          "body": {
+            "grant_id": "other",
+            "kind": "GRANT",
+            "parent": null,
+            "previous_hash": "8af654766321f31ec61fa79388a1cf0e27ebb55112cf62ff1b7bedbe4ca4aeef",
+            "resource": "other-document",
+            "seq": 3
+          },
+          "hash": "97a36faba9b5caa4d3ad668a2dadd96b1604c34e5346c5775398fb3007da51e1"
+        },
+        {
+          "body": {
+            "grant_id": "other",
+            "kind": "REVOKE",
+            "previous_hash": "97a36faba9b5caa4d3ad668a2dadd96b1604c34e5346c5775398fb3007da51e1",
+            "seq": 4
+          },
+          "hash": "e3288b19349ff37ad0e4d8501090a10f493e7850a67c0dd2a8f71aa2cea73799"
+        },
+        {
+          "body": {
+            "action_id": "action",
+            "kind": "COMMITTED",
+            "previous_hash": "e3288b19349ff37ad0e4d8501090a10f493e7850a67c0dd2a8f71aa2cea73799",
+            "seq": 5
+          },
+          "hash": "5ca42adf0cb5319e8460eae3ba052ac45651e005766deec4e6e3c909d58d029e"
+        }
+      ]
+    },
+    {
+      "scenario": "duplicate_delivery",
+      "mutation": null,
+      "passed": true,
+      "delivery_results": [
+        "COMMITTED",
+        "ALREADY_COMMITTED"
+      ],
+      "receiver_rows": [
+        [
+          "action",
+          "document",
+          "changed"
+        ]
+      ],
+      "expected_rows": [
+        [
+          "action",
+          "document",
+          "changed"
+        ]
+      ],
+      "events": [
+        {
+          "body": {
+            "grant_id": "root",
+            "kind": "GRANT",
+            "parent": null,
+            "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+            "resource": "document",
+            "seq": 1
+          },
+          "hash": "a1ed5d09d25492735ba4c53bacdd8fc32880772cdd4e49614fffadfce7839027"
+        },
+        {
+          "body": {
+            "action_id": "action",
+            "grant_id": "root",
+            "kind": "QUEUED",
+            "previous_hash": "a1ed5d09d25492735ba4c53bacdd8fc32880772cdd4e49614fffadfce7839027",
+            "seq": 2
+          },
+          "hash": "8af654766321f31ec61fa79388a1cf0e27ebb55112cf62ff1b7bedbe4ca4aeef"
+        },
+        {
+          "body": {
+            "action_id": "action",
+            "kind": "COMMITTED",
+            "previous_hash": "8af654766321f31ec61fa79388a1cf0e27ebb55112cf62ff1b7bedbe4ca4aeef",
+            "seq": 3
+          },
+          "hash": "8c4c83b93bcd4f09fc0cb1d8d46285155c2a2e5cc121877815461a2223e803b3"
+        },
+        {
+          "body": {
+            "action_id": "action",
+            "kind": "ALREADY_COMMITTED",
+            "previous_hash": "8c4c83b93bcd4f09fc0cb1d8d46285155c2a2e5cc121877815461a2223e803b3",
+            "seq": 4
+          },
+          "hash": "c1c5b9dd7a681b393ac6ee71e1a3dd7b00c16e7331f2cc5abc3e245197258580"
+        }
+      ]
+    }
+  ],
+  "known_bad_controls": [
+    {
+      "scenario": "revocation",
+      "mutation": "queue_only",
+      "passed": false,
+      "delivery_results": [
+        "COMMITTED",
+        "ALREADY_COMMITTED"
+      ],
+      "receiver_rows": [
+        [
+          "action",
+          "document",
+          "changed"
+        ]
+      ],
+      "expected_rows": [],
+      "events": [
+        {
+          "body": {
+            "grant_id": "root",
+            "kind": "GRANT",
+            "parent": null,
+            "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+            "resource": "document",
+            "seq": 1
+          },
+          "hash": "a1ed5d09d25492735ba4c53bacdd8fc32880772cdd4e49614fffadfce7839027"
+        },
+        {
+          "body": {
+            "action_id": "action",
+            "grant_id": "root",
+            "kind": "QUEUED",
+            "previous_hash": "a1ed5d09d25492735ba4c53bacdd8fc32880772cdd4e49614fffadfce7839027",
+            "seq": 2
+          },
+          "hash": "8af654766321f31ec61fa79388a1cf0e27ebb55112cf62ff1b7bedbe4ca4aeef"
+        },
+        {
+          "body": {
+            "grant_id": "root",
+            "kind": "REVOKE",
+            "previous_hash": "8af654766321f31ec61fa79388a1cf0e27ebb55112cf62ff1b7bedbe4ca4aeef",
+            "seq": 3
+          },
+          "hash": "475a63acca7f4968887f3587d25d9547c1cb4843f2e6408c760203238b61b558"
+        },
+        {
+          "body": {
+            "action_id": "action",
+            "kind": "COMMITTED",
+            "previous_hash": "475a63acca7f4968887f3587d25d9547c1cb4843f2e6408c760203238b61b558",
+            "seq": 4
+          },
+          "hash": "a1fd53014269e404a707ea9fb44f4292872e27abb1409aa024abd9e93ed57602"
+        },
+        {
+          "body": {
+            "action_id": "action",
+            "kind": "ALREADY_COMMITTED",
+            "previous_hash": "a1fd53014269e404a707ea9fb44f4292872e27abb1409aa024abd9e93ed57602",
+            "seq": 5
+          },
+          "hash": "69b646c77071ea7d084831d43b655f4618dbb67164389fe2aa2344a44c7eff63"
+        }
+      ]
+    },
+    {
+      "scenario": "delegation",
+      "mutation": "ignore_parent",
+      "passed": false,
+      "delivery_results": [
+        "COMMITTED",
+        "ALREADY_COMMITTED"
+      ],
+      "receiver_rows": [
+        [
+          "action",
+          "document",
+          "changed"
+        ]
+      ],
+      "expected_rows": [],
+      "events": [
+        {
+          "body": {
+            "grant_id": "root",
+            "kind": "GRANT",
+            "parent": null,
+            "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+            "resource": "document",
+            "seq": 1
+          },
+          "hash": "a1ed5d09d25492735ba4c53bacdd8fc32880772cdd4e49614fffadfce7839027"
+        },
+        {
+          "body": {
+            "grant_id": "child",
+            "kind": "GRANT",
+            "parent": "root",
+            "previous_hash": "a1ed5d09d25492735ba4c53bacdd8fc32880772cdd4e49614fffadfce7839027",
+            "resource": "document",
+            "seq": 2
+          },
+          "hash": "1b8730d07197e44be97d6d0e8e48601f0bf83c9c621910134389821611bed69c"
+        },
+        {
+          "body": {
+            "grant_id": "wide",
+            "kind": "DELEGATION_DENIED",
+            "previous_hash": "1b8730d07197e44be97d6d0e8e48601f0bf83c9c621910134389821611bed69c",
+            "seq": 3
+          },
+          "hash": "39ec40342c0669d4e57c5bcf816cdd1eeb3ef52476a3764552dd04582def0d78"
+        },
+        {
+          "body": {
+            "action_id": "action",
+            "grant_id": "child",
+            "kind": "QUEUED",
+            "previous_hash": "39ec40342c0669d4e57c5bcf816cdd1eeb3ef52476a3764552dd04582def0d78",
+            "seq": 4
+          },
+          "hash": "f5f165c6ff85b133bfa3d5f346186f6e662ccb4c3e622be92b5765e1ee188bbe"
+        },
+        {
+          "body": {
+            "grant_id": "root",
+            "kind": "REVOKE",
+            "previous_hash": "f5f165c6ff85b133bfa3d5f346186f6e662ccb4c3e622be92b5765e1ee188bbe",
+            "seq": 5
+          },
+          "hash": "32c77e52474b13a92437e40bdde25e63045b74b572b04d0063657c96d32ffdb9"
+        },
+        {
+          "body": {
+            "grant_id": "late",
+            "kind": "DELEGATION_DENIED",
+            "previous_hash": "32c77e52474b13a92437e40bdde25e63045b74b572b04d0063657c96d32ffdb9",
+            "seq": 6
+          },
+          "hash": "5a0b35bca23538f3a535771fe80ab8800241866d1f41610ae302d5abb4eafb29"
+        },
+        {
+          "body": {
+            "action_id": "action",
+            "kind": "COMMITTED",
+            "previous_hash": "5a0b35bca23538f3a535771fe80ab8800241866d1f41610ae302d5abb4eafb29",
+            "seq": 7
+          },
+          "hash": "3dd4e09cfbe0315dd4b8f81ff6f07802fdb919bf6d59bce4f3379ca88a98064e"
+        },
+        {
+          "body": {
+            "action_id": "action",
+            "kind": "ALREADY_COMMITTED",
+            "previous_hash": "3dd4e09cfbe0315dd4b8f81ff6f07802fdb919bf6d59bce4f3379ca88a98064e",
+            "seq": 8
+          },
+          "hash": "a8c1122f2ab65f4682568347290165cb1c962deab11bf5bf4ba7649ba2f86eda"
+        }
+      ]
+    },
+    {
+      "scenario": "unrelated_change",
+      "mutation": "global_invalidation",
+      "passed": false,
+      "delivery_results": [
+        "DENIED"
+      ],
+      "receiver_rows": [],
+      "expected_rows": [
+        [
+          "action",
+          "document",
+          "changed"
+        ]
+      ],
+      "events": [
+        {
+          "body": {
+            "grant_id": "root",
+            "kind": "GRANT",
+            "parent": null,
+            "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+            "resource": "document",
+            "seq": 1
+          },
+          "hash": "a1ed5d09d25492735ba4c53bacdd8fc32880772cdd4e49614fffadfce7839027"
+        },
+        {
+          "body": {
+            "action_id": "action",
+            "grant_id": "root",
+            "kind": "QUEUED",
+            "previous_hash": "a1ed5d09d25492735ba4c53bacdd8fc32880772cdd4e49614fffadfce7839027",
+            "seq": 2
+          },
+          "hash": "8af654766321f31ec61fa79388a1cf0e27ebb55112cf62ff1b7bedbe4ca4aeef"
+        },
+        {
+          "body": {
+            "grant_id": "other",
+            "kind": "GRANT",
+            "parent": null,
+            "previous_hash": "8af654766321f31ec61fa79388a1cf0e27ebb55112cf62ff1b7bedbe4ca4aeef",
+            "resource": "other-document",
+            "seq": 3
+          },
+          "hash": "97a36faba9b5caa4d3ad668a2dadd96b1604c34e5346c5775398fb3007da51e1"
+        },
+        {
+          "body": {
+            "grant_id": "other",
+            "kind": "REVOKE",
+            "previous_hash": "97a36faba9b5caa4d3ad668a2dadd96b1604c34e5346c5775398fb3007da51e1",
+            "seq": 4
+          },
+          "hash": "e3288b19349ff37ad0e4d8501090a10f493e7850a67c0dd2a8f71aa2cea73799"
+        },
+        {
+          "body": {
+            "action_id": "action",
+            "kind": "DENIED",
+            "previous_hash": "e3288b19349ff37ad0e4d8501090a10f493e7850a67c0dd2a8f71aa2cea73799",
+            "seq": 5
+          },
+          "hash": "25efe01c6cc3a1c8cfafa66235e576084e9d88db9f255ba8dc189a9ac0041267"
+        }
+      ]
+    }
+  ],
+  "source_sha256": {
+    "baseline/revocation_demo.py": "f3100b36c8f27d85e0e4d5ef0bad60b5dec6dcad6d3bc45f889b277c6546e4a7",
+    "baseline/tests/test_revocation.py": "8ad0f265fb5787d392292f70c4940cb73755f1ba682ec867fbd5913534f89565",
+    "receiver.py": "bc3af11e5d1c46a9f33a2e70c749773042ae7d8c75c148b8276d85e0d5d0ebd0",
+    "run.py": "64e31fa36ba3af7489dd055d6f312dc5cd6df4d472de92033b4e91428bd4dd20"
+  }
+}
