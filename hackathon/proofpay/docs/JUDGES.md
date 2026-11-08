@@ -8,7 +8,7 @@ ProofPay Purchase Desk brings those decisions into one workflow. Its contributio
 
 ## What is real in this build
 
-The interface, durable application service, rehearsal provider and external adapters are implemented. No actual PayPal sandbox transaction or runtime model call has been verified in the current build session. Use the application's displayed mode and evidence record to distinguish rehearsal from external integrations. A simulated capture is a rehearsal outcome; it must never be described as a PayPal-confirmed payment.
+The interface, durable application service, rehearsal provider and external adapters are implemented. Genuine PayPal sandbox OAuth and provider-adapter create/GET have passed separately. Buyer-approved capture and a genuine runtime model call remain unverified. Use the application's displayed mode and evidence record to distinguish rehearsal from external integrations. A simulated capture is a rehearsal outcome; it must never be described as a PayPal-confirmed payment.
 
 The hosted Site is private to the owner and is not ready for independent judge access. Hosted UI verification and external-service runs remain separate requirements. Portable local setup is in the [README](../README.md); the managed local preview currently lacks simulated sign-in.
 
@@ -58,8 +58,12 @@ The [official rules](https://paypalaihackathon.devpost.com/rules) give the five 
 
 The sample catalogue contains Workflow review ($180), Design review ($160) and Starter review ($90). The packages, prices and requests are synthetic; no paid review service is delivered. The initial scope is one controlled merchant and USD. PayPal sandbox capture does not establish production settlement, service delivery or commercial readiness. Rehearsal does not establish even a sandbox capture.
 
-The $300 allowance is per workspace, not account-wide. Approval expires after 15 minutes, but expiry does not release a reservation. There is no revocation, renewal or release API. Uncertain create/capture calls are not automatically retried. A lost create response with no saved order ID requires manual investigation; an unknown outcome keeps its reservation. Sandbox workspace switching is blocked while funds remain held.
+The $300 allowance is per workspace, not account-wide. Approval expires after 15 minutes, but expiry does not release a reservation. Explicit owner renewal is available for expired pre-capture APPROVED or ORDER_READY operations. It preserves purchase, reservation and provider IDs, and invalidates stale dispatch authority. It does not extend PayPal order validity. There is no revocation or reservation-release API. Uncertain create/capture calls are not automatically retried. A lost create response with no saved order ID requires manual investigation; an unknown outcome keeps its reservation. Sandbox workspace switching is blocked while funds remain held.
 
 The prototype has no webhook receiver, refund execution, fulfillment, subscriptions, multi-provider fallback or production-payment flow. It provides no regulatory compliance assurance or guarantee of duplicate prevention under every failure. Hashes and receipts aid inspection but do not make an underlying claim true. Tests establish only the stated cases and environment. See [architecture and limits](ARCHITECTURE.md) for implementation detail.
 
 Final judging evidence should identify the source commit, reproduction commands, actual model/version, mode, provider references, run date, observed result and known failures. Do not publish credentials in that evidence.
+
+## Current verification checkpoint
+
+The local suite passes 72/72 tests, including 17 approval-renewal cases and two model-provenance cases. These use synthetic provider/model fixtures. TypeScript, lint, clean dependency installation and Worker build pass. The private deployment includes these changes; independent judge access and the required genuine model/payment demonstration remain unfinished. Model response identifiers aid run inspection but are not signed attestations. The commercial and submission drafts are in [COMMERCIAL_PLAN.md](COMMERCIAL_PLAN.md) and [DEVPOST_STORY.md](DEVPOST_STORY.md).
