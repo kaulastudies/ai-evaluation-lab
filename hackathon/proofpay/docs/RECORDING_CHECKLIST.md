@@ -41,16 +41,18 @@ Updated 8 November 2026. The public seven-section portal completed its fresh bro
 - [ ] Keep receipts unsigned and scope the offline check to internal consistency. Do not claim provider authenticity, historical authority, event completeness, fulfillment or production readiness.
 - [ ] Keep the new browser/21-layout result separate from historical three-view and 21-HTTPS evidence. Do not present six scenario observations or 210 local tests as live payment counts.
 
-## Publish and update the draft
+## Publication and submitted entry
 
 - [x] [Watch the public V2 video](https://youtu.be/D4UXBT-FhcE). Studio showed **Published/Public** on 8 November 2026; watch-page playback displayed **2:21**.
 - [x] All 43 burned-in captions are present. The exact native transcript was saved for YouTube automatic timing.
 - [ ] Confirm public selectable captions after YouTube finishes processing, then review their timing. They were unavailable at the first watch-page check; saving the transcript does not establish availability or timing QA.
-- [x] Current Devpost Story was saved and reopened: all 7,531 characters matched after evidence links were converted to absolute GitHub URLs. Both canonical demo/source URLs persisted. Additional Information matched the seven-view instructions, six observations, 21 responsive views and Kokoro `af_heart`/FFmpeg/no-avatar disclosure.
+- [x] Submitted Devpost Story was saved and reopened: all **8,785 characters** matched the source, including both team credits and three inline images. Earlier 7,531- and 7,676-character saves are historical checkpoints. Canonical demo/source URLs, testing instructions and AI-tool disclosures remain saved.
 - [x] Saved and reopened **https://youtu.be/D4UXBT-FhcE** in the Devpost video field. The embedded player displayed the correct title.
 - [x] Public video playback and displayed 2:21 duration were checked after publication.
 - [ ] Recheck final Devpost video/source/demo links after the video-field update; preserve the separately verified source and judge-access scopes.
-- [x] Finalization remains **Draft (3/5 steps)**. No final Submit was clicked; the earlier terms check was unchecked. **Keep final Submit held.** Prof Nithya Ravi Kumar's team acceptance is already confirmed and is separate from application access.
+- [x] **Submitted on 8 November 2026** at [the public project](https://devpost.com/software/proofpay-purchase-desk). After owner confirmation of team eligibility and terms, the release owner checked final terms and clicked Submit project once; Devpost displayed the success message and submitted sidebar. Prof Nithya Ravi Kumar’s team membership remains separate from application access.
+- [x] Cover, rehearsal overview and saved sandbox receipt loaded as standard Markdown images. The cover is AI-generated marketing artwork; the other two are actual captured states.
+- [ ] Native project-card thumbnail and gallery: file uploads failed or timed out. The card remains a placeholder and the native gallery is empty; successful native uploads are not claimed.
 - [x] The reviewed browser guest workspace was left fresh: $300 available/$0 reserved/$0 paid, two proposed requests. Its existing expiry was unchanged. This temporary browser state is not a global default or an extension of access.
 
 Sources: [official submission requirements](https://paypalaihackathon.devpost.com/) and [rules](https://paypalaihackathon.devpost.com/rules), reviewed 8 November 2026. Public YouTube footage under three minutes and runnable judge access are separate requirements.

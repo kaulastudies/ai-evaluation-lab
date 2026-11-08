@@ -143,7 +143,9 @@ These functions describe an operating plan, not a staffed organization. Contribu
 
 ### Team and submission
 
-Project leadership and advisory credits appear on the first page. Prof Nithya Ravi Kumar's Devpost team membership is confirmed. Final hackathon submission remains an owner decision and was held at this report checkpoint.
+Project leadership and advisory credits appear on the first page. Prof Nithya Ravi Kumar's Devpost team membership is confirmed. ProofPay was submitted to the PayPal AI Hackathon on 8 November 2026.
+
+Public project: https://devpost.com/software/proofpay-purchase-desk
 
 ### Source and evidence register
 

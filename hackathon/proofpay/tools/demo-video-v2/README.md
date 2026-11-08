@@ -82,7 +82,7 @@ Original pipeline code is MIT-licensed under `LICENSE`. Kokoro weights/reference
 
 ## YouTube publication
 
-Public watch link: **https://youtu.be/D4UXBT-FhcE**. Publication and watch-page playback were verified on 8 November 2026. The following title/description text is retained as the prepared publication copy; this section does not claim a separate exact-text comparison with the published fields. The video URL was saved and reopened in Devpost, where the embedded player showed the correct title. The final page remains Draft (3/5 steps), and final Submit stays held.
+Public watch link: **https://youtu.be/D4UXBT-FhcE**. Publication and watch-page playback were verified on 8 November 2026. The following title/description text is retained as the prepared publication copy; this section does not claim a separate exact-text comparison with the published fields. The video URL was saved and reopened in Devpost, where the embedded player showed the correct title. The [Devpost project](https://devpost.com/software/proofpay-purchase-desk) was submitted on 8 November 2026 after the owner confirmed the declarations and terms. Its 8,785-character Story was saved and reopened exactly, with three loaded inline images; native thumbnail/gallery uploads did not succeed.
 
 **Title**
 

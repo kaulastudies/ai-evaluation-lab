@@ -49,7 +49,7 @@ The judge should be able to understand the problem, see the actual AI and PayPal
 | P0 | Finish secure model configuration and the genuine PayPal application path. | Recorded model provenance and actual sandbox order/capture lookup through the application, with secrets excluded. |
 | P0 | Demonstrate uncertainty and recovery. | The original operation remains reserved after a deliberately lost application response; lookup resolves it without another capture. Label whether the run used PayPal or rehearsal. |
 | P0 | Give reviewers a reliable entry point. | Fresh-user setup/reviewer-access check, exact source revision, working instructions and honest configuration limits. |
-| P0 | Reconcile submission assets. | Current description, public licensed code, required video and verified team status agree with the implementation. Do not click final Submit while it is held. |
+| P0 | Reconcile submission assets. | Submitted on 8 November 2026: [public entry](https://devpost.com/software/proofpay-purchase-desk). Preserve description, public source, video and team-credit consistency. Three inline Story images are verified; native card-thumbnail/gallery uploads remain incomplete. |
 | P1 | Close concrete QA/security findings and improve readability. | Fixed issue, relevant regression evidence and clear remaining limitations; no invented “100% secure” badge. |
 | P2 | Maintain the bounded offline receipt verifier. | Export/profile compatibility, reproducibility and mutation tests. Keep unsigned consistency separate from future signature and registry claims. |
 | Later | External TIP registration, another provider or enterprise departments. | Verified interoperability or customer need. Do not imply delivery from a roadmap diagram. |

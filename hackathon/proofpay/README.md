@@ -4,7 +4,7 @@
 
 **Owner-approved AI purchases with a shared allowance and a checkable payment outcome.**
 
-[Open the judge workspace](https://proofpay-evaluation-lab.vercel.app) · **[Watch the 2:21 demo](https://youtu.be/D4UXBT-FhcE)** · [Try the workflow](#try-the-workflow) · [Inspect the evidence](#what-has-been-checked) · [Build locally](#build-and-explore)
+[Open the judge workspace](https://proofpay-evaluation-lab.vercel.app) · **[Watch the 2:21 demo](https://youtu.be/D4UXBT-FhcE)** · [Submitted Devpost project](https://devpost.com/software/proofpay-purchase-desk) · [Try the workflow](#try-the-workflow) · [Inspect the evidence](#what-has-been-checked) · [Build locally](#build-and-explore)
 
 An agent can suggest a purchase. The harder problem is keeping that suggestion tied to permission, available allowance and the outcome of a payment. ProofPay reserves allowance before dispatch and keeps it held when a capture response disappears. Recovery checks the original order before recording payment.
 
@@ -13,6 +13,8 @@ Built by [AI Evaluation Lab](https://github.com/kaulastudies/ai-evaluation-lab) 
 [![Actual ProofPay judge Overview with a fresh simulated $300 allowance and two requests](tools/demo-video-v2/frames/01-overview.jpg)](https://proofpay-evaluation-lab.vercel.app)
 
 *Actual public portal capture. These requests and payment outcomes are simulated.*
+
+Submitted to the PayPal AI Hackathon on **8 November 2026**. The [submission record](docs/DEVPOST_STORY.md) preserves the public Story and confirmation, including the distinction between verified inline images and unsuccessful native image uploads.
 
 ## Try the workflow
 
