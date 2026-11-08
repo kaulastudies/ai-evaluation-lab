@@ -229,7 +229,7 @@ export default function JudgeDesk() {
   ];
   const confirmed = data?.operations.filter(operation => operation.status === "CONFIRMED") || [];
   const pending = data?.operations.filter(operation => operation.status === "PROPOSED") || [];
-  const nextOperation = data?.operations.find(operation => ["UNKNOWN", "CAPTURE_DISPATCHED", "REVIEW", "APPROVED", "ORDER_READY"].includes(operation.status)) ?? pending[0] ?? data?.operations.find(operation => operation.status === "BUDGET_BLOCKED") ?? data?.operations[0];
+  const nextOperation = data?.operations.find(operation => ["UNKNOWN", "CAPTURE_DISPATCHED", "REVIEW", "APPROVED", "ORDER_READY"].includes(operation.status)) ?? pending.find(operation => operation.sku === "workflow-review") ?? pending[0] ?? data?.operations.find(operation => operation.status === "BUDGET_BLOCKED") ?? data?.operations[0];
   function continuePurchase(operation = nextOperation) {
     if (!operation) { navigate("purchases"); return; }
     setView("purchases"); setSearch(""); setFilter("all"); inspect(operation);
