@@ -1,0 +1,58 @@
+{
+  "thumbnail": {
+    "path": "devpost-thumbnail.png",
+    "width": 1536,
+    "height": 1024,
+    "aspect_ratio": "3:2",
+    "mode": "Built-in image generation; no external paid API or personal key",
+    "exact_text": [
+      "ProofPay",
+      "Approve. Reserve. Verify."
+    ],
+    "claim_boundary": "Conceptual branding only; no fabricated product UI, metrics, provider logo or payment evidence.",
+    "sha256": "dc9a90eedb968e860254535bac0619dfdc0cee6825088597034cc3f1eab5299c",
+    "bytes": 1566431,
+    "asset_type": "AI-generated marketing illustration",
+    "product_screenshot": false,
+    "source_prompt": "Professional ProofPay hackathon thumbnail, landscape 3:2, navy/white/blue/teal palette. Exact dominant text ProofPay and supporting tagline Approve. Reserve. Verify. Original receipt motif with connected check, lock and magnifier. No fake UI, balances, scores, awards, people, third-party logos or certification claims. Conceptual brand artwork only. Generated through the built-in image generation tool.",
+    "new_payment_or_provider_calls": false
+  },
+  "gallery": [
+    {
+      "path": "../../tools/demo-video-v2/frames/08-resolved-overview.jpg",
+      "title": "Public judge portal after recovery",
+      "caption": "Interactive rehearsal with simulated payments. After original-order verification, the same workspace shows $120 available, $0 reserved and $180 simulated paid.",
+      "width": 1520,
+      "height": 1443,
+      "bytes": 146983,
+      "sha256": "fd30e58aa56ee6cf54dbdef36a0bfc6a4b4821767c31b3e984e8f7e63e6a62a8",
+      "pixels_modified": false,
+      "visual_review": "No personal names, email addresses, credentials, authentication cookies or secrets visible. Visible operation/order/capture/merchant identifiers belong to the previously approved public rehearsal/sandbox evidence."
+    },
+    {
+      "path": "../../tools/demo-video-v2/frames/05-needs-verification.jpg",
+      "title": "Missing response keeps the allowance reserved",
+      "caption": "Interactive rehearsal. A deliberately dropped capture response leaves the $180 purchase needing verification; the existing reservation remains held and the original simulated order can be checked.",
+      "width": 1520,
+      "height": 2289,
+      "bytes": 192391,
+      "sha256": "dd980c791cfff37dd2d277e5b69b0921b58688652e9da842d9716486212b4dc7",
+      "pixels_modified": false,
+      "visual_review": "No personal names, email addresses, credentials, authentication cookies or secrets visible. Visible operation/order/capture/merchant identifiers belong to the previously approved public rehearsal/sandbox evidence."
+    },
+    {
+      "path": "../../tools/demo-video-v2/frames/13-saved-receipt.png",
+      "title": "Saved PayPal sandbox receipt inspection",
+      "caption": "Saved result from the completed GPT-4.1-mini and PayPal sandbox run using virtual funds. The application compares seller, amount and currency, while showing missing historical catalogue evidence. This is an unsigned application record, not a new transaction.",
+      "width": 1536,
+      "height": 682,
+      "bytes": 57000,
+      "sha256": "138348977255071b859b1924e5fac8f75c737abeecb411ea0a73a78795ecdca7",
+      "pixels_modified": false,
+      "visual_review": "No personal names, email addresses, credentials, authentication cookies or secrets visible. Visible operation/order/capture/merchant identifiers belong to the previously approved public rehearsal/sandbox evidence."
+    }
+  ],
+  "status": "Source assets for Devpost. Upload and final submission are verified separately; this manifest does not claim either occurred.",
+  "schemaVersion": 1,
+  "pathsRelativeTo": "this file"
+}
