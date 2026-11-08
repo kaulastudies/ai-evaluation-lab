@@ -1,0 +1,118 @@
+{
+  "evidence_reviewed": true,
+  "avatar_clip": "presenter-phoneme-silent.mp4",
+  "avatar_source_reviewed": true,
+  "avatar_matches_narration": true,
+  "scenes": [
+    {
+      "paragraph": 1,
+      "mode_banner": "Product overview \u00b7 Public simulated rehearsal shown",
+      "frames": [
+        {
+          "path": "frames/04-public-landing.png",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "paragraph": 2,
+      "mode_banner": "Saved evidence \u2014 completed sandbox run \u00b7 No replay",
+      "frames": [
+        {
+          "path": "frames/02-saved-ai-purchase.png",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "paragraph": 3,
+      "mode_banner": "Saved evidence \u2014 completed sandbox run \u00b7 Virtual funds",
+      "frames": [
+        {
+          "path": "frames/03-saved-receipt.png",
+          "weight": 1
+        },
+        {
+          "path": "frames/01-owner-completed.png",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "paragraph": 4,
+      "mode_banner": "Fresh rehearsal \u2014 deterministic proposals, simulated provider",
+      "frames": [
+        {
+          "path": "frames/04-public-landing.png",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "paragraph": 5,
+      "mode_banner": "Fresh rehearsal \u2014 simulated provider \u00b7 No model or PayPal calls",
+      "frames": [
+        {
+          "path": "frames/05-approval.png",
+          "weight": 1
+        },
+        {
+          "path": "frames/05b-budget-block.png",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "paragraph": 6,
+      "mode_banner": "Fresh rehearsal \u2014 same simulated operation \u00b7 Edited recorded states",
+      "frames": [
+        {
+          "path": "frames/06a-order.png",
+          "weight": 1
+        },
+        {
+          "path": "frames/06b-lost-response.png",
+          "weight": 1
+        },
+        {
+          "path": "frames/06c-reloaded-hold.png",
+          "weight": 1
+        },
+        {
+          "path": "frames/06d-confirmed.png",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "paragraph": 7,
+      "mode_banner": "Fresh rehearsal \u2014 stored unsigned evidence \u00b7 No new payment",
+      "frames": [
+        {
+          "path": "frames/07-receipt-inspector.png",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "paragraph": 8,
+      "mode_banner": "Dated QA evidence \u00b7 Test scope and limits remain visible",
+      "frames": [
+        {
+          "path": "frames/08-evaluation-lab.png",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "paragraph": 9,
+      "mode_banner": "Try the public rehearsal: https://proofpay-evaluation-lab.vercel.app",
+      "frames": [
+        {
+          "path": "frames/09-ai-backend.png",
+          "weight": 1
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+# Approved ProofPay narration
+
+This is the exact reviewed 347-word narration used by the offline video pipeline. Scene labels keep saved completed evidence separate from the simulated rehearsal.
+
+```text
+ProofPay helps an owner approve purchases, share an allowance across requests, and understand what happened when a payment response disappears. Our example is a small studio with three hundred dollars for outside review work.
+
+This first view shows saved evidence from a completed run, not a replay. A real model, GPT four point one mini through Vercel AI Gateway, proposed the one hundred eighty dollar purchase. The owner approved it, and the sandbox buyer separately approved on PayPal. No personal OpenAI credits were used.
+
+During that run, the application deliberately dropped the capture response. After a browser reload, one hundred eighty dollars remained reserved. A lookup of the original PayPal order confirmed the matching completed capture. Another check preserved the same capture and totals: one hundred eighty paid, zero reserved, and one hundred twenty available. These are virtual sandbox funds.
+
+Now we switch to a fresh, separately labelled rehearsal. Its proposals are deterministic, and its provider is simulated. It makes no model or PayPal calls.
+
+Approving the one hundred eighty dollar request reserves its allowance. The competing one hundred sixty dollar request is blocked because only one hundred twenty remains. An alternative would require a new proposal and approval.
+
+Here, we create a simulated order and deliberately drop its capture response. The purchase needs verification, and the reservation stays held. Reloading preserves that state. Checking the original simulated order records the payment. Checking again leaves the totals unchanged.
+
+The receipt inspector compares stored seller, amount, currency and payment references. It also shows missing information. These are unsigned application records. They do not independently prove the historical approval version or catalogue item. Opening the inspector reads stored evidence; it does not make a new payment.
+
+The reviewed build passed two hundred ten local checks, with separate PostgreSQL and hosted workflow evidence. Tests have limits, and one sandbox purchase is not production readiness.
+
+ProofPay currently covers one controlled seller, US dollars and a workspace allowance. The opportunity is a practical purchase desk where a business decision stays connected to its payment outcome. Source and setup instructions accompany the project.
+```

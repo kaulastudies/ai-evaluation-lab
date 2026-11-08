@@ -8,11 +8,11 @@ The project is an [AI Evaluation Lab](https://github.com/kaulastudies/ai-evaluat
 
 [Judge guide](docs/JUDGES.md) · [Readiness](docs/JUDGE_READINESS.md) · [Development](docs/DEVELOPMENT.md) · [Architecture](docs/ARCHITECTURE.md) · [Security](docs/SECURITY_REVIEW.md) · [QA](docs/QA_REPORT.md) · [Postman collection](postman/README.md)
 
-Current records: [configured hosted AI-to-PayPal QA](evidence/configured-live-qa-2026-11-08.md) · [business increment local checks](evidence/business-portal-checks-2026-11-08.json) · [earlier production/browser checkpoint](evidence/business-portal-release-2026-11-08.json). Owner sign-in and one genuine model-to-PayPal sandbox purchase now passed. Independent judge access and the public video remain open; **final Devpost Submit stays held**.
+Current records: [actual AI-to-PayPal run](evidence/configured-live-qa-2026-11-08.md) · [independent public HTTPS QA](evidence/judge-hosted-qa-2026-11-08.json) · [public browser QA](evidence/judge-browser-qa-2026-11-08.json). Owner sign-in, one genuine model-led sandbox purchase, the public rehearsal and independent two-guest isolation passed. The 2:43 video is rendered but not published to YouTube; **final Devpost Submit stays held**.
 
 ## Public judge rehearsal
 
-The separate [judge deployment](https://proofpay-judge.vercel.app) is being prepared for public testing; deployment and fresh-browser verification are pending at this checkpoint. Its front page opens the evaluator workspace at `/judge`, with **Try the demo** and no account, owner key or PayPal login. The [repeatable testing guide](docs/REPEATABLE_TESTING.md) explains the sequence and its limits.
+The separate [public judge deployment](https://proofpay-evaluation-lab.vercel.app) is READY at source `2caa74039`. Anonymous access and the simulated browser walkthrough passed. Use this canonical address: request-origin checks are bound to it. Its front page opens the evaluator workspace at `/judge`, with **Try the demo** and no account, owner key or PayPal login. The [repeatable testing guide](docs/REPEATABLE_TESTING.md) explains the sequence and its limits.
 
 Each visitor receives a signed, two-hour guest session and a separate simulated $300 workspace. Approve $180, try the competing $160 request, create the simulated order, deliberately drop its capture response, reload, and verify the original outcome. Inspect or export simulated evidence and reset the simulation within the session limits. “Judge administrator” means control of that guest rehearsal only; it grants no owner, production or account administration.
 
@@ -35,7 +35,7 @@ The evaluator has three views:
 
 “Not yet observed” is not a failed test. The lab links dated source-test and genuine sandbox evidence separately from the current simulated session.
 
-The frozen judge increment passed **210/210 local tests**, TypeScript, full ESLint and the native Next.js build. The [measured testing record](docs/REPEATABLE_TESTING.md#measured-checkpoint) keeps these results separate from the earlier 199-test owner checkpoint. The expanded nine-case real PostgreSQL gate and public browser checks await deployment. The prior zero-finding dependency audit is dated evidence; it was not rerun for this test-script/module change.
+The frozen judge increment passed **210/210 local tests**, TypeScript, full ESLint and the native Next.js build. The [measured testing record](docs/REPEATABLE_TESTING.md#measured-checkpoint) keeps these results separate from the earlier 199-test owner checkpoint. The deployed release then passed **9/9 real PostgreSQL checks**, migrations and build. The [independent HTTPS review](evidence/judge-hosted-qa-2026-11-08.json) passed all **21 expected outcomes**, including two-guest isolation, denied owner/sandbox/cross-origin actions, response-loss recovery and retained prior receipts after a guest reset. The [browser review](evidence/judge-browser-qa-2026-11-08.json) completed all **6/6 lab observations** and checked all three views at 360/768/1280px: nine layouts, no horizontal overflow, 16px main text and no collected application warnings/errors. The prior zero-finding dependency audit is dated evidence; it was not rerun for this test-script/module change.
 
 These are bounded free-demo limits, not unlimited testing availability. The existing [real AI-to-PayPal run](evidence/configured-live-qa-2026-11-08.md) is linked evidence, not replayed by the judge demo. Its reviewed one-attempt model grant remains consumed. A simulation reset never resets that grant or a real payment.
 
@@ -63,7 +63,7 @@ The first business pilot targets an owner-led agency, consultancy or studio that
 
 Start with [the six-step pilot walkthrough](docs/COMMERCIAL_PLAN.md#first-onboarding-session). GitHub, Vercel and Neon are configured, and owner/PayPal server configuration is now saved. Hosted owner sign-in and the business profile were verified. No extra sponsor signup or personal OpenAI credits were used; the reviewed model grant is consumed, so preserve the recorded run rather than issuing another proposal. See [resources and sign-ins](docs/COMMERCIAL_PLAN.md#resources-and-sign-ins-actually-needed).
 
-The earlier owner runtime recorded **199 passing local tests**, passing TypeScript, full lint, native and responsive fixture builds, and dated zero-finding full dependency audit. The [configured release](evidence/configured-live-qa-2026-11-08.md) is READY after eight real Neon PostgreSQL checks and migrations passed in both builds. Hosted owner sign-in, saved business settings, rehearsal recovery and one actual AI-to-PayPal sandbox purchase passed. Browser CSV file bytes and independent judge access remain unverified.
+The earlier owner runtime recorded **199 passing local tests**, passing TypeScript, full lint, native and responsive fixture builds, and dated zero-finding full dependency audit. The [configured release](evidence/configured-live-qa-2026-11-08.md) is READY after eight real Neon PostgreSQL checks and migrations passed in both builds. Hosted owner sign-in, saved business settings, rehearsal recovery and one actual AI-to-PayPal sandbox purchase passed. Browser CSV file bytes remain unverified. Public judge access and independent two-guest isolation have their separate rehearsal results above.
 
 ## Current delivery and evidence
 
@@ -77,12 +77,18 @@ The latest [configured hosted record](evidence/configured-live-qa-2026-11-08.md)
 | Verified owner Vercel / Neon release | [Production deployment](https://proofpay-purchase-desk.vercel.app) READY at public source `d17ec6c9`, runtime unchanged; **8/8 real PostgreSQL checks** and migrations passed in production and preview builds. Owner/PayPal configuration is saved and owner sign-in passed. | Independent access and broader authenticated/session QA remain separate checks. Earlier CI/source results retain their own scope. |
 | PayPal | [Current combined run](evidence/configured-live-qa-2026-11-08.md): model proposal, owner/native buyer approvals, USD180 sandbox capture, response-loss hold through reload and original-order confirmation. Repeated lookup retained the same capture/totals. | Virtual funds only; no production settlement or general exactly-once guarantee. External request counts were not independently measured. |
 | Runtime AI | Vercel Gateway recorded HTTP200 for `openai/gpt-4.1-mini` through OpenAI: 242 input / 48 output tokens, USD0.0002 displayed cost. Its proposal continued into the verified sandbox purchase. | The one-attempt reviewed grant is consumed. Do not reset or retry it to stage another demonstration; no personal OpenAI credits were used. |
-| Public judge access | Isolated two-hour guest rehearsal implemented on a separate project/database; no owner/provider credentials or live inference path. | Public deployment, fresh-browser isolation and interactive QA are pending. [Judge URL](https://proofpay-judge.vercel.app). |
-| Presentation / access | Source, instructions, review materials and [Postman collection](postman/README.md) prepared. Nithya’s Devpost team acceptance was confirmed on 8 November 2026. | Independent application access, public video and final review remain open. Devpost membership does not create a ProofPay user role. **Final Devpost Submit is held.** |
+| Public judge access | [Canonical public demo](https://proofpay-evaluation-lab.vercel.app) READY; 21 independent HTTPS outcomes passed, including guest isolation. Browser workflow showed 6/6 lab observations; nine responsive layouts passed. | Usage limits apply. No live inference or PayPal call is available in this demo. Browser export/download remains a separate check. |
+| Presentation / access | Source, instructions, review materials and [Postman collection](postman/README.md) prepared. Nithya’s Devpost team acceptance was confirmed on 8 November 2026. | The 163.521-second video passed full decoding and has no audio clipping, but no public YouTube URL exists. Final review remains open. Devpost membership does not create a ProofPay user role. **Final Devpost Submit is held.** |
 
 The current combined run kept USD180 reserved after response loss and reload. Original-order lookup confirmed payment, leaving USD120 available, USD0 reserved and USD180 paid; repeat lookup preserved the same capture. The [configured QA record](evidence/configured-live-qa-2026-11-08.md) contains model/order/capture identifiers and receipt limits. The [older no-AI diagnostic](evidence/diagnostic-release-review.json) remains a separate historical run.
 
 Historical interface evidence includes the [readability review and screenshot](evidence/readability-review.json), [mobile screenshot](evidence/mobile-approval-qa.png), [hosted rehearsal](evidence/hosted-renewal-review.json) and [earlier release](evidence/hosted-release-review.json). The [earlier production record](evidence/business-portal-release-2026-11-08.json) and [screenshot](evidence/business-portal-setup-2026-11-08.jpg) cover all eight navigation headings at 360, 768 and 1280 pixels without horizontal overflow. This was the setup-pending shell: 15px body text, 14px mobile navigation, 48px mobile navigation targets and a visible keyboard outline. The later configured run opened all eight authenticated sections at 360/768/1280 with no horizontal document overflow, and verified history selection between the preserved rehearsal and sandbox workspaces. Exported browser file bytes remain unverified; these screenshots keep their historical scope.
+
+## Demonstration video
+
+The [reproducible video sources](tools/demo-video/README.md) use an original vector presenter, Flite phoneme timing and FFmpeg. The free local render is **163.521 seconds** (about 2:43), passed full-file decoding and has no audio clipping. It combines the dated owner sandbox evidence with clearly labelled public rehearsal. No HeyGen render or paid credit was used.
+
+The file is rendered, not published: YouTube upload is awaiting browser file-access permission, and there is no verified public YouTube link yet. Do not treat a local render or the source pipeline as satisfying the public-video submission requirement.
 
 ## Three explicit paths
 
@@ -129,6 +135,8 @@ A version 1 receipt can also be checked offline:
 ```sh
 node scripts/verify-receipt.mjs /path/to/receipt.json
 ```
+
+The [independent HTTPS review](evidence/judge-hosted-qa-2026-11-08.json) downloaded a 4,254-byte guest receipt from the evidence API and passed this verifier. That checks actual API response bytes; it does not verify the browser’s Blob export or CSV download.
 
 The verifier compares the approval digest, operation, events and provider fields without network access. A pass means an unsigned record is internally consistent. It does not authenticate PayPal, a model, the author, current spending authority or TIP compatibility. See the [provenance roadmap](docs/PROVENANCE_ROADMAP.md).
 

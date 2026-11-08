@@ -50,6 +50,12 @@ The final `npm run build` also exited 0: Next.js 16.4.5 compiled successfully, c
 
 The local npm launcher printed `Unknown env config "http-proxy"`. That environment warning was recorded, not suppressed; it was not a TypeScript, ESLint or test failure. The installer, dependency audit, nine-test PostgreSQL gate and browser checks were not rerun as part of these checkpoints. Later source changes need their own results.
 
+The released judge source is `2caa74039fee7c136fb892084225a8235b4b4ea6` on deployment `dpl_Hazv9A9bHbQQmffM74iJU6obvWE3`. The release owner reviewed its build logs: **9/9 real PostgreSQL checks passed**, followed by the checksum-locked migrations and build. That hosted database result is separate from the local SQLite-backed tests above.
+
+Independent hosted HTTP checks then passed against the canonical judge deployment: **21 requests with the expected outcomes**, using two new in-memory guest cookie jars. Cross-guest receipt reads and approval were denied; the second guest's records stayed unchanged. Wrong-origin session creation, owner login and sandbox proposals were rejected. The first guest completed the $180 reservation/$160 budget block, simulated response loss, fresh state read, original-order reconciliation and repeated lookup with unchanged capture and totals. Resetting only that guest's simulation created a new workspace while retaining the earlier receipt.
+
+The reviewer downloaded the actual 4,254-byte operation receipt through HTTPS and ran `scripts/verify-receipt.mjs` successfully against those bytes. This proves the downloaded application's receipt is internally consistent, not provider authenticity or a browser Blob download. The [sanitized hosted report](../evidence/judge-hosted-qa-2026-11-08.json) records request outcomes, source/deployment identity, receipt hash and limits. Cookie values and the raw receipt were not retained. No model, PayPal or owner-browser action was requested by these checks, and the consumed AI grant was not reset.
+
 ## Real database integration, separately
 
 An authorized developer with a dedicated PostgreSQL test connection can run:
@@ -66,7 +72,7 @@ Remote connections use certificate-verified TLS. The existing CI-only loopback t
 
 ## Repeat the browser rehearsal
 
-The public evaluator interface is `/judge` on a separately configured judge deployment. It creates a random, signed two-hour guest session through **Try the demo**; no account, owner key, payment credential or model key is requested. Its server accepts only rehearsal actions. Owner sign-in and owner APIs are disabled there, and judge APIs are disabled on the private owner deployment. Source implementation alone does not establish that a public URL is deployed and verified; use the URL and result recorded by the release owner.
+Open [the public evaluator rehearsal](https://proofpay-evaluation-lab.vercel.app/judge). Its canonical origin is `https://proofpay-evaluation-lab.vercel.app`; use that exact origin for API requests. It creates a random, signed two-hour guest session through **Try the demo**; no account, owner key, payment credential or model key is requested. Its server accepts only rehearsal actions. Owner sign-in and owner APIs are disabled there, and judge APIs are disabled on the private owner deployment.
 
 Guest sessions have up to 100 mutation attempts and ten resets after the initial workspace. The deployment admits at most 60 new sessions per hour and 300 in total. A 429 limit response is an expected resource boundary; do not clear counters or rotate identities to bypass it. Reads and exports remain available within the session's valid lifetime. After expiry, begin a new session; the previous guest cookie no longer authorizes its records.
 
