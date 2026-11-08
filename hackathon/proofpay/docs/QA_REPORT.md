@@ -134,3 +134,9 @@ The 131 checks do not make any model/PayPal network calls. A mocked sandbox adap
 Before describing this as a verified end-to-end sandbox integration, retain redacted evidence for that chain, including matching operation/order/capture IDs, amount, currency, merchant, final-capture status and the independently fetched provider record. Verify response-loss recovery separately without issuing a second capture. Before public deployment, also establish that the ingress strips caller-supplied identity headers and restricts access as intended; local header tests cannot prove that hosting property.
 
 For other security boundaries and implemented controls, see [SECURITY_REVIEW.md](SECURITY_REVIEW.md). No new release-blocking application defect was observed by the passing local suites. The remaining dependency finding, missing genuine external flow and pending production build/hosting checks must remain explicit in readiness claims.
+
+## Final hosted release check
+
+Private deployment of Site source `603541fa` succeeded on 8 November 2026. The [hosted release record](../evidence/hosted-release-review.json) covers the stored receipt panel, a fresh $180 approval/cancellation and reload, and a new unapproved $90 proposal. Available allowance returned to $300 with no reserved or paid amount in the fresh workspace. These are rehearsal results. The [release screenshot](../evidence/hosted-release-qa.png) shows the deployed interface.
+
+The new ProofPay GitHub workflow passed all steps at public source `35eb3a19`, including a clean dependency install, types, lint, 131 tests, Worker build and visual-fixture build. The repository-wide workflow stopped on an extra blank line at the end of the inherited ProofPay license; this release removes that blank line without changing license text. Final workflow status must be read from the exact head commit.

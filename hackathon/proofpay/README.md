@@ -43,6 +43,7 @@ Two modes are kept explicit:
 | [Responsive review](evidence/responsive-review.json) · [screenshot](evidence/mobile-approval-qa.png) | Actual component/CSS with synthetic records at phone widths; a tablet spot check. It is not a real-device or payment-integration test. |
 | [Hosted recovery review](evidence/hosted-recovery-review.json) | Fresh over-allowance rejection, separately approved alternative and lost-response recovery; repeat lookup did not change accounting. |
 | [Readability review](evidence/readability-review.json) · [screenshot](evidence/readability-qa.png) | Updated typography and receipt comparison at 360/390/768/1280 CSS-pixel widths, including keyboard table scrolling. Synthetic visual QA only. |
+| [Hosted release check](evidence/hosted-release-review.json) · [screenshot](evidence/hosted-release-qa.png) | Deployed receipt comparison, fresh approval/cancellation, reload persistence and proposal provenance. Rehearsal only. |
 | [Current QA report](docs/QA_REPORT.md) | Commands, results, identified gaps and the boundaries of the latest review. |
 
 ## Try the rehearsal locally
