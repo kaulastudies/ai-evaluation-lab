@@ -1,0 +1,24 @@
+[Unit]
+Description=ReceiptOps verified execution desk
+After=network-online.target docker.service
+Requires=docker.service
+
+[Service]
+Type=simple
+User=receiptops
+Group=receiptops
+SupplementaryGroups=docker
+WorkingDirectory=/opt/receiptops
+EnvironmentFile=/etc/receiptops.env
+Environment=RECEIPTOPS_STATE=/var/lib/receiptops
+ExecStart=/opt/receiptops/.venv/bin/uvicorn receiptops.main:app --host 127.0.0.1 --port 8000 --workers 1
+Restart=on-failure
+RestartSec=4
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/receiptops /tmp
+UMask=0077
+
+[Install]
+WantedBy=multi-user.target
