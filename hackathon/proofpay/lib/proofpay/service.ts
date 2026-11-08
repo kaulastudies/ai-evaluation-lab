@@ -15,8 +15,10 @@ function safeProvenance(value: ProposalProvenance | undefined): ProposalProvenan
   const boundedIdentifier = (candidate: unknown) => typeof candidate === "string" && /^[A-Za-z0-9._:/-]{1,200}$/.test(candidate) ? candidate : undefined;
   return {requestedModel: value.requestedModel, providerOrigin: origin.origin, receivedAt: value.receivedAt, ...(boundedIdentifier(value.providerResponseId) ? {providerResponseId: boundedIdentifier(value.providerResponseId)} : {}), ...(boundedIdentifier(value.returnedModel) ? {returnedModel: boundedIdentifier(value.returnedModel)} : {})};
 }
+const APPROVAL_BINDING_FIELDS = ["operationId", "workspaceId", "sku", "title", "amountCents", "currency", "merchantId", "mode", "approvalVersion", "approvalExpiresAt"] as const;
+function approvalBindingValues(op: OperationRow) { return [op.id, op.workspace_id, op.sku, op.title, op.amount_cents, op.currency, op.merchant_id, op.mode, op.approval_version, op.approval_expires_at]; }
 async function digest(op: OperationRow): Promise<string> {
-  const data = JSON.stringify([op.id, op.workspace_id, op.sku, op.title, op.amount_cents, op.currency, op.merchant_id, op.mode, op.approval_version, op.approval_expires_at]);
+  const data = JSON.stringify(approvalBindingValues(op));
   const bytes = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(data));
   return Array.from(new Uint8Array(bytes), b => b.toString(16).padStart(2, "0")).join("");
 }
@@ -50,10 +52,10 @@ export class ProofPayService {
     const committedCents = operations.filter(op => op.status === "CONFIRMED").reduce((sum, op) => sum + op.amount_cents, 0);
     return {workspace: {id: workspace.id, mode: workspace.mode, currency: workspace.currency, budgetCents: workspace.budget_cents, reservedCents, committedCents, availableCents: workspace.budget_cents - reservedCents - committedCents, createdAt: workspace.created_at}, capabilities: this.capabilities(), catalogue: CATALOGUE, operations: operations.map(expose), events};
   }
-  private insertStatement(workspace: WorkspaceRow, request: string, key: string, choice: ProposalChoice, label: string) {
+  private insertStatement(workspace: WorkspaceRow, request: string, key: string, choice: ProposalChoice, label: string, operationId = crypto.randomUUID()) {
     const item = CATALOGUE.find(item => item.sku === choice.sku);
     if (!item) throw new ProofPayError("INVALID_SKU", "The proposal must select a server catalogue item.");
-    return this.db.prepare("INSERT INTO proofpay_operations (id,workspace_id,idempotency_key,request,agent_label,sku,title,amount_cents,currency,merchant_id,mode,ai_source,rationale,status,approval_version,create_request_id,capture_request_id,created_at,updated_at) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,'PROPOSED',1,?,?,?,?) ON CONFLICT(workspace_id,idempotency_key) DO NOTHING").bind(crypto.randomUUID(), workspace.id, key, request, label, item.sku, item.title, item.amountCents, item.currency, workspace.mode === "rehearsal" ? "rehearsal-seller" : this.env.PAYPAL_MERCHANT_ID, workspace.mode, choice.source, choice.rationale, crypto.randomUUID(), crypto.randomUUID(), this.now(), this.now());
+    return this.db.prepare("INSERT INTO proofpay_operations (id,workspace_id,idempotency_key,request,agent_label,sku,title,amount_cents,currency,merchant_id,mode,ai_source,rationale,status,approval_version,create_request_id,capture_request_id,created_at,updated_at) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,'PROPOSED',1,?,?,?,?) ON CONFLICT(workspace_id,idempotency_key) DO NOTHING").bind(operationId, workspace.id, key, request, label, item.sku, item.title, item.amountCents, item.currency, workspace.mode === "rehearsal" ? "rehearsal-seller" : this.env.PAYPAL_MERCHANT_ID, workspace.mode, choice.source, choice.rationale, crypto.randomUUID(), crypto.randomUUID(), this.now(), this.now());
   }
   async start(owner: string, mode: Mode, seed = false) {
     ownerRequired(owner); modeRequired(mode);
@@ -85,13 +87,17 @@ export class ProofPayService {
     if (prior) { if (prior.request !== input.request.trim()) throw new ProofPayError("KEY_REUSED", "That idempotency key is already bound to another request.", 409); return this.state(owner); }
     const choice = await this.proposer(input.request.trim(), input.mode, this.env);
     if (input.mode === "sandbox" && choice.source !== "model") throw new ProofPayError("MODEL_REQUIRED", "Sandbox proposals require a genuine model response.", 503);
-    const inserted = await this.insertStatement(workspace, input.request.trim(), input.idempotencyKey, choice, input.mode === "rehearsal" ? "Rehearsal agent" : "Purchase agent").run();
+    const operationId = crypto.randomUUID();
+    const provenance = choice.source === "model" ? safeProvenance(choice.provenance) : undefined;
+    const proposalDetail = JSON.stringify({schemaVersion: 1, source: choice.source, sku: choice.sku, rationale: choice.rationale.slice(0, 500), ...(provenance ? {provenance} : {})});
+    // A proposal without its source record is incomplete. Commit both together;
+    // a competing idempotency-key winner makes this candidate's event a no-op.
+    await this.db.batch([
+      this.insertStatement(workspace, input.request.trim(), input.idempotencyKey, choice, input.mode === "rehearsal" ? "Rehearsal agent" : "Purchase agent", operationId),
+      this.db.prepare("INSERT INTO proofpay_events (id,workspace_id,operation_id,type,detail,created_at) SELECT ?,?,?,'PROPOSAL_CREATED',?,? WHERE EXISTS (SELECT 1 FROM proofpay_operations WHERE id = ?)").bind(crypto.randomUUID(), workspace.id, operationId, proposalDetail, this.now(), operationId),
+    ]);
     const stored = await this.db.prepare("SELECT * FROM proofpay_operations WHERE workspace_id = ? AND idempotency_key = ?").bind(workspace.id, input.idempotencyKey).first<OperationRow>();
     if (stored!.request !== input.request.trim()) throw new ProofPayError("KEY_REUSED", "That idempotency key is already bound to another request.", 409);
-    if (inserted.meta?.changes === 1) {
-      const provenance = choice.source === "model" ? safeProvenance(choice.provenance) : undefined;
-      await this.event(workspace.id, stored!.id, "PROPOSAL_CREATED", JSON.stringify({schemaVersion: 1, source: choice.source, sku: stored!.sku, rationale: choice.rationale.slice(0, 500), ...(provenance ? {provenance} : {})}));
-    }
     return this.state(owner);
   }
   private async validApproval(op: OperationRow, version: number): Promise<void> {
@@ -106,15 +112,20 @@ export class ProofPayService {
     if (op.status !== "PROPOSED") { if (op.status === "APPROVED") return this.state(owner); throw new ProofPayError("APPROVAL_STATE", "This proposal cannot be approved in its current state.", 409); }
     const expires = this.now() + APPROVAL_TTL;
     const hash = await digest({...op, approval_expires_at: expires});
-    // One SQLite write serializes all contenders. The same statement checks and reserves.
-    const updated = await this.db.prepare(`UPDATE proofpay_operations SET status = 'APPROVED', approval_expires_at = ?, approval_digest = ?, updated_at = ? WHERE id = ? AND status = 'PROPOSED' AND approval_version = ? AND workspace_id = (SELECT workspace_id FROM proofpay_sessions WHERE owner_id = ?) AND amount_cents + (SELECT COALESCE(SUM(amount_cents),0) FROM proofpay_operations WHERE workspace_id = ? AND status IN (${HELD_SQL})) <= (SELECT budget_cents FROM proofpay_workspaces WHERE id = ?) RETURNING id`).bind(expires, hash, this.now(), id, version, owner, op.workspace_id, op.workspace_id).first();
-    if (!updated) {
+    const eligible = `id = ? AND status = 'PROPOSED' AND approval_version = ? AND workspace_id = (SELECT workspace_id FROM proofpay_sessions WHERE owner_id = ?) AND amount_cents + (SELECT COALESCE(SUM(amount_cents),0) FROM proofpay_operations WHERE workspace_id = ? AND status IN (${HELD_SQL})) <= (SELECT budget_cents FROM proofpay_workspaces WHERE id = ?)`;
+    const bindings = [id, version, owner, op.workspace_id, op.workspace_id];
+    // The same serial transaction checks the budget, records the owner's
+    // decision and reserves funds. Audit failure cannot leave an orphan hold.
+    const results = await this.db.batch([
+      this.db.prepare(`INSERT INTO proofpay_events (id,workspace_id,operation_id,type,detail,created_at) SELECT ?,?,?,'APPROVED',?,? WHERE EXISTS (SELECT 1 FROM proofpay_operations WHERE ${eligible})`).bind(crypto.randomUUID(), op.workspace_id, id, "Owner approved the exact catalogue item, merchant, amount and currency. Funds are reserved for 15-minute execution authority; ambiguity never releases them automatically.", this.now(), ...bindings),
+      this.db.prepare(`UPDATE proofpay_operations SET status = 'APPROVED', approval_expires_at = ?, approval_digest = ?, updated_at = ? WHERE ${eligible}`).bind(expires, hash, this.now(), ...bindings),
+    ]);
+    if (results[1].meta?.changes !== 1) {
       if ((await this.workspace(owner))?.id !== op.workspace_id) throw new ProofPayError("WORKSPACE_CHANGED", "This proposal belongs to an earlier workspace. Start from the active purchase desk.", 409);
       const blocked = await this.db.prepare("UPDATE proofpay_operations SET status = 'BUDGET_BLOCKED', updated_at = ? WHERE id = ? AND status = 'PROPOSED' RETURNING id").bind(this.now(), id).first();
       if (blocked) { await this.event(op.workspace_id, id, "BUDGET_BLOCKED", "Approval denied: the shared workspace allowance cannot cover this proposal. No payment was dispatched."); throw new ProofPayError("BUDGET_EXCEEDED", "The shared allowance cannot cover this purchase. Ask for a smaller catalogue option.", 409); }
       return this.state(owner);
     }
-    await this.event(op.workspace_id, id, "APPROVED", "Owner approved the exact catalogue item, merchant, amount and currency. Funds are reserved for 15-minute execution authority; ambiguity never releases them automatically.");
     return this.state(owner);
   }
   async cancelBeforeDispatch(owner: string, id: string, version: number) {
@@ -275,6 +286,7 @@ export class ProofPayService {
     const op = await this.operation(owner, id);
     const events = (await this.db.prepare("SELECT id,type,detail,created_at AS createdAt FROM proofpay_events WHERE operation_id = ? ORDER BY created_at,rowid").bind(id).all<{id: string; type: string; detail: string; createdAt: number}>()).results ?? [];
     const verificationRecords = events.filter(event => event.type === "PROVIDER_VERIFIED").map(event => JSON.parse(event.detail) as VerificationRecord);
-    return {operation: expose(op), createRequestId: op.create_request_id, captureRequestId: op.capture_request_id, approvalDigest: op.approval_digest, verificationRecords, events, claim: op.mode === "rehearsal" ? "Simulated provider and deterministic proposal. No PayPal sandbox or model execution evidence." : "PayPal sandbox adapter; inspect recorded outcomes. Sandbox uses virtual accounts and funds. No real-money or production claim."};
+    const approvalBinding = op.approval_digest ? {profile: "proofpay-approval-v1", algorithm: "SHA-256", encoding: "UTF-8", serialization: "JSON-array", fields: APPROVAL_BINDING_FIELDS, values: approvalBindingValues(op)} : null;
+    return {receiptSchemaVersion: 1, operation: {...expose(op), workspaceId: op.workspace_id}, createRequestId: op.create_request_id, captureRequestId: op.capture_request_id, approvalDigest: op.approval_digest, approvalBinding, verificationRecords, events, claim: op.mode === "rehearsal" ? "Simulated provider and deterministic proposal. No PayPal sandbox or model execution evidence." : "PayPal sandbox adapter; inspect recorded outcomes. Sandbox uses virtual accounts and funds. No real-money or production claim."};
   }
 }

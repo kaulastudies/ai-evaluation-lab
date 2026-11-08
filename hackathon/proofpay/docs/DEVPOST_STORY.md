@@ -1,8 +1,6 @@
 # ProofPay Devpost draft
 
-Prepared 8 November 2026 with 92 passing local tests and locally validated approval renewal. This file prepares text only. The existing Devpost entry remains the entry to use. **Do not click final Submit.** The user's instruction to hold final submission remains in force even after every technical task is complete.
-
-The copy below is accurate at this checkpoint. Refresh its verification paragraph after the production build and genuine model and sandbox capture tests. Attach the final source version and evidence hashes. Do not convert planned outcomes into accomplishments or remove the limitations simply to shorten the story.
+Prepared **8 November 2026** with the 131-test local QA checkpoint and implemented receipt inspector. Hosted recovery evidence remains tied to application checkpoint `47dcf677`. Update the verification paragraph only after missing external runs pass. **Use the existing Devpost entry and do not click final Submit.**
 
 ## Project name
 
@@ -10,96 +8,83 @@ ProofPay Purchase Desk
 
 ## Short pitch
 
-An AI-assisted purchase desk that connects owner approval, a shared allowance and payment evidence, with a PayPal sandbox adapter and explicit recovery when a response is lost.
+An AI-assisted purchase desk connecting owner approval, a shared allowance and payment evidence, with a PayPal sandbox adapter and recovery when a response is lost.
 
-## Project story — copy-ready checkpoint
+## Story — current checkpoint
 
 ### Inspiration
 
-A payment timeout leaves a practical question: did the purchase fail, or did only the response disappear? An assistant's confident answer cannot settle it.
+A payment timeout leaves a practical question: did the purchase fail, or did only the response disappear?
 
-We built ProofPay around a small studio with a $300 allowance for outside review work. Two assistants request packages costing $180 and $160. Both requests may be reasonable, but they cannot both fit. The owner needs to approve a purchase, know what remains available and understand what happened if the payment response is lost.
+We built ProofPay around a small studio with a $300 allowance for outside review work. Two assistants request packages costing $180 and $160. Both requests may be reasonable, but they cannot both fit. The owner needs to approve the right purchase, see what remains available and find out what happened when a payment response goes missing.
 
 ### What it does
 
-ProofPay keeps the purchase proposal, owner approval, allowance reservation and payment outcome in one operation record. The owner can see available, reserved, paid and unresolved amounts and take the next permitted action.
+ProofPay keeps the proposal, owner approval, allowance reservation and payment outcome in one operation record. Its workspace shows purchases needing attention, approvals, evidence, enforced controls and integration configuration.
 
-The sample catalogue contains Workflow review ($180), Design review ($160) and Starter review ($90). These are synthetic digital-service packages; the demonstration does not deliver a paid service. After $180 is approved and reserved, the competing $160 request is blocked. A cheaper option becomes a new proposal requiring its own approval.
+The demonstration catalogue contains Workflow review ($180), Design review ($160) and Starter review ($90). These are synthetic packages; no paid review service is delivered. After the owner reserves $180, the competing $160 request is blocked. A cheaper alternative is a new proposal requiring its own approval.
 
-The PayPal sandbox path creates an order and sends the buyer to PayPal for native approval before capture. If a capture response is lost, ProofPay retains the reservation and checks the original order. It records payment only when the expected operation, merchant, amount, currency and completed capture match. Repeated verification does not create a new capture request.
+An expired approval can be explicitly renewed before capture dispatch without changing the purchase, provider order or reservation. A request can also be cancelled before any provider dispatch, releasing an unused local reservation while retaining its history.
+
+The PayPal sandbox path creates an order and requires the buyer's native PayPal approval. If a capture response is lost, ProofPay keeps the amount reserved and checks the original order. It records payment only when the expected operation, merchant, amount, currency and completed final capture match. Another outcome check does not dispatch another capture.
 
 ### How we built it
 
-The application uses TypeScript, React/Vinext, a Cloudflare Worker and D1. Server-owned catalogue data determines price and currency. An HTTPS model adapter requests a catalogue SKU and explanation, then validates the result independently. The model has no payment credentials, cannot approve itself and cannot declare a payment complete.
+The application uses TypeScript, React/Vinext, a Cloudflare Worker and D1. The model adapter requests a catalogue SKU and explanation. Server code validates the selection and supplies the price and merchant; the model cannot approve a purchase, change the allowance or declare a payment complete.
 
-Approval binds the purchase details and expiry to the operation. An atomic database update reserves the shared allowance. Separate create and capture request IDs are stored before dispatch. The PayPal integration uses OAuth and Orders v2 create, capture and order lookup. PayPal buyer approval remains separate from the application's owner approval.
+Owner approval binds the exact purchase and expiry. An atomic database decision reserves the shared allowance. Separate create and capture request IDs are stored before dispatch. PayPal OAuth and Orders v2 provide order creation, capture and subsequent lookup. Application approval and PayPal buyer approval are separate decisions.
 
-Explicit owner reapproval renews an expired approval before capture dispatch. The implementation retains the same purchase, order, request IDs and reservation, and updates the approval version, digest and expiry. Conditional state/version checks reject stale dispatch authority. Reapproval is restricted to expired `APPROVED` or `ORDER_READY` operations; it does not reopen uncertain, capture-dispatched, confirmed or verification-failed operations. These service behaviors passed local tests. A hosted rehearsal also verified real-time expiry, disabled capture, renewal to version 2 with the same order and reservation, and response-loss recovery after browser reload.
+Confirmation stores the limited provider fields used for verification alongside the accounting change. The receipt inspector compares current purchase fields with those stored observations, making matching, different and missing values visible. The verification record does not retain the historical approval version or catalogue item, and the interface states those limits.
 
-Confirmation stores a limited snapshot of the checked provider fields together with the accounting change. The owner can export the operation, request IDs, approval digest and verification records. These are application observations, not signed PayPal attestations.
+Versioned exports include the operation, approval binding and digest, request IDs, events and verification records. An offline verifier checks their internal consistency. These are inspectable application records, not signed PayPal attestations; replacing both data and digest could produce another internally consistent file.
 
-Rehearsal is a separate, visibly labelled mode. It uses deterministic proposals and a persisted simulated provider. Missing external configuration never silently turns a sandbox action into rehearsal.
+Rehearsal is a visibly separate mode with deterministic proposals and a persisted simulated provider. Missing configuration never silently substitutes rehearsal for a sandbox action.
 
-### Challenges we addressed
+### The hard part
 
-The difficult boundary is between a durable application decision and an external payment effect. A missing response must not free the allowance or invite a second purchase. We also needed competing approvals to use one atomic reservation decision rather than separately reading an outdated balance.
+The difficult boundary is between a durable application decision and an external payment effect. A missing response cannot justify releasing the allowance or sending a second purchase. Competing approvals also need one atomic reservation decision, rather than separate reads of an outdated balance.
 
-We tested the service code used by the application, including two OS processes contending for allowance and a fresh process reopening persisted state after response loss. Provider fields are checked against the approved operation; a plausible-looking response or model message is insufficient.
+We tested the application service with separate processes contending for allowance and a fresh process reopening saved state after response loss. Renewal and cancellation use conditional state/version checks so stale authority cannot override a competing action.
 
 ### What we have verified
 
-The combined local suite passed 92 of 92 tests. It uses SQLite with a D1-contract adapter, synthetic provider/model records and mocked HTTP. It covers process race/restart cases, approval and owner checks, provider mismatches, receipt privacy and atomic confirmation, including 17 renewal tests, 20 pre-dispatch cancellation tests and two AI-provenance tests. The provenance checks validate retained provider/model identifiers and exclude unrelated response data; they do not establish an actual model invocation. TypeScript, full ESLint and a clean dependency install also passed. The updated Worker production build passed and the private deployment succeeded.
+The current recorded local suite passed **131/131 tests**, using SQLite with a D1-contract adapter, synthetic provider/model fixtures and mocked HTTP. It covers concurrency, process restart, approval, renewal, cancellation before dispatch, transactional audit writes, owner isolation, bounded requests/responses and offline receipt consistency. The earlier 92-test record remains historical evidence. These local results do not establish hosted D1 behavior or an external payment/model run.
 
-The private hosted application separately completed a labelled rehearsal: it reserved $180, blocked $160, retained the reservation after a simulated capture response was dropped, and reconciled to $180 paid with $120 available. Repeated reconciliation left one simulated capture and one confirmation. A later $90 rehearsal purchase completed normally. Browser reload was observed in the hosted run; backend process restart was tested locally.
+Full application TypeScript and ESLint checks also passed. Local visual review checked the revised typography at 360, 390, 768 and 1280px without page-level horizontal overflow and verified keyboard scrolling. The implemented receipt inspector was reviewed at 360/390px with a synthetic record. These are local interface checks, not a hosted or physical-device payment demonstration.
 
-We also verified genuine PayPal sandbox OAuth and create/GET calls through the actual provider adapter. The order remained awaiting buyer action. That separate probe used a synthetic proposal and did not capture payment or write a hosted purchase receipt. A secure, encrypted API-key provisioning attempt failed before returning a usable key; no genuine model call resulted. Genuine model execution and the complete PayPal buyer-approval/capture path remain unfinished at this checkpoint.
+The private hosted rehearsal separately verified real approval expiry, disabled capture, explicit renewal with the same order and reservation, and recovery after a simulated capture response was dropped and the browser reloaded. It finished with $180 paid and $120 available. Another hosted check verified that cancelling an approved $90 request before dispatch restored its reservation and retained its history.
 
-The owner interface has six focused views: Overview, Purchases, Approvals, Evidence, Controls and Connections. The hosted desktop rehearsal verified searching and filtering requests, inspecting a completed record, and cancelling an approved $90 request before dispatch. Cancellation released its reservation while retaining the record and event history after reload. This was a simulated-provider check.
+A later hosted run blocked a $160 request against that remaining $120, then created a separate $90 alternative requiring its own approval. Dropping the simulated capture response left $90 reserved through reload. Checking the original order confirmed the purchase, leaving $270 total paid and $30 available; a repeated check preserved the same capture and totals. The UI reported four exported purchase records, but the downloaded file contents were not verified. This run observed application behavior with a simulated provider, not actual PayPal activity or provider-call counts.
 
-### What we learned
+Genuine PayPal sandbox OAuth and provider-adapter create/GET calls also succeeded in a separate probe. The order remained awaiting buyer action. **No usable runtime AI key is configured, no actual model inference has been recorded, and buyer-approved PayPal capture remains unfinished.** The model-to-payment flow is therefore implemented but not yet verified end to end. The private deployment is not independently accessible to judges at this checkpoint.
 
-Provider idempotency, application approval and a shared budget solve different parts of the problem. PayPal already supplies idempotency for supported APIs. Our contribution is the implemented connection between those controls and an inspectable operation record, rather than a claim to have invented payment retry handling.
+### What we learned and what comes next
 
-An unresolved result also needs a useful product experience: keep the amount reserved, explain why, and offer verification of the original order. Hiding uncertainty behind a success or failure message makes the owner's next decision harder.
+Payment status needs evidence. A successful HTTP response, an assistant's explanation and a completed provider capture mean different things; the product must keep those distinctions visible.
 
-### What's next
+Our next step is to finish and record one genuine model-to-PayPal sandbox purchase, followed by the lost-response case. We will then verify judge access and record the public demonstration. Beyond the hackathon, we want to test whether teams building delegated purchasing workflows will pay for reusable approval, allowance and recovery operations. That is a customer hypothesis, not existing traction.
 
-Complete and record the genuine model-to-PayPal sandbox flow, including a normal capture and the labelled response-loss case. Verify judge access and make the demonstration reproducible from the public source.
+The current scope is one merchant, USD and an isolated workspace allowance. Renewal does not extend PayPal order validity. Cancellation is unavailable after provider dispatch and is not a refund. Unknown create results without a saved order ID require investigation. Production payments, refunds, webhooks, fulfillment and provider portability remain outside this build.
 
-The commercial hypothesis is that small engineering teams embedding PayPal purchasing would pay to reduce their own approval, recovery and investigation work. We plan to test that with a scoped paid pilot; there are no customers, revenue or savings claims yet.
+## Submission references and remaining gates
 
-The current scope is one merchant, USD and a per-workspace allowance. There is no production-payment mode, webhook receiver, refund execution, fulfillment or cancellation after provider dispatch. Pre-dispatch cancellation can withdraw a proposed, blocked or approved request and release an unused approved reservation once; this does not cancel a provider order or refund a payment. Approval renewal does not release the reservation, extend PayPal's order validity or recover an upstream-expired order. Unknown create results without a saved order ID need manual investigation. Receipts are not externally signed, and the project makes no general exactly-once or production-safety guarantee.
+- [Public project branch](https://github.com/kaulastudies/ai-evaluation-lab/tree/proofpay/purchase-desk-v0.1/hackathon/proofpay) · [draft pull request](https://github.com/kaulastudies/ai-evaluation-lab/pull/53)
+- [Setup](../README.md) · [judge readiness](JUDGE_READINESS.md) · [architecture](ARCHITECTURE.md)
+- [Current local QA summary](../evidence/qa-2026-11-08-summary.json) · [131-test log](../evidence/qa-2026-11-08-test-output.log) · [QA report](QA_REPORT.md)
+- [Hosted renewal](../evidence/hosted-renewal-review.json) · [hosted workspace](../evidence/hosted-workspace-review.json) · [hosted recovery](../evidence/hosted-recovery-review.json) · [earlier responsive review](../evidence/responsive-review.json)
+- [Private owner deployment](https://proofpay-purchase-desk.kaulastudies.chatgpt.site) — does not yet establish independent judge access.
 
-## Technology and project links
+Suggested implemented technology tags: TypeScript, React, Vinext, Cloudflare Workers, Cloudflare D1, PayPal REST APIs, PayPal Orders v2, Drizzle ORM, SQLite. Add the runtime model/provider only after its actual invocation. Do not claim Toolkit, MCP, agent-commerce protocol compatibility or optional sponsor integrations that are absent from the code.
 
-Suggested tags based on implemented code: TypeScript, React, Vinext, Cloudflare Workers, Cloudflare D1, PayPal REST APIs, PayPal Orders v2, Drizzle ORM, SQLite.
+The ProofPay application was added during the event within an existing repository. Identify the new application work and preserve starter/dependency notices. Do not claim the parent repository or every dependency was newly created.
 
-Add a named model/provider tag only after an actual invocation is recorded. Do not add PayPal Agent Toolkit, MCP, Agent Ready, Store Sync, ACP, UCP, AP2 or optional sponsor tools as implemented integrations. Coding assistance is a separate disclosure from runtime AI.
-
-- [Public ProofPay source on the project branch](https://github.com/kaulastudies/ai-evaluation-lab/tree/proofpay/purchase-desk-v0.1/hackathon/proofpay)
-- [Draft pull request #53](https://github.com/kaulastudies/ai-evaluation-lab/pull/53)
-- [Private owner deployment](https://proofpay-purchase-desk.kaulastudies.chatgpt.site) — not an independently accessible judge demo at this checkpoint.
-- [Setup instructions](../README.md)
-- [Independent test evidence](../evidence/independent-review-summary.json)
-- [Architecture and limits](ARCHITECTURE.md)
-
-The application source was added during the hackathon within the existing AI Evaluation Lab repository. The source audit found no earlier ProofPay implementation to reuse. Preserve the starter and dependency notices, and describe the event-period application work without claiming that the parent repository or every dependency was newly created. Attach the final reviewed commit and matching evidence hashes before publishing this story.
-
-## Evidence update gate before final review
-
-| Item | Required update before claiming completion |
+| Gate | Evidence needed before changing the story |
 |---|---|
-| Approval renewal | Local service validation passed, including 17 renewal tests. Add the hosted UI result and final source/evidence references; do not equate local fixtures with an actual PayPal renewal outcome. |
-| Actual model | Record the provider/model identifier, date, request, validated output and corresponding operation without secrets. A configured key or coding assistant does not establish runtime inference. |
-| Normal sandbox capture | Record native buyer approval, the order/capture references, matched provider fields and the hosted receipt. The existing create/GET probe is not this evidence. |
-| Lost-response sandbox case | Record the injected response drop, held allowance, original-order lookup, final checked outcome and repeated reconciliation. Keep simulated evidence separate. |
-| Restart claim | Identify whether the result is local process restart, browser reload or hosted backend restart. Claim only the one actually performed. |
-| Tests and source | The combined local result is 92/92. Record the final source version, evidence hashes and passing production-build outcome; rerun relevant checks if code changes. |
-| Judge access | Supply a tested hosted route or a fresh, complete setup path. The private owner deployment alone is insufficient. |
-| Video | Add the actual public YouTube URL after recording; keep it under three minutes and align its claims with the same source version. |
-| Team | Invite Prof. Nithya Ravi Kumar through the existing draft once a verified delivery address/channel is available. Check acceptance separately; do not attribute work in advance. |
-| Final submission | Remains on hold by the user's explicit instruction. Updating this file, tests or draft fields does not authorize clicking Submit. |
+| Runtime AI | Named provider/model, run date, validated proposal and matching operation; no secrets or raw unrelated response data. |
+| Normal sandbox purchase | Native buyer approval, completed capture, original-order verification and stored application receipt. |
+| Sandbox response loss | Deliberately dropped response, held allowance, original-order lookup and stable repeated reconciliation. |
+| Source and reproduction | Final reviewed revision, matching evidence, applicable checks and fresh judge setup/access verification. Preserve labels distinguishing simulated, local and external runs. |
+| Presentation | Public YouTube URL under three minutes showing the actual build, with English narration or captions and permitted assets. |
+| Team and final review | Verify intended teammate acceptance, representative authority and final entry fields. Keep final Submit on hold until the owner explicitly releases it. |
 
-When the actual-model, normal-sandbox-capture and lost-response rows pass, replace the checkpoint's unfinished-integration paragraph with the specific observed result and evidence link. Update the hosted renewal result separately. Do not prewrite a successful outcome or use the commercial plan's targets as accomplishments.
-
-The official [rules](https://paypalaihackathon.devpost.com/rules) require a functional build or complete run instructions, public licensed source and a public YouTube demonstration. Rechecked on 8 November: section 4 requires PayPal sandbox integration plus an AI tool/model/platform of the entrant's choice. The [event requirements](https://paypalaihackathon.devpost.com/) explicitly allow a PayPal API, and the [resources page](https://paypalaihackathon.devpost.com/resources) lists REST alongside Toolkit and MCP. Neither Toolkit nor MCP is mandatory. The [FAQ](https://paypalaihackathon.devpost.com/details/faqs) also confirms that sponsor tools are optional. Final eligibility and judging remain with the organizers.
+The [official requirements](https://paypalaihackathon.devpost.com/), [rules](https://paypalaihackathon.devpost.com/rules) and [resources](https://paypalaihackathon.devpost.com/resources) were rechecked on 8 November 2026. PayPal REST plus meaningful AI is a permitted approach; Toolkit/MCP is optional. The deadline is 12 November 2026 at noon PST. Full criteria, date details and the current choose/not-choose assessment are in [JUDGE_READINESS.md](JUDGE_READINESS.md).

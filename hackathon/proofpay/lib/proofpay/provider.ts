@@ -1,5 +1,6 @@
 import { amountString, parseAmount } from "./catalogue";
 import { Configuration, OperationRow, PaymentProvider, ProofPayError, ProviderOrder, SqlDatabase } from "./types";
+import { readTextLimited } from "./request";
 
 export function sandboxReady(config: Configuration): boolean { return Boolean(config.PAYPAL_CLIENT_ID && config.PAYPAL_CLIENT_SECRET && config.PAYPAL_MERCHANT_ID); }
 
@@ -39,17 +40,17 @@ export class PayPalSandboxProvider implements PaymentProvider {
   constructor(private config: Configuration) { if (!sandboxReady(config)) throw new ProofPayError("PAYPAL_NOT_CONFIGURED", "PayPal sandbox credentials are missing. Sandbox execution is disabled.", 503); }
   private async accessToken(): Promise<string> {
     if (this.token) return this.token;
-    const response = await fetch("https://api-m.sandbox.paypal.com/v1/oauth2/token", {method: "POST", headers: {Authorization: `Basic ${btoa(`${this.config.PAYPAL_CLIENT_ID}:${this.config.PAYPAL_CLIENT_SECRET}`)}`, "Content-Type": "application/x-www-form-urlencoded"}, body: "grant_type=client_credentials", signal: AbortSignal.timeout(20000)});
+    const response = await fetch("https://api-m.sandbox.paypal.com/v1/oauth2/token", {method: "POST", redirect: "manual", headers: {Authorization: `Basic ${btoa(`${this.config.PAYPAL_CLIENT_ID}:${this.config.PAYPAL_CLIENT_SECRET}`)}`, "Content-Type": "application/x-www-form-urlencoded"}, body: "grant_type=client_credentials", signal: AbortSignal.timeout(20000)});
     if (!response.ok) throw new ProofPayError("PAYPAL_AUTH", "PayPal sandbox authentication failed.", 502);
-    const json = await response.json() as {access_token?: string};
-    if (!json.access_token) throw new ProofPayError("PAYPAL_AUTH", "PayPal sandbox did not return an access token.", 502);
+    const json = JSON.parse(await readTextLimited(response, 16384)) as {access_token?: string};
+    if (typeof json.access_token !== "string" || !json.access_token || json.access_token.length > 8192 || /[\x00-\x20\x7f]/.test(json.access_token)) throw new ProofPayError("PAYPAL_AUTH", "PayPal sandbox did not return a valid access token.", 502);
     this.token = json.access_token; return this.token;
   }
   private async call(path: string, method: "GET" | "POST", body?: unknown, key?: string): Promise<ProviderOrder> {
     const token = await this.accessToken();
-    const response = await fetch(`https://api-m.sandbox.paypal.com${path}`, {method, headers: {Authorization: `Bearer ${token}`, "Content-Type": "application/json", Prefer: "return=representation", ...(key ? {"PayPal-Request-Id": key} : {})}, ...(method === "POST" ? {body: JSON.stringify(body ?? {})} : {}), signal: AbortSignal.timeout(25000)});
+    const response = await fetch(`https://api-m.sandbox.paypal.com${path}`, {method, redirect: "manual", headers: {Authorization: `Bearer ${token}`, "Content-Type": "application/json", Prefer: "return=representation", ...(key ? {"PayPal-Request-Id": key} : {})}, ...(method === "POST" ? {body: JSON.stringify(body ?? {})} : {}), signal: AbortSignal.timeout(25000)});
     if (!response.ok) throw new ProofPayError("PAYPAL_UNCERTAIN", "PayPal sandbox did not return a successful response. Any dispatched payment stays reserved until verified.", 502);
-    return await response.json() as ProviderOrder;
+    return JSON.parse(await readTextLimited(response, 262144)) as ProviderOrder;
   }
   async create(op: OperationRow, origin: string): Promise<ProviderOrder> {
     if (op.merchant_id !== this.config.PAYPAL_MERCHANT_ID) throw new ProofPayError("MERCHANT_CHANGED", "The configured seller no longer matches this proposal.", 409);

@@ -353,8 +353,19 @@ function pauseNextBatch(f) {
   return {arrived,release,restore:()=>{f.db.batch=original}};
 }
 function pauseNextClaim(f,sqlPart) {
-  const original=f.db.prepare.bind(f.db);let arrive,release;
+  const original=f.db.prepare.bind(f.db),originalBatch=f.db.batch.bind(f.db);let arrive,release;
   const arrived=new Promise(resolve=>{arrive=resolve}),gate=new Promise(resolve=>{release=resolve});
+  if(sqlPart==="SET status = 'APPROVED'") {
+    // Approval and its evidence now share a batch. Pause before BEGIN rather
+    // than inside the transaction so the competing owner action can commit.
+    f.db.batch=async statements=>{
+      if(statements.some(statement=>statement.sql.includes(sqlPart))) {
+        f.db.batch=originalBatch;arrive();await gate;
+      }
+      return originalBatch(statements);
+    };
+    return {arrived,release,restore:()=>{f.db.prepare=original;f.db.batch=originalBatch}};
+  }
   f.db.prepare=sql=>{
     const statement=original(sql);
     if(sql.includes(sqlPart)) {

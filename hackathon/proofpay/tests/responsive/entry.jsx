@@ -46,7 +46,18 @@ window.fetch=async(input,init={})=>{
   requests.push({method,path:url.pathname,body:init.body||null,at:Date.now()});
   await new Promise(resolve=>setTimeout(resolve,150));
   if(url.pathname==='/api/state'&&method==='GET')return Response.json({state});
-  if(url.pathname.endsWith('/evidence')&&method==='GET')return Response.json({synthetic:true,claim:'LOCAL VISUAL QA FIXTURE. Not execution evidence.',operation:operations.find(x=>url.pathname.includes(x.id)),verificationRecords:[],events});
+  if(url.pathname.endsWith('/evidence')&&method==='GET') {
+    const op=operations.find(x=>url.pathname.includes(x.id));
+    if(!op)return Response.json({error:'Synthetic fixture purchase missing.'},{status:404});
+    const verificationRecords=op.status==='CONFIRMED'?[{
+      schemaVersion:1,mode:op.providerMode,simulated:true,source:'simulated-provider-lookup',checkedAt:now-15000,operationId:op.id,
+      order:{id:op.orderId,status:'COMPLETED',referenceId:op.id,customId:op.id,payeeMerchantId:op.merchantId,amount:{value:(op.amountCents/100).toFixed(2),currency:op.currency}},
+      capture:{id:op.captureId,status:'COMPLETED',finalCapture:true,amount:{value:(op.amountCents/100).toFixed(2),currency:op.currency}},
+    }]:[];
+    const receiptEvents=events.filter(event=>event.operationId===op.id);
+    if(verificationRecords.length)receiptEvents.push({id:'qa-verification-event',type:'PROVIDER_VERIFIED',detail:JSON.stringify(verificationRecords[0]),createdAt:now-15000});
+    return Response.json({synthetic:true,claim:'LOCAL VISUAL QA FIXTURE. Not execution evidence.',operation:op,approvalDigest:op.approvalExpiresAt?'0'.repeat(64):null,verificationRecords,events:receiptEvents});
+  }
   return Response.json({error:'Local visual QA fixture: mutations are disabled. No payment or backend request was sent.',code:'QA_READ_ONLY',state},{status:409});
 };
 function blockAnchor(anchor) {

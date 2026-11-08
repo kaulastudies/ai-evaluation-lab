@@ -17,7 +17,7 @@ const css=await readFile(cssPath,'utf8');
 const result=await postcss([tailwind({base:source})]).process(css,{from:cssPath,to:join(root,'dist/app.css')});
 await writeFile(join(root,'dist/app.css'),result.css);
 const sha256=async path=>createHash('sha256').update(await readFile(path)).digest('hex');
-const sourceFiles=['components/proofpay/purchase-desk.tsx','app/globals.css'];
+const sourceFiles=['components/proofpay/purchase-desk.tsx','components/proofpay/receipt-inspector.tsx','app/globals.css'];
 const harnessFiles=['entry.jsx','link.jsx','build.mjs','package.mjs','README.md','package.json','.gitignore','.openai/hosting.json','static/index.html','static/fixture.html','static/diagnostics.js'];
 const fingerprint={schemaVersion:2,builtAt:new Date().toISOString(),runtime:process.version,synthetic:true,productionFilesModified:false,sourceRepository:source,sourceFiles,sourceSha256:{},harnessFiles,harnessSha256:{},dependencyInputs:{},dependencyVersions:{},generatedAssets:{}};
 for(const relative of sourceFiles)fingerprint.sourceSha256[relative]=await sha256(join(source,relative));
@@ -26,4 +26,4 @@ for(const relative of ['package.json','package-lock.json'])fingerprint.dependenc
 for(const name of ['esbuild','react','react-dom','lucide-react','postcss','@tailwindcss/postcss','tailwindcss'])fingerprint.dependencyVersions[name]=JSON.parse(await readFile(join(source,'node_modules',name,'package.json'),'utf8')).version;
 for(const relative of ['dist/app.js','dist/app.css'])fingerprint.generatedAssets[relative]=await sha256(join(root,relative));
 await writeFile(join(root,'dist/source-fingerprint.json'),JSON.stringify(fingerprint,null,2)+'\n');
-console.log(JSON.stringify({result:'built',harness:root,sourceFiles:2,synthetic:true}));
+console.log(JSON.stringify({result:'built',harness:root,sourceFiles:sourceFiles.length,synthetic:true}));

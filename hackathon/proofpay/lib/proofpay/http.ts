@@ -2,23 +2,17 @@ import { env } from "cloudflare:workers";
 import { authenticateRequest } from "./auth";
 import { ProofPayService } from "./service";
 import { Configuration, Mode, ProofPayError, SqlDatabase } from "./types";
+import { allowedMethods, ApiAction, API_SECURITY_HEADERS, parseApiRequest } from "./request";
 
-type Action = "state" | "start-rehearsal" | "start" | "propose" | "approve" | "cancel" | "renew-approval" | "create-order" | "capture" | "reconcile" | "evidence";
-export async function handle(request: Request, action: Action, id?: string): Promise<Response> {
+export async function handle(request: Request, action: ApiAction, id?: string): Promise<Response> {
   let service: ProofPayService | undefined;
   let owner: string | undefined;
-  const headers = {"Cache-Control": "no-store", "X-Content-Type-Options": "nosniff"};
+  const headers = API_SECURITY_HEADERS;
   try {
     owner = authenticateRequest(request);
+    const input = await parseApiRequest(request, action, id);
     if (!env.DB) throw new ProofPayError("DATABASE_UNAVAILABLE", "The durable database is not configured. No action was taken.", 503);
     service = new ProofPayService({db: env.DB as unknown as SqlDatabase, env: env as Configuration});
-    let input: Record<string, unknown> = {};
-    if (request.method === "POST") {
-      const text = await request.text();
-      if (text.length > 10000) throw new ProofPayError("PAYLOAD_TOO_LARGE", "The request is too large.", 413);
-      try { input = JSON.parse(text || "{}"); } catch { throw new ProofPayError("INVALID_JSON", "Send a valid JSON object."); }
-      if (!input || typeof input !== "object" || Array.isArray(input)) throw new ProofPayError("INVALID_JSON", "Send a JSON object.");
-    }
     let state;
     switch (action) {
       case "state": state = await service.state(owner); break;
@@ -40,6 +34,6 @@ export async function handle(request: Request, action: Action, id?: string): Pro
     const safe = error instanceof ProofPayError ? error : new ProofPayError("SERVICE_UNAVAILABLE", "The purchase desk could not complete this request. Existing durable reservations are retained.", 503);
     let state;
     if (service && owner) { try { state = await service.state(owner); } catch { /* Never leak database or credential internals. */ } }
-    return Response.json({error: safe.message, code: safe.code, ...(state ? {state} : {})}, {status: safe.status, headers});
+    return Response.json({error: safe.message, code: safe.code, ...(state ? {state} : {})}, {status: safe.status, headers: {...headers, ...(safe.status === 405 ? {Allow: allowedMethods(action)} : {})}});
   }
 }
