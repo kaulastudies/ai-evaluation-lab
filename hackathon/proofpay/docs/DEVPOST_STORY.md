@@ -1,6 +1,6 @@
 # ProofPay Devpost draft
 
-Prepared **8 November 2026** with the 131-test local QA checkpoint and implemented receipt inspector. Hosted recovery evidence remains tied to application checkpoint `47dcf677`. Update the verification paragraph only after missing external runs pass. **Use the existing Devpost entry and do not click final Submit.**
+Prepared **8 November 2026** with 151 passing local tests reported by the release owner and a verified fixed-sample PayPal sandbox capture/recovery on deployed source `17cbededf`. No AI model participated in that diagnostic. **Use the existing Devpost entry and do not click final Submit.**
 
 ## Project name
 
@@ -48,7 +48,7 @@ We tested the application service with separate processes contending for allowan
 
 ### What we have verified
 
-The current recorded local suite passed **131/131 tests**, using SQLite with a D1-contract adapter, synthetic provider/model fixtures and mocked HTTP. It covers concurrency, process restart, approval, renewal, cancellation before dispatch, transactional audit writes, owner isolation, bounded requests/responses and offline receipt consistency. The earlier 92-test record remains historical evidence. These local results do not establish hosted D1 behavior or an external payment/model run.
+The release owner reports **151/151 local tests passed** after the diagnostic changes. The suite uses SQLite with a D1-contract adapter, synthetic provider/model fixtures and mocked HTTP. It covers concurrency, process restart, approval, renewal, cancellation before dispatch, transactional audit writes, owner isolation, bounded requests/responses and offline receipt consistency. Earlier 131- and 92-test records remain historical evidence. These local results are separate from external execution.
 
 Full application TypeScript and ESLint checks also passed. Local visual review checked the revised typography at 360, 390, 768 and 1280px without page-level horizontal overflow and verified keyboard scrolling. The implemented receipt inspector was reviewed at 360/390px with a synthetic record. These are local interface checks, not a hosted or physical-device payment demonstration.
 
@@ -56,13 +56,15 @@ The private hosted rehearsal separately verified real approval expiry, disabled 
 
 A later hosted run blocked a $160 request against that remaining $120, then created a separate $90 alternative requiring its own approval. Dropping the simulated capture response left $90 reserved through reload. Checking the original order confirmed the purchase, leaving $270 total paid and $30 available; a repeated check preserved the same capture and totals. The UI reported four exported purchase records, but the downloaded file contents were not verified. This run observed application behavior with a simulated provider, not actual PayPal activity or provider-call counts.
 
-Genuine PayPal sandbox OAuth and provider-adapter create/GET calls also succeeded in a separate probe. The order remained awaiting buyer action. **No usable runtime AI key is configured, no actual model inference has been recorded, and buyer-approved PayPal capture remains unfinished.** The model-to-payment flow is therefore implemented but not yet verified end to end. The private deployment is not independently accessible to judges at this checkpoint.
+We then completed a **genuine PayPal sandbox diagnostic** in the deployed application. It used one fixed $180 Workflow review, with explicit owner approval and native sandbox buyer approval. We enabled the application's deliberate capture-response drop. The outcome stayed unresolved through browser reload, retaining $180 reserved, $120 available and no recorded spend. A GET of the original order then confirmed the matching completed final capture. Repeating the lookup retained the same capture and eight operation events; a further reload showed $180 paid, $0 reserved and $120 available. The UI observation does not independently measure provider request counts.
+
+**That diagnostic called no AI model.** Meaningful runtime AI remains blocked, and the complete model-to-PayPal journey is still unverified. The private deployment is not independently accessible to judges, and the public demonstration video remains unfinished. Sandbox uses virtual accounts and funds; this was not a production payment.
 
 ### What we learned and what comes next
 
 Payment status needs evidence. A successful HTTP response, an assistant's explanation and a completed provider capture mean different things; the product must keep those distinctions visible.
 
-Our next step is to finish and record one genuine model-to-PayPal sandbox purchase, followed by the lost-response case. We will then verify judge access and record the public demonstration. Beyond the hackathon, we want to test whether teams building delegated purchasing workflows will pay for reusable approval, allowance and recovery operations. That is a customer hypothesis, not existing traction.
+Our next step is to complete genuine runtime AI and connect its validated proposal to the already demonstrated PayPal path. We will retain the same recovery checks, verify judge access and record the public demonstration. Beyond the hackathon, we want to test whether teams building delegated purchasing workflows will pay for reusable approval, allowance and recovery operations. That is a customer hypothesis, not existing traction.
 
 The current scope is one merchant, USD and an isolated workspace allowance. Renewal does not extend PayPal order validity. Cancellation is unavailable after provider dispatch and is not a refund. Unknown create results without a saved order ID require investigation. Production payments, refunds, webhooks, fulfillment and provider portability remain outside this build.
 
@@ -70,7 +72,8 @@ The current scope is one merchant, USD and an isolated workspace allowance. Rene
 
 - [Public project branch](https://github.com/kaulastudies/ai-evaluation-lab/tree/proofpay/purchase-desk-v0.1/hackathon/proofpay) · [draft pull request](https://github.com/kaulastudies/ai-evaluation-lab/pull/53)
 - [Setup](../README.md) · [judge readiness](JUDGE_READINESS.md) · [architecture](ARCHITECTURE.md)
-- [Current local QA summary](../evidence/qa-2026-11-08-summary.json) · [131-test log](../evidence/qa-2026-11-08-test-output.log) · [QA report](QA_REPORT.md)
+- [Verified sandbox diagnostic](../evidence/diagnostic-release-review.json) · [QA report](QA_REPORT.md)
+- [Earlier 131-test QA summary](../evidence/qa-2026-11-08-summary.json) · [historical test log](../evidence/qa-2026-11-08-test-output.log)
 - [Hosted renewal](../evidence/hosted-renewal-review.json) · [hosted workspace](../evidence/hosted-workspace-review.json) · [hosted recovery](../evidence/hosted-recovery-review.json) · [earlier responsive review](../evidence/responsive-review.json)
 - [Private owner deployment](https://proofpay-purchase-desk.kaulastudies.chatgpt.site) — does not yet establish independent judge access.
 
@@ -81,8 +84,8 @@ The ProofPay application was added during the event within an existing repositor
 | Gate | Evidence needed before changing the story |
 |---|---|
 | Runtime AI | Named provider/model, run date, validated proposal and matching operation; no secrets or raw unrelated response data. |
-| Normal sandbox purchase | Native buyer approval, completed capture, original-order verification and stored application receipt. |
-| Sandbox response loss | Deliberately dropped response, held allowance, original-order lookup and stable repeated reconciliation. |
+| Sandbox capture and response loss | **Verified for the fixed no-AI diagnostic:** native buyer approval, completed capture, held allowance through reload, original-order GET and stable repeat lookup. This does not establish the standard model-led journey. |
+| Combined AI-to-PayPal purchase | A genuine model proposal followed by owner/native buyer approvals, capture and checked receipt in the same application workflow. |
 | Source and reproduction | Final reviewed revision, matching evidence, applicable checks and fresh judge setup/access verification. Preserve labels distinguishing simulated, local and external runs. |
 | Presentation | Public YouTube URL under three minutes showing the actual build, with English narration or captions and permitted assets. |
 | Team and final review | Verify intended teammate acceptance, representative authority and final entry fields. Keep final Submit on hold until the owner explicitly releases it. |

@@ -1,0 +1,18 @@
+✔ connector: record migration preserves JSON arguments through the actual preview binding (26.280693ms)
+✔ connector: extra authority fields and malformed argument containers never dispatch (11.897666ms)
+✔ connector: read-only grants and session limits retain their authority boundary (13.242254ms)
+✔ connector: JSON-RPC record results and real UUIDs remain compatible without accepting ambiguous envelopes (4.134796ms)
+✔ connector: oversized grant list is rejected before any grant is inspected (4.410375ms)
+✔ connector: oversized preview result is rejected before any content block is inspected (2.533661ms)
+✔ connector: oversized deployed result is rejected before any content block is inspected (11.939833ms)
+✔ connector: result cap is inclusive and valid payload projection preserves falsy JSON values (66.717289ms)
+✔ connector: provider-authored status and invalid block types cannot become success (10.356212ms)
+✔ connector: rate limits and invalid argument failures retain meaning across preview and response validation (7.761347ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 535.050835

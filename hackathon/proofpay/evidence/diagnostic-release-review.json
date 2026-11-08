@@ -1,0 +1,155 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-11-08T08:53:51.576766+00:00",
+  "baseCommit": "b03260b4bd334f87475f1179b432eec50ff19f5a",
+  "change": "Explicit manual PayPal sandbox diagnostic and Zod4 validator migration",
+  "localVerification": {
+    "runtime": "v24.22.1",
+    "commands": [
+      {
+        "command": "npx tsc --noEmit",
+        "exitCode": 0
+      },
+      {
+        "command": "npm run lint",
+        "exitCode": 0
+      },
+      {
+        "command": "npm test",
+        "exitCode": 0,
+        "tests": 151,
+        "passed": 151,
+        "failed": 0,
+        "skipped": 0,
+        "durationMs": 1139.788837
+      },
+      {
+        "command": "npm run build",
+        "exitCode": 0
+      },
+      {
+        "command": "node tests/responsive/build.mjs",
+        "exitCode": 0
+      }
+    ],
+    "testGroups": {
+      "provider": 23,
+      "service": 55,
+      "authentication": 7,
+      "model": 7,
+      "security": 9,
+      "database": 7,
+      "receipt": 27,
+      "connector": 10,
+      "diagnostic": 6
+    },
+    "evidenceType": "Release-owner observed command output; prior 131-test machine log is historical. All local external providers/model responses are synthetic.",
+    "laterCopyFix": "Singular purchase wording passed TypeScript and scoped ESLint after the combined run; no service behavior changed."
+  },
+  "audit": {
+    "artifact": "npm-audit-2026-11-08-zod4.json",
+    "total": 17,
+    "critical": 0,
+    "high": 0,
+    "moderate": 15,
+    "low": 2
+  },
+  "hosted": {
+    "site": "https://proofpay-purchase-desk.kaulastudies.chatgpt.site",
+    "sourceCommit": "17cbededf1b01e4f44a8c4fe838240c3bacfe1af",
+    "deploymentId": "appgdep_6af0360108dc8191b94162768a39b8f8",
+    "versionId": "appgprj_6aef840ffea08191b72bef52577f68b1~appgver_0b1099865fbc8191b440c5ebf847ff05",
+    "deployedAt": "2026-11-08T08:43:04.033616+00:00",
+    "providerMode": "sandbox",
+    "proposalSource": "sandbox-diagnostic",
+    "aiCalled": false,
+    "operationId": "bf7f982f-fe3a-4d3f-938c-511134e0f32f",
+    "orderId": "0UG032264W476633K",
+    "captureId": "4JC48621EJ575850B",
+    "verificationEventId": "2b90c777-19f0-4121-b73a-5b0d6e1da960",
+    "amountCents": 18000,
+    "currency": "USD",
+    "steps": [
+      {
+        "action": "Start fixed diagnostic",
+        "observed": "One $180 workflow-review proposal, no approval or provider dispatch; diagnostic/no-AI labels visible."
+      },
+      {
+        "action": "Owner approval v1 and order creation",
+        "observed": "Funds reserved, genuine PayPal sandbox order persisted and native buyer URL supplied."
+      },
+      {
+        "action": "Native sandbox buyer login and Complete Purchase",
+        "observed": "Sandbox buyer approved $180; returned to app. Login data excluded from evidence."
+      },
+      {
+        "action": "Capture with deliberate drop-response toggle enabled",
+        "observed": "UNKNOWN/Needs verification; no automatic success."
+      },
+      {
+        "action": "Browser reload",
+        "observed": "Same order retained, $120 available, $180 reserved, $0 paid, one unresolved purchase."
+      },
+      {
+        "action": "Check PayPal outcome",
+        "observed": "Original-order lookup confirmed capture; seller/amount/currency/order/operation/custom reference/status/finality matched."
+      },
+      {
+        "action": "Repeat outcome check and reload",
+        "observed": "Same capture and eight operation events; $120 available, $0 reserved, $180 paid, zero unresolved."
+      }
+    ],
+    "receipt": {
+      "source": "paypal-sandbox-orders-get",
+      "orderStatus": "COMPLETED",
+      "captureStatus": "COMPLETED",
+      "finalCapture": true,
+      "storedRecords": 1,
+      "comparison": "All recorded comparable fields showed Same value; historical approval version and catalogue item are not stored."
+    },
+    "browserWarningsAndErrors": [],
+    "currentWorkspace": {
+      "availableCents": 12000,
+      "reservedCents": 0,
+      "committedCents": 18000,
+      "unknownCount": 0
+    },
+    "access": "owner-private"
+  },
+  "configuration": {
+    "preparedAfterLiveTest": {
+      "AI_BASE_URL": "https://api.openai.com/v1",
+      "AI_MODEL": "gpt-4.1-mini"
+    },
+    "runtimeEnvironmentRevision": 2,
+    "AI_API_KEY": "absent",
+    "modelReference": "https://developers.openai.com/api/docs/models/gpt-4.1-mini"
+  },
+  "boundaries": [
+    "Actual PayPal sandbox capture and recovery, using virtual test funds. No real-money transaction.",
+    "Manual fixed-catalogue diagnostic; no genuine AI inference or complete AI-to-PayPal demonstration.",
+    "Application state and stored verification observed through authenticated UI. External HTTP request counts were not independently measured.",
+    "Inline receipt was inspected; downloaded receipt bytes remain unverified. No signed PayPal attestation or TIP interoperability claim.",
+    "Desktop live UI checked. A requested 390px browser override still measured1536px; no new mobile result is claimed. Earlier synthetic responsive evidence remains separate.",
+    "Independent judge access, runtime AI configuration and public YouTube video remain open. Final Devpost Submit remains held."
+  ],
+  "sourceSha256": {
+    "components/proofpay/purchase-desk.tsx": "2d3825623a843db95248a731841033b4131a8a72ccf4d60853955634a25e1266",
+    "lib/proofpay/service.ts": "b7c69f15510560c6125fb0617855ebe99e75c998aa974dad17ca562cf27a8901",
+    "lib/proofpay/types.ts": "ea105e19d36c5606a56a8f840d012ade674b9d33a96e63965e5b75b4421d8fe9",
+    "lib/proofpay/request.ts": "ebd5d2e0c4553a9631cd8f37d3919da5e0af9534db4f85a9ef7d578defefe92c",
+    "lib/proofpay/http.ts": "03175fccf696efe2c6eab8083e8a4d46ff53a2700a05e9bd2de8ee77d2d76cd6",
+    "app/api/sandbox/diagnostic/start/route.ts": "4803379d4d4c0b9046d02c1cda5f0a958575c2438481fe8f3268294ed3b8b6bd",
+    "scripts/verify-receipt.mjs": "d7d63e4241687bd1cd8cb51034d88c2030878bb2372c0c2fe9021d587851b7d2",
+    "package.json": "74b9f1ef8d2e2354f39767d1516ed0e2180ff61273d927771c926baf6d64268e",
+    "package-lock.json": "aa63cb0d9cd7b07ab6264852f8d2f8f23134e9cc955c12bbe0132e491478001b",
+    "tests/review-diagnostic.mjs": "a2de3a1613c2ae06c7cd675bfc9cb0719b0eea9155475d022466939a4b06d73f",
+    "tests/review-connectors.mjs": "0941aebe805033aadf39a918815b959c10005b5b7e831ea8e0cda87482971ac6",
+    "tests/review-receipt.mjs": "7471d0c286cffb0bfe579653275e37331d623c87f3633253f08783ae4e74459d"
+  },
+  "screenshots": {
+    "paypal-diagnostic-overview.jpg": "1ebbff839973a0b8ac5c7b4ca39f3b4863f82a437f669aaf1b984f71abfb9c3d",
+    "paypal-diagnostic-receipt.jpg": "7c0855337865824df53031e55a286e4eff7cd0954dd0a2fe45781d0c15e3d847",
+    "paypal-diagnostic-unknown.jpg": "ce345038f668a4c2356cbb0854768b6c4fb3a6b204eb822de7ff9d2bf3529c3b"
+  }
+}

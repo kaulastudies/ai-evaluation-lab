@@ -35,7 +35,7 @@ export class ProofPayService {
   constructor(options: ServiceOptions) { this.db = options.db; this.env = options.env; this.now = options.now ?? Date.now; this.injectedProvider = options.provider; this.proposer = options.ai ?? defaultPropose; }
   capabilities() { return {sandboxReady: sandboxReady(this.env), aiReady: Boolean(this.env.AI_API_KEY && this.env.AI_BASE_URL && this.env.AI_MODEL)}; }
   private provider(op: OperationRow): PaymentProvider { if (this.injectedProvider) return this.injectedProvider; return op.mode === "rehearsal" ? new RehearsalProvider(this.db, this.now) : new PayPalSandboxProvider(this.env); }
-  private async workspace(owner: string): Promise<WorkspaceRow | null> { ownerRequired(owner); return this.db.prepare("SELECT w.* FROM proofpay_workspaces w JOIN proofpay_sessions s ON w.id = s.workspace_id WHERE s.owner_id = ? AND w.owner_id = ?").bind(owner, owner).first<WorkspaceRow>(); }
+  private async workspace(owner: string): Promise<WorkspaceRow | null> { ownerRequired(owner); return this.db.prepare("SELECT w.*, CASE WHEN EXISTS (SELECT 1 FROM proofpay_events e WHERE e.workspace_id = w.id AND e.type = 'SANDBOX_DIAGNOSTIC_STARTED') THEN 'sandbox-diagnostic' ELSE 'standard' END AS profile FROM proofpay_workspaces w JOIN proofpay_sessions s ON w.id = s.workspace_id WHERE s.owner_id = ? AND w.owner_id = ?").bind(owner, owner).first<WorkspaceRow>(); }
   private async operation(owner: string, id: string): Promise<OperationRow> {
     ownerRequired(owner);
     const op = await this.db.prepare("SELECT o.* FROM proofpay_operations o JOIN proofpay_workspaces w ON o.workspace_id = w.id WHERE o.id = ? AND w.owner_id = ?").bind(id, owner).first<OperationRow>();
@@ -50,7 +50,7 @@ export class ProofPayService {
     const events = (await this.db.prepare("SELECT id,operation_id AS operationId,type,detail,created_at AS createdAt FROM proofpay_events WHERE workspace_id = ? ORDER BY created_at DESC,rowid DESC LIMIT 100").bind(workspace.id).all()).results ?? [];
     const reservedCents = operations.filter(op => (RESERVED_STATUSES as readonly string[]).includes(op.status)).reduce((sum, op) => sum + op.amount_cents, 0);
     const committedCents = operations.filter(op => op.status === "CONFIRMED").reduce((sum, op) => sum + op.amount_cents, 0);
-    return {workspace: {id: workspace.id, mode: workspace.mode, currency: workspace.currency, budgetCents: workspace.budget_cents, reservedCents, committedCents, availableCents: workspace.budget_cents - reservedCents - committedCents, createdAt: workspace.created_at}, capabilities: this.capabilities(), catalogue: CATALOGUE, operations: operations.map(expose), events};
+    return {workspace: {id: workspace.id, mode: workspace.mode, profile: workspace.profile ?? "standard", currency: workspace.currency, budgetCents: workspace.budget_cents, reservedCents, committedCents, availableCents: workspace.budget_cents - reservedCents - committedCents, createdAt: workspace.created_at}, capabilities: this.capabilities(), catalogue: CATALOGUE, operations: operations.map(expose), events};
   }
   private insertStatement(workspace: WorkspaceRow, request: string, key: string, choice: ProposalChoice, label: string, operationId = crypto.randomUUID()) {
     const item = CATALOGUE.find(item => item.sku === choice.sku);
@@ -58,6 +58,12 @@ export class ProofPayService {
     return this.db.prepare("INSERT INTO proofpay_operations (id,workspace_id,idempotency_key,request,agent_label,sku,title,amount_cents,currency,merchant_id,mode,ai_source,rationale,status,approval_version,create_request_id,capture_request_id,created_at,updated_at) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,'PROPOSED',1,?,?,?,?) ON CONFLICT(workspace_id,idempotency_key) DO NOTHING").bind(operationId, workspace.id, key, request, label, item.sku, item.title, item.amountCents, item.currency, workspace.mode === "rehearsal" ? "rehearsal-seller" : this.env.PAYPAL_MERCHANT_ID, workspace.mode, choice.source, choice.rationale, crypto.randomUUID(), crypto.randomUUID(), this.now(), this.now());
   }
   async start(owner: string, mode: Mode, seed = false) {
+    return this.startWorkspace(owner, mode, seed, false);
+  }
+  async startSandboxDiagnostic(owner: string) {
+    return this.startWorkspace(owner, "sandbox", false, true);
+  }
+  private async startWorkspace(owner: string, mode: Mode, seed: boolean, diagnostic: boolean) {
     ownerRequired(owner); modeRequired(mode);
     const active = await this.workspace(owner);
     const pending = active?.mode === "sandbox" ? await this.db.prepare(`SELECT id FROM proofpay_operations WHERE workspace_id = ? AND status IN (${RESERVED_STATUSES.map(status => `'${status}'`).join(",")}) LIMIT 1`).bind(active.id).first() : null;
@@ -69,6 +75,13 @@ export class ProofPayService {
     if (seed) {
       statements.push(this.insertStatement(workspace, "Find a workflow review for our team.", "seed-workflow", {sku: "workflow-review", rationale: "Seeded rehearsal proposal; no AI model was called.", source: "rehearsal-seed"}, "Workflow agent"));
       statements.push(this.insertStatement(workspace, "Find a design review for our team.", "seed-design", {sku: "design-review", rationale: "Seeded rehearsal proposal; no AI model was called.", source: "rehearsal-seed"}, "Design agent"));
+    }
+    if (diagnostic) {
+      const operationId = crypto.randomUUID();
+      const choice: ProposalChoice = {sku: "workflow-review", source: "sandbox-diagnostic", rationale: "Fixed server catalogue selection for a PayPal sandbox diagnostic. No AI model was called. Owner and PayPal buyer approvals are still required."};
+      statements.push(this.insertStatement(workspace, "Test the PayPal sandbox payment path with the fixed workflow review catalogue item. No AI proposal is requested.", "sandbox-diagnostic-workflow-v1", choice, "Sandbox diagnostic", operationId));
+      statements.push(this.db.prepare("INSERT INTO proofpay_events (id,workspace_id,operation_id,type,detail,created_at) VALUES (?,?,?,'PROPOSAL_CREATED',?,?)").bind(crypto.randomUUID(), workspace.id, operationId, JSON.stringify({schemaVersion: 1, source: choice.source, sku: choice.sku, rationale: choice.rationale, manual: true, aiCalled: false, diagnosticProfile: "paypal-sandbox-v1"}), this.now()));
+      statements.push(this.db.prepare("INSERT INTO proofpay_events (id,workspace_id,operation_id,type,detail,created_at) VALUES (?,?,NULL,'SANDBOX_DIAGNOSTIC_STARTED',?,?)").bind(crypto.randomUUID(), workspace.id, "Explicit PayPal sandbox diagnostic with a fixed server catalogue proposal. No AI model was called and no provider request was dispatched by workspace creation. This does not establish an AI-to-payment journey.", this.now()));
     }
     const sessionIndex = statements.length;
     statements.push(this.db.prepare(`INSERT INTO proofpay_sessions (owner_id,workspace_id) VALUES (?,?) ON CONFLICT(owner_id) DO UPDATE SET workspace_id = excluded.workspace_id WHERE NOT EXISTS (SELECT 1 FROM proofpay_workspaces w JOIN proofpay_operations o ON o.workspace_id = w.id WHERE w.id = proofpay_sessions.workspace_id AND w.mode = 'sandbox' AND o.status IN (${RESERVED_STATUSES.map(status => `'${status}'`).join(",")}))`).bind(owner, workspace.id));
@@ -82,6 +95,7 @@ export class ProofPayService {
     if (typeof input.request !== "string" || !input.request.trim() || input.request.length > 2000 || typeof input.idempotencyKey !== "string" || !/^[A-Za-z0-9_-]{8,128}$/.test(input.idempotencyKey)) throw new ProofPayError("INVALID_PROPOSAL", "Supply a purchase request and an idempotency key (8–128 letters, numbers, dashes or underscores).");
     const workspace = await this.workspace(owner);
     if (!workspace || workspace.mode !== input.mode) throw new ProofPayError("WORKSPACE_MODE", "Start a workspace in the requested mode first.", 409);
+    if (workspace.profile === "sandbox-diagnostic") throw new ProofPayError("DIAGNOSTIC_FIXED_CATALOGUE", "This diagnostic uses one fixed catalogue proposal and never calls an AI model. Start a standard workspace for AI proposals.", 409);
     if (workspace.mode === "sandbox" && !sandboxReady(this.env)) throw new ProofPayError("PAYPAL_NOT_CONFIGURED", "PayPal sandbox is not configured.", 503);
     const prior = await this.db.prepare("SELECT * FROM proofpay_operations WHERE workspace_id = ? AND idempotency_key = ?").bind(workspace.id, input.idempotencyKey).first<OperationRow>();
     if (prior) { if (prior.request !== input.request.trim()) throw new ProofPayError("KEY_REUSED", "That idempotency key is already bound to another request.", 409); return this.state(owner); }
@@ -287,6 +301,6 @@ export class ProofPayService {
     const events = (await this.db.prepare("SELECT id,type,detail,created_at AS createdAt FROM proofpay_events WHERE operation_id = ? ORDER BY created_at,rowid").bind(id).all<{id: string; type: string; detail: string; createdAt: number}>()).results ?? [];
     const verificationRecords = events.filter(event => event.type === "PROVIDER_VERIFIED").map(event => JSON.parse(event.detail) as VerificationRecord);
     const approvalBinding = op.approval_digest ? {profile: "proofpay-approval-v1", algorithm: "SHA-256", encoding: "UTF-8", serialization: "JSON-array", fields: APPROVAL_BINDING_FIELDS, values: approvalBindingValues(op)} : null;
-    return {receiptSchemaVersion: 1, operation: {...expose(op), workspaceId: op.workspace_id}, createRequestId: op.create_request_id, captureRequestId: op.capture_request_id, approvalDigest: op.approval_digest, approvalBinding, verificationRecords, events, claim: op.mode === "rehearsal" ? "Simulated provider and deterministic proposal. No PayPal sandbox or model execution evidence." : "PayPal sandbox adapter; inspect recorded outcomes. Sandbox uses virtual accounts and funds. No real-money or production claim."};
+    return {receiptSchemaVersion: 1, operation: {...expose(op), workspaceId: op.workspace_id}, createRequestId: op.create_request_id, captureRequestId: op.capture_request_id, approvalDigest: op.approval_digest, approvalBinding, verificationRecords, events, claim: op.mode === "rehearsal" ? "Simulated provider and deterministic proposal. No PayPal sandbox or model execution evidence." : op.ai_source === "sandbox-diagnostic" ? "Manually selected fixed catalogue diagnostic using the PayPal sandbox adapter. No AI model was called. Inspect recorded provider outcomes; virtual accounts and funds only, with no real-money or production claim." : "PayPal sandbox adapter; inspect recorded outcomes. Sandbox uses virtual accounts and funds. No real-money or production claim."};
   }
 }

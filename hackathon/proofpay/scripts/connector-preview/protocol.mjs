@@ -10,12 +10,13 @@ const fields = { connectorId: name, actionName: name };
 // Reject extra invocation fields: account selection and native tool names belong
 // to the owning agent, not to the generated Site's request envelope.
 export const invocationSchema = z
-  .object({ ...fields, arguments: z.record(z.unknown()) })
+  .object({ ...fields, arguments: z.record(z.string(), z.unknown()) })
   .strict();
 export const grantSchema = z
   .object({ ...fields, readOnly: z.literal(true) })
   .strict();
-export const grantsSchema = z.array(grantSchema);
+// Reject excessive grants before validating each element.
+export const grantsSchema = z.array(grantSchema).max(256);
 
 // Only the owning agent sets these limits. Sessions otherwise last until their
 // owner closes them; Node timers need a signed 32-bit millisecond duration.
@@ -41,7 +42,7 @@ export const driverMessageSchema = z.union([
     .object({
       jsonrpc: z.literal("2.0"),
       id: z.string().uuid(),
-      result: z.record(z.unknown()),
+      result: z.record(z.string(), z.unknown()),
     })
     .strict(),
   z

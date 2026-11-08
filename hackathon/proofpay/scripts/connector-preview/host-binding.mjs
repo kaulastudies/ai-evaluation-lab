@@ -36,7 +36,8 @@ const requestIdSchema = z
 const resultSchema = z.object({
   error: z.never().optional(),
   status: z.never().optional(),
-  content: z.array(z.object({ type: z.string() }).catchall(z.json())),
+  // Keep this bound aligned with the deployed connector response validator.
+  content: z.array(z.object({ type: z.string() }).catchall(z.json())).max(1024),
   structuredContent: z.json().optional(),
   isError: z.boolean().optional(),
   requestId: requestIdSchema,

@@ -12,7 +12,7 @@
     "start": "node --import ./scripts/sites-env.mjs ./node_modules/wrangler/bin/wrangler.js dev --config dist/server/wrangler.json --local --persist-to .wrangler/state --ip 127.0.0.1 --inspector-port 0",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
     "db:generate": "drizzle-kit generate",
-    "test": "node --test tests/review-provider.mjs tests/review-service.mjs tests/review-auth.mjs tests/review-ai.mjs tests/review-security.mjs tests/review-database.mjs tests/review-receipt.mjs"
+    "test": "node --test tests/review-provider.mjs tests/review-service.mjs tests/review-auth.mjs tests/review-ai.mjs tests/review-security.mjs tests/review-database.mjs tests/review-receipt.mjs tests/review-connectors.mjs tests/review-diagnostic.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.7.0",
@@ -38,7 +38,7 @@
     "sonner": "^2.0.8",
     "tailwind-merge": "3.6.0",
     "vaul": "^1.1.2",
-    "zod": "^3.25.76"
+    "zod": "4.6.7"
   },
   "devDependencies": {
     "@cloudflare/vite-plugin": "1.37.1",

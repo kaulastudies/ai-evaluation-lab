@@ -17,6 +17,7 @@ export async function handle(request: Request, action: ApiAction, id?: string): 
     switch (action) {
       case "state": state = await service.state(owner); break;
       case "start-rehearsal": state = await service.start(owner, "rehearsal", true); break;
+      case "start-diagnostic": state = await service.startSandboxDiagnostic(owner); break;
       case "start": state = await service.start(owner, input.mode as Mode); break;
       case "propose": state = await service.propose(owner, {request: input.request as string, mode: input.mode as Mode, idempotencyKey: input.idempotencyKey as string}); break;
       case "approve": state = await service.approve(owner, id!, input.approvalVersion as number); break;

@@ -17,7 +17,9 @@ export function connectorResponse(result: unknown): Response {
       requestId,
     };
     const content = z.object({
-      content: z.array(z.object({ type: z.string() }).catchall(z.json())),
+      // Reject excessive blocks before validating their individual payloads.
+      // Keep this bound aligned with the local connector preview binding.
+      content: z.array(z.object({ type: z.string() }).catchall(z.json())).max(1024),
       structuredContent: z.json().optional(),
       isError: z.never().optional(),
       error: z.never().optional(),

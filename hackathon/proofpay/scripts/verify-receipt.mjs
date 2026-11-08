@@ -110,8 +110,10 @@ export function verifyReceipt(receipt) {
   for (const field of ['id','workspaceId','sku','merchantId']) string(op[field], field);
   string(op.title, 'title', 512); string(op.request, 'request', 8192, true);
   string(op.agentLabel, 'agentLabel', 256, true); string(op.rationale, 'rationale', 8192, true);
-  check(['model','rehearsal-rule','rehearsal-seed'].includes(op.aiSource), 'Unsupported proposal source');
+  check(['model','rehearsal-rule','rehearsal-seed','sandbox-diagnostic'].includes(op.aiSource), 'Unsupported proposal source');
   check(['rehearsal','sandbox'].includes(op.providerMode), 'Unsupported payment mode');
+  const diagnostic = op.aiSource === 'sandbox-diagnostic';
+  check(!diagnostic || op.providerMode === 'sandbox', 'Manual sandbox diagnostic requires sandbox mode');
   check(op.currency === 'USD', 'Unsupported currency: this receipt profile supports USD only');
   integer(op.amountCents, 'amountCents', 1, 999999999999); integer(op.approvalVersion, 'approvalVersion');
   check(STATUSES.includes(op.status), 'Unsupported operation status');
@@ -146,6 +148,15 @@ export function verifyReceipt(receipt) {
     string(event.detail, 'event detail', 16384, true); timestamp(event.createdAt, 'event createdAt');
     check(event.createdAt >= previousTime, 'Event time order mismatch'); previousTime = event.createdAt;
   }
+  if (diagnostic) {
+    check(op.sku === 'workflow-review' && op.amountCents === 18000, 'Unsupported manual diagnostic purchase');
+    const proposals = receipt.events.filter(event => event.type === 'PROPOSAL_CREATED');
+    check(proposals.length === 1, 'Manual diagnostic requires one proposal record');
+    const proposal = parseReceiptJSON(proposals[0].detail);
+    shape(proposal, ['schemaVersion','source','sku','rationale','manual','aiCalled','diagnosticProfile'], 'diagnostic proposal');
+    check(proposal.schemaVersion === 1 && proposal.diagnosticProfile === 'paypal-sandbox-v1', 'Unsupported diagnostic proposal profile');
+    check(proposal.source === 'sandbox-diagnostic' && proposal.sku === op.sku && proposal.rationale === op.rationale && proposal.manual === true && proposal.aiCalled === false, 'Diagnostic proposal contradicts the manual/no-AI classification');
+  }
   check(Array.isArray(receipt.verificationRecords) && receipt.verificationRecords.length <= 1, 'Unsupported provider record count');
   const verifiedEvents = receipt.events.filter(event => event.type === 'PROVIDER_VERIFIED');
   const confirmations = receipt.events.filter(event => event.type === 'PAYMENT_CONFIRMED');
@@ -164,6 +175,8 @@ export function verifyReceipt(receipt) {
   return {
     consistent:true, receiptSchemaVersion:1, approvalDigest:approval,
     declaredMode:op.providerMode, claimedStatus:op.status, confirmedRecordConsistent:confirmed,
+    declaredProposalSource:op.aiSource,
+    proposalInterpretation:diagnostic ? 'Manual PayPal sandbox diagnostic; no AI proposal is claimed.' : op.aiSource === 'model' ? 'Model proposal is declared; model execution is not independently verified.' : 'Deterministic rehearsal; no AI proposal is claimed.',
     limits:[
       'Unsigned application-record consistency only; an author can replace both data and digest.',
       'No provider contact, signature, identity, current authority, TIP compatibility or external authenticity verified.',

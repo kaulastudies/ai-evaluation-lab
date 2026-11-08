@@ -1,59 +1,84 @@
-# Demonstration recording script
+# ProofPay demonstration script
 
-Target duration: **2 minutes 45 seconds**. This is a recording plan, not evidence that the described external integrations have succeeded. PayPal sandbox OAuth and create/GET preflight passed; the current build has no verified genuine model invocation or buyer-approved sandbox capture. Use the rehearsal wording until the corresponding external run is recorded.
+Prepared 8 November 2026. **Final edited duration: 2:50**, including title and closing frames; leave ten seconds below the event's three-minute limit. This is a recording plan, not a claim that the planned run has occurred. Use it with the [recording checklist](RECORDING_CHECKLIST.md).
 
-## Before recording
+The release owner reports 151 passing local tests. A [genuine PayPal sandbox diagnostic](../evidence/diagnostic-release-review.json) has completed native buyer approval, capture with deliberate response loss, reload and original-order GET recovery. It used a fixed sample and no AI. **Script A remains conditional on a verified model-to-payment run. Scripts B and C describe rehearsal and the verified no-AI diagnostic respectively.** Neither substitutes for meaningful runtime AI. A completed run is not a recorded or published video.
 
-- Verify the application and mode labels are legible at the recording resolution.
-- Use the synthetic catalogue and a clean demonstration workspace.
-- Keep credentials, tokens and unrelated account records out of the recording.
-- Record the exact source commit, model configuration and environment privately with the run evidence.
-- Complete a normal run and the interruption/recovery run before filming. Retain failures and the source version used.
-- If external integrations are unavailable, label the recording as a rehearsal and say which actions are simulated. Do not present it as the final real-integration demonstration.
+## Prepare one coherent run
 
-## Story and footage
+Use the actual application at the reviewed source version, not the read-only visual fixture. Record at 1920×1080 or another legible desktop resolution, with the app's mode label visible. Close unrelated windows and notifications. Keep the raw take and a private run note identifying source/deployment, date, mode, operation/order/capture references and the actual model/provider when used. Do not put keys, cookies, buyer login details or raw network headers in the note or footage.
 
-| Time | Action | Suggested narration |
+For the genuine path, first complete and retain a separate normal model-to-sandbox purchase. Then complete a separate response-loss preflight. Do not start filming on the assumption that either will work. For the main take, start a fresh $300 sandbox workspace through **Connections → Start PayPal sandbox workspace** only after any earlier reserved/uncertain work is resolved. Create the $160 Design review proposal through **Ask AI for a proposal**, but leave it unapproved. Capture and retain that actual proposal call; it is prepared context for the opening frame. No provider order exists for it.
+
+The main recording creates a new $180 Workflow review proposal, approves it, rejects the competing $160 request and follows only the $180 purchase through recovery. If the actual model selects another permitted item, do not edit its output or replace it with a seeded result. Correct the request and rerun the preparation, or revise the amounts and narration to match an observed run.
+
+For rehearsal, **Start $300 rehearsal** supplies both sample proposals. These are deterministic samples. Keep the $90 alternative unapproved if shown; the central ledger remains $180 reserved, then $180 paid with $120 available.
+
+## A. Genuine model and PayPal sandbox — conditional on verified execution
+
+The narration below describes the planned observed result. Use a line only when its corresponding footage/evidence exists. Replace `[provider/model]` with the actual recorded identifier before recording voiceover.
+
+| Final time | Required footage and exact action | Narration |
 |---|---|---|
-| 0:00–0:15 | Choose **Start $300 rehearsal**; keep the mode visible | “Our studio has $300 for outside review work. This recording uses the labelled simulated provider. The owner controls each purchase.” |
-| 0:15–0:40 | Show the $180 and $160 requests. Approve $180, then attempt $160 | “These requests cannot both fit. Owner approval reserves $180. The second request is blocked because only $120 remains.” |
-| 0:40–0:55 | Choose **Request an alternative**, enter “Suggest a cheaper Starter review package”, then **Create sample proposal** | “A smaller package can fit. It is a new proposal that still needs owner approval. In rehearsal, this selection uses a rule; it is not a model call.” |
-| 0:55–1:15 | Return to the $180 request, choose **Create simulated order** | “The approved item, merchant, currency and amount stay attached to this operation. This is the simulated order we will check later.” |
-| 1:15–1:35 | Select **Drop the capture response**, then **Capture simulated payment** | “The simulated provider processes the capture, but the application discards its response. The outcome stays unresolved and the $180 stays reserved.” |
-| 1:35–2:00 | Show the unresolved state, then **Check simulated outcome** | “Recovery reads the original order. It checks the references, merchant, full amount, currency and completed capture before recording payment.” |
-| 2:00–2:25 | Show **Simulated payment confirmed**, **Check outcome again** and exported evidence | “The reservation becomes recorded spend. Checking again does not add another $180 in this run. The receipt keeps the operation and provider evidence together.” |
-| 2:25–2:45 | Show setup, architecture and actual validation results | “This build covers one controlled merchant, USD and the documented cases. Real model and PayPal sandbox verification remain separate from this rehearsal.” |
+| 0:00–0:12 | Overview: $300 available, $0 reserved/paid; **PayPal sandbox** visible. The unapproved $160 request is prepared context. | “Our studio has three hundred dollars for outside review work. ProofPay connects each request to owner approval, a shared allowance and a checked payment outcome.” |
+| 0:12–0:30 | **New request**. Enter “Our studio needs a workflow review within $180.” Choose **Ask AI for a proposal**. Show the returned $180 record, rationale and **Proposal source: AI model**. Caption the recorded provider/model. | “Here, [provider/model] proposes a workflow review. The server sets the permitted seller and price. The model can recommend a purchase; it cannot approve or pay for it.” |
+| 0:30–0:46 | Show item, seller, USD180 and approval requirement. Choose **Approve & reserve $180.00**. Show $180 reserved/$120 available. | “I approve this exact purchase. One hundred eighty dollars is reserved before a payment request is sent, leaving one hundred twenty available.” |
+| 0:46–1:00 | Open the prepared Design review. Attempt **Approve & reserve $160.00**. Hold on **Over allowance** and unchanged totals. | “This second request costs one hundred sixty dollars. It cannot fit. Approval is blocked; a cheaper alternative would need its own proposal and approval.” |
+| 1:00–1:20 | Return to the original $180 record. Choose **Create PayPal order**, show its order reference, then **Open PayPal approval**. Show the safe portion of native sandbox approval and the return to the same operation. | “ProofPay creates a PayPal sandbox order. The buyer separately approves on PayPal. Login is omitted for privacy. Returning to the app is not itself proof of payment.” |
+| 1:20–1:38 | Select **Drop the capture response**, then **Capture approved order**. Caption: “Deliberate application response-loss test.” Show **Needs verification** and $180 reserved. | “I deliberately drop the response after the capture request. This is an application test, not a PayPal outage. The result stays unresolved and the allowance remains reserved.” |
+| 1:38–1:50 | Reload the browser, reopen the same operation and show the unresolved state and same reservation/order. | “After a browser reload, the original operation and reservation are still here. No second capture action is offered.” |
+| 1:50–2:08 | Choose **Check PayPal outcome**. Show **Payment confirmed**, $180 paid, $0 reserved and $120 available. Retain order/capture references in the run evidence. | “Recovery checks the original PayPal order. Its references, seller, amount, currency and completed final capture must match before ProofPay records payment.” |
+| 2:08–2:30 | Open **Inspect approved vs observed receipt**. Show seller, order/capture amounts, currency and references, source and mode. Then **Check outcome again**; show unchanged capture and totals. | “This stored receipt makes those fields inspectable. Checking again leaves the capture and totals unchanged in this run. The receipt is an unsigned application record, with historical approval and item limits disclosed.” |
+| 2:30–2:50 | End on the confirmed purchase and a concise source/setup reference. Small caption: “151 local checks · synthetic upstream fixtures”; update only if the final recorded QA result changes. | “ProofPay gives a software team one place to connect approval, allowance and payment evidence. This prototype covers one sample seller and US dollars. It is sandbox software; production payments and customer impact remain future work.” |
 
-## Practical editing
+Caption any shortened wait as **“Wait shortened; same operation”**. Buyer approval may take much longer than its twenty-second edited slot; preserve its actual sequence and cut only the wait/login portion. Complete the take within the application's 15-minute authority window where practical. If authority expires, use **Renew owner approval** only when the application offers it, retain the renewal evidence, and disclose the cut. Renewal does not extend PayPal order validity. If the order itself is invalid or the outcome is uncertain, stop the take and investigate; do not fabricate a successful continuation.
 
-Use a cursor that is easy to follow. Keep the product visible rather than alternating between long slides. Cuts may shorten waiting periods if their meaning is clear. Do not conceal failed attempts or splice a simulated result into a real-sandbox sequence. A short caption can identify the run, environment, injected fault or skipped wait.
+## B. Rehearsal — usable at the current documented checkpoint
 
-Record a normal purchase separately as preflight evidence. The main sequence uses one interrupted purchase so the allowance and operation remain easy to follow. Do not approve the $90 alternative during this sequence; it is there to show a useful next proposal without distracting from the $180 recovery.
+Use the same 2:50 edit schedule, with a persistent **“Rehearsal · simulated”** caption and the actual app label visible. Suggested title: **“ProofPay — approval and recovery rehearsal (simulated provider)”**.
 
-If demonstrating a backend process restart, stop and restart the server with the same persisted database before choosing **Check simulated outcome**. Preserve the process evidence and label any edit. Say “The operation survived a backend restart” only when that exact result has been observed. A browser refresh or a fresh service object is not the same test.
+| Final time | Required footage | Truthful narration |
+|---|---|---|
+| 0:00–0:12 | **Start $300 rehearsal**; $300 available. | “Our studio has three hundred dollars for outside review work. This is a labelled rehearsal: proposals are deterministic and the payment provider is simulated.” |
+| 0:12–0:30 | Open the seeded $180 Workflow review. Show **Rehearsal sample**, item, seller and price. | “The sample catalogue fixes the seller and price. These prepared requests let us demonstrate the controls. No AI model is called in this mode.” |
+| 0:30–0:46 | **Approve & reserve $180.00**; $180 reserved/$120 available. | “The owner approves this exact purchase. One hundred eighty dollars is reserved, leaving one hundred twenty available.” |
+| 0:46–1:00 | Attempt the $160 approval; show **Over allowance**. | “The second request cannot fit. The server blocks its approval, and the allowance is unchanged.” |
+| 1:00–1:20 | Optionally show **Request an alternative → Create sample proposal** producing the $90 Starter review, still unapproved. Reopen the original $180 operation and choose **Create simulated order**. | “A smaller option becomes a separate proposal requiring approval. Here it is a rehearsal rule, not AI. We continue with the original one-hundred-eighty-dollar simulated order.” |
+| 1:20–1:38 | **Drop the capture response → Capture simulated payment**; unresolved/$180 reserved. | “The simulated provider records the capture, and the application discards the response. The result stays unresolved. The reservation does not disappear.” |
+| 1:38–1:50 | Reload; reopen the same unresolved operation. | “A browser reload preserves the operation, order and held allowance. This is browser persistence, not a claim about restarting the hosted backend.” |
+| 1:50–2:08 | **Check simulated outcome**; **Simulated payment confirmed**; $180 paid/$120 available. | “Recovery checks the original simulated order. Matching evidence changes the reservation into recorded spend.” |
+| 2:08–2:30 | Inspect the receipt; show its simulated source and **Not recorded** item limit. **Check outcome again**; unchanged totals. | “The receipt compares stored fields and states what was not recorded. Checking again leaves this purchase and the totals unchanged. This is simulated evidence, not a PayPal receipt.” |
+| 2:30–2:50 | Show Connections' actual configuration and source/setup reference. | “One hundred fifty-one local checks pass. A separate fixed-sample PayPal capture is verified; no model was used. Runtime AI and independent judge access remain open. This footage is rehearsal.” |
 
-## Recording the external integration
+If the genuine integration completes before recording, replace this final line only with the actual verified facts, and still label the footage as rehearsal. Never imply that a later external run changes what these simulated frames depict.
 
-After successful real-provider preflight, substitute **Start PayPal sandbox workspace** and **Ask AI for a proposal** for seeded rehearsal. Show the resulting model proposal, owner approval, **Create PayPal order**, **Open PayPal approval**, **Capture approved order**, and **Check PayPal outcome**. Native buyer approval is part of the flow; do not edit it into an implied autonomous purchase. Identify any skipped wait with a caption.
+## C. Supplemental PayPal diagnostic — 1:30
 
-Replace the rehearsal narration with the actual model and PayPal sandbox facts. If using **Drop the capture response**, describe it as an application fault injection after the sandbox action, not as a PayPal outage. Keep the **PayPal sandbox** mode label visible and preserve the matching sandbox order/capture evidence. Do not splice a simulated recovery into this sequence.
+The release owner has verified this diagnostic in the private deployed application. It used **one fixed $180 Workflow review**, with no model call, on source `17cbededf`. Keep this exact title/caption visible: **“PayPal sandbox diagnostic — fixed sample, no AI”**.
 
-## Final checks
+The observed run used **Drop the capture response checked**, then browser reload and original-order lookup. It was not a normal-response preflight. Operation `bf7f982f-fe3a-4d3f-938c-511134e0f32f`, order `0UG032264W476633K` and capture `4JC48621EJ575850B` identify the verified run. Repeated lookup kept the same capture, eight operation events and $180 paid/$120 available. The UI run did not independently measure provider request counts.
 
-- Narration, screenshots and project description match the same delivered source version.
-- No claim of real AI inference appears without a recorded model call.
-- No claim of PayPal confirmation appears without actual sandbox evidence.
-- No generic production-safety or exactly-once guarantee appears.
-- The result is understandable without knowledge of internal state-machine names.
-- The final video is under three minutes and publicly viewable on YouTube to meet the official rules.
-- The submitted repository and demonstration are accessible to judges. The current private owner-only Site is not judge-access ready.
+There is no $160 competing proposal or cheaper-alternative workflow in this profile. Do not insert either from another mode. Keep this as a separate 90-second video rather than extending the main video beyond three minutes. Use existing footage only if it was actually captured; otherwise film a new, explicitly identified diagnostic run. Do not attempt to recapture the already confirmed order or splice different operation histories together.
 
-## Closing line
+| Final time | Required footage and action | Narration — use with matching footage of the recorded run |
+|---|---|---|
+| 0:00–0:10 | **Connections → Test PayPal sandbox**. Show the fixed proposal, diagnostic banner and no-AI label. | “This is a PayPal sandbox diagnostic using one fixed catalogue sample. No AI model is called.” |
+| 0:10–0:22 | Show Workflow review, seller and USD180. **Approve & reserve $180.00**; show $180 reserved/$120 available. | “The owner approves this exact one-hundred-eighty-dollar purchase. Its allowance is reserved before the payment request.” |
+| 0:22–0:32 | **Create PayPal order**; retain the order reference. | “The application creates a real sandbox order using virtual test funds.” |
+| 0:32–0:47 | **Open PayPal approval**. Complete native approval with buyer credentials offscreen; return to the same operation. Caption omitted login/wait. | “The sandbox buyer separately approves on PayPal. Login is offscreen. Returning to the app does not confirm payment.” |
+| 0:47–1:00 | Select **Drop the capture response → Capture approved order**. Show unresolved state and $180 reserved. | “We deliberately drop the capture response. This is an application fault test. The result stays unresolved and the allowance remains held.” |
+| 1:00–1:08 | Browser reload; reopen the same operation and show unchanged order/reservation. | “Reloading preserves the original operation and its reservation.” |
+| 1:08–1:23 | **Check PayPal outcome**. Show confirmation and receipt seller/amount/currency/references; **Check outcome again**. $180 paid/$0 reserved/$120 available remains stable. | “Original-order lookup confirms the matching completed capture. The stored receipt exposes those fields. Repeating the check keeps the same capture and totals.” |
+| 1:23–1:30 | End on the diagnostic label and outstanding-AI caption. | “This verifies the recorded sandbox payment path. Runtime AI remains unfinished.” |
 
-Use only once the corresponding workflow is demonstrated:
+If a new filming run stays pending, fails or requires review, retain that result and reservation. Do not stage confirmation or borrow the earlier run's receipt. Buyer-login privacy and shortened-wait captions follow the main script. Retain the diagnostic source (`sandbox-diagnostic`) and no-AI disclosure. The [verified execution record](../evidence/diagnostic-release-review.json) supports the sandbox outcome, not a completed video, public judge access, production readiness or the combined AI journey.
 
-> ProofPay gives the owner a clear spending decision and an inspectable answer about what happened to the payment.
+## Required captures outside the final edit
 
-## Slow buyer approval
+Retain the full proposed/approved record, original order ID, response-loss state, same operation after reload, checked capture, repeat-check totals and inspector source/mode. For a genuine run also retain sanitized model-response metadata and the native buyer-approval evidence. Keep preflight and filmed-run identifiers separate.
 
-If the 15-minute application approval expires before capture, show **Renew approval**, review the unchanged purchase and confirm the renewal. The same order and reservation remain in place. This renews application authority only; it does not extend PayPal order validity. Never renew or retry a dispatched or uncertain capture.
+Film the inline inspector rather than depending on a downloaded file. Earlier hosted exports displayed success but their file bytes were not verified. Only include an offline-verifier success clip after the actual exported bytes have been reopened and checked. Its result establishes unsigned internal consistency, not external authenticity.
+
+Renewal, cancellation, the 15-minute wait and the full test output are supporting evidence. They do not need to compete for time in the main walkthrough. Use [judge readiness](JUDGE_READINESS.md), the [QA report](QA_REPORT.md) and [hosted rehearsal records](../evidence/hosted-recovery-review.json) as references in the description.
+
+The [official requirements](https://paypalaihackathon.devpost.com/) and [rules](https://paypalaihackathon.devpost.com/rules), checked on 8 November 2026, call for working-product footage in a publicly visible YouTube video under three minutes. Publication and the public URL are separate tasks; this document does not establish either. Final Devpost Submit remains held.

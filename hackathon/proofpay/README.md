@@ -26,18 +26,24 @@ The first intended user is a software team embedding approved purchases into a b
 
 The application has six connected views: Overview, Purchases, Approvals, Evidence, Controls and Connections. Purchases can be searched by item or reference; each record exposes its available next action and activity history. An on-demand receipt panel compares approved and observed fields, labels missing information and reads stored evidence without another provider call. Server-side services own the financial state. The browser and model cannot declare a payment successful.
 
-Two modes are kept explicit:
+The two provider modes have three explicitly labelled paths:
 
 | Mode | What runs | What it proves |
 |---|---|---|
 | Rehearsal | Deterministic catalogue selection and a durable simulated provider. No external credentials are needed. | Application workflow, persistence, allowance enforcement and the documented recovery scenarios. |
-| PayPal sandbox | Configured model adapter, PayPal test merchant, native buyer approval and checked provider evidence. | Only the externally executed and recorded steps; configuration alone proves none of them. |
+| Standard AI + PayPal sandbox | Configured model adapter, PayPal test merchant, native buyer approval and checked provider evidence. | Only the externally executed and recorded steps; configuration alone proves none of them. |
+| Manual PayPal sandbox diagnostic | One fixed $180 workflow review request, selected by the server without a model. Requires PayPal configuration, owner approval and native buyer approval. | Isolates the PayPal path for testing. Starting it creates an unapproved request; it does not prove payment or an AI integration. |
 
-**This is a prototype, not a production payment service.** Genuine PayPal sandbox OAuth and create/GET calls have passed through the provider adapter. A genuine model invocation and buyer-approved PayPal capture remain unverified. The hosted application is owner-private and is not yet independently accessible to judges.
+In **Connections**, **Test PayPal sandbox** starts the manual diagnostic. It never calls AI or accepts additional proposals. It shares the ordinary approval, allowance, dispatch and recovery controls, and its interface and receipts identify it as manual/no-AI. A successful diagnostic cannot establish the standard AI-to-payment journey.
+
+**This is a prototype, not a production payment service.** The deployed manual PayPal sandbox diagnostic passed native buyer approval, capture, response-loss recovery and repeated original-order lookup with unchanged accounting. It used virtual funds and no AI. A genuine model invocation and the standard AI-to-PayPal journey remain unverified. The hosted application is owner-private; independent judge access and the public demo video remain open.
 
 | Evidence | Scope |
 |---|---|
-| [Current local control tests](evidence/qa-2026-11-08-summary.json) | 131/131 passed, including SQLite concurrency, process restart, request hardening and offline receipt consistency. Provider/model responses are synthetic. |
+| [Hosted PayPal-only diagnostic](evidence/diagnostic-release-review.json) | On deployed Site source `17cbededf`, the fixed $180 purchase kept its reservation after response loss and reload; original-order verification confirmed payment. Repeat lookup/reload retained the same capture and $120 available / $0 reserved / $180 paid. Manual/no-AI; external request counts were not independently measured. |
+| [Current local release checks](evidence/diagnostic-release-review.json) | 151/151 passed, including diagnostic isolation, connector migration, SQLite concurrency and offline receipt consistency. Types, lint, Worker build and responsive fixture build also passed. Provider/model responses are synthetic. |
+| [Earlier local control tests](evidence/qa-2026-11-08-summary.json) | Historical 131/131 checkpoint before the manual diagnostic and Zod migration. |
+| [Zod migration review](evidence/zod-migration-2026-11-08-summary.json) | Zod 4.6.7 and 10 connector regressions; audit now reports 17 affected package entries, with none rated critical or high. |
 | [Hosted renewal review](evidence/hosted-renewal-review.json) | Deployed rehearsal expiry, explicit renewal, lost-response recovery and persistence after browser reload. |
 | [Hosted workspace review](evidence/hosted-workspace-review.json) | Desktop navigation, search, retained evidence and cancellation accounting. |
 | [Responsive review](evidence/responsive-review.json) · [screenshot](evidence/mobile-approval-qa.png) | Actual component/CSS with synthetic records at phone widths; a tablet spot check. It is not a real-device or payment-integration test. |
@@ -113,7 +119,7 @@ Read the [state machine and trust boundaries](docs/ARCHITECTURE.md). The [develo
 - No production payments, webhooks, refunds, fulfillment, subscriptions or cancellation after provider dispatch.
 - A lost create response without a saved provider order ID needs manual investigation. There is no blind create/capture retry or automatic provider fallback.
 - Hosted identity depends on a trusted ingress supplying the owner header. Exposing the Worker directly without an equivalent authenticated boundary is unsupported.
-- Dependency audit retains 18 findings (0 critical, 1 high, 15 moderate, 2 low); the high finding is Zod in connector infrastructure. See the QA report for paths and reachability limits.
+- Dependency audit retains 17 affected package entries (0 critical, 0 high, 15 moderate, 2 low). The Zod finding was removed after a tested migration to 4.6.7. See the QA report for remaining paths and reachability limits.
 - Real model-to-PayPal execution, independent reviewer access, the required public demo video and final submission readiness remain open gates.
 - Security review and passing tests do not establish regulatory compliance, fraud elimination, processor parity or a general exactly-once guarantee.
 

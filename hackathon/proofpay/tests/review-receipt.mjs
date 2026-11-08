@@ -11,7 +11,7 @@ import {ReviewD1} from './review-d1.mjs';
 import {MAX_RECEIPT_BYTES, parseReceiptJSON, verifyReceipt} from '../scripts/verify-receipt.mjs';
 
 // Actual local service + SQLite + rehearsal provider exports. No model/PayPal calls.
-let temp, service, db, samples;
+let temp, service, db, samples, diagnostics;
 before(async () => {
   temp = await mkdtemp(join(tmpdir(), 'proofpay-receipt-review-'));
   const bundle = join(temp, 'service.mjs');
@@ -32,6 +32,32 @@ before(async () => {
   samples.unknown = await service.evidence('receipt-owner',op.id);
   await service.reconcile('receipt-owner',op.id);
   samples.confirmed = await service.evidence('receipt-owner',op.id);
+  // This exercises diagnostic exports with synthetic provider responses only.
+  // It does not establish a PayPal sandbox run or AI execution.
+  let syntheticOrder;
+  const calls={ai:0,create:0,capture:0,get:0};
+  const diagnosticService = new ProofPayService({db,env:{PAYPAL_CLIENT_ID:'test-only-client',PAYPAL_CLIENT_SECRET:'test-only-secret',PAYPAL_MERCHANT_ID:'synthetic-diagnostic-seller'},now:()=>1760000000000,
+    ai:async()=>{calls.ai++;throw Error('The diagnostic must not call a model');},
+    provider:{
+      create:async operation=>{
+        calls.create++;
+        syntheticOrder={id:'SYNTHETIC-DIAGNOSTIC-ORDER',status:'APPROVED',purchase_units:[{reference_id:operation.id,custom_id:operation.id,payee:{merchant_id:operation.merchant_id},amount:{currency_code:'USD',value:'180.00'}}]};
+        return structuredClone(syntheticOrder);
+      },
+      capture:async()=>{
+        calls.capture++;syntheticOrder.status='COMPLETED';
+        syntheticOrder.purchase_units[0].payments={captures:[{id:'SYNTHETIC-DIAGNOSTIC-CAPTURE',status:'COMPLETED',final_capture:true,amount:{currency_code:'USD',value:'180.00'}}]};
+        return structuredClone(syntheticOrder);
+      },
+      get:async()=>{calls.get++;return structuredClone(syntheticOrder);},
+    },
+  });
+  const diagnosticOp=(await diagnosticService.startSandboxDiagnostic('diagnostic-owner')).operations[0];
+  diagnostics={proposed:await diagnosticService.evidence('diagnostic-owner',diagnosticOp.id),calls};
+  await diagnosticService.approve('diagnostic-owner',diagnosticOp.id,1);
+  await diagnosticService.createOrder('diagnostic-owner',diagnosticOp.id,1,'https://proofpay.example');
+  await diagnosticService.capture('diagnostic-owner',diagnosticOp.id,1);
+  diagnostics.confirmed=await diagnosticService.evidence('diagnostic-owner',diagnosticOp.id);
 });
 after(async () => { db?.close(); if (temp) await rm(temp,{recursive:true,force:true}); });
 const copy = () => structuredClone(samples.confirmed);
@@ -52,6 +78,56 @@ test('receipt: approval digest from service Web Crypto matches independent Node 
   assert.equal(receipt.approvalBinding.values[1], receipt.operation.workspaceId);
   assert.equal(receipt.approvalBinding.profile, 'proofpay-approval-v1');
   assert.equal(createHash('sha256').update(JSON.stringify(receipt.approvalBinding.values),'utf8').digest('hex'),receipt.approvalDigest);
+});
+test('receipt: actual diagnostic service export with synthetic provider remains explicitly manual/no-AI', () => {
+  for (const receipt of [diagnostics.proposed,diagnostics.confirmed]) {
+    const result=verifyReceipt(serialize(receipt));
+    assert.equal(result.consistent,true);assert.equal(result.declaredMode,'sandbox');
+    assert.equal(result.declaredProposalSource,'sandbox-diagnostic');
+    assert.equal(result.proposalInterpretation,'Manual PayPal sandbox diagnostic; no AI proposal is claimed.');
+    assert.equal(result.confirmedRecordConsistent,receipt.operation.status==='CONFIRMED');
+  }
+  // One lookup checks buyer approval before capture; another confirms its result.
+  assert.deepEqual(diagnostics.calls,{ai:0,create:1,capture:1,get:2});
+});
+test('receipt: diagnostic source is forbidden in rehearsal and for unknown source spellings', () => {
+  reject(receipt=>{receipt.operation.aiSource='sandbox-diagnostic';});
+  for (const source of ['manual','sandbox_diagnostic','SANDBOX-DIAGNOSTIC']) {
+    const receipt=structuredClone(diagnostics.proposed);receipt.operation.aiSource=source;
+    assert.throws(()=>verifyReceipt(serialize(receipt)),/Unsupported proposal source/);
+  }
+});
+test('receipt: diagnostic metadata cannot claim AI execution, omit provenance boundaries or change the fixed item', () => {
+  for (const mutate of [
+    proposal=>{proposal.aiCalled=true;},proposal=>{proposal.manual=false;},
+    proposal=>{proposal.source='model';},proposal=>{proposal.diagnosticProfile='unknown-v2';},
+    proposal=>{proposal.schemaVersion=2;},proposal=>{delete proposal.aiCalled;},
+    proposal=>{proposal.provenance={requestedModel:'pretend-model'};},
+    proposal=>{proposal.sku='design-review';},proposal=>{proposal.rationale='different explanation';},
+  ]) {
+    const receipt=structuredClone(diagnostics.confirmed);
+    const event=receipt.events.find(item=>item.type==='PROPOSAL_CREATED');
+    const proposal=JSON.parse(event.detail);mutate(proposal);event.detail=JSON.stringify(proposal);
+    assert.throws(()=>verifyReceipt(serialize(receipt)));
+  }
+  for (const mutate of [
+    receipt=>{receipt.events=receipt.events.filter(event=>event.type!=='PROPOSAL_CREATED');},
+    receipt=>{receipt.operation.amountCents=16000;},receipt=>{receipt.operation.sku='design-review';},
+  ]) {
+    const receipt=structuredClone(diagnostics.proposed);mutate(receipt);
+    assert.throws(()=>verifyReceipt(serialize(receipt)));
+  }
+});
+test('receipt: accepting diagnostic proposals does not relax approval or provider consistency', () => {
+  for (const mutate of [
+    receipt=>{receipt.operation.merchantId='other-seller';},receipt=>{receipt.approvalDigest='0'.repeat(64);},
+    receipt=>{receipt.verificationRecords[0].capture.amount.value='179.99';replaceObservation(receipt);},
+    receipt=>{receipt.verificationRecords[0].simulated=true;replaceObservation(receipt);},
+    receipt=>{receipt.verificationRecords=[];},
+  ]) {
+    const receipt=structuredClone(diagnostics.confirmed);mutate(receipt);
+    assert.throws(()=>verifyReceipt(serialize(receipt)));
+  }
 });
 for (const [field,index,replacement] of [
   ['id',0,'another-operation'], ['workspaceId',1,'another-workspace'], ['sku',2,'another-sku'],

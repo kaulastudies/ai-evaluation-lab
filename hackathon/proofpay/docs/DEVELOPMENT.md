@@ -63,6 +63,16 @@ The AI adapter requests JSON containing `sku` and `rationale`; the chosen endpoi
 
 The PayPal adapter is fixed to the sandbox API. Use a separate sandbox buyer for native PayPal approval. An API secret does not replace buyer consent. A return URL does not prove payment. Verify the original order/capture and inspect the recorded receipt before describing an end-to-end sandbox result.
 
+### Manual PayPal diagnostic
+
+The standard AI purchasing flow still requires a configured model and a genuine model response. A separate **Connections → Test PayPal sandbox** action lets an owner test the payment path with only the three PayPal variables. It creates one unapproved, server-selected `workflow-review` request for $180 USD in a $300 sandbox workspace. Workspace creation makes no PayPal request and no AI call.
+
+The endpoint is `POST /api/sandbox/diagnostic/start` with the empty JSON body `{}`. Trusted owner identity, same-origin JSON and action validation still apply; callers cannot select a price, SKU, seller or extra authority through this action. Its profile is `sandbox-diagnostic`, and additional proposals are rejected even when model credentials exist.
+
+Approve the fixed request, create its sandbox order, complete native PayPal buyer approval, then capture and inspect the verified outcome. These use the shared financial controls, including approval expiry, allowance reservation, single dispatch and read-only recovery. An existing sandbox reservation or uncertain outcome prevents switching workspaces. The receipt identifies `sandbox-diagnostic`, `manual: true` and `aiCalled: false`.
+
+The deployed diagnostic on Site source `17cbededf` has now passed native buyer approval, capture and response-loss recovery, as recorded in the [release review](../evidence/diagnostic-release-review.json). After a dropped response, $180 stayed reserved through reload; original-order lookup confirmed payment, and repeated lookup/reload retained the same capture and $120 available / $0 reserved / $180 paid. This is separately observed PayPal-only evidence, not a result of the local tests. Genuine model execution and the standard AI-to-PayPal journey remain unverified; external request counts were not independently measured.
+
 ## Checks and evidence
 
 ```sh
@@ -76,13 +86,15 @@ node tests/responsive/build.mjs
 | Check | Exercises | Does not establish |
 |---|---|---|
 | TypeScript and lint | Source types and configured static rules. | Runtime correctness or complete security. |
-| `npm test` | Auth/model/provider contracts and application/database regressions using controlled inputs. | A real model response or PayPal payment. |
+| `npm test` | Auth/model/provider contracts, application/database regressions, manual diagnostic isolation, connector validation and receipt consistency using controlled inputs. | A real model response or PayPal payment. |
 | SQLite race/restart cases | Actual process contention, transactions and persisted simulated state. | Parity with every hosted D1 behavior or a full service outage exercise. |
 | Worker build | Client, RSC/SSR and Worker compilation/packaging. | Successful deployment, authentication or live API configuration. |
 | Responsive fixture build | The actual component/CSS bundled with labelled synthetic data. | Browser inspection, touch-device behavior or backend integration. |
 | Hosted rehearsal | Observed UI/API/database behavior in the deployed app with a simulated provider. | A genuine PayPal payment or an actual model call. |
 
 Review the command's output for the exact checkout. Use [QA_REPORT.md](QA_REPORT.md) and the committed `evidence/` files for recorded results; do not replace current results with an older passing count. The database harness models the D1 prepared-statement and batch surface with real SQLite. Its stated scope is intentionally narrower than full D1 emulation.
+
+The [current release review](../evidence/diagnostic-release-review.json) records 151 passing checks plus types, lint and both builds. The [Zod migration evidence](../evidence/zod-migration-2026-11-08-summary.json) covers 10 connector regressions and the 17 remaining audit entries (15 moderate, 2 low). Its earlier combined-suite/build fields were pending at that migration checkpoint; the later release review records their completion. The release review separately records the deployed manual PayPal diagnostic. The local suite and migration results themselves do not establish hosted behavior or a genuine AI journey.
 
 For layout changes, use [tests/responsive](../tests/responsive/README.md) and inspect affected views at narrow widths. It intercepts fetch calls, rejects mutations, and blocks external navigation/downloads. Its output directory is ignored by Git and lint; its source remains linted. Preserve the clear synthetic-data label in screenshots.
 
@@ -95,6 +107,8 @@ node scripts/verify-receipt.mjs /path/to/receipt.json
 ```
 
 The command accepts one regular JSON file, up to 1 MiB, with `receiptSchemaVersion: 1`. It recomputes the `proofpay-approval-v1` SHA-256 digest, compares its exact ordered inputs with the exported operation, and checks the consistency of status, provider fields and confirmation events. It prints a JSON result on success and exits with code 1 on invalid input. No credentials or network access are needed. Re-export older receipts; they lack the versioned binding fields this verifier needs.
+
+The result also reports `declaredProposalSource` and `proposalInterpretation`. A diagnostic receipt must declare sandbox mode, the fixed $180 workflow review and one matching manual/no-AI provenance event. Its interpretation is `Manual PayPal sandbox diagnostic; no AI proposal is claimed.` Those checks retain the same approval and provider matching requirements; they do not authenticate the declared source.
 
 This is an unsigned application-record check. Someone who can replace the data can also recompute its digest. The digest does not cover request text, rationale, labels, request IDs or event prose. A passing result does not establish provider authenticity, model execution, current permission to spend, external signatures or TIP compatibility. Treat the declared mode and recorded status as claims within the inspected record.
 
@@ -129,6 +143,7 @@ Routes require the authenticated owner's identity. Mutation routes also enforce 
 |---|---|---|
 | GET | `/api/state` | Active workspace, operations and recent events. |
 | POST | `/api/rehearsal/start` | Start an isolated simulated workspace. |
+| POST | `/api/sandbox/diagnostic/start` | With `{}`, start the fixed $180 manual/no-AI sandbox diagnostic; no provider dispatch. |
 | POST | `/api/workspaces` | Start a workspace in an explicit supported mode. |
 | POST | `/api/proposals` | Select and validate a catalogue proposal. |
 | POST | `/api/operations/:id/approve` | Approve the exact purchase and reserve allowance. |
@@ -157,6 +172,7 @@ Before a release, record the source commit, checks, dependency findings, migrati
 | Framework executable missing after install | Run `npm run install:ci` to completion in the intended app directory. Do not edit the lockfile to suppress an install failure. |
 | `no such table` | Confirm the committed migration was applied to `.wrangler/state` using the generated Worker config. |
 | Local sign-in returns 404 | Check whether the checkout uses the managed profile. Simulated sign-in is intentionally unavailable there. |
-| Sandbox start is disabled | Inspect Connections and the server variable names. Presence still requires a real credential and execution check. |
+| Sandbox start is disabled | The standard AI flow needs PayPal and model configuration; the manual diagnostic needs PayPal only. Authentication and a held active sandbox also affect availability. Presence still requires a real execution check. |
+| Diagnostic rejects another proposal | It intentionally has one fixed request and no model calls. Use a standard workspace for AI proposals after resolving any held sandbox operation. |
 | Purchase remains uncertain | Inspect its original order and retained evidence. Do not create a replacement purchase or blindly retry capture. |
 | A screenshot looks correct but CI fails | Follow the exact failing type/test/build output; a screenshot validates only the observed interface. |
