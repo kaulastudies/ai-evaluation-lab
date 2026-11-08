@@ -7,9 +7,12 @@ challenge, built by **Rama Chandra M**, AI Evaluation Lab. It uses a model to wr
 Python, executes that program inside a disposable Docker container, checks the
 answer with a separate deterministic implementation, and signs an execution receipt.
 
-**Current evidence:** 16 core tests pass. API smoke checks pass. Live Vultr inference,
-container probes, and a public deployment are not yet verified. This README will
-be updated with actual deployment evidence before a completed submission is claimed.
+**Current evidence:** 16 core tests and 5 real Docker integration tests pass in
+[GitHub Actions](https://github.com/kaulastudies/ai-evaluation-lab/actions/runs/42519547315).
+The integration checks cover containment, timeout, output flooding, input access,
+and disposal of temporary state. API smoke checks pass locally. Live Vultr
+inference and a public Vultr deployment remain unverified. This entry has not
+been submitted.
 
 ## Why this exists
 
@@ -107,6 +110,8 @@ The controller has Docker access and is part of the trusted computing base.
 ```bash
 python -m unittest discover -s tests -v
 node --check receiptops/static/app.js
+# Requires Docker and the execution image:
+python -m unittest discover -s tests -p integration_sandbox.py -v
 ```
 
 Tests cover exact money arithmetic, due-date boundaries, duplicate handling,
@@ -114,6 +119,11 @@ invalid rows, type confusion, prompt-like text treated as data, key persistence,
 signature mutation, recomputed-hash attacks, untrusted signers, swapped input,
 signed wrong answers, and the absence of a host-execution fallback. Unit test
 fixtures are explicitly synthetic and are not offered as live sandbox evidence.
+
+The Docker integration run exposed an output-flood cleanup deadlock. The
+controller now detaches the output client before forcing container removal;
+the regression passes in the linked run. This is CI evidence, not a Vultr
+model execution.
 
 In the browser, the containment panel runs network, read-only input, read-only
 root, non-root user, secret environment, Docker socket, timeout, and cleanup
