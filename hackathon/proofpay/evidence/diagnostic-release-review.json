@@ -151,5 +151,14 @@
     "paypal-diagnostic-overview.jpg": "1ebbff839973a0b8ac5c7b4ca39f3b4863f82a437f669aaf1b984f71abfb9c3d",
     "paypal-diagnostic-receipt.jpg": "7c0855337865824df53031e55a286e4eff7cd0954dd0a2fe45781d0c15e3d847",
     "paypal-diagnostic-unknown.jpg": "ce345038f668a4c2356cbb0854768b6c4fb3a6b204eb822de7ff9d2bf3529c3b"
+  },
+  "finalPresentationDeployment": {
+    "sourceCommit": "bc2f94066fe7b15c67848a3713905ea20dd499e9",
+    "deploymentId": "appgdep_6af039e2ef40819190f1abfbd4eb63c8",
+    "versionId": "appgprj_6aef840ffea08191b72bef52577f68b1~appgver_e01b722ce00c8191951cd87d11e05625",
+    "succeededAt": "2026-11-08T08:59:37.200890+00:00",
+    "envRevision": 2,
+    "observed": "Final reload kept120available/0reserved/180paid, zero unresolved; Connections correctly shows one verified PayPal sandbox purchase and AI not configured.",
+    "change": "Singular purchase wording and current documentation; unchanged financial service."
   }
 }

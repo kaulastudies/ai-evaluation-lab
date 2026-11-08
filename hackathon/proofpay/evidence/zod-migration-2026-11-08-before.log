@@ -15,9 +15,9 @@
 test at tests/review-connectors.mjs:99:1
 ✖ connector: oversized grant list is rejected before any grant is inspected (9.089778ms)
   AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
-  
+
   257 !== 0
-  
+
       at TestContext.<anonymous> (file://[checkout]/tests/review-connectors.mjs:104:10)
       at Test.runInAsyncScope (node:async_hooks:227:14)
       at Test.run (node:internal/test_runner/test:1402:25)
@@ -35,9 +35,9 @@ test at tests/review-connectors.mjs:99:1
 test at tests/review-connectors.mjs:110:1
 ✖ connector: oversized preview result is rejected before any content block is inspected (20.679995ms)
   AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
-  
+
   1025 !== 0
-  
+
       at file://[checkout]/tests/review-connectors.mjs:116:12
       at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
       at async withBinding (file://[checkout]/tests/review-connectors.mjs:23:9)
@@ -55,9 +55,9 @@ test at tests/review-connectors.mjs:110:1
 test at tests/review-connectors.mjs:120:1
 ✖ connector: oversized deployed result is rejected before any content block is inspected (11.131311ms)
   AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
-  
+
   1025 !== 0
-  
+
       at TestContext.<anonymous> (file://[checkout]/tests/review-connectors.mjs:125:10)
       at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
       at async Test.run (node:internal/test_runner/test:1409:7)

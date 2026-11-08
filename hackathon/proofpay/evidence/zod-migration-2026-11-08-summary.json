@@ -186,8 +186,9 @@
     "tests/review-connectors.mjs": "0941aebe805033aadf39a918815b959c10005b5b7e831ea8e0cda87482971ac6"
   },
   "evidenceSha256": {
-    "zod-migration-2026-11-08-before.log": "1ff8c9ddab93bd6220da750ef6b28268a16c9e2231539c78b0b69f32d123f18d",
+    "zod-migration-2026-11-08-before.log": "22e5f5c264cf65f3f39a612d2c42561595f0fc9d3bab5ef7b8110e105ecebca4",
     "zod-migration-2026-11-08-after.log": "a6d7e99aaf3ff538fa6dad8cf95cc872baea813a4686efb4c1f5ccfffa33d3df",
     "npm-audit-2026-11-08-zod4.json": "27d3be5e8bc76d379f74fb21b31012037d15d17f6ce0ce90ee5175f877d6d64b"
-  }
+  },
+  "logNormalization": "Trailing spaces on blank lines removed after repository CI diff-hygiene failure; test messages, counts and failures unchanged."
 }
