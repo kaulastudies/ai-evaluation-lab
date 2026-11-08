@@ -8,13 +8,13 @@ The project is an [AI Evaluation Lab](https://github.com/kaulastudies/ai-evaluat
 
 [Judge guide](docs/JUDGES.md) · [Readiness](docs/JUDGE_READINESS.md) · [Development](docs/DEVELOPMENT.md) · [Architecture](docs/ARCHITECTURE.md) · [Security](docs/SECURITY_REVIEW.md) · [QA](docs/QA_REPORT.md) · [Postman collection](postman/README.md)
 
-Current records: [actual AI-to-PayPal run](evidence/configured-live-qa-2026-11-08.md) · [independent public HTTPS QA](evidence/judge-hosted-qa-2026-11-08.json) · [public browser QA](evidence/judge-browser-qa-2026-11-08.json). Owner sign-in, one genuine model-led sandbox purchase, the public rehearsal and independent two-guest isolation passed. The 2:43 video is rendered but not published to YouTube; **final Devpost Submit stays held**.
+Current records: [actual AI-to-PayPal run](evidence/configured-live-qa-2026-11-08.md) · [independent public HTTPS QA](evidence/judge-hosted-qa-2026-11-08.json) · [public browser QA](evidence/judge-browser-qa-2026-11-08.json). Owner sign-in, one genuine model-led sandbox purchase, the public rehearsal and independent two-guest isolation passed. The earlier video was rejected for voice/presentation; a free Kokoro-voice replacement is in progress and is not approved for publication; **final Devpost Submit stays held**.
 
-## Public judge rehearsal
+## Open the public judge workspace
 
-The separate [public judge deployment](https://proofpay-evaluation-lab.vercel.app) is READY at source `2caa74039`. Anonymous access and the simulated browser walkthrough passed. Use this canonical address: request-origin checks are bound to it. Its front page opens the evaluator workspace at `/judge`, with **Try the demo** and no account, owner key or PayPal login. The [repeatable testing guide](docs/REPEATABLE_TESTING.md) explains the sequence and its limits.
+Use **[proofpay-evaluation-lab.vercel.app](https://proofpay-evaluation-lab.vercel.app)** for judging. No Vercel account, owner login, PayPal account or API key is needed. The seven-view portal upgrade opens through **Open judge workspace**; it is under release review and still needs its own deployed browser checks. The preceding public release at `2caa74039` passed anonymous access and the full simulated walkthrough. Follow the [judge guide](docs/JUDGES.md) to try the app; technical setup is optional.
 
-Each visitor receives a signed, two-hour guest session and a separate simulated $300 workspace. Approve $180, try the competing $160 request, create the simulated order, deliberately drop its capture response, reload, and verify the original outcome. Inspect or export simulated evidence and reset the simulation within the session limits. “Judge administrator” means control of that guest rehearsal only; it grants no owner, production or account administration.
+Each visitor receives a signed, two-hour guest session and a separate simulated $300 workspace. Approve $180, try the competing $160 request, create the simulated order, deliberately drop its capture response, reload, and verify the original outcome. Use **Continue workflow** to reach the next action. If a prior demo is complete, choose **Start fresh demo → Confirm fresh demo** from any loaded section. **New sample request** creates a deterministic proposal; **Evidence** provides the in-app receipt inspector and **Export all receipts**. “Judge administrator” means control of that guest rehearsal only; it grants no owner, production or account administration.
 
 The judge project uses its own PostgreSQL database and judge-session secret. Its API constructs only a durable simulated provider and deterministic sample proposals; it does not read owner/PayPal/AI credentials or obtain Gateway OIDC. Owner APIs and sign-in are disabled on that deployment. The private owner deployment and the recorded real sandbox purchase remain separate.
 
@@ -25,17 +25,23 @@ The judge project uses its own PostgreSQL database and judge-session secret. Its
 | New guest sessions | At most 60 per hour and 300 total for the deployment. |
 | External calls | No live model or PayPal calls; no paid credit or new inference grant. |
 
-The evaluator has three views:
+The [seven-view source check](evidence/judge-portal-source-qa-2026-11-08.json) passed 210/210 tests, TypeScript, full lint and the native build after the cancellation-confirmation fix. Its new deployment and browser checks remain separate pending results.
+
+The seven-view portal upgrade provides:
 
 | View | What it shows |
 |---|---|
-| Purchase desk | The guest’s saved requests, approvals, held funds, simulated outcome and receipt inspector. |
+| Overview | Allowance, unresolved purchases and the next action. |
+| Purchases | Saved requests, order/capture actions and recovery. |
+| Approvals | Review and approve exact purchases within the allowance. |
+| Evidence | Inspect recorded decisions and provider observations; export simulated JSON receipts. |
+| Controls | Read the enforced rules and start a fresh simulation when a prior demo is complete. |
 | AI & backend | Read-only rehearsal limits and the dated owner run’s model/payment route. It cannot change providers, display secrets or perform a live connection check. |
 | Evaluation lab | Six workflow observations: approval, competing allowance block, response drop, reload preservation, original-outcome verification and stable repeated check. Saved server records support the first checks; reload/repeat observations are browser comparisons, not a backend restart or independent audit. |
 
 “Not yet observed” is not a failed test. The lab links dated source-test and genuine sandbox evidence separately from the current simulated session.
 
-The frozen judge increment passed **210/210 local tests**, TypeScript, full ESLint and the native Next.js build. The [measured testing record](docs/REPEATABLE_TESTING.md#measured-checkpoint) keeps these results separate from the earlier 199-test owner checkpoint. The deployed release then passed **9/9 real PostgreSQL checks**, migrations and build. The [independent HTTPS review](evidence/judge-hosted-qa-2026-11-08.json) passed all **21 expected outcomes**, including two-guest isolation, denied owner/sandbox/cross-origin actions, response-loss recovery and retained prior receipts after a guest reset. The [browser review](evidence/judge-browser-qa-2026-11-08.json) completed all **6/6 lab observations** and checked all three views at 360/768/1280px: nine layouts, no horizontal overflow, 16px main text and no collected application warnings/errors. The prior zero-finding dependency audit is dated evidence; it was not rerun for this test-script/module change.
+The preceding three-view judge release passed **210/210 local tests**, TypeScript, full ESLint and the native Next.js build. The [measured testing record](docs/REPEATABLE_TESTING.md#measured-checkpoint) keeps these results separate from the earlier 199-test owner checkpoint. The deployed release then passed **9/9 real PostgreSQL checks**, migrations and build. The [independent HTTPS review](evidence/judge-hosted-qa-2026-11-08.json) passed all **21 expected outcomes**, including two-guest isolation, denied owner/sandbox/cross-origin actions, response-loss recovery and retained prior receipts after a guest reset. The [browser review](evidence/judge-browser-qa-2026-11-08.json) completed all **6/6 lab observations** and checked all three views at 360/768/1280px: nine layouts, no horizontal overflow, 16px main text and no collected application warnings/errors. These dated results do not certify the new seven-view layout before its own checks. The prior zero-finding dependency audit retains its original scope.
 
 These are bounded free-demo limits, not unlimited testing availability. The existing [real AI-to-PayPal run](evidence/configured-live-qa-2026-11-08.md) is linked evidence, not replayed by the judge demo. Its reviewed one-attempt model grant remains consumed. A simulation reset never resets that grant or a real payment.
 
@@ -53,7 +59,7 @@ An engineering team adding purchases to an agent workflow needs to connect busin
 
 The first business pilot targets an owner-led agency, consultancy or studio that needs to approve outside services and inspect payment outcomes. Reduced approval and investigation work is a hypothesis, not measured customer traction. The [business pilot plan](docs/COMMERCIAL_PLAN.md) defines onboarding, required sign-ins, acceptance and explicitly unvalidated pricing.
 
-## A working desk for a business pilot
+## Private owner features for a business pilot
 
 **Business settings** saves the business name, one department or cost-centre label, and a default USD allowance. New workspaces retain those values as a snapshot; changing the defaults does not change earlier workspace budgets or approvals. The starting default is $300 when no profile is configured. The allowance is per workspace, not a bank balance or an account-wide spending limit.
 
@@ -74,11 +80,11 @@ The latest [configured hosted record](evidence/configured-live-qa-2026-11-08.md)
 | Business increment | Business profiles, immutable workspace context, owned history/selection and CSV report implemented; **199/199 local tests**, types, full lint, both builds and full audit with zero findings. | Hosted sign-in, saved profile and purchasing passed. Browser CSV bytes, complete history/user-access checks and customer validation remain open. |
 | Earlier native baseline | The recorded release passed **178/178 local tests**, types, lint, native/visual builds, six real PostgreSQL checks and CI. | This evidence predates the business increment and does not prove its hosted behavior. |
 | Dependencies | [Final full audit](evidence/dependency-remediation-2026-11-08-summary.json): **0 known findings**, including development dependencies; parser checks 2/2. | This is a dated lockfile result, not a security certificate. |
-| Verified owner Vercel / Neon release | [Production deployment](https://proofpay-purchase-desk.vercel.app) READY at public source `d17ec6c9`, runtime unchanged; **8/8 real PostgreSQL checks** and migrations passed in production and preview builds. Owner/PayPal configuration is saved and owner sign-in passed. | Independent access and broader authenticated/session QA remain separate checks. Earlier CI/source results retain their own scope. |
+| Verified private owner release | [Private owner workspace — not judge access](https://proofpay-purchase-desk.vercel.app) READY at public source `d17ec6c9`, runtime unchanged; **8/8 real PostgreSQL checks** and migrations passed in production and preview builds. Owner/PayPal configuration is saved and owner sign-in passed. | This protected URL is for the owner. Judges use the public evaluation-lab URL above. Earlier CI/source results retain their own scope. |
 | PayPal | [Current combined run](evidence/configured-live-qa-2026-11-08.md): model proposal, owner/native buyer approvals, USD180 sandbox capture, response-loss hold through reload and original-order confirmation. Repeated lookup retained the same capture/totals. | Virtual funds only; no production settlement or general exactly-once guarantee. External request counts were not independently measured. |
 | Runtime AI | Vercel Gateway recorded HTTP200 for `openai/gpt-4.1-mini` through OpenAI: 242 input / 48 output tokens, USD0.0002 displayed cost. Its proposal continued into the verified sandbox purchase. | The one-attempt reviewed grant is consumed. Do not reset or retry it to stage another demonstration; no personal OpenAI credits were used. |
 | Public judge access | [Canonical public demo](https://proofpay-evaluation-lab.vercel.app) READY; 21 independent HTTPS outcomes passed, including guest isolation. Browser workflow showed 6/6 lab observations; nine responsive layouts passed. | Usage limits apply. No live inference or PayPal call is available in this demo. Browser export/download remains a separate check. |
-| Presentation / access | Source, instructions, review materials and [Postman collection](postman/README.md) prepared. Nithya’s Devpost team acceptance was confirmed on 8 November 2026. | The 163.521-second video passed full decoding and has no audio clipping, but no public YouTube URL exists. Final review remains open. Devpost membership does not create a ProofPay user role. **Final Devpost Submit is held.** |
+| Presentation / access | Source, instructions, review materials and [Postman collection](postman/README.md) prepared. Nithya’s Devpost team acceptance was confirmed on 8 November 2026. | The previous video was rejected for voice/presentation and must not be published. A free Kokoro-voice replacement is in progress; review and a public YouTube URL remain pending. Devpost membership does not create a ProofPay user role. **Final Devpost Submit is held.** |
 
 The current combined run kept USD180 reserved after response loss and reload. Original-order lookup confirmed payment, leaving USD120 available, USD0 reserved and USD180 paid; repeat lookup preserved the same capture. The [configured QA record](evidence/configured-live-qa-2026-11-08.md) contains model/order/capture identifiers and receipt limits. The [older no-AI diagnostic](evidence/diagnostic-release-review.json) remains a separate historical run.
 
@@ -86,15 +92,16 @@ Historical interface evidence includes the [readability review and screenshot](e
 
 ## Demonstration video
 
-The [reproducible video sources](tools/demo-video/README.md) use an original vector presenter, Flite phoneme timing and FFmpeg. The free local render is **163.521 seconds** (about 2:43), passed full-file decoding and has no audio clipping. It combines the dated owner sandbox evidence with clearly labelled public rehearsal. No HeyGen render or paid credit was used.
+The previous 163.521-second Flite/vector-presenter render was **rejected for voice and presentation and will not be published**. Its mechanical checks did not establish acceptable narration or viewing quality.
 
-The file is rendered, not published: YouTube upload is awaiting browser file-access permission, and there is no verified public YouTube link yet. Do not treat a local render or the source pipeline as satisfying the public-video submission requirement.
+A free local **Kokoro neural-voice replacement is in progress**. It is not yet approved or published; voice, pacing, screenshots, captions, duration and complete playback still need review. The [existing video sources](tools/demo-video/README.md) document the earlier pipeline, not an approved final submission. No new live model or PayPal purchase is needed to make the replacement.
 
-## Three explicit paths
+## Runtime paths
 
 | Path | Selection and provider | Required configuration |
 |---|---|---|
-| Rehearsal | Deterministic sample proposals and a durable simulated provider. | Owner session and remote database; no PayPal/model credentials. |
+| Public judge rehearsal | Deterministic sample proposals and a durable simulated provider. | Temporary guest session created in the app; no account, owner key or provider credentials. |
+| Private owner rehearsal | The same simulated purchase controls in the owner desk. | Owner session and remote database; no PayPal/model credentials. |
 | Standard AI + PayPal sandbox | One validated model proposal, separate owner and native buyer approval, checked provider outcome. | Owner/database, PayPal sandbox and the reviewed Vercel free-credit policy. |
 | Manual PayPal diagnostic | One fixed, unapproved $180 workflow review; no model call. | Owner/database and PayPal sandbox. Starting it does not dispatch a payment. |
 
@@ -117,7 +124,7 @@ node tests/responsive/build.mjs
 
 These local checks do not make a model or PayPal call. The separate live PostgreSQL gate requires an explicitly configured test connection. The [development guide](docs/DEVELOPMENT.md) explains its isolated schema, migrations, owner-key setup, HTTPS development and Vercel release checks.
 
-Interactive use needs server configuration. There is no simulated sign-in or local-ledger fallback. With a dedicated database and owner variables in an uncommitted `.env.local`, apply the PostgreSQL migrations and use HTTPS:
+Developers running a private owner instance need server configuration; judges can use the public workspace above without this setup. There is no simulated owner sign-in or local-ledger fallback. With a dedicated database and owner variables in an uncommitted `.env.local`, apply the PostgreSQL migrations and use HTTPS:
 
 ```sh
 node --env-file=.env.local scripts/migrate-postgres.mjs
