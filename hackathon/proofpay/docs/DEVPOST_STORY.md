@@ -1,6 +1,6 @@
 # ProofPay Devpost draft
 
-Prepared 8 November 2026 with 72 passing local tests and locally validated approval renewal. This file prepares text only. The existing Devpost entry remains the entry to use. **Do not click final Submit.** The user's instruction to hold final submission remains in force even after every technical task is complete.
+Prepared 8 November 2026 with 92 passing local tests and locally validated approval renewal. This file prepares text only. The existing Devpost entry remains the entry to use. **Do not click final Submit.** The user's instruction to hold final submission remains in force even after every technical task is complete.
 
 The copy below is accurate at this checkpoint. Refresh its verification paragraph after the production build and genuine model and sandbox capture tests. Attach the final source version and evidence hashes. Do not convert planned outcomes into accomplishments or remove the limitations simply to shorten the story.
 
@@ -48,11 +48,13 @@ We tested the service code used by the application, including two OS processes c
 
 ### What we have verified
 
-The combined local suite passed 72 of 72 tests. It uses SQLite with a D1-contract adapter, synthetic provider/model records and mocked HTTP. It covers process race/restart cases, approval and owner checks, provider mismatches, receipt privacy and atomic confirmation, including 17 renewal tests and two AI-provenance tests. The provenance checks validate retained provider/model identifiers and exclude unrelated response data; they do not establish an actual model invocation. TypeScript, full ESLint and a clean dependency install also passed. The updated Worker production build passed and the private deployment succeeded.
+The combined local suite passed 92 of 92 tests. It uses SQLite with a D1-contract adapter, synthetic provider/model records and mocked HTTP. It covers process race/restart cases, approval and owner checks, provider mismatches, receipt privacy and atomic confirmation, including 17 renewal tests, 20 pre-dispatch cancellation tests and two AI-provenance tests. The provenance checks validate retained provider/model identifiers and exclude unrelated response data; they do not establish an actual model invocation. TypeScript, full ESLint and a clean dependency install also passed. The updated Worker production build passed and the private deployment succeeded.
 
 The private hosted application separately completed a labelled rehearsal: it reserved $180, blocked $160, retained the reservation after a simulated capture response was dropped, and reconciled to $180 paid with $120 available. Repeated reconciliation left one simulated capture and one confirmation. A later $90 rehearsal purchase completed normally. Browser reload was observed in the hosted run; backend process restart was tested locally.
 
 We also verified genuine PayPal sandbox OAuth and create/GET calls through the actual provider adapter. The order remained awaiting buyer action. That separate probe used a synthetic proposal and did not capture payment or write a hosted purchase receipt. A secure, encrypted API-key provisioning attempt failed before returning a usable key; no genuine model call resulted. Genuine model execution and the complete PayPal buyer-approval/capture path remain unfinished at this checkpoint.
+
+The owner interface has six focused views: Overview, Purchases, Approvals, Evidence, Controls and Connections. The hosted desktop rehearsal verified searching and filtering requests, inspecting a completed record, and cancelling an approved $90 request before dispatch. Cancellation released its reservation while retaining the record and event history after reload. This was a simulated-provider check.
 
 ### What we learned
 
@@ -66,7 +68,7 @@ Complete and record the genuine model-to-PayPal sandbox flow, including a normal
 
 The commercial hypothesis is that small engineering teams embedding PayPal purchasing would pay to reduce their own approval, recovery and investigation work. We plan to test that with a scoped paid pilot; there are no customers, revenue or savings claims yet.
 
-The current scope is one merchant, USD and a per-workspace allowance. There is no production-payment mode, webhook receiver, refund execution, fulfillment or approval-revocation/release API. Approval renewal does not release the reservation, extend PayPal's order validity or recover an upstream-expired order. Unknown create results without a saved order ID need manual investigation. Receipts are not externally signed, and the project makes no general exactly-once or production-safety guarantee.
+The current scope is one merchant, USD and a per-workspace allowance. There is no production-payment mode, webhook receiver, refund execution, fulfillment or cancellation after provider dispatch. Pre-dispatch cancellation can withdraw a proposed, blocked or approved request and release an unused approved reservation once; this does not cancel a provider order or refund a payment. Approval renewal does not release the reservation, extend PayPal's order validity or recover an upstream-expired order. Unknown create results without a saved order ID need manual investigation. Receipts are not externally signed, and the project makes no general exactly-once or production-safety guarantee.
 
 ## Technology and project links
 
@@ -92,7 +94,7 @@ The application source was added during the hackathon within the existing AI Eva
 | Normal sandbox capture | Record native buyer approval, the order/capture references, matched provider fields and the hosted receipt. The existing create/GET probe is not this evidence. |
 | Lost-response sandbox case | Record the injected response drop, held allowance, original-order lookup, final checked outcome and repeated reconciliation. Keep simulated evidence separate. |
 | Restart claim | Identify whether the result is local process restart, browser reload or hosted backend restart. Claim only the one actually performed. |
-| Tests and source | The combined local result is 72/72. Record the final source version, evidence hashes and passing production-build outcome; rerun relevant checks if code changes. |
+| Tests and source | The combined local result is 92/92. Record the final source version, evidence hashes and passing production-build outcome; rerun relevant checks if code changes. |
 | Judge access | Supply a tested hosted route or a fresh, complete setup path. The private owner deployment alone is insufficient. |
 | Video | Add the actual public YouTube URL after recording; keep it under three minutes and align its claims with the same source version. |
 | Team | Invite Prof. Nithya Ravi Kumar through the existing draft once a verified delivery address/channel is available. Check acceptance separately; do not attribute work in advance. |

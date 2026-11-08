@@ -1,6 +1,6 @@
 # ProofPay commercial plan
 
-Decision draft · 8 November 2026 · current local verification: 72/72 tests passed
+Decision draft · 8 November 2026 · current local verification: 92/92 tests passed
 
 Build a paid, narrow integration business first: help a software team connect its purchase approvals and shared allowance to a recoverable PayPal operation. The larger opportunity is a reusable service for controlling financial actions across agent applications. Customer demand, willingness to pay, repeatability and that expansion path are hypotheses. No customer, revenue, partnership, market share or valuation is established by this prototype.
 
@@ -40,7 +40,7 @@ Public documentation cannot prove that a competitor lacks a particular edge case
 
 ## What could become defensible
 
-The present contribution is a coherent implementation joining owner approval, an atomic shared reservation, durable dispatch identity and checked provider evidence. The combined local suite passed 72 of 72 tests, including 17 approval-renewal tests and two AI-provenance tests. TypeScript, full ESLint and a clean dependency install also passed; the updated Worker production build passed. Hosted rehearsal has exercised budget refusal and response-loss reconciliation. Genuine PayPal OAuth and provider-adapter create/GET checks passed separately; actual buyer approval/capture and external-model execution remain unfinished. Encrypted API-key provisioning failed without returning a usable key, so it did not enable a model call. These establish bounded engineering progress, not a commercial advantage.
+The present contribution is a coherent implementation joining owner approval, an atomic shared reservation, durable dispatch identity and checked provider evidence. The combined local suite passed 92 of 92 tests, including 17 approval-renewal tests, 20 pre-dispatch cancellation tests and two AI-provenance tests. TypeScript, full ESLint and a clean dependency install also passed; the updated Worker production build passed. Hosted rehearsal has exercised budget refusal and response-loss reconciliation. Genuine PayPal OAuth and provider-adapter create/GET checks passed separately; actual buyer approval/capture and external-model execution remain unfinished. Encrypted API-key provisioning failed without returning a usable key, so it did not enable a model call. These establish bounded engineering progress, not a commercial advantage.
 
 Approval renewal is implemented in the backend and owner interface, with its service behavior validated locally. It permits explicit owner reapproval only for an expired `APPROVED` or `ORDER_READY` operation. It retains the purchase details, order and request IDs, and existing reservation while updating the approval version, digest and expiry. Conditional state/version checks protect dispatch from stale approval. Renewal is unavailable for uncertain, capture-dispatched, confirmed or verification-failed operations. It neither releases funds nor extends an expired PayPal order's validity. A separate hosted rehearsal observed expiry, disabled capture, renewal with the same order and reservation, and response-loss recovery after browser reload. This is simulated-provider UI evidence, not a real-provider renewal outcome.
 
@@ -88,7 +88,7 @@ Measure investigation time with the same documented task and reviewer profile be
 
 Stop or narrow the product if ten qualified conversations produce fewer than three concrete problems, or if no team will pay after three scoped proposals. Rework the business model if a pilot routinely exceeds 20 delivery hours or customers only value a one-time code handoff. Stop expansion if the buyer's existing PayPal, Stripe, Ramp or orchestration setup already solves the agreed problem adequately. If demand exists only for integration services, run a services business rather than report unearned software recurring revenue.
 
-Before any production proposal, resolve actual gaps for that customer's workflow. Current examples include approval revocation, authorized release of unused reservations, unknown-create investigation, stronger hosted access verification and operating procedures. Verify renewal in the deployed workflow; local renewal tests do not establish reservation release or recovery of an upstream-expired PayPal order. Add authenticated webhooks, refunds or account-wide budgets only when required by the chosen workflow. Current application receipts are not externally signed. There is no production-readiness claim.
+Before any production proposal, resolve actual gaps for that customer's workflow. Current examples include post-dispatch cancellation needs, unknown-create investigation, stronger hosted access verification and operating procedures. Hosted rehearsal has verified approval renewal; it does not establish recovery of an upstream-expired PayPal order. Pre-dispatch cancellation has separate local race and accounting tests. Add authenticated webhooks, refunds or account-wide budgets only when required by the chosen workflow. Current application receipts are not externally signed. There is no production-readiness claim.
 
 ## Expansion and scale assumptions
 

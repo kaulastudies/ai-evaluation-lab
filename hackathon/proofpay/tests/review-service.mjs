@@ -344,3 +344,148 @@ test('review: a dispatch claim winning after renewal pre-read prevents renewal a
     assert.equal((await renewalCount(f)).n,0);assert.deepEqual(f.calls,callsBefore);assert.equal((await f.service.state(owner)).workspace.reservedCents,18000);
   }finally{release?.();f.db.batch=batch;f.db.close();}
 });
+
+const cancellationCount=f=>f.db.prepare("SELECT COUNT(*) n FROM proofpay_events WHERE operation_id=? AND type='REQUEST_CANCELLED'").bind(f.op.id).first();
+function pauseNextBatch(f) {
+  const original=f.db.batch.bind(f.db);let arrive,release;
+  const arrived=new Promise(resolve=>{arrive=resolve}),gate=new Promise(resolve=>{release=resolve});
+  f.db.batch=async statements=>{f.db.batch=original;arrive();await gate;return original(statements)};
+  return {arrived,release,restore:()=>{f.db.batch=original}};
+}
+function pauseNextClaim(f,sqlPart) {
+  const original=f.db.prepare.bind(f.db);let arrive,release;
+  const arrived=new Promise(resolve=>{arrive=resolve}),gate=new Promise(resolve=>{release=resolve});
+  f.db.prepare=sql=>{
+    const statement=original(sql);
+    if(sql.includes(sqlPart)) {
+      f.db.prepare=original;const bind=statement.bind.bind(statement);
+      statement.bind=(...args)=>{const bound=bind(...args),first=bound.first.bind(bound);bound.first=async(...params)=>{arrive();await gate;return first(...params)};return bound};
+    }
+    return statement;
+  };
+  return {arrived,release,restore:()=>{f.db.prepare=original}};
+}
+for(const status of ['PROPOSED','BUDGET_BLOCKED','APPROVED'])test(`review: ${status} cancellation preserves purchase identity and releases only an existing reservation once`,async()=>{
+  const f=await fixture('sandbox');try {
+    if(status==='APPROVED') {await f.service.approve(owner,f.op.id,1);f.advance(16*60*1000);}
+    if(status==='BUDGET_BLOCKED')await f.db.prepare("UPDATE proofpay_operations SET status='BUDGET_BLOCKED' WHERE id=?").bind(f.op.id).run();
+    const before=await row(f),beforeBudget=(await f.service.state(owner)).workspace;
+    await f.service.cancelBeforeDispatch(owner,f.op.id,1);
+    await f.service.cancelBeforeDispatch(owner,f.op.id,1);
+    const cancelled=await row(f),budget=(await f.service.state(owner)).workspace;
+    assert.equal(cancelled.status,'CANCELLED');unchangedPurchase(before,{...cancelled,status:before.status});
+    assert.equal(cancelled.approval_version,before.approval_version);assert.equal(cancelled.approval_digest,before.approval_digest);
+    assert.equal(cancelled.approval_expires_at,before.approval_expires_at);
+    assert.equal(budget.reservedCents,0);assert.equal(budget.availableCents,30000);assert.equal(budget.committedCents,0);
+    assert.equal(beforeBudget.reservedCents,status==='APPROVED'?18000:0);
+    assert.deepEqual(f.calls,{create:0,capture:0,get:0});assert.equal((await cancellationCount(f)).n,1);
+    await assert.rejects(f.service.approve(owner,f.op.id,1),e=>e.code==='APPROVAL_STATE');
+    await assert.rejects(f.service.createOrder(owner,f.op.id,1,'https://proofpay.example'),e=>e.code==='ORDER_STATE');
+    await assert.rejects(f.service.renewApproval(owner,f.op.id,1),e=>e.code==='RENEWAL_STATE');
+    assert.equal((await row(f)).status,'CANCELLED');assert.deepEqual(f.calls,{create:0,capture:0,get:0});
+  }finally{f.db.close();}
+});
+test('review: cancellation rejects foreign owner and stale version without releasing approval',async()=>{
+  const f=await fixture('sandbox');try {
+    await f.service.approve(owner,f.op.id,1);const before=await row(f);
+    await assert.rejects(f.service.cancelBeforeDispatch('foreign-owner',f.op.id,1),e=>e.code==='NOT_FOUND');
+    await assert.rejects(f.service.cancelBeforeDispatch(owner,f.op.id,999),e=>e.code==='APPROVAL_VERSION');
+    assert.deepEqual(await row(f),before);assert.equal((await f.service.state(owner)).workspace.reservedCents,18000);
+    assert.equal((await cancellationCount(f)).n,0);assert.deepEqual(f.calls,{create:0,capture:0,get:0});
+  }finally{f.db.close();}
+});
+test('review: cancellation cannot alter an operation in an inactive workspace',async()=>{
+  const f=await fixture();try {
+    await f.service.approve(owner,f.op.id,1);const before=await row(f);
+    await f.service.start(owner,'rehearsal',true);
+    await assert.rejects(f.service.cancelBeforeDispatch(owner,f.op.id,1),e=>e.code==='WORKSPACE_CHANGED');
+    assert.deepEqual(await row(f),before);assert.equal((await cancellationCount(f)).n,0);assert.deepEqual(f.calls,{create:0,capture:0,get:0});
+  }finally{f.db.close();}
+});
+for(const status of ['CREATE_DISPATCHED','CREATE_UNKNOWN','ORDER_READY','CAPTURE_DISPATCHED','UNKNOWN','REVIEW','CONFIRMED'])test(`review: cancellation rejects ${status} and preserves its financial state`,async()=>{
+  const f=await fixture('sandbox');try {
+    await ready(f);await f.db.prepare('UPDATE proofpay_operations SET status=? WHERE id=?').bind(status,f.op.id).run();
+    const before=await row(f),budget=(await f.service.state(owner)).workspace,calls={...f.calls};
+    await assert.rejects(f.service.cancelBeforeDispatch(owner,f.op.id,1),e=>e.code==='CANCEL_STATE');
+    assert.deepEqual(await row(f),before);assert.deepEqual((await f.service.state(owner)).workspace,budget);
+    assert.deepEqual(f.calls,calls);assert.equal((await cancellationCount(f)).n,0);
+  }finally{f.db.close();}
+});
+test('review: cancellation rejects an approved record with altered approval fields',async()=>{
+  const f=await fixture('sandbox');try {
+    await f.service.approve(owner,f.op.id,1);
+    await f.db.prepare('UPDATE proofpay_operations SET amount_cents=1 WHERE id=?').bind(f.op.id).run();
+    const before=await row(f);
+    await assert.rejects(f.service.cancelBeforeDispatch(owner,f.op.id,1),e=>e.code==='APPROVAL_MISMATCH');
+    assert.deepEqual(await row(f),before);assert.equal((await cancellationCount(f)).n,0);assert.deepEqual(f.calls,{create:0,capture:0,get:0});
+  }finally{f.db.close();}
+});
+test('review: cancellation refuses any provider identity even if status incorrectly says approved',async()=>{
+  const f=await fixture('sandbox');try {
+    await f.service.approve(owner,f.op.id,1);
+    for(const field of ['order_id','capture_id']) {
+      await f.db.prepare(`UPDATE proofpay_operations SET ${field}=? WHERE id=?`).bind('unexpected-provider-identity',f.op.id).run();
+      await assert.rejects(f.service.cancelBeforeDispatch(owner,f.op.id,1),e=>e.code==='CANCEL_STATE');
+      await f.db.prepare(`UPDATE proofpay_operations SET ${field}=NULL WHERE id=?`).bind(f.op.id).run();
+    }
+    assert.equal((await row(f)).status,'APPROVED');assert.equal((await f.service.state(owner)).workspace.reservedCents,18000);
+    assert.equal((await cancellationCount(f)).n,0);assert.deepEqual(f.calls,{create:0,capture:0,get:0});
+  }finally{f.db.close();}
+});
+test('review: cancellation winning the create race makes stale dispatch a no-op',{timeout:5000},async()=>{
+  const f=await fixture('sandbox');let pause;try {
+    await f.service.approve(owner,f.op.id,1);pause=pauseNextClaim(f,"SET status = 'CREATE_DISPATCHED'");
+    const outcome=Promise.allSettled([f.service.createOrder(owner,f.op.id,1,'https://proofpay.example')]);
+    await pause.arrived;await f.service.cancelBeforeDispatch(owner,f.op.id,1);pause.release();await outcome;
+    assert.equal((await row(f)).status,'CANCELLED');assert.equal(f.calls.create,0);
+    assert.equal((await cancellationCount(f)).n,1);assert.equal((await f.service.state(owner)).workspace.reservedCents,0);
+  }finally{pause?.release();pause?.restore();f.db.close();}
+});
+test('review: create winning the cancellation race retains the created order and reservation',{timeout:5000},async()=>{
+  const f=await fixture('sandbox');let pause;try {
+    await f.service.approve(owner,f.op.id,1);pause=pauseNextBatch(f);
+    const outcome=Promise.allSettled([f.service.cancelBeforeDispatch(owner,f.op.id,1)]);
+    await pause.arrived;await f.service.createOrder(owner,f.op.id,1,'https://proofpay.example');pause.release();const [result]=await outcome;
+    assert.equal(result.status,'rejected');assert.equal(result.reason.code,'CANCEL_CHANGED');
+    assert.equal((await row(f)).status,'ORDER_READY');assert.ok((await row(f)).order_id);assert.equal(f.calls.create,1);
+    assert.equal((await cancellationCount(f)).n,0);assert.equal((await f.service.state(owner)).workspace.reservedCents,18000);
+  }finally{pause?.release();pause?.restore();f.db.close();}
+});
+test('review: stale proposal cancellation cannot erase an approval that won the race',{timeout:5000},async()=>{
+  const f=await fixture('sandbox');let pause;try {
+    pause=pauseNextBatch(f);const outcome=Promise.allSettled([f.service.cancelBeforeDispatch(owner,f.op.id,1)]);
+    await pause.arrived;await f.service.approve(owner,f.op.id,1);pause.release();const [result]=await outcome;
+    assert.equal(result.status,'rejected');assert.equal(result.reason.code,'CANCEL_CHANGED');
+    assert.equal((await row(f)).status,'APPROVED');assert.ok((await row(f)).approval_digest);
+    assert.equal((await f.service.state(owner)).workspace.reservedCents,18000);assert.equal((await cancellationCount(f)).n,0);
+    assert.deepEqual(f.calls,{create:0,capture:0,get:0});
+  }finally{pause?.release();pause?.restore();f.db.close();}
+});
+test('review: approval cannot resurrect a proposal cancelled before its reservation claim',{timeout:5000},async()=>{
+  const f=await fixture('sandbox');let pause;try {
+    pause=pauseNextClaim(f,"SET status = 'APPROVED'");const outcome=Promise.allSettled([f.service.approve(owner,f.op.id,1)]);
+    await pause.arrived;await f.service.cancelBeforeDispatch(owner,f.op.id,1);pause.release();await outcome;
+    assert.equal((await row(f)).status,'CANCELLED');assert.equal((await f.service.state(owner)).workspace.reservedCents,0);
+    assert.equal((await cancellationCount(f)).n,1);assert.deepEqual(f.calls,{create:0,capture:0,get:0});
+  }finally{pause?.release();pause?.restore();f.db.close();}
+});
+test('review: stale cancellation cannot erase renewed owner authority',{timeout:5000},async()=>{
+  const f=await fixture('sandbox');let pause;try {
+    await f.service.approve(owner,f.op.id,1);f.advance(16*60*1000);pause=pauseNextBatch(f);
+    const outcome=Promise.allSettled([f.service.cancelBeforeDispatch(owner,f.op.id,1)]);
+    await pause.arrived;await f.service.renewApproval(owner,f.op.id,1);pause.release();const [result]=await outcome;
+    assert.equal(result.status,'rejected');assert.equal(result.reason.code,'CANCEL_CHANGED');
+    assert.equal((await row(f)).status,'APPROVED');assert.equal((await row(f)).approval_version,2);
+    assert.equal((await f.service.state(owner)).workspace.reservedCents,18000);
+    assert.equal((await cancellationCount(f)).n,0);assert.equal((await renewalCount(f)).n,1);assert.deepEqual(f.calls,{create:0,capture:0,get:0});
+  }finally{pause?.release();pause?.restore();f.db.close();}
+});
+test('review: failed cancellation state write rolls back its audit event and reservation release',async()=>{
+  const f=await fixture('sandbox');try {
+    await f.service.approve(owner,f.op.id,1);const before=await row(f),budget=(await f.service.state(owner)).workspace;
+    await f.db.exec("CREATE TEMP TRIGGER review_block_cancel BEFORE UPDATE ON proofpay_operations WHEN NEW.status='CANCELLED' BEGIN SELECT RAISE(ABORT, 'review injected cancellation failure'); END;");
+    await assert.rejects(f.service.cancelBeforeDispatch(owner,f.op.id,1));
+    assert.deepEqual(await row(f),before);assert.deepEqual((await f.service.state(owner)).workspace,budget);
+    assert.equal((await cancellationCount(f)).n,0);assert.deepEqual(f.calls,{create:0,capture:0,get:0});
+  }finally{f.db.close();}
+});

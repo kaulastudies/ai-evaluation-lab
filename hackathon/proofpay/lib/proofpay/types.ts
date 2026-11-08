@@ -1,5 +1,5 @@
 export type Mode = "rehearsal" | "sandbox";
-export type Status = "PROPOSED" | "BUDGET_BLOCKED" | "APPROVED" | "CREATE_DISPATCHED" | "CREATE_UNKNOWN" | "ORDER_READY" | "CAPTURE_DISPATCHED" | "UNKNOWN" | "REVIEW" | "CONFIRMED";
+export type Status = "PROPOSED" | "BUDGET_BLOCKED" | "APPROVED" | "CANCELLED" | "CREATE_DISPATCHED" | "CREATE_UNKNOWN" | "ORDER_READY" | "CAPTURE_DISPATCHED" | "UNKNOWN" | "REVIEW" | "CONFIRMED";
 export const RESERVED_STATUSES = ["APPROVED", "CREATE_DISPATCHED", "CREATE_UNKNOWN", "ORDER_READY", "CAPTURE_DISPATCHED", "UNKNOWN", "REVIEW"] as const;
 export const HELD_SQL = "'APPROVED','CREATE_DISPATCHED','CREATE_UNKNOWN','ORDER_READY','CAPTURE_DISPATCHED','UNKNOWN','REVIEW','CONFIRMED'";
 export type SqlResult<T = Record<string, unknown>> = { results?: T[]; meta?: { changes?: number }; success?: boolean };

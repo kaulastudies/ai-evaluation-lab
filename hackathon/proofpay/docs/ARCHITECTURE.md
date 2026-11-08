@@ -19,6 +19,9 @@ ProofPay stores business intent and financial state in D1. The browser displays 
 stateDiagram-v2
     [*] --> PROPOSED
     PROPOSED --> BUDGET_BLOCKED: allowance unavailable
+    PROPOSED --> CANCELLED: owner withdraws
+    BUDGET_BLOCKED --> CANCELLED: owner withdraws
+    APPROVED --> CANCELLED: no provider dispatch
     PROPOSED --> APPROVED: owner approves and reserves
     APPROVED --> CREATE_DISPATCHED: persist dispatch claim
     CREATE_DISPATCHED --> ORDER_READY: checked order response
@@ -31,7 +34,7 @@ stateDiagram-v2
     REVIEW --> CONFIRMED: matching lookup
 ```
 
-The diagram omits repeated reads and errors that leave state unchanged. All approved, dispatched, unknown and review states retain a reservation. A confirmed operation contributes to committed spend instead. A blocked proposal contributes to neither.
+The diagram omits repeated reads and errors that leave state unchanged. All approved, dispatched, unknown and review states retain a reservation. A confirmed operation contributes to committed spend instead. A blocked or cancelled proposal contributes to neither.
 
 ## Concurrency and recovery
 
@@ -47,13 +50,15 @@ Confirmation requires the expected order ID, operation references, merchant, amo
 
 Owner approval binds operation, workspace, item, price, currency, merchant, mode, version and expiry in a SHA-256 digest. It expires after 15 minutes. Expiry prevents a new dispatch; it does not release funds whose outcome may already exist. Native PayPal buyer approval is a separate step. Explicit renewal is allowed only for an expired `APPROVED` or `ORDER_READY` operation in the active workspace. It preserves purchase, reservation and provider IDs; version, digest, expiry and the consent event change atomically. Dispatch compares the version/digest/expiry it actually checked, preventing an old request from using renewed authority. Renewal neither extends PayPal order lifetime nor releases reserved funds.
 
+Cancellation accepts the owner, active workspace, exact approval version and an untouched `PROPOSED`, `BUDGET_BLOCKED` or `APPROVED` state with no provider order/capture. For an approved request the stored digest must still match, even if its authority has expired. The event and conditional transition to `CANCELLED` share a transaction. Their predicate includes the observed status, version, digest and expiry: concurrent approval, renewal or dispatch cannot silently release funds. An identical cancellation is idempotent. Request and purchase identities stay intact. No provider call is made.
+
 Hosted identity relies on the Sites ingress setting `oai-authenticated-user-id`. Do not expose the Worker behind an ingress that trusts arbitrary client-supplied identity headers. Local development uses the starter's loopback-only simulated sign-in; that is not production authentication.
 
 ## Deliberate limits
 
 - Real model calls and actual PayPal sandbox runs must be verified separately from local tests and rehearsal.
 - A lost create response without a saved provider order ID requires manual review. There is no blind create retry or request-ID search endpoint in this prototype.
-- No approval revocation or reservation release, automatic reservation expiry, webhook receiver, refunds, fulfillment, subscriptions or production payments.
+- No cancellation after provider dispatch, automatic reservation expiry, webhook receiver, refunds, fulfillment, subscriptions or production payments.
 - Starting a new rehearsal creates a separate demonstration allowance. An active sandbox workspace with held operations cannot be hidden by switching workspaces.
 - The event log aids inspection; it is not a signed, externally anchored or tamper-proof audit system. Database compromise is outside the tested protection boundary.
 - No general exactly-once, fraud prevention, regulatory compliance or production-readiness claim follows from the tested cases.

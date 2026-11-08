@@ -117,6 +117,39 @@ export class ProofPayService {
     await this.event(op.workspace_id, id, "APPROVED", "Owner approved the exact catalogue item, merchant, amount and currency. Funds are reserved for 15-minute execution authority; ambiguity never releases them automatically.");
     return this.state(owner);
   }
+  async cancelBeforeDispatch(owner: string, id: string, version: number) {
+    const op = await this.operation(owner, id);
+    if (version !== op.approval_version) throw new ProofPayError("APPROVAL_VERSION", "Refresh this request before cancelling it.", 409);
+    if ((await this.workspace(owner))?.id !== op.workspace_id) throw new ProofPayError("WORKSPACE_CHANGED", "Cancel requests from the active purchase desk.", 409);
+    if (op.order_id !== null || op.capture_id !== null) throw new ProofPayError("CANCEL_STATE", "This operation already has a provider order or capture. Cancellation before dispatch is no longer available.", 409);
+    if (op.status === "CANCELLED") return this.state(owner);
+    if (!["PROPOSED", "BUDGET_BLOCKED", "APPROVED"].includes(op.status)) throw new ProofPayError("CANCEL_STATE", "Cancellation is only available before any provider dispatch. Uncertain or completed payments must retain their existing accounting.", 409);
+    // Expiry blocks new execution, not withdrawal of unused local authority.
+    // Check the stored approval itself without requiring unexpired authority or
+    // consulting a provider; nothing has been dispatched in an eligible state.
+    if (op.status === "APPROVED" && (!op.approval_digest || !op.approval_expires_at || await digest(op) !== op.approval_digest)) throw new ProofPayError("APPROVAL_MISMATCH", "The request no longer matches its stored approval. No reservation was released.", 409);
+    const cancelledAt = this.now();
+    const eligible = "id = ? AND status = ? AND approval_version = ? AND approval_digest IS ? AND approval_expires_at IS ? AND order_id IS NULL AND capture_id IS NULL AND workspace_id = (SELECT workspace_id FROM proofpay_sessions WHERE owner_id = ?)";
+    const bindings = [id, op.status, op.approval_version, op.approval_digest, op.approval_expires_at, owner];
+    const detail = op.status === "APPROVED"
+      ? "Owner cancelled this request before provider dispatch. Its local allowance reservation was released once. Purchase details and request IDs are retained. No provider cancellation or refund was requested."
+      : "Owner cancelled this request before approval or provider dispatch. No funds were reserved or released. Purchase details and request IDs are retained. No provider cancellation or refund was requested.";
+    // The audit event and status transition share one transaction and the exact
+    // observed row predicate. If approval, renewal or dispatch wins first, both
+    // statements become no-ops, so cancellation cannot release dispatched funds.
+    const results = await this.db.batch([
+      this.db.prepare(`INSERT INTO proofpay_events (id,workspace_id,operation_id,type,detail,created_at) SELECT ?,?,?,'REQUEST_CANCELLED',?,? WHERE EXISTS (SELECT 1 FROM proofpay_operations WHERE ${eligible})`).bind(crypto.randomUUID(), op.workspace_id, id, detail, cancelledAt, ...bindings),
+      this.db.prepare(`UPDATE proofpay_operations SET status = 'CANCELLED', updated_at = ? WHERE ${eligible}`).bind(cancelledAt, ...bindings),
+    ]);
+    if (results[1].meta?.changes !== 1) {
+      // A concurrent identical cancellation is an idempotent retry. Every other
+      // state/version change needs a fresh owner decision against current state.
+      const current = await this.operation(owner, id);
+      if (current.status === "CANCELLED" && current.approval_version === version && current.order_id === null && current.capture_id === null && (await this.workspace(owner))?.id === current.workspace_id) return this.state(owner);
+      throw new ProofPayError("CANCEL_CHANGED", "The request changed while cancellation was being applied. Refresh before taking another action; no reservation was released by this request.", 409);
+    }
+    return this.state(owner);
+  }
   async renewApproval(owner: string, id: string, version: number) {
     const op = await this.operation(owner, id);
     if (version !== op.approval_version) throw new ProofPayError("APPROVAL_VERSION", "Refresh this operation before renewing its approval.", 409);

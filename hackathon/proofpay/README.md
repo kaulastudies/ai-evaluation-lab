@@ -22,6 +22,8 @@ Read [the judge guide](docs/JUDGES.md), [architecture and limits](docs/ARCHITECT
 - Owner approval before payment execution.
 - Durable operation records, reservations and outcome evidence.
 - Read-only verification of an uncertain capture against its original provider order.
+- Cancellation before provider dispatch, retaining the request history and releasing an unused reservation.
+- An overview, searchable purchases, approval queue, evidence history, controls and connections.
 
 The model does not receive payment secrets, increase the budget, approve its own purchase or establish payment success. A timeout does not establish that payment failed. Reserved funds remain reserved while the outcome is unknown.
 
@@ -94,6 +96,7 @@ All routes require the trusted owner identity. Mutations also require same-origi
 | `POST /api/workspaces` | Create a workspace in an explicit mode. |
 | `POST /api/proposals` | Validate a model-selected or rehearsal-selected catalogue proposal. |
 | `POST /api/operations/:id/approve` | Bind owner approval and reserve available allowance atomically. |
+| `POST /api/operations/:id/cancel` | Cancel an untouched request and release its approved reservation, with version and state checks. |
 | `POST /api/operations/:id/renew-approval` | Explicitly reapprove an expired pre-capture purchase without adding a reservation or replacing its order. |
 | `POST /api/operations/:id/create-order` | Claim one durable create attempt and store its checked order. |
 | `POST /api/operations/:id/capture` | Claim one capture attempt after buyer approval; supports the labelled response-drop fault. |
@@ -132,9 +135,13 @@ The project uses third-party dependencies listed in `package.json` and the lockf
 
 The $300 limit applies to one isolated demonstration workspace, not a bank account or an account-wide allowance. Starting a new rehearsal preserves prior records but creates a separate allowance. A sandbox workspace with reserved or uncertain operations cannot be hidden by switching workspaces.
 
-Approval expires after 15 minutes and prevents a new dispatch; expiry does not release reserved money. The owner can explicitly renew an expired `APPROVED` or `ORDER_READY` purchase. Renewal preserves the reservation, purchase and provider IDs, increments approval version and rejects stale dispatch authority. It does not extend PayPal order validity. There is no revocation or reservation-release API. Create and capture each have one durable dispatch attempt. After uncertainty, the app checks the original order without automatically retrying payment. If a create response is lost before its order ID is saved, this prototype requires manual investigation and retains the reservation.
+Approval expires after 15 minutes and prevents a new dispatch; expiry does not release reserved money. The owner can explicitly renew an expired `APPROVED` or `ORDER_READY` purchase. Renewal preserves the reservation, purchase and provider IDs, increments approval version and rejects stale dispatch authority. It does not extend PayPal order validity. The owner can cancel a proposed, blocked or approved request before any provider dispatch. Cancellation preserves its record and releases an approved local reservation once. An existing provider order, dispatch, uncertain outcome or confirmed payment cannot be cancelled through this action; it is not a provider cancellation or refund. Create and capture each have one durable dispatch attempt. After uncertainty, the app checks the original order without automatically retrying payment. If a create response is lost before its order ID is saved, this prototype requires manual investigation and retains the reservation.
 
 There is no webhook receiver, refund execution, fulfillment, subscription or production-payment flow. The evidence receipt contains request IDs, approval digest and `verificationRecords` with the provider fields used for confirmation, labelled by source and mode. That snapshot is stored transactionally with confirmation; it is not signed or externally anchored. See [architecture and limits](docs/ARCHITECTURE.md) for the trust boundary and state transitions.
+
+## Commercial direction
+
+The initial customer is an engineering team building approved purchases into a business workflow. ProofPay aims to reduce the work needed to connect approval, reservations and payment recovery. This is a hypothesis for paid pilots; no customer adoption or processor parity is claimed. [Product strategy](docs/PRODUCT_STRATEGY.md) separates the current product from the 90-day validation plan and later provider expansion.
 
 ## Project links
 
