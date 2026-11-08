@@ -10,6 +10,7 @@ export async function handle(request: Request, action: ApiAction, id?: string): 
   const headers = API_SECURITY_HEADERS;
   try {
     const config = getRuntimeConfiguration();
+    if (config.JUDGE_DEMO_ONLY === "true") throw new ProofPayError("NOT_FOUND", "This route is unavailable in the judge rehearsal deployment.", 404);
     owner = await authenticateRequest(request, config);
     const input = await parseApiRequest(request, action, id);
     service = new ProofPayService({db: getDatabase(config), env: await getRequestConfiguration(config)});

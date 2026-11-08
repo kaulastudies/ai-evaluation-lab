@@ -1,54 +1,42 @@
-# ProofPay recording checklist
+# ProofPay recording and publication checklist
 
-Prepared 8 November 2026. Use the [2:50 script](DEMO_SCRIPT.md); finish the entire video below 3:00. This checklist prepares the recording. It does not publish a video or authorize final Devpost Submit.
+Updated 8 November 2026 from [configured hosted QA](../evidence/configured-live-qa-2026-11-08.md). Use the **348-word narration** and separate scene directions in [DEMO_SCRIPT.md](DEMO_SCRIPT.md). Target **2:50 maximum**, including opening and closing frames.
 
-Current business source: **199 local tests, types, full lint, native build and visual build passed**. Production is READY after eight real PostgreSQL checks, migrations and both CI runs passed. Three-width browser checks cover only the setup-pending shell; the authenticated owner/PayPal flow remains pending. See [QA](QA_REPORT.md) for checkpoint scope. The [earlier sandbox capture/recovery](../evidence/diagnostic-release-review.json) is historical no-AI evidence. Verify the new deployment before filming it; model execution, the combined journey, independent access and public video remain unfinished.
+## Preserve the real result
 
-## Choose the truthful track
+- [ ] Open the completed sandbox operation `5a01eccf-b306-4c26-9417-2da6b86a577e` and its saved evidence. Confirm order `9RM583829W779660E`, capture `1PN07056KE8415453` and USD180 paid/USD0 reserved/USD120 available.
+- [ ] Film stored evidence only for the real transaction. Caption **Saved evidence — completed sandbox run**. No continuous original recording exists; do not present current footage as the original buyer approval or capture.
+- [ ] Do not request another model proposal, reset the consumed grant, recapture the confirmed order or stage another PayPal purchase. The one reviewed inference attempt has been used.
+- [ ] Use the sanitized Gateway/run record to support the actual model claim: `openai/gpt-4.1-mini`, HTTP200, 242/48 tokens and the displayed cost. Keep keys and account screens out of the recording.
 
-- [ ] Confirm the current Vercel deployment, schema and owner session first; do not record a missing-configuration screen as a working product.
-- [ ] **Genuine track:** the release owner has supplied actual model inference, normal buyer-approved sandbox capture and response-loss recovery evidence. Record the provider/model, source/deployment, mode and matching operation/order/capture references privately without secrets.
-- [ ] **Otherwise, rehearsal:** use deterministic samples, simulated-provider buttons and persistent rehearsal labelling. State the missing external-integration gates in the closing line. Do not call this a completed PayPal-plus-AI demonstration.
-- [ ] Save a $300 default in **Business settings**, then start a fresh $300 workspace with no earlier unresolved work hidden or discarded. Use one $180 purchase as the main operation. In the genuine track, use one model proposal only. Show the competing $160 request and $90 alternative only in separately labelled rehearsal.
+## Film a separate repeatable rehearsal
 
-## Separate 90-second diagnostic supplement
+- [ ] Transition visibly to **Fresh rehearsal — deterministic proposals, simulated provider**. Retain the existing sandbox history and use a new isolated $300 rehearsal.
+- [ ] Record the complete rehearsal take: approve $180; reject the competing $160; create a simulated order; drop the capture response; observe held funds; reload; check the original simulated outcome; check again.
+- [ ] Keep the mode, amounts and action labels visible. Shorten loading waits only with a caption; do not splice operations or hide a failed action to imply continuity.
+- [ ] Open the rehearsal receipt inspector and show both matching fields and the historical approval-version/catalogue-item limitation. Inspection reads stored evidence and is not a new provider lookup.
+- [ ] The public judge rehearsal URL is **pending**. Before adding it, verify a fresh viewer can start without owner credentials, remains isolated from owner records and other sessions, cannot call AI/PayPal, and can repeat the rehearsal. A canonical app URL or owner session is insufficient.
 
-- [ ] Use [script C](DEMO_SCRIPT.md#c-supplemental-paypal-diagnostic--130) for the verified diagnostic path. The former runtime's execution is evidenced; a current Vercel take requires new verification, and publication remains unfinished. Keep recorded-run identifiers consistent and do not capture the already confirmed order again.
-- [ ] Display **“PayPal sandbox diagnostic — fixed sample, no AI”** throughout. Select **Connections → Test PayPal sandbox** and keep the fixed $180 sample. This profile has no $160 budget-block or cheaper-alternative sequence.
-- [ ] Follow **0:00** diagnostic start, **0:10** owner approval, **0:22** order creation, **0:32** native buyer approval, **0:47** capture with the response-drop toggle on, **1:00** reload/held reservation, **1:08** original-order lookup/receipt/repeated check and **1:23–1:30** no-AI closing. Keep buyer credentials offscreen and caption shortened waits.
-- [ ] Retain one operation's diagnostic source, order/capture, checked outcome and totals. For a new take, report its actual outcome; never borrow the earlier run's confirmation. The observed UI action/repeated lookup is not an independent measurement of provider request counts. This diagnostic verifies only its recorded PayPal path, not AI integration.
-- [ ] Keep this as a separate supplemental video. Do not append 90 seconds to the main 2:50 submission video or splice its fixed-sample result into an AI proposal sequence.
+## Presenter and audio
 
-## Capture the minimum evidence
+- [ ] Use a licensed generic stock AI presenter and an ordinary supplied voice in HeyGen. No Rama likeness, voice clone, invented founder identity, PayPal CEO portrayal or implied PayPal employment.
+- [ ] Label the small corner overlay **AI presenter**. Keep it away from mode labels, totals, status and controls; the actual product remains the main visual.
+- [ ] Paste only the exact narration block into HeyGen. Keep stage directions out of the voice field. Start around 130 words per minute, render and measure; adjust timing without changing facts.
+- [ ] Add accurate English captions. Review model name, currency amounts, test count and the distinction between saved sandbox evidence and fresh rehearsal.
 
-| Capture | What must remain readable |
-|---|---|
-| Request | Mode, item/price, request and proposal source; actual provider/model caption only if recorded. |
-| Owner approval | Exact seller, USD180, approval action; $180 reserved/$120 available. |
-| Competing request | Rehearsal only: $160 request blocked; no allowance change. The genuine free-credit track has one model proposal. |
-| Provider order | Same purchase and order reference. Genuine track also includes native buyer approval. |
-| Injected response loss | Checked fault toggle, one capture action, unresolved status and held $180. |
-| Reload and recovery | Same operation/order after browser reload, outcome-check action, $180 paid/$120 available. |
-| Inspector and repeat | Source/mode, seller, amounts, currency, references, historical-data limits; same capture/totals after another check. |
-| Closing reference | Public source/setup and actual QA count with its local/synthetic scope. No valuation, traction or production-readiness claims. |
+## Privacy and factual review
 
-- [ ] Respect one model attempt per workspace and the one-attempt reviewed grant; failures count. Do not repeat inference just for editing or reset the allowance.
+- [ ] Sign in before capture. Exclude passwords, session cookies, payment secrets, personal buyer details, unrelated browser tabs and notifications.
+- [ ] State that sandbox uses virtual funds, the missing response was application-injected, and the refresh was a browser reload. Do not claim a hosted backend restart or independently measured network request counts.
+- [ ] Do not describe unsigned receipts as provider attestations, the dated audit as security certification, or one sandbox run as production readiness.
+- [ ] Do not claim downloaded CSV/receipt bytes or an offline verification result were checked; the recorded browser download collection timed out.
+- [ ] Confirm the 199 local-check and separate PostgreSQL/hosted evidence labels still match the delivered source. New judge-access code requires its own applicable checks.
 
-## Keep credentials offscreen
+## Export, publish and update the draft
 
-- [ ] Record the application window, not an unrestricted desktop. Close notifications, password managers, developer credentials and unrelated account tabs.
-- [ ] Sign the dedicated sandbox buyer in before filming where possible. Pause capture for login, passwords, one-time codes or account selection. Resume on a cropped approval view showing the sandbox context and purchase; mask buyer identity/funding details. Caption the omitted login and shortened wait. Show the actual approval action if a privacy-safe crop is possible, then return to the same operation.
-- [ ] Never show API keys, secrets, cookies, Authorization headers, raw developer dashboards or real payment accounts. Keep credentials out of filenames, narration and descriptions.
-- [ ] Review the final frames and audio for incidental sensitive information. Use only permitted assets; no music is needed.
+- [ ] Final rendered MP4 is at most **2:50**. Review every frame and the audio at normal speed; title cards and outro count toward duration.
+- [ ] Publish the actual final video to YouTube as **public**, then test its exact URL in a fresh viewer session. No public video URL is established by this checklist.
+- [ ] Add only that verified URL and the verified judge-access instructions to the existing Devpost draft. Keep the draft consistent with [DEVPOST_STORY.md](DEVPOST_STORY.md).
+- [ ] **Do not click final Devpost Submit.** Nithya's team acceptance is already confirmed; it does not supply application access.
 
-## Edit and verify
-
-- [ ] Total runtime is **2:50**, including opening/end cards. English narration/captions and labels remain readable at normal playback speed.
-- [ ] Network waits/login may be shortened with a caption. Do not remove a failure to create an apparent continuous success, mix operations, or splice rehearsal into sandbox footage. A fresh successful take may be used after the failure is investigated and retained in the run record.
-- [ ] Say **browser reload** for a reload. Attribute deliberate response loss to the application. The inspector reads stored observations; it is not a new PayPal lookup or signed attestation.
-- [ ] Do not claim downloaded evidence was verified from a success toast. Reopen the real file before showing any offline verification result.
-- [ ] The recorded source and description agree. Consult [readiness](JUDGE_READINESS.md) and [QA](QA_REPORT.md) for limits; update counts only from the final evidence.
-- [ ] After publication, verify the actual YouTube URL in a fresh viewer session: **public**, playable, under three minutes, correct audio/captions. Use the verified URL in the existing draft. A local MP4 or unlisted/private upload does not satisfy the stated public-video requirement.
-- [ ] Independently verify the judge's run/access path; a project URL or owner-only session and a video do not establish hands-on access. Keep final Devpost Submit held until the owner explicitly releases it.
-
-Sources: [official submission requirements](https://paypalaihackathon.devpost.com/) and [rules](https://paypalaihackathon.devpost.com/rules), reviewed 8 November 2026. See [DEMO_SCRIPT.md](DEMO_SCRIPT.md) for exact timestamps and narration.
+Sources: [official submission requirements](https://paypalaihackathon.devpost.com/) and [rules](https://paypalaihackathon.devpost.com/rules), reviewed 8 November 2026. The video must be publicly visible on YouTube and under three minutes; runnable judge access remains a separate requirement.

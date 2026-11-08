@@ -75,7 +75,7 @@ function findRecordEvent(events: ReceiptEvent[], record: VerificationRecord): st
   return null;
 }
 
-export default function ReceiptInspector({ operation, refreshPurchase }: { operation: ReceiptOperation; refreshPurchase: () => void | Promise<void> }) {
+export default function ReceiptInspector({ operation, refreshPurchase, apiBase = "/api" }: { operation: ReceiptOperation; refreshPurchase: () => void | Promise<void>; apiBase?: "/api" | "/api/judge" }) {
   const [open, setOpen] = useState(false);
   const [generation, setGeneration] = useState(0);
   const [load, setLoad] = useState<Load | null>(null);
@@ -87,7 +87,7 @@ export default function ReceiptInspector({ operation, refreshPurchase }: { opera
     if (!open) return;
     const controller = new AbortController();
     let active = true;
-    fetch(`/api/operations/${encodeURIComponent(operationId)}/evidence`, { cache: "no-store", signal: controller.signal })
+    fetch(`${apiBase}/operations/${encodeURIComponent(operationId)}/evidence`, { cache: "no-store", signal: controller.signal })
       .then(async response => {
         const body: unknown = await response.json();
         if (!response.ok) throw new Error(object(body) && typeof body.error === "string" ? body.error : "The receipt could not be loaded.");
@@ -97,7 +97,7 @@ export default function ReceiptInspector({ operation, refreshPurchase }: { opera
       })
       .catch(error => { if (active && !controller.signal.aborted) setLoad({ key: requestKey, error: error instanceof Error ? error.message : "The receipt could not be loaded." }); });
     return () => { active = false; controller.abort(); };
-  }, [open, operationId, requestKey]);
+  }, [open, operationId, requestKey, apiBase]);
 
   const current = load?.key === requestKey ? load : null;
   const receipt = current?.receipt;

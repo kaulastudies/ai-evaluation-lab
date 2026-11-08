@@ -4,8 +4,13 @@ import { ProofPayError } from "./types";
 import type { Configuration, SqlDatabase } from "./types";
 import type { OwnerConfiguration } from "./auth";
 
-export type RuntimeConfiguration = Configuration & OwnerConfiguration & {DATABASE_URL?: string; POSTGRES_URL?: string};
+export type RuntimeConfiguration = Configuration & OwnerConfiguration & {DATABASE_URL?: string; POSTGRES_URL?: string; JUDGE_DEMO_ONLY?: string};
 export function getRuntimeConfiguration(): RuntimeConfiguration { return process.env; }
+/** Judge requests select only their own deployment configuration. Owner keys,
+ * payment credentials, AI funding and platform identity tokens are not read. */
+export function getJudgeRuntimeConfiguration() {
+  return {JUDGE_DEMO_ONLY: process.env.JUDGE_DEMO_ONLY, JUDGE_SESSION_SECRET: process.env.JUDGE_SESSION_SECRET, APP_ORIGIN: process.env.APP_ORIGIN, NODE_ENV: process.env.NODE_ENV, DATABASE_URL: process.env.DATABASE_URL, POSTGRES_URL: process.env.POSTGRES_URL};
+}
 export async function getRequestConfiguration(config: RuntimeConfiguration): Promise<RuntimeConfiguration> {
   const current = {...config, VERCEL_OIDC_TOKEN: undefined as string | undefined};
   // Use Vercel's request-context SDK only on Vercel. Never promote a public

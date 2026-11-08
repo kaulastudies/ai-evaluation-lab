@@ -37,12 +37,12 @@ function safePool(options){
   };
 }
 const admin=safePool(settings);const pools=[];
-let directory,PostgresDatabase,ProofPayService,RehearsalProvider,claimLoginAttempt;
+let directory,PostgresDatabase,ProofPayService,RehearsalProvider,claimLoginAttempt,claimJudgeSession,claimJudgeMutation;
 function pool(){const value=safePool({...settings,options:`-c search_path=${schema}`});pools.push(value);return value;}
 before(async()=>{
   directory=await mkdtemp(join(tmpdir(),'proofpay-pg-live-'));const output=join(directory,'modules.mjs');
-  await build({stdin:{contents:'export {PostgresDatabase} from "./lib/proofpay/postgres-database.ts";export {ProofPayService} from "./lib/proofpay/service.ts";export {RehearsalProvider} from "./lib/proofpay/provider.ts";export {claimLoginAttempt} from "./lib/proofpay/auth-rate-limit.ts";',resolveDir:process.cwd()},outfile:output,bundle:true,platform:'node',format:'esm',logLevel:'silent'});
-  ({PostgresDatabase,ProofPayService,RehearsalProvider,claimLoginAttempt}=await import(pathToFileURL(output)));
+  await build({stdin:{contents:'export {PostgresDatabase} from "./lib/proofpay/postgres-database.ts";export {ProofPayService} from "./lib/proofpay/service.ts";export {RehearsalProvider} from "./lib/proofpay/provider.ts";export {claimLoginAttempt} from "./lib/proofpay/auth-rate-limit.ts";export {claimJudgeSession,claimJudgeMutation} from "./lib/proofpay/judge-limits.ts";',resolveDir:process.cwd()},outfile:output,bundle:true,platform:'node',format:'esm',logLevel:'silent'});
+  ({PostgresDatabase,ProofPayService,RehearsalProvider,claimLoginAttempt,claimJudgeSession,claimJudgeMutation}=await import(pathToFileURL(output)));
   const client=await admin.connect();
   try{await client.query('BEGIN');await client.query(`CREATE SCHEMA "${schema}"`);await client.query(`SET LOCAL search_path TO "${schema}"`);for(const name of(await readdir('db/postgres')).filter(n=>/^\d{4}_[a-z0-9_]+\.sql$/.test(n)).sort())await client.query(await readFile(join('db/postgres',name),'utf8'));await client.query('COMMIT');}
   catch(error){await client.query('ROLLBACK');throw error;}finally{client.release();}
@@ -132,4 +132,11 @@ test('live PG: shared login limiter admits ten concurrent attempts and resets on
   const db=new PostgresDatabase(pool()),now=1760000000000;
   const results=await Promise.all(Array.from({length:12},()=>claimLoginAttempt(db,now)));
   assert.equal(results.filter(Boolean).length,10);assert.equal(await claimLoginAttempt(db,now),false);assert.equal(await claimLoginAttempt(db,now+60000),true);
+});
+test('live PG: public judge storage quotas have one final winner across independent adapters',async()=>{
+  const db=new PostgresDatabase(pool()),other=new PostgresDatabase(pool());
+  await db.prepare("INSERT INTO proofpay_auth_limits(id,window_start,attempts) VALUES ('judge-new-total',0,299)").run();
+  const sessions=await Promise.allSettled([claimJudgeSession(db),claimJudgeSession(other)]);assert.equal(sessions.filter(result=>result.status==='fulfilled').length,1);assert.equal(sessions.find(result=>result.status==='rejected').reason.code,'JUDGE_SESSION_LIMIT');assert.equal((await db.prepare("SELECT attempts FROM proofpay_auth_limits WHERE id='judge-new-total'").first()).attempts,300);
+  const owner=`judge:${randomUUID()}`;await db.prepare('INSERT INTO proofpay_auth_limits(id,window_start,attempts) VALUES (?,0,99)').bind(`judge-mutations:${owner}`).run();
+  const mutations=await Promise.allSettled([claimJudgeMutation(db,owner),claimJudgeMutation(other,owner)]);assert.equal(mutations.filter(result=>result.status==='fulfilled').length,1);assert.equal(mutations.find(result=>result.status==='rejected').reason.code,'JUDGE_MUTATION_LIMIT');assert.equal((await db.prepare('SELECT attempts FROM proofpay_auth_limits WHERE id=?').bind(`judge-mutations:${owner}`).first()).attempts,100);
 });

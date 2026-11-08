@@ -7,6 +7,7 @@ import { claimLoginAttempt } from "./auth-rate-limit";
 export async function ownerLogin(request: Request, logout = false): Promise<Response> {
   try {
     const config = getRuntimeConfiguration();
+    if (config.JUDGE_DEMO_ONLY === "true") throw new ProofPayError("NOT_FOUND", "Owner sign-in is unavailable in the judge rehearsal deployment.", 404);
     assertRequestOrigin(request, config);
     if (request.method !== "POST") throw new ProofPayError("METHOD_NOT_ALLOWED", "Use POST for this action.", 405);
     const input: unknown = JSON.parse(await readTextLimited(request, 4096));
