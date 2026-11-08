@@ -7,6 +7,7 @@ import { pathToFileURL } from 'node:url';
 import { fork, spawnSync } from 'node:child_process';
 import { build } from 'esbuild';
 import { ReviewD1 } from './review-d1.mjs';
+import { fundedAiConfig } from './ai-fixture.mjs';
 
 const temp = await mkdtemp(join(tmpdir(), 'proofpay-independent-'));
 const bundle = join(temp, 'service.mjs');
@@ -16,6 +17,7 @@ await build({entryPoints:['lib/proofpay/provider.ts'],outfile:providerBundle,bun
 const { ProofPayService } = await import(pathToFileURL(bundle));
 const { RehearsalProvider } = await import(pathToFileURL(providerBundle));
 const schema = await readFile('drizzle/0000_greedy_living_lightning.sql','utf8');
+const fundingSchema = await readFile('drizzle/0002_ai_funding.sql','utf8');
 after(async () => { await rm(temp,{recursive:true,force:true}); });
 let fixtureCount = 0;
 const owner = 'independent-review-owner';
@@ -23,11 +25,12 @@ async function fixture(mode='rehearsal') {
   const filename = join(temp,`case-${fixtureCount++}.sqlite`);
   const db = new ReviewD1(filename);
   await db.exec(schema);
+  await db.exec(fundingSchema);
   let now = Date.now();
   const calls = {create:0,capture:0,get:0};
   const durable = new RehearsalProvider(db,()=>now);
   const provider = {create:async(...args)=>{calls.create++;return durable.create(...args)},capture:async(...args)=>{calls.capture++;return durable.capture(...args)},get:async(...args)=>{calls.get++;return durable.get(...args)}};
-  const env = mode==='sandbox' ? {PAYPAL_CLIENT_ID:'test-client',PAYPAL_CLIENT_SECRET:'test-secret',PAYPAL_MERCHANT_ID:'test-seller',AI_API_KEY:'test-only-key',AI_BASE_URL:'https://test-model.invalid/v1',AI_MODEL:'synthetic-review-model'} : {};
+  const env = mode==='sandbox' ? {PAYPAL_CLIENT_ID:'test-client',PAYPAL_CLIENT_SECRET:'test-secret',PAYPAL_MERCHANT_ID:'test-seller',...fundedAiConfig()} : {};
   const service = new ProofPayService({db,env,provider,now:()=>now,ai:async request=>({sku:request.includes('design')?'design-review':'workflow-review',rationale:'Test stub, not actual model evidence.',source:mode==='sandbox'?'model':'rehearsal-rule'})});
   let state = await service.start(owner,mode,mode==='rehearsal');
   if(mode==='sandbox') state=await service.propose(owner,{request:'workflow review',mode,idempotencyKey:'sandbox-test-key'});

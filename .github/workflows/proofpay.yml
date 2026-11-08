@@ -25,6 +25,20 @@ jobs:
   verify:
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: proofpay_test
+          POSTGRES_PASSWORD: disposable_ci_password
+          POSTGRES_DB: proofpay_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U proofpay_test -d proofpay_test"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     defaults:
       run:
         working-directory: hackathon/proofpay
@@ -42,13 +56,20 @@ jobs:
           package-manager-cache: false
       - name: Install from the committed lockfile
         run: npm run install:ci
+      - name: Audit all dependencies, including development tools
+        run: npm audit --audit-level=low
       - name: Check TypeScript
         run: node node_modules/typescript/bin/tsc --noEmit
       - name: Lint authored source
         run: npm run lint
       - name: Test authorization, provider contracts and database invariants
         run: npm test
-      - name: Build the production Worker
+      - name: Verify transactions against a real PostgreSQL database
+        run: node --test tests/review-postgres-live.mjs
+        env:
+          DATABASE_URL: postgresql://proofpay_test:disposable_ci_password@127.0.0.1:5432/proofpay_test
+          PROOFPAY_TEST_ALLOW_LOCAL_DB: '1'
+      - name: Build the native Next.js application
         run: npm run build
       - name: Build the isolated synthetic visual fixture
         run: node tests/responsive/build.mjs

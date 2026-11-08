@@ -1,5 +1,6 @@
 import { CATALOGUE } from "./catalogue";
 import { propose as defaultPropose } from "./ai";
+import { aiFundingReady, requireAiFunding } from "./ai-funding";
 import { approvalLink, completedCapture, PayPalSandboxProvider, RehearsalProvider, sandboxReady, verifyOrder } from "./provider";
 import { Configuration, HELD_SQL, Mode, OperationRow, PaymentProvider, ProposalChoice, ProposalProvenance, ProofPayError, RESERVED_STATUSES, SqlDatabase, VerificationRecord, WorkspaceRow } from "./types";
 
@@ -33,7 +34,7 @@ export class ProofPayService {
   private injectedProvider?: PaymentProvider;
   private proposer: NonNullable<ServiceOptions["ai"]>;
   constructor(options: ServiceOptions) { this.db = options.db; this.env = options.env; this.now = options.now ?? Date.now; this.injectedProvider = options.provider; this.proposer = options.ai ?? defaultPropose; }
-  capabilities() { return {sandboxReady: sandboxReady(this.env), aiReady: Boolean(this.env.AI_API_KEY && this.env.AI_BASE_URL && this.env.AI_MODEL)}; }
+  capabilities() { return {sandboxReady: sandboxReady(this.env), aiReady: aiFundingReady(this.env)}; }
   private provider(op: OperationRow): PaymentProvider { if (this.injectedProvider) return this.injectedProvider; return op.mode === "rehearsal" ? new RehearsalProvider(this.db, this.now) : new PayPalSandboxProvider(this.env); }
   private async workspace(owner: string): Promise<WorkspaceRow | null> { ownerRequired(owner); return this.db.prepare("SELECT w.*, CASE WHEN EXISTS (SELECT 1 FROM proofpay_events e WHERE e.workspace_id = w.id AND e.type = 'SANDBOX_DIAGNOSTIC_STARTED') THEN 'sandbox-diagnostic' ELSE 'standard' END AS profile FROM proofpay_workspaces w JOIN proofpay_sessions s ON w.id = s.workspace_id WHERE s.owner_id = ? AND w.owner_id = ?").bind(owner, owner).first<WorkspaceRow>(); }
   private async operation(owner: string, id: string): Promise<OperationRow> {
@@ -99,11 +100,25 @@ export class ProofPayService {
     if (workspace.mode === "sandbox" && !sandboxReady(this.env)) throw new ProofPayError("PAYPAL_NOT_CONFIGURED", "PayPal sandbox is not configured.", 503);
     const prior = await this.db.prepare("SELECT * FROM proofpay_operations WHERE workspace_id = ? AND idempotency_key = ?").bind(workspace.id, input.idempotencyKey).first<OperationRow>();
     if (prior) { if (prior.request !== input.request.trim()) throw new ProofPayError("KEY_REUSED", "That idempotency key is already bound to another request.", 409); return this.state(owner); }
+    const funding = input.mode === "sandbox" ? requireAiFunding(this.env) : undefined;
+    let fundingAttemptId: string | undefined;
+    if (funding) {
+      fundingAttemptId = crypto.randomUUID();
+      // A unique grant slot bounds aggregate calls across workspaces/processes;
+      // the unique workspace constraint allows only one attempt per workspace.
+      // A concurrent loser stops before inference, even when the grant has room.
+      // Failures are never refunded: the remote outcome may already be billable.
+      const claim = await this.db.batch([
+        this.db.prepare("INSERT INTO proofpay_ai_attempts (id,workspace_id,grant_id,slot,idempotency_key,model,provider,created_at,grant_expires_at) SELECT ?,?,?,COALESCE(MAX(slot),0)+1,?,?,?,?,? FROM proofpay_ai_attempts WHERE grant_id = ? HAVING COALESCE(MAX(slot),0) < ? ON CONFLICT DO NOTHING RETURNING id").bind(fundingAttemptId, workspace.id, funding.grantId, input.idempotencyKey, funding.model, funding.provider, this.now(), funding.expiresAt, funding.grantId, funding.maxRequests),
+        this.db.prepare("INSERT INTO proofpay_events (id,workspace_id,operation_id,type,detail,created_at) SELECT ?,?,NULL,'AI_FREE_ATTEMPT_CLAIMED',?,? WHERE EXISTS (SELECT 1 FROM proofpay_ai_attempts WHERE id = ?)").bind(crypto.randomUUID(), workspace.id, JSON.stringify({schemaVersion:1, grantId:funding.grantId, attemptId:fundingAttemptId, model:funding.model, provider:funding.provider, allowanceConsumed:true, billingVerified:false}), this.now(), fundingAttemptId),
+      ]);
+      if (claim[0].results?.length !== 1) throw new ProofPayError("AI_ALLOWANCE_USED", "This workspace's free AI attempt or the grant allowance is already used. No additional model request was sent; automatic retries are disabled.", 409);
+    }
     const choice = await this.proposer(input.request.trim(), input.mode, this.env);
     if (input.mode === "sandbox" && choice.source !== "model") throw new ProofPayError("MODEL_REQUIRED", "Sandbox proposals require a genuine model response.", 503);
     const operationId = crypto.randomUUID();
     const provenance = choice.source === "model" ? safeProvenance(choice.provenance) : undefined;
-    const proposalDetail = JSON.stringify({schemaVersion: 1, source: choice.source, sku: choice.sku, rationale: choice.rationale.slice(0, 500), ...(provenance ? {provenance} : {})});
+    const proposalDetail = JSON.stringify({schemaVersion: 1, source: choice.source, sku: choice.sku, rationale: choice.rationale.slice(0, 500), ...(provenance ? {provenance} : {}), ...(funding ? {funding: {mode:"vercel-free-credit", grantId:funding.grantId, attemptId:fundingAttemptId, billingVerified:false}} : {})});
     // A proposal without its source record is incomplete. Commit both together;
     // a competing idempotency-key winner makes this candidate's event a no-op.
     await this.db.batch([

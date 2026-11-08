@@ -8,9 +8,11 @@ ProofPay Purchase Desk brings those decisions into one workflow. Its contributio
 
 ## What is real in this build
 
-The interface, durable application service, rehearsal provider and external adapters are implemented. Genuine PayPal sandbox OAuth and provider-adapter create/GET have passed separately. Buyer-approved capture and a genuine runtime model call remain unverified. Use the application's displayed mode and evidence record to distinguish rehearsal from external integrations. A simulated capture is a rehearsal outcome; it must never be described as a PayPal-confirmed payment.
+The current source is migrating to GitHub, native Next.js on Vercel and Neon/PostgreSQL, with signed owner-session authentication. Neon is connected, but owner/PayPal configuration and the migrated hosted workflow are not yet verified. Use the current [development guide](DEVELOPMENT.md) and [QA report](QA_REPORT.md); there is no mock sign-in or current Sites deployment instruction.
 
-The hosted Site is private to the owner and is not ready for independent judge access. Hosted UI verification and external-service runs remain separate requirements. Portable local setup is in the [README](../README.md); the managed local preview currently lacks simulated sign-in.
+An earlier deployed source, `17cbededf`, completed the [fixed $180 PayPal sandbox diagnostic](../evidence/diagnostic-release-review.json): native buyer approval, capture, held allowance after a dropped response and original-order recovery. It used no model. That historical result does not certify the new Vercel/auth/database implementation. Genuine runtime AI, the combined journey, independent judge access and the required public video remain open.
+
+The selected inference route is Vercel free credit with runtime OIDC, a fixed model and a one-attempt grant cap. Personal OpenAI credits are excluded. A configured credit declaration is not successful model execution. The [Postman collection](../postman/README.md) is an offline-validated development handoff; actual Postman execution is not yet claimed.
 
 | Evidence level | What it can establish |
 |---|---|
@@ -22,7 +24,7 @@ The hosted Site is private to the owner and is not ready for independent judge a
 
 Current test outcomes should be taken from the generated test output for this checkout. This document does not assign an unverified test count.
 
-## Walk through the product
+## Walk through after owner/database setup
 
 1. Choose **Start $300 rehearsal**. Confirm the **Rehearsal · simulated** label. The seeded Workflow review ($180) and Design review ($160) are sample proposals, not model output.
 2. Choose **Approve & reserve $180.00** for Workflow review. Confirm $180 is reserved and $120 remains available. Attempt to approve Design review and inspect **Over allowance**. **Request an alternative** fills a new request. For a deterministic $90 rehearsal example, enter “Suggest a cheaper Starter review package” and choose **Create sample proposal**. The new proposal does not inherit approval.
@@ -32,7 +34,7 @@ Current test outcomes should be taken from the generated test output for this ch
 6. Choose **Check outcome again** and inspect the allowance. The repeated read should not add another $180 spend.
 7. Export evidence. Inspect the original operation and provider references, create/capture request IDs, approval digest and `verificationRecords`. Confirmation stores a limited snapshot of the provider fields used by the verifier in the same transaction as the accounting change; the receipt labels its source and mode. These are inspection records, not externally signed proof.
 
-For the external path, use **Connections → Start PayPal sandbox workspace**, then **Ask AI for a proposal**. After owner approval, choose **Create PayPal order**, **Open PayPal approval**, **Capture approved order** and **Check PayPal outcome**. Record this path only after actual model and sandbox runs have passed. The top label must read **PayPal sandbox**. Configuration alone does not establish either integration.
+For the external path, use **Connections → Start PayPal sandbox workspace**, then **Ask AI for a proposal**. The current free-credit policy permits only one dispatched model attempt per workspace and one total for the reviewed grant; failures count. Use rehearsal for the two-request allowance example, and do not add model calls merely to stage it. After owner approval, choose **Create PayPal order**, **Open PayPal approval**, **Capture approved order** and **Check PayPal outcome**. Record this path only after actual model and sandbox runs have passed. The top label must read **PayPal sandbox**. Configuration alone does not establish either integration.
 
 Actual process-restart validation must stop and restart the backend while preserving the database and then reconcile the saved operation. A test with a fresh service object establishes a narrower result; refreshing the page only exercises browser reload. State which one was performed.
 
@@ -66,13 +68,15 @@ Final judging evidence should identify the source commit, reproduction commands,
 
 ## Current verification checkpoint
 
-The local suite passes 92/92 tests, including 17 approval-renewal cases, 20 pre-dispatch cancellation cases and two model-provenance cases. These use synthetic provider/model fixtures. TypeScript, lint, clean dependency installation and Worker build pass. The private deployment includes these changes; independent judge access and the required genuine model/payment demonstration remain unfinished. Model response identifiers aid run inspection but are not signed attestations. The commercial and submission drafts are in [COMMERCIAL_PLAN.md](COMMERCIAL_PLAN.md) and [DEVPOST_STORY.md](DEVPOST_STORY.md).
+The former runtime's 92-, 131- and 151-test results, Worker builds and hosted rehearsal checks are historical checkpoints. The [native release](../evidence/native-vercel-checks-2026-11-08.json) reports 178/178 local tests, types, lint, native build and visual build passed. The dependency audit reports zero known findings, including development dependencies, with two parser compatibility checks passed. See [dependency evidence](../evidence/dependency-remediation-2026-11-08-summary.json) and [QA](QA_REPORT.md) for the current migration checks. A zero audit does not establish application security or a working deployment.
 
-A separate [hosted renewal rehearsal](../evidence/hosted-renewal-review.json) waited for the real approval window to expire, observed disabled capture, renewed to version2 without changing the order or $180 reservation, then recovered a dropped simulated capture response after browser reload. It finished with $180 paid, $0 reserved and $120 available. This is simulated-provider evidence.
+The commercial and submission drafts are in [COMMERCIAL_PLAN.md](COMMERCIAL_PLAN.md) and [DEVPOST_STORY.md](DEVPOST_STORY.md). Final Devpost Submit remains held.
+
+A historical [hosted renewal rehearsal](../evidence/hosted-renewal-review.json) waited for the real approval window to expire, observed disabled capture, renewed to version2 without changing the order or $180 reservation, then recovered a dropped simulated capture response after browser reload. It finished with $180 paid, $0 reserved and $120 available. This is simulated-provider evidence.
 
 
 ## Payment operations workspace
 
 The owner interface now has Overview, Purchases, Approvals, Evidence, Controls and Connections. A searchable purchase list opens a focused record with the exact seller, amount, approval and permitted action. Controls show the enforced rules rather than editable placeholders. Connections separates configured services from verified execution.
 
-The [hosted workspace review](../evidence/hosted-workspace-review.json) checked all six desktop views, search/filters, retained evidence and cancellation before dispatch. Approving a simulated $90 Starter review changed available/reserved/paid from $120/$0/$180 to $30/$90/$180. Cancelling restored $120/$0/$180; the cancelled request and one cancellation event persisted after reload. A separate [responsive review](../evidence/responsive-review.json) rendered the actual component and CSS in 360px and 390px iframe viewports with synthetic data, plus a 768px tablet spot check. It corrected cramped approval/control cards, contained table overflow and section navigation scroll. This is local layout evidence; physical-device behavior and hosted mobile authentication remain unverified.
+The historical [hosted workspace review](../evidence/hosted-workspace-review.json) checked all six desktop views, search/filters, retained evidence and cancellation before dispatch. Approving a simulated $90 Starter review changed available/reserved/paid from $120/$0/$180 to $30/$90/$180. Cancelling restored $120/$0/$180; the cancelled request and one cancellation event persisted after reload. A separate [responsive review](../evidence/responsive-review.json) rendered the actual component and CSS in 360px and 390px iframe viewports with synthetic data, plus a 768px tablet spot check. It corrected cramped approval/control cards, contained table overflow and section navigation scroll. This is local layout evidence; physical-device behavior and hosted mobile authentication remain unverified.

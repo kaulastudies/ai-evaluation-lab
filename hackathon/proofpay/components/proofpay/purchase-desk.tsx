@@ -3,7 +3,7 @@
 import Link from "next/link";
 import ReceiptInspector from "./receipt-inspector";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { ArrowDownToLine, ArrowRight, ArrowUpRight, Check, CheckCheck, ChevronRight, CircleAlert, FileCheck2, FlaskConical, LayoutDashboard, ListChecks, LoaderCircle, LockKeyhole, PlugZap, Plus, RefreshCw, Search, SearchCheck, ShieldCheck, ShoppingBag, SlidersHorizontal, Sparkles, WalletCards, X } from "lucide-react";
+import { ArrowDownToLine, ArrowRight, ArrowUpRight, Check, CheckCheck, ChevronRight, CircleAlert, FileCheck2, FlaskConical, LayoutDashboard, ListChecks, LoaderCircle, LockKeyhole, LogOut, PlugZap, Plus, RefreshCw, Search, SearchCheck, ShieldCheck, ShoppingBag, SlidersHorizontal, Sparkles, WalletCards, X } from "lucide-react";
 
 type Mode = "rehearsal" | "sandbox";
 type Status = "PROPOSED" | "BUDGET_BLOCKED" | "APPROVED" | "CREATE_DISPATCHED" | "CREATE_UNKNOWN" | "ORDER_READY" | "CAPTURE_DISPATCHED" | "UNKNOWN" | "REVIEW" | "CONFIRMED" | "CANCELLED";
@@ -109,6 +109,7 @@ export default function PurchaseDesk() {
   const [fault, setFault] = useState(false);
   const [filter, setFilter] = useState("all");
   const [authRequired, setAuthRequired] = useState(false);
+  const [ownerKey, setOwnerKey] = useState("");
   const [payPalRedirect, setPayPalRedirect] = useState<PayPalRedirect | null>(null);
   const [clock, setClock] = useState<number | null>(null);
   const dialogRef = useRef<HTMLElement>(null);
@@ -116,6 +117,11 @@ export default function PurchaseDesk() {
   const draftKey = useRef<{ request: string; key: string } | null>(null);
   const requestSequence = useRef(0);
   const redirectHandled = useRef(false);
+  const clearSessionView = useCallback(() => {
+    setData(null); setAuthRequired(true); setSelectedId(null); setOverlay(null);
+    setOwnerKey(""); setRequest(""); setSearch(""); setCancelConfirm(false);
+    setPayPalRedirect(null); draftKey.current = null; redirectHandled.current = false;
+  }, []);
   const applyLoadedState = useCallback((state: DeskState) => {
     setData(state); setAuthRequired(false);
     if (state.workspace) setMode(state.workspace.mode);
@@ -133,12 +139,15 @@ export default function PurchaseDesk() {
 
   const refresh = useCallback(async () => {
     const sequence = ++requestSequence.current;
-    const state = await readWorkspace();
-    if (sequence === requestSequence.current) {
-      applyLoadedState(state);
+    try {
+      const state = await readWorkspace();
+      if (sequence === requestSequence.current) applyLoadedState(state);
+      return state;
+    } catch (error) {
+      if (sequence === requestSequence.current && error instanceof WorkspaceError && error.status === 401) clearSessionView();
+      throw error;
     }
-    return state;
-  }, [applyLoadedState]);
+  }, [applyLoadedState, clearSessionView]);
   useEffect(() => {
     let active = true;
     const sequence = ++requestSequence.current;
@@ -218,6 +227,33 @@ export default function PurchaseDesk() {
   const eventList = selected ? (data?.events || []).filter(e => e.operationId === selected.id) : [];
   const selectedUrl = safeApprovalUrl(selected?.approvalUrl);
 
+  async function signIn() {
+    if (busyRef.current || !ownerKey) return;
+    const password = ownerKey;
+    setOwnerKey(""); setError(""); setNotice(""); setBusy("login");
+    busyRef.current = true; ++requestSequence.current;
+    try {
+      const response = await fetch("/api/auth/login", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ password }) });
+      const result = await response.json() as { ok?: boolean; error?: string };
+      if (!response.ok || result.ok !== true) throw new Error(result.error || "Owner sign-in could not be completed.");
+      setAuthRequired(false); setView("overview"); setFilter("all");
+      await refresh();
+    } catch (error) {
+      setError(error instanceof Error ? error.message : "Owner sign-in could not be completed.");
+    } finally { busyRef.current = false; setBusy(null); }
+  }
+  async function signOut() {
+    if (busyRef.current) return;
+    busyRef.current = true; ++requestSequence.current;
+    setBusy("logout"); setError(""); setNotice("");
+    try {
+      const response = await fetch("/api/auth/logout", { method: "POST", headers: { "Content-Type": "application/json" }, body: "{}" });
+      const result = await response.json() as { ok?: boolean; error?: string };
+      if (!response.ok || result.ok !== true) throw new Error(result.error || "Sign-out could not be completed. Your session may still be active.");
+      clearSessionView(); setNotice("Signed out of the owner workspace.");
+    } catch (error) { setError(error instanceof Error ? error.message : "Sign-out could not be completed."); }
+    finally { busyRef.current = false; setBusy(null); }
+  }
   async function act(key: string, path: string, body: Record<string, unknown> = {}) {
     if (busyRef.current) return;
     busyRef.current = true; ++requestSequence.current;
@@ -233,7 +269,7 @@ export default function PurchaseDesk() {
         if (newOperation) setSelectedId(newOperation.id);
       }
       if (!res.ok) {
-        if (res.status === 401) setAuthRequired(true);
+        if (res.status === 401) clearSessionView();
         throw new Error(json.error || "The action could not be completed.");
       }
       if (!json.state) await refresh();
@@ -309,9 +345,15 @@ export default function PurchaseDesk() {
     approvals:"Review the exact item, seller and amount before you authorize spending.", evidence:"Trace each decision and provider outcome back to its purchase.",
     controls:"The rules currently enforced by this purchase desk. Read only.", connections:"Provider configuration, workspace mode and integration evidence.",
   };
-  const renderRows = (rows: Operation[]) => <div className="purchase-table-wrap" role="region" aria-label="Purchase records, scroll horizontally for all columns" tabIndex={0}><table className="purchase-table"><thead><tr><th>Purchase</th><th className="source-column">Source</th><th>Status</th><th className="amount-cell">Amount</th><th><span className="sr-only">Open record</span></th></tr></thead><tbody>{rows.map(op=><tr key={op.id}><td><button className="purchase-name" onClick={()=>inspect(op)}><span className="purchase-icon"><ShoppingBag size={17}/></span><span><strong>{op.title}</strong><small>{op.id.slice(0,8)} · {new Date(op.createdAt).toLocaleDateString(undefined,{month:"short",day:"numeric"})}</small></span></button></td><td className="source-column"><span className="source-label">{op.aiSource==="model"?<Sparkles size={13}/>:<FlaskConical size={13}/>} {op.aiSource==="model"?"AI proposal":op.aiSource==="sandbox-diagnostic"?"Diagnostic · no AI":"Rehearsal"}</span></td><td><span className={`status ${op.status.toLowerCase()}`}>{statusLabel(op)}</span></td><td className="amount-cell">{money(op.amountCents,op.currency)}</td><td><button className="icon-btn" aria-label={`View ${op.title} purchase ${op.id.slice(0,8)}`} onClick={()=>inspect(op)}><ChevronRight size={17}/></button></td></tr>)}</tbody></table></div>;
+  const renderRows = (rows: Operation[]) => <>
+    <div className="mobile-purchase-list" role="list" aria-label="Purchase records">{rows.map(op => <div role="listitem" key={op.id}><button className="mobile-purchase-card" onClick={() => inspect(op)} aria-label={`View ${op.title}, ${money(op.amountCents, op.currency)}, ${statusLabel(op)}`}>
+      <span className="mobile-purchase-heading"><span className="purchase-icon"><ShoppingBag size={18}/></span><strong>{op.title}</strong><ChevronRight size={18}/></span>
+      <span className="mobile-purchase-meta">{op.aiSource === "model" ? "AI proposal" : op.aiSource === "sandbox-diagnostic" ? "Diagnostic · no AI" : "Rehearsal"} · {new Date(op.createdAt).toLocaleDateString(undefined, {month:"short", day:"numeric"})} · {op.id.slice(0,8)}</span>
+      <span className="mobile-purchase-result"><span className={`status ${op.status.toLowerCase()}`}>{statusLabel(op)}</span><strong>{money(op.amountCents, op.currency)}</strong></span>
+    </button></div>)}</div>
+    <div className="purchase-table-wrap" role="region" aria-label="Purchase records, scroll horizontally for all columns" tabIndex={0}><table className="purchase-table"><thead><tr><th>Purchase</th><th className="source-column">Source</th><th>Status</th><th className="amount-cell">Amount</th><th><span className="sr-only">Open record</span></th></tr></thead><tbody>{rows.map(op=><tr key={op.id}><td><button className="purchase-name" onClick={()=>inspect(op)}><span className="purchase-icon"><ShoppingBag size={17}/></span><span><strong>{op.title}</strong><small>{op.id.slice(0,8)} · {new Date(op.createdAt).toLocaleDateString(undefined,{month:"short",day:"numeric"})}</small></span></button></td><td className="source-column"><span className="source-label">{op.aiSource==="model"?<Sparkles size={13}/>:<FlaskConical size={13}/>} {op.aiSource==="model"?"AI proposal":op.aiSource==="sandbox-diagnostic"?"Diagnostic · no AI":"Rehearsal"}</span></td><td><span className={`status ${op.status.toLowerCase()}`}>{statusLabel(op)}</span></td><td className="amount-cell">{money(op.amountCents,op.currency)}</td><td><button className="icon-btn" aria-label={`View ${op.title} purchase ${op.id.slice(0,8)}`} onClick={()=>inspect(op)}><ChevronRight size={17}/></button></td></tr>)}</tbody></table></div></>;
   const empty = (title: string, description: string) => <div className="empty-state"><span className="empty-symbol"><ShoppingBag size={26}/></span><h3>{title}</h3><p>{description}</p></div>;
-  const alerts = <>{error && <div className="message error" role="alert"><CircleAlert size={18}/><div><strong>Action needs attention</strong><p>{error}</p>{authRequired && <a className="btn btn-outline" href="/signin-with-chatgpt?return_to=%2F" target="_top">Sign in to your workspace<ArrowUpRight size={14}/></a>}</div><button aria-label="Dismiss error" onClick={()=>setError("")}><X size={16}/></button></div>}{notice && <div className="message success" role="status"><Check size={18}/><p>{notice}</p><button aria-label="Dismiss notice" onClick={()=>setNotice("")}><X size={16}/></button></div>}</>;
+  const alerts = <>{error && <div className="message error" role="alert"><CircleAlert size={18}/><div><strong>{authRequired?"Owner sign-in required":"Action needs attention"}</strong><p>{error}</p></div><button aria-label="Dismiss error" onClick={()=>setError("")}><X size={16}/></button></div>}{notice && <div className="message success" role="status"><Check size={18}/><p>{notice}</p><button aria-label="Dismiss notice" onClick={()=>setNotice("")}><X size={16}/></button></div>}</>;
   return <div className="desk-shell">
     <a className="skip-link" href="#main-content">Skip to workspace</a>
     <aside className="sidebar" inert={overlay !== null}>
@@ -322,13 +364,13 @@ export default function PurchaseDesk() {
       <div className="sidebar-bottom"><div className="sidebar-principle"><ShieldCheck size={20}/><strong>Intent. Approval. Evidence.</strong><p>Every payment stays connected to the decision behind it.</p></div><button onClick={()=>setOverlay("about")}><span className="team-avatar">AL</span><span>AI Evaluation Lab<small>ProofPay prototype</small></span><ArrowUpRight size={14}/></button></div>
     </aside>
     <div className="main-shell" inert={overlay !== null}>
-      <header className="topbar"><div className="breadcrumb"><span>Studio workspace</span><ChevronRight size={14}/><strong>{viewNames[view]}</strong></div><div className="topbar-right"><span className={`environment-pill ${mode}`}><span/>{ws ? isDiagnostic?"PayPal diagnostic":mode==="rehearsal"?"Rehearsal · simulated":"PayPal sandbox":"Sandbox prototype"}</span><button className="icon-btn" aria-label="Refresh workspace" title="Refresh workspace" disabled={!!busy || loading} onClick={refreshNow}><RefreshCw size={16} className={busy==="refresh"?"spin":""}/></button><span className="owner-avatar" title="Workspace owner">ST</span></div></header>
-      <main id="main-content" aria-busy={loading || !!busy}>
+      <header className="topbar"><div className="breadcrumb"><span>Studio workspace</span><ChevronRight size={14}/><strong>{viewNames[view]}</strong></div><div className="topbar-right"><span className={`environment-pill ${mode}`}><span/>{ws ? isDiagnostic?"PayPal diagnostic":mode==="rehearsal"?"Rehearsal · simulated":"PayPal sandbox":"Sandbox prototype"}</span><button className="icon-btn" aria-label="Refresh workspace" title="Refresh workspace" disabled={!!busy || loading} onClick={refreshNow}><RefreshCw size={16} className={busy==="refresh"?"spin":""}/></button>{data && !authRequired && <button className="icon-btn" aria-label="Sign out of owner workspace" title="Sign out" disabled={!!busy} onClick={signOut}>{busy==="logout"?<LoaderCircle className="spin" size={16}/>:<LogOut size={17}/>}</button>}{data && !authRequired && <span className="owner-avatar" title="Workspace owner">ST</span>}</div></header>
+      <main id="main-content" tabIndex={-1} aria-busy={loading || !!busy}>
         <div className="page-heading"><div><p className="eyebrow">STUDIO PURCHASE DESK</p><h1 id="page-title" tabIndex={-1}>{viewNames[view]}</h1><p>{descriptions[view]}</p></div><div className="heading-actions"><button className="btn btn-outline" onClick={exportEvidence} disabled={!ops.length || !!busy}>{busy==="export"?<LoaderCircle size={16} className="spin"/>:<ArrowDownToLine size={16}/>}<span>Export evidence</span></button>{ws && !isDiagnostic && <button className="btn btn-primary" onClick={newRequest} disabled={!!busy || authRequired}><Plus size={17}/>New request</button>}</div></div>
         {alerts}
         {payPalRedirect && <div className="message info" role="status"><SearchCheck size={19}/><div><strong>{payPalRedirect.title}</strong><p>{payPalRedirect.message}</p></div><button aria-label="Dismiss PayPal return notice" onClick={()=>setPayPalRedirect(null)}><X size={16}/></button></div>}
         {ws && <div className={`mode-banner ${mode}`}><FlaskConical size={17}/><p><strong>{isDiagnostic?"PayPal sandbox diagnostic":mode==="rehearsal"?"Rehearsal workspace":"PayPal sandbox workspace"}</strong><span>{isDiagnostic?"Fixed-catalogue payment test. No AI model was called. Virtual funds only; owner approval and verified PayPal evidence are still required.":mode==="rehearsal"?"Sample proposals and simulated payments. No live AI or PayPal results.":"Virtual test funds only. Payment confirmation requires verified provider evidence."}</span></p><button onClick={()=>navigate("connections")}>Connections<ArrowUpRight size={14}/></button></div>}
-        {loading ? <section className="card loading-state" role="status"><LoaderCircle size={27} className="spin"/><h2>Loading your workspace</h2><p>Retrieving requests, allowance and saved evidence.</p></section> : !data ? <section className="card">{empty(authRequired?"Your workspace is private":"Workspace unavailable",authRequired?"Sign in to see your purchases and payment records.":"Your saved records could not be loaded. Refresh to try again.")}{!authRequired && <div className="empty-actions"><button className="btn btn-outline" onClick={refreshNow}>Try again<RefreshCw size={15}/></button></div>}</section> : <>
+        {loading ? <section className="card loading-state" role="status"><LoaderCircle size={27} className="spin"/><h2>Loading your workspace</h2><p>Retrieving requests, allowance and saved evidence.</p></section> : !data ? authRequired ? <section className="card owner-login" aria-labelledby="owner-login-title"><span className="queue-icon blue"><LockKeyhole size={23}/></span><h2 id="owner-login-title">Sign in to your workspace</h2><p>Only the workspace owner can view purchase records and authorize payments.</p><form onSubmit={event=>{event.preventDefault();void signIn();}}><label className="form-label" htmlFor="owner-access-key">Owner access key</label><input id="owner-access-key" name="password" type="password" autoComplete="off" autoCapitalize="none" spellCheck={false} value={ownerKey} onChange={event=>setOwnerKey(event.target.value)} aria-describedby="owner-key-help" required disabled={!!busy}/><p id="owner-key-help" className="form-hint">Use the owner key configured for this workspace.</p><button type="submit" className="btn btn-primary full" disabled={!!busy || !ownerKey}>{busy==="login"?<LoaderCircle className="spin" size={16}/>:<LockKeyhole size={16}/>} {busy==="login"?"Signing in…":"Sign in"}</button></form></section> : <section className="card">{empty("Workspace unavailable","Your saved records could not be loaded. Check the message above, then refresh to try again.")}<div className="empty-actions"><button className="btn btn-outline" onClick={refreshNow}>Try again<RefreshCw size={15}/></button></div></section> : <>
         {view==="overview" && <>
           <section className="metric-grid" aria-label="Current allowance and purchase status">
             <article className="metric-card featured"><div><span>Available</span><WalletCards size={17}/></div><strong>{ws?money(available):"—"}</strong><small>{ws?`of ${money(total)} shared allowance`:"No workspace started"}</small></article>
@@ -364,7 +406,7 @@ export default function PurchaseDesk() {
     </div>
     {overlay && <div className={`modal-backdrop ${overlay==="purchase"?"drawer-backdrop":""}`} onClick={event=>{if(event.target===event.currentTarget){setOverlay(null);setCancelConfirm(false);}}}><section className={overlay==="purchase"?"purchase-drawer":"modal-card"} ref={dialogRef} role="dialog" aria-modal="true" aria-labelledby="dialog-title"><div className="dialog-heading"><div><p className="eyebrow">{overlay==="purchase"?"PURCHASE RECORD":overlay==="request"?"CONTROLLED CATALOGUE":"ABOUT THE WORKSPACE"}</p><h2 id="dialog-title">{overlay==="purchase"?selected?.title||"Purchase record":overlay==="request"?"What does your team need?":"Built around a clear outcome."}</h2></div><button className="icon-btn" aria-label="Close dialog" onClick={()=>{setOverlay(null);setCancelConfirm(false);}}><X size={20}/></button></div>
       <div className="dialog-body">{alerts}
-      {overlay==="request" && <><p className="dialog-intro">{mode==="rehearsal"?"Create a sample proposal using the rehearsal rules. No AI model is called.":"Describe the need. AI may suggest a catalogue item; you decide what gets approved."}</p><form onSubmit={event=>{event.preventDefault();void propose();}}><label className="form-label" htmlFor="purchase-request">Purchase request</label><textarea id="purchase-request" value={request} onChange={event=>setRequest(event.target.value)} placeholder="Our studio needs a workflow review within the available allowance." maxLength={2000} rows={5} disabled={!!busy || authRequired}/><div className="example-row"><span>Try a request</span><button type="button" disabled={!!busy} onClick={()=>setRequest("Our studio needs a workflow review within $180.")}>Workflow review</button><button type="button" disabled={!!busy} onClick={()=>setRequest("Our studio needs a design review within $160.")}>Design review</button><button type="button" disabled={!!busy} onClick={()=>setRequest(`Suggest a cheaper option within ${money(available)} of available allowance.`)}>Cheaper option</button></div><div className="request-allowance"><LockKeyhole size={15}/><span>Available allowance<strong>{ws?money(available):"No workspace"}</strong></span></div>{mode==="sandbox"&&!sandboxReady && <p className="form-hint">Configure both providers in Connections before asking for an AI proposal.</p>}<button type="submit" className="btn btn-primary full" disabled={!!busy || !request.trim() || !ws || isDiagnostic || authRequired || (mode==="sandbox"&&!sandboxReady)}>{busy==="propose"?<LoaderCircle size={16} className="spin"/>:<Sparkles size={16}/>} {mode==="rehearsal"?"Create sample proposal":"Ask AI for a proposal"}<ArrowRight size={16}/></button></form><p className="form-hint">One sample seller · USD · Every alternative needs its own approval.</p></>}
+      {overlay==="request" && <><p className="dialog-intro">{mode==="rehearsal"?"Create a sample proposal using the rehearsal rules. No AI model is called.":"Describe the need. AI may suggest a catalogue item; you decide what gets approved."}</p><form onSubmit={event=>{event.preventDefault();void propose();}}><label className="form-label" htmlFor="purchase-request">Purchase request</label><textarea id="purchase-request" aria-describedby="purchase-request-help" value={request} onChange={event=>setRequest(event.target.value)} placeholder="Our studio needs a workflow review within the available allowance." maxLength={2000} rows={5} disabled={!!busy || authRequired}/><div className="field-help"><p id="purchase-request-help">Describe the business need. The catalogue fixes the seller and price.</p><span aria-label={`${request.length} of 2000 characters`}>{request.length}/2,000</span></div><div className="example-row"><span>Try a request</span><button type="button" disabled={!!busy} onClick={()=>setRequest("Our studio needs a workflow review within $180.")}>Workflow review</button><button type="button" disabled={!!busy} onClick={()=>setRequest("Our studio needs a design review within $160.")}>Design review</button><button type="button" disabled={!!busy} onClick={()=>setRequest(`Suggest a cheaper option within ${money(available)} of available allowance.`)}>Cheaper option</button></div><div className="request-allowance"><LockKeyhole size={15}/><span>Available allowance<strong>{ws?money(available):"No workspace"}</strong></span></div>{mode==="sandbox"&&!sandboxReady && <p className="form-hint">Configure both providers in Connections before asking for an AI proposal.</p>}<button type="submit" className="btn btn-primary full" disabled={!!busy || !request.trim() || !ws || isDiagnostic || authRequired || (mode==="sandbox"&&!sandboxReady)}>{busy==="propose"?<LoaderCircle size={16} className="spin"/>:<Sparkles size={16}/>} {mode==="rehearsal"?"Create sample proposal":"Ask AI for a proposal"}<ArrowRight size={16}/></button></form><p className="form-hint">One sample seller · USD · Every alternative needs its own approval.</p></>}
       {overlay==="purchase" && (selected ? <><div className="record-topline"><span className={`status ${selected.status.toLowerCase()}`}>{statusLabel(selected)}</span><span className="subtle-pill">{selected.aiSource==="sandbox-diagnostic"?"PayPal sandbox diagnostic":selected.providerMode==="rehearsal"?"Simulated provider":"PayPal sandbox"}</span></div><div className="record-amount">{money(selected.amountCents,selected.currency)}<span>{selected.currency}</span></div><p className="record-request">{selected.request}</p><dl className="record-facts"><div><dt>Seller</dt><dd>{selected.merchantId}</dd></div><div><dt>Catalogue item</dt><dd>{selected.sku}</dd></div><div><dt>Proposal source</dt><dd>{selected.aiSource==="model"?"AI model":selected.aiSource==="sandbox-diagnostic"?"Sandbox diagnostic · no AI":selected.aiSource==="rehearsal-seed"?"Rehearsal sample":"Rehearsal rule"}</dd></div><div><dt>Owner approval</dt><dd>{selected.approvalExpiresAt===null?"Not granted":`Version ${selected.approvalVersion} · ${selected.status==="CANCELLED"?"cancelled — no execution authority":approvalExpired?"execution window expired":`valid until ${time(selected.approvalExpiresAt)}`}`}</dd></div><div><dt>Operation</dt><dd className="mono">{selected.id}</dd></div>{selected.orderId && <div><dt>Provider order</dt><dd className="mono">{selected.orderId}</dd></div>}{selected.captureId && <div><dt>Capture</dt><dd className="mono">{selected.captureId}</dd></div>}</dl>{selected.rationale && <div className="rationale"><Sparkles size={15}/><p>{selected.rationale}</p></div>}
         <section className="record-actions" aria-label="Purchase actions">
           {approvalRenewable && <><div className="inline-note warning"><CircleAlert size={18}/><p>Owner approval expired. Renew the same <strong>{selected.title}</strong> from <strong>{selected.merchantId}</strong> for <strong>{money(selected.amountCents,selected.currency)} {selected.currency}</strong>. The reservation stays held.</p></div><button className="btn btn-primary full" disabled={!!busy} onClick={renewApproval}>{busy===selected.id?<LoaderCircle className="spin" size={16}/>:<Check size={16}/>}Renew owner approval</button><p className="form-hint">Another 15-minute execution window. Renewal does not dispatch a payment.</p></>}

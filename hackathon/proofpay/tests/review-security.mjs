@@ -6,25 +6,27 @@ import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { build } from 'esbuild';
 import { ReviewD1 } from './review-d1.mjs';
+import { ownerConfig, ownerCookie } from './owner-fixture.mjs';
+import { fundedAiConfig } from './ai-fixture.mjs';
 
 const dir = await mkdtemp(join(tmpdir(), 'proofpay-security-'));
-const testEnv = {};
+const testEnv = ownerConfig({OWNER_ID:'security-owner'});
 globalThis.__proofpaySecurityEnv = testEnv;
 const entry = join(dir, 'security.mjs');
-await build({stdin:{contents:'export * from "./lib/proofpay/http.ts"; export * from "./lib/proofpay/auth.ts"; export * from "./lib/proofpay/request.ts"; export * from "./lib/proofpay/provider.ts"; export {propose} from "./lib/proofpay/ai.ts";',resolveDir:process.cwd()},outfile:entry,bundle:true,platform:'node',format:'esm',logLevel:'silent',plugins:[{name:'test-worker-env',setup(b){b.onResolve({filter:/^cloudflare:workers$/},()=>({path:'env',namespace:'test-env'}));b.onLoad({filter:/.*/,namespace:'test-env'},()=>({contents:'export const env = globalThis.__proofpaySecurityEnv;'}));}}]});
+await build({stdin:{contents:'export * from "./lib/proofpay/http.ts"; export * from "./lib/proofpay/auth.ts"; export * from "./lib/proofpay/request.ts"; export * from "./lib/proofpay/provider.ts"; export {propose} from "./lib/proofpay/ai.ts";',resolveDir:process.cwd()},outfile:entry,bundle:true,platform:'node',format:'esm',logLevel:'silent',plugins:[{name:'test-worker-env',setup(b){b.onResolve({filter:/^\.\/runtime$/},()=>({path:'env',namespace:'test-env'}));b.onLoad({filter:/.*/,namespace:'test-env'},()=>({contents:'const env=globalThis.__proofpaySecurityEnv;export function getRuntimeConfiguration(){return env;} export function getDatabase(){return env.DB;} export async function getRequestConfiguration(config){return config;}'}));}}]});
 const {handle, authenticateRequest, parseApiRequest, readTextLimited, PayPalSandboxProvider, propose} = await import(pathToFileURL(entry));
 after(async()=>{delete globalThis.__proofpaySecurityEnv;await rm(dir,{recursive:true,force:true});});
 const id = '10000000-0000-4000-8000-000000000001';
 function request(body={}, options={}) {
   const method=options.method??'POST';
-  return new Request(`https://proofpay.example/api/operations/${id}/approve`,{method,headers:{'oai-authenticated-user-id':'security-owner',origin:'https://proofpay.example','content-type':'application/json',...options.headers},...(method==='GET'||method==='HEAD'?{}:{body:typeof body==='string'?body:JSON.stringify(body)})});
+  return new Request(`https://proofpay.example/api/operations/${id}/approve`,{method,headers:{cookie:ownerCookie(testEnv),origin:'https://proofpay.example','content-type':'application/json',...options.headers},...(method==='GET'||method==='HEAD'?{}:{body:typeof body==='string'?body:JSON.stringify(body)})});
 }
 const code = expected => error => error.code===expected;
 
-test('security: application/json lookalikes and malformed identities fail closed',()=>{
-  for(const type of ['application/jsonp','application/json-malicious','text/plain','application/x-www-form-urlencoded']) assert.throws(()=>authenticateRequest(request({}, {headers:{'content-type':type}})),code('JSON_REQUIRED'));
-  assert.equal(authenticateRequest(request({}, {headers:{'content-type':'application/json; charset=utf-8'}})),'security-owner');
-  assert.throws(()=>authenticateRequest(request({}, {headers:{'oai-authenticated-user-id':'owner with spaces'}})),code('AUTH_REQUIRED'));
+test('security: application/json lookalikes and forged identities fail closed',async()=>{
+  for(const type of ['application/jsonp','application/json-malicious','text/plain','application/x-www-form-urlencoded']) await assert.rejects(authenticateRequest(request({}, {headers:{'content-type':type}}),testEnv),code('JSON_REQUIRED'));
+  assert.equal(await authenticateRequest(request({}, {headers:{'content-type':'application/json; charset=utf-8'}}),testEnv),'security-owner');
+  await assert.rejects(authenticateRequest(request({}, {headers:{cookie:'','oai-authenticated-user-id':'security-owner'}}),testEnv),code('AUTH_REQUIRED'));
 });
 test('security: read-only and mutation actions reject wrong HTTP methods before database access',async()=>{
   for(const [method,action] of [['GET','start-rehearsal'],['GET','approve'],['POST','state'],['POST','evidence']]) {
@@ -68,7 +70,7 @@ test('security: API success and errors retain no-store, no-referrer, nosniff and
   } finally {delete testEnv.DB;db.close();}
 });
 
-const config={PAYPAL_CLIENT_ID:'synthetic-client',PAYPAL_CLIENT_SECRET:'synthetic-secret',PAYPAL_MERCHANT_ID:'seller',AI_API_KEY:'synthetic-model-key',AI_BASE_URL:'https://synthetic-model.invalid/v1',AI_MODEL:'synthetic-model'};
+const config={PAYPAL_CLIENT_ID:'synthetic-client',PAYPAL_CLIENT_SECRET:'synthetic-secret',PAYPAL_MERCHANT_ID:'seller',...fundedAiConfig()};
 const op={id:'operation',order_id:'order',merchant_id:'seller',currency:'USD',amount_cents:18000,create_request_id:'create',capture_request_id:'capture'};
 test('security: credentialed PayPal auth and order fetches never follow redirects or retry',async()=>{
   const original=globalThis.fetch;

@@ -1,18 +1,18 @@
-import { env } from "cloudflare:workers";
 import { authenticateRequest } from "./auth";
 import { ProofPayService } from "./service";
-import { Configuration, Mode, ProofPayError, SqlDatabase } from "./types";
+import { Mode, ProofPayError } from "./types";
 import { allowedMethods, ApiAction, API_SECURITY_HEADERS, parseApiRequest } from "./request";
+import { getDatabase, getRequestConfiguration, getRuntimeConfiguration } from "./runtime";
 
 export async function handle(request: Request, action: ApiAction, id?: string): Promise<Response> {
   let service: ProofPayService | undefined;
   let owner: string | undefined;
   const headers = API_SECURITY_HEADERS;
   try {
-    owner = authenticateRequest(request);
+    const config = getRuntimeConfiguration();
+    owner = await authenticateRequest(request, config);
     const input = await parseApiRequest(request, action, id);
-    if (!env.DB) throw new ProofPayError("DATABASE_UNAVAILABLE", "The durable database is not configured. No action was taken.", 503);
-    service = new ProofPayService({db: env.DB as unknown as SqlDatabase, env: env as Configuration});
+    service = new ProofPayService({db: getDatabase(config), env: await getRequestConfiguration(config)});
     let state;
     switch (action) {
       case "state": state = await service.state(owner); break;

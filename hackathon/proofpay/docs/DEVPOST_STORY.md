@@ -1,6 +1,6 @@
 # ProofPay Devpost draft
 
-Prepared **8 November 2026** with 151 passing local tests reported by the release owner and a verified fixed-sample PayPal sandbox capture/recovery on deployed source `17cbededf`. No AI model participated in that diagnostic. **Use the existing Devpost entry and do not click final Submit.**
+Updated **8 November 2026** during the GitHub/Vercel/Neon migration. The 151-test result and fixed-sample PayPal sandbox capture/recovery on earlier source `17cbededf` are historical; no model participated. Current owner/PayPal configuration, migrated hosted behavior and runtime AI remain unverified. **Use the existing Devpost entry and do not click final Submit.**
 
 ## Project name
 
@@ -30,13 +30,15 @@ The PayPal sandbox path creates an order and requires the buyer's native PayPal 
 
 ### How we built it
 
-The application uses TypeScript, React/Vinext, a Cloudflare Worker and D1. The model adapter requests a catalogue SKU and explanation. Server code validates the selection and supplies the price and merchant; the model cannot approve a purchase, change the allowance or declare a payment complete.
+The current source uses TypeScript, native Next.js 16/React 19 on Node.js 24 and remote Neon/PostgreSQL, with GitHub for source and Vercel for the selected deployment. Signed owner-session cookies replace the earlier ingress-header authentication. The model adapter requests a catalogue SKU and explanation through a fixed Vercel free-credit/OIDC route. Server code validates the selection and supplies the price and merchant; the model cannot approve a purchase, change the allowance or declare a payment complete.
 
 Owner approval binds the exact purchase and expiry. An atomic database decision reserves the shared allowance. Separate create and capture request IDs are stored before dispatch. PayPal OAuth and Orders v2 provide order creation, capture and subsequent lookup. Application approval and PayPal buyer approval are separate decisions.
 
 Confirmation stores the limited provider fields used for verification alongside the accounting change. The receipt inspector compares current purchase fields with those stored observations, making matching, different and missing values visible. The verification record does not retain the historical approval version or catalogue item, and the interface states those limits.
 
 Versioned exports include the operation, approval binding and digest, request IDs, events and verification records. An offline verifier checks their internal consistency. These are inspectable application records, not signed PayPal attestations; replacing both data and digest could produce another internally consistent file.
+
+Inference requires a reviewed grant and expiry, one durable attempt per workspace and a configured total (currently one). Failed attempts count; there is no automatic retry, direct personal API-key route or provider fallback. These controls bound requests; actual billing and model execution still require evidence.
 
 Rehearsal is a visibly separate mode with deterministic proposals and a persisted simulated provider. Missing configuration never silently substitutes rehearsal for a sandbox action.
 
@@ -48,23 +50,23 @@ We tested the application service with separate processes contending for allowan
 
 ### What we have verified
 
-The release owner reports **151/151 local tests passed** after the diagnostic changes. The suite uses SQLite with a D1-contract adapter, synthetic provider/model fixtures and mocked HTTP. It covers concurrency, process restart, approval, renewal, cancellation before dispatch, transactional audit writes, owner isolation, bounded requests/responses and offline receipt consistency. Earlier 131- and 92-test records remain historical evidence. These local results are separate from external execution.
+The earlier runtime recorded **151/151 local tests passed** after its diagnostic changes. The suite uses SQLite with a D1-contract adapter, synthetic provider/model fixtures and mocked HTTP. It covers concurrency, process restart, approval, renewal, cancellation before dispatch, transactional audit writes, owner isolation, bounded requests/responses and offline receipt consistency. Earlier 131- and 92-test records remain historical evidence. These local results are separate from external execution.
 
-Full application TypeScript and ESLint checks also passed. Local visual review checked the revised typography at 360, 390, 768 and 1280px without page-level horizontal overflow and verified keyboard scrolling. The implemented receipt inspector was reviewed at 360/390px with a synthetic record. These are local interface checks, not a hosted or physical-device payment demonstration.
+At that historical checkpoint, full application TypeScript and ESLint checks also passed. Local visual review checked the revised typography at 360, 390, 768 and 1280px without page-level horizontal overflow and verified keyboard scrolling. The implemented receipt inspector was reviewed at 360/390px with a synthetic record. These are local interface checks, not a hosted or physical-device payment demonstration.
 
-The private hosted rehearsal separately verified real approval expiry, disabled capture, explicit renewal with the same order and reservation, and recovery after a simulated capture response was dropped and the browser reloaded. It finished with $180 paid and $120 available. Another hosted check verified that cancelling an approved $90 request before dispatch restored its reservation and retained its history.
+The earlier private hosted rehearsal separately verified real approval expiry, disabled capture, explicit renewal with the same order and reservation, and recovery after a simulated capture response was dropped and the browser reloaded. It finished with $180 paid and $120 available. Another hosted check verified that cancelling an approved $90 request before dispatch restored its reservation and retained its history.
 
 A later hosted run blocked a $160 request against that remaining $120, then created a separate $90 alternative requiring its own approval. Dropping the simulated capture response left $90 reserved through reload. Checking the original order confirmed the purchase, leaving $270 total paid and $30 available; a repeated check preserved the same capture and totals. The UI reported four exported purchase records, but the downloaded file contents were not verified. This run observed application behavior with a simulated provider, not actual PayPal activity or provider-call counts.
 
-We then completed a **genuine PayPal sandbox diagnostic** in the deployed application. It used one fixed $180 Workflow review, with explicit owner approval and native sandbox buyer approval. We enabled the application's deliberate capture-response drop. The outcome stayed unresolved through browser reload, retaining $180 reserved, $120 available and no recorded spend. A GET of the original order then confirmed the matching completed final capture. Repeating the lookup retained the same capture and eight operation events; a further reload showed $180 paid, $0 reserved and $120 available. The UI observation does not independently measure provider request counts.
+We then completed a **genuine PayPal sandbox diagnostic** on the earlier Site deployment, source `17cbededf`. It used one fixed $180 Workflow review, with explicit owner approval and native sandbox buyer approval. We enabled the application's deliberate capture-response drop. The outcome stayed unresolved through browser reload, retaining $180 reserved, $120 available and no recorded spend. A GET of the original order then confirmed the matching completed final capture. Repeating the lookup retained the same capture and eight operation events; a further reload showed $180 paid, $0 reserved and $120 available. The UI observation does not independently measure provider request counts.
 
-**That diagnostic called no AI model.** Meaningful runtime AI remains blocked, and the complete model-to-PayPal journey is still unverified. The private deployment is not independently accessible to judges, and the public demonstration video remains unfinished. Sandbox uses virtual accounts and funds; this was not a production payment.
+**That diagnostic called no AI model and does not certify the new deployment.** The [native local checks](../evidence/native-vercel-checks-2026-11-08.json) now pass 175 tests, types, lint and both builds. The dependency audit reports zero known findings, including development dependencies; its parser compatibility checks passed. See [current QA](QA_REPORT.md) for the migration checks. Meaningful runtime AI, the complete model-to-PayPal journey, new owner/PayPal configuration and independent judge access remain unverified. The public demonstration video remains unfinished. Sandbox uses virtual accounts and funds; this was not a production payment.
 
 ### What we learned and what comes next
 
 Payment status needs evidence. A successful HTTP response, an assistant's explanation and a completed provider capture mean different things; the product must keep those distinctions visible.
 
-Our next step is to complete genuine runtime AI and connect its validated proposal to the already demonstrated PayPal path. We will retain the same recovery checks, verify judge access and record the public demonstration. Beyond the hackathon, we want to test whether teams building delegated purchasing workflows will pay for reusable approval, allowance and recovery operations. That is a customer hypothesis, not existing traction.
+Our next step is to validate the migrated Vercel/Neon workflow, then complete a genuine model proposal and PayPal purchase within the reviewed free-credit allowance. We will retain the same recovery checks, verify judge access and record the public demonstration. Beyond the hackathon, we want to test whether teams building delegated purchasing workflows will pay for reusable approval, allowance and recovery operations. That is a customer hypothesis, not existing traction.
 
 The current scope is one merchant, USD and an isolated workspace allowance. Renewal does not extend PayPal order validity. Cancellation is unavailable after provider dispatch and is not a refund. Unknown create results without a saved order ID require investigation. Production payments, refunds, webhooks, fulfillment and provider portability remain outside this build.
 
@@ -75,16 +77,17 @@ The current scope is one merchant, USD and an isolated workspace allowance. Rene
 - [Verified sandbox diagnostic](../evidence/diagnostic-release-review.json) · [QA report](QA_REPORT.md)
 - [Earlier 131-test QA summary](../evidence/qa-2026-11-08-summary.json) · [historical test log](../evidence/qa-2026-11-08-test-output.log)
 - [Hosted renewal](../evidence/hosted-renewal-review.json) · [hosted workspace](../evidence/hosted-workspace-review.json) · [hosted recovery](../evidence/hosted-recovery-review.json) · [earlier responsive review](../evidence/responsive-review.json)
-- [Private owner deployment](https://proofpay-purchase-desk.kaulastudies.chatgpt.site) — does not yet establish independent judge access.
+- Current Vercel deployment/access evidence: pending configuration and verification. The earlier Site URL is not the current delivery route.
+- [Native dependency evidence](../evidence/dependency-remediation-2026-11-08-summary.json) · [Postman development collection](../postman/README.md)
 
-Suggested implemented technology tags: TypeScript, React, Vinext, Cloudflare Workers, Cloudflare D1, PayPal REST APIs, PayPal Orders v2, Drizzle ORM, SQLite. Add the runtime model/provider only after its actual invocation. Do not claim Toolkit, MCP, agent-commerce protocol compatibility or optional sponsor integrations that are absent from the code.
+Suggested source technology tags: TypeScript, React, Next.js, Node.js, PostgreSQL, Neon, Vercel, PayPal REST APIs and PayPal Orders v2. The Postman collection is authored and checked offline; actual Postman execution is not yet claimed. Add the runtime model/provider only after its actual invocation. Do not claim Toolkit, MCP, agent-commerce protocol compatibility or optional sponsor integrations that are absent from the code.
 
 The ProofPay application was added during the event within an existing repository. Identify the new application work and preserve starter/dependency notices. Do not claim the parent repository or every dependency was newly created.
 
 | Gate | Evidence needed before changing the story |
 |---|---|
 | Runtime AI | Named provider/model, run date, validated proposal and matching operation; no secrets or raw unrelated response data. |
-| Sandbox capture and response loss | **Verified for the fixed no-AI diagnostic:** native buyer approval, completed capture, held allowance through reload, original-order GET and stable repeat lookup. This does not establish the standard model-led journey. |
+| Sandbox capture and response loss | **Historically verified for the fixed no-AI diagnostic on the former runtime:** native buyer approval, completed capture, held allowance through reload, original-order GET and stable repeat lookup. This does not establish the standard model-led journey. |
 | Combined AI-to-PayPal purchase | A genuine model proposal followed by owner/native buyer approvals, capture and checked receipt in the same application workflow. |
 | Source and reproduction | Final reviewed revision, matching evidence, applicable checks and fresh judge setup/access verification. Preserve labels distinguishing simulated, local and external runs. |
 | Presentation | Public YouTube URL under three minutes showing the actual build, with English narration or captions and permitted assets. |

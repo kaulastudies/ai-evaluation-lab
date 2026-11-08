@@ -6,11 +6,12 @@ import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { build } from 'esbuild';
 import { ReviewD1 } from './review-d1.mjs';
+import {ownerConfig,ownerCookie} from './owner-fixture.mjs';
 
 const dir=await mkdtemp(join(tmpdir(),'proofpay-diagnostic-'));
-const env={};globalThis.__proofpayDiagnosticEnv=env;
+const env=ownerConfig({OWNER_ID:'diagnostic-owner'});globalThis.__proofpayDiagnosticEnv=env;
 const bundle=join(dir,'diagnostic.mjs');
-await build({stdin:{contents:'export {ProofPayService} from "./lib/proofpay/service.ts"; export {handle} from "./lib/proofpay/http.ts";',resolveDir:process.cwd()},outfile:bundle,bundle:true,platform:'node',format:'esm',logLevel:'silent',plugins:[{name:'diagnostic-env',setup(b){b.onResolve({filter:/^cloudflare:workers$/},()=>({path:'env',namespace:'diagnostic'}));b.onLoad({filter:/.*/,namespace:'diagnostic'},()=>({contents:'export const env=globalThis.__proofpayDiagnosticEnv;'}));}}]});
+await build({stdin:{contents:'export {ProofPayService} from "./lib/proofpay/service.ts"; export {handle} from "./lib/proofpay/http.ts";',resolveDir:process.cwd()},outfile:bundle,bundle:true,platform:'node',format:'esm',logLevel:'silent',plugins:[{name:'diagnostic-env',setup(b){b.onResolve({filter:/^\.\/runtime$/},()=>({path:'env',namespace:'diagnostic'}));b.onLoad({filter:/.*/,namespace:'diagnostic'},()=>({contents:'const env=globalThis.__proofpayDiagnosticEnv;export function getRuntimeConfiguration(){return env;} export function getDatabase(){return env.DB;} export async function getRequestConfiguration(config){return config;}'}));}}]});
 const {ProofPayService,handle}=await import(pathToFileURL(bundle));
 const schema=await readFile('drizzle/0000_greedy_living_lightning.sql','utf8');
 const config={PAYPAL_CLIENT_ID:'synthetic-client',PAYPAL_CLIENT_SECRET:'synthetic-secret',PAYPAL_MERCHANT_ID:'synthetic-seller'};
@@ -84,9 +85,9 @@ test('diagnostic: existing financial protections retain buyer preflight, unknown
 });
 test('diagnostic: HTTP action requires trusted owner, same origin and empty fixed-catalogue body',async()=>{
   const f=await fixture();Object.assign(env,config,{DB:f.db});
-  const req=(body={},headers={},method='POST')=>new Request('https://proofpay.example/api/sandbox/diagnostic/start',{method,headers:{'content-type':'application/json',origin:'https://proofpay.example','oai-authenticated-user-id':owner,...headers},...(method==='POST'?{body:JSON.stringify(body)}:{})});
+  const req=(body={},headers={},method='POST')=>new Request('https://proofpay.example/api/sandbox/diagnostic/start',{method,headers:{'content-type':'application/json',origin:'https://proofpay.example',cookie:ownerCookie(env),...headers},...(method==='POST'?{body:JSON.stringify(body)}:{})});
   try{
-    for(const [request,status] of [[req({}, {'oai-authenticated-user-id':''}),401],[req({}, {origin:'https://attacker.invalid'}),403],[req({sku:'starter-review',amountCents:1}),400],[req({}, {}, 'GET'),405]])assert.equal((await handle(request,'start-diagnostic')).status,status);
+    for(const [request,status] of [[req({}, {cookie:'','oai-authenticated-user-id':owner}),401],[req({}, {origin:'https://attacker.invalid'}),403],[req({sku:'starter-review',amountCents:1}),400],[req({}, {}, 'GET'),405]])assert.equal((await handle(request,'start-diagnostic')).status,status);
     assert.equal((await f.db.prepare('SELECT COUNT(*) n FROM proofpay_workspaces').first()).n,0);
     const response=await handle(req(),'start-diagnostic');assert.equal(response.status,200);assert.equal((await response.json()).state.operations[0].aiSource,'sandbox-diagnostic');
   }finally{for(const key of Object.keys(env))delete env[key];f.db.close();}

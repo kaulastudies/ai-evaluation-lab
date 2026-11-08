@@ -2,129 +2,99 @@
 
 **Owner-approved purchases with a shared allowance and a checkable payment outcome.**
 
-ProofPay connects a purchasing request to the owner's approval, a durable operation and the payment provider's reported result. It is an AI Evaluation Lab prototype for the [PayPal AI Hackathon](https://paypalaihackathon.devpost.com/).
+A studio has $300 for outside reviews. Two requests cost $180 and $160. ProofPay reserves allowance when the owner approves a specific purchase, keeps uncertain payments reserved, and checks the original provider order before recording payment.
 
-A studio has a $300 allowance. Two assistants request reviews costing $180 and $160. Both requests may be useful, but approving both would exceed the allowance. ProofPay reserves funds when the owner approves a specific purchase. If a capture response disappears, it keeps the money reserved and checks the original order before recording payment.
+The project is an [AI Evaluation Lab](https://github.com/kaulastudies/ai-evaluation-lab) prototype for the [PayPal AI Hackathon](https://paypalaihackathon.devpost.com/). GitHub is the source and review home. The current source targets **native Next.js 16, React 19, Node.js 24, Vercel and Neon/PostgreSQL**.
 
-[Judge guide](docs/JUDGES.md) · [Requirements and readiness](docs/JUDGE_READINESS.md) · [Development guide](docs/DEVELOPMENT.md) · [Architecture](docs/ARCHITECTURE.md) · [Security review](docs/SECURITY_REVIEW.md) · [QA report](docs/QA_REPORT.md)
+[Judge guide](docs/JUDGES.md) · [Readiness](docs/JUDGE_READINESS.md) · [Development](docs/DEVELOPMENT.md) · [Architecture](docs/ARCHITECTURE.md) · [Security](docs/SECURITY_REVIEW.md) · [QA](docs/QA_REPORT.md) · [Postman collection](postman/README.md)
 
-## Why this is useful
+Current local check record: [native verification summary](evidence/native-vercel-checks-2026-11-08.json). Hosted and real-database gates remain separate.
 
-An engineering team adding agent-driven purchases needs more than a successful checkout. It needs to know who authorized the action, whether other requests have already used the allowance, and what to do when the outcome is uncertain.
+## Why it is useful
 
-| Situation | ProofPay's behavior | What can be inspected |
+An engineering team adding purchases to an agent workflow needs to connect business authority, shared allowance and payment recovery. A successful checkout alone does not answer who approved the exact purchase or what happens after a missing response.
+
+| Situation | Application behavior | Inspectable record |
 |---|---|---|
-| Two requests compete for one allowance | The server atomically reserves the approved amount. | Purchase state, held allowance and approval event. |
-| A model chooses an item | The server supplies the permitted seller, price and currency. The owner grants approval separately. | Selected SKU, proposal source and available model-response identifiers. |
-| Approval expires | New dispatch is blocked; funds remain held. Explicit renewal preserves the purchase and reservation. | Approval version, digest, expiry and renewal event. |
-| A capture response is missing | The purchase stays unresolved. Recovery reads the original order without a new capture. | Stable operation/order/request IDs and provider verification records. |
-| The owner withdraws an untouched request | Cancellation keeps its history and releases an approved reservation once. | Cancelled state and cancellation event; no refund is implied. |
+| Requests compete for an allowance | Approval reserves funds through a conditional database transaction. | Amount, held allowance and approval event. |
+| A model proposes an item | The server owns seller, catalogue price and currency; the owner approves separately. | Selected SKU, rationale and limited response provenance. |
+| Approval expires | New dispatch is blocked; explicit renewal preserves the reservation and operation. | Version, digest, expiry and renewal event. |
+| A capture response disappears | Funds stay reserved; recovery reads the original order. | Stable operation/order/request IDs and checked provider fields. |
+| An untouched request is withdrawn | Cancellation retains history and releases an unused reservation once. | Cancelled state and event; no refund is implied. |
 
-The first intended user is a software team embedding approved purchases into a business workflow. The commercial hypothesis is that a reusable approval, reservation and recovery layer reduces integration and investigation work. Customer demand and willingness to pay still need validation. See the [product strategy](docs/PRODUCT_STRATEGY.md) and [pilot plan](docs/COMMERCIAL_PLAN.md).
+The intended first customer is a software team embedding approved purchases in a business process. Reduced integration and investigation work is a commercial hypothesis, not measured customer traction. See [product strategy](docs/PRODUCT_STRATEGY.md) and the [operating roadmap](docs/OPERATING_ROADMAP.md).
 
-## What exists today
+## Current delivery and evidence
 
-The application has six connected views: Overview, Purchases, Approvals, Evidence, Controls and Connections. Purchases can be searched by item or reference; each record exposes its available next action and activity history. An on-demand receipt panel compares approved and observed fields, labels missing information and reads stored evidence without another provider call. Server-side services own the financial state. The browser and model cannot declare a payment successful.
+The Vercel migration changes the hosting, database and authentication boundary. Earlier Site results remain useful historical evidence, but do not certify the new deployment.
 
-The two provider modes have three explicitly labelled paths:
-
-| Mode | What runs | What it proves |
+| Area | Verified or implemented | Remaining gate |
 |---|---|---|
-| Rehearsal | Deterministic catalogue selection and a durable simulated provider. No external credentials are needed. | Application workflow, persistence, allowance enforcement and the documented recovery scenarios. |
-| Standard AI + PayPal sandbox | Configured model adapter, PayPal test merchant, native buyer approval and checked provider evidence. | Only the externally executed and recorded steps; configuration alone proves none of them. |
-| Manual PayPal sandbox diagnostic | One fixed $180 workflow review request, selected by the server without a model. Requires PayPal configuration, owner approval and native buyer approval. | Isolates the PayPal path for testing. Starting it creates an unapproved request; it does not prove payment or an AI integration. |
+| Native source | Next.js/Node, PostgreSQL adapter, signed owner sessions, migrations and bounded inference policy implemented. The release owner reports **178/178 local tests**, TypeScript, full lint, native build and visual fixture build passed. | Real PostgreSQL execution and hosted checks are separate gates in [QA](docs/QA_REPORT.md). |
+| Dependencies | [Final full audit](evidence/dependency-remediation-2026-11-08-summary.json): **0 known findings**, including development dependencies; parser checks 2/2. | This is a dated lockfile result, not a security certificate. |
+| Vercel / Neon | Project and a new free Neon database connected. | Schema execution, owner/PayPal configuration and the migrated hosted workflow are not yet verified at this documentation checkpoint. |
+| PayPal | [Historical diagnostic](evidence/diagnostic-release-review.json) on source `17cbededf`: native buyer approval, $180 sandbox capture, response-loss recovery and stable repeated lookup. | No AI participated. Repeat the relevant checks on the current Vercel runtime. |
+| Runtime AI | Fixed Vercel free-credit/OIDC route implemented; $4.93 free credit was observed by the release owner. | The selected model is confirmed eligible for free Gateway credit; actual inference and the complete model-to-payment journey remain unverified. |
+| Presentation / access | Source, instructions, review materials and [Postman collection](postman/README.md) prepared. | Independent judge access, public video and final review remain open. **Final Devpost Submit is held.** |
 
-In **Connections**, **Test PayPal sandbox** starts the manual diagnostic. It never calls AI or accepts additional proposals. It shares the ordinary approval, allowance, dispatch and recovery controls, and its interface and receipts identify it as manual/no-AI. A successful diagnostic cannot establish the standard AI-to-payment journey.
+The earlier diagnostic kept $180 reserved after response loss and browser reload; original-order lookup confirmed payment, with $120 available, $0 reserved and $180 paid. Its [record](evidence/diagnostic-release-review.json) identifies the operation/order/capture. External request counts were not independently measured. It used virtual funds, not production money.
 
-**This is a prototype, not a production payment service.** The deployed manual PayPal sandbox diagnostic passed native buyer approval, capture, response-loss recovery and repeated original-order lookup with unchanged accounting. It used virtual funds and no AI. A genuine model invocation and the standard AI-to-PayPal journey remain unverified. The hosted application is owner-private; independent judge access and the public demo video remain open.
+Historical interface evidence includes the [readability review and screenshot](evidence/readability-review.json), [mobile screenshot](evidence/mobile-approval-qa.png), [hosted rehearsal](evidence/hosted-renewal-review.json) and [earlier release](evidence/hosted-release-review.json). New styling/authentication needs current browser evidence; old screenshots are not a current deployment check.
 
-| Evidence | Scope |
-|---|---|
-| [Hosted PayPal-only diagnostic](evidence/diagnostic-release-review.json) | On deployed Site source `17cbededf`, the fixed $180 purchase kept its reservation after response loss and reload; original-order verification confirmed payment. Repeat lookup/reload retained the same capture and $120 available / $0 reserved / $180 paid. Manual/no-AI; external request counts were not independently measured. |
-| [Current local release checks](evidence/diagnostic-release-review.json) | 151/151 passed, including diagnostic isolation, connector migration, SQLite concurrency and offline receipt consistency. Types, lint, Worker build and responsive fixture build also passed. Provider/model responses are synthetic. |
-| [Earlier local control tests](evidence/qa-2026-11-08-summary.json) | Historical 131/131 checkpoint before the manual diagnostic and Zod migration. |
-| [Zod migration review](evidence/zod-migration-2026-11-08-summary.json) | Zod 4.6.7 and 10 connector regressions; audit now reports 17 affected package entries, with none rated critical or high. |
-| [Hosted renewal review](evidence/hosted-renewal-review.json) | Deployed rehearsal expiry, explicit renewal, lost-response recovery and persistence after browser reload. |
-| [Hosted workspace review](evidence/hosted-workspace-review.json) | Desktop navigation, search, retained evidence and cancellation accounting. |
-| [Responsive review](evidence/responsive-review.json) · [screenshot](evidence/mobile-approval-qa.png) | Actual component/CSS with synthetic records at phone widths; a tablet spot check. It is not a real-device or payment-integration test. |
-| [Hosted recovery review](evidence/hosted-recovery-review.json) | Fresh over-allowance rejection, separately approved alternative and lost-response recovery; repeat lookup did not change accounting. |
-| [Readability review](evidence/readability-review.json) · [screenshot](evidence/readability-qa.png) | Updated typography and receipt comparison at 360/390/768/1280 CSS-pixel widths, including keyboard table scrolling. Synthetic visual QA only. |
-| [Hosted release check](evidence/hosted-release-review.json) · [screenshot](evidence/hosted-release-qa.png) | Deployed receipt comparison, fresh approval/cancellation, reload persistence and proposal provenance. Rehearsal only. |
-| [Current QA report](docs/QA_REPORT.md) | Commands, results, identified gaps and the boundaries of the latest review. |
+## Three explicit paths
 
-## Try the rehearsal locally
+| Path | Selection and provider | Required configuration |
+|---|---|---|
+| Rehearsal | Deterministic sample proposals and a durable simulated provider. | Owner session and remote database; no PayPal/model credentials. |
+| Standard AI + PayPal sandbox | One validated model proposal, separate owner and native buyer approval, checked provider outcome. | Owner/database, PayPal sandbox and the reviewed Vercel free-credit policy. |
+| Manual PayPal diagnostic | One fixed, unapproved $180 workflow review; no model call. | Owner/database and PayPal sandbox. Starting it does not dispatch a payment. |
 
-Use Node.js **22.13.0 or later**; the CI environment is pinned to Node.js 24.22.1. The tests use Node's built-in SQLite module. No PayPal account, model key or paid service is needed for the rehearsal and local tests.
+All paths retain the financial controls. Diagnostic receipts say manual/no-AI; a diagnostic cannot establish the standard AI journey. The current free-credit policy permits one dispatched model attempt per workspace and one total for the reviewed grant, including failures. Personal OpenAI/API keys are rejected; there is no automatic retry or alternate provider. [Funding details](docs/DEVELOPMENT.md#bounded-runtime-ai) distinguish the operator's declaration from billing evidence.
+
+## Install and check the source
+
+Use Node.js **24.x**. From a clean checkout:
 
 ```sh
 git clone --branch proofpay/purchase-desk-v0.1 https://github.com/kaulastudies/ai-evaluation-lab.git
 cd ai-evaluation-lab/hackathon/proofpay
 npm run install:ci
-npm run build
-```
-
-Initialize a **fresh local database** with the committed migration:
-
-```sh
-node --import ./scripts/sites-env.mjs ./node_modules/wrangler/bin/wrangler.js d1 execute DB --local --config dist/server/wrangler.json --persist-to .wrangler/state --file drizzle/0000_greedy_living_lightning.sql
-npm run dev
-```
-
-Open the loopback URL printed by the server, normally `http://localhost:5173`. In an ordinary local checkout, `/signin-with-chatgpt?return_to=/` supplies a loopback-only simulated development identity. It is not a real ChatGPT login. Start the **$300 rehearsal**, approve a request, create its simulated order, enable **Drop the capture response**, capture and then check the original outcome.
-
-The managed execution profile intentionally disables simulated sign-in. The [development guide](docs/DEVELOPMENT.md) explains that distinction, migration handling, server environment variables and deployment boundaries. Do not replay the initial migration against an existing database.
-
-## Verify a change
-
-Run these commands from `hackathon/proofpay`:
-
-```sh
-node node_modules/typescript/bin/tsc --noEmit
+npx tsc --noEmit
 npm run lint
 npm test
 npm run build
 node tests/responsive/build.mjs
 ```
 
-[ProofPay CI](../../.github/workflows/proofpay.yml) runs these checks on relevant pushes and pull requests after installing from the lockfile. It uses no production credentials and performs no deployment or external payment. A workflow definition is not a passing run; inspect the checks on the exact commit under review.
+These local checks do not make a model or PayPal call. The separate live PostgreSQL gate requires an explicitly configured test connection. The [development guide](docs/DEVELOPMENT.md) explains its isolated schema, migrations, owner-key setup, HTTPS development and Vercel release checks.
 
-The [visual fixture](tests/responsive/README.md) is a separate read-only QA harness. It renders the real interface with synthetic records, rejects mutations and blocks external navigation/downloads. Its successful build does not replace browser inspection. Hosted authentication, real model execution and PayPal buyer approval require separate checks.
+Interactive use needs server configuration. There is no simulated sign-in or local-ledger fallback. With a dedicated database and owner variables in an uncommitted `.env.local`, apply the PostgreSQL migrations and use HTTPS:
 
-An exported version 1 receipt can also be checked offline:
+```sh
+node --env-file=.env.local scripts/migrate-postgres.mjs
+npm run dev -- --experimental-https
+```
+
+Set `APP_ORIGIN=https://localhost:3000` for that local server. Use the printed HTTPS address and sign in with the dedicated owner key. Do not use the old Wrangler/D1 migration or Sites sign-in instructions for this runtime.
+
+## Inspect the API and receipts
+
+The [Postman collection](postman/proofpay.postman_collection.json) covers login/logout, workspace, proposal, approval, cancellation, renewal and evidence requests. It uses a local Vault placeholder and HTTPS cookie jar, contains no credentials, and defaults to rehearsal. Its schema and scripts were checked offline; actual Postman execution is not yet claimed.
+
+A version 1 receipt can also be checked offline:
 
 ```sh
 node scripts/verify-receipt.mjs /path/to/receipt.json
 ```
 
-The [receipt verifier](scripts/verify-receipt.mjs) recomputes the approval digest and compares the exported operation, events and provider record. It makes no network calls. A passing result means the unsigned record is internally consistent; it does not authenticate PayPal, a model, the author or TIP compatibility. Older exports must be re-exported from the updated application. See [receipt verification](docs/DEVELOPMENT.md#offline-receipt-verification).
+The verifier compares the approval digest, operation, events and provider fields without network access. A pass means an unsigned record is internally consistent. It does not authenticate PayPal, a model, the author, current spending authority or TIP compatibility. See the [provenance roadmap](docs/PROVENANCE_ROADMAP.md).
 
-## Architecture and authority
+## Scope and limits
 
-| Component | Owns |
-|---|---|
-| React/Vinext purchase desk | Requests, owner interaction, mode labels, record inspection and evidence export. |
-| Authenticated API boundary | Trusted ingress identity, same-origin mutation requirements and ownership checks. |
-| Application service | Approval binding, atomic reservation, state transitions, durable dispatch and reconciliation. |
-| Cloudflare D1 | Workspaces, operations, approval/event history and simulated provider state. |
-| Model adapter | A permitted catalogue SKU and rationale; no payment credentials or approval authority. |
-| PayPal sandbox adapter | Test order creation, buyer-approval checks, capture and original-order lookup. |
+ProofPay currently covers one controlled sample merchant, USD and a $300 allowance per isolated workspace. The catalogue is synthetic; no paid review service is delivered. There are no production payments, refunds, webhooks, fulfillment, subscriptions or cancellation after provider dispatch. A lost create response without a saved order ID needs investigation and retains its reservation.
 
-The expected operation, seller, amount, currency and completed capture must match before payment is recorded. Confirmation and its limited verification snapshot are persisted together. Approval digests and stored provider fields aid inspection; they are not signed PayPal attestations, externally anchored TIP receipts or proof against database compromise.
+Owner sessions are a private-desk prototype, not a multi-user identity product. Database/admin compromise, broad denial-of-service resistance, compliance, processor parity and a general exactly-once guarantee are not established. The roadmap records evidence needed for broader use; it does not promise a valuation or hackathon result.
 
-Read the [state machine and trust boundaries](docs/ARCHITECTURE.md). The [development guide](docs/DEVELOPMENT.md#api-surface) maps the API and source files.
+## License
 
-## Current limits and next gates
-
-- One controlled sample seller, USD and a small synthetic digital-service catalogue. The $300 figure is a workspace allowance, not a bank balance.
-- No production payments, webhooks, refunds, fulfillment, subscriptions or cancellation after provider dispatch.
-- A lost create response without a saved provider order ID needs manual investigation. There is no blind create/capture retry or automatic provider fallback.
-- Hosted identity depends on a trusted ingress supplying the owner header. Exposing the Worker directly without an equivalent authenticated boundary is unsupported.
-- Dependency audit retains 17 affected package entries (0 critical, 0 high, 15 moderate, 2 low). The Zod finding was removed after a tested migration to 4.6.7. See the QA report for remaining paths and reachability limits.
-- Real model-to-PayPal execution, independent reviewer access, the required public demo video and final submission readiness remain open gates.
-- Security review and passing tests do not establish regulatory compliance, fraud elimination, processor parity or a general exactly-once guarantee.
-
-Development should close those gates before adding providers or broader financial products. The [departmental operating roadmap](docs/OPERATING_ROADMAP.md) and [provenance/TIP roadmap](docs/PROVENANCE_ROADMAP.md) record hypotheses and evidence requirements; it does not promise a company valuation or a hackathon result.
-
-## License and attribution
-
-ProofPay is part of [AI Evaluation Lab](https://github.com/kaulastudies/ai-evaluation-lab), maintained by Rama Chandra Malayanur. This directory includes an [Apache-2.0 license](LICENSE). Dependency versions are in `package.json` and `package-lock.json`; preserved starter/vendor notices cover their respective components. PayPal product names describe the integration and do not imply endorsement.
+ProofPay is maintained within AI Evaluation Lab by Rama Chandra Malayanur and includes an [Apache-2.0 license](LICENSE). Preserve dependency and starter notices. PayPal product names identify the integration and do not imply endorsement.

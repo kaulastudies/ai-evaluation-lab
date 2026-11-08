@@ -1,0 +1,27 @@
+proofpay-purchase-desk@0.1.0 [checkout]
+├── @types/pg@8.23.1
+├── @vercel/oidc@4.0.7
+├─┬ drizzle-orm@0.45.2
+│ ├── @types/pg@8.23.1 deduped
+│ └── pg@8.23.1 deduped
+├── esbuild@0.28.1
+├─┬ eslint-config-next@16.4.5
+│ ├─┬ eslint-plugin-import@2.32.0
+│ │ └── minimatch@3.1.5 deduped
+│ ├─┬ eslint-plugin-jsx-a11y@6.10.2
+│ │ └── minimatch@3.1.5 deduped
+│ ├─┬ eslint-plugin-react@7.37.5
+│ │ └── minimatch@3.1.5 deduped
+│ └─┬ typescript-eslint@8.59.3
+│   └─┬ @typescript-eslint/typescript-estree@8.59.3
+│     └── minimatch@11.0.1 overridden
+├─┬ eslint@9.39.4
+│ ├─┬ @eslint/config-array@0.21.2
+│ │ └── minimatch@3.1.5 deduped
+│ ├─┬ @eslint/eslintrc@3.3.5
+│ │ └── minimatch@3.1.5 deduped
+│ └── minimatch@3.1.5
+└─┬ pg@8.23.1
+  └─┬ pg-pool@3.14.0
+    └── pg@8.23.1 deduped
+
