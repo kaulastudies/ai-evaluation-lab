@@ -34,7 +34,7 @@ The application uses TypeScript, React/Vinext, a Cloudflare Worker and D1. Serve
 
 Approval binds the purchase details and expiry to the operation. An atomic database update reserves the shared allowance. Separate create and capture request IDs are stored before dispatch. The PayPal integration uses OAuth and Orders v2 create, capture and order lookup. PayPal buyer approval remains separate from the application's owner approval.
 
-Explicit owner reapproval renews an expired approval before capture dispatch. The implementation retains the same purchase, order, request IDs and reservation, and updates the approval version, digest and expiry. Conditional state/version checks reject stale dispatch authority. Reapproval is restricted to expired `APPROVED` or `ORDER_READY` operations; it does not reopen uncertain, capture-dispatched, confirmed or verification-failed operations. These service behaviors have passed local tests; hosted renewal remains a separate check.
+Explicit owner reapproval renews an expired approval before capture dispatch. The implementation retains the same purchase, order, request IDs and reservation, and updates the approval version, digest and expiry. Conditional state/version checks reject stale dispatch authority. Reapproval is restricted to expired `APPROVED` or `ORDER_READY` operations; it does not reopen uncertain, capture-dispatched, confirmed or verification-failed operations. These service behaviors passed local tests. A hosted rehearsal also verified real-time expiry, disabled capture, renewal to version 2 with the same order and reservation, and response-loss recovery after browser reload.
 
 Confirmation stores a limited snapshot of the checked provider fields together with the accounting change. The owner can export the operation, request IDs, approval digest and verification records. These are application observations, not signed PayPal attestations.
 
@@ -62,7 +62,7 @@ An unresolved result also needs a useful product experience: keep the amount res
 
 ### What's next
 
-Verify renewal in the hosted interface. Complete and record the genuine model-to-PayPal sandbox flow, including a normal capture and the labelled response-loss case. Verify judge access and make the demonstration reproducible from the public source.
+Complete and record the genuine model-to-PayPal sandbox flow, including a normal capture and the labelled response-loss case. Verify judge access and make the demonstration reproducible from the public source.
 
 The commercial hypothesis is that small engineering teams embedding PayPal purchasing would pay to reduce their own approval, recovery and investigation work. We plan to test that with a scoped paid pilot; there are no customers, revenue or savings claims yet.
 

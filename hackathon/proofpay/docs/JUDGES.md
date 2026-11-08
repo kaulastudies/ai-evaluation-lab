@@ -67,3 +67,5 @@ Final judging evidence should identify the source commit, reproduction commands,
 ## Current verification checkpoint
 
 The local suite passes 72/72 tests, including 17 approval-renewal cases and two model-provenance cases. These use synthetic provider/model fixtures. TypeScript, lint, clean dependency installation and Worker build pass. The private deployment includes these changes; independent judge access and the required genuine model/payment demonstration remain unfinished. Model response identifiers aid run inspection but are not signed attestations. The commercial and submission drafts are in [COMMERCIAL_PLAN.md](COMMERCIAL_PLAN.md) and [DEVPOST_STORY.md](DEVPOST_STORY.md).
+
+A separate [hosted renewal rehearsal](../evidence/hosted-renewal-review.json) waited for the real approval window to expire, observed disabled capture, renewed to version2 without changing the order or $180 reservation, then recovered a dropped simulated capture response after browser reload. It finished with $180 paid, $0 reserved and $120 available. This is simulated-provider evidence.
