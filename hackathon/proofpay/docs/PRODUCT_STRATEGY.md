@@ -92,7 +92,7 @@ Acceptance: a reviewer can trace approval to the checked provider record without
 
 ## Delivered interface checkpoint
 
-The six-view workspace and pre-dispatch cancellation are privately deployed. Desktop checks cover navigation, purchase/evidence search, confirmed/cancelled filters, record inspection and cancellation accounting after reload. The evidence comparison described above remains a proposed deeper inspection view; the current Evidence screen presents events and exported server receipts. Mobile CSS exists, but a mobile-size visual check was not established by the available browser override. See [hosted workspace evidence](../evidence/hosted-workspace-review.json).
+The six-view workspace and pre-dispatch cancellation are privately deployed. Desktop checks cover navigation, purchase/evidence search, confirmed/cancelled filters, record inspection and cancellation accounting after reload. The evidence comparison described above remains a proposed deeper inspection view; the current Evidence screen presents events and exported server receipts. Local 360px/390px CSS-viewport inspection now covers the actual component and stylesheet with synthetic data, with a 768px tablet spot check. It led to corrections for cramped cards, table overflow and navigation scroll. Touch-device behavior and hosted mobile authentication are still unverified. See [hosted workspace evidence](../evidence/hosted-workspace-review.json) and [responsive review](../evidence/responsive-review.json).
 
 ## Roadmap to provider-independent operations
 

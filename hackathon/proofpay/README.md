@@ -151,3 +151,9 @@ The initial customer is an engineering team building approved purchases into a b
 - [PayPal idempotency documentation](https://developer.paypal.com/api/rest/reference/idempotency/)
 
 The submitted story and demonstration must match the actual delivered build. Final registration, submission and judging are separate from implementation or deployment.
+
+## Responsive interface review
+
+The [isolated visual fixture](tests/responsive/README.md) renders the actual component and CSS at fixed iframe widths using clearly synthetic records. It intercepts fetch calls, rejects mutations and blocks external links/downloads. It is a local QA tool, not a deployed product mode or authentication bypass.
+
+The [review record](evidence/responsive-review.json) documents phone-width inspection at 360px and 390px and a tablet spot check at 768px, the fixes it prompted, and the limits of that evidence. Real devices, hosted mobile authentication and real AI/payment execution require separate verification.

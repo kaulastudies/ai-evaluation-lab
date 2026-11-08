@@ -280,7 +280,13 @@ export default function PurchaseDesk() {
     finally { busyRef.current = false; setBusy(null); }
   };
 
-  const navigate = (next: View, nextFilter = "all") => { setView(next); setFilter(nextFilter); setSearch(""); setOverlay(null); setCancelConfirm(false); };
+  const navigate = (next: View, nextFilter = "all") => {
+    setView(next); setFilter(nextFilter); setSearch(""); setOverlay(null); setCancelConfirm(false);
+    requestAnimationFrame(() => {
+      window.scrollTo({ top: 0, behavior: "instant" });
+      document.getElementById("page-title")?.focus({ preventScroll: true });
+    });
+  };
   const inspect = (operation: Operation) => { setSelectedId(operation.id); setFault(false); setCancelConfirm(false); setOverlay("purchase"); };
   const newRequest = () => { setOverlay("request"); setCancelConfirm(false); };
   const refreshNow = async () => {
