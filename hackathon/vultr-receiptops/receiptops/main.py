@@ -77,6 +77,9 @@ def utcnow():
 def start_run(kind: str) -> str:
     today = datetime.now(timezone.utc).date().isoformat()
     with connection() as db:
+        lifetime = db.execute("SELECT COUNT(*) FROM runs").fetchone()[0]
+        if lifetime >= int(os.getenv("LIFETIME_RUN_LIMIT", "100")):
+            raise HTTPException(429, "This deployment's demonstration budget is used. Contact the project author.")
         used = db.execute("SELECT COUNT(*) FROM runs WHERE day=?", (today,)).fetchone()[0]
         if used >= int(os.getenv("DAILY_RUN_LIMIT", "60")):
             raise HTTPException(429, "Today's demonstration budget is used. Try again tomorrow.")

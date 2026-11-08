@@ -30,6 +30,7 @@ VULTR_MODEL=
 SANDBOX_IMAGE=$task_image_digest
 PUBLIC_DEMO=1
 DAILY_RUN_LIMIT=60
+LIFETIME_RUN_LIMIT=100
 DEPLOYMENT_LABEL="Vultr Cloud Compute · dedicated ReceiptOps VM"
 EOF
 fi

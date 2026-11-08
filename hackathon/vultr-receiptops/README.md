@@ -75,7 +75,11 @@ python -m uvicorn receiptops.main:app --host 127.0.0.1 --port 8000
 ```
 
 Do not commit keys. For deployed use, supply them in `/etc/receiptops.env` with
-mode 0600. `deploy/install.sh` installs the service on a dedicated Ubuntu VM
+mode 0600. The public deployment allows 60 runs per day and 100 runs in total,
+counting failed attempts toward the budget. Each audit allows at most two model
+calls with 2,200 output tokens each. These app limits do not stop the VM's hourly
+charges or govern other use of the account's inference credentials.
+`deploy/install.sh` installs the service on a dedicated Ubuntu VM
 and pins the pulled sandbox image by its resolved digest.
 
 ## Verify a downloaded result

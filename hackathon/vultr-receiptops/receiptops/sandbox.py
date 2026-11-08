@@ -96,7 +96,7 @@ def execute(code: str, content: str, timeout: float = 8) -> dict:
             "duration_ms": int((time.monotonic() - started) * 1000),
             "container_removed": cleanup_ok, "policy": POLICY, "image": IMAGE}
 
-PROBE = '''import json, os, socket
+PROBE = '''import errno, json, os, socket
 result = {}
 try:
     socket.create_connection(("1.1.1.1", 443), timeout=1).close()
@@ -109,10 +109,10 @@ try:
 except OSError:
     result["input_read_only"] = True
 try:
-    open("/etc/receiptops-probe", "w").write("modified")
+    open("/var/tmp/receiptops-probe", "w").write("modified")
     result["root_read_only"] = False
-except OSError:
-    result["root_read_only"] = True
+except OSError as error:
+    result["root_read_only"] = error.errno == errno.EROFS
 result["non_root"] = os.getuid() == 65534
 result["inference_key_absent"] = "VULTR_INFERENCE_API_KEY" not in os.environ
 result["docker_socket_absent"] = not os.path.exists("/var/run/docker.sock")

@@ -93,6 +93,14 @@ class ReceiptTests(unittest.TestCase):
         self.assertFalse(verify_bundle(bundle, self.signer.public)["passed"])
 
 class BoundaryTests(unittest.TestCase):
+    def test_lifetime_budget_survives_reopen(self):
+        from receiptops import main
+        with tempfile.TemporaryDirectory() as directory, patch.object(main, "DB", Path(directory) / "runs.sqlite3"), patch.dict(os.environ, {"LIFETIME_RUN_LIMIT": "1"}):
+            main.start_run("audit")
+            with self.assertRaises(main.HTTPException) as error:
+                main.start_run("audit")
+            self.assertEqual(error.exception.status_code, 429)
+
     def test_no_host_fallback(self):
         with patch("receiptops.sandbox.available", return_value=False), patch("subprocess.Popen") as spawn:
             with self.assertRaises(RuntimeError):
