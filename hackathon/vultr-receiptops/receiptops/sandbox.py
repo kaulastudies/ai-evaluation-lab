@@ -73,7 +73,13 @@ def execute(code: str, content: str, timeout: float = 8) -> dict:
                 elif proc.poll() is not None:
                     continue
             if timed_out or output_limited:
-                subprocess.run(["docker", "kill", name], capture_output=True, timeout=5)
+                # Detach the Docker client before removing the container. A full
+                # stdout pipe can otherwise block daemon shutdown while no one
+                # is draining the attached stream. The finally block force-
+                # removes the container even when this client is interrupted.
+                proc.kill()
+                proc.wait(timeout=3)
+                proc.stdout.close()
             try:
                 exit_code = proc.wait(timeout=5)
             except subprocess.TimeoutExpired:
