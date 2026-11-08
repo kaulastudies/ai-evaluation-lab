@@ -144,3 +144,7 @@ node scripts/verify-receipt.mjs /path/to/receipt.json
 The command accepts a regular JSON file up to 1 MiB, checks the approval binding and internal record consistency, prints JSON on success and exits 1 on invalid input. It makes no network call. Manual diagnostic output remains explicitly no-AI. The digest does not cover all prose, and an author can replace both data and digest; authenticity, current authority, model execution and TIP compatibility are outside its claim.
 
 Source map: `app/api` handles routes; `auth.ts`/`login.ts` own sessions; `service.ts` owns financial transitions; `ai-funding.ts`/`ai.ts` own bounded proposals; `provider.ts` owns PayPal/rehearsal transport; `postgres-database.ts` and `db/postgres/` own current persistence. The responsive fixture renders real components with synthetic records; inspect it in a browser after styling changes.
+
+## Vercel build gate
+
+The checked-in `vercel.json` runs the isolated real-PostgreSQL suite before the checksum-locked schema migration and native Next.js build. A failing test stops schema application and release. The install/build commands remove Vercel's unsupported npm `cache-dir` environment alias; npm's normal warning and audit reporting stay enabled. Dependency install scripts are approved only for reviewed, exact package versions.

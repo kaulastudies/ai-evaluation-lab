@@ -133,7 +133,7 @@
     "https://github.com/isaacs/minimatch/releases/tag/v11.0.1"
   ],
   "sourceSha256": {
-    "package.json": "a7c646e63885a8e60c27d04a7e213f53e0aafce04b7cd5638de3352b0e7ccc8f",
+    "package.json": "da70b7381e319328cdc4319319ff456f1eb2e0a9f3fbe795fbc6135d32740b1a",
     "package-lock.json": "0cfdb5309bb3549264be28c458956ca9f1d32ef73458ea31ddc33958ab121b13",
     "tests/review-tooling.mjs": "da227128eb87dceb431a0074d8a6ad0f9f8bec6f63d505245db2845964246caf"
   },
@@ -141,9 +141,13 @@
     "npm-audit-2026-11-08-native-before.json": "27d3be5e8bc76d379f74fb21b31012037d15d17f6ce0ce90ee5175f877d6d64b",
     "npm-audit-2026-11-08-native-after.json": "1d2775f0ebb4d9fe21ef9ddf6c02a4cd1d956788cba71ccd0ae3898ed2712a31",
     "dependency-tooling-2026-11-08-tests.log": "e6d001f39d14871a4aeede2b0dc70d5aedb8ded10b2ec429275670e3117df3e0",
-    "dependency-tree-2026-11-08-native.txt": "57adc7dd709d5613e3b599556455ad1c70649ee4e8bd9437cbbf83417c45101b"
+    "dependency-tree-2026-11-08-native.txt": "8ee760f2d1400bf62b837a0464f26a31d022d149b50f3a7346e73390cbf65927"
   },
   "scriptOnlyUpdatesAfterAudit": [
-    "Added tests/review-migration.mjs to npm test after its three redaction regressions independently passed. Dependency lockfile unchanged; no new installation or dependency audit needed."
+    "Added tests/review-migration.mjs to npm test after its three redaction regressions independently passed. Dependency lockfile unchanged; no new installation or dependency audit needed.",
+    "Approved only reviewed esbuild@0.28.1 and unrs-resolver@1.11.1 install scripts; dependency lock unchanged."
+  ],
+  "formattingUpdatesAfterAudit": [
+    "Root removed trailing whitespace only from dependency-tree-2026-11-08-native.txt; its fingerprint was refreshed. No dependency result changed."
   ]
 }

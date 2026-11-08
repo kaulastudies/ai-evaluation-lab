@@ -62,5 +62,9 @@
     "@typescript-eslint/typescript-estree": {
       "minimatch": "11.0.1"
     }
+  },
+  "allowScripts": {
+    "esbuild@0.28.1": true,
+    "unrs-resolver@1.11.1": true
   }
 }

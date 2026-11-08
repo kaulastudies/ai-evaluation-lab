@@ -70,10 +70,24 @@ test('live PG: audit failure rolls back reservation and permits a clean later ap
 });
 test('live PG: competing capture claims invoke the synthetic provider once and persist one receipt',async()=>{
   const db=new PostgresDatabase(pool()),owner=`capture-${randomUUID()}`;let captures=0;
-  const provider=new RehearsalProvider(db,Date.now);const wrapped={create:provider.create.bind(provider),get:provider.get.bind(provider),async capture(op){captures++;return provider.capture(op);}};
+  let entered,release;
+  const arrived=new Promise(resolve=>{entered=resolve;}),proceed=new Promise(resolve=>{release=resolve;});
+  const provider=new RehearsalProvider(db,Date.now);const wrapped={create:provider.create.bind(provider),get:provider.get.bind(provider),async capture(op){captures++;entered();await proceed;return provider.capture(op);}};
   const service=new ProofPayService({db,env:{},provider:wrapped});const op=(await service.start(owner,'rehearsal',true)).operations[0];await service.approve(owner,op.id,1);await service.createOrder(owner,op.id,1,'https://proofpay.example');
-  await Promise.all([service.capture(owner,op.id,1),new ProofPayService({db:new PostgresDatabase(pool()),env:{},provider:wrapped}).capture(owner,op.id,1)]);
+  const first=service.capture(owner,op.id,1).then(value=>({value}),error=>({error}));
+  let timer,outcome;
+  try{
+    await Promise.race([arrived,first.then(result=>{throw result.error??Error('Capture completed before the provider barrier');}),new Promise((_,reject)=>{timer=setTimeout(()=>reject(Error('Capture barrier not reached')),10000);})]);
+    // The first durable dispatch has won and is still inside the provider call.
+    // A later request must receive the specific state conflict, not dispatch.
+    const contender=new ProofPayService({db:new PostgresDatabase(pool()),env:{},provider:wrapped});
+    await assert.rejects(contender.capture(owner,op.id,1),error=>error.code==='CAPTURE_STATE'&&error.status===409);
+    assert.equal(captures,1);
+    assert.equal((await service.state(owner)).operations.find(item=>item.id===op.id).status,'CAPTURE_DISPATCHED');
+  }finally{clearTimeout(timer);release();outcome=await first;}
+  if(outcome.error)throw outcome.error;
   assert.equal(captures,1);const receipt=await service.evidence(owner,op.id);assert.equal(receipt.operation.status,'CONFIRMED');assert.equal(receipt.verificationRecords.length,1);
+  assert.equal((await db.prepare('SELECT capture_calls FROM proofpay_rehearsal_orders WHERE operation_id=?').bind(op.id).first()).capture_calls,1);
 });
 test('live PG: lost response recovers through a fresh adapter without another capture; null CAS cancellation releases once',async()=>{
   const db=new PostgresDatabase(pool()),owner=`recovery-${randomUUID()}`,service=new ProofPayService({db,env:{}});const op=(await service.start(owner,'rehearsal',true)).operations[0];await service.approve(owner,op.id,1);await service.createOrder(owner,op.id,1,'https://proofpay.example');await service.capture(owner,op.id,1,'drop-response');assert.equal((await service.state(owner)).workspace.reservedCents,op.amountCents);
