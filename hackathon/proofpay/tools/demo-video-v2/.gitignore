@@ -1,0 +1,20 @@
+# Local assets and generated outputs; never part of source publication.
+.venv/
+models/
+narration-v2/
+video-render/
+review-frames-v2/
+review-shots-v2/
+__pycache__/
+*.pyc
+*.wav
+*.mp3
+*.mp4
+*.zip
+*.srt
+caption-alignment.json
+narration-v2-manifest.json
+narration-v2-validation.json
+video-v2-manifest.json
+video-v2-validation.json
+proofpay-v2-contact-sheet.jpg

@@ -33,7 +33,19 @@ This runs three checks. Their fixtures start fresh automatically and are removed
 
 The first check is a genuine process restart using temporary SQLite storage. It is not a PostgreSQL, hosted-session, model or PayPal test. The wider `npm test` suite adds competing processes, authorization, isolation, business profile conflicts, cancellation/renewal races, provider-evidence mutations, funding limits and CSV encoding.
 
+## Current seven-view checkpoint
+
+The [seven-view source review](../evidence/judge-portal-source-qa-2026-11-08.json), checkpoint `26893ed6`, passed **210/210 local tests**, TypeScript, full lint and build. Current runtime `cfd1d007` passed both CI workflows and **9/9 real PostgreSQL checks with no skips**, committed migrations, TypeScript and the Next.js 16.4.5 build.
+
+The [current browser record](../evidence/judge-portal-browser-qa-2026-11-08.json) completed all **six workflow observations** on `cfd1d007`: approval, competing-request block, dropped response, retained hold through reload, original-order recovery and unchanged repeat. Overview reopened the same unresolved purchase, Evidence inspected its selected receipt, and the captured application console was empty.
+
+All seven views were checked at 360, 768 and 1280px: **21 responsive measurements**, no horizontal overflow and 16px main text. These layout measurements were taken at `26893ed6`; `cfd1d007` changes preferred workflow selection only. This is connected-browser review, not incognito automation or a full accessibility/security assessment. No new model or PayPal call was made.
+
+The historical checkpoint below remains unchanged. Its **21 HTTPS outcomes across two guests** are a separate isolation/recovery review, not the new 21-layout count.
+
 ## Measured checkpoint
+
+The following records describe the earlier owner and three-view judge releases, not the current seven-view browser review.
 
 An independent run on 8 November 2026 used source commit `c2c5848`:
 
@@ -72,7 +84,7 @@ Remote connections use certificate-verified TLS. The existing CI-only loopback t
 
 ## Repeat the browser rehearsal
 
-Open [the public evaluator rehearsal](https://proofpay-evaluation-lab.vercel.app/judge). Its canonical origin is `https://proofpay-evaluation-lab.vercel.app`; use that exact origin for API requests. It creates a random, signed two-hour guest session through **Try the demo**; no account, owner key, payment credential or model key is requested. Its server accepts only rehearsal actions. Owner sign-in and owner APIs are disabled there, and judge APIs are disabled on the private owner deployment.
+Open [the public evaluator rehearsal](https://proofpay-evaluation-lab.vercel.app/judge). Its canonical origin is `https://proofpay-evaluation-lab.vercel.app`; use that exact origin for API requests. It creates a random, signed two-hour guest session through **Open judge workspace**; no account, owner key, payment credential or model key is requested. Its server accepts only rehearsal actions. Owner sign-in and owner APIs are disabled there, and judge APIs are disabled on the private owner deployment.
 
 Guest sessions have up to 100 mutation attempts and ten resets after the initial workspace. The deployment admits at most 60 new sessions per hour and 300 in total. A 429 limit response is an expected resource boundary; do not clear counters or rotate identities to bypass it. Reads and exports remain available within the session's valid lifetime. After expiry, begin a new session; the previous guest cookie no longer authorizes its records.
 
@@ -82,20 +94,20 @@ The public rehearsal starts with $300. For the same amounts in the private inter
 
 | Step | Action | Expected observation |
 |---|---|---|
-| Start | Choose **Try the demo** in the judge interface, or start a rehearsal in the private interface's Connections. | Two sample requests: $180 workflow review and $160 design review; $300 available. The mode is explicitly simulated. |
+| Start | Choose **Open judge workspace** in the judge interface, or start a rehearsal in the private interface's Connections. | Two sample requests: $180 workflow review and $160 design review; $300 available. The mode is explicitly simulated. |
 | Reserve | Open the workflow review and approve $180. | $120 available, $180 reserved and $0 paid. |
 | Compete | Attempt to approve the $160 design review. | Approval is blocked by the allowance. The workflow reservation remains $180. |
 | Create | Open the approved workflow review; choose **Create simulated order**. | The same purchase has a simulated order ID and is ready for simulated capture. |
 | Lose response | Select **Drop the capture response**, then capture the simulated payment. | The outcome needs verification. $180 remains reserved; no second capture action is offered. |
-| Reload | Reload the browser page. | The same operation/order remains uncertain and reserved. |
+| Reload | Choose **Reload page to check persistence**. | The same operation/order remains uncertain and reserved. |
 | Recover | Choose **Check simulated outcome**. | The same purchase becomes confirmed; $120 available, $0 reserved, $180 paid. |
-| Repeat lookup | Choose **Check outcome again**. | The capture ID and amounts remain unchanged. |
-| Inspect | Open the receipt and export evidence. | The source/mode remains rehearsal and simulated; IDs, approval binding and checked provider fields can be inspected. |
-| Reset | Choose **Reset simulated workspace**; confirm the guest reset when prompted. | A new rehearsal is created. Earlier records are retained, not deleted or refunded. The private owner interface exposes Workspace history; the guest interface does not. |
+| Repeat lookup | Choose **Check the same outcome again**. | The capture ID and amounts remain unchanged. |
+| Inspect | Open **Evidence**, select the **Purchase record** and expand **Inspect approved vs observed receipt**; use **Export all receipts** for JSON. | The source/mode remains rehearsal and simulated; IDs, approval binding and checked provider fields can be inspected. |
+| Reset | In the public portal, choose **Start fresh demo → Confirm fresh demo**. The private owner interface uses **Reset simulated workspace**. | A new rehearsal is created. Earlier records are retained, not deleted or refunded. The private owner interface exposes Workspace history; the guest interface does not. |
 
 If the execution window expires before capture dispatch, renew the unchanged owner approval before proceeding. Do not retry a dispatched capture. An uncertain sandbox purchase must be resolved in its own workspace; the normal owner flow refuses a reset that would hide held sandbox work.
 
-The judge interface also has **AI & backend** and **Evaluation lab** views. Lab steps use saved operation events and explicitly limited browser observations. To record the reload comparison, use **Reload page to check persistence** while the outcome is uncertain. A page reload is not a server-process restart; a repeated-check comparison is not an external request counter or independent attestation. The local restart test above supplies separate process-level evidence.
+The public portal has **Overview, Purchases, Approvals, Evidence, Controls, AI & backend and Evaluation lab**. Use **Continue workflow** to resume the next permitted action; Overview's uncertainty shortcut opens the same unresolved purchase. Lab steps use saved operation events and explicitly limited browser observations. To record the reload comparison, use **Reload page to check persistence** while the outcome is uncertain. A page reload is not a server-process restart; a repeated-check comparison is not an external request counter or independent attestation. The local restart test above supplies separate process-level evidence.
 
 For private-owner business settings, save a test identity, create a workspace, then edit the defaults. The old workspace must keep its original name, department, budget and approval records. A stale profile version must return a conflict instead of overwriting a newer save. Two separate browser profiles in the public guest deployment must receive different workspace IDs and must not be able to read or change each other's operation IDs or receipts. Separate tabs in the same browser profile normally share the same cookie and session; they are not an isolation test.
 

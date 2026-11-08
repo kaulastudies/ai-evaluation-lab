@@ -1,8 +1,8 @@
 # ProofPay Devpost draft
 
-Updated **8 November 2026**. One actual AI-to-PayPal sandbox purchase and response-loss recovery succeeded. The public, isolated judge rehearsal is verified. A **163.521-second narrated walkthrough is rendered; its public YouTube URL is pending**. Use the existing Devpost entry; **do not click final Submit**.
+Updated **8 November 2026**. Public runtime **`cfd1d007`** passed the complete simulated browser workflow; all seven views have responsive evidence. The local source checkpoint `26893ed6` passed **210 tests, TypeScript, full lint and build**. The current deployment passed **nine real PostgreSQL checks**, migrations and build. One actual AI-to-PayPal sandbox purchase and recovery remains separately verified. The frozen V2 video is **141.354362 seconds (2:21.354)** and passes full decode, audio/caption checks and sampled visual review. Manual YouTube upload and a verified public URL are pending. The earlier Flite cut was rejected and must not be published. Use the existing Devpost entry; **do not click final Submit**.
 
-Devpost Project Details was saved and reopened: the 6,410-character story matched the clean source excerpt, the six tags (`typescript`, `next.js`, `paypal`, `postgresql`, `vercel`, `openai`) persisted, and the canonical judge/source links remained correct. The required video field is still empty pending YouTube upload; saving the draft did not submit the entry.
+The current Devpost draft was saved and reopened successfully. Its **7,531-character Story**, extracted from the section below with relative evidence links converted to absolute GitHub URLs, matched the saved value. Both canonical demo/source URLs remained correct. Additional Information also matched the updated seven-view testing instructions, six scenario observations, 21 responsive views and AI-tool disclosure: Kokoro `af_heart`, FFmpeg and no avatar. The video field remains empty. Finalization still showed **Draft**, with the terms checkbox unchecked; no final Submit was clicked.
 
 ## Project name
 
@@ -32,13 +32,13 @@ Owners can renew expired approval for an unchanged purchase before capture dispa
 
 The catalogue contains three synthetic digital-service packages: Workflow review ($180), Design review ($160) and Starter review ($90). No paid review service is delivered. The sandbox uses virtual funds.
 
-### Try it as a judge
+### Judge experience
 
-Open **https://proofpay-evaluation-lab.vercel.app** and choose **Try the demo**. No login or payment credentials are required. Each visitor receives an isolated, temporary rehearsal session.
+Open **https://proofpay-evaluation-lab.vercel.app** and choose **Open judge workspace**. No login or payment credentials are required; each visitor receives an isolated, temporary rehearsal session. The complete workflow has been verified in the expanded public portal.
 
-**Purchase desk** lets you approve a $180 request, see the competing $160 request blocked, simulate a missing capture response, reload and recover the original outcome. **AI & backend** exposes read-only configuration and history. **Evaluation lab** makes the rehearsal checks and their limits visible.
+The expanded portal organizes **Overview, Purchases, Approvals, Evidence, Controls, AI & backend and Evaluation lab**. Judges can approve a $180 request, see the competing $160 request blocked, simulate a missing capture response, reload and recover the original outcome. Evidence keeps the purchase record and receipt inspector in the app. AI & backend is read-only; Evaluation lab tracks six observations for the current session.
 
-This judge workspace uses deterministic proposals and a simulated provider. It never calls the model or PayPal and cannot spend provider credits. The saved external-run evidence is separate from your own rehearsal. [Repeatable testing instructions](REPEATABLE_TESTING.md) explain the session and usage limits.
+This free workspace uses sample proposals and simulated payments with the application's approval, reservation and recovery logic. It never calls the model or PayPal and cannot spend provider credits. Saved external-run evidence is separate from each judge's rehearsal. [Repeatable testing instructions](REPEATABLE_TESTING.md) explain the session and usage limits.
 
 ### How we built it
 
@@ -56,9 +56,15 @@ That proposal became a $180 purchase. The owner approved it, the sandbox buyer c
 
 A GET of the original order confirmed the matching completed final capture. The result became $180 paid, $0 reserved and $120 available. Repeated lookup retained the same capture and totals. This is one observed sandbox run; aggregate external request counts were not independently measured.
 
-The current release has **210 passing local checks** and **nine deployed PostgreSQL checks**. The public judge workspace passed **six observed hosted UI checks** and **21 independent HTTPS checks across two guest sessions**, including cross-session isolation, budget blocking, response-loss recovery and repeat lookup. An actual guest receipt downloaded over HTTPS passed the offline consistency verifier. These are separate checks, not 210 live payments or model calls.
+The seven-section source checkpoint `26893ed6` passed **210 local tests, TypeScript, full lint and build**. The current `cfd1d007` deployment passed **nine real PostgreSQL checks with no skips**, committed migrations, TypeScript and the Next.js build; both CI workflows passed. These checks are not live model or payment calls.
 
-The three judge modules were also checked at 360, 768 and 1280-pixel widths: nine views with no horizontal overflow, 16px main text and no captured application warnings or errors. The earlier owner browser CSV/Blob download remains unverified; the successful guest HTTPS receipt check does not replace that missing evidence.
+The [new browser review](../evidence/judge-portal-browser-qa-2026-11-08.json) completed the six-step rehearsal at `cfd1d007`: approve $180, block $160, lose the simulated response, reload with the reservation intact, confirm the original order and check again without changing the result. Overview reopened the same unresolved purchase; Evidence displayed its matching references and recorded limits. Evaluation lab showed **6/6 observed**, and the captured application console was empty.
+
+All seven views were checked at 360, 768 and 1280 pixels: **21 responsive views**, with no horizontal overflow and 16px main text. Those measurements were taken at `26893ed6`; the later `cfd1d007` change affects the preferred workflow selection, not the layout.
+
+Separately, the earlier release passed **21 independent HTTPS checks across two guest sessions**, including isolation and recovery. An actual guest receipt downloaded over HTTPS passed the offline consistency verifier. Those HTTP results remain dated evidence; they are a different set of checks from the new 21 responsive views.
+
+The earlier owner browser CSV/Blob download remains unverified. The successful guest HTTPS receipt check does not replace that missing evidence.
 
 ### What we learned
 
@@ -77,10 +83,10 @@ The current build covers one controlled seller, US dollars and a workspace allow
 - [Public judge workspace — no login](https://proofpay-evaluation-lab.vercel.app)
 - [Public source and setup](https://github.com/kaulastudies/ai-evaluation-lab/tree/proofpay/purchase-desk-v0.1/hackathon/proofpay)
 - Public YouTube URL: **pending publication and fresh-viewer verification**.
-- [Actual AI-to-PayPal run](../evidence/configured-live-qa-2026-11-08.md) · [independent judge HTTPS evidence](../evidence/judge-hosted-qa-2026-11-08.json) · [repeatable testing](REPEATABLE_TESTING.md)
+- [Actual AI-to-PayPal run](../evidence/configured-live-qa-2026-11-08.md) · [seven-section browser review](../evidence/judge-portal-browser-qa-2026-11-08.json) · [local source checks](../evidence/judge-portal-source-qa-2026-11-08.json) · [repeatable testing](REPEATABLE_TESTING.md)
 - [Architecture](ARCHITECTURE.md) · [judge readiness](JUDGE_READINESS.md) · [exact narration and scenes](DEMO_SCRIPT.md)
 
-The rendered video is an edited walkthrough of saved evidence from the completed external run plus actual captured states from a separate fresh rehearsal. No continuous recording of the original transaction exists. Its original illustrated presenter uses offline Flite speech and actual phoneme timing for mouth animation. No HeyGen generation or avatar-service credits were used. The presenter does not portray a team member or PayPal representative.
+The frozen V2 video follows one purchase from approval and allowance reservation through a missing response to recovery. Its 29 timed shots use actual captured application states; scene six is clearly labelled saved evidence from the completed external run. This is an edited walkthrough, not a continuous recording of that original transaction. The video is **141.354362 seconds**, with **43 captions preserving all 312 narration words**. Kokoro `af_heart` speech was generated locally without API or provider credits; V2 uses no avatar. Full decode passed, decoded audio peaked at −1.969 dBFS with zero clipped samples, and sampled visual review found the reviewed scenes readable. No independent listening or forced-alignment result is claimed. Manual file selection, public YouTube upload and fresh-viewer playback remain pending; the rejected 163.521-second Flite cut is not the submission video.
 
 Implemented technology tags: TypeScript, Next.js, React, Node.js, Vercel, Neon, PostgreSQL, Vercel AI Gateway, OpenAI GPT-4.1 mini, PayPal REST APIs, PayPal Orders v2. The Postman collection is authored and checked offline; actual Postman execution is not claimed. Do not list Toolkit, MCP or agent-commerce protocols as implemented integrations without corresponding evidence.
 
@@ -91,10 +97,11 @@ The application was added during the event within the existing AI Evaluation Lab
 | Item | Current state |
 |---|---|
 | Meaningful runtime AI and PayPal sandbox | Verified once in the same hosted workflow. Model/order/capture evidence retained; the reviewed model grant is consumed. |
-| Independent judge access | Verified at the public URL above, with temporary isolated rehearsal sessions and no live provider calls. |
-| Public YouTube video | A 163.521-second file is rendered and mechanically validated. Public upload, exact URL and fresh-viewer playback remain pending. |
-| Video/source consistency | Narration states 210 local checks and clearly separates saved external-run evidence from a fresh simulation. Review the final public asset before pasting its URL. |
+| Independent judge access | Seven-section public portal verified: complete six-observation workflow, current receipt inspection, 21 responsive views and an empty captured application console. Earlier two-guest HTTP isolation evidence retains its separate scope. |
+| Public YouTube video | V2 is frozen at 141.354362 seconds: 1920×1080 H.264/30fps with AAC audio, full decode passed. Manual MP4 selection/upload, public URL and fresh-viewer playback remain pending. Old Flite cut rejected. |
+| Video/source consistency | The finished V2 preserves the exact 312-word narration, states 210 local checks and separates saved external-run evidence from a fresh simulation. Sampled visual review passed; no independent listening or forced-alignment claim. |
 | Receipt export | Actual guest HTTPS receipt download and offline consistency check passed. Owner browser CSV/Blob file bytes remain unverified. |
-| Final Devpost submission | **Held.** Video publication and draft updates do not authorize final Submit. |
+| Saved draft | Current Story, demo/source URLs, testing instructions and AI-tool disclosure were saved, reopened and matched. The video field is empty. |
+| Final Devpost submission | **Held.** Finalization showed Draft and an unchecked terms checkbox. No final Submit was clicked. |
 
 The [official requirements](https://paypalaihackathon.devpost.com/) and [rules](https://paypalaihackathon.devpost.com/rules), reviewed 8 November 2026, require meaningful PayPal/AI use, runnable access, public licensed source and a public YouTube demonstration under three minutes. No prize, production-readiness or general exactly-once claim is made.

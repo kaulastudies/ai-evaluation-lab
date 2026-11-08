@@ -1,78 +1,93 @@
-# ProofPay video script
+# ProofPay video v2 script
 
-Updated 8 November 2026. The completed review cut is **163.521 seconds (2:43.521)**, including its opening and closing frames. It uses the exact **347-word narration** below, thirteen actual captured screens and an original illustrated presenter. Public YouTube URL: **pending publication and fresh-viewer verification**.
+Updated 8 November 2026. The seven-section portal's complete browser workflow passed on runtime **`cfd1d007`**, with 6/6 Evaluation lab observations. The source checkpoint `26893ed6` passed **210 local tests, TypeScript, full lint and build**. All seven views have responsive evidence; the current deployment passed nine real PostgreSQL checks, migrations and build.
 
-## Evidence and recording boundary
+**The earlier 163.521-second Flite/illustrated-presenter cut was rejected. It is not publication-ready and has not been published.** V2 uses product footage and locally generated neural Kokoro narration, with no avatar. The exact **312-word** voiceover is preserved in the frozen final V2: **141.354362 seconds (2:21.354)**, within the production target and the official under-three-minute limit. It uses 29 timed shots of actual captured states and 43 captions. Full decode/audio/caption checks and sampled visual review passed. Manual YouTube upload and a verified public URL remain pending; no independent listening or forced-alignment result is claimed.
 
-The video is an **edited walkthrough of actual captured application states**, not a continuous transaction recording. Its first part shows saved evidence from the [completed AI-to-PayPal sandbox run](../evidence/configured-live-qa-2026-11-08.md). Its second part shows a separately captured, fresh simulated rehearsal. These modes remain visibly labelled.
+## Story
 
-One genuine model-to-PayPal sandbox purchase succeeded. Vercel AI Gateway recorded `openai/gpt-4.1-mini`, HTTP 200, 242 input/48 output tokens and a displayed USD0.0002 request cost. Its proposal continued through owner approval, native buyer approval, capture with deliberate application response loss and original-order reconciliation. No personal OpenAI key or personal credits were used. The reviewed free-credit grant's one model attempt is consumed; filming does not authorize another model call or payment.
+Follow one agency purchase: approve the work, reserve its allowance, lose the payment response and recover the original outcome. Start with the business consequence and actual buttons. Show saved evidence from the completed AI-to-PayPal run after the viewer understands the workflow.
 
-No continuous recording of that original external transaction exists. The captured saved record is labelled **Saved evidence — completed sandbox run**. The rehearsal is labelled **Fresh rehearsal — deterministic proposals, simulated provider**. Do not describe its simulated outcomes as additional live PayPal results.
+## Exact synthesized voiceover
 
-## Exact recorded narration
-
-This block contains only the spoken words. Scene directions and production notes are separate. The final offline narration uses these nine paragraphs.
+These eight paragraphs match the new narration audio. Keep production directions outside the voice and caption text.
 
 ```text
-ProofPay helps an owner approve purchases, share an allowance across requests, and understand what happened when a payment response disappears. Our example is a small studio with three hundred dollars for outside review work.
+A payment response disappears. Your agency may have paid, but the team still needs to know what it can spend. ProofPay keeps each purchase, its approval and its payment outcome together.
 
-This first view shows saved evidence from a completed run, not a replay. A real model, GPT four point one mini through Vercel AI Gateway, proposed the one hundred eighty dollar purchase. The owner approved it, and the sandbox buyer separately approved on PayPal. No personal OpenAI credits were used.
+Here's a studio with three hundred dollars for outside review work. This free demo uses sample proposals and simulated payments. Approving the one hundred eighty dollar request reserves its allowance. A second request for one hundred sixty is blocked: only one hundred twenty remains.
 
-During that run, the application deliberately dropped the capture response. After a browser reload, one hundred eighty dollars remained reserved. A lookup of the original PayPal order confirmed the matching completed capture. Another check preserved the same capture and totals: one hundred eighty paid, zero reserved, and one hundred twenty available. These are virtual sandbox funds.
+Now we create the order and deliberately drop the capture response. ProofPay marks the purchase as needing verification. It keeps the allowance reserved, so another request cannot spend that allowance. Reload the page, and the unresolved purchase is still here.
 
-Now we switch to a fresh, separately labelled rehearsal. Its proposals are deterministic, and its provider is simulated. It makes no model or PayPal calls.
+Instead of starting another payment, we check the original order. Its completed capture matches the approved purchase. The desk now shows one hundred eighty paid, zero reserved and one hundred twenty available. Checking again leaves the same capture and totals.
 
-Approving the one hundred eighty dollar request reserves its allowance. The competing one hundred sixty dollar request is blocked because only one hundred twenty remains. An alternative would require a new proposal and approval.
+In Evidence, the receipt brings the approval, seller, amount and payment references into one view. The owner can inspect what matched and what is missing. It's an application record, with those limits visible beside the result.
 
-Here, we create a simulated order and deliberately drop its capture response. The purchase needs verification, and the reservation stays held. Reloading preserves that state. Checking the original simulated order records the payment. Checking again leaves the totals unchanged.
+We also completed this workflow with a real GPT four point one mini proposal and PayPal sandbox. These are saved results from that run, using one hundred eighty dollars in virtual funds. After response loss, the original order confirmed the payment. This is separate from today's simulation.
 
-The receipt inspector compares stored seller, amount, currency and payment references. It also shows missing information. These are unsigned application records. They do not independently prove the historical approval version or catalogue item. Opening the inspector reads stored evidence; it does not make a new payment.
+The portal brings purchases, approvals, evidence and controls together. In Evaluation lab, six scenario observations help you check the workflow yourself. Separate automated coverage includes two hundred ten local checks; those checks are not live payments.
 
-The reviewed build passed two hundred ten local checks, with separate PostgreSQL and hosted workflow evidence. Tests have limits, and one sandbox purchase is not production readiness.
-
-ProofPay currently covers one controlled seller, US dollars and a workspace allowance. The opportunity is a practical purchase desk where a business decision stays connected to its payment outcome. Source and setup instructions accompany the project.
+Try ProofPay without signing in. Each visitor gets an isolated rehearsal. For a small team, the value is practical: approve the work, keep track of the allowance, and resolve an uncertain payment before deciding what to do next.
 ```
 
-## Final scene map — not narration
+## Final eight-scene map
 
-The render is 1920×1080 at 30 fps. Times below are rounded to the nearest tenth of a second, except the final file duration. Actual captured screens are held and edited within each scene; this table does not imply a continuous click recording.
+The render uses 29 timed shots of actual captured application states. Scene boundaries below are rounded to a tenth of a second; the final file duration includes the short audio tail beyond the video stream. These are edited states, not a claim of continuous click footage. V2 does not use an avatar.
 
-| Final time | Paragraph | Captured content and evidence boundary |
-|---|---:|---|
-| 0:00–0:15.4 | 1 | Product overview: **ProofPay Purchase Desk**, the $300 studio example and readable purchase information. |
-| 0:15.4–0:38.9 | 2 | Saved completed sandbox operation `5a01eccf-b306-4c26-9417-2da6b86a577e`, its AI proposal source and sanitized model/run evidence. Persistent label: **Saved evidence — completed sandbox run**. This is not footage of the original buyer approval. |
-| 0:38.9–1:05.1 | 3 | Saved response-loss/reconciliation evidence and the completed receipt: order `9RM583829W779660E`, capture `1PN07056KE8415453`, $180 paid/$0 reserved/$120 available. Historical held amounts come from the run record. Caption identifies application-injected response loss and virtual funds. |
-| 1:05.1–1:16.6 | 4 | Explicit transition to the separately captured **Fresh rehearsal — deterministic proposals, simulated provider**. |
-| 1:16.6–1:31.5 | 5 | Actual rehearsal approval/reservation and competing-request rejection states: $180 reserved, $120 available; $160 request over allowance. An alternative is described conditionally, not claimed to have executed in this cut. |
-| 1:31.5–1:50.6 | 6 | Captured states from simulated order creation, dropped capture response, retained reservation after reload, original-order check and unchanged repeated outcome. Keep the simulated mode visible. |
-| 1:50.6–2:13.4 | 7 | The receipt inspector's stored seller/amount/currency/reference comparisons and its historical approval-version/catalogue-item limitation. Inspection is not a new provider call. |
-| 2:13.4–2:26.2 | 8 | Current **210 local checks**, with separate PostgreSQL and hosted-workflow evidence. These counts are checks, not live transactions. |
-| 2:26.2–2:43.521 | 9 | Product scope and source/setup reference. The public judge workspace is available separately at the canonical URL below; do not add a URL or closing card beyond the measured file duration without rerendering and rechecking. |
+| Final time | Beat | Actual captured content |
+|---|---|---|
+| 0:00–0:12.8 | The unresolved payment | Overview, the agency requests and workspace allowance. |
+| 0:12.8–0:33.1 | One shared allowance | Requests, the $180 approved reservation and the competing $160 over-allowance state. |
+| 0:33.1–0:51.4 | Response loss | The simulated order, capture-response fault control, unresolved purchase and retained hold after reload. |
+| 0:51.4–1:09.7 | Recover the original outcome | Original-outcome control, confirmed purchase, resolved totals and the repeated-check control/result. |
+| 1:09.7–1:24.9 | A readable record | Evidence, approval/provider comparisons and visible limits. The exported receipt includes current SKU/approval version; its provider verification snapshot lacks its own historical approval binding/catalogue SKU. |
+| 1:24.9–1:45.6 | The genuine integration | Clearly labelled saved AI purchase, PayPal receipt and completed owner workspace. Virtual sandbox funds; no new transaction. |
+| 1:45.6–2:04.3 | Check it yourself | Controls and Evaluation lab, with six observed scenario checks and separately scoped local-test evidence. |
+| 2:04.3–2:21.354 | Practical next step | Resolved Overview, remaining allowance and the public no-login judge URL. |
 
-## Presenter, sound and source
+The new navigation is **Overview / Purchases / Approvals / Evidence / Controls / AI & backend / Evaluation lab**. **Open judge workspace** enters the public session; **Continue workflow** resumes it. **Start fresh demo → Confirm fresh demo** creates a new rehearsal. **AI & backend** describes the simulated configuration and historical route read-only. Its descriptive text is not a substitute for the original external-run evidence.
 
-The presenter is original illustrated artwork, labelled **Synthetic presenter**. It does not depict Rama, a teammate, the PayPal CEO or any PayPal employee. Its own side column keeps it clear of product amounts, statuses and controls. The header states **Edited actual UI states · Synthetic narration**.
+## Evidence boundaries for the editor
 
-Speech was generated locally with Flite's SLT voice. Mouth shapes follow actual synthesizer phoneme segments; the extracted source audio was checked byte-for-byte against each original narration waveform before processed timing was applied. This is simple illustrated animation, not a voice clone or photorealistic person. No HeyGen generation, hosted avatar service, subscription or generation credits were used. Original artwork and pipeline source are included in the separate source bundle with dependency notices.
+The public judge flow uses sample proposals and simulated payments with the application's approval, reservation and recovery logic. It makes no real model or PayPal call. A fresh session is isolated from the owner and other guests. The [new browser review](../evidence/judge-portal-browser-qa-2026-11-08.json) verifies the six-observation flow on `cfd1d007`. Its operation is `47212f1a-84ee-449a-96a6-cdc2b475481d`, simulated order `REH-0bbda5e4-5510-4696-b274-11865f74fb1d` and capture `REH-CAP-f98db68a-6803-439e-ae62-677045a412ed`. Use those same-operation frames for the new rehearsal segment.
 
-The final file is `proofpay-narrated-review-cut.mp4`, SHA-256 `a5d5b982281fb36618463b393e4b36acdc8237e40ca8684de042ec2eac00b1a2`. Validation recorded a successful full decode, 1920×1080 H.264 video, mono AAC audio, a −3.446 dBFS decoded audio peak and no full-scale samples. All 35 subtitle entries fit within the duration. Caption timing is estimated from speech lengths and punctuation, not forced-aligned; these signal checks do not establish a complete human listening review.
+The separate [actual external run](../evidence/configured-live-qa-2026-11-08.md) used GPT-4.1 mini through Vercel AI Gateway and PayPal sandbox. Operation `5a01eccf-b306-4c26-9417-2da6b86a577e`, order `9RM583829W779660E` and capture `1PN07056KE8415453` belong to the same $180 virtual purchase. After deliberate application response loss, reload retained the reservation; original-order lookup confirmed the payment and repeat lookup retained the same capture/totals.
 
-## Access and test context
+No continuous recording of that original external transaction exists. Label its saved results. The reviewed free-credit grant's single model attempt is consumed; do not reset it, request another proposal or make another payment for filming. No personal OpenAI key or credits were used in that run.
 
-[Open the public judge workspace](https://proofpay-evaluation-lab.vercel.app), choose **Try the demo**, then use **Purchase desk**, **AI & backend** or **Evaluation lab**. No login is required. Each visitor receives an isolated, temporary rehearsal session. AI & backend exposes read-only configuration/history. The judge path uses deterministic proposals and a simulated provider; it never calls the real model or PayPal. The completed external run remains separate from each judge's rehearsal.
+For the public rehearsal, capture actual actions in one sequence where practical. If the finished edit uses captured states rather than continuous footage, call it an edited walkthrough. Keep operation identity intact. A receipt is unsigned application evidence, not a provider attestation. Its current SKU and approval version are exported; the provider verification snapshot lacks its own historical approval binding/catalogue SKU. Keep that distinction visible in the inspector.
 
-Current evidence comprises 210 passing local checks, nine deployed PostgreSQL checks, six observed hosted UI checks and [21 independent HTTPS checks using two guest sessions](../evidence/judge-hosted-qa-2026-11-08.json). Nine responsive checks covered the three judge modules at 360, 768 and 1280 pixels, with no horizontal overflow, 16px main text and no captured application warnings/errors. These are distinct verification scopes.
+## Voice and render status
 
-The independent HTTPS review downloaded one actual guest receipt and passed the offline consistency verifier. That result does not verify provider authenticity or the owner's previously timed-out browser CSV/Blob download. See [repeatable testing](REPEATABLE_TESTING.md) for session limits and instructions.
+Kokoro-82M v1.0 with the `af_heart` voice generated the 312 words locally on CPU through `kokoro-onnx`, at speed 0.94. The speech files total 131.039875 seconds. Each paragraph's audio check found no full-scale samples or out-of-bounds model timing entries. The provenance review retained the model's Apache-2.0 and runtime's MIT notices. No API, paid speech service, provider credits, voice clone or HeyGen generation was used.
 
-## Publication checkpoint
+The final cut is frozen with the following measured metadata:
 
-- Public judge URL: **https://proofpay-evaluation-lab.vercel.app** — verified no-login isolated rehearsal.
+| Field | Verified result |
+|---|---|
+| Filename | `proofpay-v2-review-cut.mp4` |
+| Complete file duration | **141.354362 seconds (2:21.354)** |
+| Size | **7,744,891 bytes** |
+| Video | H.264, 1920×1080, 30fps, 4,240 frames; video stream duration 141.333333 seconds |
+| Audio | AAC, 48kHz, mono; decoded peak **−1.969 dBFS**, zero clipped/full-scale samples |
+| Captions | **43 entries, 312 exact words**; timings mapped from phonemizer-prefix matches to model-returned phoneme durations |
+| Edit | Eight scenes, 29 timed shots of actual captured UI states; scene six is labelled saved completed external-run evidence |
+| Validation | Full decode passed; release owner and reviewer sampled scenes 2, 3, 5, 6, 7 and 8 and found the reviewed content readable |
+| SHA-256 | `50ccddd015b4f9582ffd553a071f7d448f9f5fe419c1ab06abf6d51b41fd70b9` |
+
+The cut is an edited walkthrough, not continuous footage of the original transaction. Caption mapping is not independent forced alignment. Signal checks and sampled visual review do not establish an independent listening result or a human review of every frame. There is no avatar in V2; the earlier Flite/cartoon cut must not be substituted.
+
+## Verification and publication checkpoint
+
+The [source checkpoint](../evidence/judge-portal-source-qa-2026-11-08.json) at `26893ed6` passed 210 local checks, types, lint and build. The current `cfd1d007` deployment passed nine real PostgreSQL checks without skips, committed migrations, TypeScript and build; both CI workflows passed. Its fresh browser workflow completed all six observations, with an empty captured application console.
+
+The [responsive review](../evidence/judge-portal-browser-qa-2026-11-08.json) covers all seven views at 360/768/1280 pixels: 21 views without horizontal overflow, with 16px main text. Layout measurements were taken at `26893ed6`; `cfd1d007` changes preferred workflow selection only. The earlier [21 HTTPS outcomes across two guests](../evidence/judge-hosted-qa-2026-11-08.json) are separate historical isolation/recovery evidence, not the new responsive count. The earlier three-view/nine-layout browser result also remains historical.
+
+- Public judge origin: **https://proofpay-evaluation-lab.vercel.app**. Choose **Open judge workspace**; the seven-section rehearsal workflow is verified.
 - [Public source and setup](https://github.com/kaulastudies/ai-evaluation-lab/tree/proofpay/purchase-desk-v0.1/hackathon/proofpay).
-- Public YouTube URL: **pending**. A rendered file is not evidence of publication. Add the actual URL only after public playback is verified.
-- **Final Devpost Submit remains held.** Video publication and draft updates are authorized separately.
+- V2 render: **validated and frozen**, 141.354362 seconds.
+- Public YouTube URL: **pending manual upload and fresh-viewer verification**. The delivered MP4 must be selected in the browser file dialog; automatic transfer is blocked by host security policy. No new upload can begin before a file is visibly selected.
+- The current **7,531-character Devpost Story**, both canonical URLs and updated testing/AI-tool disclosures were saved, reopened and matched. The video field is empty; add only the actual verified public video URL.
+- **Final Devpost Submit remains held.** Finalization showed Draft with the terms checkbox unchecked; no final Submit was clicked.
 
-Before publication, complete the remaining items in [RECORDING_CHECKLIST.md](RECORDING_CHECKLIST.md). Keep owner sign-in, payment credentials, cookies, buyer details and account screens out of the public material. Do not imply another live model run, production readiness, signed receipts or independently measured aggregate provider request counts.
-
-The [official requirements](https://paypalaihackathon.devpost.com/) and [rules](https://paypalaihackathon.devpost.com/rules), reviewed 8 November 2026, require publicly visible YouTube footage under three minutes. The measured cut meets the duration requirement; its public URL remains pending.
+Follow [RECORDING_CHECKLIST.md](RECORDING_CHECKLIST.md). Keep credentials, cookies, buyer details and account screens out of the public video. The [official requirements](https://paypalaihackathon.devpost.com/) and [rules](https://paypalaihackathon.devpost.com/rules), reviewed 8 November 2026, require public YouTube footage under three minutes; speech duration alone does not satisfy that requirement.
