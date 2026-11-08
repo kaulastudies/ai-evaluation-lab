@@ -2,7 +2,7 @@
 
 Prepared 8 November 2026. **Final edited duration: 2:50**, including title and closing frames; leave ten seconds below the event's three-minute limit. This is a recording plan, not a claim that the planned run has occurred. Use it with the [recording checklist](RECORDING_CHECKLIST.md).
 
-The current native Vercel/Neon source passed 175 local tests, types, lint, native build and visual-fixture build. Database migration/live PostgreSQL checks and hosted owner/PayPal configuration remain pending. The earlier [PayPal diagnostic](../evidence/diagnostic-release-review.json), source `17cbededf`, is historical no-AI evidence. It does not certify the new runtime. **Do not record the current hosted journey until it is configured and verified.** Script A also requires actual bounded model execution; B is labelled rehearsal; C is a diagnostic supplement, not AI evidence.
+The business increment passed 199 local tests, types, full lint, native build and visual-fixture build. Production is READY after eight real PostgreSQL checks, migrations and both CI runs passed. Responsive browser checks cover only the setup-pending shell; authenticated owner/PayPal verification remains pending. See [QA](QA_REPORT.md) and the [release record](../evidence/business-portal-release-2026-11-08.json). The earlier [PayPal diagnostic](../evidence/diagnostic-release-review.json), source `17cbededf`, is historical no-AI evidence. It does not certify the new runtime. **Do not record the current hosted journey until it is configured and verified.** Script A also requires actual bounded model execution; B is labelled rehearsal; C is a diagnostic supplement, not AI evidence.
 
 ## Prepare one coherent run
 
@@ -12,7 +12,7 @@ For the genuine path, use one actual model proposal in a fresh sandbox workspace
 
 The main genuine recording follows one $180 Workflow review through owner approval, native buyer approval and recovery. If the actual model chooses another permitted item, revise the amount/narration to match that observed result; do not edit model output or replace it with a seed. A new attempt requires review of remaining allowance and is not an automatic retry.
 
-For rehearsal, **Start $300 rehearsal** supplies both sample proposals. These are deterministic samples. Keep the $90 alternative unapproved if shown; the central ledger remains $180 reserved, then $180 paid with $120 available.
+For rehearsal, save a $300 default in **Business settings**, then **Start rehearsal** supplies both sample proposals. These are deterministic samples. Keep the $90 alternative unapproved if shown; the central ledger remains $180 reserved, then $180 paid with $120 available.
 
 ## A. Genuine model and PayPal sandbox — conditional on verified execution
 
@@ -29,7 +29,7 @@ The narration below describes the planned observed result. Use a line only when 
 | 1:38–1:50 | Reload the browser, reopen the same operation and show the unresolved state and same reservation/order. | “After a browser reload, the original operation and reservation are still here. No second capture action is offered.” |
 | 1:50–2:08 | Choose **Check PayPal outcome**. Show **Payment confirmed**, $180 paid, $0 reserved and $120 available. Retain order/capture references in the run evidence. | “Recovery checks the original PayPal order. Its references, seller, amount, currency and completed final capture must match before ProofPay records payment.” |
 | 2:08–2:30 | Open **Inspect approved vs observed receipt**. Show seller, order/capture amounts, currency and references, source and mode. Then **Check outcome again**; show unchanged capture and totals. | “This stored receipt makes those fields inspectable. Checking again leaves the capture and totals unchanged in this run. The receipt is an unsigned application record, with historical approval and item limits disclosed.” |
-| 2:30–2:50 | End on the confirmed purchase and a concise source/setup reference. Small caption: “175 local checks · synthetic upstream fixtures”; use the final verified source count. | “ProofPay gives a software team one place to connect approval, allowance and payment evidence. This prototype covers one sample seller and US dollars. It is sandbox software; production payments and customer impact remain future work.” |
+| 2:30–2:50 | End on the confirmed purchase and a concise source/setup reference. Small caption: “199 local checks · synthetic upstream fixtures”; use the final verified source count. | “ProofPay gives a software team one place to connect approval, allowance and payment evidence. This prototype covers one sample seller and US dollars. It is sandbox software; production payments and customer impact remain future work.” |
 
 Caption any shortened wait as **“Wait shortened; same operation”**. Buyer approval may take much longer than its twenty-second edited slot; preserve its actual sequence and cut only the wait/login portion. Complete the take within the application's 15-minute authority window where practical. If authority expires, use **Renew owner approval** only when the application offers it, retain the renewal evidence, and disclose the cut. Renewal does not extend PayPal order validity. If the order itself is invalid or the outcome is uncertain, stop the take and investigate; do not fabricate a successful continuation.
 
@@ -39,7 +39,7 @@ Use the same 2:50 edit schedule, with a persistent **“Rehearsal · simulated�
 
 | Final time | Required footage | Truthful narration |
 |---|---|---|
-| 0:00–0:12 | **Start $300 rehearsal**; $300 available. | “Our studio has three hundred dollars for outside review work. This is a labelled rehearsal: proposals are deterministic and the payment provider is simulated.” |
+| 0:00–0:12 | **Start rehearsal** with the saved $300 default; $300 available. | “Our studio has three hundred dollars for outside review work. This is a labelled rehearsal: proposals are deterministic and the payment provider is simulated.” |
 | 0:12–0:30 | Open the seeded $180 Workflow review. Show **Rehearsal sample**, item, seller and price. | “The sample catalogue fixes the seller and price. These prepared requests let us demonstrate the controls. No AI model is called in this mode.” |
 | 0:30–0:46 | **Approve & reserve $180.00**; $180 reserved/$120 available. | “The owner approves this exact purchase. One hundred eighty dollars is reserved, leaving one hundred twenty available.” |
 | 0:46–1:00 | Attempt the $160 approval; show **Over allowance**. | “The second request cannot fit. The server blocks its approval, and the allowance is unchanged.” |

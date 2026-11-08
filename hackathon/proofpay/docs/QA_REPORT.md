@@ -1,31 +1,30 @@
 # ProofPay QA report
 
+Updated 8 November 2026 for business settings, immutable workspace context, owned history and CSV reporting. The [current local record](../evidence/business-portal-checks-2026-11-08.json) reports **199/199 tests, zero skipped; TypeScript, full lint, native Next.js build and responsive fixture build passed**. The [full dependency audit](../evidence/business-portal-audit-2026-11-08.json) has **zero findings**, including development dependencies.
 
-Updated 8 November 2026 for the GitHub/Vercel/Neon migration. The release owner reports **178/178 local tests, TypeScript, full lint, native Next.js build and responsive fixture build passed**. The final dependency audit reports **zero known findings**, including development dependencies. Separately, six real PostgreSQL checks passed in Neon and GitHub CI. Neither set establishes a working hosted owner session, model inference or a new PayPal run.
+The [current release record](../evidence/business-portal-release-2026-11-08.json) identifies source `1f4d8d6d5a8decb916d9cfe411a54731d452008a` and production deployment `dpl_6k7XAFTRGZodLDoLjmwK3uLqTM5J` as **READY**. Both preview and production passed **8/8 real PostgreSQL checks**. The preview applied `0002_business_profiles.sql`; production repeated the checksum-locked migrations successfully and completed its build with zero warnings. Both [ProofPay CI](https://github.com/kaulastudies/ai-evaluation-lab/actions/runs/42472825608) and [repository CI](https://github.com/kaulastudies/ai-evaluation-lab/actions/runs/42472825621) passed. Owner-secret transfer remains blocked by automatic approval review; authenticated browser forms, CSV downloads, model and PayPal execution are not established. Final Devpost Submit remains held.
 
-Neon is connected to the new Vercel project; both checksum-locked schema migrations committed and repeat migration succeeded. The production deployment is READY. Owner-secret transfer was blocked by automatic approval review; owner/PayPal configuration and the authenticated hosted workflow remain pending. The earlier Site's sandbox diagnostic is recorded below as historical evidence. Final Devpost Submit remains held.
+Local evidence: [summary](../evidence/business-portal-checks-2026-11-08.json), [tests](../evidence/business-portal-tests-2026-11-08.log), [types](../evidence/business-portal-types-2026-11-08.log), [lint](../evidence/business-portal-lint-2026-11-08.log), [build](../evidence/business-portal-build-2026-11-08.log) and [visual build](../evidence/business-portal-visual-build-2026-11-08.log). Public static assets were scanned for three dedicated local authentication secrets: 12 files, zero matches. This is a bounded scan, not proof that every possible secret is absent.
 
-Current local evidence: [check summary](../evidence/native-vercel-checks-2026-11-08.json), [tests](../evidence/native-vercel-tests-2026-11-08.log), [types](../evidence/native-vercel-types-2026-11-08.log), [lint](../evidence/native-vercel-lint-2026-11-08.log), [build](../evidence/native-vercel-build-2026-11-08.log) and [visual build](../evidence/native-vercel-visual-build-2026-11-08.log).
-
-The 178-test record includes three subprocess regressions proving that malformed database URLs and connection/cleanup/transaction failures do not expose credential material. Public static assets were also scanned for the three dedicated local authentication secrets: 12 files, zero matches.
+The [preceding native release](../evidence/native-vercel-release-2026-11-08.json) passed 178 local tests, six real PostgreSQL checks and the initial/funding migrations. It remains evidence for that source revision, not for the new business views. The former Site's sandbox diagnostic is historical evidence below.
 
 ## Current native release checks
 
 | Check | Recorded result | Scope |
 |---|---|---|
-| `npm test` | 178 passed, reported by the release owner | Local controlled/synthetic suites; no PayPal/model calls. |
+| `npm test` | 199 passed, zero skipped | Local controlled/synthetic suites; no PayPal/model calls. |
 | `npx tsc --noEmit` | Passed | Source types. |
 | `npm run lint` | Passed | Full configured lint. |
 | `npm run build` | Passed | Native Next.js compilation; not deployment or migration. |
-| Responsive fixture build | Passed after the final login fix | Bundles actual components with synthetic records; browser inspection remains separate. |
+| Responsive fixture build | Passed after the business UI freeze | Bundles actual components with synthetic records; browser inspection remains separate. |
 | Full `npm audit --json` | Exit 0; 0 critical/high/moderate/low | Exact lockfile/date, including development dependencies, without advisory exceptions. |
 | Actual parser compatibility | 2/2 passed | Scoped minimatch override through TypeScript parser allow/deny paths. Included in local suite; do not add counts. |
 | Targeted funding/service/model review | 73/73 passed | Overlaps main suite; request caps, policy and synthetic responses, not live billing. |
-| Real PostgreSQL gate | 6/6 passed in Neon and GitHub CI | `tests/review-postgres-live.mjs`; requires explicit database connection and uses a fresh random schema. |
-| PostgreSQL migration | Both migrations committed; repeat succeeds | `scripts/migrate-postgres.mjs` with tracked checksums and transaction/advisory lock. |
+| Real PostgreSQL gate | 8/8 passed in preview and again in production on Neon | `tests/review-postgres-live.mjs`; requires explicit database connection and uses a fresh random schema. |
+| PostgreSQL migration | New `0002_business_profiles.sql` committed in preview; repeat migration succeeded in production | `scripts/migrate-postgres.mjs` with tracked checksums and transaction/advisory lock. |
 | Vercel owner/UI/payment flow | Pending | Owner/PayPal configuration has not yet been saved and verified. Missing configuration must fail closed. |
 | Postman collection | Official v2.1 schema valid; 17 scripts parse; five HTTPS guard cases pass | Offline artifact checks; no actual Postman import or API execution. |
-| New responsive interface | Navigation, focus and no horizontal overflow verified at 360, 768 and 1280 pixels | Configuration-unavailable shell only; authenticated purchase cards/actions and owner login remain pending. |
+| Current production responsive shell | All eight navigation headings, keyboard focus and no horizontal overflow at 360, 768 and 1280 pixels; warning/error collection empty | Setup-pending shell only. Authenticated forms, records, CSV download and owner flow remain unverified. |
 
 Run the source checks from `hackathon/proofpay` with Node 24:
 
@@ -39,13 +38,27 @@ node tests/responsive/build.mjs
 
 The separate real-database gate is `node --test tests/review-postgres-live.mjs` with its dedicated connection configured. The current CI/release definition places database checks and migration before release build. A defined gate is not a passing gate; record the actual result and source revision after execution. Do not make database-dependent checks silently skip when configuration is absent.
 
-## What the new code and tests cover
+## Production browser observations
+
+The [release record](../evidence/business-portal-release-2026-11-08.json) and [screenshot](../evidence/business-portal-setup-2026-11-08.jpg) document the canonical production URL. Each of the eight navigation headings was checked at 360, 768 and 1280 pixels without page-level horizontal overflow. Body text was 15px; navigation was 14px on mobile/tablet and 15px on desktop. Minimum navigation height was 48px on mobile/desktop and 46px at tablet width. Keyboard navigation showed a 2.4px solid outline; the collected warnings/errors were empty.
+
+Every observation displayed **Workspace setup pending**. These checks verify that shell's layout and navigation, not sign-in, saved settings, history selection, authenticated purchase actions or CSV file contents. No live AI/model call, new PayPal transaction or personal OpenAI credit use occurred in this release review.
+
+## Business increment checks
+
+The 199-test total includes 17 business-service tests and four CSV tests; these overlap the independently reviewed 21-test subset and must not be added again. Business tests cover owner isolation, field limits, optimistic-version conflicts, immutable workspace/approval snapshots, retained history and held-fund selection guards. The real PostgreSQL suite adds profile persistence and genuinely overlapping selection/approval checks in an isolated schema.
+
+The CSV suite contains 20 assertions across four tests for the actual report builder: saved business context, all loaded active-workspace rows regardless of filter, simulation/source labels, quoting and formula-prefix escaping including whitespace/control/BOM cases. This does not establish downloaded browser file bytes or behavior in every spreadsheet product. Hosted QA still needs a real export reopened and compared with the displayed workspace.
+
+Settings affect future workspaces only. History switching blocks held or uncertain active operations in both modes; the separate explicit simulated reset retains prior history. The department field creates neither multiple users nor separate departmental budgets. These controls do not create an account-wide allowance.
+
+## What the code and tests cover
 
 The shared service retains owner approval, reservation, expiry/renewal, cancellation before dispatch, durable create/capture claims, uncertainty holds and original-order reconciliation. Historical SQLite tests exercise real process races and persisted simulated state. They remain useful service regressions but cannot establish PostgreSQL transaction semantics.
 
 Native tests cover signed sessions, rejected forged identity headers/cookies, exact-origin mutations, login policy, configuration failures and adapter contracts. The PostgreSQL adapter binds values, uses serializable batches and retries only explicitly aborted serialization/deadlock transactions after rollback. It does not retry ambiguous commit/transport failures or external provider work.
 
-The real PostgreSQL suite creates and removes only its fresh random schema. It covers overlapping reservations, audit rollback, competing capture claims, recovery through a fresh adapter, cancellation, funding claims and the durable login limiter. The provider remains synthetic. The disposable CI database may disable TLS only for explicitly permitted loopback tests; remote runtime/migrations retain verified TLS.
+The real PostgreSQL suite creates and removes only its fresh random schema. It covers overlapping reservations, audit rollback, competing capture claims, recovery through a fresh adapter, cancellation, funding claims, the durable login limiter, business-profile snapshots and history-selection races. The provider remains synthetic. The disposable CI database may disable TLS only for explicitly permitted loopback tests; remote runtime/migrations retain verified TLS.
 
 Funding tests enforce the fixed Vercel gateway/model/provider, reviewed grant/expiry, one dispatched attempt per workspace and configured grant total. Failures, timeouts and invalid output count; a new workspace does not reset the grant cap. There is no personal OpenAI/API-key path, automatic retry or alternate provider. A successful same-key repeat reads an existing proposal. The free-credit declaration is not independent billing proof.
 
@@ -91,10 +104,10 @@ Historical evidence includes limited summarized observations, not unrestricted a
 
 ## Remaining release evidence
 
-The real PostgreSQL gate and schema migration passed. After authorized credential configuration, inspect the exact Vercel deployment's sign-in/out, denied access, headers, persistence and rehearsal. Configure and rerun the relevant PayPal diagnostic on that runtime. Verify a bounded free-credit model proposal and the complete AI-to-PayPal workflow separately, retaining only sanitized identifiers and outcomes. Independent judge access and a public video remain open.
+The production release, eight-case real PostgreSQL gate, migrations and both CI runs passed. After authorized credential configuration, inspect the exact Vercel deployment's sign-in/out, denied access, headers, persistence and rehearsal. Configure and rerun the relevant PayPal diagnostic on that runtime. Verify a bounded free-credit model proposal and the complete AI-to-PayPal workflow separately, retaining only sanitized identifiers and outcomes. Independent judge access and a public video remain open.
 
 Do not infer a passing hosted flow from a build, a zero audit, a connected database or the historical diagnostic. [SECURITY_REVIEW.md](SECURITY_REVIEW.md) and [JUDGE_READINESS.md](JUDGE_READINESS.md) describe the remaining boundaries.
 
-## Verified deployment checkpoint
+## Earlier native deployment checkpoint
 
 [Release evidence](../evidence/native-vercel-release-2026-11-08.json) identifies production deployment `dpl_4ju9LAJwguL8YVk8Nj7DXWaXUupc`, source `5f4592116a605137943973b0aadf38e8cfc061ae`, and the passing [ProofPay CI](https://github.com/kaulastudies/ai-evaluation-lab/actions/runs/42470607942) and [repository CI](https://github.com/kaulastudies/ai-evaluation-lab/actions/runs/42470607796). Production build logs have zero npm warnings. The real-database gate passed before migration/build; no personal model credit or new PayPal transaction was used.

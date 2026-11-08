@@ -2,14 +2,14 @@
 
 Prepared 8 November 2026. Use the [2:50 script](DEMO_SCRIPT.md); finish the entire video below 3:00. This checklist prepares the recording. It does not publish a video or authorize final Devpost Submit.
 
-Current source: **175 local tests, types, lint, native build and visual build passed**. Current database migration and hosted owner/PayPal flow remain pending. The [earlier sandbox capture/recovery](../evidence/diagnostic-release-review.json) is historical no-AI evidence. Verify the new deployment before filming it; model execution, the combined journey, independent access and public video remain unfinished.
+Current business source: **199 local tests, types, full lint, native build and visual build passed**. Production is READY after eight real PostgreSQL checks, migrations and both CI runs passed. Three-width browser checks cover only the setup-pending shell; the authenticated owner/PayPal flow remains pending. See [QA](QA_REPORT.md) for checkpoint scope. The [earlier sandbox capture/recovery](../evidence/diagnostic-release-review.json) is historical no-AI evidence. Verify the new deployment before filming it; model execution, the combined journey, independent access and public video remain unfinished.
 
 ## Choose the truthful track
 
 - [ ] Confirm the current Vercel deployment, schema and owner session first; do not record a missing-configuration screen as a working product.
 - [ ] **Genuine track:** the release owner has supplied actual model inference, normal buyer-approved sandbox capture and response-loss recovery evidence. Record the provider/model, source/deployment, mode and matching operation/order/capture references privately without secrets.
 - [ ] **Otherwise, rehearsal:** use deterministic samples, simulated-provider buttons and persistent rehearsal labelling. State the missing external-integration gates in the closing line. Do not call this a completed PayPal-plus-AI demonstration.
-- [ ] Start from a fresh $300 workspace with no earlier unresolved work hidden or discarded. Use one $180 purchase as the main operation. In the genuine track, use one model proposal only. Show the competing $160 request and $90 alternative only in separately labelled rehearsal.
+- [ ] Save a $300 default in **Business settings**, then start a fresh $300 workspace with no earlier unresolved work hidden or discarded. Use one $180 purchase as the main operation. In the genuine track, use one model proposal only. Show the competing $160 request and $90 alternative only in separately labelled rehearsal.
 
 ## Separate 90-second diagnostic supplement
 

@@ -2,7 +2,7 @@
 
 Run commands from `hackathon/proofpay`. The working branch is `proofpay/purchase-desk-v0.1`; review is [PR #53](https://github.com/kaulastudies/ai-evaluation-lab/pull/53). Current delivery is GitHub plus native Next.js on Vercel and remote Neon/PostgreSQL. The former Sites/Worker/D1 instructions are historical, not an alternative deployment path.
 
-Current local check record: [native verification summary](../evidence/native-vercel-checks-2026-11-08.json). Hosted and real-database gates remain separate.
+Current local check record: [business increment verification](../evidence/business-portal-checks-2026-11-08.json). All 199 tests, types, full lint and both builds passed. The [production release](../evidence/business-portal-release-2026-11-08.json) is READY: eight real PostgreSQL checks, repeat migration and build passed, as did both CI runs. Responsive browser checks cover only the setup-pending shell; authenticated forms, CSV files, AI and payment remain pending. The [earlier native release evidence](../evidence/native-vercel-release-2026-11-08.json) belongs to the preceding 178-test/six-case checkpoint.
 
 ## Runtime and installation
 
@@ -56,7 +56,7 @@ The explicit real-database gate is:
 node --env-file=.env.local --test tests/review-postgres-live.mjs
 ```
 
-It creates a fresh random `proofpay_test_*` schema, applies the PostgreSQL migrations there, exercises concurrent reservations, rollback, capture/recovery and funding claims, then drops that schema. Use a dedicated authorized test connection, preferably unpooled. Missing configuration fails the gate rather than skipping it. The test makes no PayPal/model calls. It does not prove every distributed database failure mode.
+It creates a fresh random `proofpay_test_*` schema, applies the PostgreSQL migrations there, exercises concurrent reservations, rollback, capture/recovery, funding claims, login limits, business-profile snapshots and history-selection/approval races, then drops that schema. Use a dedicated authorized test connection, preferably unpooled. Missing configuration fails the gate rather than skipping it. The test makes no PayPal/model calls. It does not prove every distributed database failure mode.
 
 CI's disposable PostgreSQL service uses `PROOFPAY_TEST_ALLOW_LOCAL_DB=1` only with a loopback address to permit non-TLS local testing. This exception belongs to the test script; it is not a production runtime setting. Remote Neon uses verified TLS.
 
@@ -76,11 +76,11 @@ A durable global counter admits at most ten login attempts per minute across ins
 
 ## Rehearsal and PayPal diagnostic
 
-In **Connections**, start the $300 rehearsal. Approve a sample request, create its simulated order, select **Drop the capture response**, capture, reload and check the original simulated outcome. No external model or PayPal call is made, but state is stored in PostgreSQL.
+In **Connections**, start a rehearsal using the saved default workspace allowance ($300 only when no business profile is configured). Use $300 for the existing competing-request demonstration. Approve a sample request, create its simulated order, select **Drop the capture response**, capture, reload and check the original simulated outcome. No external model or PayPal call is made, but state is stored in PostgreSQL.
 
 **Test PayPal sandbox** calls `POST /api/sandbox/diagnostic/start` with `{}`. It creates one unapproved, fixed $180 USD `workflow-review` request with `sandbox-diagnostic`, `manual: true` and `aiCalled: false`. Creation makes no provider call. Additional proposals are rejected in that profile, even if AI is configured.
 
-The diagnostic uses the shared owner approval, reservation, expiry, native buyer approval, dispatch and reconciliation controls. Use a separate PayPal sandbox buyer; an API secret or return URL is not buyer consent or confirmation. A reserved/uncertain active sandbox blocks workspace switching. Do not retry an uncertain capture or erase its reservation. The earlier verified diagnostic belongs to the former runtime; current Vercel execution needs its own evidence.
+The diagnostic uses the shared owner approval, reservation, expiry, native buyer approval, dispatch and reconciliation controls. Use a separate PayPal sandbox buyer; an API secret or return URL is not buyer consent or confirmation. History selection is blocked by a reserved/uncertain active workspace in either mode. The separate explicit simulated reset remains a rehearsal action and retains earlier history. Do not retry an uncertain capture or erase its reservation. The earlier verified diagnostic belongs to the former runtime; current Vercel execution needs its own evidence.
 
 ## Bounded runtime AI
 
@@ -111,11 +111,21 @@ npm run build
 node tests/responsive/build.mjs
 ```
 
-The release owner reports 178/178 local checks, TypeScript, full lint, native Next.js build and responsive fixture build passed. The real PostgreSQL gate, migration and hosted checks are separate results; inspect [QA_REPORT.md](QA_REPORT.md) for the current checkpoint. Unit/synthetic suites do not establish real model, PayPal, database or deployment behavior.
+The release owner reports 199/199 local checks, TypeScript, full lint, native Next.js build and responsive fixture build passed for the business increment. The real PostgreSQL gate, migration and hosted checks are separate results; inspect [QA_REPORT.md](QA_REPORT.md) for the current checkpoint. Unit/synthetic suites do not establish real model, PayPal, database or deployment behavior.
 
 The release gate is real PostgreSQL checks, committed migrations, then the native Next.js build. [ProofPay CI](../../../.github/workflows/proofpay.yml) is scoped to relevant paths and uses a disposable PostgreSQL service for its database gate. A workflow definition or previous green run is not the result for the current commit. Keep owner/payment/inference secrets out of CI logs and artifacts.
 
 Use Vercel project root `hackathon/proofpay`, Node 24 and native Next.js commands. Keep runtime credentials server-side and `APP_ORIGIN` aligned with the chosen deployment address. Database migration affects a real schema; isolate preview data intentionally instead of treating preview and production as automatically separate. Verify the exact deployment's login, logout, authorization, persistence, rehearsal and sandbox outcomes after configuration. The connected project alone is not a verified app.
+
+## Business settings, history and reports
+
+`GET /api/business` returns `{business}` for the signed-in owner. `POST /api/business` accepts `businessName`, `department`, `defaultBudgetCents` and the current `version`, then returns `{business}`. Names are trimmed and limited to 1–120 characters; departments to 1–80; control characters are rejected. The allowance is integer cents from 100 through 100,000,000 ($1–$1,000,000 USD). Version 0 initializes an unconfigured profile; a stale write returns 409 `BUSINESS_VERSION`. The UI offers **Reload saved settings (discard edits)** to resolve that conflict.
+
+New workspaces snapshot the business name, department, profile version and allowance. Editing a profile never rewrites existing budgets or approvals. The unconfigured default is $300 per workspace; it is not a bank balance or account-wide limit. A department is metadata, not a role or separate departmental budget. PostgreSQL migration `0002_business_profiles.sql` adds this storage; keep earlier migration checksums intact.
+
+`GET /api/workspaces/history` returns `{activeWorkspaceId, switchBlockedReason, workspaces}` scoped to the owner. `POST /api/workspaces/select` accepts `{workspaceId}` and returns `{state}`. Selection and competing approval are checked transactionally: a held/uncertain active workspace cannot be hidden by selecting another, and a blocked change returns 409 `WORKSPACE_SWITCH_BLOCKED`. This applies in rehearsal and sandbox. **Reset simulated workspace** is a separate explicit action that keeps the previous workspace in history.
+
+**Purchases → Export CSV** creates a client-side 24-column report of all loaded active-workspace operations, including rows hidden by the current screen filter. It includes the immutable business snapshot and mode/source/status labels. Quotes and formula-leading cells, including leading whitespace/control characters, are escaped. Four regression tests cover 20 assertions; this is not certification across all spreadsheet applications. A download toast is not file-byte verification: reopen a real export and compare its contents during hosted QA.
 
 ## API and developer tools
 
@@ -124,6 +134,9 @@ Use Vercel project root `hackathon/proofpay`, Node 24 and native Next.js command
 | POST | `/api/auth/login` | Owner key → signed session. |
 | POST | `/api/auth/logout` | Clear this client's cookie; body `{}`. |
 | GET | `/api/state` | Owner's active workspace, operations and events. |
+| GET / POST | `/api/business` | Read/save owner business defaults using the current profile version. |
+| GET | `/api/workspaces/history` | Owned workspaces and any active selection block. |
+| POST | `/api/workspaces/select` | Select `{workspaceId}` if ownership and held-fund rules permit it. |
 | POST | `/api/rehearsal/start` | Seed an isolated simulated workspace. |
 | POST | `/api/sandbox/diagnostic/start` | Fixed manual/no-AI sandbox request; body `{}`. |
 | POST | `/api/workspaces` | Start a workspace with explicit `mode`. |

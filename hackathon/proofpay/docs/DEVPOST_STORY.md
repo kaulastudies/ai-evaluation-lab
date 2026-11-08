@@ -20,7 +20,7 @@ We built ProofPay around a small studio with a $300 allowance for outside review
 
 ### What it does
 
-ProofPay keeps the proposal, owner approval, allowance reservation and payment outcome in one operation record. Its workspace shows purchases needing attention, approvals, evidence, enforced controls and integration configuration.
+ProofPay keeps the proposal, owner approval, allowance reservation and payment outcome in one operation record. Its workspace shows purchases needing attention, approvals, evidence, enforced controls and integration configuration. Business settings save an identity, department label and default per-workspace allowance; new workspaces snapshot those values. Owned history and an active-workspace CSV report make earlier work inspectable. These features do not create multi-user roles, accounting certification or an account-wide budget.
 
 The demonstration catalogue contains Workflow review ($180), Design review ($160) and Starter review ($90). These are synthetic packages; no paid review service is delivered. After the owner reserves $180, the competing $160 request is blocked. A cheaper alternative is a new proposal requiring its own approval.
 
@@ -60,13 +60,13 @@ A later hosted run blocked a $160 request against that remaining $120, then crea
 
 We then completed a **genuine PayPal sandbox diagnostic** on the earlier Site deployment, source `17cbededf`. It used one fixed $180 Workflow review, with explicit owner approval and native sandbox buyer approval. We enabled the application's deliberate capture-response drop. The outcome stayed unresolved through browser reload, retaining $180 reserved, $120 available and no recorded spend. A GET of the original order then confirmed the matching completed final capture. Repeating the lookup retained the same capture and eight operation events; a further reload showed $180 paid, $0 reserved and $120 available. The UI observation does not independently measure provider request counts.
 
-**That diagnostic called no AI model and does not certify the new deployment.** The [native local checks](../evidence/native-vercel-checks-2026-11-08.json) now pass 175 tests, types, lint and both builds. The dependency audit reports zero known findings, including development dependencies; its parser compatibility checks passed. See [current QA](QA_REPORT.md) for the migration checks. Meaningful runtime AI, the complete model-to-PayPal journey, new owner/PayPal configuration and independent judge access remain unverified. The public demonstration video remains unfinished. Sandbox uses virtual accounts and funds; this was not a production payment.
+**That diagnostic called no AI model and does not certify the new deployment.** The [business increment local checks](../evidence/business-portal-checks-2026-11-08.json) pass 199 tests, types, full lint and both builds. The [production release](../evidence/business-portal-release-2026-11-08.json) is READY after eight real PostgreSQL checks, repeat migration, build and both CI runs passed. Responsive browser checks cover only the setup-pending shell; authenticated forms and purchasing remain unverified. The dependency audit reports zero known findings, including development dependencies; its parser compatibility checks passed. See [current QA](QA_REPORT.md) for the migration checks. Meaningful runtime AI, the complete model-to-PayPal journey, new owner/PayPal configuration and independent judge access remain unverified. The public demonstration video remains unfinished. Sandbox uses virtual accounts and funds; this was not a production payment.
 
 ### What we learned and what comes next
 
 Payment status needs evidence. A successful HTTP response, an assistant's explanation and a completed provider capture mean different things; the product must keep those distinctions visible.
 
-Our next step is to validate the migrated Vercel/Neon workflow, then complete a genuine model proposal and PayPal purchase within the reviewed free-credit allowance. We will retain the same recovery checks, verify judge access and record the public demonstration. Beyond the hackathon, we want to test whether teams building delegated purchasing workflows will pay for reusable approval, allowance and recovery operations. That is a customer hypothesis, not existing traction.
+Our next step is to validate the migrated Vercel/Neon workflow, then complete a genuine model proposal and PayPal purchase within the reviewed free-credit allowance. We will retain the same recovery checks, verify judge access and record the public demonstration. Beyond the hackathon, we want to test whether owner-led service businesses will pay for a bounded approval and payment-evidence workflow, using the [sandbox pilot plan](COMMERCIAL_PLAN.md). That is a customer hypothesis, not existing traction.
 
 The current scope is one merchant, USD and an isolated workspace allowance. Renewal does not extend PayPal order validity. Cancellation is unavailable after provider dispatch and is not a refund. Unknown create results without a saved order ID require investigation. Production payments, refunds, webhooks, fulfillment and provider portability remain outside this build.
 
@@ -77,7 +77,7 @@ The current scope is one merchant, USD and an isolated workspace allowance. Rene
 - [Verified sandbox diagnostic](../evidence/diagnostic-release-review.json) · [QA report](QA_REPORT.md)
 - [Earlier 131-test QA summary](../evidence/qa-2026-11-08-summary.json) · [historical test log](../evidence/qa-2026-11-08-test-output.log)
 - [Hosted renewal](../evidence/hosted-renewal-review.json) · [hosted workspace](../evidence/hosted-workspace-review.json) · [hosted recovery](../evidence/hosted-recovery-review.json) · [earlier responsive review](../evidence/responsive-review.json)
-- Current Vercel deployment/access evidence: pending configuration and verification. The earlier Site URL is not the current delivery route.
+- [Current business production release](../evidence/business-portal-release-2026-11-08.json): READY, eight real PostgreSQL checks and repeat migration passed, with responsive checks limited to the setup-pending shell. Authenticated access remains pending. [QA](QA_REPORT.md) separates this from historical evidence.
 - [Native dependency evidence](../evidence/dependency-remediation-2026-11-08-summary.json) · [Postman development collection](../postman/README.md)
 
 Suggested source technology tags: TypeScript, React, Next.js, Node.js, PostgreSQL, Neon, Vercel, PayPal REST APIs and PayPal Orders v2. The Postman collection is authored and checked offline; actual Postman execution is not yet claimed. Add the runtime model/provider only after its actual invocation. Do not claim Toolkit, MCP, agent-commerce protocol compatibility or optional sponsor integrations that are absent from the code.
@@ -91,6 +91,6 @@ The ProofPay application was added during the event within an existing repositor
 | Combined AI-to-PayPal purchase | A genuine model proposal followed by owner/native buyer approvals, capture and checked receipt in the same application workflow. |
 | Source and reproduction | Final reviewed revision, matching evidence, applicable checks and fresh judge setup/access verification. Preserve labels distinguishing simulated, local and external runs. |
 | Presentation | Public YouTube URL under three minutes showing the actual build, with English narration or captions and permitted assets. |
-| Team and final review | Verify intended teammate acceptance, representative authority and final entry fields. Keep final Submit on hold until the owner explicitly releases it. |
+| Team and final review | Nithya’s team acceptance was confirmed on 8 November 2026; verify representative authority and final entry fields. Keep final Submit on hold until the owner explicitly releases it. |
 
 The [official requirements](https://paypalaihackathon.devpost.com/), [rules](https://paypalaihackathon.devpost.com/rules) and [resources](https://paypalaihackathon.devpost.com/resources) were rechecked on 8 November 2026. PayPal REST plus meaningful AI is a permitted approach; Toolkit/MCP is optional. The deadline is 12 November 2026 at noon PST. Full criteria, date details and the current choose/not-choose assessment are in [JUDGE_READINESS.md](JUDGE_READINESS.md).
