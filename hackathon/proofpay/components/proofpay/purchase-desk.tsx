@@ -22,6 +22,7 @@ type DeskState = {
   operations: Operation[]; events: EvidenceEvent[];
 };
 type ApiEnvelope = { state?: DeskState; error?: string; code?: string };
+type PayPalRedirect = { kind: "returned" | "cancelled" | "unmatched"; operationId: string | null; title: string; message: string };
 const labels: Record<Status, string> = {
   PROPOSED: "Needs approval", BUDGET_BLOCKED: "Over allowance", APPROVED: "Allowance reserved",
   CREATE_DISPATCHED: "Creating order", CREATE_UNKNOWN: "Needs verification", ORDER_READY: "Awaiting buyer approval",
@@ -43,8 +44,49 @@ async function readWorkspace(): Promise<DeskState> {
 }
 function safeApprovalUrl(value?: string | null) {
   if (!value) return null;
-  try { const u = new URL(value); return u.protocol === "https:" && u.hostname === "www.sandbox.paypal.com" ? u.href : null; }
-  catch { return null; }
+  try {
+    const url = new URL(value);
+    return url.protocol === "https:" && ["sandbox.paypal.com", "www.sandbox.paypal.com"].includes(url.hostname) && !url.username && !url.password ? url.href : null;
+  } catch { return null; }
+}
+function resolvePayPalRedirect(search: string, operations: Operation[]): PayPalRedirect | null {
+  const params = new URLSearchParams(search);
+  const returned = params.getAll("paypal_return"), cancelled = params.getAll("paypal_cancel");
+  if (!returned.length && !cancelled.length) return null;
+  const ambiguous = returned.length + cancelled.length !== 1;
+  const operationId = returned[0] ?? cancelled[0];
+  const operation = ambiguous ? undefined : operations.find(op => op.id === operationId && op.providerMode === "sandbox");
+  if (!operation) return {
+    kind: "unmatched", operationId: null, title: "PayPal return could not be matched",
+    message: "This link does not identify one sandbox purchase in the current workspace. No purchase was selected or changed. Review your purchase records before continuing.",
+  };
+  return cancelled.length ? {
+    kind: "cancelled", operationId: operation.id, title: "Cancellation return received",
+    message: `Selected ${operation.title}. This link does not prove that an order or payment was cancelled. The recorded status and any reservation are unchanged.`,
+  } : {
+    kind: "returned", operationId: operation.id, title: "PayPal return received",
+    message: `Selected ${operation.title}. Returning from PayPal does not confirm buyer approval or payment. Follow the recorded status below; only verified provider evidence can confirm payment.`,
+  };
+}
+function canRenewApproval(operation: Operation, now: number | null): boolean {
+  return now !== null && operation.approvalExpiresAt !== null && operation.approvalExpiresAt <= now && !operation.captureId && (operation.status === "APPROVED" || operation.status === "ORDER_READY");
+}
+
+
+function proposalEventSummary(detail: string): string | null {
+  try {
+    const record: unknown = JSON.parse(detail);
+    if (!record || typeof record !== "object" || Array.isArray(record)) return null;
+    const proposal = record as Record<string, unknown>;
+    const sources: Record<string, string> = { model: "AI model", "rehearsal-rule": "Rehearsal rule", "rehearsal-seed": "Rehearsal sample" };
+    if (typeof proposal.source !== "string" || !Object.hasOwn(sources, proposal.source) || typeof proposal.sku !== "string" || typeof proposal.rationale !== "string") return null;
+    return `${sources[proposal.source]} selected ${proposal.sku}. ${proposal.rationale}`;
+  } catch { return null; }
+}
+function EvidenceDetail({ event }: { event: EvidenceEvent }) {
+  const summary = event.type === "PROPOSAL_CREATED" ? proposalEventSummary(event.detail) : null;
+  if (summary) return <p className="muted-text">{summary}</p>;
+  return <details><summary>Inspect record</summary><pre>{event.detail}</pre></details>;
 }
 
 export default function PurchaseDesk() {
@@ -61,6 +103,8 @@ export default function PurchaseDesk() {
   const [showSetup, setShowSetup] = useState(false);
   const [filter, setFilter] = useState("all");
   const [authRequired, setAuthRequired] = useState(false);
+  const [payPalRedirect, setPayPalRedirect] = useState<PayPalRedirect | null>(null);
+  const [clock, setClock] = useState<number | null>(null);
   const dialogRef = useRef<HTMLElement>(null);
   const busyRef = useRef(false);
   const draftKey = useRef<{ request: string; key: string } | null>(null);
@@ -70,7 +114,7 @@ export default function PurchaseDesk() {
     const sequence = ++requestSequence.current;
     const state = await readWorkspace();
     if (sequence === requestSequence.current) {
-      setData(state); setAuthRequired(false);
+      setData(state); setClock(Date.now()); setAuthRequired(false);
       if (state.workspace) setMode(state.workspace.mode);
     }
     return state;
@@ -79,7 +123,14 @@ export default function PurchaseDesk() {
     let active = true;
     readWorkspace().then(state => {
       if (!active) return;
-      setData(state);
+      setData(state); setClock(Date.now());
+      const redirect = resolvePayPalRedirect(window.location.search, state.operations);
+      if (redirect) {
+        setPayPalRedirect(redirect);
+        // An unmatched return must not silently select a different purchase.
+        setSelectedId(redirect.operationId ?? "");
+        setView("desk"); setFilter("all");
+      }
       if (state.workspace) setMode(state.workspace.mode);
     }).catch((e: Error) => {
       if (!active) return;
@@ -112,7 +163,16 @@ export default function PurchaseDesk() {
   }, [showSetup]);
 
   const ops = data?.operations || [];
-  const selected = ops.find(o => o.id === selectedId) || ops[0];
+  const selected = selectedId === null ? ops[0] : ops.find(o => o.id === selectedId);
+  const approvalExpiry = selected?.approvalExpiresAt;
+  const approvalExpired = approvalExpiry != null && clock !== null && approvalExpiry <= clock;
+  const approvalRenewable = selected ? canRenewApproval(selected, clock) : false;
+  useEffect(() => {
+    if (approvalExpiry == null) return;
+    const delay = Math.max(0, approvalExpiry - Date.now()) + 5;
+    const timer = window.setTimeout(() => setClock(Date.now()), Math.min(delay, 2_147_483_647));
+    return () => window.clearTimeout(timer);
+  }, [approvalExpiry]);
   const paypalReady = data?.capabilities.sandboxReady ?? false;
   const aiReady = data?.capabilities.aiReady ?? false;
   const sandboxReady = paypalReady && aiReady;
@@ -136,7 +196,7 @@ export default function PurchaseDesk() {
       const res = await fetch(path, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
       const json = await res.json() as ApiEnvelope;
       if (json.state) {
-        setData(json.state);
+        setData(json.state); setClock(Date.now());
         if (json.state.workspace) setMode(json.state.workspace.mode);
         const newOperation = json.state.operations.find(op => !ops.some(previous => previous.id === op.id));
         if (newOperation) setSelectedId(newOperation.id);
@@ -153,13 +213,19 @@ export default function PurchaseDesk() {
       await refresh().catch(() => {});
     } finally { busyRef.current = false; setBusy(null); }
   }
+  const renewApproval = () => {
+    if (!selected || !approvalRenewable) return;
+    return act(selected.id, `/api/operations/${encodeURIComponent(selected.id)}/renew-approval`).then(result => {
+      if (result) setNotice("Owner approval renewed for the same item, seller, amount and currency. The reservation is unchanged; no payment was dispatched by renewal.");
+    });
+  };
   const propose = () => {
     if (!draftKey.current || draftKey.current.request !== request) draftKey.current = { request, key: crypto.randomUUID() };
     return act("propose", "/api/proposals", { request, mode, idempotencyKey: draftKey.current.key }).then(result => {
       if (result) { setRequest(""); draftKey.current = null; }
     });
   };
-  const start = () => act("start", "/api/rehearsal/start").then(j => { if (j) { setView("desk"); setFilter("all"); setFault(false); setNotice("A new rehearsal workspace is ready. All purchases and provider outcomes in this workspace are simulated."); } });
+  const start = () => act("start", "/api/rehearsal/start").then(j => { if (j) { setView("desk"); setFilter("all"); setFault(false); setPayPalRedirect(null); setNotice("A new rehearsal workspace is ready. All purchases and provider outcomes in this workspace are simulated."); } });
   const exportEvidence = async () => {
     if (busyRef.current || !ops.length) return;
     busyRef.current = true; setBusy("export"); setError("");
@@ -205,13 +271,14 @@ export default function PurchaseDesk() {
         <div className="page-heading"><div><p className="eyebrow">CONTROLLED PURCHASING</p><h1>{view === "desk" ? "Your purchase desk." : view === "evidence" ? "Follow the evidence." : "Ready for the real run?"}</h1><p className="page-subtitle">{view === "desk" ? "A shared allowance for your studio. Every purchase stays accountable." : view === "evidence" ? "The original request, owner decision and payment record — together." : "Connection status is separate from a verified end-to-end payment."}</p></div><button className="btn btn-outline export-button" onClick={exportEvidence} disabled={!ops.length || !!busy}>{busy === "export" ? <LoaderCircle className="spin" size={16}/> : <ArrowDownToLine size={16}/>}Export evidence</button></div>
 
         {error && <div className="message error" role="alert"><CircleAlert size={19}/><div><strong>Action needs attention</strong><p>{error}</p>{authRequired && <a className="btn btn-outline" href="/signin-with-chatgpt?return_to=%2F" target="_top">Sign in to your workspace<ArrowUpRight size={14}/></a>}</div><button aria-label="Dismiss error" onClick={() => setError("")}><X size={17}/></button></div>}
+        {payPalRedirect && <div className="readiness-strip" role="status"><div className="readiness-icon">{payPalRedirect.kind === "returned" ? <SearchCheck size={21}/> : <CircleAlert size={21}/>}</div><div><strong>{payPalRedirect.title}</strong><p>{payPalRedirect.message}</p></div><button aria-label="Dismiss PayPal return notice" onClick={() => setPayPalRedirect(null)}><X size={17}/></button></div>}
         {notice && <div className="message success" role="status"><Check size={19}/><p>{notice}</p><button aria-label="Dismiss message" onClick={() => setNotice("")}><X size={17}/></button></div>}
         <div className="readiness-strip"><div className="readiness-icon"><FlaskConical size={21}/></div><div><strong>{mode === "rehearsal" ? "A safe space to test the workflow" : "Sandbox payments only"}</strong><p>{mode === "rehearsal" ? "Rehearsal uses sample requests and a simulated provider. No real money moves; these are not live AI or PayPal results." : "The catalogue is a demonstration from one sandbox merchant. Owner approval is required before capture."}</p></div><button onClick={() => setView("readiness")}>View connections<ArrowUpRight size={15}/></button></div>
 
         {view === "readiness" ? <section className="connection-grid">
           <article className="card connection-card"><div className="connection-logo paypal-word">PayPal</div><span className={`status ${paypalReady ? "confirmed" : "proposed"}`}>{paypalReady ? "Configured" : "Not connected"}</span><h2>Sandbox merchant</h2><p>Orders and captures from a single test seller. Buyer approval happens on PayPal.</p><ul className="plain-checks"><li><Check size={15}/>Production payments disabled</li><li><LockKeyhole size={15}/>Credentials remain on the server</li><li><SearchCheck size={15}/>Captured amounts checked before confirmation</li></ul></article>
           <article className="card connection-card"><div className="connection-logo ai-logo"><Sparkles size={24}/></div><span className={`status ${aiReady ? "confirmed" : "proposed"}`}>{aiReady ? "Configured" : "Not connected"}</span><h2>AI proposal service</h2><p>Turns a buying request into a catalogue proposal. The application validates item, quantity and price.</p><ul className="plain-checks"><li><Check size={15}/>AI can propose, not authorize</li><li><LockKeyhole size={15}/>No access to payment credentials</li><li><ListChecks size={15}/>Every alternative needs a fresh approval</li></ul></article>
-          <article className="card connection-setup"><div><span className="eyebrow">INTEGRATION CHECKPOINT</span><h2>{sandboxReady ? "Configuration is present." : "The real sandbox run is still pending."}</h2><p>{sandboxReady ? "Configuration alone does not verify a purchase. Run the complete owner approval and capture journey, then inspect the evidence." : "A configured PayPal sandbox merchant and an AI provider are required for the live path. You can exercise the controls in an explicitly labelled rehearsal now."}</p></div><button className="btn btn-primary" onClick={sandboxReady ? ()=>act("sandbox-start","/api/workspaces",{mode:"sandbox"}).then(j=>{if(j){setView("desk");setFilter("all");setSelectedId(null);setFault(false);}}) : start} disabled={!!busy}>{busy ? <LoaderCircle className="spin" size={16}/> : <FlaskConical size={16}/>}{sandboxReady ? "Start PayPal sandbox workspace" : "Start rehearsal"}</button></article>
+          <article className="card connection-setup"><div><span className="eyebrow">INTEGRATION CHECKPOINT</span><h2>{sandboxReady ? "Configuration is present." : "The real sandbox run is still pending."}</h2><p>{sandboxReady ? "Configuration alone does not verify a purchase. Run the complete owner approval and capture journey, then inspect the evidence." : "A configured PayPal sandbox merchant and an AI provider are required for the live path. You can exercise the controls in an explicitly labelled rehearsal now."}</p></div><button className="btn btn-primary" onClick={sandboxReady ? ()=>act("sandbox-start","/api/workspaces",{mode:"sandbox"}).then(j=>{if(j){setView("desk");setFilter("all");setSelectedId(null);setFault(false);setPayPalRedirect(null);}}) : start} disabled={!!busy}>{busy ? <LoaderCircle className="spin" size={16}/> : <FlaskConical size={16}/>}{sandboxReady ? "Start PayPal sandbox workspace" : "Start rehearsal"}</button></article>
         </section> : <>
         <section className="budget-row" aria-label="Allowance summary">
           <div className="budget-card available"><div className="metric-label">Available to spend<WalletCards size={16}/></div><div className="money-value">{loading || !ws ? "—" : money(available)}<span>USD</span></div><div className="allowance-bar"><span style={{width: `${total ? Math.max(0, Math.min(100, available/total*100)) : 0}%`}}/></div><small>{total ? `of ${money(total)} shared allowance` : "Start a workspace to set the allowance"}</small></div>
@@ -228,16 +295,17 @@ export default function PurchaseDesk() {
         </section>
 
         <aside className="card detail-panel"><div className="panel-heading"><div><p className="eyebrow">PURCHASE RECORD</p><h2>{selected ? "From intent to outcome" : "Every decision leaves a record."}</h2></div><FileCheck2 size={20}/></div>{selected ? <>
-          <div className="detail-summary"><span className={`status ${selected.status.toLowerCase()}`}>{statusLabel(selected)}</span><h3>{selected.title}</h3><div className="detail-price">{money(selected.amountCents, selected.currency)}<span>{selected.currency || "USD"}</span></div><p>{selected.rationale || selected.request}</p><dl><div><dt>Operation</dt><dd title={selected.id}>{selected.id.slice(0,12)}…</dd></div><div><dt>Proposal</dt><dd>{selected.aiSource === "model" ? "AI model" : selected.aiSource === "rehearsal-seed" ? "Rehearsal sample" : "Rehearsal rule"}</dd></div><div><dt>Provider</dt><dd>{selected.providerMode==="rehearsal"?"Simulated provider":"PayPal sandbox"}</dd></div>{selected.orderId && <div><dt>Order</dt><dd>{selected.orderId}</dd></div>}{selected.captureId && <div><dt>Capture</dt><dd>{selected.captureId}</dd></div>}</dl></div>
+          <div className="detail-summary"><span className={`status ${selected.status.toLowerCase()}`}>{statusLabel(selected)}</span><h3>{selected.title}</h3><div className="detail-price">{money(selected.amountCents, selected.currency)}<span>{selected.currency || "USD"}</span></div><p>{selected.rationale || selected.request}</p><dl><div><dt>Operation</dt><dd title={selected.id}>{selected.id.slice(0,12)}…</dd></div><div><dt>Proposal</dt><dd>{selected.aiSource === "model" ? "AI model" : selected.aiSource === "rehearsal-seed" ? "Rehearsal sample" : "Rehearsal rule"}</dd></div><div><dt>Approval</dt><dd>Version {selected.approvalVersion}{selected.approvalExpiresAt !== null ? approvalExpired ? " · expired" : ` · until ${time(selected.approvalExpiresAt)}` : " · not granted"}</dd></div><div><dt>Provider</dt><dd>{selected.providerMode==="rehearsal"?"Simulated provider":"PayPal sandbox"}</dd></div>{selected.orderId && <div><dt>Order</dt><dd>{selected.orderId}</dd></div>}{selected.captureId && <div><dt>Capture</dt><dd>{selected.captureId}</dd></div>}</dl></div>
           <div className="operation-actions">
+            {approvalRenewable && <><div className="uncertain-explanation"><CircleAlert size={17}/><p>Owner approval has expired. The {money(selected.amountCents, selected.currency)} reservation stays held. Renew only if you still approve this same item, seller, amount and currency.</p></div><button className="btn btn-primary full" disabled={!!busy} onClick={renewApproval}>{busy===selected.id ? <LoaderCircle className="spin" size={16}/> : <Check size={16}/>}Renew owner approval</button><p>Renewal provides another 15-minute execution window. It does not create an order or capture a payment.</p></>}
             {selected.status==="PROPOSED" && <><p>Approval reserves this exact amount from the shared allowance.</p><button className="btn btn-primary full" disabled={!!busy} onClick={()=>act(selected.id,"/api/operations/"+selected.id+"/approve")}>{busy===selected.id?<LoaderCircle className="spin" size={16}/>:<Check size={16}/>}Approve & reserve {money(selected.amountCents)}</button></>}
-            {selected.status === "APPROVED" && <button className="btn btn-primary full" disabled={!!busy} onClick={()=>act(selected.id,"/api/operations/"+selected.id+"/create-order")}>{busy===selected.id?<LoaderCircle className="spin" size={16}/>:<ArrowRight size={16}/>}Create {selected.providerMode==="rehearsal"?"simulated":"PayPal"} order</button>}
-            {selected.status === "ORDER_READY" && <><p>{mode==="rehearsal"?"The rehearsal simulates buyer approval and capture. No PayPal request is made.":"Open PayPal and approve as the sandbox buyer, then capture the approved order."}</p>{selectedUrl && <a className="btn btn-outline full" href={selectedUrl} target="_blank" rel="noopener noreferrer">Open PayPal approval<ArrowUpRight size={16}/></a>}<label className="fault-control"><input type="checkbox" disabled={!!busy} checked={fault} onChange={e=>setFault(e.target.checked)}/><span>Drop the capture response<small>Deliberate fault for recovery testing</small></span></label><button className="btn btn-primary full" disabled={!!busy} onClick={()=>act(selected.id,"/api/operations/"+selected.id+"/capture",{fault:fault?"drop-response":undefined})}>{busy===selected.id?<LoaderCircle className="spin" size={16}/>:<CheckCheck size={16}/>}Capture {mode==="rehearsal"?"simulated payment":"approved order"}</button></>}
+            {selected.status === "APPROVED" && <button className="btn btn-primary full" disabled={!!busy || approvalExpired} onClick={()=>act(selected.id,"/api/operations/"+selected.id+"/create-order")}>{busy===selected.id?<LoaderCircle className="spin" size={16}/>:<ArrowRight size={16}/>}Create {selected.providerMode==="rehearsal"?"simulated":"PayPal"} order</button>}
+            {selected.status === "ORDER_READY" && <><p>{mode==="rehearsal"?"The rehearsal simulates buyer approval and capture. No PayPal request is made.":"Approve on PayPal as the sandbox buyer, then capture below. The server checks buyer approval before dispatching capture; a return link alone is not proof."}</p>{selectedUrl && <a className="btn btn-outline full" href={selectedUrl} target="_blank" rel="noopener noreferrer">Open PayPal approval<ArrowUpRight size={16}/></a>}<label className="fault-control"><input type="checkbox" disabled={!!busy} checked={fault} onChange={e=>setFault(e.target.checked)}/><span>Drop the capture response<small>Deliberate fault for recovery testing</small></span></label><button className="btn btn-primary full" disabled={!!busy || approvalExpired} onClick={()=>act(selected.id,"/api/operations/"+selected.id+"/capture",{fault:fault?"drop-response":undefined})}>{busy===selected.id?<LoaderCircle className="spin" size={16}/>:<CheckCheck size={16}/>}Capture {mode==="rehearsal"?"simulated payment":"approved order"}</button></>}
             {uncertainStates.includes(selected.status) && <><div className="uncertain-explanation"><CircleAlert size={17}/><p>{selected.status === "REVIEW" ? "The provider record needs review before this purchase can be confirmed." : "The outcome is not yet verified. A missing response does not mean payment failed."} The allowance stays reserved.</p></div><button className="btn btn-primary full" disabled={!!busy} onClick={()=>act(selected.id,"/api/operations/"+selected.id+"/reconcile")}>{busy===selected.id?<LoaderCircle className="spin" size={16}/>:<SearchCheck size={17}/>}Check {mode==="rehearsal"?"simulated":"PayPal"} outcome</button></>}
             {selected.status === "CONFIRMED" && <><div className="confirmed-explanation"><ShieldCheck size={18}/><p>{mode === "rehearsal" ? "Simulated evidence confirms this rehearsal purchase." : "Matched PayPal evidence confirms this purchase."} Its amount is recorded once in the ledger.</p></div><button className="btn btn-outline full" disabled={!!busy} onClick={()=>act(selected.id,"/api/operations/"+selected.id+"/reconcile")}><SearchCheck size={16}/>Check outcome again</button></>}
             {selected.status === "BUDGET_BLOCKED" && <><p>{`This request does not fit the available allowance. A new proposal needs a new approval.`}</p><button className="btn btn-outline full" disabled={!!busy} onClick={()=>{setRequest(`Suggest a cheaper alternative to ${selected.title||selected.sku||"this purchase"} within ${money(available)}. Use only the permitted catalogue.`);setView("desk");requestAnimationFrame(()=>document.getElementById("purchase-request")?.focus());}}><Sparkles size={16}/>Request an alternative</button></>}
           </div>
-          <div className="evidence-timeline"><h4>Activity & evidence<span>{eventList.length}</span></h4>{eventList.length ? eventList.map(e=><div className="timeline-event" key={e.id}><span className="timeline-dot"/><div><strong>{titleCase(e.type)}</strong><small>{time(e.createdAt)}</small>{e.detail!=null && <details><summary>Inspect record</summary><pre>{typeof e.detail==="string"?e.detail:JSON.stringify(e.detail,null,2)}</pre></details>}</div></div>) : <p className="muted-text">Select an action to add its record to the timeline.</p>}</div>
+          <div className="evidence-timeline"><h4>Activity & evidence<span>{eventList.length}</span></h4>{eventList.length ? eventList.map(e=><div className="timeline-event" key={e.id}><span className="timeline-dot"/><div><strong>{titleCase(e.type)}</strong><small>{time(e.createdAt)}</small>{e.detail!=null && <EvidenceDetail event={e}/>}</div></div>) : <p className="muted-text">Select an action to add its record to the timeline.</p>}</div>
         </> : <div className="evidence-empty"><div className="steps-diagram"><span><Sparkles size={18}/>Request</span><i/><span><Check size={18}/>Approve</span><i/><span><SearchCheck size={18}/>Verify</span></div><p>Select a purchase to inspect its approval, provider reference and outcome.</p><div className="principle"><LockKeyhole size={19}/><div><strong>Uncertain is a valid state.</strong><p>A missing response keeps the allowance reserved until the original outcome is checked.</p></div></div></div>}</aside></div>
         </>}
         <footer className="workspace-footer"><span><ShieldCheck size={14}/>ProofPay · AI Evaluation Lab</span><p>Single-merchant sandbox prototype. Rehearsal records are simulated.</p><button onClick={()=>setShowSetup(true)}>About this workspace<ArrowUpRight size={13}/></button></footer>

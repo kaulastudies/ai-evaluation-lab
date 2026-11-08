@@ -3,7 +3,7 @@ import { authenticateRequest } from "./auth";
 import { ProofPayService } from "./service";
 import { Configuration, Mode, ProofPayError, SqlDatabase } from "./types";
 
-type Action = "state" | "start-rehearsal" | "start" | "propose" | "approve" | "create-order" | "capture" | "reconcile" | "evidence";
+type Action = "state" | "start-rehearsal" | "start" | "propose" | "approve" | "renew-approval" | "create-order" | "capture" | "reconcile" | "evidence";
 export async function handle(request: Request, action: Action, id?: string): Promise<Response> {
   let service: ProofPayService | undefined;
   let owner: string | undefined;
@@ -26,6 +26,7 @@ export async function handle(request: Request, action: Action, id?: string): Pro
       case "start": state = await service.start(owner, input.mode as Mode); break;
       case "propose": state = await service.propose(owner, {request: input.request as string, mode: input.mode as Mode, idempotencyKey: input.idempotencyKey as string}); break;
       case "approve": state = await service.approve(owner, id!, input.approvalVersion as number); break;
+      case "renew-approval": state = await service.renewApproval(owner, id!, input.approvalVersion as number); break;
       case "create-order": state = await service.createOrder(owner, id!, input.approvalVersion as number, new URL(request.url).origin); break;
       case "capture":
         if (input.fault !== undefined && input.fault !== "drop-response") throw new ProofPayError("INVALID_FAULT", "The only supported fault is drop-response.");

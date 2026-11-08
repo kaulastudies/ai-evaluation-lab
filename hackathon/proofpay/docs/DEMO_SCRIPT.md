@@ -1,6 +1,6 @@
 # Demonstration recording script
 
-Target duration: **2 minutes 45 seconds**. This is a recording plan, not evidence that the described external integrations have succeeded. The current build has no verified real model or PayPal sandbox run. Use the rehearsal wording until the corresponding external run is recorded.
+Target duration: **2 minutes 45 seconds**. This is a recording plan, not evidence that the described external integrations have succeeded. PayPal sandbox OAuth and create/GET preflight passed; the current build has no verified genuine model invocation or buyer-approved sandbox capture. Use the rehearsal wording until the corresponding external run is recorded.
 
 ## Before recording
 
@@ -53,3 +53,7 @@ Replace the rehearsal narration with the actual model and PayPal sandbox facts. 
 Use only once the corresponding workflow is demonstrated:
 
 > ProofPay gives the owner a clear spending decision and an inspectable answer about what happened to the payment.
+
+## Slow buyer approval
+
+If the 15-minute application approval expires before capture, show **Renew approval**, review the unchanged purchase and confirm the renewal. The same order and reservation remain in place. This renews application authority only; it does not extend PayPal order validity. Never renew or retry a dispatched or uncertain capture.

@@ -1,12 +1,20 @@
 import { CATALOGUE } from "./catalogue";
 import { propose as defaultPropose } from "./ai";
 import { approvalLink, completedCapture, PayPalSandboxProvider, RehearsalProvider, sandboxReady, verifyOrder } from "./provider";
-import { Configuration, HELD_SQL, Mode, OperationRow, PaymentProvider, ProposalChoice, ProofPayError, RESERVED_STATUSES, SqlDatabase, VerificationRecord, WorkspaceRow } from "./types";
+import { Configuration, HELD_SQL, Mode, OperationRow, PaymentProvider, ProposalChoice, ProposalProvenance, ProofPayError, RESERVED_STATUSES, SqlDatabase, VerificationRecord, WorkspaceRow } from "./types";
 
 type ServiceOptions = { db: SqlDatabase; env: Configuration; provider?: PaymentProvider; ai?: (request: string, mode: Mode, env: Configuration) => Promise<ProposalChoice>; now?: () => number };
 const APPROVAL_TTL = 15 * 60 * 1000;
 function ownerRequired(owner: string): void { if (!owner) throw new ProofPayError("AUTH_REQUIRED", "Sign in to use your private purchase desk.", 401); }
 function modeRequired(mode: unknown): asserts mode is Mode { if (mode !== "rehearsal" && mode !== "sandbox") throw new ProofPayError("INVALID_MODE", "Choose rehearsal or sandbox."); }
+function safeProvenance(value: ProposalProvenance | undefined): ProposalProvenance | undefined {
+  if (!value || typeof value.requestedModel !== "string" || !/^[A-Za-z0-9._:/-]{1,200}$/.test(value.requestedModel) || typeof value.providerOrigin !== "string" || value.providerOrigin.length > 512 || !Number.isSafeInteger(value.receivedAt) || value.receivedAt <= 0) return undefined;
+  let origin: URL;
+  try { origin = new URL(value.providerOrigin); } catch { return undefined; }
+  if (origin.protocol !== "https:" || origin.username || origin.password || origin.origin.length > 256) return undefined;
+  const boundedIdentifier = (candidate: unknown) => typeof candidate === "string" && /^[A-Za-z0-9._:/-]{1,200}$/.test(candidate) ? candidate : undefined;
+  return {requestedModel: value.requestedModel, providerOrigin: origin.origin, receivedAt: value.receivedAt, ...(boundedIdentifier(value.providerResponseId) ? {providerResponseId: boundedIdentifier(value.providerResponseId)} : {}), ...(boundedIdentifier(value.returnedModel) ? {returnedModel: boundedIdentifier(value.returnedModel)} : {})};
+}
 async function digest(op: OperationRow): Promise<string> {
   const data = JSON.stringify([op.id, op.workspace_id, op.sku, op.title, op.amount_cents, op.currency, op.merchant_id, op.mode, op.approval_version, op.approval_expires_at]);
   const bytes = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(data));
@@ -81,14 +89,14 @@ export class ProofPayService {
     const stored = await this.db.prepare("SELECT * FROM proofpay_operations WHERE workspace_id = ? AND idempotency_key = ?").bind(workspace.id, input.idempotencyKey).first<OperationRow>();
     if (stored!.request !== input.request.trim()) throw new ProofPayError("KEY_REUSED", "That idempotency key is already bound to another request.", 409);
     if (inserted.meta?.changes === 1) {
-      const modelDetail = choice.source === "model" ? `Model ${this.env.AI_MODEL?.slice(0, 150)} at ${new URL(this.env.AI_BASE_URL!).origin}` : "Deterministic rehearsal";
-      await this.event(workspace.id, stored!.id, "PROPOSAL_CREATED", `${modelDetail} selected ${stored!.sku}. Price and merchant were fixed by the server. Rationale: ${choice.rationale}`);
+      const provenance = choice.source === "model" ? safeProvenance(choice.provenance) : undefined;
+      await this.event(workspace.id, stored!.id, "PROPOSAL_CREATED", JSON.stringify({schemaVersion: 1, source: choice.source, sku: stored!.sku, rationale: choice.rationale.slice(0, 500), ...(provenance ? {provenance} : {})}));
     }
     return this.state(owner);
   }
   private async validApproval(op: OperationRow, version: number): Promise<void> {
     if (version !== op.approval_version) throw new ProofPayError("APPROVAL_VERSION", "Refresh this operation before approving or executing it.", 409);
-    if (!op.approval_digest || !op.approval_expires_at || op.approval_expires_at <= this.now()) throw new ProofPayError("APPROVAL_EXPIRED", "Approval expired. Existing reservations stay held; start a new isolated workspace for another rehearsal.", 409);
+    if (!op.approval_digest || !op.approval_expires_at || op.approval_expires_at <= this.now()) throw new ProofPayError("APPROVAL_EXPIRED", "Approval expired. Explicitly renew the unchanged approval before execution. Existing reservations remain held.", 409);
     if (await digest(op) !== op.approval_digest) throw new ProofPayError("APPROVAL_MISMATCH", "The operation no longer matches its immutable approval.", 409);
     if (op.mode === "sandbox" && op.merchant_id !== this.env.PAYPAL_MERCHANT_ID) throw new ProofPayError("MERCHANT_CHANGED", "The configured seller no longer matches this approval.", 409);
   }
@@ -109,12 +117,37 @@ export class ProofPayService {
     await this.event(op.workspace_id, id, "APPROVED", "Owner approved the exact catalogue item, merchant, amount and currency. Funds are reserved for 15-minute execution authority; ambiguity never releases them automatically.");
     return this.state(owner);
   }
+  async renewApproval(owner: string, id: string, version: number) {
+    const op = await this.operation(owner, id);
+    if (version !== op.approval_version) throw new ProofPayError("APPROVAL_VERSION", "Refresh this operation before renewing its approval.", 409);
+    if (!["APPROVED", "ORDER_READY"].includes(op.status) || op.capture_id) throw new ProofPayError("RENEWAL_STATE", "Approval can only be renewed before capture dispatch. Uncertain or completed payments cannot be re-authorized.", 409);
+    if ((op.status === "APPROVED" && op.order_id) || (op.status === "ORDER_READY" && !op.order_id)) throw new ProofPayError("RENEWAL_STATE", "The stored order state requires review; approval was not changed.", 409);
+    if ((await this.workspace(owner))?.id !== op.workspace_id) throw new ProofPayError("WORKSPACE_CHANGED", "Renew approval from the active purchase desk.", 409);
+    if (!op.approval_digest || !op.approval_expires_at || await digest(op) !== op.approval_digest) throw new ProofPayError("APPROVAL_MISMATCH", "The operation no longer matches its stored approval. Renewal is not allowed.", 409);
+    if (op.mode === "sandbox" && op.merchant_id !== this.env.PAYPAL_MERCHANT_ID) throw new ProofPayError("MERCHANT_CHANGED", "The configured seller no longer matches this approval.", 409);
+    const renewedAt = this.now();
+    if (op.approval_expires_at > renewedAt) throw new ProofPayError("APPROVAL_NOT_EXPIRED", "This approval is still valid; renewal is not needed.", 409);
+    const nextVersion = op.approval_version + 1;
+    const expires = renewedAt + APPROVAL_TTL;
+    const hash = await digest({...op, approval_version: nextVersion, approval_expires_at: expires});
+    const eligible = "id = ? AND status = ? AND approval_version = ? AND approval_digest = ? AND approval_expires_at = ? AND approval_expires_at <= ? AND capture_id IS NULL AND workspace_id = (SELECT workspace_id FROM proofpay_sessions WHERE owner_id = ?)";
+    const bindings = [id, op.status, op.approval_version, op.approval_digest, op.approval_expires_at, renewedAt, owner];
+    // The same CAS guards both audit and renewal in one transaction. A dispatch
+    // winner makes both statements no-ops; a renewal winner invalidates stale
+    // dispatch requests without changing the reservation or provider identity.
+    const results = await this.db.batch([
+      this.db.prepare(`INSERT INTO proofpay_events (id,workspace_id,operation_id,type,detail,created_at) SELECT ?,?,?,'APPROVAL_RENEWED',?,? WHERE EXISTS (SELECT 1 FROM proofpay_operations WHERE ${eligible})`).bind(crypto.randomUUID(), op.workspace_id, id, `Owner explicitly renewed unchanged purchase approval from version ${op.approval_version} to ${nextVersion}. The existing reservation, merchant, amount, item, order and provider request IDs are preserved. Execution authority expires at ${new Date(expires).toISOString()}. No payment was dispatched by renewal.`, renewedAt, ...bindings),
+      this.db.prepare(`UPDATE proofpay_operations SET approval_version = ?, approval_expires_at = ?, approval_digest = ?, updated_at = ? WHERE ${eligible}`).bind(nextVersion, expires, hash, renewedAt, ...bindings),
+    ]);
+    if (results[1].meta?.changes !== 1) throw new ProofPayError("APPROVAL_CHANGED", "The operation changed while approval was being renewed. Refresh before taking another action.", 409);
+    return this.state(owner);
+  }
   async createOrder(owner: string, id: string, version: number, origin: string) {
     const op = await this.operation(owner, id);
     if (op.status === "ORDER_READY") return this.state(owner);
     if (op.status !== "APPROVED") throw new ProofPayError("ORDER_STATE", "An approved operation is required; uncertain create requests are never repeated automatically.", 409);
     await this.validApproval(op, version); const provider = this.provider(op);
-    const claimed = await this.db.prepare("UPDATE proofpay_operations SET status = 'CREATE_DISPATCHED', updated_at = ? WHERE id = ? AND status = 'APPROVED' AND approval_expires_at > ? RETURNING id").bind(this.now(), id, this.now()).first();
+    const claimed = await this.db.prepare("UPDATE proofpay_operations SET status = 'CREATE_DISPATCHED', updated_at = ? WHERE id = ? AND status = 'APPROVED' AND approval_version = ? AND approval_digest = ? AND approval_expires_at = ? AND approval_expires_at > ? RETURNING id").bind(this.now(), id, op.approval_version, op.approval_digest, op.approval_expires_at, this.now()).first();
     if (!claimed) return this.state(owner);
     await this.event(op.workspace_id, id, "CREATE_DISPATCHED", "Durable create intent stored before provider dispatch. The request ID is fixed to this operation.");
     try {
@@ -136,7 +169,7 @@ export class ProofPayService {
     await this.validApproval(op, version); const provider = this.provider(op);
     const before = await provider.get(op); verifyOrder(op, before);
     if (before.status !== "APPROVED") throw new ProofPayError("BUYER_APPROVAL_REQUIRED", "Complete buyer approval in PayPal before capture.", 409);
-    const claimed = await this.db.prepare("UPDATE proofpay_operations SET status = 'CAPTURE_DISPATCHED', updated_at = ? WHERE id = ? AND status = 'ORDER_READY' AND approval_expires_at > ? RETURNING id").bind(this.now(), id, this.now()).first();
+    const claimed = await this.db.prepare("UPDATE proofpay_operations SET status = 'CAPTURE_DISPATCHED', updated_at = ? WHERE id = ? AND status = 'ORDER_READY' AND approval_version = ? AND approval_digest = ? AND approval_expires_at = ? AND approval_expires_at > ? RETURNING id").bind(this.now(), id, op.approval_version, op.approval_digest, op.approval_expires_at, this.now()).first();
     if (!claimed) return this.state(owner);
     await this.event(op.workspace_id, id, "CAPTURE_DISPATCHED", "Durable capture intent stored. Only this request may dispatch capture; later requests can only read provider status.");
     try {

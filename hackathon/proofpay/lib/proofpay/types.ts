@@ -12,7 +12,8 @@ export type ProviderAmount = { currency_code?: string; value?: string };
 export type ProviderCapture = { id?: string; status?: string; amount?: ProviderAmount; final_capture?: boolean };
 export type ProviderOrder = { id?: string; status?: string; purchase_units?: Array<{reference_id?: string; custom_id?: string; payee?: {merchant_id?: string}; amount?: ProviderAmount; payments?: {captures?: ProviderCapture[]; refunds?: unknown[]}}>; links?: Array<{href?: string; rel?: string}> };
 export interface PaymentProvider { create(op: OperationRow, returnOrigin: string): Promise<ProviderOrder>; capture(op: OperationRow): Promise<ProviderOrder>; get(op: OperationRow): Promise<ProviderOrder> }
-export type ProposalChoice = { sku: string; rationale: string; source: "model" | "rehearsal-rule" | "rehearsal-seed" };
+export type ProposalProvenance = {providerResponseId?: string; returnedModel?: string; requestedModel: string; providerOrigin: string; receivedAt: number};
+export type ProposalChoice = { sku: string; rationale: string; source: "model" | "rehearsal-rule" | "rehearsal-seed"; provenance?: ProposalProvenance };
 export type VerificationRecord = {
   schemaVersion: 1; mode: Mode; simulated: boolean;
   source: "simulated-provider-lookup" | "paypal-sandbox-orders-get";

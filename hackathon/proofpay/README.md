@@ -8,7 +8,7 @@ The project is a hackathon prototype. The intended integration is PayPal sandbox
 
 ## Current verification status
 
-The application code includes the owner interface, persistent ledger, rehearsal provider, PayPal sandbox adapter and model adapter. No actual PayPal sandbox transaction or runtime model invocation has been verified in this build session. A rehearsal can demonstrate application behaviour with a simulated provider; it does not establish a PayPal payment or an AI integration.
+The application code includes the owner interface, persistent ledger, rehearsal provider, PayPal sandbox adapter and model adapter. Genuine PayPal sandbox OAuth and create/GET calls have been verified through the provider adapter. The order remained awaiting buyer action; a genuine model invocation and buyer-approved capture are not yet verified. A rehearsal can demonstrate application behaviour with a simulated provider; it does not establish a PayPal payment or an AI integration.
 
 The hosted Site is private to its owner and is not ready for independent judge access. The managed local preview does not provide mock sign-in. Hosted UI behaviour must be checked separately; code and local test results are not hosted UI evidence.
 
@@ -77,7 +77,7 @@ The adapters read these names from the Cloudflare Worker environment. Never put 
 
 Credential configuration is not proof of a successful integration. Record a real model response and an actual PayPal sandbox order/capture before claiming those paths work. The PayPal buyer's native approval remains part of the purchase flow. API credentials do not replace buyer approval.
 
-The AI adapter requests JSON-object output containing a catalogue `sku` and `rationale`. The selected endpoint/model must support that format. Rehearsal uses deterministic selection rules and explicitly records that no model was called; it is not a fallback that may be relabelled as real AI.
+The AI adapter requests JSON-object output containing a catalogue `sku` and `rationale`. Proposal events retain allowlisted provider response ID and returned model when supplied, requested model, provider origin and receipt time; credentials and raw provider payloads are omitted. These fields identify a run but are not a signed provider attestation. The selected endpoint/model must support that format. Rehearsal uses deterministic selection rules and explicitly records that no model was called; it is not a fallback that may be relabelled as real AI.
 
 For hosted operation, configure the values through the deployment's server-side environment settings. For local Vite development, use an uncommitted `.dev.vars` file in the project root, following [Cloudflare's local secrets documentation](https://developers.cloudflare.com/workers/vite-plugin/reference/secrets/). Restart the development server after changes and inspect **Connections** for configuration status. Configuration status checks presence; it does not test credentials or prove a model/payment call succeeds. The PayPal adapter is fixed to `api-m.sandbox.paypal.com`.
 
@@ -94,6 +94,7 @@ All routes require the trusted owner identity. Mutations also require same-origi
 | `POST /api/workspaces` | Create a workspace in an explicit mode. |
 | `POST /api/proposals` | Validate a model-selected or rehearsal-selected catalogue proposal. |
 | `POST /api/operations/:id/approve` | Bind owner approval and reserve available allowance atomically. |
+| `POST /api/operations/:id/renew-approval` | Explicitly reapprove an expired pre-capture purchase without adding a reservation or replacing its order. |
 | `POST /api/operations/:id/create-order` | Claim one durable create attempt and store its checked order. |
 | `POST /api/operations/:id/capture` | Claim one capture attempt after buyer approval; supports the labelled response-drop fault. |
 | `POST /api/operations/:id/reconcile` | Read and compare the saved order's outcome. |
@@ -131,7 +132,7 @@ The project uses third-party dependencies listed in `package.json` and the lockf
 
 The $300 limit applies to one isolated demonstration workspace, not a bank account or an account-wide allowance. Starting a new rehearsal preserves prior records but creates a separate allowance. A sandbox workspace with reserved or uncertain operations cannot be hidden by switching workspaces.
 
-Approval expires after 15 minutes and prevents a new dispatch; expiry does not release reserved money. There is no revocation, renewal or reservation-release API. Create and capture each have one durable dispatch attempt. After uncertainty, the app checks the original order without automatically retrying payment. If a create response is lost before its order ID is saved, this prototype requires manual investigation and retains the reservation.
+Approval expires after 15 minutes and prevents a new dispatch; expiry does not release reserved money. The owner can explicitly renew an expired `APPROVED` or `ORDER_READY` purchase. Renewal preserves the reservation, purchase and provider IDs, increments approval version and rejects stale dispatch authority. It does not extend PayPal order validity. There is no revocation or reservation-release API. Create and capture each have one durable dispatch attempt. After uncertainty, the app checks the original order without automatically retrying payment. If a create response is lost before its order ID is saved, this prototype requires manual investigation and retains the reservation.
 
 There is no webhook receiver, refund execution, fulfillment, subscription or production-payment flow. The evidence receipt contains request IDs, approval digest and `verificationRecords` with the provider fields used for confirmation, labelled by source and mode. That snapshot is stored transactionally with confirmation; it is not signed or externally anchored. See [architecture and limits](docs/ARCHITECTURE.md) for the trust boundary and state transitions.
 

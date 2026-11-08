@@ -46,3 +46,22 @@ test('review: missing model configuration blocks sandbox proposal before any net
 });
 // All model responses above are synthetic HTTP fixtures. They establish backend
 // policy handling, not model intelligence or actual external inference evidence.
+
+test('review: model provenance survives export without response payload, URL query or credentials',async()=>{
+  const f=await fixture({...env,AI_BASE_URL:'https://synthetic-model.invalid/v1?private=value'});const oldFetch=globalThis.fetch;
+  globalThis.fetch=async()=>Response.json({id:'chatcmpl-synthetic-123',model:'synthetic-returned-model-2026',secret:'must-not-be-retained',usage:{private:'discard'},choices:[{message:{content:JSON.stringify({sku:'workflow-review',rationale:'Fits the requested review.'})}}]});
+  try{
+    const started=Date.now();const state=await f.service.propose(owner,proposal());
+    const event=state.events.find(e=>e.type==='PROPOSAL_CREATED');const detail=JSON.parse(event.detail);
+    assert.deepEqual(Object.keys(detail.provenance).sort(),['providerOrigin','providerResponseId','receivedAt','requestedModel','returnedModel'].sort());
+    assert.equal(detail.provenance.providerResponseId,'chatcmpl-synthetic-123');assert.equal(detail.provenance.returnedModel,'synthetic-returned-model-2026');assert.equal(detail.provenance.requestedModel,env.AI_MODEL);assert.equal(detail.provenance.providerOrigin,'https://synthetic-model.invalid');
+    assert.ok(detail.provenance.receivedAt>=started && detail.provenance.receivedAt<=Date.now());
+    const evidence=JSON.stringify(await f.service.evidence(owner,state.operations[0].id));
+    assert.ok(evidence.includes('chatcmpl-synthetic-123'));for(const secret of ['must-not-be-retained','synthetic-key','private=value']) assert.ok(!evidence.includes(secret));
+  }finally{globalThis.fetch=oldFetch;f.db.close();}
+});
+test('review: malformed optional provider identifiers are omitted, never promoted from model content',async()=>{
+  const f=await fixture();const oldFetch=globalThis.fetch;
+  globalThis.fetch=async()=>Response.json({id:{token:'private'},model:'untrusted\nmodel',choices:[{message:{content:JSON.stringify({sku:'starter-review',rationale:'Smaller scope.',providerResponseId:'forged-id',returnedModel:'forged-model'})}}]});
+  try{const state=await f.service.propose(owner,proposal());const detail=JSON.parse(state.events.find(e=>e.type==='PROPOSAL_CREATED').detail);assert.equal(detail.provenance.providerResponseId,undefined);assert.equal(detail.provenance.returnedModel,undefined);assert.equal(detail.provenance.requestedModel,env.AI_MODEL);assert.ok(!JSON.stringify(detail).includes('forged'));}finally{globalThis.fetch=oldFetch;f.db.close();}
+});

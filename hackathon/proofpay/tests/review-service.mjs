@@ -204,3 +204,143 @@ test('review: duplicate provider capture binding rolls back receipt and confirma
     const state=await secondService.state(owner);assert.equal(state.workspace.committedCents,18000);assert.equal(state.workspace.reservedCents,9000);
   }finally{f.db.close();}
 });
+
+// Renewal is a new owner decision over the same held purchase, never a retry
+// permission for a dispatched request. These fixtures remain synthetic.
+const renewalCount = f => f.db.prepare("SELECT COUNT(*) n FROM proofpay_events WHERE operation_id=? AND type='APPROVAL_RENEWED'").bind(f.op.id).first();
+function unchangedPurchase(before, after) {
+  for(const key of ['id','workspace_id','sku','title','amount_cents','currency','merchant_id','mode','status','order_id','capture_id','create_request_id','capture_request_id','approval_url']) assert.equal(after[key],before[key],key);
+}
+for(const status of ['APPROVED','ORDER_READY'])test(`review: expired ${status} renewal preserves purchase and allowance, then executes only the new version`,async()=>{
+  const f=await fixture('sandbox');try {
+    await f.service.approve(owner,f.op.id,1);
+    if(status==='ORDER_READY') await f.service.createOrder(owner,f.op.id,1,'https://proofpay.example');
+    const before=await row(f), budgetBefore=(await f.service.state(owner)).workspace;
+    const callsBefore={...f.calls};f.advance(16*60*1000);
+    await f.service.renewApproval(owner,f.op.id,1);
+    const renewed=await row(f), budgetAfter=(await f.service.state(owner)).workspace;
+    unchangedPurchase(before,renewed);
+    assert.deepEqual(budgetAfter,budgetBefore);assert.deepEqual(f.calls,callsBefore);
+    assert.equal(renewed.approval_version,2);assert.notEqual(renewed.approval_digest,before.approval_digest);
+    assert.ok(renewed.approval_expires_at>before.approval_expires_at);
+    assert.equal((await renewalCount(f)).n,1);
+    await assert.rejects(f.service.renewApproval(owner,f.op.id,1),e=>e.code==='APPROVAL_VERSION');
+    if(status==='APPROVED') {
+      await assert.rejects(f.service.createOrder(owner,f.op.id,1,'https://proofpay.example'),e=>e.code==='APPROVAL_VERSION');
+      assert.deepEqual(f.calls,callsBefore);
+      await f.service.createOrder(owner,f.op.id,2,'https://proofpay.example');
+    }
+    await assert.rejects(f.service.capture(owner,f.op.id,1),e=>e.code==='APPROVAL_VERSION');
+    assert.equal(f.calls.capture,0);
+    await f.service.capture(owner,f.op.id,2);
+    const final=await row(f);
+    assert.equal(final.status,'CONFIRMED');assert.equal(f.calls.create,1);assert.equal(f.calls.capture,1);
+    assert.equal(final.create_request_id,before.create_request_id);assert.equal(final.capture_request_id,before.capture_request_id);
+    if(status==='ORDER_READY')assert.equal(final.order_id,before.order_id);
+    const budget=(await f.service.state(owner)).workspace;
+    assert.equal(budget.committedCents,18000);assert.equal(budget.reservedCents,0);assert.equal(budget.availableCents,12000);
+  }finally{f.db.close();}
+});
+test('review: renewal before expiry and by a foreign owner cannot change authority',async()=>{
+  const f=await fixture('sandbox');try {
+    await ready(f);const before=await row(f),callsBefore={...f.calls};
+    await assert.rejects(f.service.renewApproval(owner,f.op.id,1),e=>e.code==='APPROVAL_NOT_EXPIRED');
+    f.advance(16*60*1000);
+    await assert.rejects(f.service.renewApproval('foreign-owner',f.op.id,1),e=>e.code==='NOT_FOUND');
+    assert.deepEqual(await row(f),before);assert.deepEqual(f.calls,callsBefore);assert.equal((await renewalCount(f)).n,0);
+  }finally{f.db.close();}
+});
+for(const status of ['PROPOSED','BUDGET_BLOCKED','CREATE_DISPATCHED','CREATE_UNKNOWN','CAPTURE_DISPATCHED','UNKNOWN','REVIEW','CONFIRMED'])test(`review: renewal rejects ${status} without creating new authority or provider calls`,async()=>{
+  const f=await fixture('sandbox');try {
+    await ready(f);f.advance(16*60*1000);
+    await f.db.prepare('UPDATE proofpay_operations SET status=? WHERE id=?').bind(status,f.op.id).run();
+    const before=await row(f),budgetBefore=(await f.service.state(owner)).workspace,callsBefore={...f.calls};
+    await assert.rejects(f.service.renewApproval(owner,f.op.id,1),e=>e.code==='RENEWAL_STATE');
+    assert.deepEqual(await row(f),before);assert.deepEqual((await f.service.state(owner)).workspace,budgetBefore);
+    assert.deepEqual(f.calls,callsBefore);assert.equal((await renewalCount(f)).n,0);
+  }finally{f.db.close();}
+});
+test('review: renewal does not legitimize a mutated purchase or a changed sandbox merchant',async()=>{
+  const f=await fixture('sandbox');try {
+    await ready(f);f.advance(16*60*1000);const callsBefore={...f.calls};
+    await f.db.prepare('UPDATE proofpay_operations SET amount_cents=1 WHERE id=?').bind(f.op.id).run();
+    await assert.rejects(f.service.renewApproval(owner,f.op.id,1),e=>e.code==='APPROVAL_MISMATCH');
+    await f.db.prepare('UPDATE proofpay_operations SET amount_cents=18000 WHERE id=?').bind(f.op.id).run();
+    f.env.PAYPAL_MERCHANT_ID='changed-test-seller';
+    await assert.rejects(f.service.renewApproval(owner,f.op.id,1),e=>e.code==='MERCHANT_CHANGED');
+    assert.equal((await row(f)).approval_version,1);assert.deepEqual(f.calls,callsBefore);assert.equal((await renewalCount(f)).n,0);
+  }finally{f.db.close();}
+});
+test('review: renewal cannot reactivate a purchase in an inactive rehearsal workspace',async()=>{
+  const f=await fixture();try {
+    await ready(f);f.advance(16*60*1000);const before=await row(f),callsBefore={...f.calls};
+    await f.service.start(owner,'rehearsal',true);
+    await assert.rejects(f.service.renewApproval(owner,f.op.id,1),e=>e.code==='WORKSPACE_CHANGED');
+    assert.deepEqual(await row(f),before);assert.deepEqual(f.calls,callsBefore);assert.equal((await renewalCount(f)).n,0);
+  }finally{f.db.close();}
+});
+test('review: competing renewals advance the version once and record one owner decision',async()=>{
+  const f=await fixture('sandbox');try {
+    await ready(f);f.advance(16*60*1000);const before=await row(f),callsBefore={...f.calls};
+    // D1 serializes atomic batches. Queue them here because this adapter shares
+    // one synchronous SQLite connection; both service calls still read version1.
+    const batch=f.db.batch.bind(f.db);let queued=Promise.resolve();
+    f.db.batch=statements=>{const result=queued.then(()=>batch(statements));queued=result.catch(()=>{});return result};
+    const results=await Promise.allSettled([f.service.renewApproval(owner,f.op.id,1),f.service.renewApproval(owner,f.op.id,1)]);
+    assert.equal(results.filter(x=>x.status==='fulfilled').length,1);
+    assert.ok(['APPROVAL_CHANGED','APPROVAL_VERSION'].includes(results.find(x=>x.status==='rejected').reason.code));
+    const after=await row(f);unchangedPurchase(before,after);assert.equal(after.approval_version,2);
+    assert.deepEqual(f.calls,callsBefore);assert.equal((await renewalCount(f)).n,1);
+    assert.equal((await f.service.state(owner)).workspace.reservedCents,18000);
+  }finally{f.db.close();}
+});
+test('review: renewal invalidates a capture suspended at the provider buyer-approval lookup',{timeout:5000},async()=>{
+  const f=await fixture('sandbox');let release;
+  try {
+    await ready(f);let entered;const arrived=new Promise(resolve=>{entered=resolve});const gate=new Promise(resolve=>{release=resolve});
+    const get=f.provider.get;f.provider.get=async op=>{entered();await gate;return get(op)};
+    const stale=f.service.capture(owner,f.op.id,1);const staleResult=Promise.allSettled([stale]);
+    await arrived;f.advance(16*60*1000);await f.service.renewApproval(owner,f.op.id,1);
+    release();await staleResult;
+    assert.equal(f.calls.capture,0);assert.equal((await row(f)).status,'ORDER_READY');assert.equal((await row(f)).approval_version,2);
+    f.provider.get=get;await f.service.capture(owner,f.op.id,2);
+    assert.equal(f.calls.capture,1);assert.equal((await row(f)).status,'CONFIRMED');
+  }finally{release?.();f.db.close();}
+});
+test('review: renewal invalidates a create suspended just before its durable dispatch claim',{timeout:5000},async()=>{
+  const f=await fixture('sandbox');let release;const originalPrepare=f.db.prepare.bind(f.db);
+  try {
+    await f.service.approve(owner,f.op.id,1);
+    let entered;const arrived=new Promise(resolve=>{entered=resolve});const gate=new Promise(resolve=>{release=resolve});
+    f.db.prepare=sql=>{
+      const statement=originalPrepare(sql);
+      if(sql.includes("SET status = 'CREATE_DISPATCHED'")) {
+        const originalBind=statement.bind.bind(statement);
+        statement.bind=(...args)=>{const bound=originalBind(...args);const first=bound.first.bind(bound);bound.first=async(...parameters)=>{entered();await gate;return first(...parameters)};return bound};
+      }
+      return statement;
+    };
+    const stale=f.service.createOrder(owner,f.op.id,1,'https://proofpay.example');const staleResult=Promise.allSettled([stale]);
+    await arrived;f.advance(16*60*1000);await f.service.renewApproval(owner,f.op.id,1);
+    release();await staleResult;
+    assert.equal(f.calls.create,0);assert.equal((await row(f)).status,'APPROVED');assert.equal((await row(f)).approval_version,2);
+    f.db.prepare=originalPrepare;await f.service.createOrder(owner,f.op.id,2,'https://proofpay.example');
+    assert.equal(f.calls.create,1);assert.equal((await row(f)).status,'ORDER_READY');
+  }finally{release?.();f.db.prepare=originalPrepare;f.db.close();}
+});
+test('review: a dispatch claim winning after renewal pre-read prevents renewal and its event',{timeout:5000},async()=>{
+  const f=await fixture('sandbox');let release;const batch=f.db.batch.bind(f.db);
+  try {
+    await ready(f);f.advance(16*60*1000);const before=await row(f),callsBefore={...f.calls};
+    let entered;const arrived=new Promise(resolve=>{entered=resolve});const gate=new Promise(resolve=>{release=resolve});
+    f.db.batch=async statements=>{entered();await gate;return batch(statements)};
+    const renewal=f.service.renewApproval(owner,f.op.id,1);const outcome=Promise.allSettled([renewal]);
+    await arrived;
+    // A separate dispatcher wins the status CAS while renewal holds a stale read.
+    await f.db.prepare("UPDATE proofpay_operations SET status='CAPTURE_DISPATCHED' WHERE id=? AND status='ORDER_READY'").bind(f.op.id).run();
+    release();const [result]=await outcome;
+    assert.equal(result.status,'rejected');assert.equal(result.reason.code,'APPROVAL_CHANGED');
+    const after=await row(f);assert.equal(after.status,'CAPTURE_DISPATCHED');assert.equal(after.approval_version,before.approval_version);assert.equal(after.approval_digest,before.approval_digest);
+    assert.equal((await renewalCount(f)).n,0);assert.deepEqual(f.calls,callsBefore);assert.equal((await f.service.state(owner)).workspace.reservedCents,18000);
+  }finally{release?.();f.db.batch=batch;f.db.close();}
+});
