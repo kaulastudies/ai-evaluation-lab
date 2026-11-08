@@ -4,7 +4,9 @@ This source reproduces a 2:21 product walkthrough with local Kokoro neural narra
 
 The fresh guest walkthrough uses isolated simulated payments. Scene 6 separately shows a saved, completed GPT-4.1-mini proposal and PayPal sandbox purchase with virtual funds. No model or payment API is called by this video pipeline. The application receipt is an unsigned record, not a PayPal attestation.
 
-The reviewed film replaces the earlier Flite/illustrated-presenter cut. The source here has no publishing, upload, browser or submission function.
+The reviewed film replaces the earlier Flite/illustrated-presenter cut. [Watch the public V2 video](https://youtu.be/D4UXBT-FhcE). YouTube Studio confirmed Published/Public on 8 November 2026, and watch-page playback displayed 2:21. The source here has no publishing, upload, browser or submission function.
+
+All 43 burned-in captions are included in the published film. The exact native transcript was saved for YouTube automatic timing; public selectable captions were unavailable at the first watch-page check and remain processing. Native-caption timing QA is not claimed. No independent listening or forced-alignment result is claimed. Narration was generated locally with the free Kokoro `af_heart` preset; the film uses no avatar or paid narration service.
 
 ## Inputs and outputs
 
@@ -78,9 +80,9 @@ Earlier attempts triggered rejected telemetry connections; their delivery and pa
 
 Original pipeline code is MIT-licensed under `LICENSE`. Kokoro weights/reference code are Apache-2.0; kokoro-onnx is MIT. Upstream license texts and model/voice cards are in `licenses/`. Python dependencies and system fonts retain their own licenses. The supplied captures contain ProofPay interface content and third-party product names, logos and sandbox identifiers; those marks remain their owners’ property and are not relicensed as part of the original pipeline code. The stock English preset does not clone the founder or any identified person. No paid narration service or personal OpenAI credits were used for this film.
 
-## YouTube publication draft
+## YouTube publication
 
-The following is prepared metadata, not a claim that the film has been uploaded or published. The release owner must select the reviewed MP4 in YouTube Studio.
+Public watch link: **https://youtu.be/D4UXBT-FhcE**. Publication and watch-page playback were verified on 8 November 2026. The following title/description text is retained as the prepared publication copy; this section does not claim a separate exact-text comparison with the published fields. The video URL was saved and reopened in Devpost, where the embedded player showed the correct title. The final page remains Draft (3/5 steps), and final Submit stays held.
 
 **Title**
 

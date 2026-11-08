@@ -2,7 +2,7 @@
 
 Updated 8 November 2026. The seven-section portal's complete browser workflow passed on runtime **`cfd1d007`**, with 6/6 Evaluation lab observations. The source checkpoint `26893ed6` passed **210 local tests, TypeScript, full lint and build**. All seven views have responsive evidence; the current deployment passed nine real PostgreSQL checks, migrations and build.
 
-**The earlier 163.521-second Flite/illustrated-presenter cut was rejected. It is not publication-ready and has not been published.** V2 uses product footage and locally generated neural Kokoro narration, with no avatar. The exact **312-word** voiceover is preserved in the frozen final V2: **141.354362 seconds (2:21.354)**, within the production target and the official under-three-minute limit. It uses 29 timed shots of actual captured states and 43 captions. Full decode/audio/caption checks and sampled visual review passed. Manual YouTube upload and a verified public URL remain pending; no independent listening or forced-alignment result is claimed.
+**The earlier 163.521-second Flite/illustrated-presenter cut was rejected. It is not publication-ready and has not been published.** V2 uses product footage and locally generated neural Kokoro narration, with no avatar. The exact **312-word** voiceover is preserved in the frozen final V2: **141.354362 seconds (2:21.354)**, within the production target and the official under-three-minute limit. It uses 29 timed shots of actual captured states and 43 captions. Full decode/audio/caption checks and sampled visual review passed. The V2 video is now [public on YouTube](https://youtu.be/D4UXBT-FhcE): Studio confirmed Published/Public on 8 November and the watch page played with a displayed duration of 2:21. No independent listening or forced-alignment result is claimed.
 
 ## Story
 
@@ -86,8 +86,9 @@ The [responsive review](../evidence/judge-portal-browser-qa-2026-11-08.json) cov
 - Public judge origin: **https://proofpay-evaluation-lab.vercel.app**. Choose **Open judge workspace**; the seven-section rehearsal workflow is verified.
 - [Public source and setup](https://github.com/kaulastudies/ai-evaluation-lab/tree/proofpay/purchase-desk-v0.1/hackathon/proofpay).
 - V2 render: **validated and frozen**, 141.354362 seconds.
-- Public YouTube URL: **pending manual upload and fresh-viewer verification**. The delivered MP4 must be selected in the browser file dialog; automatic transfer is blocked by host security policy. No new upload can begin before a file is visibly selected.
-- The current **7,531-character Devpost Story**, both canonical URLs and updated testing/AI-tool disclosures were saved, reopened and matched. The video field is empty; add only the actual verified public video URL.
-- **Final Devpost Submit remains held.** Finalization showed Draft with the terms checkbox unchecked; no final Submit was clicked.
+- [Watch the public V2 video](https://youtu.be/D4UXBT-FhcE). Studio confirmed Published/Public on 8 November 2026; watch-page playback displayed 2:21.
+- All 43 burned-in captions are in the published film. The exact native transcript was saved for YouTube automatic timing; public selectable captions were unavailable at the first watch-page check and remain processing. Native caption timing has not been quality-checked.
+- The current **7,531-character Devpost Story**, both canonical URLs and updated testing/AI-tool disclosures were saved, reopened and matched. The Devpost video field was saved and reopened with **https://youtu.be/D4UXBT-FhcE**; the embedded player showed the correct title.
+- **Final Devpost Submit remains held.** The final submission page remains **Draft (3/5 steps)**. No final Submit was clicked; the earlier terms check was unchecked.
 
 Follow [RECORDING_CHECKLIST.md](RECORDING_CHECKLIST.md). Keep credentials, cookies, buyer details and account screens out of the public video. The [official requirements](https://paypalaihackathon.devpost.com/) and [rules](https://paypalaihackathon.devpost.com/rules), reviewed 8 November 2026, require public YouTube footage under three minutes; speech duration alone does not satisfy that requirement.

@@ -55,6 +55,8 @@ An actual 4,254-byte receipt downloaded through the evidence API passed the offl
 
 The replacement [Kokoro V2 video](../tools/demo-video-v2/README.md) is frozen at **141.354362 seconds (2:21.354)**, with 43 captions preserving all 312 narration words and 29 timed shots of actual captured UI states. It uses no avatar. Full decode, audio/caption checks and sampled visual review passed; no independent listening or forced-alignment result is claimed. Scene six is clearly labelled saved evidence from the completed external run. The old Flite presentation was rejected and is not the current video.
 
-**Public YouTube URL: pending manual MP4 selection/upload and fresh-viewer playback.** The current Devpost Story, demo/source links and testing/AI-tool disclosures were saved and reopened successfully. Its video field remains empty and final Submit remains held.
+[Watch the public V2 video](https://youtu.be/D4UXBT-FhcE). Studio confirmed Published/Public on 8 November 2026, and the watch page played with a displayed duration of 2:21. All 43 burned-in captions are present. The exact native transcript was saved for YouTube automatic timing; selectable captions were unavailable at the first watch-page check and remain processing. Native-caption timing QA is not claimed.
+
+The current Devpost Story, demo/source links and testing/AI-tool disclosures were saved and reopened successfully. The public video URL was also saved and reopened in Devpost, with the correct embedded player title. The final page remains Draft (3/5 steps); final Submit remains held.
 
 For technical review after trying the app: [repeatable checks](REPEATABLE_TESTING.md), [architecture](ARCHITECTURE.md), [readiness assessment](JUDGE_READINESS.md) and [source](https://github.com/kaulastudies/ai-evaluation-lab/tree/proofpay/purchase-desk-v0.1/hackathon/proofpay). The prototype covers one sample seller and USD; it does not implement production payments, refunds or fulfillment.

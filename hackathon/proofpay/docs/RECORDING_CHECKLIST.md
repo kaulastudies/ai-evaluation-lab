@@ -2,7 +2,7 @@
 
 Updated 8 November 2026. The public seven-section portal completed its fresh browser workflow on **`cfd1d007`**. All seven views have responsive evidence. The local source checkpoint **`26893ed6`** passed **210 tests, TypeScript, full lint and build**; the current deployment passed **nine real PostgreSQL checks with no skips**, migrations, TypeScript and build. Both current CI workflows passed.
 
-**The earlier 163.521-second Flite/illustrated-presenter cut was rejected, is not publication-ready and has not been published.** Use the new **312-word** voiceover in [DEMO_SCRIPT.md](DEMO_SCRIPT.md). The finished V2 is frozen at **141.354362 seconds (2:21.354)**, with no avatar. Full decode, caption/audio checks and sampled visual review passed. Manual MP4 selection for YouTube upload and verified public playback are pending. No independent listening or forced-alignment result is claimed.
+**The earlier 163.521-second Flite/illustrated-presenter cut was rejected, is not publication-ready and has not been published.** Use the new **312-word** voiceover in [DEMO_SCRIPT.md](DEMO_SCRIPT.md). The finished V2 is frozen at **141.354362 seconds (2:21.354)**, with no avatar. Full decode, caption/audio checks and sampled visual review passed. The [V2 video is public on YouTube](https://youtu.be/D4UXBT-FhcE). Studio confirmed Published/Public on 8 November; the watch page played with a displayed duration of 2:21. No independent listening or forced-alignment result is claimed.
 
 ## Preserve the real integration result
 
@@ -27,12 +27,12 @@ Updated 8 November 2026. The public seven-section portal completed its fresh bro
 - [x] Per-paragraph audio checks found no full-scale samples or out-of-bounds model timing entries. No API, paid voice service, provider credits or HeyGen generation was used.
 - [x] V2 contains eight product-led beats and 29 timed shots of actual captured application states. It uses **no avatar**; do not substitute the rejected Flite/cartoon cut.
 - [x] The rehearsal and saved external-run segment are distinct. Scene six is labelled saved completed sandbox evidence; it uses virtual funds. No continuous original external-transaction recording exists.
-- [x] The final cut is an edited walkthrough of actual captured states. It does not claim continuous footage of the original external transaction. Preserve that description when uploading.
+- [x] The published cut is an edited walkthrough of actual captured states. It does not claim continuous footage of the original external transaction.
 - [x] All 43 captions preserve the exact 312 words. Caption timings use phonemizer-prefix matches mapped to returned model durations; this is not independent forced alignment.
 - [x] Sampled visual review passed for scenes 2, 3, 5, 6, 7 and 8, including the receipt, saved-run distinction and Evaluation lab. This does not claim that every frame received human review.
 - [ ] Listen through the full final video at normal speed when checking publication playback. No independent listening result is established by the current signal or sampled visual checks.
 - [x] Frozen file `proofpay-v2-review-cut.mp4`: **141.354362 seconds**, **7,744,891 bytes**, 1920×1080 H.264/30fps, 4,240 frames, AAC 48kHz mono. Full decode passed; decoded peak −1.969 dBFS with zero clipped samples. It meets the under-three-minute limit.
-- [x] SHA-256: `50ccddd015b4f9582ffd553a071f7d448f9f5fe419c1ab06abf6d51b41fd70b9`. Use this frozen file for upload.
+- [x] Published-source MP4 SHA-256: `50ccddd015b4f9582ffd553a071f7d448f9f5fe419c1ab06abf6d51b41fd70b9`.
 
 ## Final factual and privacy review
 
@@ -43,11 +43,14 @@ Updated 8 November 2026. The public seven-section portal completed its fresh bro
 
 ## Publish and update the draft
 
-- [ ] Publish the accepted V2 video to YouTube as **public** and verify the exact URL in a fresh viewer session. **Public YouTube URL: pending.**
+- [x] [Watch the public V2 video](https://youtu.be/D4UXBT-FhcE). Studio showed **Published/Public** on 8 November 2026; watch-page playback displayed **2:21**.
+- [x] All 43 burned-in captions are present. The exact native transcript was saved for YouTube automatic timing.
+- [ ] Confirm public selectable captions after YouTube finishes processing, then review their timing. They were unavailable at the first watch-page check; saving the transcript does not establish availability or timing QA.
 - [x] Current Devpost Story was saved and reopened: all 7,531 characters matched after evidence links were converted to absolute GitHub URLs. Both canonical demo/source URLs persisted. Additional Information matched the seven-view instructions, six observations, 21 responsive views and Kokoro `af_heart`/FFmpeg/no-avatar disclosure.
-- [ ] Add the verified public video URL after publication. The video field remains empty; the browser currently requires the delivered MP4 to be selected manually before a new upload can begin.
-- [ ] Recheck public video playback, duration, source access and judge entry after publication.
-- [x] Finalization was inspected: **Draft**, terms checkbox unchecked, no final Submit clicked. **Keep final Submit held.** Nithya's team acceptance is already confirmed and is separate from application access.
+- [x] Saved and reopened **https://youtu.be/D4UXBT-FhcE** in the Devpost video field. The embedded player displayed the correct title.
+- [x] Public video playback and displayed 2:21 duration were checked after publication.
+- [ ] Recheck final Devpost video/source/demo links after the video-field update; preserve the separately verified source and judge-access scopes.
+- [x] Finalization remains **Draft (3/5 steps)**. No final Submit was clicked; the earlier terms check was unchecked. **Keep final Submit held.** Nithya's team acceptance is already confirmed and is separate from application access.
 - [x] The reviewed browser guest workspace was left fresh: $300 available/$0 reserved/$0 paid, two proposed requests. Its existing expiry was unchanged. This temporary browser state is not a global default or an extension of access.
 
 Sources: [official submission requirements](https://paypalaihackathon.devpost.com/) and [rules](https://paypalaihackathon.devpost.com/rules), reviewed 8 November 2026. Public YouTube footage under three minutes and runnable judge access are separate requirements.
