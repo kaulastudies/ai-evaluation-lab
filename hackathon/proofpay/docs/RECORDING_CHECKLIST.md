@@ -39,7 +39,8 @@ Updated 8 November 2026. The current rendered file is **163.521 seconds (2:43.52
 ## Publish and update the draft
 
 - [ ] Publish the final video to YouTube as **public** and verify playback at its exact URL in a fresh viewer session. **Public YouTube URL: pending.**
-- [ ] Add only the verified public video URL and **https://proofpay-evaluation-lab.vercel.app** to the existing Devpost draft. Use [DEVPOST_STORY.md](DEVPOST_STORY.md); describe the no-login judge path as simulated and the external run as separately retained evidence.
+- [x] Save and reopen Devpost Project Details: the clean 6,410-character story, six implemented technology tags, canonical judge URL and GitHub source link matched. The draft was saved without a video URL.
+- [ ] Add only the verified public YouTube URL to the existing Devpost draft after upload. The required video field remains empty. Keep the no-login judge path labelled simulated and the actual external run separately identified.
 - [ ] Recheck the published video duration and public accessibility after upload; the local render result alone does not establish either public condition.
 - [ ] **Do not click final Devpost Submit.** Nithya's team acceptance is already confirmed and is separate from application access.
 

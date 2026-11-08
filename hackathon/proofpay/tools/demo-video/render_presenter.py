@@ -47,7 +47,7 @@ def avatar_svg(viseme="REST", blink=False):
       <circle cx="166" cy="208" r="7" fill="#403d40"/><circle cx="234" cy="208" r="7" fill="#403d40"/>
       <circle cx="168" cy="206" r="2" fill="#fff"/><circle cx="236" cy="206" r="2" fill="#fff"/>
       <path d="M145 207 Q164 193 183 207 M217 207 Q236 193 255 207" fill="none" stroke="#56372f" stroke-width="2.5" stroke-linecap="round"/>'''
-    return f'''<svg xmlns="http://www.w3.org/2000/svg" width="400" height="560" viewBox="0 0 400 560">
+    svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="400" height="560" viewBox="0 0 400 560">
     <defs><linearGradient id="back" x2="0" y2="1"><stop stop-color="#1c3554"/><stop offset="1" stop-color="#13243c"/></linearGradient><linearGradient id="coat" x2="1" y2="1"><stop stop-color="#4b6f94"/><stop offset="1" stop-color="#2c496d"/></linearGradient></defs>
     <rect width="400" height="560" rx="26" fill="url(#back)"/>
     <circle cx="200" cy="232" r="155" fill="#2b4d70" opacity=".45"/>
@@ -76,6 +76,7 @@ def avatar_svg(viseme="REST", blink=False):
     <text x="200" y="533" text-anchor="middle" font-family="Open Sans,sans-serif" font-size="17" fill="#f0f6ff">ProofPay narrator</text>
     <text x="200" y="550" text-anchor="middle" font-family="Open Sans,sans-serif" font-size="10" fill="#9bb5d4">Original illustration · Offline speech</text>
     </svg>'''
+    return "\n".join(line.rstrip() for line in svg.splitlines())
 
 
 def viseme_at(segment, time):

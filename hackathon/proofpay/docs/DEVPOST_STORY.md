@@ -2,6 +2,8 @@
 
 Updated **8 November 2026**. One actual AI-to-PayPal sandbox purchase and response-loss recovery succeeded. The public, isolated judge rehearsal is verified. A **163.521-second narrated walkthrough is rendered; its public YouTube URL is pending**. Use the existing Devpost entry; **do not click final Submit**.
 
+Devpost Project Details was saved and reopened: the 6,410-character story matched the clean source excerpt, the six tags (`typescript`, `next.js`, `paypal`, `postgresql`, `vercel`, `openai`) persisted, and the canonical judge/source links remained correct. The required video field is still empty pending YouTube upload; saving the draft did not submit the entry.
+
 ## Project name
 
 ProofPay Purchase Desk

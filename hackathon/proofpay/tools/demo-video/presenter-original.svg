@@ -12,7 +12,7 @@
     <path d="M122 185 C115 121 154 97 201 98 C253 98 282 130 279 177 C251 164 223 133 213 119 C196 155 162 174 122 185Z" fill="#24313d"/>
     <path d="M127 180 Q142 173 157 161" fill="none" stroke="#43505c" stroke-width="4" stroke-linecap="round"/>
     <path d="M145 188 Q163 179 181 189 M219 189 Q237 179 255 188" fill="none" stroke="#43392f" stroke-width="5" stroke-linecap="round"/>
-    
+
       <path d="M145 208 Q164 193 183 208 Q164 221 145 208Z M217 208 Q236 193 255 208 Q236 221 217 208Z" fill="#fff8ed"/>
       <circle cx="166" cy="208" r="7" fill="#403d40"/><circle cx="234" cy="208" r="7" fill="#403d40"/>
       <circle cx="168" cy="206" r="2" fill="#fff"/><circle cx="236" cy="206" r="2" fill="#fff"/>

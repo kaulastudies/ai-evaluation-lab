@@ -343,7 +343,7 @@ License:
   4. The authors' names are not used to endorse or promote products
      derived from this software without specific prior written
      permission.
- 
+
  CEPSTRAL, LLC AND THE CONTRIBUTORS TO THIS WORK DISCLAIM ALL
  WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING ALL IMPLIED
  WARRANTIES OF MERCHANTABILITY AND FITNESS, IN NO EVENT SHALL

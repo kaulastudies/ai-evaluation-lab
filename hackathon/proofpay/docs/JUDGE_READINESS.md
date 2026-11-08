@@ -100,7 +100,7 @@ Names and equal weighting follow [rules, section 6](https://paypalaihackathon.de
 3. Reopen and verify an actual downloaded CSV before claiming file-byte validation. Retain the current download timeout as an unresolved QA result.
 4. Use the receipt inspector to explain the matching provider observations and its missing historical approval-version/SKU fields. Keep these unsigned records distinct from external attestations; browser reload is not backend restart. Bring older dated story and walkthrough materials up to this checkpoint before submission.
 
-The release owner saved and reopened Devpost Additional Information to verify the team, canonical public judge URL, actual AI route and 210-local/9-PostgreSQL/21-HTTPS results. The project-details story is prepared but awaits the real YouTube URL. This is draft-field verification, not a submitted entry.
+The release owner saved and reopened Devpost Additional Information to verify the team, canonical public judge URL, actual AI route and 210-local/9-PostgreSQL/21-HTTPS results. Saved and reopened Project Details: the story, six implemented technology tags and both demo/source links match. The required video URL remains empty pending upload. This is draft-field verification, not a submitted entry.
 
 The boundary remains one controlled merchant, USD and a per-workspace allowance. Renewal does not extend PayPal order validity. Cancellation releases an unused reservation only before provider dispatch. Unknown create results without an order ID require investigation. There is no production flow, refund execution, webhook receiver, general duplicate-prevention guarantee or externally signed proof.
 
