@@ -1,8 +1,9 @@
 # ProofPay QA report
 
-Updated 8 November 2026 for the GitHub/Vercel/Neon migration. The release owner reports **178/178 local tests, TypeScript, full lint, native Next.js build and responsive fixture build passed**. The final dependency audit reports **zero known findings**, including development dependencies. These checks do not establish a working hosted owner session, a live PostgreSQL result, model inference or a new PayPal run.
 
-Neon is connected to the new Vercel project. Schema execution, owner/PayPal configuration and the migrated hosted workflow are pending at this checkpoint. The earlier Site's sandbox diagnostic is recorded below as historical evidence. Final Devpost Submit remains held.
+Updated 8 November 2026 for the GitHub/Vercel/Neon migration. The release owner reports **178/178 local tests, TypeScript, full lint, native Next.js build and responsive fixture build passed**. The final dependency audit reports **zero known findings**, including development dependencies. Separately, six real PostgreSQL checks passed in Neon and GitHub CI. Neither set establishes a working hosted owner session, model inference or a new PayPal run.
+
+Neon is connected to the new Vercel project; both checksum-locked schema migrations committed and repeat migration succeeded. The production deployment is READY. Owner-secret transfer was blocked by automatic approval review; owner/PayPal configuration and the authenticated hosted workflow remain pending. The earlier Site's sandbox diagnostic is recorded below as historical evidence. Final Devpost Submit remains held.
 
 Current local evidence: [check summary](../evidence/native-vercel-checks-2026-11-08.json), [tests](../evidence/native-vercel-tests-2026-11-08.log), [types](../evidence/native-vercel-types-2026-11-08.log), [lint](../evidence/native-vercel-lint-2026-11-08.log), [build](../evidence/native-vercel-build-2026-11-08.log) and [visual build](../evidence/native-vercel-visual-build-2026-11-08.log).
 
@@ -20,11 +21,11 @@ The 178-test record includes three subprocess regressions proving that malformed
 | Full `npm audit --json` | Exit 0; 0 critical/high/moderate/low | Exact lockfile/date, including development dependencies, without advisory exceptions. |
 | Actual parser compatibility | 2/2 passed | Scoped minimatch override through TypeScript parser allow/deny paths. Included in local suite; do not add counts. |
 | Targeted funding/service/model review | 73/73 passed | Overlaps main suite; request caps, policy and synthetic responses, not live billing. |
-| Real PostgreSQL gate | Pending | `tests/review-postgres-live.mjs`; requires explicit database connection and uses a fresh random schema. |
-| PostgreSQL migration | Pending | `scripts/migrate-postgres.mjs` with tracked checksums and transaction/advisory lock. |
+| Real PostgreSQL gate | 6/6 passed in Neon and GitHub CI | `tests/review-postgres-live.mjs`; requires explicit database connection and uses a fresh random schema. |
+| PostgreSQL migration | Both migrations committed; repeat succeeds | `scripts/migrate-postgres.mjs` with tracked checksums and transaction/advisory lock. |
 | Vercel owner/UI/payment flow | Pending | Owner/PayPal configuration has not yet been saved and verified. Missing configuration must fail closed. |
 | Postman collection | Official v2.1 schema valid; 17 scripts parse; five HTTPS guard cases pass | Offline artifact checks; no actual Postman import or API execution. |
-| New responsive interface | Source refinements and scoped frontend checks completed | Current screenshot/browser verification is separate; older screenshots remain historical. |
+| New responsive interface | Navigation, focus and no horizontal overflow verified at 360, 768 and 1280 pixels | Configuration-unavailable shell only; authenticated purchase cards/actions and owner login remain pending. |
 
 Run the source checks from `hackathon/proofpay` with Node 24:
 
@@ -90,6 +91,10 @@ Historical evidence includes limited summarized observations, not unrestricted a
 
 ## Remaining release evidence
 
-Complete the real PostgreSQL gate and schema migration, then inspect the exact Vercel deployment's sign-in/out, denied access, headers, persistence and rehearsal. Configure and rerun the relevant PayPal diagnostic on that runtime. Verify a bounded free-credit model proposal and the complete AI-to-PayPal workflow separately, retaining only sanitized identifiers and outcomes. Independent judge access and a public video remain open.
+The real PostgreSQL gate and schema migration passed. After authorized credential configuration, inspect the exact Vercel deployment's sign-in/out, denied access, headers, persistence and rehearsal. Configure and rerun the relevant PayPal diagnostic on that runtime. Verify a bounded free-credit model proposal and the complete AI-to-PayPal workflow separately, retaining only sanitized identifiers and outcomes. Independent judge access and a public video remain open.
 
 Do not infer a passing hosted flow from a build, a zero audit, a connected database or the historical diagnostic. [SECURITY_REVIEW.md](SECURITY_REVIEW.md) and [JUDGE_READINESS.md](JUDGE_READINESS.md) describe the remaining boundaries.
+
+## Verified deployment checkpoint
+
+[Release evidence](../evidence/native-vercel-release-2026-11-08.json) identifies production deployment `dpl_4ju9LAJwguL8YVk8Nj7DXWaXUupc`, source `5f4592116a605137943973b0aadf38e8cfc061ae`, and the passing [ProofPay CI](https://github.com/kaulastudies/ai-evaluation-lab/actions/runs/42470607942) and [repository CI](https://github.com/kaulastudies/ai-evaluation-lab/actions/runs/42470607796). Production build logs have zero npm warnings. The real-database gate passed before migration/build; no personal model credit or new PayPal transaction was used.

@@ -1,8 +1,9 @@
 # ProofPay security review
 
+
 Updated 8 November 2026 for native Next.js/Node 24, Vercel, Neon/PostgreSQL and signed owner sessions. This is a scoped source/regression review, not a penetration-test certificate, compliance assessment or production clearance. The earlier Sites ingress model and its hosted results are historical.
 
-The current local release reports 178/178 tests, TypeScript, full lint, Next.js build and responsive fixture build passed. The [full dependency audit](../evidence/dependency-remediation-2026-11-08-summary.json) reports zero known findings, including development dependencies. Real PostgreSQL execution, schema application and the newly deployed owner/payment workflow remain separate pending gates at this documentation checkpoint.
+The current local release reports 178/178 tests, TypeScript, full lint, Next.js build and responsive fixture build passed. The [full dependency audit](../evidence/dependency-remediation-2026-11-08-summary.json) reports zero known findings, including development dependencies. Six real PostgreSQL checks and schema application passed separately. The newly deployed owner/payment workflow remains gated by credential provisioning and live verification.
 
 Current local check record: [native verification summary](../evidence/native-vercel-checks-2026-11-08.json). Hosted and real-database gates remain separate.
 
@@ -37,7 +38,7 @@ The version 1 receipt includes the ordered approval binding, digest and limited 
 
 ## Validation and dependency changes
 
-The 178 local checks cover the shared financial service, controlled provider/model behavior, authentication, request hardening, database rollback/races, receipts, connectors, funding, native-runtime adapters and parser compatibility. Their external responses are synthetic. The funding review separately passed 73 targeted checks, overlapping the main suite; counts must not be added together. Real PostgreSQL checks use an isolated random schema and no external model/PayPal calls; execution is pending here.
+The 178 local checks cover the shared financial service, controlled provider/model behavior, authentication, request hardening, database rollback/races, receipts, connectors, funding, native-runtime adapters and parser compatibility. Their external responses are synthetic. The funding review separately passed 73 targeted checks, overlapping the main suite; counts must not be added together. Six real PostgreSQL checks passed using an isolated random schema and no external model/PayPal calls.
 
 The final [native audit](../evidence/npm-audit-2026-11-08-native-after.json) completed with exit 0 and no findings or advisory exceptions. Removing Vinext/Cloudflare/Wrangler and Drizzle tooling removed their vulnerable transitive paths. A scoped `minimatch` override was checked through the actual TypeScript parser. Earlier 34-, 18- and 17-entry snapshots remain historical; the temporary libSQL branch was removed. The exact graph, install and parser checks are in the [remediation summary](../evidence/dependency-remediation-2026-11-08-summary.json). Zero known audit findings does not prove the absence of application vulnerabilities.
 
@@ -45,10 +46,14 @@ The [historical PayPal diagnostic](../evidence/diagnostic-release-review.json), 
 
 ## Open security and delivery gates
 
-- Apply and verify the new PostgreSQL migrations and live database gate; inspect actual Vercel login/logout, authorization, headers and persistence.
+- PostgreSQL migrations and the six live database checks passed. Inspect actual Vercel login/logout, authorization, headers and authenticated persistence after credential configuration.
 - Configure owner/PayPal values through an authorized private server-side channel. Until then, missing configuration must remain closed; do not introduce a bypass for a demo.
 - The release owner confirmed the selected model's free-credit eligibility. Verify actual bounded inference and recorded credit usage before claiming the AI path works. Keep personal OpenAI credits excluded.
 - Establish independent judge access without publishing the owner key or database/payment credentials.
 - Broader rate limiting, MFA/recovery, retention, monitoring, incident response, backup restoration and independent security assessment remain future work.
 
 There is no production-money mode, webhook/refund/dispute/fulfillment workflow or automatic release of uncertain reservations. No fraud-elimination, regulatory-compliance, processor-parity or general exactly-once guarantee is claimed. Final Devpost submission remains held.
+
+## Verified deployment checkpoint
+
+[Release evidence](../evidence/native-vercel-release-2026-11-08.json) identifies production deployment `dpl_4ju9LAJwguL8YVk8Nj7DXWaXUupc`, source `5f4592116a605137943973b0aadf38e8cfc061ae`, and the passing [ProofPay CI](https://github.com/kaulastudies/ai-evaluation-lab/actions/runs/42470607942) and [repository CI](https://github.com/kaulastudies/ai-evaluation-lab/actions/runs/42470607796). Production build logs have zero npm warnings. The real-database gate passed before migration/build; no personal model credit or new PayPal transaction was used.

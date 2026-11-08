@@ -1,5 +1,6 @@
 # ProofPay Purchase Desk
 
+
 **Owner-approved purchases with a shared allowance and a checkable payment outcome.**
 
 A studio has $300 for outside reviews. Two requests cost $180 and $160. ProofPay reserves allowance when the owner approves a specific purchase, keeps uncertain payments reserved, and checks the original provider order before recording payment.
@@ -8,7 +9,7 @@ The project is an [AI Evaluation Lab](https://github.com/kaulastudies/ai-evaluat
 
 [Judge guide](docs/JUDGES.md) · [Readiness](docs/JUDGE_READINESS.md) · [Development](docs/DEVELOPMENT.md) · [Architecture](docs/ARCHITECTURE.md) · [Security](docs/SECURITY_REVIEW.md) · [QA](docs/QA_REPORT.md) · [Postman collection](postman/README.md)
 
-Current local check record: [native verification summary](evidence/native-vercel-checks-2026-11-08.json). Hosted and real-database gates remain separate.
+Current records: [local checks](evidence/native-vercel-checks-2026-11-08.json) · [Vercel deployment, real database and CI](evidence/native-vercel-release-2026-11-08.json). The deployed app remains private, and owner sign-in requires the pending credential setup.
 
 ## Why it is useful
 
@@ -30,16 +31,16 @@ The Vercel migration changes the hosting, database and authentication boundary. 
 
 | Area | Verified or implemented | Remaining gate |
 |---|---|---|
-| Native source | Next.js/Node, PostgreSQL adapter, signed owner sessions, migrations and bounded inference policy implemented. The release owner reports **178/178 local tests**, TypeScript, full lint, native build and visual fixture build passed. | Real PostgreSQL execution and hosted checks are separate gates in [QA](docs/QA_REPORT.md). |
+| Native source | Next.js/Node, PostgreSQL adapter, signed owner sessions, migrations and bounded inference policy implemented. The release owner reports **178/178 local tests**, TypeScript, full lint, native build and visual fixture build passed. | Six real PostgreSQL checks passed; authenticated hosted actions remain gated in [QA](docs/QA_REPORT.md). |
 | Dependencies | [Final full audit](evidence/dependency-remediation-2026-11-08-summary.json): **0 known findings**, including development dependencies; parser checks 2/2. | This is a dated lockfile result, not a security certificate. |
-| Vercel / Neon | Project and a new free Neon database connected. | Schema execution, owner/PayPal configuration and the migrated hosted workflow are not yet verified at this documentation checkpoint. |
+| Vercel / Neon | [Native Vercel deployment](https://proofpay-purchase-desk.vercel.app) READY; **6/6 real PostgreSQL checks** and both schema migrations passed. | Owner secret transfer needs explicit approval; owner/PayPal configuration and the authenticated hosted workflow remain pending. |
 | PayPal | [Historical diagnostic](evidence/diagnostic-release-review.json) on source `17cbededf`: native buyer approval, $180 sandbox capture, response-loss recovery and stable repeated lookup. | No AI participated. Repeat the relevant checks on the current Vercel runtime. |
 | Runtime AI | Fixed Vercel free-credit/OIDC route implemented; $4.93 free credit was observed by the release owner. | The selected model is confirmed eligible for free Gateway credit; actual inference and the complete model-to-payment journey remain unverified. |
 | Presentation / access | Source, instructions, review materials and [Postman collection](postman/README.md) prepared. | Independent judge access, public video and final review remain open. **Final Devpost Submit is held.** |
 
 The earlier diagnostic kept $180 reserved after response loss and browser reload; original-order lookup confirmed payment, with $120 available, $0 reserved and $180 paid. Its [record](evidence/diagnostic-release-review.json) identifies the operation/order/capture. External request counts were not independently measured. It used virtual funds, not production money.
 
-Historical interface evidence includes the [readability review and screenshot](evidence/readability-review.json), [mobile screenshot](evidence/mobile-approval-qa.png), [hosted rehearsal](evidence/hosted-renewal-review.json) and [earlier release](evidence/hosted-release-review.json). New styling/authentication needs current browser evidence; old screenshots are not a current deployment check.
+Historical interface evidence includes the [readability review and screenshot](evidence/readability-review.json), [mobile screenshot](evidence/mobile-approval-qa.png), [hosted rehearsal](evidence/hosted-renewal-review.json) and [earlier release](evidence/hosted-release-review.json). Current navigation, focus and the configuration-unavailable shell were checked at 360, 768 and 1280 pixels without horizontal overflow. Authenticated records/actions remain unverified; old screenshots are not a current deployment check.
 
 ## Three explicit paths
 

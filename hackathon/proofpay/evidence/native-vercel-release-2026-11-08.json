@@ -1,0 +1,68 @@
+{
+  "recordedAt": "2026-11-08T10:19:34.012148+00:00",
+  "sourceCommit": "5f4592116a605137943973b0aadf38e8cfc061ae",
+  "canonicalUrl": "https://proofpay-purchase-desk.vercel.app",
+  "productionDeployment": "dpl_4ju9LAJwguL8YVk8Nj7DXWaXUupc",
+  "productionState": "READY",
+  "previewDeployment": "dpl_9eVmCQYA6vNUfC7EeWp1GAFPZKiJ",
+  "localTests": {
+    "passed": 178,
+    "failed": 0
+  },
+  "dependencyAudit": {
+    "critical": 0,
+    "high": 0,
+    "moderate": 0,
+    "low": 0,
+    "includesDevDependencies": true
+  },
+  "realPostgres": {
+    "passed": 6,
+    "failed": 0,
+    "scope": "Dedicated Neon database, fresh isolated random test schema; synthetic provider/model responses",
+    "migration": "0000_initial.sql and 0001_ai_funding.sql committed; repeat migration succeeds"
+  },
+  "github": {
+    "proofpayRun": 42470607942,
+    "proofpayConclusion": "success",
+    "repositoryRun": 42470607796,
+    "repositoryConclusion": "success"
+  },
+  "buildWarnings": {
+    "scope": "Production build logs inspected",
+    "npmWarnings": 0,
+    "knownPriorWarningsResolved": [
+      "Unsupported cache-dir npm environment alias removed",
+      "Exact-version install scripts reviewed and approved"
+    ],
+    "suppressed": false
+  },
+  "uiChecks": {
+    "scope": "Vercel preview of identical source, configuration-unavailable shell only; authenticated record/action views not verified",
+    "widths": [
+      360,
+      768,
+      1280
+    ],
+    "horizontalOverflow": false,
+    "sixNavigationViews": "pass",
+    "keyboardFocus": "2.4px visible outline, navigation advances on Tab",
+    "mobileNavigationTargets": "44px tall",
+    "capturedConsoleWarningsAndErrors": 0
+  },
+  "gates": {
+    "ownerSignIn": "blocked: automatic approval review rejected authentication secret upload; explicit transfer authorization required",
+    "paypalCredentials": "not yet configured on Vercel",
+    "liveModelCall": "not made",
+    "personalOpenAiCreditUsed": false,
+    "newPayPalTransaction": "not made",
+    "independentJudgeAccess": "not established; Vercel authentication retained",
+    "devpostSubmission": "held",
+    "teammateAcceptance": "pending; roster still only entrant"
+  },
+  "productionBrowserRead": {
+    "canonicalPage": "loaded",
+    "stateResponse": "AUTH_NOT_CONFIGURED",
+    "noPrivateRecordsReturned": true
+  }
+}
