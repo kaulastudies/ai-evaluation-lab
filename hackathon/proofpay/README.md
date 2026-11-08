@@ -79,7 +79,7 @@ Next: strengthen receipt provenance, broaden recovery evidence and validate the 
 
 | Name | Project role |
 |---|---|
-| **Rama Chandra Malayanur** | Founder and Principal Researcher, AI Evaluation Lab |
+| **Rama Chandra M** | Founder and Principal Researcher, AI Evaluation Lab |
 | **Prof. Nithya** | Principal Advisor for ProofPay |
 
 ## Build and explore

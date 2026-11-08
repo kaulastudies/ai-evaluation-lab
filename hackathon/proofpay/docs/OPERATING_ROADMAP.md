@@ -8,7 +8,7 @@ The next credible result is a reproducible AI-to-PayPal sandbox workflow that a 
 
 ## Department responsibilities
 
-These are functions, not a claim that ProofPay employs a full team. Rama Chandra remains accountable for project decisions. Specialist contributors or agents can prepare bounded work, but they do not become payment approvers, legal advisers, security certifiers or authorized external representatives by appearing in this table.
+These are functions, not a claim that ProofPay employs a full team. Rama Chandra M remains accountable for project decisions. Specialist contributors or agents can prepare bounded work, but they do not become payment approvers, legal advisers, security certifiers or authorized external representatives by appearing in this table.
 
 | Function | Work owned | Reviewable output and release gate |
 |---|---|---|

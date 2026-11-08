@@ -4,7 +4,7 @@ Project outcomes and next development priorities
 
 8 November 2026
 
-Rama Chandra Malayanur — Founder and Principal Researcher, AI Evaluation Lab
+Rama Chandra M — Founder and Principal Researcher, AI Evaluation Lab
 
 Prof. Nithya — Principal Advisor for ProofPay
 

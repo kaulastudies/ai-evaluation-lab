@@ -25,7 +25,7 @@ Both assets were downloaded from the public release URLs linked by the publisher
 
 Dependencies live in the isolated local `.venv`, with versions recorded in `requirements-lock.txt`. Inference explicitly selects ONNX Runtime's CPU provider. The environment has 9 logical CPUs and no detected CUDA GPU. The 19.219-second `af_heart` audition took 7.019 seconds of local inference with four ONNX threads. It makes no hosted AI request and consumes no personal OpenAI credits.
 
-The audio uses the pretrained `af_heart` preset. It does not claim to be Rama Chandra, a PayPal employee or any other identified person. Pronunciation input spells ProofPay as “Proof Pay” and PayPal as “Pay Pal”; visible text keeps the product names.
+The audio uses the pretrained `af_heart` preset. It does not claim to be Rama Chandra M, a PayPal employee or any other identified person. Pronunciation input spells ProofPay as “Proof Pay” and PayPal as “Pay Pal”; visible text keeps the product names.
 
 ## Avatar decision
 
