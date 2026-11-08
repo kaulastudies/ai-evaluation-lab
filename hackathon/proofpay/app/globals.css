@@ -375,3 +375,117 @@ select:focus-visible, summary:focus-visible, .purchase-table-wrap:focus-visible 
 .owner-avatar { color: #405b80; }
 .record-amount > span { color: #53647b; }
 .onboarding-steps > span > span { color: #3f6094; }
+
+/* Business portal: readable forms, immutable workspace summaries and owner reports. */
+body { font-size: 15px; }
+.nav-item { font-size: 15px; }
+.page-heading { flex-wrap: wrap; }
+.page-heading h1 { overflow-wrap: anywhere; }
+.page-heading p:last-child, .dialog-intro, .record-request, .action-description,
+.rationale p, .inline-note, .rule-row p, .connection-card > p,
+.connection-checkpoint p, .rehearsal-card p, .onboarding p, .owner-login > p { font-size: 15px; line-height: 1.7; }
+.btn, .text-button { font-size: 14px; min-height: 44px; }
+.purchase-table td, .purchase-name strong, .action-queue strong { font-size: 15px; }
+.section-heading p, .metric-card > small, .action-queue small, .form-hint,
+.field-help, .status, .count-chip, .subtle-pill, .source-label,
+.allocation-legend p, .allocation-ring small, .mode-banner p,
+.record-facts dt, .record-facts dd, .timeline-event time, .purchase-name small { font-size: 13px; }
+.allocation-legend > div, .allocation-legend strong { font-size: 15px; }
+.workspace-switch > div { flex: 1; min-width: 0; }
+.workspace-switch strong, .workspace-switch small { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.breadcrumb { min-width: 0; }
+.breadcrumb > span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 260px; }
+.breadcrumb strong { min-width: 0; }
+.business-context { display: flex; align-items: center; justify-content: space-between; gap: 12px 20px; margin: -4px 0 20px; color: #53647b; font-size: 14px; flex-wrap: wrap; }
+.business-context > div { display: flex; align-items: center; gap: 9px; min-width: 0; }
+.business-context > div > span { overflow-wrap: anywhere; }
+.business-layout { display: grid; grid-template-columns: minmax(0,1.55fr) minmax(250px,1fr); gap: 22px; align-items: start; }
+.business-card-body { padding: 0 24px 26px; }
+.business-field { margin-bottom: 22px; }
+.business-field > label { display: block; margin-bottom: 8px; font-size: 15px; font-weight: 600; color: #283e5d; }
+.business-field input { display: block; width: 100%; min-width: 0; min-height: 48px; border: 1px solid #b9c7db; background: #fcfdff; border-radius: 7px; padding: 10px 12px; color: #17263c; font-size: 16px; }
+.business-field input:disabled { background: #edf1f6; color: #5f6e83; }
+.business-field > p { margin-top: 8px; color: #53647b; font-size: 13px; line-height: 1.65; }
+.currency-input { display: flex; align-items: center; gap: 12px; }
+.currency-input > span { color: #53647b; font-size: 14px; font-weight: 600; }
+.currency-input input { flex: 1; }
+.business-form-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 12px 16px; padding-top: 4px; }
+.business-form-actions > span { font-size: 13px; color: #53647b; }
+.settings-reload { margin-top: 18px; text-align: left; }
+.settings-loading { display: flex; align-items: center; gap: 10px; padding: 10px 0 20px; color: #53647b; font-size: 15px; }
+.settings-explainer { padding: 25px; }
+.settings-explainer h2 { margin-top: 18px; font-size: 20px; font-weight: 600; line-height: 1.4; }
+.settings-explainer > p { margin-top: 13px; font-size: 15px; line-height: 1.75; color: #53647b; }
+.settings-explainer .inline-note { margin-top: 22px; padding: 14px; }
+.settings-explainer .inline-note p { font-size: 14px; }
+.history-content { padding: 0 22px 24px; }
+.workspace-history > .section-heading { align-items: flex-start; flex-wrap: wrap; }
+.workspace-history > .section-heading > .btn { flex-shrink: 0; }
+.workspace-history-list { display: grid; gap: 16px; margin-top: 18px; }
+.workspace-history-record { padding: 21px; border: 1px solid #dce4ef; border-radius: 8px; min-width: 0; }
+.workspace-history-record.is-active { background: #f7faff; border-color: #b5caef; }
+.history-record-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; }
+.history-record-heading > div { min-width: 0; }
+.history-record-heading > .btn { flex-shrink: 0; }
+.history-labels { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 12px; }
+.history-labels .subtle-pill { white-space: normal; }
+.history-active { display: inline-flex; align-items: center; gap: 5px; color: #3157a2; font-size: 13px; }
+.history-record-heading h3 { font-size: 18px; margin-top: 12px; font-weight: 600; overflow-wrap: anywhere; }
+.history-record-heading p { margin-top: 5px; color: #53647b; font-size: 13px; overflow-wrap: anywhere; }
+.history-balances { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); margin: 22px 0 18px; gap: 16px; }
+.history-balances dt { color: #53647b; font-size: 13px; }
+.history-balances dd { margin: 5px 0 0; font-size: 19px; font-weight: 600; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.history-record-footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px 16px; border-top: 1px solid #e0e7f0; padding-top: 13px; color: #53647b; font-size: 13px; }
+.history-record-footer > span { overflow-wrap: anywhere; min-width: 0; }
+.history-block-reason { display: flex; align-items: flex-start; gap: 7px; color: #7f5c24; font-size: 13px; margin-top: 13px; line-height: 1.65; }
+.history-block-reason > svg { margin-top: 3px; }
+@media (max-width: 1180px) {
+  .business-layout { grid-template-columns: minmax(0,1fr); }
+  .settings-explainer { max-width: none; }
+  .nav-item { padding-left: 11px; padding-right: 11px; gap: 9px; font-size: 14px; }
+}
+@media (max-width: 760px) {
+  .page-heading p:last-child, .review-summary p, .controls-banner p, .rule-row p,
+  .dialog-intro, .record-request, .action-description, .inline-note,
+  .connection-card > p, .connection-checkpoint p, .rehearsal-card p { font-size: 15px; }
+  .history-record-heading { flex-wrap: wrap; }
+  .history-balances { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .purchase-table-wrap .purchase-name strong, .purchase-table td { font-size: 15px; }
+  .section-heading { align-items: flex-start; }
+  .purchases-card > .section-heading { flex-wrap: wrap; }
+  .purchases-card > .section-heading .btn { flex-shrink: 0; }
+}
+@media (max-width: 600px) {
+  .sidebar nav { gap: 6px; }
+  .nav-item { min-height: 48px; padding: 9px 6px; font-size: 14px; line-height: 1.35; }
+  .nav-item > span { white-space: normal; }
+  .nav-item em { font-size: 12px; }
+  .btn, .heading-actions .btn, .record-actions .btn, .text-button { font-size: 14px; min-height: 44px; }
+  .metric-card > div, .metric-card > small, .section-heading p, .mode-banner p,
+  .mobile-purchase-meta, .mobile-purchase-result > .status, .status, .subtle-pill,
+  .table-footer, .table-footer > span:last-child, .rule-row > strong,
+  .timeline-event time, .field-help, .review-available small,
+  .connection-facts > span, .evidence-summary small, .onboarding-steps,
+  .workspace-footer, .workspace-footer p, .workspace-footer button { font-size: 13px; }
+  .mobile-purchase-heading > strong, .ledger-event-heading > strong,
+  .timeline-event strong, .rule-row h3 { font-size: 15px; }
+  .environment-pill { font-size: 12px; }
+  .business-card-body { padding: 0 18px 22px; }
+  .settings-explainer { padding: 22px 18px; }
+  .business-form-actions { align-items: flex-start; flex-direction: column; }
+  .business-form-actions .btn { width: 100%; }
+  .history-content { padding: 0 16px 20px; }
+  .workspace-history-record { padding: 18px 15px; }
+  .history-record-heading > .btn { width: 100%; }
+  .history-balances dd { font-size: 18px; }
+  .history-record-heading h3 { font-size: 18px; }
+  .history-labels { align-items: flex-start; flex-direction: column; }
+  .business-context { font-size: 14px; }
+  .history-block-reason { overflow-wrap: anywhere; }
+}
+
+.metric-grid.large-allowance .metric-card > strong { font-size: 24px; letter-spacing: -.6px; }
+.allocation-ring strong.large-allowance-total { font-size: 18px; letter-spacing: -.4px; }
+@media (max-width: 600px) {
+  .metric-grid.large-allowance .metric-card > strong { font-size: 18px; letter-spacing: -.3px; }
+}

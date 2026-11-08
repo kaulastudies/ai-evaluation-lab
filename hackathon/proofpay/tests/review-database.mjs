@@ -14,7 +14,7 @@ const temp=await mkdtemp(join(tmpdir(),'proofpay-db-independent-'));
 const bundle=join(temp,'core.mjs');
 await build({entryPoints:['lib/proofpay/service.ts'],outfile:bundle,bundle:true,platform:'node',format:'esm',logLevel:'silent'});
 const {ProofPayService}=await import(pathToFileURL(bundle));
-const schema=await readFile('drizzle/0000_greedy_living_lightning.sql','utf8');
+const schema=await readFile('drizzle/0000_greedy_living_lightning.sql','utf8') + '\n' + await readFile('drizzle/0003_business_profiles.sql','utf8');
 after(()=>rm(temp,{recursive:true,force:true}));
 let serial=0;
 async function fixture() {

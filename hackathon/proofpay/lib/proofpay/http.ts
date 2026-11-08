@@ -15,6 +15,10 @@ export async function handle(request: Request, action: ApiAction, id?: string): 
     service = new ProofPayService({db: getDatabase(config), env: await getRequestConfiguration(config)});
     let state;
     switch (action) {
+      case "business": return Response.json({business: await service.business(owner)}, {headers});
+      case "save-business": return Response.json({business: await service.saveBusiness(owner, {businessName: input.businessName as string, department: input.department as string, defaultBudgetCents: input.defaultBudgetCents as number, version: input.version as number})}, {headers});
+      case "workspace-history": return Response.json(await service.workspaceHistory(owner), {headers});
+      case "select-workspace": state = await service.selectWorkspace(owner, input.workspaceId as string); break;
       case "state": state = await service.state(owner); break;
       case "start-rehearsal": state = await service.start(owner, "rehearsal", true); break;
       case "start-diagnostic": state = await service.startSandboxDiagnostic(owner); break;

@@ -2,10 +2,18 @@ import { CATALOGUE } from "./catalogue";
 import { propose as defaultPropose } from "./ai";
 import { aiFundingReady, requireAiFunding } from "./ai-funding";
 import { approvalLink, completedCapture, PayPalSandboxProvider, RehearsalProvider, sandboxReady, verifyOrder } from "./provider";
-import { Configuration, HELD_SQL, Mode, OperationRow, PaymentProvider, ProposalChoice, ProposalProvenance, ProofPayError, RESERVED_STATUSES, SqlDatabase, VerificationRecord, WorkspaceRow } from "./types";
+import { BusinessProfile, BusinessProfileRow, Configuration, HELD_SQL, Mode, OperationRow, PaymentProvider, ProposalChoice, ProposalProvenance, ProofPayError, RESERVED_STATUSES, SqlDatabase, VerificationRecord, WorkspaceRow } from "./types";
 
 type ServiceOptions = { db: SqlDatabase; env: Configuration; provider?: PaymentProvider; ai?: (request: string, mode: Mode, env: Configuration) => Promise<ProposalChoice>; now?: () => number };
 const APPROVAL_TTL = 15 * 60 * 1000;
+const RESERVED_SQL = RESERVED_STATUSES.map(status => `'${status}'`).join(",");
+const SWITCH_BLOCKED_REASON = "Resolve or safely cancel the active workspace's reserved or uncertain purchases before switching workspaces.";
+function workspaceSummary(workspace: WorkspaceRow, reservedCents: number, committedCents: number) {
+  return {id: workspace.id, mode: workspace.mode, profile: workspace.profile ?? "standard", currency: workspace.currency, budgetCents: workspace.budget_cents, reservedCents, committedCents, availableCents: workspace.budget_cents - reservedCents - committedCents, createdAt: workspace.created_at, businessName: workspace.business_name ?? null, department: workspace.department ?? null, businessProfileVersion: workspace.business_profile_version ?? null};
+}
+function exposeBusiness(row: BusinessProfileRow | null): BusinessProfile {
+  return row ? {businessName: row.business_name, department: row.department, defaultBudgetCents: row.default_budget_cents, currency: "USD", version: row.version, updatedAt: row.updated_at, configured: true} : {businessName: "", department: "", defaultBudgetCents: 30000, currency: "USD", version: 0, updatedAt: null, configured: false};
+}
 function ownerRequired(owner: string): void { if (!owner) throw new ProofPayError("AUTH_REQUIRED", "Sign in to use your private purchase desk.", 401); }
 function modeRequired(mode: unknown): asserts mode is Mode { if (mode !== "rehearsal" && mode !== "sandbox") throw new ProofPayError("INVALID_MODE", "Choose rehearsal or sandbox."); }
 function safeProvenance(value: ProposalProvenance | undefined): ProposalProvenance | undefined {
@@ -35,6 +43,47 @@ export class ProofPayService {
   private proposer: NonNullable<ServiceOptions["ai"]>;
   constructor(options: ServiceOptions) { this.db = options.db; this.env = options.env; this.now = options.now ?? Date.now; this.injectedProvider = options.provider; this.proposer = options.ai ?? defaultPropose; }
   capabilities() { return {sandboxReady: sandboxReady(this.env), aiReady: aiFundingReady(this.env)}; }
+  async business(owner: string): Promise<BusinessProfile> {
+    ownerRequired(owner);
+    return exposeBusiness(await this.db.prepare("SELECT * FROM proofpay_business_profiles WHERE owner_id = ?").bind(owner).first<BusinessProfileRow>());
+  }
+  async saveBusiness(owner: string, input: {businessName: string; department: string; defaultBudgetCents: number; version: number}): Promise<BusinessProfile> {
+    ownerRequired(owner);
+    const cleanText = (value: unknown, limit: number) => typeof value === "string" && value.trim().length >= 1 && value.trim().length <= limit && !/[\u0000-\u001f\u007f]/.test(value);
+    if (!cleanText(input.businessName, 120) || !cleanText(input.department, 80) || !Number.isSafeInteger(input.defaultBudgetCents) || input.defaultBudgetCents < 100 || input.defaultBudgetCents > 100000000 || !Number.isSafeInteger(input.version) || input.version < 0 || input.version >= 2147483647) throw new ProofPayError("INVALID_BUSINESS", "Provide a business name (1–120 characters), department (1–80), a USD allowance from $1 to $1,000,000, and the current profile version.");
+    const statement = input.version === 0
+      ? this.db.prepare("INSERT INTO proofpay_business_profiles (owner_id,business_name,department,default_budget_cents,version,updated_at) VALUES (?,?,?,?,1,?) ON CONFLICT(owner_id) DO NOTHING RETURNING *").bind(owner, input.businessName.trim(), input.department.trim(), input.defaultBudgetCents, this.now())
+      : this.db.prepare("UPDATE proofpay_business_profiles SET business_name = ?, department = ?, default_budget_cents = ?, version = version + 1, updated_at = ? WHERE owner_id = ? AND version = ? RETURNING *").bind(input.businessName.trim(), input.department.trim(), input.defaultBudgetCents, this.now(), owner, input.version);
+    const row = await statement.first<BusinessProfileRow>();
+    if (!row) throw new ProofPayError("BUSINESS_VERSION", "Business settings changed. Reload the current settings before saving again.", 409);
+    return exposeBusiness(row);
+  }
+  async workspaceHistory(owner: string) {
+    ownerRequired(owner);
+    const active = await this.workspace(owner);
+    const rows = (await this.db.prepare(`SELECT w.*, CASE WHEN EXISTS (SELECT 1 FROM proofpay_events e WHERE e.workspace_id = w.id AND e.type = 'SANDBOX_DIAGNOSTIC_STARTED') THEN 'sandbox-diagnostic' ELSE 'standard' END AS profile, COALESCE((SELECT SUM(o.amount_cents) FROM proofpay_operations o WHERE o.workspace_id = w.id AND o.status IN (${RESERVED_SQL})),0) AS reserved_cents, COALESCE((SELECT SUM(o.amount_cents) FROM proofpay_operations o WHERE o.workspace_id = w.id AND o.status = 'CONFIRMED'),0) AS committed_cents FROM proofpay_workspaces w WHERE w.owner_id = ? ORDER BY w.created_at DESC,w.id DESC`).bind(owner).all<WorkspaceRow & {reserved_cents: number; committed_cents: number}>()).results ?? [];
+    const blocked = rows.some(row => row.id === active?.id && row.reserved_cents > 0);
+    return {activeWorkspaceId: active?.id ?? null, switchBlockedReason: blocked ? SWITCH_BLOCKED_REASON : null, workspaces: rows.map(row => ({...workspaceSummary(row, row.reserved_cents, row.committed_cents), isActive: row.id === active?.id, canSelect: row.id === active?.id || !blocked, selectionBlockedReason: row.id !== active?.id && blocked ? SWITCH_BLOCKED_REASON : null}))};
+  }
+  async selectWorkspace(owner: string, workspaceId: string) {
+    ownerRequired(owner);
+    if (typeof workspaceId !== "string" || !/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(workspaceId)) throw new ProofPayError("INVALID_WORKSPACE", "Provide a valid workspace identifier.");
+    const target = await this.db.prepare("SELECT id FROM proofpay_workspaces WHERE id = ? AND owner_id = ?").bind(workspaceId, owner).first();
+    if (!target) throw new ProofPayError("NOT_FOUND", "The workspace was not found in your history.", 404);
+    const active = await this.workspace(owner);
+    if (active?.id === workspaceId) return this.state(owner);
+    // Bind the observed session and check reservations inside the same serial
+    // transaction as its audit and pointer change. Approval racing a switch
+    // therefore either keeps its workspace visible or loses its active check.
+    const eligible = `EXISTS (SELECT 1 FROM proofpay_workspaces WHERE id = ? AND owner_id = ?) AND (SELECT workspace_id FROM proofpay_sessions WHERE owner_id = ?) IS ? AND NOT EXISTS (SELECT 1 FROM proofpay_operations o JOIN proofpay_sessions s ON s.workspace_id = o.workspace_id WHERE s.owner_id = ? AND o.status IN (${RESERVED_SQL}))`;
+    const bindings = [workspaceId, owner, owner, active?.id ?? null, owner];
+    const results = await this.db.batch([
+      this.db.prepare(`INSERT INTO proofpay_events (id,workspace_id,operation_id,type,detail,created_at) SELECT ?,?,NULL,'WORKSPACE_SELECTED',?,? WHERE ${eligible}`).bind(crypto.randomUUID(), workspaceId, JSON.stringify({schemaVersion: 1, previousWorkspaceId: active?.id ?? null, workspaceId, paymentDispatched: false}), this.now(), ...bindings),
+      this.db.prepare(`INSERT INTO proofpay_sessions (owner_id,workspace_id) SELECT ?,? WHERE ${eligible} ON CONFLICT(owner_id) DO UPDATE SET workspace_id = excluded.workspace_id`).bind(owner, workspaceId, ...bindings),
+    ]);
+    if (results[1].meta?.changes !== 1) throw new ProofPayError("WORKSPACE_SWITCH_BLOCKED", "The active workspace changed or acquired a reservation. Refresh and resolve held purchases before switching.", 409);
+    return this.state(owner);
+  }
   private provider(op: OperationRow): PaymentProvider { if (this.injectedProvider) return this.injectedProvider; return op.mode === "rehearsal" ? new RehearsalProvider(this.db, this.now) : new PayPalSandboxProvider(this.env); }
   private async workspace(owner: string): Promise<WorkspaceRow | null> { ownerRequired(owner); return this.db.prepare("SELECT w.*, CASE WHEN EXISTS (SELECT 1 FROM proofpay_events e WHERE e.workspace_id = w.id AND e.type = 'SANDBOX_DIAGNOSTIC_STARTED') THEN 'sandbox-diagnostic' ELSE 'standard' END AS profile FROM proofpay_workspaces w JOIN proofpay_sessions s ON w.id = s.workspace_id WHERE s.owner_id = ? AND w.owner_id = ?").bind(owner, owner).first<WorkspaceRow>(); }
   private async operation(owner: string, id: string): Promise<OperationRow> {
@@ -51,7 +100,7 @@ export class ProofPayService {
     const events = (await this.db.prepare("SELECT id,operation_id AS operationId,type,detail,created_at AS createdAt FROM proofpay_events WHERE workspace_id = ? ORDER BY created_at DESC,rowid DESC LIMIT 100").bind(workspace.id).all()).results ?? [];
     const reservedCents = operations.filter(op => (RESERVED_STATUSES as readonly string[]).includes(op.status)).reduce((sum, op) => sum + op.amount_cents, 0);
     const committedCents = operations.filter(op => op.status === "CONFIRMED").reduce((sum, op) => sum + op.amount_cents, 0);
-    return {workspace: {id: workspace.id, mode: workspace.mode, profile: workspace.profile ?? "standard", currency: workspace.currency, budgetCents: workspace.budget_cents, reservedCents, committedCents, availableCents: workspace.budget_cents - reservedCents - committedCents, createdAt: workspace.created_at}, capabilities: this.capabilities(), catalogue: CATALOGUE, operations: operations.map(expose), events};
+    return {workspace: workspaceSummary(workspace, reservedCents, committedCents), capabilities: this.capabilities(), catalogue: CATALOGUE, operations: operations.map(expose), events};
   }
   private insertStatement(workspace: WorkspaceRow, request: string, key: string, choice: ProposalChoice, label: string, operationId = crypto.randomUUID()) {
     const item = CATALOGUE.find(item => item.sku === choice.sku);
@@ -71,8 +120,9 @@ export class ProofPayService {
     if (pending) throw new ProofPayError("SANDBOX_WORKSPACE_HELD", "Resolve the active sandbox's reserved or uncertain operations before starting another workspace. Its evidence must stay visible.", 409);
     if (mode === "sandbox" && !sandboxReady(this.env)) throw new ProofPayError("PAYPAL_NOT_CONFIGURED", "Configure PayPal sandbox credentials before starting a sandbox workspace.", 503);
     if (seed && mode !== "rehearsal") throw new ProofPayError("SEED_MODE", "Seeded proposals are only available in rehearsal.");
-    const workspace: WorkspaceRow = {id: crypto.randomUUID(), owner_id: owner, mode, currency: "USD", budget_cents: 30000, created_at: this.now()};
-    const statements = [this.db.prepare("INSERT INTO proofpay_workspaces (id,owner_id,mode,currency,budget_cents,created_at) VALUES (?,?,?,?,?,?)").bind(workspace.id, owner, mode, "USD", 30000, workspace.created_at)];
+    const business = await this.business(owner);
+    const workspace: WorkspaceRow = {id: crypto.randomUUID(), owner_id: owner, mode, currency: "USD", budget_cents: business.defaultBudgetCents, created_at: this.now(), business_name: business.configured ? business.businessName : null, department: business.configured ? business.department : null, business_profile_version: business.configured ? business.version : null};
+    const statements = [this.db.prepare("INSERT INTO proofpay_workspaces (id,owner_id,mode,currency,budget_cents,created_at,business_name,department,business_profile_version) VALUES (?,?,?,?,?,?,?,?,?)").bind(workspace.id, owner, mode, "USD", workspace.budget_cents, workspace.created_at, workspace.business_name, workspace.department, workspace.business_profile_version)];
     if (seed) {
       statements.push(this.insertStatement(workspace, "Find a workflow review for our team.", "seed-workflow", {sku: "workflow-review", rationale: "Seeded rehearsal proposal; no AI model was called.", source: "rehearsal-seed"}, "Workflow agent"));
       statements.push(this.insertStatement(workspace, "Find a design review for our team.", "seed-design", {sku: "design-review", rationale: "Seeded rehearsal proposal; no AI model was called.", source: "rehearsal-seed"}, "Design agent"));
@@ -86,7 +136,7 @@ export class ProofPayService {
     }
     const sessionIndex = statements.length;
     statements.push(this.db.prepare(`INSERT INTO proofpay_sessions (owner_id,workspace_id) VALUES (?,?) ON CONFLICT(owner_id) DO UPDATE SET workspace_id = excluded.workspace_id WHERE NOT EXISTS (SELECT 1 FROM proofpay_workspaces w JOIN proofpay_operations o ON o.workspace_id = w.id WHERE w.id = proofpay_sessions.workspace_id AND w.mode = 'sandbox' AND o.status IN (${RESERVED_STATUSES.map(status => `'${status}'`).join(",")}))`).bind(owner, workspace.id));
-    statements.push(this.db.prepare("INSERT INTO proofpay_events (id,workspace_id,operation_id,type,detail,created_at) VALUES (?,?,NULL,'WORKSPACE_CREATED',?,?)").bind(crypto.randomUUID(), workspace.id, mode === "rehearsal" ? "Isolated $300 rehearsal. Simulated provider and deterministic proposals; no PayPal or model calls." : "Isolated $300 sandbox allowance. Buyer approval and verified provider evidence required.", this.now()));
+    statements.push(this.db.prepare("INSERT INTO proofpay_events (id,workspace_id,operation_id,type,detail,created_at) VALUES (?,?,NULL,'WORKSPACE_CREATED',?,?)").bind(crypto.randomUUID(), workspace.id, JSON.stringify({schemaVersion: 1, mode, currency: "USD", budgetCents: workspace.budget_cents, businessName: workspace.business_name, department: workspace.department, businessProfileVersion: workspace.business_profile_version, allowanceScope: "isolated-workspace", simulated: mode === "rehearsal"}), this.now()));
     const results = await this.db.batch(statements);
     if (results[sessionIndex].meta?.changes !== 1) throw new ProofPayError("SANDBOX_WORKSPACE_HELD", "The active sandbox acquired a reservation. Resolve it before switching workspaces.", 409);
     return this.state(owner);

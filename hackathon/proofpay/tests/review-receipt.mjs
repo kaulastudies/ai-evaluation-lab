@@ -18,7 +18,7 @@ before(async () => {
   await build({entryPoints:['lib/proofpay/service.ts'],outfile:bundle,bundle:true,platform:'node',format:'esm',logLevel:'silent'});
   const {ProofPayService} = await import(pathToFileURL(bundle));
   db = new ReviewD1(join(temp, 'receipt.sqlite'));
-  await db.exec(await readFile('drizzle/0000_greedy_living_lightning.sql', 'utf8'));
+  await db.exec(await readFile('drizzle/0000_greedy_living_lightning.sql', 'utf8'));await db.exec(await readFile('drizzle/0003_business_profiles.sql','utf8'));
   service = new ProofPayService({db,env:{},now:()=>1760000000000,ai:async()=>({sku:'workflow-review',rationale:'Local rehearsal fixture.',source:'rehearsal-rule'})});
   await service.start('receipt-owner', 'rehearsal');
   await service.propose('receipt-owner',{request:'Review our workflow',mode:'rehearsal',idempotencyKey:'receipt-review'});

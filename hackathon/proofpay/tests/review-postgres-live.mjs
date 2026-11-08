@@ -68,6 +68,34 @@ test('live PG: audit failure rolls back reservation and permits a clean later ap
   finally{await client.query('DROP TRIGGER IF EXISTS reject_approval ON proofpay_events');await client.query('DROP FUNCTION IF EXISTS reject_approval()');client.release();}
   await service.approve(owner,op.id,1);assert.ok((await service.state(owner)).workspace.reservedCents>0);
 });
+test('live PG: owner business profile edits preserve workspace budget and approval snapshots; history is owner-scoped',async()=>{
+  const db=new PostgresDatabase(pool()),owner=`business-${randomUUID()}`,service=new ProofPayService({db,env:{}});
+  assert.equal((await service.business(owner)).defaultBudgetCents,30000);
+  await service.saveBusiness(owner,{businessName:'Synthetic Business',department:'Operations',defaultBudgetCents:40000,version:0});const original=await service.start(owner,'rehearsal',true);
+  for(const operation of original.operations)await service.approve(owner,operation.id,1);
+  const before=await service.state(owner),receipt=await service.evidence(owner,original.operations[0].id);
+  const other=new ProofPayService({db:new PostgresDatabase(pool()),env:{}});
+  const outcomes=await Promise.allSettled([service.saveBusiness(owner,{businessName:'Next Business',department:'Design',defaultBudgetCents:100,version:1}),other.saveBusiness(owner,{businessName:'Next Business',department:'Design',defaultBudgetCents:100,version:1})]);
+  assert.equal(outcomes.filter(value=>value.status==='fulfilled').length,1);assert.equal(outcomes.find(value=>value.status==='rejected').reason.code,'BUSINESS_VERSION');
+  assert.deepEqual(await service.state(owner),before);assert.deepEqual(await service.evidence(owner,original.operations[0].id),receipt);
+  const next=await other.start(owner,'rehearsal');assert.equal(next.workspace.budgetCents,100);assert.equal(next.workspace.businessName,'Next Business');assert.equal(next.workspace.businessProfileVersion,2);
+  const foreign=`foreign-${randomUUID()}`,foreignWorkspace=(await other.start(foreign,'rehearsal')).workspace;assert.equal((await service.business(foreign)).configured,false);
+  const history=await service.workspaceHistory(owner);assert.equal(history.workspaces.length,2);assert.equal(history.workspaces.find(row=>row.id===original.workspace.id).reservedCents,34000);assert.ok(!history.workspaces.some(row=>row.id===foreignWorkspace.id));
+  await assert.rejects(service.selectWorkspace(owner,foreignWorkspace.id),error=>error.code==='NOT_FOUND');await service.selectWorkspace(owner,original.workspace.id);
+  await assert.rejects(other.selectWorkspace(owner,next.workspace.id),error=>error.code==='WORKSPACE_SWITCH_BLOCKED');assert.equal((await service.state(owner)).workspace.id,original.workspace.id);
+});
+test('live PG: overlapping history selection and approval cannot hide a newly reserved workspace',async()=>{
+  const db=new PostgresDatabase(pool()),owner=`switch-${randomUUID()}`,service=new ProofPayService({db,env:{}}),target=(await service.start(owner,'rehearsal')).workspace;
+  const source=await service.start(owner,'rehearsal',true);let arrivals=0,release;const barrier=new Promise(resolve=>{release=resolve;});
+  function contender(marker){const targetPool=pool();let paused=false;return new PostgresDatabase({query:targetPool.query.bind(targetPool),async connect(){const client=await targetPool.connect();return{release:client.release.bind(client),async query(query,...args){const answer=await client.query(query,...args),text=typeof query==='string'?query:query.text;if(!paused&&text.startsWith('INSERT INTO proofpay_events')&&text.includes(marker)){paused=true;arrivals++;if(arrivals===2)release();let timer;try{await Promise.race([barrier,new Promise((_,reject)=>{timer=setTimeout(()=>reject(Error('Workspace race barrier not reached')),10000);})]);}finally{clearTimeout(timer);}}return answer;}};}});}
+  const switching=new ProofPayService({db:contender("'WORKSPACE_SELECTED'"),env:{}}).selectWorkspace(owner,target.id);
+  const approving=new ProofPayService({db:contender("'APPROVED'"),env:{}}).approve(owner,source.operations[0].id,1);
+  const [switchResult,approvalResult]=await Promise.allSettled([switching,approving]);assert.equal(arrivals,2);
+  const active=await service.state(owner),history=await service.workspaceHistory(owner),old=history.workspaces.find(row=>row.id===source.workspace.id);
+  if(approvalResult.status==='fulfilled'){assert.equal(switchResult.status,'rejected');assert.equal(switchResult.reason.code,'WORKSPACE_SWITCH_BLOCKED');assert.equal(active.workspace.id,source.workspace.id);assert.equal(old.reservedCents,source.operations[0].amountCents);}
+  else{assert.equal(approvalResult.reason.code,'WORKSPACE_CHANGED');assert.equal(switchResult.status,'fulfilled');assert.equal(active.workspace.id,target.id);assert.equal(old.reservedCents,0);}
+  const audit=await db.prepare("SELECT type,COUNT(*) AS n FROM proofpay_events WHERE workspace_id IN (?,?) AND type IN ('APPROVED','WORKSPACE_SELECTED') GROUP BY type").bind(source.workspace.id,target.id).all();assert.equal(audit.results.length,1);assert.equal(audit.results[0].n,1);
+});
 test('live PG: competing capture claims invoke the synthetic provider once and persist one receipt',async()=>{
   const db=new PostgresDatabase(pool()),owner=`capture-${randomUUID()}`;let captures=0;
   let entered,release;

@@ -16,7 +16,7 @@ await build({entryPoints:['lib/proofpay/service.ts'],outfile:bundle,bundle:true,
 await build({entryPoints:['lib/proofpay/provider.ts'],outfile:providerBundle,bundle:true,platform:'node',format:'esm',logLevel:'silent'});
 const { ProofPayService } = await import(pathToFileURL(bundle));
 const { RehearsalProvider } = await import(pathToFileURL(providerBundle));
-const schema = await readFile('drizzle/0000_greedy_living_lightning.sql','utf8');
+const schema = await readFile('drizzle/0000_greedy_living_lightning.sql','utf8') + '\n' + await readFile('drizzle/0003_business_profiles.sql','utf8');
 const fundingSchema = await readFile('drizzle/0002_ai_funding.sql','utf8');
 after(async () => { await rm(temp,{recursive:true,force:true}); });
 let fixtureCount = 0;

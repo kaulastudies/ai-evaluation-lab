@@ -13,7 +13,7 @@ const env=ownerConfig({OWNER_ID:'diagnostic-owner'});globalThis.__proofpayDiagno
 const bundle=join(dir,'diagnostic.mjs');
 await build({stdin:{contents:'export {ProofPayService} from "./lib/proofpay/service.ts"; export {handle} from "./lib/proofpay/http.ts";',resolveDir:process.cwd()},outfile:bundle,bundle:true,platform:'node',format:'esm',logLevel:'silent',plugins:[{name:'diagnostic-env',setup(b){b.onResolve({filter:/^\.\/runtime$/},()=>({path:'env',namespace:'diagnostic'}));b.onLoad({filter:/.*/,namespace:'diagnostic'},()=>({contents:'const env=globalThis.__proofpayDiagnosticEnv;export function getRuntimeConfiguration(){return env;} export function getDatabase(){return env.DB;} export async function getRequestConfiguration(config){return config;}'}));}}]});
 const {ProofPayService,handle}=await import(pathToFileURL(bundle));
-const schema=await readFile('drizzle/0000_greedy_living_lightning.sql','utf8');
+const schema=await readFile('drizzle/0000_greedy_living_lightning.sql','utf8') + '\n' + await readFile('drizzle/0003_business_profiles.sql','utf8');
 const config={PAYPAL_CLIENT_ID:'synthetic-client',PAYPAL_CLIENT_SECRET:'synthetic-secret',PAYPAL_MERCHANT_ID:'synthetic-seller'};
 const owner='diagnostic-owner';
 after(async()=>{delete globalThis.__proofpayDiagnosticEnv;await rm(dir,{recursive:true,force:true});});

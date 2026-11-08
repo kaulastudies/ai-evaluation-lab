@@ -1,6 +1,6 @@
 import { ProofPayError } from "./types";
 
-export type ApiAction = "state" | "start-rehearsal" | "start-diagnostic" | "start" | "propose" | "approve" | "cancel" | "renew-approval" | "create-order" | "capture" | "reconcile" | "evidence";
+export type ApiAction = "state" | "business" | "save-business" | "workspace-history" | "select-workspace" | "start-rehearsal" | "start-diagnostic" | "start" | "propose" | "approve" | "cancel" | "renew-approval" | "create-order" | "capture" | "reconcile" | "evidence";
 export const API_SECURITY_HEADERS = {
   "Cache-Control": "no-store",
   "X-Content-Type-Options": "nosniff",
@@ -10,12 +10,13 @@ export const API_SECURITY_HEADERS = {
 };
 export const MAX_REQUEST_BYTES = 10_000;
 const fields: Record<ApiAction, readonly string[]> = {
+  business: [], "save-business": ["businessName", "department", "defaultBudgetCents", "version"], "workspace-history": [], "select-workspace": ["workspaceId"],
   state: [], evidence: [], "start-rehearsal": [], "start-diagnostic": [], start: ["mode"],
   propose: ["request", "mode", "idempotencyKey"],
   approve: ["approvalVersion"], cancel: ["approvalVersion"], "renew-approval": ["approvalVersion"],
   "create-order": ["approvalVersion"], capture: ["approvalVersion", "fault"], reconcile: [],
 };
-export function allowedMethods(action: ApiAction): string { return action === "state" || action === "evidence" ? "GET, HEAD" : "POST"; }
+export function allowedMethods(action: ApiAction): string { return ["state", "evidence", "business", "workspace-history"].includes(action) ? "GET, HEAD" : "POST"; }
 
 /** Bound bytes while streaming, including chunked or misleading-length bodies.
  * Cancel without awaiting an untrusted stream's cancellation handler. */

@@ -62,7 +62,7 @@ test('security: truncated UTF-8 and nonobject JSON are rejected without unbounde
   for(const value of ['null','[]','true','"text"','{']) await assert.rejects(parseApiRequest(request(value),'start-rehearsal'),error=>['INVALID_JSON'].includes(error.code));
 });
 test('security: API success and errors retain no-store, no-referrer, nosniff and restrictive JSON document policy',async()=>{
-  const db=new ReviewD1(':memory:');await db.exec(await readFile('drizzle/0000_greedy_living_lightning.sql','utf8'));testEnv.DB=db;
+  const db=new ReviewD1(':memory:');await db.exec(await readFile('drizzle/0000_greedy_living_lightning.sql','utf8'));await db.exec(await readFile('drizzle/0003_business_profiles.sql','utf8'));testEnv.DB=db;
   try {
     const responses=[await handle(request({}, {method:'GET'}),'state'),await handle(request({}, {headers:{origin:'https://attacker.invalid'}}),'start-rehearsal')];
     assert.deepEqual(responses.map(r=>r.status),[200,403]);

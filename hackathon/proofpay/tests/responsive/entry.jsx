@@ -37,7 +37,13 @@ const held=['APPROVED','CREATE_DISPATCHED','CREATE_UNKNOWN','ORDER_READY','CAPTU
 const reservedCents=operations.filter(x=>held.includes(x.status)).reduce((a,x)=>a+x.amountCents,0);
 const committedCents=operations.filter(x=>x.status==='CONFIRMED').reduce((a,x)=>a+x.amountCents,0);
 const events=operations.map((op,index)=>({id:`qa-event-${index}`,operationId:op.id,type:index===0?'PROPOSAL_CREATED':'QA_FIXTURE_STATE',detail:index===0?JSON.stringify({schemaVersion:1,source:op.aiSource,sku:op.sku,rationale:op.rationale}):`Synthetic visual fixture: ${op.status}. No provider operation occurred.`,createdAt:now-index*10000}));
-const state={workspace:scenario==='no-workspace'?null:{id:'qa-workspace-not-production',mode,currency:'USD',budgetCents:30000,reservedCents,committedCents,availableCents:30000-reservedCents-committedCents,createdAt:now},capabilities:{sandboxReady:sandbox,aiReady:sandbox},catalogue,operations,events};
+const business={businessName:'Synthetic QA Business',department:'Operations and service purchasing',defaultBudgetCents:45000,currency:'USD',version:2,updatedAt:now-60000,configured:true};
+const state={workspace:scenario==='no-workspace'?null:{id:'qa-workspace-not-production',mode,profile:'standard',businessName:business.businessName,department:business.department,businessProfileVersion:1,currency:'USD',budgetCents:30000,reservedCents,committedCents,availableCents:30000-reservedCents-committedCents,createdAt:now},capabilities:{sandboxReady:sandbox,aiReady:sandbox},catalogue,operations,events};
+const switchBlockedReason=reservedCents>0?'Synthetic QA fixture: resolve the active workspace reservations before switching.':null;
+const history={activeWorkspaceId:state.workspace?.id??null,switchBlockedReason,workspaces:scenario==='no-workspace'?[]:[
+  {...state.workspace,isActive:true,canSelect:true,selectionBlockedReason:null},
+  {id:'qa-prior-workspace-not-production-0002',mode:'rehearsal',profile:'standard',currency:'USD',budgetCents:45000,reservedCents:0,committedCents:18000,availableCents:27000,createdAt:now-86400000,businessName:'Synthetic QA Business — prior workspace',department:'Operations and service purchasing',businessProfileVersion:1,isActive:false,canSelect:!switchBlockedReason,selectionBlockedReason:switchBlockedReason},
+]};
 const requests=[];
 window.__proofpayQa={synthetic:true,scenario,requests,state,blockedActions:[],networkPolicy:'All fetch is handled here. External navigation and downloads are blocked.'};
 window.fetch=async(input,init={})=>{
@@ -45,7 +51,12 @@ window.fetch=async(input,init={})=>{
   const method=init.method||(input instanceof Request?input.method:'GET');
   requests.push({method,path:url.pathname,body:init.body||null,at:Date.now()});
   await new Promise(resolve=>setTimeout(resolve,150));
-  if(url.pathname==='/api/state'&&method==='GET')return Response.json({state});
+  if(url.pathname==='/api/state'&&method==='GET') {
+    if(scenario==='setup-pending')return Response.json({error:'Synthetic QA fixture: secure owner sign-in is not configured.',code:'AUTH_NOT_CONFIGURED'},{status:503});
+    return Response.json({state});
+  }
+  if(url.pathname==='/api/business'&&method==='GET')return Response.json({business,synthetic:true});
+  if(url.pathname==='/api/workspaces/history'&&method==='GET')return Response.json({...history,synthetic:true});
   if(url.pathname.endsWith('/evidence')&&method==='GET') {
     const op=operations.find(x=>url.pathname.includes(x.id));
     if(!op)return Response.json({error:'Synthetic fixture purchase missing.'},{status:404});

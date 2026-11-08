@@ -17,7 +17,7 @@ const css=await readFile(cssPath,'utf8');
 const result=await postcss([tailwind({base:source})]).process(css,{from:cssPath,to:join(root,'dist/app.css')});
 await writeFile(join(root,'dist/app.css'),result.css);
 const sha256=async path=>createHash('sha256').update(await readFile(path)).digest('hex');
-const sourceFiles=['components/proofpay/purchase-desk.tsx','components/proofpay/receipt-inspector.tsx','app/globals.css'];
+const sourceFiles=['components/proofpay/purchase-desk.tsx','components/proofpay/receipt-inspector.tsx','components/proofpay/business-workspace.tsx','components/proofpay/purchase-report.ts','app/globals.css'];
 const harnessFiles=['entry.jsx','link.jsx','build.mjs','package.mjs','README.md','package.json','.gitignore','.openai/hosting.json','static/index.html','static/fixture.html','static/diagnostics.js'];
 const fingerprint={schemaVersion:2,builtAt:new Date().toISOString(),runtime:process.version,synthetic:true,productionFilesModified:false,sourceRepository:source,sourceFiles,sourceSha256:{},harnessFiles,harnessSha256:{},dependencyInputs:{},dependencyVersions:{},generatedAssets:{}};
 for(const relative of sourceFiles)fingerprint.sourceSha256[relative]=await sha256(join(source,relative));

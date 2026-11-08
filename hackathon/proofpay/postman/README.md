@@ -15,6 +15,8 @@ The collection uses `noauth` because authentication is the owner session cookie,
 
 ## Rehearsal walkthrough
 
+The amounts below assume the unconfigured $300 default. A saved business profile supplies the allowance for newly created workspaces; inspect the returned workspace before comparing balances. Earlier workspaces retain their saved allowance. Business settings and history are available in the portal; this collection still covers the original purchase workflow.
+
 Send individual requests in this order:
 
 1. **Login with owner key**.

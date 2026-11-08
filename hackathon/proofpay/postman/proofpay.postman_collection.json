@@ -1,6 +1,6 @@
 {
   "info": {
-    "name": "ProofPay \u2014 owner workflow and evidence",
+    "name": "ProofPay — owner workflow and evidence",
     "schema": "https://schema.postman.com/json/collection/v2.1.0/collection.json",
     "description": "Credential-free development collection for native Next.js ProofPay. Requires your configured HTTPS APP_ORIGIN and owner session. Use individual requests; this is not an automated end-to-end payment test. Defaults to rehearsal. No provider create/capture endpoints, real keys, cookies or saved private responses are included. Postman is a development tool here, not the application inference provider. See postman/README.md for setup and evidence boundaries."
   },
@@ -39,7 +39,7 @@
       "key": "proposalKey",
       "value": "postman-workflow-review-v1",
       "type": "string",
-      "description": "8\u2013128 letters/digits/dashes/underscores. Keep stable when retrying the same request; change for a distinct request."
+      "description": "8–128 letters/digits/dashes/underscores. Keep stable when retrying the same request; change for a distinct request."
     }
   ],
   "event": [
@@ -260,7 +260,7 @@
               }
             ],
             "url": "{{baseUrl}}/api/rehearsal/start",
-            "description": "Creates an isolated $300 simulated workspace with $180 and $160 requests; no model or PayPal calls. Selects the proposed workflow-review operation for inspection.",
+            "description": "Creates a simulated workspace using the saved business allowance ($300 when unconfigured), with $180 and $160 requests; no model or PayPal calls. Selects the proposed workflow-review operation for inspection.",
             "body": {
               "mode": "raw",
               "raw": "{}",

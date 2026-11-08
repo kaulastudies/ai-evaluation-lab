@@ -15,7 +15,7 @@ await build({entryPoints:['lib/proofpay/service.ts'],outfile:serviceBundle,bundl
 await build({entryPoints:['lib/proofpay/ai.ts'],outfile:aiBundle,bundle:true,platform:'node',format:'esm',logLevel:'silent'});
 const {ProofPayService}=await import(pathToFileURL(serviceBundle));
 const {propose}=await import(pathToFileURL(aiBundle));
-const base=await readFile('drizzle/0000_greedy_living_lightning.sql','utf8');
+const base=await readFile('drizzle/0000_greedy_living_lightning.sql','utf8') + '\n' + await readFile('drizzle/0003_business_profiles.sql','utf8');
 const migration=await readFile('drizzle/0002_ai_funding.sql','utf8');
 after(()=>rm(temp,{recursive:true,force:true}));
 const payPal={PAYPAL_CLIENT_ID:'synthetic-client',PAYPAL_CLIENT_SECRET:'synthetic-secret',PAYPAL_MERCHANT_ID:'synthetic-seller'};

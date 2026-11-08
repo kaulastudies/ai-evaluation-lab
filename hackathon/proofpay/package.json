@@ -11,7 +11,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
-    "test": "node --test tests/review-provider.mjs tests/review-service.mjs tests/review-auth.mjs tests/review-ai.mjs tests/review-security.mjs tests/review-database.mjs tests/review-receipt.mjs tests/review-connectors.mjs tests/review-diagnostic.mjs tests/review-tooling.mjs tests/review-vercel.mjs tests/review-ai-funding.mjs tests/review-postgres.mjs tests/review-migration.mjs",
+    "test": "node --test tests/review-provider.mjs tests/review-service.mjs tests/review-auth.mjs tests/review-ai.mjs tests/review-security.mjs tests/review-database.mjs tests/review-receipt.mjs tests/review-connectors.mjs tests/review-diagnostic.mjs tests/review-tooling.mjs tests/review-vercel.mjs tests/review-ai-funding.mjs tests/review-postgres.mjs tests/review-migration.mjs tests/review-business.mjs tests/review-purchase-report.mjs",
     "db:migrate": "node scripts/migrate-postgres.mjs"
   },
   "dependencies": {

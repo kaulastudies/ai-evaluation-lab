@@ -11,7 +11,7 @@ const dir=await mkdtemp(join(tmpdir(),'proofpay-ai-review-'));
 const bundle=join(dir,'service.mjs');
 await build({entryPoints:['lib/proofpay/service.ts'],outfile:bundle,bundle:true,platform:'node',format:'esm',logLevel:'silent'});
 const {ProofPayService}=await import(pathToFileURL(bundle));
-const schema=await readFile('drizzle/0000_greedy_living_lightning.sql','utf8');
+const schema=await readFile('drizzle/0000_greedy_living_lightning.sql','utf8') + '\n' + await readFile('drizzle/0003_business_profiles.sql','utf8');
 const fundingSchema=await readFile('drizzle/0002_ai_funding.sql','utf8');
 const env={PAYPAL_CLIENT_ID:'synthetic-client',PAYPAL_CLIENT_SECRET:'synthetic-secret',PAYPAL_MERCHANT_ID:'approved-seller',...fundedAiConfig()};
 after(()=>rm(dir,{recursive:true,force:true}));
