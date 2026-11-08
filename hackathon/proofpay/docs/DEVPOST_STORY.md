@@ -1,8 +1,8 @@
 # ProofPay Devpost draft
 
-Updated **8 November 2026**. Public runtime **`cfd1d007`** passed the complete simulated browser workflow; all seven views have responsive evidence. The local source checkpoint `26893ed6` passed **210 tests, TypeScript, full lint and build**. The current deployment passed **nine real PostgreSQL checks**, migrations and build. One actual AI-to-PayPal sandbox purchase and recovery remains separately verified. The frozen V2 video is **141.354362 seconds (2:21.354)** and passes full decode, audio/caption checks and sampled visual review. The [V2 video is public on YouTube](https://youtu.be/D4UXBT-FhcE); Studio confirmed publication on 8 November and watch-page playback displayed 2:21. The earlier Flite cut was rejected and must not be published. Use the existing Devpost entry; **do not click final Submit**.
+Updated **8 November 2026**. Public runtime **`cfd1d007`** passed the complete simulated browser workflow; all seven views have responsive evidence. The local source checkpoint `26893ed6` passed **210 tests, TypeScript, full lint and build**. The current deployment passed **nine real PostgreSQL checks**, migrations and build. One actual AI-to-PayPal sandbox purchase and recovery remains separately verified. The frozen V2 video is **141.354362 seconds (2:21.354)** and passes full decode, audio/caption checks and sampled visual review. The [V2 video is public on YouTube](https://youtu.be/D4UXBT-FhcE); Studio confirmed publication on 8 November and watch-page playback displayed 2:21. The earlier Flite cut was rejected and must not be published. Use the existing Devpost entry. Final submission is now conditionally authorized, pending confirmation of team eligibility and final assent to the rules.
 
-The current Devpost draft was saved and reopened successfully. Its **7,531-character Story**, extracted from the section below with relative evidence links converted to absolute GitHub URLs, matched the saved value. Both canonical demo/source URLs remained correct. Additional Information also matched the updated seven-view testing instructions, six scenario observations, 21 responsive views and AI-tool disclosure: Kokoro `af_heart`, FFmpeg and no avatar. The video field was then saved and reopened with **https://youtu.be/D4UXBT-FhcE**; the embedded player showed the correct title. Finalization remains **Draft (3/5 steps)**; no final Submit was clicked. The earlier terms check was unchecked.
+The earlier Devpost draft was saved and reopened successfully. Its **7,531-character Story** was the previous verified checkpoint, with relative evidence links converted to absolute GitHub URLs. The current **7,676-character Story** below adds the corrected team credits. It was saved through Save & continue, then Project details was reopened: the complete text matched the prepared source (SHA-256 `aec72e27707c6bd6d5c0b58aead182320e2d3ff2fc5a1f7e13319080a2a54b0b`). Both canonical demo/source URLs remained correct. Additional Information also matched the updated seven-view testing instructions, six scenario observations, 21 responsive views and AI-tool disclosure: Kokoro `af_heart`, FFmpeg and no avatar. The video field was then saved and reopened with **https://youtu.be/D4UXBT-FhcE**; the embedded player showed the correct title. Finalization remains **Draft (3/5 steps)**; no final Submit was clicked. The earlier terms check was unchecked.
 
 ## Project name
 
@@ -78,6 +78,12 @@ The next commercial test is whether owner-led agencies, consultancies or studios
 
 The current build covers one controlled seller, US dollars and a workspace allowance. Production payments, refunds, webhooks, fulfillment, multi-user roles and provider portability remain outside this build. Our immediate focus is learning from repeatable evaluations before expanding that scope.
 
+### Team credits
+
+Rama Chandra M — Founder and Principal Researcher, AI Evaluation Lab
+
+Prof Nithya Ravi Kumar — Principal Advisor for ProofPay
+
 ## Video and submission references
 
 - [Public judge workspace — no login](https://proofpay-evaluation-lab.vercel.app)
@@ -88,9 +94,11 @@ The current build covers one controlled seller, US dollars and a workspace allow
 
 The frozen V2 video follows one purchase from approval and allowance reservation through a missing response to recovery. Its 29 timed shots use actual captured application states; scene six is clearly labelled saved evidence from the completed external run. This is an edited walkthrough, not a continuous recording of that original transaction. The video is **141.354362 seconds**, with **43 captions preserving all 312 narration words**. Kokoro `af_heart` speech was generated locally without API or provider credits; V2 uses no avatar. Full decode passed, decoded audio peaked at −1.969 dBFS with zero clipped samples, and sampled visual review found the reviewed scenes readable. No independent listening or forced-alignment result is claimed. The film is public at the link above. Its 43 burned-in captions are present; the exact native transcript was saved for YouTube automatic timing, while public selectable captions were unavailable at the first watch-page check and remain processing. Native caption timing is not yet quality-checked. The rejected 163.521-second Flite cut is not the submission video.
 
+The YouTube description was also saved with **Rama Chandra M** and **Prof Nithya Ravi Kumar**; the disabled Save button confirmed the saved state. This changes publication credits, not the frozen video or its narration.
+
 Implemented technology tags: TypeScript, Next.js, React, Node.js, Vercel, Neon, PostgreSQL, Vercel AI Gateway, OpenAI GPT-4.1 mini, PayPal REST APIs, PayPal Orders v2. The Postman collection is authored and checked offline; actual Postman execution is not claimed. Do not list Toolkit, MCP or agent-commerce protocols as implemented integrations without corresponding evidence.
 
-The application was added during the event within the existing AI Evaluation Lab repository. Preserve the starter and dependency notices. Nithya's Devpost team acceptance was confirmed; team membership does not create an application role or establish a particular contribution.
+The application was added during the event within the existing AI Evaluation Lab repository. Preserve the starter and dependency notices. Prof Nithya Ravi Kumar's Devpost team acceptance was confirmed; team membership does not create an application role or establish a particular contribution.
 
 ## Final draft gates
 
@@ -101,7 +109,7 @@ The application was added during the event within the existing AI Evaluation Lab
 | Public YouTube video | [Published V2](https://youtu.be/D4UXBT-FhcE): Studio confirmed Published/Public on 8 November; watch-page playback displayed 2:21. The frozen source file is 141.354362 seconds. Burned-in captions are present; native selectable captions are still processing. Old Flite cut rejected. |
 | Video/source consistency | The finished V2 preserves the exact 312-word narration, states 210 local checks and separates saved external-run evidence from a fresh simulation. Sampled visual review passed; no independent listening or forced-alignment claim. |
 | Receipt export | Actual guest HTTPS receipt download and offline consistency check passed. Owner browser CSV/Blob file bytes remain unverified. |
-| Saved draft | Story, demo/source URLs, testing instructions and AI-tool disclosure were saved, reopened and matched. The public video URL was also saved and reopened, with the correct embedded player title. |
-| Final Devpost submission | **Held.** The final page remains Draft (3/5 steps). No final Submit was clicked; the earlier terms check was unchecked. |
+| Saved draft | The corrected 7,676-character Story was saved and reopened with an exact source match, including both team credits. Demo/source URLs, testing instructions, AI-tool disclosure and public video URL retain their prior verified saves; the video player title matched. |
+| Final Devpost submission | **Conditionally authorized, pending eligibility and rules assent.** The page remains Draft (3/5 steps); its three required eligibility attestations are unchecked. No final Submit has been clicked. |
 
 The [official requirements](https://paypalaihackathon.devpost.com/) and [rules](https://paypalaihackathon.devpost.com/rules), reviewed 8 November 2026, require meaningful PayPal/AI use, runnable access, public licensed source and a public YouTube demonstration under three minutes. No prize, production-readiness or general exactly-once claim is made.

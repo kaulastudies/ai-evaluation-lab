@@ -50,7 +50,7 @@ Updated 8 November 2026. The public seven-section portal completed its fresh bro
 - [x] Saved and reopened **https://youtu.be/D4UXBT-FhcE** in the Devpost video field. The embedded player displayed the correct title.
 - [x] Public video playback and displayed 2:21 duration were checked after publication.
 - [ ] Recheck final Devpost video/source/demo links after the video-field update; preserve the separately verified source and judge-access scopes.
-- [x] Finalization remains **Draft (3/5 steps)**. No final Submit was clicked; the earlier terms check was unchecked. **Keep final Submit held.** Nithya's team acceptance is already confirmed and is separate from application access.
+- [x] Finalization remains **Draft (3/5 steps)**. No final Submit was clicked; the earlier terms check was unchecked. **Keep final Submit held.** Prof Nithya Ravi Kumar's team acceptance is already confirmed and is separate from application access.
 - [x] The reviewed browser guest workspace was left fresh: $300 available/$0 reserved/$0 paid, two proposed requests. Its existing expiry was unchanged. This temporary browser state is not a global default or an extension of access.
 
 Sources: [official submission requirements](https://paypalaihackathon.devpost.com/) and [rules](https://paypalaihackathon.devpost.com/rules), reviewed 8 November 2026. Public YouTube footage under three minutes and runnable judge access are separate requirements.

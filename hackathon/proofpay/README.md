@@ -80,7 +80,7 @@ Next: strengthen receipt provenance, broaden recovery evidence and validate the 
 | Name | Project role |
 |---|---|
 | **Rama Chandra M** | Founder and Principal Researcher, AI Evaluation Lab |
-| **Prof. Nithya** | Principal Advisor for ProofPay |
+| **Prof Nithya Ravi Kumar** | Principal Advisor for ProofPay |
 
 ## Build and explore
 

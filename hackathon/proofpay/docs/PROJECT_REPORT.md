@@ -6,7 +6,7 @@ Project outcomes and next development priorities
 
 Rama Chandra M — Founder and Principal Researcher, AI Evaluation Lab
 
-Prof. Nithya — Principal Advisor for ProofPay
+Prof Nithya Ravi Kumar — Principal Advisor for ProofPay
 
 ## Executive outcome
 
@@ -143,7 +143,7 @@ These functions describe an operating plan, not a staffed organization. Contribu
 
 ### Team and submission
 
-Project leadership and advisory credits appear on the first page. Nithya's Devpost team membership is confirmed. Final hackathon submission remains an owner decision and was held at this report checkpoint.
+Project leadership and advisory credits appear on the first page. Prof Nithya Ravi Kumar's Devpost team membership is confirmed. Final hackathon submission remains an owner decision and was held at this report checkpoint.
 
 ### Source and evidence register
 

@@ -79,5 +79,5 @@ Repeating the outcome check retained the same capture and totals. No second capt
 - The browser CSV download collection timed out. Exported browser file bytes were **not verified**; do not infer them from an export action or success indication. No offline-verifier result for a newly downloaded receipt is claimed here.
 - Successful owner access and the persisted profile do not establish every authorization/session failure path, multi-user access, every history/concurrency action or every possible responsive state. Local regression evidence has its own scope.
 - Independent judge access and the required public YouTube demonstration remain unfinished. The one-attempt grant does not supply unrestricted judge inference.
-- Nithya's Devpost team acceptance was previously confirmed. Team membership does not grant an application role.
+- Prof Nithya Ravi Kumar's Devpost team acceptance was previously confirmed. Team membership does not grant an application role.
 - **Final Devpost Submit remains held.** No submission or external message is implied by this QA record.
