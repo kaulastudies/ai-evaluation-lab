@@ -7,7 +7,7 @@ challenge, built by **Rama Chandra M**, AI Evaluation Lab. It uses a model to wr
 Python, executes that program inside a disposable Docker container, checks the
 answer with a separate deterministic implementation, and signs an execution receipt.
 
-**Current evidence:** 15 core tests pass. API smoke checks pass. Live Vultr inference,
+**Current evidence:** 16 core tests pass. API smoke checks pass. Live Vultr inference,
 container probes, and a public deployment are not yet verified. This README will
 be updated with actual deployment evidence before a completed submission is claimed.
 
@@ -80,7 +80,8 @@ counting failed attempts toward the budget. Each audit allows at most two model
 calls with 2,200 output tokens each. These app limits do not stop the VM's hourly
 charges or govern other use of the account's inference credentials.
 `deploy/install.sh` installs the service on a dedicated Ubuntu VM
-and pins the pulled sandbox image by its resolved digest.
+and pins the pulled sandbox image by its resolved digest. See the
+[deployment guide](deploy/README.md) for the private cloud-init generator.
 
 ## Verify a downloaded result
 

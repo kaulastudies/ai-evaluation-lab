@@ -4,3 +4,6 @@ __pycache__/
 *.pyc
 runtime/
 .pytest_cache/
+
+*cloud-init.yaml
+*inference-key*
