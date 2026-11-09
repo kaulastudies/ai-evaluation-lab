@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "run_id": "81c45ce7949f4e5395f1fd2c3848ea60",
+  "independent_recomputation": {
+    "passed": true,
+    "differences": []
+  },
+  "scope": "Authenticity, bound artifacts and result correctness. Execution provenance is attested by the signer, not independently proven."
+}

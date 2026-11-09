@@ -3,7 +3,10 @@
 Deploy both the workbench and API on one Ubuntu 24.04 LTS Vultr VM.
 The reviewed selection is 1 vCPU, 1 GB RAM, 25 GB storage, public IPv4,
 Atlanta, with automatic backups ($6/month as displayed in the account).
-No VM or inference subscription has been created yet.
+Both resources are active. Public sample demo: http://155.138.211.247.
+The selected model is `qwen3.8-flash-next`. The live invoice audit, eight
+containment checks, and downloaded-bundle verification passed on 9 November 2026.
+The following steps document reproduction of the deployment.
 
 1. Create the `receiptops-agent-rush` Serverless Inference subscription.
 2. Read the exact language-model ID from the Vultr model list. Prefer a low-cost

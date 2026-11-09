@@ -1,7 +1,10 @@
-# ReceiptOps demo recording script
+# ReceiptOps demo walkthrough
 
-Target duration: about 2 minutes 30 seconds. Record the actual deployed app.
-Do not substitute a synthetic receipt or staged success screenshot.
+Completed video: `ReceiptOps_Demo.mp4`, 2 minutes 20 seconds, 1920 × 1080, with synthetic narration and English subtitles. It uses actual product screens captured from the verified Vultr deployment on 9 November 2026. This is an edited screen walkthrough, not a continuous screen recording.
+
+The final narration and frame order are in [demo-story.json](demo-story.json). The built-in Aiden voice was generated with Vultr Qwen3-TTS; no person’s voice was cloned. Audit result and receipt screens refer to live run `0c6f60141eeb41bca55544e389bca31b`.
+
+The original recording outline below remains as a guide for a future continuous walkthrough; its timings are not the final video edit.
 
 | Time | Screen and action | Narration |
 | --- | --- | --- |

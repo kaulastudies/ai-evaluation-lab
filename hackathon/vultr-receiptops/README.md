@@ -7,12 +7,21 @@ challenge, built by **Rama Chandra M**, AI Evaluation Lab. It uses a model to wr
 Python, executes that program inside a disposable Docker container, checks the
 answer with a separate deterministic implementation, and signs an execution receipt.
 
-**Current evidence:** 16 core tests and 5 real Docker integration tests pass in
-[GitHub Actions](https://github.com/kaulastudies/ai-evaluation-lab/actions/runs/42519547315).
-The integration checks cover containment, timeout, output flooding, input access,
-and disposal of temporary state. API smoke checks pass locally. Live Vultr
-inference and a public Vultr deployment remain unverified. This entry has not
-been submitted.
+**Live demo:** [Open ReceiptOps](http://155.138.211.247) — fictional sample data only.
+
+**Verified on 9 November 2026:** Vultr inference generated the audit program;
+the sandbox executed it; every result field passed independent recomputation.
+All eight fixed containment checks passed. The downloaded audit and containment
+receipts passed signature verification outside the VM. Altering the receipt is
+rejected in the browser. [Signed evidence and pinned public key](evidence/vultr/).
+
+**Automated checks:** 19 core/provider tests and 5 Docker integration tests pass
+in [GitHub Actions](https://github.com/kaulastudies/ai-evaluation-lab/actions/runs/42556038894).
+The source includes fixes found during deployment: JSON completion controls,
+UFW web access, and the containment button's POST method.
+
+**Submission status:** not submitted. LabLab shows the event as ended and blocks
+submission outside its active phase. A reopening request was sent to the organizer.
 
 ## Why this exists
 
@@ -41,7 +50,7 @@ The checker never imports or executes model-generated code. It independently
 recomputes every result field from the original CSV using Decimal arithmetic.
 Inference receives the task contract and schema, **not invoice rows**.
 
-## Intended Vultr deployment
+## Vultr deployment
 
 - **Vultr Cloud Compute:** a dedicated Ubuntu VM runs Nginx, FastAPI, the trusted
   orchestrator, SQLite receipt storage, and Docker. Both frontend and backend
