@@ -42,5 +42,10 @@ nginx -t
 systemctl daemon-reload
 systemctl enable --now receiptops
 systemctl restart nginx
+# Vultr's Ubuntu image may enable UFW with only SSH allowed.
+# Open only the sample-only web entry point; the API stays on loopback.
+if command -v ufw >/dev/null 2>&1 && ufw status | grep -q '^Status: active'; then
+  ufw allow 80/tcp comment ReceiptOps
+fi
 echo 'ReceiptOps installed. Configure Vultr inference in /etc/receiptops.env, then restart receiptops.'
 echo 'Before private data use, add HTTPS and authentication. The public prototype is sample-only.'
