@@ -131,3 +131,19 @@ For the next reply, two decisions are sufficient:
 Warm-up timeout, generation parameters, context serialization and final source pins
 remain review items even after answering those two questions. The 17 tests are
 synthetic software checks, not model-performance or hardware observations.
+
+
+## Gate 0 — Lab inspection of privately shared sanitized handoff (11 November 2026)
+
+The Lab directly inspected the private three-file `gate0-private-handoff.zip` received from Evercraft, **without posting any of its contents**. A read-only, separate 30-check documentary review found:
+
+- ZIP member structure and CRC checks passed; manifest SHA-256 values matched the two JSON members exactly.
+- The sanitized readiness document contained **exactly the ten agreed fields**, correct field types, pinned model/runtime digests, and internally consistent reported `FIRST_INFERENCE_PASS` / cleanup / synthetic-only / no-production-change claims.
+- The supplied Lab reviewer JSON consistently reported `INFERENCE_REPORTED`, `UNVERIFIED_EXTERNAL`, `NOT_SUPPLIED` scenario evidence, no reported problems, and no promotion or established EO-001 decisions.
+- Basic screening identified no obvious secret tokens, private keys or local host paths in those three small JSON documents. This is not a guarantee against every possible sensitive disclosure.
+
+**Result:** `GATE0_SANITIZED_DOCUMENTS_CONSISTENT` — a bounded independent examination of supplied bytes, **not** attestation of the original physical receipt, Qwen inference execution, private host, or the authenticity of the supplied reviewer JSON. The original receipt was not available. The Lab did not re-execute the pinned full reviewer in a fresh source checkout for this handoff. The manifest was marked `PRIVATE_HANDOFF_REQUIRES_OWNER_INSPECTION` when Evercraft created it; that original manifest is preserved unchanged. No scenario evidence was supplied, no raw model decision was independently evaluated, and no production authorization exists.
+
+**Gate 1 remains unexecuted and not frozen.** Jesse has agreed in principle to six decisions per scenario and a warmed 15-second per-decision baseline, with cold startup and warm-up measured separately; warmed-gateway feasibility is still unknown. Final source/adapter pins, generation parameters, prompts/context hashes, and privacy release rules still need joint agreement. A timed-out or failed model result must be retained, not replaced by a passing rerun.
+
+Private documents stay private. Only the non-sensitive interpretation above belongs in GitHub.
