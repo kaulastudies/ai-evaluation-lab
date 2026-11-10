@@ -34,6 +34,22 @@ runner, replay, repair-replay, metrics, and demo-evidence checks are gated in CI
 
 [Capabilities](docs/CAPABILITIES.md) | [Evidence catalog](docs/EVIDENCE_CATALOG.md) | [Private engagements](docs/ENGAGEMENTS.md)
 
+### Where the Lab stands on 10 November 2026
+
+Since the first public alpha, the work has moved from showing that an evaluation pipeline runs to producing evidence that another person can replay and challenge.
+
+| | Mid-September 2026 | 10 November 2026 |
+|---|---|---|
+| Public task packs | AS-001, with Ollama and Groq runs under one frozen task contract | AS-001 and AS-002, plus RARB with five verifier-qualified repository tasks |
+| Evidence volume | Three runs per configuration on AS-001 | 52 live RARB attempts, plus a preregistered 30-attempt cross-model replication on one frozen task |
+| Agents evaluated | Local and hosted models | Adds an IDE coding-agent pilot (IBM Bob 2.2.0) with source-exact replay, merged in [PR #20](https://github.com/kaulastudies/ai-evaluation-lab/pull/20) |
+| Verification | Deterministic gates and a negative control | Adds verifier qualification by mutation, source-exact no-model replay, and isolation hardening under review in [PR #34](https://github.com/kaulastudies/ai-evaluation-lab/pull/34) |
+| Written account | README and roadmap | Technical report: [Verifying the Verifier](publications/verifying-the-verifier-2026.md) |
+| Related contributions | MLCommons ModelBench pull requests | Adds Qiskit Ecosystem membership for Quantum Agent Gate (merged 1 November), a merged Backstage fix, and an agent-authority reference example for The AI Lab's TIP protocol (open, [PR #383](https://github.com/theailaborg/tip-protocol/pull/383)) |
+| Commercial | Funding milestone defined | Fixed-scope founding pilot defined; first pilot in preparation |
+
+These figures describe committed evidence only. They are not claims about coding agents in general, and none of the related contributions implies endorsement by the projects named.
+
 ### Qiskit Ecosystem member: Quantum Agent Gate
 
 [Quantum Agent Gate (QAG)](integrations/quantum-agent-gate/README.md) is an experimental, local-only Qiskit 2.x integration that checks execution permissions, resource limits, and duplicate requests before running quantum circuits. QAG was [accepted into the Qiskit Ecosystem via maintainer-reviewed PR #1427](https://github.com/Qiskit/ecosystem/pull/1427), merged November 1, 2026 (UTC). See its [official Qiskit Ecosystem profile](https://qiskit.github.io/ecosystem/p/7fac1a8e/). Membership covers QAG, not AI Evaluation Lab as a whole; it is not a security certification or endorsement.
@@ -385,13 +401,23 @@ Third-party dependencies and referenced external materials remain subject to the
 
 **Alpha v0.2A is complete, and AS-002 is now merged into the public Agent Safety Evaluation Program.**
 
-**RARB v0.1 is merged and CI-gated.** Its promoted evidence now contains 51 live attempts across five verifier-qualified tasks: 43 `VERIFIED_PASS`, 5 `VERIFIED_FAIL`, and 3 `HOLD`. Configured critical verifier mutations show 0 / 17 escapes, and one of two bounded-repair episodes converted to `VERIFIED_PASS`.
+**RARB v0.1 is merged and CI-gated.** Its promoted evidence now contains 52 live attempts across five verifier-qualified tasks: 44 `VERIFIED_PASS`, 5 `VERIFIED_FAIL`, and 3 `HOLD`, including the merged IBM Bob 2.2.0 AP-001 pilot ([PR #20](https://github.com/kaulastudies/ai-evaluation-lab/pull/20)). Mutation-escape and repair-conversion figures are in the [metrics snapshot](programs/repository-agent-reliability/metrics/metrics.md).
 
 Phase 12 adds a preregistered AP-001 matrix of exactly 30 initial attempts across three fixed configurations, ten trials each: Ollama `llama3:latest` (9 pass, 1 fail), Ollama `qwen2.5-coder:7b` (10 pass), and Nebius/NVIDIA `nvidia/nemotron-3-super-120b-a12b` (10 pass). All 30 outcomes passed source-exact no-model replay; there were no false-greens or repair attempts.
 
 These figures describe the committed RARB evidence set only. Phase 12 is bounded to one task, three configurations, and ten trials per configuration; it does not establish general coding-agent performance, provider-wide superiority, statistical generalization, or production-scale reliability. The original AP-001-specific Section 9 false-green-to-repair sequence remains open.
 
-Next engineering milestones:
+Phase 13 also adds the merged IBM Bob 2.2.0 AP-001 agent pilot ([PR #20](https://github.com/kaulastudies/ai-evaluation-lab/pull/20)): preregistered execution, one attempt, a frozen candidate, independent deterministic verification, source-exact replay and promoted evidence. It evaluates the agent through the Lab methodology and does not imply an IBM partnership or endorsement. Billing and token telemetry were not captured for this pilot. The written account is the technical report [Verifying the Verifier](publications/verifying-the-verifier-2026.md).
+
+Hardening of candidate isolation, replay authentication and verifier gates is in [PR #34](https://github.com/kaulastudies/ai-evaluation-lab/pull/34), open for review with all checks passing. A follow-up security scan and review are still required before the original findings can be treated as closed.
+
+### Next focused work (as of 10 November 2026)
+
+1. Review and merge the isolation and replay hardening (PR #34), then run the follow-up security scan.
+2. Run the first fixed-scope evaluation pilot with a team that builds or deploys coding agents, using the verifier, replay and evidence-report format described above. Target: December 2026.
+3. Test agent-authority records on one real sandbox workflow, starting from the reference example under review in The AI Lab's TIP repository ([PR #383](https://github.com/theailaborg/tip-protocol/pull/383)). This is independent research and does not imply endorsement by The AI Lab.
+
+Also on the roadmap:
 
 - extend RARB beyond the bounded single-task Phase 12 matrix while preserving preregistration and replay discipline;
 - publish live-provider evidence for AS-002 under its frozen contract;
