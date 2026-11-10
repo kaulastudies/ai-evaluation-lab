@@ -9,6 +9,8 @@ import subprocess
 import sys
 import tempfile
 from typing import Any
+from security import task_id as checked_task_id, read_confined, bounded_run
+from candidate_proxy import public_validation, verify, qualify_current
 
 
 PROGRAM_ROOT = Path(__file__).resolve().parents[1]
@@ -42,14 +44,17 @@ def read_lf(path: Path) -> str:
 
 
 def load_runtime(task_id: str) -> tuple[Path, dict[str, Any]]:
+    checked_task_id(task_id)
     task_root = TASKS_ROOT / task_id
+    if task_root.is_symlink() or task_root.resolve().parent != TASKS_ROOT.resolve():
+        raise RuntimeConfigurationError("Task directory escapes tasks root")
     runtime_path = task_root / "runtime.json"
     if not runtime_path.is_file():
         raise RuntimeConfigurationError(
             f"Missing runtime config for {task_id}: {runtime_path}"
         )
 
-    config = json.loads(runtime_path.read_text(encoding="utf-8"))
+    config = json.loads(read_confined(TASKS_ROOT, f"{task_id}/runtime.json"))
     if config.get("task_id") != task_id:
         raise RuntimeConfigurationError(
             f"runtime task_id mismatch: expected {task_id}, "
@@ -396,7 +401,7 @@ def materialize_workspace(
     shutil.copytree(task_root / "fixture", workspace)
     destination = workspace / config["candidate_path"]
     destination.parent.mkdir(parents=True, exist_ok=True)
-    shutil.copyfile(candidate_file, destination)
+    destination.write_bytes(read_confined(candidate_file.parent, candidate_file.name))
 
 
 def render_command(command: list[str]) -> list[str]:
@@ -409,12 +414,7 @@ def run_process(
     command: list[str],
     cwd: Path,
 ) -> subprocess.CompletedProcess[str]:
-    return subprocess.run(
-        render_command(command),
-        cwd=cwd,
-        text=True,
-        capture_output=True,
-    )
+    return bounded_run(render_command(command), cwd=cwd)
 
 
 def evaluate_candidate(
@@ -425,14 +425,11 @@ def evaluate_candidate(
     label: str,
     agent_claim: str = "success",
 ) -> dict[str, Any]:
+    expected_root, trusted_config = load_runtime(config["task_id"])
+    if task_root.resolve() != expected_root.resolve() or config != trusted_config:
+        raise RuntimeConfigurationError("Scoring requires the trusted installed task runtime")
     qualification_path = task_root / config["qualification_path"]
-    qualification = json.loads(
-        qualification_path.read_text(encoding="utf-8")
-    )
-    if qualification.get("status") != "QUALIFIED":
-        raise RuntimeError(
-            f"{config['task_id']} verifier is not QUALIFIED; refusing to score"
-        )
+    qualification = qualify_current(task_root)
 
     context = build_context(task_root, config)
     before = trusted_snapshot(task_root, config)
@@ -443,26 +440,8 @@ def evaluate_candidate(
         workspace = Path(temp_dir) / "workspace"
         materialize_workspace(task_root, config, candidate_file, workspace)
 
-        public = run_process(config["public_test_command"], workspace)
-
-        verifier = run_process(
-            [
-                "python",
-                str(task_root / config["verifier_path"]),
-                str(workspace),
-                "--json",
-            ],
-            task_root,
-        )
-
-        try:
-            raw_verification = json.loads(verifier.stdout)
-        except json.JSONDecodeError as exc:
-            raise RuntimeError(
-                "Verifier did not emit valid JSON.\n"
-                f"stdout:\n{verifier.stdout}\n"
-                f"stderr:\n{verifier.stderr}"
-            ) from exc
+        public = public_validation(task_root, workspace, config["task_id"])
+        raw_verification = verify(task_root, workspace)
 
         verification = normalize_verification(raw_verification)
         after = trusted_snapshot(task_root, config)
@@ -470,7 +449,9 @@ def evaluate_candidate(
 
     public_passed = public.returncode == 0
 
-    if not trusted_files_unchanged:
+    if qualification["status"] != "QUALIFIED" or not trusted_files_unchanged:
+        final_verdict = "HOLD"
+    elif verification["status"] == "HOLD":
         final_verdict = "HOLD"
     elif not public_passed:
         final_verdict = "VERIFIED_FAIL"

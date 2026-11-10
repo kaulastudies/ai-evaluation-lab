@@ -1,14 +1,17 @@
 from __future__ import annotations
 
 import argparse
-import importlib.util
 import json
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "runner"))
+from candidate_proxy import remote_class
+
 import sys
 import uuid
 
 
-VERIFIER_VERSION = "0.1.0"
+VERIFIER_VERSION = "0.2.0"
 
 
 class DeferredFetcher:
@@ -22,16 +25,8 @@ class DeferredFetcher:
         self.callbacks.pop(resource)(value)
 
 
-def load_resource_view(candidate_root: Path):
-    module_path = candidate_root / "app" / "resource_view.py"
-    if not module_path.is_file():
-        raise FileNotFoundError(f"candidate missing {module_path}")
-    module_name = f"ap001_candidate_{uuid.uuid4().hex}"
-    spec = importlib.util.spec_from_file_location(module_name, module_path)
-    module = importlib.util.module_from_spec(spec)
-    assert spec.loader is not None
-    spec.loader.exec_module(module)
-    return module.ResourceView
+def load_resource_view(root: Path):
+    return remote_class(root, "AP-001")
 
 
 def evaluate(candidate_root: Path):

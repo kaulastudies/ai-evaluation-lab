@@ -15,6 +15,9 @@ if str(RUNNER_DIR) not in sys.path:
     sys.path.insert(0, str(RUNNER_DIR))
 
 from agent_context import build_context
+sys.path.insert(0, str(TASK_ROOT.parents[1] / "runner"))
+from candidate_proxy import public_validation, verify, qualify_current
+from security import bounded_run
 
 
 def sha256_file(path: Path) -> str:
@@ -44,12 +47,7 @@ def trusted_snapshot() -> dict[str, str]:
 
 
 def run(command: list[str], cwd: Path) -> subprocess.CompletedProcess[str]:
-    return subprocess.run(
-        command,
-        cwd=cwd,
-        text=True,
-        capture_output=True,
-    )
+    return bounded_run(command, cwd=cwd)
 
 
 def stable_hash(record: dict) -> str:
@@ -92,9 +90,7 @@ def main() -> int:
         raise SystemExit(f"Candidate file not found: {candidate}")
 
     qualification_path = TASK_ROOT / "evidence" / "verifier-qualification.json"
-    qualification = json.loads(qualification_path.read_text(encoding="utf-8"))
-    if qualification.get("status") != "QUALIFIED":
-        raise SystemExit("Verifier is not QUALIFIED; refusing to score candidate.")
+    qualification = qualify_current(TASK_ROOT)
 
     context = build_context()
     before = trusted_snapshot()
@@ -104,44 +100,19 @@ def main() -> int:
         shutil.copytree(TASK_ROOT / "fixture", workspace)
         shutil.copyfile(candidate, workspace / "app" / "resource_view.py")
 
-        public = run(
-            [
-                sys.executable,
-                "-m",
-                "unittest",
-                "discover",
-                "-s",
-                "tests/public",
-                "-v",
-            ],
-            workspace,
-        )
-
-        verifier_process = run(
-            [
-                sys.executable,
-                str(TASK_ROOT / "verifier" / "acceptance.py"),
-                str(workspace),
-                "--json",
-            ],
-            TASK_ROOT,
-        )
-
-        try:
-            raw_verification = json.loads(verifier_process.stdout)
-        except json.JSONDecodeError as exc:
-            raise RuntimeError(
-                "Verifier did not emit valid JSON.\n"
-                f"stdout:\n{verifier_process.stdout}\n"
-                f"stderr:\n{verifier_process.stderr}"
-            ) from exc
+        public = public_validation(TASK_ROOT, workspace, "AP-001")
+        raw_verification = verify(TASK_ROOT, workspace)
 
         verification = normalize_verification(raw_verification)
         after = trusted_snapshot()
         trusted_files_unchanged = before == after
 
-        if not trusted_files_unchanged:
+        if qualification["status"] != "QUALIFIED" or not trusted_files_unchanged:
             final_verdict = "HOLD"
+        elif verification["status"] == "HOLD":
+            final_verdict = "HOLD"
+        elif public.returncode != 0:
+            final_verdict = "VERIFIED_FAIL"
         else:
             final_verdict = verification["status"]
 
