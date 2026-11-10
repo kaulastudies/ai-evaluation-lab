@@ -1,0 +1,44 @@
+
+> proofpay-purchase-desk@0.1.0 build
+> next build
+
+▲ Next.js 16.4.5 (Turbopack)
+- Environments: .env.local
+✓ Running next.config.ts took 44ms
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 1828ms
+  Running TypeScript ...
+  Finished TypeScript in 9.8s ...
+  Collecting page data using 8 workers ...
+  Generating static pages using 8 workers (0/12) ...
+  Generating static pages using 8 workers (3/12)
+  Generating static pages using 8 workers (6/12)
+  Generating static pages using 8 workers (9/12)
+✓ Generating static pages using 8 workers (12/12) in 213ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ƒ /
+├ ○ /_not-found
+├ ƒ /api/auth/login
+├ ƒ /api/auth/logout
+├ ƒ /api/business
+├ ƒ /api/operations/[id]/approve
+├ ƒ /api/operations/[id]/cancel
+├ ƒ /api/operations/[id]/capture
+├ ƒ /api/operations/[id]/create-order
+├ ƒ /api/operations/[id]/evidence
+├ ƒ /api/operations/[id]/reconcile
+├ ƒ /api/operations/[id]/renew-approval
+├ ƒ /api/proposals
+├ ƒ /api/rehearsal/start
+├ ƒ /api/sandbox/diagnostic/start
+├ ƒ /api/state
+├ ƒ /api/workspaces
+├ ƒ /api/workspaces/history
+└ ƒ /api/workspaces/select
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand

@@ -1,0 +1,75 @@
+name: ProofPay verification
+
+on:
+  pull_request:
+    paths:
+      - 'hackathon/proofpay/**'
+      - '.github/workflows/proofpay.yml'
+  push:
+    branches:
+      - main
+      - 'proofpay/**'
+    paths:
+      - 'hackathon/proofpay/**'
+      - '.github/workflows/proofpay.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: proofpay-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: proofpay_test
+          POSTGRES_PASSWORD: disposable_ci_password
+          POSTGRES_DB: proofpay_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U proofpay_test -d proofpay_test"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    defaults:
+      run:
+        working-directory: hackathon/proofpay
+    env:
+      CI: 'true'
+    steps:
+      - name: Check out the candidate source
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          persist-credentials: false
+      - name: Use the verified Node runtime
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
+        with:
+          node-version: '24.22.1'
+          package-manager-cache: false
+      - name: Install from the committed lockfile
+        run: npm run install:ci
+      - name: Audit all dependencies, including development tools
+        run: npm audit --audit-level=low
+      - name: Check TypeScript
+        run: node node_modules/typescript/bin/tsc --noEmit
+      - name: Lint authored source
+        run: npm run lint
+      - name: Test authorization, provider contracts and database invariants
+        run: npm test
+      - name: Verify transactions against a real PostgreSQL database
+        run: node --test tests/review-postgres-live.mjs
+        env:
+          DATABASE_URL: postgresql://proofpay_test:disposable_ci_password@127.0.0.1:5432/proofpay_test
+          PROOFPAY_TEST_ALLOW_LOCAL_DB: '1'
+      - name: Build the native Next.js application
+        run: npm run build
+      - name: Build the isolated synthetic visual fixture
+        run: node tests/responsive/build.mjs

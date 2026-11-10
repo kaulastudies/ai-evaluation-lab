@@ -1,0 +1,125 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-11-08T13:21:03.181972+00:00",
+  "outcome": "passed-local-release-checks",
+  "baseCommit": "5e4192b31ea5b1ebc9e705e0e3b2204ee42893c6",
+  "sourceState": "Reviewed uncommitted seven-view portal candidate on this base commit; use the SHA-256 inputs below to identify the checked implementation.",
+  "sourceSha256": {
+    "components/proofpay/judge-desk.tsx": "8a7ada8327b44dbd8039dff00b1ce7c1ea4365a885fdb9f04d83e45652ea94d5",
+    "app/globals.css": "4ce7538736adf9befef414e36b472d1eb8a8ed1d4e4a1c021c07634fe3afc6d2",
+    "package.json": "e97fec69cc777b65fbfd8ceb7ec8587ccf6820187a76a9d8c76ac0610de63dd0",
+    "package-lock.json": "0cfdb5309bb3549264be28c458956ca9f1d32ef73458ea31ddc33958ab121b13"
+  },
+  "checks": [
+    {
+      "command": "npm test",
+      "exitCode": 0,
+      "tests": 210,
+      "passed": 210,
+      "failed": 0,
+      "skipped": 0,
+      "testRunnerDurationMs": 2739.795996
+    },
+    {
+      "command": "npx tsc --noEmit",
+      "exitCode": 0,
+      "diagnostics": 0,
+      "reason": "Rerun after the cancellation-confirmation review fix."
+    },
+    {
+      "command": "npm run lint",
+      "exitCode": 0,
+      "sourceErrors": 0,
+      "sourceWarnings": 0
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "framework": "Next.js 16.4.5",
+      "compileMs": 1971,
+      "buildTypecheckSeconds": 4.4,
+      "staticPagesGenerated": 12,
+      "judgePageAndApi": "dynamic"
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0
+    }
+  ],
+  "environmentWarning": "The local npm launcher reported Unknown env config \"http-proxy\". This was recorded, not suppressed; it was not a source lint/type/test failure.",
+  "readOnlyReview": {
+    "remainingCriticalOrHighFindings": 0,
+    "reviewed": [
+      "All client requests and the receipt inspector retain the judge-only API prefix; no private owner API or live model/provider control was introduced.",
+      "Search and status filters derive the actionable selection only from visible records. The attention filter includes all five uncertain statuses.",
+      "Operation actions capture the exact operation ID and approval version. Approval from the queue continues the same purchase in Purchases.",
+      "Cancellation confirmation is bound to the selected operation ID and approval version; changing search or filter clears it. This was corrected during review.",
+      "New proposals use a stable idempotency key for retrying the same text and select the actual returned new operation.",
+      "Start fresh requires confirmation, resets only the simulated guest workspace and clears local request/filter/lab observations.",
+      "Evidence inspection fetches the selected saved receipt in-app; summary metrics and activity come from returned records.",
+      "The initial saved-state GET has a 12-second abort and visible recovery path. No mutation is automatically retried."
+    ],
+    "scopeLimit": "Source review and API/service tests do not establish that every new browser control or responsive layout was exercised."
+  },
+  "preUpgradeHostedAccessInvestigation": {
+    "canonicalOrigin": "https://proofpay-evaluation-lab.vercel.app",
+    "anonymousRoot": {
+      "status": 200,
+      "finalPath": "/judge",
+      "vercelLoginMarkers": false
+    },
+    "anonymousJudgePage": {
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "cache": "private, no-cache, no-store, max-age=0, must-revalidate"
+    },
+    "referencedAssets": {
+      "javascriptChunks": 9,
+      "stylesheets": 1,
+      "allStatus200": true,
+      "correctMimeTypes": true,
+      "htmlInsteadOfAsset": false
+    },
+    "pageCsp": "frame-ancestors 'none'; base-uri 'self'; object-src 'none'; form-action 'self'",
+    "anonymousGuestState": 401,
+    "freshOwnGuestSession": {
+      "status": 200,
+      "mode": "rehearsal",
+      "availableCents": 30000,
+      "reservedCents": 0,
+      "committedCents": 0,
+      "proposedOperations": 2,
+      "secureCookieAttributesVerified": true
+    },
+    "privateOwnerOrigin": {
+      "origin": "https://proofpay-purchase-desk.vercel.app",
+      "anonymousStatus": 302,
+      "redirectOrigin": "https://vercel.com",
+      "redirectPath": "/sso-api",
+      "redirectQueryNotRecorded": true
+    },
+    "finding": "The private owner origin is protected by Vercel sign-in; the canonical public origin, assets and fresh guest session were reachable. No HTTP asset/CSP cause for a hydration failure was reproduced.",
+    "documentationFinding": "The previously prominent judge guide required private owner setup and contained stale integration status. The current local README/JUDGES edits distinguish the public judge URL from the protected owner deployment.",
+    "boundaries": [
+      "HTTP clients only; no incognito browser execution claimed.",
+      "One new in-memory guest CookieJar, no root browser cookies or sessions used.",
+      "No real model, PayPal, paid-credit or AI-grant reset request.",
+      "These hosted observations predate deployment of the candidate source hashes above."
+    ]
+  },
+  "pendingAfterDeployment": [
+    "Exercise all seven views at 360, 768 and 1280 pixels.",
+    "UNKNOWN purchase through Overview Needs verification and the attention filter.",
+    "Cancel prompt for A must not transfer after filtering/selecting B; no-match search must expose no purchase actions.",
+    "Approve from the queue and create a new sample request, confirming the exact selected operation.",
+    "Completed-session Start fresh: new $300 allowance, two proposed requests, cleared lab observations.",
+    "Evidence dropdown must inspect the chosen saved receipt in-app.",
+    "Actual browser Blob/CSV download bytes remain a separate gate; the public portal exports JSON only."
+  ],
+  "notRerun": [
+    "Dependency audit",
+    "Real PostgreSQL integration gate",
+    "Post-deployment browser and responsive checks"
+  ],
+  "ownership": "Reviewer changed only this new evidence file in this task; frontend corrections were made by the frontend owner."
+}

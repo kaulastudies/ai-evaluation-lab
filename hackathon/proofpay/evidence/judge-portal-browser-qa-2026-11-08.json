@@ -1,0 +1,262 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-08",
+  "url": "https://proofpay-evaluation-lab.vercel.app",
+  "runtimeCommit": "cfd1d0073e60bcb7f7d35d6497de762143a7498a",
+  "deployment": "dpl_7Vyism59UzSpeNhD2ooWfXnhuKXB",
+  "method": "Connected Chrome UI actions and rendered DOM observations reported by the release owner. Public guest rehearsal with simulated funds; no live AI or PayPal requests in this workflow.",
+  "responsive": {
+    "sourceCommit": "26893ed6e2ae9f9afc2aaf8cfe9cadc9fd78f6df",
+    "laterChange": "Compared with this responsive-check revision, cfd1d007 changes one line to prefer the $180 workflow review when continuing a fresh workspace. It does not change layout or styles.",
+    "measurements": [
+      {
+        "section": "Overview",
+        "requested": 360,
+        "contentWidth": 345,
+        "font": "16px",
+        "heading": "Overview",
+        "overflow": false,
+        "width": 360
+      },
+      {
+        "section": "Purchases",
+        "requested": 360,
+        "contentWidth": 345,
+        "font": "16px",
+        "heading": "Purchases",
+        "overflow": false,
+        "width": 360
+      },
+      {
+        "section": "Approvals",
+        "requested": 360,
+        "contentWidth": 345,
+        "font": "16px",
+        "heading": "Approvals",
+        "overflow": false,
+        "width": 360
+      },
+      {
+        "section": "Evidence",
+        "requested": 360,
+        "contentWidth": 345,
+        "font": "16px",
+        "heading": "Evidence",
+        "overflow": false,
+        "width": 360
+      },
+      {
+        "section": "Controls",
+        "requested": 360,
+        "contentWidth": 345,
+        "font": "16px",
+        "heading": "Controls",
+        "overflow": false,
+        "width": 360
+      },
+      {
+        "section": "AI & backend",
+        "requested": 360,
+        "contentWidth": 345,
+        "font": "16px",
+        "heading": "AI & backend",
+        "overflow": false,
+        "width": 360
+      },
+      {
+        "section": "Evaluation lab",
+        "requested": 360,
+        "contentWidth": 345,
+        "font": "16px",
+        "heading": "Evaluation lab",
+        "overflow": false,
+        "width": 360
+      },
+      {
+        "section": "Overview",
+        "requested": 768,
+        "contentWidth": 753,
+        "font": "16px",
+        "heading": "Overview",
+        "overflow": false,
+        "width": 768
+      },
+      {
+        "section": "Purchases",
+        "requested": 768,
+        "contentWidth": 753,
+        "font": "16px",
+        "heading": "Purchases",
+        "overflow": false,
+        "width": 768
+      },
+      {
+        "section": "Approvals",
+        "requested": 768,
+        "contentWidth": 753,
+        "font": "16px",
+        "heading": "Approvals",
+        "overflow": false,
+        "width": 768
+      },
+      {
+        "section": "Evidence",
+        "requested": 768,
+        "contentWidth": 753,
+        "font": "16px",
+        "heading": "Evidence",
+        "overflow": false,
+        "width": 768
+      },
+      {
+        "section": "Controls",
+        "requested": 768,
+        "contentWidth": 753,
+        "font": "16px",
+        "heading": "Controls",
+        "overflow": false,
+        "width": 768
+      },
+      {
+        "section": "AI & backend",
+        "requested": 768,
+        "contentWidth": 753,
+        "font": "16px",
+        "heading": "AI & backend",
+        "overflow": false,
+        "width": 768
+      },
+      {
+        "section": "Evaluation lab",
+        "requested": 768,
+        "contentWidth": 753,
+        "font": "16px",
+        "heading": "Evaluation lab",
+        "overflow": false,
+        "width": 768
+      },
+      {
+        "section": "Overview",
+        "requested": 1280,
+        "contentWidth": 1265,
+        "font": "16px",
+        "heading": "Overview",
+        "overflow": false,
+        "width": 1280
+      },
+      {
+        "section": "Purchases",
+        "requested": 1280,
+        "contentWidth": 1265,
+        "font": "16px",
+        "heading": "Purchases",
+        "overflow": false,
+        "width": 1280
+      },
+      {
+        "section": "Approvals",
+        "requested": 1280,
+        "contentWidth": 1265,
+        "font": "16px",
+        "heading": "Approvals",
+        "overflow": false,
+        "width": 1280
+      },
+      {
+        "section": "Evidence",
+        "requested": 1280,
+        "contentWidth": 1265,
+        "font": "16px",
+        "heading": "Evidence",
+        "overflow": false,
+        "width": 1280
+      },
+      {
+        "section": "Controls",
+        "requested": 1280,
+        "contentWidth": 1265,
+        "font": "16px",
+        "heading": "Controls",
+        "overflow": false,
+        "width": 1280
+      },
+      {
+        "section": "AI & backend",
+        "requested": 1280,
+        "contentWidth": 1265,
+        "font": "16px",
+        "heading": "AI & backend",
+        "overflow": false,
+        "width": 1280
+      },
+      {
+        "section": "Evaluation lab",
+        "requested": 1280,
+        "contentWidth": 1265,
+        "font": "16px",
+        "heading": "Evaluation lab",
+        "overflow": false,
+        "width": 1280
+      }
+    ]
+  },
+  "workflow": {
+    "operation": "47212f1a-84ee-449a-96a6-cdc2b475481d",
+    "order": "REH-0bbda5e4-5510-4696-b274-11865f74fb1d",
+    "capture": "REH-CAP-f98db68a-6803-439e-ae62-677045a412ed",
+    "checks": [
+      "Owner approval reserves $180 from the $300 demo budget.",
+      "The competing $160 request is blocked because $120 remains available.",
+      "Dropping the capture response records UNKNOWN and preserves the $180 reservation.",
+      "Reloading reads the same original order and retains the held budget totals.",
+      "Looking up the original order confirms the simulated $180 payment.",
+      "Repeating the check retains the same capture ID and totals: $120 available, $0 reserved, and $180 paid."
+    ],
+    "observed": 6,
+    "total": 6,
+    "sourceCommit": "cfd1d0073e60bcb7f7d35d6497de762143a7498a"
+  },
+  "regressions": [
+    "Continue workflow selects the fresh $180 workflow request.",
+    "The Overview shortcut selects the same uncertain operation.",
+    "The cancellation confirmation clears when search changes the selected purchase.",
+    "A search with no matching purchase leaves no actionable selection.",
+    "A new starter request is created through the guest API and cancelled before dispatch.",
+    "The Evidence dropdown selects the requested record and closes the previous inspector.",
+    "A session with a confirmed purchase offers an explicit Start fresh demo action."
+  ],
+  "receiptLimits": [
+    "The stored provider verification snapshot does not contain its own historical approval version or catalogue SKU. The exported operation and approval binding do contain the current values; matching fields alone do not prove which historical approval version was checked.",
+    "The receipt is an unsigned application record. Internal consistency does not establish an external signature or independent provider authenticity."
+  ],
+  "console": [],
+  "limitations": [
+    "These were connected Chrome checks, not an incognito-browser test. Anonymous HTTP access was verified separately.",
+    "Responsive checks cover the 21 recorded view and viewport combinations. They do not establish full accessibility or penetration-test coverage.",
+    "The repeated browser check compares returned references and budget totals; it does not measure external request counts.",
+    "This workflow uses simulated funds only. It does not establish a fresh live AI or PayPal sandbox run.",
+    "The independent review checked this record, its source-revision difference, and its wording. It did not rerun browser actions or deployed PostgreSQL tests."
+  ],
+  "consoleScope": "No console entries were recorded in the supplied browser QA result. This file is not a complete retained browser log.",
+  "deployedBuildGate": {
+    "sourceCommit": "cfd1d0073e60bcb7f7d35d6497de762143a7498a",
+    "deployment": "dpl_7Vyism59UzSpeNhD2ooWfXnhuKXB",
+    "evidenceSource": "Deployment logs reviewed by the release owner and supplied to the independent reviewer; no new test run was performed for this record review.",
+    "postgresTests": {
+      "passed": 9,
+      "failed": 0,
+      "skipped": 0
+    },
+    "migrations": {
+      "status": "passed"
+    },
+    "nextBuild": {
+      "status": "passed",
+      "version": "16.4.5"
+    },
+    "typescript": {
+      "status": "passed"
+    },
+    "scope": "The deployed database and build checks are distinct from the browser workflow and the earlier responsive measurements."
+  }
+}

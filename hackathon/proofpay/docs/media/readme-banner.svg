@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="292" viewBox="0 0 1280 292" role="img" aria-labelledby="title desc">
+  <title id="title">ProofPay — approve the purchase, check the outcome</title>
+  <desc id="desc">A navy ProofPay banner showing three connected controls: approval, reserved allowance and checked evidence.</desc>
+  <defs>
+    <linearGradient id="background" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#10213b"/><stop offset="1" stop-color="#1d3559"/></linearGradient>
+  </defs>
+  <rect width="1280" height="292" rx="18" fill="url(#background)"/>
+  <path d="M898 0v292M1038 0v292M1178 0v292M770 78h510M770 150h510M770 222h510" stroke="#7997c3" stroke-opacity=".08"/>
+  <rect x="42" y="39" width="52" height="56" rx="14" fill="#426de3"/>
+  <path d="m54 68 8 8 19-22m-13 22 14-16" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="112" y="79" fill="#fff" font-family="Arial,Helvetica,sans-serif" font-size="39" font-weight="700" letter-spacing="-1">ProofPay</text>
+  <text x="44" y="152" fill="#f5f8ff" font-family="Arial,Helvetica,sans-serif" font-size="35" font-weight="600" letter-spacing="-.7">Approve the purchase.</text>
+  <text x="44" y="196" fill="#aac5ff" font-family="Arial,Helvetica,sans-serif" font-size="35" font-weight="600" letter-spacing="-.7">Check the outcome.</text>
+  <text x="46" y="249" fill="#c2cfe2" font-family="Arial,Helvetica,sans-serif" font-size="16">AI Evaluation Lab  /  Payment operations prototype</text>
+  <path d="M778 85v123" fill="none" stroke="#688ac0" stroke-width="2"/>
+  <g font-family="Arial,Helvetica,sans-serif">
+    <circle cx="778" cy="83" r="18" fill="#355ed1"/><path d="m770 83 6 6 10-12" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="817" y="79" fill="#f5f8ff" font-size="19" font-weight="600">Exact approval</text><text x="817" y="103" fill="#afc1dc" font-size="14">Item · seller · amount · currency</text>
+    <circle cx="778" cy="146" r="18" fill="#355277"/><rect x="771" y="144" width="14" height="10" rx="2" fill="none" stroke="#d3dff2" stroke-width="2"/><path d="M774 144v-4a4 4 0 0 1 8 0v4" fill="none" stroke="#d3dff2" stroke-width="2"/>
+    <text x="817" y="143" fill="#f5f8ff" font-size="19" font-weight="600">Reserved allowance</text><text x="817" y="167" fill="#afc1dc" font-size="14">Uncertain outcomes remain held</text>
+    <circle cx="778" cy="211" r="18" fill="#355277"/><path d="M772 202h12v18h-12zm3 5h6m-6 5h6" fill="none" stroke="#d3dff2" stroke-width="2" stroke-linejoin="round"/>
+    <text x="817" y="207" fill="#f5f8ff" font-size="19" font-weight="600">Checked evidence</text><text x="817" y="231" fill="#afc1dc" font-size="14">Recover from the original order</text>
+  </g>
+</svg>

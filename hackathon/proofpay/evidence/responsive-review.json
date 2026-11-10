@@ -1,0 +1,112 @@
+{
+  "reviewedAt": "2026-11-08T04:56:00Z",
+  "scope": "Local Chromium CSS-viewport review of the actual purchase-desk component and stylesheet with synthetic, read-only fixtures. Not hosted or real-device integration evidence.",
+  "sourceSha256": {
+    "components/proofpay/purchase-desk.tsx": "6da53f778e59f141c6fbbf4e5789d20d98cb5adf8c52496f5b75ff922879ce74",
+    "app/globals.css": "e98b3ffbe9ee3a6d44a92c4fa59e6a8316dc3d1204a89a929c790923935af698"
+  },
+  "fixture": "tests/responsive",
+  "findingsFixed": [
+    "At 360px, the approval summary squeezed its text between an icon and allowance value. The allowance now occupies a separate grid row.",
+    "At 360px, rule values squeezed descriptions into narrow columns. Rule values now sit below descriptions at widths up to 760px.",
+    "The absolutely positioned screen-reader table heading escaped its scrolling container and increased document scrollWidth. A positioned table wrapper now confines it.",
+    "Switching workspace sections retained a deeply scrolled position. Explicit navigation now scrolls to the top and focuses the section heading."
+  ],
+  "observedMeasurements": [
+    {
+      "width": 390,
+      "height": 844,
+      "view": "Overview",
+      "documentClientWidth": 375,
+      "documentScrollWidth": 375,
+      "tableClientWidth": 289,
+      "tableScrollWidth": 406
+    },
+    {
+      "width": 360,
+      "height": 844,
+      "view": "Purchases",
+      "documentClientWidth": 345,
+      "documentScrollWidth": 345,
+      "tableClientWidth": 259,
+      "tableScrollWidth": 406
+    },
+    {
+      "width": 360,
+      "height": 844,
+      "view": "Approvals",
+      "documentClientWidth": 345,
+      "documentScrollWidth": 345,
+      "tableClientWidth": 259,
+      "tableScrollWidth": 365
+    },
+    {
+      "width": 360,
+      "height": 844,
+      "view": "Controls",
+      "documentClientWidth": 345,
+      "documentScrollWidth": 345
+    },
+    {
+      "width": 360,
+      "height": 844,
+      "view": "Purchase drawer",
+      "documentClientWidth": 360,
+      "documentScrollWidth": 360,
+      "dialogClientWidth": 345,
+      "dialogScrollWidth": 345
+    },
+    {
+      "width": 360,
+      "height": 844,
+      "view": "New request dialog",
+      "documentClientWidth": 360,
+      "documentScrollWidth": 360,
+      "dialogClientWidth": 330,
+      "dialogScrollWidth": 330
+    },
+    {
+      "width": 768,
+      "height": 900,
+      "view": "Controls",
+      "documentClientWidth": 753,
+      "documentScrollWidth": 753
+    }
+  ],
+  "visuallyInspected": [
+    "All six navigation views at phone width; affected approval and controls layouts rechecked after changes.",
+    "Long seller and operation references wrap in the purchase drawer.",
+    "Proposed-request approval and cancellation-confirmation layouts.",
+    "Uncertain-capture explanation and read-only outcome-check button.",
+    "Sandbox-shaped buyer-approval drawer; no PayPal link or capture executed.",
+    "New-request form fits the 360px frame.",
+    "Escape dismisses drawers and returns focus to the originating purchase.",
+    "After scrolling Controls, selecting Approvals returns to the top with focus on its heading.",
+    "Tablet overview and Controls at 768px."
+  ],
+  "screenshot": "mobile-approval-qa.png",
+  "fixtureGuards": {
+    "fetch": "GET state/evidence return synthetic data; mutations return409.",
+    "navigationAndDownloads": "Source-only guards prevent external anchor navigation and generated downloads; guard message rendered, blocked-action behavior was not clicked in this review."
+  },
+  "validation": {
+    "typescript": "passed",
+    "lint": "passed (generated fixture dist excluded; source remains linted)",
+    "workerBuild": "passed (Vinext client, RSC, SSR and Worker packaging)"
+  },
+  "priorServiceSuite": {
+    "result": "92/92 passed at preceding checkpoint",
+    "rerunThisReview": false,
+    "reason": "This change affects CSS, view navigation and an isolated visual harness. Payment services and their tests are unchanged."
+  },
+  "notVerified": [
+    "Touch gestures or physical devices",
+    "Hosted mobile authentication",
+    "Real model invocation",
+    "Buyer-approved PayPal capture",
+    "Production payments",
+    "Independent judge access",
+    "All eight fixture scenarios",
+    "1280px fixture inspection"
+  ]
+}

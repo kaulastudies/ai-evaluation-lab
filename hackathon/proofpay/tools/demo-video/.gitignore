@@ -1,0 +1,20 @@
+# Rebuildable outputs; approved input screenshots and narration text stay tracked.
+__pycache__/
+narration/
+text/
+render-work/
+presenter-assets/
+review-frames/
+*.mp4
+*.wav
+*.mp3
+*.zip
+captions.srt
+narration-manifest.json
+phoneme-timeline.json
+presenter-validation.json
+video-source-manifest.json
+video-validation.json
+source-package-validation.json
+BUNDLE_SHA256SUMS.txt
+proofpay-video-contact-sheet.jpg

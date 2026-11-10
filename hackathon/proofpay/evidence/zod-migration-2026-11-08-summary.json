@@ -1,0 +1,194 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-11-08T08:35:54.662366+00:00",
+  "baseCommit": "b03260b4",
+  "runtime": "Node v24.22.1",
+  "change": {
+    "zodBefore": "3.25.76",
+    "zodAfter": "4.6.7",
+    "explicitRecordKeySchemas": 2,
+    "previewGrantLimit": 256,
+    "connectorContentBlockLimit": 1024
+  },
+  "installation": {
+    "method": "Approved Sites install-dependencies.mjs -> npm run install:ci -> npm ci",
+    "runs": 1,
+    "exitCode": 0,
+    "installedPackages": 694,
+    "reportedDurationSeconds": 40,
+    "npmLsZod": "4.6.7 only, deduped across all package consumers"
+  },
+  "tests": {
+    "before": {
+      "command": "node --test --test-name-pattern='oversized' tests/review-connectors.mjs",
+      "tests": 3,
+      "pass": 0,
+      "fail": 3,
+      "purpose": "Expected regression failure on the prior installed Zod. Schema limits were present, but oversized arrays still traversed every element.",
+      "observedElementReads": [
+        257,
+        1025,
+        1025
+      ]
+    },
+    "after": {
+      "command": "node --test tests/review-connectors.mjs",
+      "tests": 10,
+      "pass": 10,
+      "fail": 0,
+      "observedOversizedElementReads": [
+        0,
+        0,
+        0
+      ]
+    },
+    "targetedLint": "Passed for three changed connector modules and new connector suite",
+    "diffCheck": "Passed for changed connector modules, test and package manifests",
+    "combinedSuite": "Pending diagnostic backend/receipt implementation freeze; not rerun during those changes",
+    "productionBuild": "Pending release owner"
+  },
+  "audit": {
+    "command": "npm audit --json",
+    "exitCode": 1,
+    "vulnerabilities": {
+      "info": 0,
+      "low": 2,
+      "moderate": 15,
+      "high": 0,
+      "critical": 0,
+      "total": 17
+    },
+    "zodFindingPresent": false,
+    "remainingPackageEntries": {
+      "@cloudflare/vite-plugin": {
+        "severity": "low",
+        "nodes": [
+          "node_modules/@cloudflare/vite-plugin"
+        ]
+      },
+      "@esbuild-kit/core-utils": {
+        "severity": "moderate",
+        "nodes": [
+          "node_modules/@esbuild-kit/core-utils"
+        ]
+      },
+      "@esbuild-kit/esm-loader": {
+        "severity": "moderate",
+        "nodes": [
+          "node_modules/@esbuild-kit/esm-loader"
+        ]
+      },
+      "@typescript-eslint/eslint-plugin": {
+        "severity": "moderate",
+        "nodes": [
+          "node_modules/@typescript-eslint/eslint-plugin"
+        ]
+      },
+      "@typescript-eslint/parser": {
+        "severity": "moderate",
+        "nodes": [
+          "node_modules/@typescript-eslint/parser"
+        ]
+      },
+      "@typescript-eslint/type-utils": {
+        "severity": "moderate",
+        "nodes": [
+          "node_modules/@typescript-eslint/type-utils"
+        ]
+      },
+      "@typescript-eslint/typescript-estree": {
+        "severity": "moderate",
+        "nodes": [
+          "node_modules/@typescript-eslint/typescript-estree"
+        ]
+      },
+      "@typescript-eslint/utils": {
+        "severity": "moderate",
+        "nodes": [
+          "node_modules/@typescript-eslint/utils"
+        ]
+      },
+      "@vercel/og": {
+        "severity": "moderate",
+        "nodes": [
+          "node_modules/@vercel/og"
+        ]
+      },
+      "drizzle-kit": {
+        "severity": "moderate",
+        "nodes": [
+          "node_modules/drizzle-kit"
+        ]
+      },
+      "esbuild": {
+        "severity": "moderate",
+        "nodes": [
+          "node_modules/@esbuild-kit/core-utils/node_modules/esbuild",
+          "node_modules/wrangler/node_modules/esbuild"
+        ]
+      },
+      "eslint-config-next": {
+        "severity": "moderate",
+        "nodes": [
+          "node_modules/eslint-config-next"
+        ]
+      },
+      "minimatch": {
+        "severity": "moderate",
+        "nodes": [
+          "node_modules/@typescript-eslint/typescript-estree/node_modules/minimatch"
+        ]
+      },
+      "satori": {
+        "severity": "moderate",
+        "nodes": [
+          "node_modules/satori"
+        ]
+      },
+      "typescript-eslint": {
+        "severity": "moderate",
+        "nodes": [
+          "node_modules/typescript-eslint"
+        ]
+      },
+      "vinext": {
+        "severity": "moderate",
+        "nodes": [
+          "node_modules/vinext"
+        ]
+      },
+      "wrangler": {
+        "severity": "low",
+        "nodes": [
+          "node_modules/wrangler"
+        ]
+      }
+    }
+  },
+  "boundaries": [
+    "Synthetic connector calls and local validators only; no connector provider or payment network calls.",
+    "Connector infrastructure is outside the ProofPay purchase flow but is not asserted globally unused or unreachable.",
+    "The explicit limits bound grant count and content block count, not every nested JSON depth, payload size or total process memory.",
+    "The audit retains 17 affected package entries (15 moderate, 2 low); no clean-audit or production-security certificate is claimed.",
+    "No deployment, commit, publication or secret access performed by this review."
+  ],
+  "references": [
+    "https://github.com/advisories/GHSA-mrhx-c7xc-m3w5",
+    "https://zod.dev/v4/changelog",
+    "https://github.com/colinhacks/zod/commit/a0ebf970f2d752e5f58527cd2942ff48be4f46bd"
+  ],
+  "sourceSha256": {
+    "package.json": "74b9f1ef8d2e2354f39767d1516ed0e2180ff61273d927771c926baf6d64268e",
+    "package-lock.json": "aa63cb0d9cd7b07ab6264852f8d2f8f23134e9cc955c12bbe0132e491478001b",
+    "scripts/connector-preview/protocol.mjs": "5a68f5b3c10a55fbdc7157cf3c4985acecb0cdfd10e0ec61ef5628257f2e6069",
+    "scripts/connector-preview/host-binding.mjs": "7b3914f3220a5b1c653ecb7b7030d0f5f165b86bbea2c724f35c5e0d1c583421",
+    "lib/connector-errors.mts": "e631ce86f94102d8d25a64f29b980bd55224b832aa70da4ec5641eaca093317b",
+    "tests/review-connectors.mjs": "0941aebe805033aadf39a918815b959c10005b5b7e831ea8e0cda87482971ac6"
+  },
+  "evidenceSha256": {
+    "zod-migration-2026-11-08-before.log": "22e5f5c264cf65f3f39a612d2c42561595f0fc9d3bab5ef7b8110e105ecebca4",
+    "zod-migration-2026-11-08-after.log": "a6d7e99aaf3ff538fa6dad8cf95cc872baea813a4686efb4c1f5ccfffa33d3df",
+    "npm-audit-2026-11-08-zod4.json": "27d3be5e8bc76d379f74fb21b31012037d15d17f6ce0ce90ee5175f877d6d64b"
+  },
+  "logNormalization": "Trailing spaces on blank lines removed after repository CI diff-hygiene failure; test messages, counts and failures unchanged."
+}

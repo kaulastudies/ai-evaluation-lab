@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-11-08T05:43:43.515326+00:00",
+  "environment": "Authenticated owner browser, private deployed Site",
+  "siteSourceCommit": "603541fa6ea7f8d77f090dcdc8776d2bd3296dc4",
+  "deploymentId": "appgdep_6af00b3f0cac8191a51679aec7379fb2",
+  "mode": "rehearsal",
+  "actualAiCalled": false,
+  "actualPayPalCalled": false,
+  "realMoneyMoved": false,
+  "checks": {
+    "existingConfirmedReceipt": {
+      "operationId": "e5b68234-8f86-4ef5-910b-0a90659c2beb",
+      "verificationRecordId": "33884c9a-f42e-429e-946d-7beb7e1e06d6",
+      "matchingStoredFields": [
+        "seller",
+        "orderAmount",
+        "captureAmount",
+        "currency",
+        "orderId",
+        "operationId",
+        "orderReferences",
+        "captureId",
+        "orderStatus",
+        "captureStatus",
+        "finalCapture"
+      ],
+      "historicalApprovalVersionAndItem": "Not recorded; disclosed explicitly",
+      "readOnlyInspection": true
+    },
+    "existingCancelledReceipt": {
+      "operationId": "c2c5e452-cff1-4955-917c-2a008969b95d",
+      "providerVerificationRecords": 0,
+      "authority": "Cancelled; no execution authority"
+    },
+    "freshApprovalAndCancellation": {
+      "operationId": "8c7701a0-97a8-4f09-bcfe-77ba0cb5bda2",
+      "approvalVersion": 1,
+      "approvedAmountCents": 18000,
+      "approvedLedger": {
+        "availableCents": 12000,
+        "reservedCents": 18000,
+        "paidCents": 0
+      },
+      "afterCancellationAndReload": {
+        "availableCents": 30000,
+        "reservedCents": 0,
+        "paidCents": 0
+      },
+      "operationEventCount": 2,
+      "providerDispatch": false
+    },
+    "freshProposal": {
+      "operationId": "b8f71bab-3905-466a-95ac-c7ff7410db76",
+      "amountCents": 9000,
+      "status": "PROPOSED",
+      "source": "Deterministic rehearsal rule",
+      "operationEventCount": 1,
+      "approved": false
+    },
+    "emptyReceiptWording": "0 stored verification records. No claim that a latest record exists.",
+    "browserWarningErrorLogs": []
+  },
+  "finalWorkspace": {
+    "availableCents": 30000,
+    "reservedCents": 0,
+    "paidCents": 0,
+    "unresolved": 0,
+    "purchaseCount": 3,
+    "pendingRequests": 2,
+    "cancelledRequests": 1
+  },
+  "configuration": {
+    "paypal": "Configured",
+    "ai": "Not configured",
+    "sandboxStart": "Disabled"
+  },
+  "limits": [
+    "Rehearsal results do not prove AI or PayPal capture",
+    "No external penetration test or compliance certification",
+    "Download file bytes unverified; inline stored receipt inspected",
+    "Hosting identity/header stripping not independently tested",
+    "Prior workspace retained in database; current workspace changed for this smoke check"
+  ],
+  "screenshot": "hosted-release-qa.png",
+  "sourceSha256": {
+    "components/proofpay/receipt-inspector.tsx": "1f70ffa03d32b765fa6bf360e4c176c828351c3b93e5bb6d6735107388160cfb",
+    "lib/proofpay/service.ts": "8ed84984e5a8780e8e1675a5f753e090c6c1c692db51f9b5441d890a9247cf07",
+    "lib/proofpay/request.ts": "df2e914ad729db58972d6514ee1b5e19457573e7120cd8b4394884aa377fb1ba"
+  }
+}

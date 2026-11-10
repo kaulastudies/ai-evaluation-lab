@@ -1,0 +1,15 @@
+A payment response disappears. Your agency may have paid, but the team still needs to know what it can spend. ProofPay keeps each purchase, its approval and its payment outcome together.
+
+Here's a studio with three hundred dollars for outside review work. This free demo uses sample proposals and simulated payments. Approving the one hundred eighty dollar request reserves its allowance. A second request for one hundred sixty is blocked: only one hundred twenty remains.
+
+Now we create the order and deliberately drop the capture response. ProofPay marks the purchase as needing verification. It keeps the allowance reserved, so another request cannot spend that allowance. Reload the page, and the unresolved purchase is still here.
+
+Instead of starting another payment, we check the original order. Its completed capture matches the approved purchase. The desk now shows one hundred eighty paid, zero reserved and one hundred twenty available. Checking again leaves the same capture and totals.
+
+In Evidence, the receipt brings the approval, seller, amount and payment references into one view. The owner can inspect what matched and what is missing. It's an application record, with those limits visible beside the result.
+
+We also completed this workflow with a real GPT four point one mini proposal and PayPal sandbox. These are saved results from that run, using one hundred eighty dollars in virtual funds. After response loss, the original order confirmed the payment. This is separate from today's simulation.
+
+The portal brings purchases, approvals, evidence and controls together. In Evaluation lab, six scenario observations help you check the workflow yourself. Separate automated coverage includes two hundred ten local checks; those checks are not live payments.
+
+Try ProofPay without signing in. Each visitor gets an isolated rehearsal. For a small team, the value is practical: approve the work, keep track of the allowance, and resolve an uncertain payment before deciding what to do next.

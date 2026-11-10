@@ -1,0 +1,92 @@
+{
+  "checkedAt": "2026-11-08T05:12:00Z",
+  "site": "https://proofpay-purchase-desk.kaulastudies.chatgpt.site",
+  "deploymentId": "appgdep_6af001bc5d788191bcd99b2d3c2b60ae",
+  "siteSource": "bdbbaa22434a3deb0010ab38875588c05c809e59",
+  "publicSource": "47dcf6774a22b183e8698f6b95c08ace1ae65cf7",
+  "scope": "Authenticated owner browser on the deployed app, rehearsal mode. Persistent hosted application and database behavior with a simulated provider; no AI model call or PayPal capture.",
+  "navigation": [
+    "Overview",
+    "Purchases",
+    "Approvals",
+    "Evidence",
+    "Controls",
+    "Connections"
+  ],
+  "readOnlyChecks": {
+    "noMatchSearch": "passed;0of3 purchases, clear restored list",
+    "cancelledFilter": "passed;prior cancellation c2c5e452 retained",
+    "connections": "PayPal configured, AI not configured; start sandbox disabled;0verified sandbox purchases"
+  },
+  "initialLedger": {
+    "availableCents": 12000,
+    "reservedCents": 0,
+    "committedCents": 18000
+  },
+  "budgetRejection": {
+    "operationId": "c28f768a-4501-431e-b244-ecdfc53e8208",
+    "requestedCents": 16000,
+    "availableCents": 12000,
+    "observedStatus": "BUDGET_BLOCKED",
+    "httpStatusFromWorkerLog": 409,
+    "approvalGranted": false
+  },
+  "alternative": {
+    "operationId": "e5b68234-8f86-4ef5-910b-0a90659c2beb",
+    "sku": "starter-review",
+    "amountCents": 9000,
+    "currency": "USD",
+    "approvalVersion": 1,
+    "modelSource": "rehearsal_rule",
+    "ownerApprovalRequired": true
+  },
+  "afterApproval": {
+    "availableCents": 3000,
+    "reservedCents": 9000,
+    "committedCents": 18000
+  },
+  "orderId": "REH-c194c749-5339-4a30-a791-0f4998e021c1",
+  "lostResponse": {
+    "fault": "Drop the capture response application checkbox",
+    "reloadRetainedState": true,
+    "availableCents": 3000,
+    "reservedCents": 9000,
+    "committedCents": 18000,
+    "needsVerification": 1,
+    "captureAgainOffered": false,
+    "observedStatusLabel": "Needs verification",
+    "codeState": "UNKNOWN"
+  },
+  "reconciliation": {
+    "captureId": "REH-CAP-06c79789-6365-489a-b29a-59d4719eb076",
+    "observedStatus": "CONFIRMED",
+    "availableCents": 3000,
+    "reservedCents": 0,
+    "committedCents": 27000,
+    "needsVerification": 0,
+    "repeatCheckPreservedCaptureAndTotals": true,
+    "operationEventCountAfterRepeat": 8
+  },
+  "export": {
+    "uiMessage": "Exported4purchase records with request IDs and approval digests. These are simulated records.",
+    "downloadEventObserved": false,
+    "fileBytesVerified": false,
+    "limitation": "Connected browser download-event wait timed out. Internal downloads URL is unavailable under browser policy. No workaround attempted."
+  },
+  "browserConsoleWarningsOrErrors": [],
+  "workerLogReview": {
+    "intervalMinutes": 30,
+    "expectedApiRejection409": 1,
+    "favicon404Observed": true,
+    "previewCrawlerCanceledRequestsObserved": true,
+    "applicationExceptionObserved": false,
+    "privacy": "Only these summaries retained. Request headers, cookies, IP addresses and account identifiers are excluded."
+  },
+  "limitations": [
+    "Real AI inference and buyer-approved PayPal capture unfinished",
+    "No direct database dump inspected; persistence established through browser reload and application evidence",
+    "Provider-call counts are enforced by local tests, not measured by this UI run",
+    "Successful UI export message is not proof of downloaded file bytes",
+    "This checkpoint precedes subsequent security and typography upgrades"
+  ]
+}
