@@ -1,7 +1,7 @@
 {
   "README.md": "7f49eaee097accaec82e6b22bdd2b99c57956fe84bdfe91653b043f0584e4acd",
   "REVIEW.md": "5abcbed24c981cde2f2d05ca6b7e708d3dfd256f1b01e8c5a285b7422c0f7463",
-  "baseline/README.md": "9823f364d4000a8977f8643cda17233ee722df4132597b3893f16db050547784",
+  "baseline/README.md": "0776bab58b92c25c0f98ec1bb02620f5b819c5731cdc8ebacf22ac3dc5a23749",
   "baseline/evidence.json": "471c60e14be56e43a6d0aec2ae4f39ec865d1cdeeb8ce09721053cfeb34623d7",
   "baseline/revocation_demo.py": "f3100b36c8f27d85e0e4d5ef0bad60b5dec6dcad6d3bc45f889b277c6546e4a7",
   "baseline/run.sh": "749892dd046c22f6d2bc4802a26693ef4fa3e963ca36b746d0d9a69fd902e432",
@@ -24,4 +24,3 @@
   "web/sources.json": "1d71a3abefb09fdc577e1f69cb2233b837c51eefb06712c1ac9456f9bfadfbf3",
   "web/style.css": "55549ff2adadc562cd4d330a73dcd89b777549e8b22a12e2431903cd301a12e6"
 }
-  
