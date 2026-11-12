@@ -5,7 +5,7 @@ This small, synthetic proof of concept tests an agent delegation that is valid b
 ## Run
 
 ```bash
-./run.sh
+bash run.sh
 ```
 
 On Windows without a POSIX shell:
@@ -47,4 +47,3 @@ TIP identity revocation is **not equivalent** to revoking one agent's delegated 
 - Replace the fixture state store with original agent-receipts/TIP code after the archive is recovered and independently reviewed. Port the Evercraft receipt fix only after obtaining its exact patch and tests.
 
 No GitHub changes, external submissions, or messages were made.
-  
