@@ -184,4 +184,3 @@ def command_json(command):
     else:
         raise ValueError('Unknown command')
     return json.dumps(active.state())
-  
