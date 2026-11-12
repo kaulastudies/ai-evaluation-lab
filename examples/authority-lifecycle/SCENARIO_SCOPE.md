@@ -1,8 +1,10 @@
 # Production-relevant receiver evaluation: proposed scope
 
-12 November 2026 · Status: **PROPOSED / SCENARIO NOT SELECTED**
+12 November 2026 · Status: **INITIAL PROPOSAL / PUBLIC SCENARIO NOW SELECTED**
 
-This note defines a production-facing evaluation contract for **one existing synthetic scenario**. It adds no tests, execution results or production assurance claim. No external receiver implementation, scenario artifacts or operational access have been supplied for this review.
+**Update:** the selected starting point is Harmonic's public `examples/raw-vs-governed/`, API contract and preserved V114 examination. The completed [initial scope assessment](HARMONIC_SCOPE_ASSESSMENT.md) records fresh reproduction of existing public checks and distinguishes dispatch gating, receiver enforcement and production limits. The proposal below is retained as preselection context; its awaiting-scenario entries are historical, not current requests. No additional tests or private access are required for that initial assessment.
+
+The original proposal below defines a production-facing evaluation contract for **one existing synthetic scenario**. It adds no tests, execution results or production assurance claim. At the time of the proposal, no external scenario had been selected; the update above supersedes that intake status.
 
 Existing coverage: [evidence map at a fixed revision](https://github.com/kaulastudies/ai-evaluation-lab/blob/5723a2e20539eafc0145d5bb2c52e5454d83535b/examples/authority-lifecycle/EVIDENCE_MAP.md). The A, R and U references below refer to that map.
 
