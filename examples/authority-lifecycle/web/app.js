@@ -86,4 +86,3 @@ $('start').addEventListener('click',()=>execute('reset'));
 $('next').addEventListener('click',()=>execute('next'));
 $('run').addEventListener('click',()=>execute('run'));
 $('export').addEventListener('click',()=>{if(!lastState)return;const data={executed_at_utc:new Date().toISOString(),runtime:'Pyodide 314.0.7',scope:'Synthetic receiver in browser memory; not live TIP/Harmonic or external attestation',source_manifest:manifest,result:lastState};const url=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)+'\n'],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download=`authority-${lastState.case}-${lastState.broken?'broken':'correct'}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);});
-  
