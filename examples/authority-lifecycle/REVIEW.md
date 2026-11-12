@@ -78,4 +78,3 @@ Expected output: `[('action', 'document', 'changed')]`. Substitute `revocation.s
 - Expiry and identity tests in the original baseline do not imply those features are implemented in the receiver extension.
 
 A useful next review question is whether the downstream system has a transaction or equivalent enforcement boundary that can bind the final authority check to the committed effect. These cases make that assumption explicit rather than treating an orchestrator's stop signal as proof that a downstream write was prevented.
-  
