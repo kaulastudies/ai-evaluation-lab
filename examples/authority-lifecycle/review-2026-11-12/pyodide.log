@@ -1,0 +1,12 @@
+3.14.2 / SQLite 3.39.0
+PASS revocation correct effects=0
+PASS revocation broken control effects=1
+PASS delegation correct effects=0
+PASS delegation broken control effects=1
+PASS continuation correct effects=1
+PASS continuation broken control effects=0
+PASS duplicate correct effects=1
+PASS ack_loss correct effects=1
+PASS committed correct effects=1
+PASS rollback correct effects=1
+PASS contention correct effects=0
