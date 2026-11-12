@@ -8,4 +8,3 @@ test_05_receipt_tampering_is_detected (test_revocation.AuthorityRevocationTests.
 Ran 5 tests in 0.001s
 
 OK
-  
