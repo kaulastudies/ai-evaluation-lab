@@ -69,4 +69,3 @@ Three known-bad controls must fail the same case expectations: checking authorit
 - The baseline's expiry and identity tests do not imply those features are implemented in the new receiver. The new receiver models a fixed write action and exact resource scope.
 
 This package supports a narrow claim: in this reproducible local receiving system, the tested authority changes govern committed writes, and an unrelated revocation preserves the queued authorized action.
-  
