@@ -1,0 +1,27 @@
+{
+  "README.md": "7f49eaee097accaec82e6b22bdd2b99c57956fe84bdfe91653b043f0584e4acd",
+  "REVIEW.md": "5abcbed24c981cde2f2d05ca6b7e708d3dfd256f1b01e8c5a285b7422c0f7463",
+  "baseline/README.md": "9823f364d4000a8977f8643cda17233ee722df4132597b3893f16db050547784",
+  "baseline/evidence.json": "471c60e14be56e43a6d0aec2ae4f39ec865d1cdeeb8ce09721053cfeb34623d7",
+  "baseline/revocation_demo.py": "f3100b36c8f27d85e0e4d5ef0bad60b5dec6dcad6d3bc45f889b277c6546e4a7",
+  "baseline/run.sh": "749892dd046c22f6d2bc4802a26693ef4fa3e963ca36b746d0d9a69fd902e432",
+  "baseline/tests/test_revocation.py": "8ad0f265fb5787d392292f70c4940cb73755f1ba682ec867fbd5913534f89565",
+  "evidence.json": "8286f7e3379ccb300aac3d1675f3c580808d2372f35e9113e4b9d134cad8fef8",
+  "receiver.py": "bc3af11e5d1c46a9f33a2e70c749773042ae7d8c75c148b8276d85e0d5d0ebd0",
+  "review-2026-11-12/baseline.log": "9feda2a45ddaa81f97a4ea957542486e4c7e5c923ddb0f1efa63afec80a2eec7",
+  "review-2026-11-12/evidence.json": "d6cbb46cf11d8ba58cd34eaf9866acec80c2dc3f366623a05f823dcaa2480add",
+  "review-2026-11-12/pyodide.log": "0003591e14b62df9c767ec5c83575939366f48069dde1615706b3e7b7de113c4",
+  "review-2026-11-12/review-tests.log": "50932357f3711535181387e65e16b8fdd8558a63cc2fd2160314f3e1fc6efb75",
+  "run.py": "64e31fa36ba3af7489dd055d6f312dc5cd6df4d472de92033b4e91428bd4dd20",
+  "run_review.py": "d44be82954e65eff805a99db238efb712d821f0a70e7361bf06f4048105923ec",
+  "test_web_demo.py": "da87a82eba722c13a20a22f93483659a78180f5548b2d0a4c7eb37da272f3237",
+  "verify_pyodide.cjs": "40b44bdcc7834911fd2320b5df91cd05367cb25579c710073dd880dffbb76843",
+  "verify_sources.py": "68cee150c4f42a3da287d04e626e4125da22e50059e69f25478730d4c2536d30",
+  "web/README.md": "b3ff73c92e29b4c4d816e2d1c07830f6821126dad9a8a7e0a4405331c2fd70ad",
+  "web/app.js": "92ef9ab4fa555894caaaed3d84be3d63901657f4742263c241be02393eaa73a9",
+  "web/engine.py": "0979caab2fba2ee898c9e01abd0a1e56f4fd2c88c2d50f701edfec7d2f9f9426",
+  "web/index.html": "3a87f01df167bbcfb058d358a697e2a626859a747b54e1602d1f10d0a9481d30",
+  "web/sources.json": "1d71a3abefb09fdc577e1f69cb2233b837c51eefb06712c1ac9456f9bfadfbf3",
+  "web/style.css": "55549ff2adadc562cd4d330a73dcd89b777549e8b22a12e2431903cd301a12e6"
+}
+  
