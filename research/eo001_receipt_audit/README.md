@@ -169,3 +169,17 @@ provider signatures or a process sandbox. Pending states, refunds, multi-tenant
 orders, crashes, races and live-agent decisions remain outside the protocol.
 This is preliminary independent Lab work, not a joint result, endorsement or
 claim that Systemia's internal production workflows have failed.
+# Authority at commit: additional receiver experiment
+
+The [interactive authority lifecycle experiment](../../examples/authority-lifecycle/web/README.md)
+adds a separate check of whether changed authority governs a queued write at the
+receiving system's commit boundary. Its [review mapping](../../examples/authority-lifecycle/REVIEW.md)
+separates the original permission checks, the local receiver extension, and the
+12 November reproduction and browser additions. Revocation, parent delegation,
+retries, and continuation after an unrelated change are paired with deliberately
+broken controls. The browser runs the Python receiver rather than a prerecorded
+result. The native suite retains database evidence and bounded concurrency checks.
+
+This is a distinct fixture alongside the signed receipt/provider work below.
+It does not alter the frozen audit, Systemia mapping, or first-run evidence, and
+does not claim live Harmonic/TIP integration.
