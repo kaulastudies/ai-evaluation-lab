@@ -1,0 +1,8 @@
+{
+  "scope": "Same receiver source as the native review; browser engine added 12 November 2026",
+  "files": {
+    "receiver.py": "bc3af11e5d1c46a9f33a2e70c749773042ae7d8c75c148b8276d85e0d5d0ebd0",
+    "baseline/revocation_demo.py": "f3100b36c8f27d85e0e4d5ef0bad60b5dec6dcad6d3bc45f889b277c6546e4a7",
+    "web/engine.py": "0979caab2fba2ee898c9e01abd0a1e56f4fd2c88c2d50f701edfec7d2f9f9426"
+  }
+}

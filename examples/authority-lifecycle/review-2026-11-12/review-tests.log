@@ -1,0 +1,10 @@
+test_acknowledgement_loss (__main__.ReceiverReview.test_acknowledgement_loss) ... ok
+test_committed_before_revocation (__main__.ReceiverReview.test_committed_before_revocation) ... ok
+test_concurrent_mixed_queue (__main__.ReceiverReview.test_concurrent_mixed_queue) ... ok
+test_effect_rolls_back_when_recording_fails (__main__.ReceiverReview.test_effect_rolls_back_when_recording_fails) ... ok
+test_revocation_lock_blocks_delivery (__main__.ReceiverReview.test_revocation_lock_blocks_delivery) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.202s
+
+OK

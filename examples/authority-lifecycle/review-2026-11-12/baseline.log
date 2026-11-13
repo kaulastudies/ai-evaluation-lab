@@ -1,0 +1,10 @@
+test_01_valid_before_revocation_then_reject_after (test_revocation.AuthorityRevocationTests.test_01_valid_before_revocation_then_reject_after) ... ok
+test_02_revocation_issuer_cannot_be_spoofed (test_revocation.AuthorityRevocationTests.test_02_revocation_issuer_cannot_be_spoofed) ... ok
+test_03_old_grant_cannot_restore_post_revocation (test_revocation.AuthorityRevocationTests.test_03_old_grant_cannot_restore_post_revocation) ... ok
+test_04_scope_and_identity_restrictions_remain (test_revocation.AuthorityRevocationTests.test_04_scope_and_identity_restrictions_remain) ... ok
+test_05_receipt_tampering_is_detected (test_revocation.AuthorityRevocationTests.test_05_receipt_tampering_is_detected) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.001s
+
+OK

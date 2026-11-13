@@ -1,0 +1,65 @@
+{
+  "reviewed_at_utc": "2026-11-12T15:26:23.994088+00:00",
+  "source_repository": "https://github.com/zlomke76-del/harmonic-public",
+  "source_commit": "3ce2c49139f65a87e4a5339c7e90560078922be4",
+  "node_version": "v24.22.1",
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "live_model_run": false,
+  "new_tests_added": false,
+  "v114_execution_rerun": false,
+  "commands": [
+    {
+      "name": "regressions",
+      "command": [
+        "node",
+        "--test",
+        "api/evaluate.test.js",
+        "examples/raw-vs-governed/guard.test.js"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "stdout": "\u2714 explicit revocation cannot coexist with stable/allow (3.871483ms)\n\u2714 expired authority cannot coexist with stable/allow (0.605399ms)\n\u2714 scope mismatch cannot coexist with stable/allow (0.676535ms)\n\u2714 required freshness with missing verification time fails closed (0.673441ms)\n\u2714 materially future-dated verification time fails closed (0.663877ms)\n\u2714 current in-scope authority can still return stable/allow (1.198531ms)\n\u2714 empty preferred observation lane cannot shadow contradictory observed-state revocation signal (0.217423ms)\n\u2714 present authority object cannot shadow revocation represented in accountability (0.227969ms)\n\u2714 generic future expiry cannot shadow an expired mandate expiry (0.840379ms)\n\u2714 non-conflicting duplicate authority representations preserve stable allow control (0.669274ms)\n\u2714 blocked never invokes executor (2.958627ms)\n\u2714 escalated never invokes executor (0.468997ms)\n\u2714 constrained never invokes executor (0.349469ms)\n\u2714 mismatched never invokes executor (0.30276ms)\n\u2714 malformed never invokes executor (0.453464ms)\n\u2714 nonreference never invokes executor (0.273456ms)\n\u2714 failedContinuity never invokes executor (0.306656ms)\n\u2714 missingBinding never invokes executor (0.462607ms)\n\u2714 expiredBinding never invokes executor (0.588094ms)\n\u2714 unavailable fails closed (3.907086ms)\n\u2714 httpError fails closed (0.379514ms)\n\u2714 invalidJson fails closed (0.398462ms)\n\u2714 missing revalidation function fails closed (1.35913ms)\n\u2714 missing receipt verifier fails closed (0.224594ms)\n\u2714 effect-time revalidation change forces a second evaluation and blocks changed authority (0.571309ms)\n\u2714 explicit reference allow executes once after revalidation and binding verification (0.542827ms)\n\u2139 tests 26\n\u2139 suites 0\n\u2139 pass 26\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 156.264055\n",
+      "stderr": ""
+    },
+    {
+      "name": "http-demo",
+      "command": [
+        "node",
+        "examples/raw-vs-governed/run.js"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "stdout": "LOCAL DEMO: fictional NDA registry and HTTP disclosure sink; public reference evaluator.\nProposal: deterministic tool-call replay; no LLM invoked.\nT0: NDA active, revision 1. Agent proposes release.\nDelta N: NDA revoked, revision 2. Tn: pending tool call reaches executor.\nRAW: HTTP release executed; unjustified disclosure recorded.\nGOVERNED: no release request sent. Exact wire receipt:\n{\n  \"service\": \"harmonic-stabilizer-core\",\n  \"version\": \"1.2-v12\",\n  \"packet_id\": \"14531597-66cb-406d-b7c0-644635ebf1aa\",\n  \"outcome\": \"blocked\",\n  \"admissible\": false,\n  \"recommended_action\": \"deny\",\n  \"stability_boundary\": \"restricted\",\n  \"evaluated_at\": \"2026-11-12T15:26:24.345Z\",\n  \"runtime_continuity\": {\n    \"mode\": \"continuity_aware_runtime_governance\",\n    \"survivability\": \"failed\",\n    \"pressure_score\": 100,\n    \"admissibility_window\": \"closed\",\n    \"escalation_required\": true,\n    \"pressure\": {\n      \"score_pressure\": 19,\n      \"finding_pressure\": 72,\n      \"authority_pressure\": 45,\n      \"contradiction_pressure\": 38,\n      \"replay_pressure\": 0,\n      \"freshness_pressure\": 0\n    },\n    \"authority_risk\": {\n      \"revoked\": true,\n      \"expired\": false,\n      \"scope_mismatch\": false,\n      \"has_expiry\": false,\n      \"represented_expirations\": 0,\n      \"represented_scopes\": 0\n    },\n    \"continuity_flags\": {\n      \"stale_basis\": false,\n      \"contradiction_present\": true,\n      \"unresolved_carry_forward\": 0,\n      \"prior_blocks\": 0,\n      \"branch_divergence\": 0\n    }\n  },\n  \"stability_signals\": {\n    \"info\": 0,\n    \"warnings\": 0,\n    \"blocks\": 2\n  },\n  \"operational_scope\": {\n    \"evaluates\": \"pre-execution operational stability and escalation conditions\",\n    \"does_not_evaluate\": \"domain judgment, autonomous authorization, or unrestricted execution approval\"\n  },\n  \"reference_binding\": {\n    \"request_hash\": \"3da151e01229bcb379a47ca755dd7d6dc8a2446ca87fe21b6ce8fecbded0c344\",\n    \"operation_hash\": \"083f78f4e44dbc45c6334ce793b7d56cec142a53a210bd7e59b976a674eb80c0\",\n    \"valid_until\": \"2026-11-12T15:26:54.346Z\",\n    \"authentication\": \"public-reference-only; production verification requires an authenticated receipt adapter\"\n  },\n  \"artifact_hash\": \"15dff1d954c88c659c9c01688e301137d9b50c149c3687a307bb8c3356559014\",\n  \"public_release\": true,\n  \"note\": \"Public core endpoint. No API-key provisioning, customer billing, or private telemetry is included in this repository.\"\n}\nCONTROL: unchanged active NDA -> stable / allow -> one justified HTTP release.\n{\"raw_unjustified_calls\":1,\"governed_revoked_calls\":0,\"control_justified_calls\":1}\n",
+      "stderr": ""
+    },
+    {
+      "name": "v114-checksums",
+      "command": [
+        "sha256sum",
+        "-c",
+        "SHA256SUMS.txt"
+      ],
+      "cwd": "evidence/examinations/v114-execution-boundary",
+      "exit_code": 0,
+      "stdout": "README.md: OK\nV114_FREEZE.md: OK\nV114_RESULT.json: OK\nV114_TEST.js: OK\n",
+      "stderr": ""
+    }
+  ],
+  "source_status_after": "",
+  "source_sha256": {
+    "docs.html": "5cf6dfc12e3e1cccfef2b9636037ef2478cb1ae65774c024cfc86fd3b7caa774",
+    "V4_PUBLIC_BOUNDARY.md": "68ff02104c47d2efac5c05ac789b6b628bbc6421230681cdd6c947713f123f8d",
+    "package.json": "08f0964f42bbab139e6c84441dbb8946df7af8d1f2f52ca75ed44adc9e884516",
+    "api/evaluate.js": "ea41fe75351c0a3a9af0f0682aa340b0fcb4fd9f392d95a876626e4546524eda",
+    "api/evaluate.test.js": "3ab8ea843dc2e2a5c3f91f230276604dcf547bac07feb68d7c8590c961e25928",
+    "examples/raw-vs-governed/README.md": "33534a442733b3c6f87d85214b506c3caaeeb33604fb2bfb42b2d2db85e78570",
+    "examples/raw-vs-governed/run.js": "c10628d9b2944c3efcad2437f2188fd6e5e586b65d113c40e39c97fac3abe230",
+    "examples/raw-vs-governed/guard.js": "c05e2d9205fa8d9f053d8f67bada1cf27dd0ca1defcb65ad80c1ca2bc5da0406",
+    "examples/raw-vs-governed/guard.test.js": "8c86318480186882cf9fc80a5863dc88f90ed18b7900c71fe435b0f0631d89c1",
+    "evidence/examinations/v114-execution-boundary/README.md": "a9d008dd33633da2cc1674f74ac75688fae1b56fd3bcaaedcc978e9bc360c2a8",
+    "evidence/examinations/v114-execution-boundary/SHA256SUMS.txt": "6f651c418e45d95a0e83971613a8461e086cf5e24d9ed08fd3bd84a5b650d0d1",
+    "evidence/examinations/v114-execution-boundary/V114_FREEZE.md": "42c2bd1cfd19872bfcb2c07b2bb1dad89ab4616892d63b84a83f48fa9b375c84",
+    "evidence/examinations/v114-execution-boundary/V114_RESULT.json": "85451fa9ffef364b90b6e75c2b49d3484f516610d96504d26470aec4c77f3360",
+    "evidence/examinations/v114-execution-boundary/V114_TEST.js": "99b3ad5f67f0c26a184dcdee74bc414d447926651538053e406fe635e99a1334"
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "summary": {
+    "before": "ALLOW",
+    "after": "REJECT",
+    "after_reason": "revoked",
+    "chain_verified": true
+  },
+  "receipts": [
+    {
+      "seq": 1,
+      "kind": "GRANT",
+      "at": 100,
+      "payload": {
+        "delegation_id": "del-001",
+        "principal": "principal-A",
+        "agent": "agent-A",
+        "scopes": [
+          "read",
+          "write"
+        ],
+        "not_before": 100,
+        "expires_at": 1000
+      },
+      "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+      "hash": "179f728e0c3ef3f243452a43dbcd29987abf64ee8624bc5228bf81c8a3c0272d",
+      "fixture_mac": "6322888211a9e2dc0b82f8b223ab2fbce4b7d90948fc4088f74475a7ed56e47d"
+    },
+    {
+      "seq": 2,
+      "kind": "ACTION",
+      "at": 150,
+      "payload": {
+        "delegation_id": "del-001",
+        "agent": "agent-A",
+        "scope": "write",
+        "decision": "ALLOW",
+        "reason": null
+      },
+      "previous_hash": "179f728e0c3ef3f243452a43dbcd29987abf64ee8624bc5228bf81c8a3c0272d",
+      "hash": "584cf1a2be5b6f1690d681bbd66bed7251e0a56d5fde4427e630e51a334ae3fe",
+      "fixture_mac": "683bde87ee9136fedec3782276e7f0e6ccace3f915680a0373abbd102028459a"
+    },
+    {
+      "seq": 3,
+      "kind": "REVOKE",
+      "at": 200,
+      "payload": {
+        "delegation_id": "del-001",
+        "issuer": "principal-A"
+      },
+      "previous_hash": "584cf1a2be5b6f1690d681bbd66bed7251e0a56d5fde4427e630e51a334ae3fe",
+      "hash": "2bb1e975824186bc5eb555e76199feff5f11e2b20ac5699e9d29a261d4a0fcb0",
+      "fixture_mac": "bb5058fbb5d1287d8ba405b59615beea621d02bbafeb3a2b3cdc8eb837e88d03"
+    },
+    {
+      "seq": 4,
+      "kind": "ACTION",
+      "at": 201,
+      "payload": {
+        "delegation_id": "del-001",
+        "agent": "agent-A",
+        "scope": "write",
+        "decision": "REJECT",
+        "reason": "revoked"
+      },
+      "previous_hash": "2bb1e975824186bc5eb555e76199feff5f11e2b20ac5699e9d29a261d4a0fcb0",
+      "hash": "215e952e513ce9d19ccb607a9d17a937222e5c733d8a7d6379ec1870cb561d6c",
+      "fixture_mac": "5896d40fc74d7dd9886f490136bbe09dc1b8d93973adc2fd3fb7a7098aa20045"
+    }
+  ]
+}

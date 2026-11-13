@@ -1,0 +1,1847 @@
+{
+  "review_date": "2026-11-12",
+  "executed_at_utc": "2026-11-12T13:13:52.666348+00:00",
+  "scope": "Local SQLite receiving system; no live TIP or Harmonic integration",
+  "environment": {
+    "python": "3.12.14",
+    "sqlite": "3.53.1",
+    "platform": "Linux-6.18.57-x86_64-with-glibc2.41"
+  },
+  "passed": true,
+  "baseline_exit_code": 0,
+  "original_receiver_scenarios": [
+    {
+      "scenario": "revocation",
+      "mutation": null,
+      "passed": true,
+      "delivery_results": [
+        "DENIED",
+        "DENIED"
+      ],
+      "receiver_rows": [],
+      "expected_rows": [],
+      "events": [
+        {
+          "body": {
+            "grant_id": "root",
+            "kind": "GRANT",
+            "parent": null,
+            "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+            "resource": "document",
+            "seq": 1
+          },
+          "hash": "a1ed5d09d25492735ba4c53bacdd8fc32880772cdd4e49614fffadfce7839027"
+        },
+        {
+          "body": {
+            "action_id": "action",
+            "grant_id": "root",
+            "kind": "QUEUED",
+            "previous_hash": "a1ed5d09d25492735ba4c53bacdd8fc32880772cdd4e49614fffadfce7839027",
+            "seq": 2
+          },
+          "hash": "8af654766321f31ec61fa79388a1cf0e27ebb55112cf62ff1b7bedbe4ca4aeef"
+        },
+        {
+          "body": {
+            "grant_id": "root",
+            "kind": "REVOKE",
+            "previous_hash": "8af654766321f31ec61fa79388a1cf0e27ebb55112cf62ff1b7bedbe4ca4aeef",
+            "seq": 3
+          },
+          "hash": "475a63acca7f4968887f3587d25d9547c1cb4843f2e6408c760203238b61b558"
+        },
+        {
+          "body": {
+            "action_id": "action",
+            "kind": "DENIED",
+            "previous_hash": "475a63acca7f4968887f3587d25d9547c1cb4843f2e6408c760203238b61b558",
+            "seq": 4
+          },
+          "hash": "adface35fed94d4cf088a755f0d99a5749f286d8821663f34c07efb935a1de16"
+        },
+        {
+          "body": {
+            "action_id": "action",
+            "kind": "DENIED",
+            "previous_hash": "adface35fed94d4cf088a755f0d99a5749f286d8821663f34c07efb935a1de16",
+            "seq": 5
+          },
+          "hash": "3aa17a93101d21a19d8db16abada53b0013cd4db63c78d1d1114aceb2517882f"
+        }
+      ]
+    },
+    {
+      "scenario": "restart_retry",
+      "mutation": null,
+      "passed": true,
+      "delivery_results": [
+        "DENIED",
+        "DENIED"
+      ],
+      "receiver_rows": [],
+      "expected_rows": [],
+      "events": [
+        {
+          "body": {
+            "grant_id": "root",
+            "kind": "GRANT",
+            "parent": null,
+            "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+            "resource": "document",
+            "seq": 1
+          },
+          "hash": "a1ed5d09d25492735ba4c53bacdd8fc32880772cdd4e49614fffadfce7839027"
+        },
+        {
+          "body": {
+            "action_id": "action",
+            "grant_id": "root",
+            "kind": "QUEUED",
+            "previous_hash": "a1ed5d09d25492735ba4c53bacdd8fc32880772cdd4e49614fffadfce7839027",
+            "seq": 2
+          },
+          "hash": "8af654766321f31ec61fa79388a1cf0e27ebb55112cf62ff1b7bedbe4ca4aeef"
+        },
+        {
+          "body": {
+            "grant_id": "root",
+            "kind": "REVOKE",
+            "previous_hash": "8af654766321f31ec61fa79388a1cf0e27ebb55112cf62ff1b7bedbe4ca4aeef",
+            "seq": 3
+          },
+          "hash": "475a63acca7f4968887f3587d25d9547c1cb4843f2e6408c760203238b61b558"
+        },
+        {
+          "body": {
+            "action_id": "action",
+            "kind": "DENIED",
+            "previous_hash": "475a63acca7f4968887f3587d25d9547c1cb4843f2e6408c760203238b61b558",
+            "seq": 4
+          },
+          "hash": "adface35fed94d4cf088a755f0d99a5749f286d8821663f34c07efb935a1de16"
+        },
+        {
+          "body": {
+            "action_id": "action",
+            "kind": "DENIED",
+            "previous_hash": "adface35fed94d4cf088a755f0d99a5749f286d8821663f34c07efb935a1de16",
+            "seq": 5
+          },
+          "hash": "3aa17a93101d21a19d8db16abada53b0013cd4db63c78d1d1114aceb2517882f"
+        }
+      ]
+    },
+    {
+      "scenario": "delegation",
+      "mutation": null,
+      "passed": true,
+      "delivery_results": [
+        "DENIED",
+        "DENIED"
+      ],
+      "receiver_rows": [],
+      "expected_rows": [],
+      "events": [
+        {
+          "body": {
+            "grant_id": "root",
+            "kind": "GRANT",
+            "parent": null,
+            "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+            "resource": "document",
+            "seq": 1
+          },
+          "hash": "a1ed5d09d25492735ba4c53bacdd8fc32880772cdd4e49614fffadfce7839027"
+        },
+        {
+          "body": {
+            "grant_id": "child",
+            "kind": "GRANT",
+            "parent": "root",
+            "previous_hash": "a1ed5d09d25492735ba4c53bacdd8fc32880772cdd4e49614fffadfce7839027",
+            "resource": "document",
+            "seq": 2
+          },
+          "hash": "1b8730d07197e44be97d6d0e8e48601f0bf83c9c621910134389821611bed69c"
+        },
+        {
+          "body": {
+            "grant_id": "wide",
+            "kind": "DELEGATION_DENIED",
+            "previous_hash": "1b8730d07197e44be97d6d0e8e48601f0bf83c9c621910134389821611bed69c",
+            "seq": 3
+          },
+          "hash": "39ec40342c0669d4e57c5bcf816cdd1eeb3ef52476a3764552dd04582def0d78"
+        },
+        {
+          "body": {
+            "action_id": "action",
+            "grant_id": "child",
+            "kind": "QUEUED",
+            "previous_hash": "39ec40342c0669d4e57c5bcf816cdd1eeb3ef52476a3764552dd04582def0d78",
+            "seq": 4
+          },
+          "hash": "f5f165c6ff85b133bfa3d5f346186f6e662ccb4c3e622be92b5765e1ee188bbe"
+        },
+        {
+          "body": {
+            "grant_id": "root",
+            "kind": "REVOKE",
+            "previous_hash": "f5f165c6ff85b133bfa3d5f346186f6e662ccb4c3e622be92b5765e1ee188bbe",
+            "seq": 5
+          },
+          "hash": "32c77e52474b13a92437e40bdde25e63045b74b572b04d0063657c96d32ffdb9"
+        },
+        {
+          "body": {
+            "grant_id": "late",
+            "kind": "DELEGATION_DENIED",
+            "previous_hash": "32c77e52474b13a92437e40bdde25e63045b74b572b04d0063657c96d32ffdb9",
+            "seq": 6
+          },
+          "hash": "5a0b35bca23538f3a535771fe80ab8800241866d1f41610ae302d5abb4eafb29"
+        },
+        {
+          "body": {
+            "action_id": "action",
+            "kind": "DENIED",
+            "previous_hash": "5a0b35bca23538f3a535771fe80ab8800241866d1f41610ae302d5abb4eafb29",
+            "seq": 7
+          },
+          "hash": "1afcf98a31e46583dc85a155455ba25d2f5758e4cf5347e01b74cafe667c7b20"
+        },
+        {
+          "body": {
+            "action_id": "action",
+            "kind": "DENIED",
+            "previous_hash": "1afcf98a31e46583dc85a155455ba25d2f5758e4cf5347e01b74cafe667c7b20",
+            "seq": 8
+          },
+          "hash": "f3570902c186aee84bc9fd7af0f3105649c3a4c387c1e4a5400f466ee2d3cd73"
+        }
+      ]
+    },
+    {
+      "scenario": "unrelated_change",
+      "mutation": null,
+      "passed": true,
+      "delivery_results": [
+        "COMMITTED"
+      ],
+      "receiver_rows": [
+        [
+          "action",
+          "document",
+          "changed"
+        ]
+      ],
+      "expected_rows": [
+        [
+          "action",
+          "document",
+          "changed"
+        ]
+      ],
+      "events": [
+        {
+          "body": {
+            "grant_id": "root",
+            "kind": "GRANT",
+            "parent": null,
+            "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+            "resource": "document",
+            "seq": 1
+          },
+          "hash": "a1ed5d09d25492735ba4c53bacdd8fc32880772cdd4e49614fffadfce7839027"
+        },
+        {
+          "body": {
+            "action_id": "action",
+            "grant_id": "root",
+            "kind": "QUEUED",
+            "previous_hash": "a1ed5d09d25492735ba4c53bacdd8fc32880772cdd4e49614fffadfce7839027",
+            "seq": 2
+          },
+          "hash": "8af654766321f31ec61fa79388a1cf0e27ebb55112cf62ff1b7bedbe4ca4aeef"
+        },
+        {
+          "body": {
+            "grant_id": "other",
+            "kind": "GRANT",
+            "parent": null,
+            "previous_hash": "8af654766321f31ec61fa79388a1cf0e27ebb55112cf62ff1b7bedbe4ca4aeef",
+            "resource": "other-document",
+            "seq": 3
+          },
+          "hash": "97a36faba9b5caa4d3ad668a2dadd96b1604c34e5346c5775398fb3007da51e1"
+        },
+        {
+          "body": {
+            "grant_id": "other",
+            "kind": "REVOKE",
+            "previous_hash": "97a36faba9b5caa4d3ad668a2dadd96b1604c34e5346c5775398fb3007da51e1",
+            "seq": 4
+          },
+          "hash": "e3288b19349ff37ad0e4d8501090a10f493e7850a67c0dd2a8f71aa2cea73799"
+        },
+        {
+          "body": {
+            "action_id": "action",
+            "kind": "COMMITTED",
+            "previous_hash": "e3288b19349ff37ad0e4d8501090a10f493e7850a67c0dd2a8f71aa2cea73799",
+            "seq": 5
+          },
+          "hash": "5ca42adf0cb5319e8460eae3ba052ac45651e005766deec4e6e3c909d58d029e"
+        }
+      ]
+    },
+    {
+      "scenario": "duplicate_delivery",
+      "mutation": null,
+      "passed": true,
+      "delivery_results": [
+        "COMMITTED",
+        "ALREADY_COMMITTED"
+      ],
+      "receiver_rows": [
+        [
+          "action",
+          "document",
+          "changed"
+        ]
+      ],
+      "expected_rows": [
+        [
+          "action",
+          "document",
+          "changed"
+        ]
+      ],
+      "events": [
+        {
+          "body": {
+            "grant_id": "root",
+            "kind": "GRANT",
+            "parent": null,
+            "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+            "resource": "document",
+            "seq": 1
+          },
+          "hash": "a1ed5d09d25492735ba4c53bacdd8fc32880772cdd4e49614fffadfce7839027"
+        },
+        {
+          "body": {
+            "action_id": "action",
+            "grant_id": "root",
+            "kind": "QUEUED",
+            "previous_hash": "a1ed5d09d25492735ba4c53bacdd8fc32880772cdd4e49614fffadfce7839027",
+            "seq": 2
+          },
+          "hash": "8af654766321f31ec61fa79388a1cf0e27ebb55112cf62ff1b7bedbe4ca4aeef"
+        },
+        {
+          "body": {
+            "action_id": "action",
+            "kind": "COMMITTED",
+            "previous_hash": "8af654766321f31ec61fa79388a1cf0e27ebb55112cf62ff1b7bedbe4ca4aeef",
+            "seq": 3
+          },
+          "hash": "8c4c83b93bcd4f09fc0cb1d8d46285155c2a2e5cc121877815461a2223e803b3"
+        },
+        {
+          "body": {
+            "action_id": "action",
+            "kind": "ALREADY_COMMITTED",
+            "previous_hash": "8c4c83b93bcd4f09fc0cb1d8d46285155c2a2e5cc121877815461a2223e803b3",
+            "seq": 4
+          },
+          "hash": "c1c5b9dd7a681b393ac6ee71e1a3dd7b00c16e7331f2cc5abc3e245197258580"
+        }
+      ]
+    }
+  ],
+  "known_bad_controls": [
+    {
+      "scenario": "revocation",
+      "mutation": "queue_only",
+      "passed": false,
+      "delivery_results": [
+        "COMMITTED",
+        "ALREADY_COMMITTED"
+      ],
+      "receiver_rows": [
+        [
+          "action",
+          "document",
+          "changed"
+        ]
+      ],
+      "expected_rows": [],
+      "events": [
+        {
+          "body": {
+            "grant_id": "root",
+            "kind": "GRANT",
+            "parent": null,
+            "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+            "resource": "document",
+            "seq": 1
+          },
+          "hash": "a1ed5d09d25492735ba4c53bacdd8fc32880772cdd4e49614fffadfce7839027"
+        },
+        {
+          "body": {
+            "action_id": "action",
+            "grant_id": "root",
+            "kind": "QUEUED",
+            "previous_hash": "a1ed5d09d25492735ba4c53bacdd8fc32880772cdd4e49614fffadfce7839027",
+            "seq": 2
+          },
+          "hash": "8af654766321f31ec61fa79388a1cf0e27ebb55112cf62ff1b7bedbe4ca4aeef"
+        },
+        {
+          "body": {
+            "grant_id": "root",
+            "kind": "REVOKE",
+            "previous_hash": "8af654766321f31ec61fa79388a1cf0e27ebb55112cf62ff1b7bedbe4ca4aeef",
+            "seq": 3
+          },
+          "hash": "475a63acca7f4968887f3587d25d9547c1cb4843f2e6408c760203238b61b558"
+        },
+        {
+          "body": {
+            "action_id": "action",
+            "kind": "COMMITTED",
+            "previous_hash": "475a63acca7f4968887f3587d25d9547c1cb4843f2e6408c760203238b61b558",
+            "seq": 4
+          },
+          "hash": "a1fd53014269e404a707ea9fb44f4292872e27abb1409aa024abd9e93ed57602"
+        },
+        {
+          "body": {
+            "action_id": "action",
+            "kind": "ALREADY_COMMITTED",
+            "previous_hash": "a1fd53014269e404a707ea9fb44f4292872e27abb1409aa024abd9e93ed57602",
+            "seq": 5
+          },
+          "hash": "69b646c77071ea7d084831d43b655f4618dbb67164389fe2aa2344a44c7eff63"
+        }
+      ]
+    },
+    {
+      "scenario": "delegation",
+      "mutation": "ignore_parent",
+      "passed": false,
+      "delivery_results": [
+        "COMMITTED",
+        "ALREADY_COMMITTED"
+      ],
+      "receiver_rows": [
+        [
+          "action",
+          "document",
+          "changed"
+        ]
+      ],
+      "expected_rows": [],
+      "events": [
+        {
+          "body": {
+            "grant_id": "root",
+            "kind": "GRANT",
+            "parent": null,
+            "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+            "resource": "document",
+            "seq": 1
+          },
+          "hash": "a1ed5d09d25492735ba4c53bacdd8fc32880772cdd4e49614fffadfce7839027"
+        },
+        {
+          "body": {
+            "grant_id": "child",
+            "kind": "GRANT",
+            "parent": "root",
+            "previous_hash": "a1ed5d09d25492735ba4c53bacdd8fc32880772cdd4e49614fffadfce7839027",
+            "resource": "document",
+            "seq": 2
+          },
+          "hash": "1b8730d07197e44be97d6d0e8e48601f0bf83c9c621910134389821611bed69c"
+        },
+        {
+          "body": {
+            "grant_id": "wide",
+            "kind": "DELEGATION_DENIED",
+            "previous_hash": "1b8730d07197e44be97d6d0e8e48601f0bf83c9c621910134389821611bed69c",
+            "seq": 3
+          },
+          "hash": "39ec40342c0669d4e57c5bcf816cdd1eeb3ef52476a3764552dd04582def0d78"
+        },
+        {
+          "body": {
+            "action_id": "action",
+            "grant_id": "child",
+            "kind": "QUEUED",
+            "previous_hash": "39ec40342c0669d4e57c5bcf816cdd1eeb3ef52476a3764552dd04582def0d78",
+            "seq": 4
+          },
+          "hash": "f5f165c6ff85b133bfa3d5f346186f6e662ccb4c3e622be92b5765e1ee188bbe"
+        },
+        {
+          "body": {
+            "grant_id": "root",
+            "kind": "REVOKE",
+            "previous_hash": "f5f165c6ff85b133bfa3d5f346186f6e662ccb4c3e622be92b5765e1ee188bbe",
+            "seq": 5
+          },
+          "hash": "32c77e52474b13a92437e40bdde25e63045b74b572b04d0063657c96d32ffdb9"
+        },
+        {
+          "body": {
+            "grant_id": "late",
+            "kind": "DELEGATION_DENIED",
+            "previous_hash": "32c77e52474b13a92437e40bdde25e63045b74b572b04d0063657c96d32ffdb9",
+            "seq": 6
+          },
+          "hash": "5a0b35bca23538f3a535771fe80ab8800241866d1f41610ae302d5abb4eafb29"
+        },
+        {
+          "body": {
+            "action_id": "action",
+            "kind": "COMMITTED",
+            "previous_hash": "5a0b35bca23538f3a535771fe80ab8800241866d1f41610ae302d5abb4eafb29",
+            "seq": 7
+          },
+          "hash": "3dd4e09cfbe0315dd4b8f81ff6f07802fdb919bf6d59bce4f3379ca88a98064e"
+        },
+        {
+          "body": {
+            "action_id": "action",
+            "kind": "ALREADY_COMMITTED",
+            "previous_hash": "3dd4e09cfbe0315dd4b8f81ff6f07802fdb919bf6d59bce4f3379ca88a98064e",
+            "seq": 8
+          },
+          "hash": "a8c1122f2ab65f4682568347290165cb1c962deab11bf5bf4ba7649ba2f86eda"
+        }
+      ]
+    },
+    {
+      "scenario": "unrelated_change",
+      "mutation": "global_invalidation",
+      "passed": false,
+      "delivery_results": [
+        "DENIED"
+      ],
+      "receiver_rows": [],
+      "expected_rows": [
+        [
+          "action",
+          "document",
+          "changed"
+        ]
+      ],
+      "events": [
+        {
+          "body": {
+            "grant_id": "root",
+            "kind": "GRANT",
+            "parent": null,
+            "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+            "resource": "document",
+            "seq": 1
+          },
+          "hash": "a1ed5d09d25492735ba4c53bacdd8fc32880772cdd4e49614fffadfce7839027"
+        },
+        {
+          "body": {
+            "action_id": "action",
+            "grant_id": "root",
+            "kind": "QUEUED",
+            "previous_hash": "a1ed5d09d25492735ba4c53bacdd8fc32880772cdd4e49614fffadfce7839027",
+            "seq": 2
+          },
+          "hash": "8af654766321f31ec61fa79388a1cf0e27ebb55112cf62ff1b7bedbe4ca4aeef"
+        },
+        {
+          "body": {
+            "grant_id": "other",
+            "kind": "GRANT",
+            "parent": null,
+            "previous_hash": "8af654766321f31ec61fa79388a1cf0e27ebb55112cf62ff1b7bedbe4ca4aeef",
+            "resource": "other-document",
+            "seq": 3
+          },
+          "hash": "97a36faba9b5caa4d3ad668a2dadd96b1604c34e5346c5775398fb3007da51e1"
+        },
+        {
+          "body": {
+            "grant_id": "other",
+            "kind": "REVOKE",
+            "previous_hash": "97a36faba9b5caa4d3ad668a2dadd96b1604c34e5346c5775398fb3007da51e1",
+            "seq": 4
+          },
+          "hash": "e3288b19349ff37ad0e4d8501090a10f493e7850a67c0dd2a8f71aa2cea73799"
+        },
+        {
+          "body": {
+            "action_id": "action",
+            "kind": "DENIED",
+            "previous_hash": "e3288b19349ff37ad0e4d8501090a10f493e7850a67c0dd2a8f71aa2cea73799",
+            "seq": 5
+          },
+          "hash": "25efe01c6cc3a1c8cfafa66235e576084e9d88db9f255ba8dc189a9ac0041267"
+        }
+      ]
+    }
+  ],
+  "additional_checks": {
+    "run": 5,
+    "failures": 0,
+    "errors": 0,
+    "observations": {
+      "test_acknowledgement_loss": {
+        "database": "test_acknowledgement_loss.sqlite",
+        "retry_result": "ALREADY_COMMITTED",
+        "fault": "caller discards committed reply",
+        "integrity": "ok",
+        "effects": [
+          [
+            "action",
+            "document",
+            "changed"
+          ]
+        ],
+        "events": [
+          {
+            "body": {
+              "grant_id": "root",
+              "kind": "GRANT",
+              "parent": null,
+              "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+              "resource": "document",
+              "seq": 1
+            },
+            "hash": "a1ed5d09d25492735ba4c53bacdd8fc32880772cdd4e49614fffadfce7839027"
+          },
+          {
+            "body": {
+              "action_id": "action",
+              "grant_id": "root",
+              "kind": "QUEUED",
+              "previous_hash": "a1ed5d09d25492735ba4c53bacdd8fc32880772cdd4e49614fffadfce7839027",
+              "seq": 2
+            },
+            "hash": "8af654766321f31ec61fa79388a1cf0e27ebb55112cf62ff1b7bedbe4ca4aeef"
+          },
+          {
+            "body": {
+              "action_id": "action",
+              "kind": "COMMITTED",
+              "previous_hash": "8af654766321f31ec61fa79388a1cf0e27ebb55112cf62ff1b7bedbe4ca4aeef",
+              "seq": 3
+            },
+            "hash": "8c4c83b93bcd4f09fc0cb1d8d46285155c2a2e5cc121877815461a2223e803b3"
+          },
+          {
+            "body": {
+              "action_id": "action",
+              "kind": "ALREADY_COMMITTED",
+              "previous_hash": "8c4c83b93bcd4f09fc0cb1d8d46285155c2a2e5cc121877815461a2223e803b3",
+              "seq": 4
+            },
+            "hash": "c1c5b9dd7a681b393ac6ee71e1a3dd7b00c16e7331f2cc5abc3e245197258580"
+          }
+        ],
+        "event_chain_valid": true
+      },
+      "test_committed_before_revocation": {
+        "database": "test_committed_before_revocation.sqlite",
+        "delivery_results": [
+          "COMMITTED",
+          "DENIED"
+        ],
+        "integrity": "ok",
+        "effects": [
+          [
+            "action",
+            "document",
+            "changed"
+          ]
+        ],
+        "events": [
+          {
+            "body": {
+              "grant_id": "root",
+              "kind": "GRANT",
+              "parent": null,
+              "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+              "resource": "document",
+              "seq": 1
+            },
+            "hash": "a1ed5d09d25492735ba4c53bacdd8fc32880772cdd4e49614fffadfce7839027"
+          },
+          {
+            "body": {
+              "action_id": "action",
+              "grant_id": "root",
+              "kind": "QUEUED",
+              "previous_hash": "a1ed5d09d25492735ba4c53bacdd8fc32880772cdd4e49614fffadfce7839027",
+              "seq": 2
+            },
+            "hash": "8af654766321f31ec61fa79388a1cf0e27ebb55112cf62ff1b7bedbe4ca4aeef"
+          },
+          {
+            "body": {
+              "action_id": "action",
+              "kind": "COMMITTED",
+              "previous_hash": "8af654766321f31ec61fa79388a1cf0e27ebb55112cf62ff1b7bedbe4ca4aeef",
+              "seq": 3
+            },
+            "hash": "8c4c83b93bcd4f09fc0cb1d8d46285155c2a2e5cc121877815461a2223e803b3"
+          },
+          {
+            "body": {
+              "grant_id": "root",
+              "kind": "REVOKE",
+              "previous_hash": "8c4c83b93bcd4f09fc0cb1d8d46285155c2a2e5cc121877815461a2223e803b3",
+              "seq": 4
+            },
+            "hash": "715eb8abde49521ea30657e07b629fc53e84228f9554baf94548e690f701c994"
+          },
+          {
+            "body": {
+              "action_id": "action",
+              "kind": "DENIED",
+              "previous_hash": "715eb8abde49521ea30657e07b629fc53e84228f9554baf94548e690f701c994",
+              "seq": 5
+            },
+            "hash": "638dcbe8edd35f10c35ee613f9ed3ad63b38a2640fa6465c63f9c79cab52a219"
+          }
+        ],
+        "event_chain_valid": true
+      },
+      "test_concurrent_mixed_queue": {
+        "database": "test_concurrent_mixed_queue.sqlite",
+        "workers": 8,
+        "deliveries": 48,
+        "delivery_results": [
+          [
+            "deny-00",
+            "DENIED"
+          ],
+          [
+            "deny-00",
+            "DENIED"
+          ],
+          [
+            "keep-00",
+            "ALREADY_COMMITTED"
+          ],
+          [
+            "keep-00",
+            "COMMITTED"
+          ],
+          [
+            "deny-01",
+            "DENIED"
+          ],
+          [
+            "deny-01",
+            "DENIED"
+          ],
+          [
+            "keep-01",
+            "COMMITTED"
+          ],
+          [
+            "keep-01",
+            "ALREADY_COMMITTED"
+          ],
+          [
+            "deny-02",
+            "DENIED"
+          ],
+          [
+            "deny-02",
+            "DENIED"
+          ],
+          [
+            "keep-02",
+            "COMMITTED"
+          ],
+          [
+            "keep-02",
+            "ALREADY_COMMITTED"
+          ],
+          [
+            "deny-03",
+            "DENIED"
+          ],
+          [
+            "deny-03",
+            "DENIED"
+          ],
+          [
+            "keep-03",
+            "COMMITTED"
+          ],
+          [
+            "keep-03",
+            "ALREADY_COMMITTED"
+          ],
+          [
+            "deny-04",
+            "DENIED"
+          ],
+          [
+            "deny-04",
+            "DENIED"
+          ],
+          [
+            "keep-04",
+            "COMMITTED"
+          ],
+          [
+            "keep-04",
+            "ALREADY_COMMITTED"
+          ],
+          [
+            "deny-05",
+            "DENIED"
+          ],
+          [
+            "deny-05",
+            "DENIED"
+          ],
+          [
+            "keep-05",
+            "COMMITTED"
+          ],
+          [
+            "keep-05",
+            "ALREADY_COMMITTED"
+          ],
+          [
+            "deny-06",
+            "DENIED"
+          ],
+          [
+            "deny-06",
+            "DENIED"
+          ],
+          [
+            "keep-06",
+            "COMMITTED"
+          ],
+          [
+            "keep-06",
+            "ALREADY_COMMITTED"
+          ],
+          [
+            "deny-07",
+            "DENIED"
+          ],
+          [
+            "deny-07",
+            "DENIED"
+          ],
+          [
+            "keep-07",
+            "COMMITTED"
+          ],
+          [
+            "keep-07",
+            "ALREADY_COMMITTED"
+          ],
+          [
+            "deny-08",
+            "DENIED"
+          ],
+          [
+            "deny-08",
+            "DENIED"
+          ],
+          [
+            "keep-08",
+            "COMMITTED"
+          ],
+          [
+            "keep-08",
+            "ALREADY_COMMITTED"
+          ],
+          [
+            "deny-09",
+            "DENIED"
+          ],
+          [
+            "deny-09",
+            "DENIED"
+          ],
+          [
+            "keep-09",
+            "COMMITTED"
+          ],
+          [
+            "keep-09",
+            "ALREADY_COMMITTED"
+          ],
+          [
+            "deny-10",
+            "DENIED"
+          ],
+          [
+            "deny-10",
+            "DENIED"
+          ],
+          [
+            "keep-10",
+            "COMMITTED"
+          ],
+          [
+            "keep-10",
+            "ALREADY_COMMITTED"
+          ],
+          [
+            "deny-11",
+            "DENIED"
+          ],
+          [
+            "deny-11",
+            "DENIED"
+          ],
+          [
+            "keep-11",
+            "COMMITTED"
+          ],
+          [
+            "keep-11",
+            "ALREADY_COMMITTED"
+          ]
+        ],
+        "integrity": "ok",
+        "effects": [
+          [
+            "keep-00",
+            "other-document",
+            "0"
+          ],
+          [
+            "keep-01",
+            "other-document",
+            "1"
+          ],
+          [
+            "keep-02",
+            "other-document",
+            "2"
+          ],
+          [
+            "keep-03",
+            "other-document",
+            "3"
+          ],
+          [
+            "keep-04",
+            "other-document",
+            "4"
+          ],
+          [
+            "keep-05",
+            "other-document",
+            "5"
+          ],
+          [
+            "keep-06",
+            "other-document",
+            "6"
+          ],
+          [
+            "keep-07",
+            "other-document",
+            "7"
+          ],
+          [
+            "keep-08",
+            "other-document",
+            "8"
+          ],
+          [
+            "keep-09",
+            "other-document",
+            "9"
+          ],
+          [
+            "keep-10",
+            "other-document",
+            "10"
+          ],
+          [
+            "keep-11",
+            "other-document",
+            "11"
+          ]
+        ],
+        "events": [
+          {
+            "body": {
+              "grant_id": "root",
+              "kind": "GRANT",
+              "parent": null,
+              "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+              "resource": "document",
+              "seq": 1
+            },
+            "hash": "a1ed5d09d25492735ba4c53bacdd8fc32880772cdd4e49614fffadfce7839027"
+          },
+          {
+            "body": {
+              "action_id": "action",
+              "grant_id": "root",
+              "kind": "QUEUED",
+              "previous_hash": "a1ed5d09d25492735ba4c53bacdd8fc32880772cdd4e49614fffadfce7839027",
+              "seq": 2
+            },
+            "hash": "8af654766321f31ec61fa79388a1cf0e27ebb55112cf62ff1b7bedbe4ca4aeef"
+          },
+          {
+            "body": {
+              "grant_id": "keep",
+              "kind": "GRANT",
+              "parent": null,
+              "previous_hash": "8af654766321f31ec61fa79388a1cf0e27ebb55112cf62ff1b7bedbe4ca4aeef",
+              "resource": "other-document",
+              "seq": 3
+            },
+            "hash": "bc8a7e9b51e36cca651a16d4278317b0d979b01531c5c1e660179d15a5638951"
+          },
+          {
+            "body": {
+              "action_id": "deny-00",
+              "grant_id": "root",
+              "kind": "QUEUED",
+              "previous_hash": "bc8a7e9b51e36cca651a16d4278317b0d979b01531c5c1e660179d15a5638951",
+              "seq": 4
+            },
+            "hash": "8f7dd03eba484174841052ca6d5cf9d3f007014207a2e1b285b94996ebab4107"
+          },
+          {
+            "body": {
+              "action_id": "keep-00",
+              "grant_id": "keep",
+              "kind": "QUEUED",
+              "previous_hash": "8f7dd03eba484174841052ca6d5cf9d3f007014207a2e1b285b94996ebab4107",
+              "seq": 5
+            },
+            "hash": "84e5bd3e57269fe401f12941a6c8a08332344620d6f9a0e427bc634a367a10bd"
+          },
+          {
+            "body": {
+              "action_id": "deny-01",
+              "grant_id": "root",
+              "kind": "QUEUED",
+              "previous_hash": "84e5bd3e57269fe401f12941a6c8a08332344620d6f9a0e427bc634a367a10bd",
+              "seq": 6
+            },
+            "hash": "87575beb3bcfd446c51401fe703521cef5d7aba8bbd5fb42f4ea4d4f7fc084f0"
+          },
+          {
+            "body": {
+              "action_id": "keep-01",
+              "grant_id": "keep",
+              "kind": "QUEUED",
+              "previous_hash": "87575beb3bcfd446c51401fe703521cef5d7aba8bbd5fb42f4ea4d4f7fc084f0",
+              "seq": 7
+            },
+            "hash": "5d4bc10da759233fd9cfc494485a3e20546d97fbfc08e3fb1206df68c930455c"
+          },
+          {
+            "body": {
+              "action_id": "deny-02",
+              "grant_id": "root",
+              "kind": "QUEUED",
+              "previous_hash": "5d4bc10da759233fd9cfc494485a3e20546d97fbfc08e3fb1206df68c930455c",
+              "seq": 8
+            },
+            "hash": "ff1473f0f2c7cfb42b70aedeafa4777228cefc27175932807e8f9413e9d2cd64"
+          },
+          {
+            "body": {
+              "action_id": "keep-02",
+              "grant_id": "keep",
+              "kind": "QUEUED",
+              "previous_hash": "ff1473f0f2c7cfb42b70aedeafa4777228cefc27175932807e8f9413e9d2cd64",
+              "seq": 9
+            },
+            "hash": "b2571883cb5537588ef559ad2e931a3458e5ef7128e8dcc59fcafef5f4fcbcb5"
+          },
+          {
+            "body": {
+              "action_id": "deny-03",
+              "grant_id": "root",
+              "kind": "QUEUED",
+              "previous_hash": "b2571883cb5537588ef559ad2e931a3458e5ef7128e8dcc59fcafef5f4fcbcb5",
+              "seq": 10
+            },
+            "hash": "bf95d3477c9463ef3dacdecb2c3c772ad8cb4fec47e2d9b83872db395a6190eb"
+          },
+          {
+            "body": {
+              "action_id": "keep-03",
+              "grant_id": "keep",
+              "kind": "QUEUED",
+              "previous_hash": "bf95d3477c9463ef3dacdecb2c3c772ad8cb4fec47e2d9b83872db395a6190eb",
+              "seq": 11
+            },
+            "hash": "e40bc8ddc7ea4ceeb5a5c74a94d9d7d901e95426eddb894491b5978f3ae31cd6"
+          },
+          {
+            "body": {
+              "action_id": "deny-04",
+              "grant_id": "root",
+              "kind": "QUEUED",
+              "previous_hash": "e40bc8ddc7ea4ceeb5a5c74a94d9d7d901e95426eddb894491b5978f3ae31cd6",
+              "seq": 12
+            },
+            "hash": "9f9189c1034c63c479f5a7d798666fe391a442395af9e4178639ccbe962a75aa"
+          },
+          {
+            "body": {
+              "action_id": "keep-04",
+              "grant_id": "keep",
+              "kind": "QUEUED",
+              "previous_hash": "9f9189c1034c63c479f5a7d798666fe391a442395af9e4178639ccbe962a75aa",
+              "seq": 13
+            },
+            "hash": "e40199190030d3f3aec140b8d2f36b408949a8e9f22ab80eabc0ac99825f0f0d"
+          },
+          {
+            "body": {
+              "action_id": "deny-05",
+              "grant_id": "root",
+              "kind": "QUEUED",
+              "previous_hash": "e40199190030d3f3aec140b8d2f36b408949a8e9f22ab80eabc0ac99825f0f0d",
+              "seq": 14
+            },
+            "hash": "dd0ada8246cadad9ce5bdf4d93b6c13fdcd094e2aab10b9609c2ffd697ada302"
+          },
+          {
+            "body": {
+              "action_id": "keep-05",
+              "grant_id": "keep",
+              "kind": "QUEUED",
+              "previous_hash": "dd0ada8246cadad9ce5bdf4d93b6c13fdcd094e2aab10b9609c2ffd697ada302",
+              "seq": 15
+            },
+            "hash": "518808d312a2ec05809a6e101c175b6272ab68f9e3fc8a313ae46db46ad78e70"
+          },
+          {
+            "body": {
+              "action_id": "deny-06",
+              "grant_id": "root",
+              "kind": "QUEUED",
+              "previous_hash": "518808d312a2ec05809a6e101c175b6272ab68f9e3fc8a313ae46db46ad78e70",
+              "seq": 16
+            },
+            "hash": "ceefcd38ad361515e4ea2e6e6385e391ffd19dd6b1e12a203c7defaa8bf05e77"
+          },
+          {
+            "body": {
+              "action_id": "keep-06",
+              "grant_id": "keep",
+              "kind": "QUEUED",
+              "previous_hash": "ceefcd38ad361515e4ea2e6e6385e391ffd19dd6b1e12a203c7defaa8bf05e77",
+              "seq": 17
+            },
+            "hash": "fde5237dbab2e50ec552cb8464fe0dc6da71d61e6cde1ed0e06b15ea3da4b268"
+          },
+          {
+            "body": {
+              "action_id": "deny-07",
+              "grant_id": "root",
+              "kind": "QUEUED",
+              "previous_hash": "fde5237dbab2e50ec552cb8464fe0dc6da71d61e6cde1ed0e06b15ea3da4b268",
+              "seq": 18
+            },
+            "hash": "fef8816636145c43e3f86fcca823f255ea2cb543a084cb591524338bf1c38a17"
+          },
+          {
+            "body": {
+              "action_id": "keep-07",
+              "grant_id": "keep",
+              "kind": "QUEUED",
+              "previous_hash": "fef8816636145c43e3f86fcca823f255ea2cb543a084cb591524338bf1c38a17",
+              "seq": 19
+            },
+            "hash": "7e8952e3c3d00e77bc59f36bc45080233cd91fd7cebe4159f3bcc7d32a0bda18"
+          },
+          {
+            "body": {
+              "action_id": "deny-08",
+              "grant_id": "root",
+              "kind": "QUEUED",
+              "previous_hash": "7e8952e3c3d00e77bc59f36bc45080233cd91fd7cebe4159f3bcc7d32a0bda18",
+              "seq": 20
+            },
+            "hash": "ba578d97ff99e7932ca4e54279d6ba71c055dfe7d29519ae435705f125052a57"
+          },
+          {
+            "body": {
+              "action_id": "keep-08",
+              "grant_id": "keep",
+              "kind": "QUEUED",
+              "previous_hash": "ba578d97ff99e7932ca4e54279d6ba71c055dfe7d29519ae435705f125052a57",
+              "seq": 21
+            },
+            "hash": "ca5c9a9dcba3093a2b5894573cf239b298d33958e2814e8d53809cb62a5112c3"
+          },
+          {
+            "body": {
+              "action_id": "deny-09",
+              "grant_id": "root",
+              "kind": "QUEUED",
+              "previous_hash": "ca5c9a9dcba3093a2b5894573cf239b298d33958e2814e8d53809cb62a5112c3",
+              "seq": 22
+            },
+            "hash": "508745fd563bb8b4a09d3fab130101d44766e7dc29c217dc41185320c9d107a0"
+          },
+          {
+            "body": {
+              "action_id": "keep-09",
+              "grant_id": "keep",
+              "kind": "QUEUED",
+              "previous_hash": "508745fd563bb8b4a09d3fab130101d44766e7dc29c217dc41185320c9d107a0",
+              "seq": 23
+            },
+            "hash": "106130bb9e51d26e367f30f31c72f2aadbb6b6091c8a3040d256d44eeb28997c"
+          },
+          {
+            "body": {
+              "action_id": "deny-10",
+              "grant_id": "root",
+              "kind": "QUEUED",
+              "previous_hash": "106130bb9e51d26e367f30f31c72f2aadbb6b6091c8a3040d256d44eeb28997c",
+              "seq": 24
+            },
+            "hash": "7525c258230f8b69c66d4d85e846e9bff5090404e1cdd36375c569af60de95c8"
+          },
+          {
+            "body": {
+              "action_id": "keep-10",
+              "grant_id": "keep",
+              "kind": "QUEUED",
+              "previous_hash": "7525c258230f8b69c66d4d85e846e9bff5090404e1cdd36375c569af60de95c8",
+              "seq": 25
+            },
+            "hash": "69443666234cc81016fc0858699fcea25c28a12ab440a28ae73d40a16677f36c"
+          },
+          {
+            "body": {
+              "action_id": "deny-11",
+              "grant_id": "root",
+              "kind": "QUEUED",
+              "previous_hash": "69443666234cc81016fc0858699fcea25c28a12ab440a28ae73d40a16677f36c",
+              "seq": 26
+            },
+            "hash": "85902d4236d9601f0683eeb1022e91dbc829f283bbc709e03df8dd5def1059d8"
+          },
+          {
+            "body": {
+              "action_id": "keep-11",
+              "grant_id": "keep",
+              "kind": "QUEUED",
+              "previous_hash": "85902d4236d9601f0683eeb1022e91dbc829f283bbc709e03df8dd5def1059d8",
+              "seq": 27
+            },
+            "hash": "0f5bbe21e746851ec84785141cdec00f8949e5f1755668cb3441e4f22b4a8746"
+          },
+          {
+            "body": {
+              "grant_id": "root",
+              "kind": "REVOKE",
+              "previous_hash": "0f5bbe21e746851ec84785141cdec00f8949e5f1755668cb3441e4f22b4a8746",
+              "seq": 28
+            },
+            "hash": "6a45593ddaa5c827ac5696154c16af110444fd979ee1576dda291ae3c6be176c"
+          },
+          {
+            "body": {
+              "action_id": "keep-01",
+              "kind": "COMMITTED",
+              "previous_hash": "6a45593ddaa5c827ac5696154c16af110444fd979ee1576dda291ae3c6be176c",
+              "seq": 29
+            },
+            "hash": "af13f1256078455f2ea947b8d932985e99ee395669036ec4bf7add43aa4bc2e8"
+          },
+          {
+            "body": {
+              "action_id": "deny-02",
+              "kind": "DENIED",
+              "previous_hash": "af13f1256078455f2ea947b8d932985e99ee395669036ec4bf7add43aa4bc2e8",
+              "seq": 30
+            },
+            "hash": "f2b8cf410e93ff20e82712862f7bbc5dd8061bdbccbe4e840dd9ea2f3aaa4350"
+          },
+          {
+            "body": {
+              "action_id": "deny-00",
+              "kind": "DENIED",
+              "previous_hash": "f2b8cf410e93ff20e82712862f7bbc5dd8061bdbccbe4e840dd9ea2f3aaa4350",
+              "seq": 31
+            },
+            "hash": "7a232daae49d48b71a0687a21f60f7932c06f037a83277086f009a71c1113af4"
+          },
+          {
+            "body": {
+              "action_id": "keep-02",
+              "kind": "COMMITTED",
+              "previous_hash": "7a232daae49d48b71a0687a21f60f7932c06f037a83277086f009a71c1113af4",
+              "seq": 32
+            },
+            "hash": "9e2e0ec81425db7a81f3df4ea37f89f0a0cf5d7654c60042745b36bb917e4cd4"
+          },
+          {
+            "body": {
+              "action_id": "deny-01",
+              "kind": "DENIED",
+              "previous_hash": "9e2e0ec81425db7a81f3df4ea37f89f0a0cf5d7654c60042745b36bb917e4cd4",
+              "seq": 33
+            },
+            "hash": "7a53b267d1739b07317769e3a9507565b7aac10c7aafc309d5b8a537da430a27"
+          },
+          {
+            "body": {
+              "action_id": "deny-03",
+              "kind": "DENIED",
+              "previous_hash": "7a53b267d1739b07317769e3a9507565b7aac10c7aafc309d5b8a537da430a27",
+              "seq": 34
+            },
+            "hash": "c9d09feffc0808a767daf22d1dc5aa00d59180ad956aa0f496c667ba55ecf79e"
+          },
+          {
+            "body": {
+              "action_id": "deny-03",
+              "kind": "DENIED",
+              "previous_hash": "c9d09feffc0808a767daf22d1dc5aa00d59180ad956aa0f496c667ba55ecf79e",
+              "seq": 35
+            },
+            "hash": "69f5fb462d6926b36743e1462a9648931423e71e7ff8b16afcb9dac892805c78"
+          },
+          {
+            "body": {
+              "action_id": "keep-03",
+              "kind": "COMMITTED",
+              "previous_hash": "69f5fb462d6926b36743e1462a9648931423e71e7ff8b16afcb9dac892805c78",
+              "seq": 36
+            },
+            "hash": "536861502f4a60620a1736e322aadf749b7851d77c0416d6b7c98e32bd144933"
+          },
+          {
+            "body": {
+              "action_id": "keep-03",
+              "kind": "ALREADY_COMMITTED",
+              "previous_hash": "536861502f4a60620a1736e322aadf749b7851d77c0416d6b7c98e32bd144933",
+              "seq": 37
+            },
+            "hash": "eda81f3071a1bfbb1df3232ff5bd87ec32c3a6bb8db037e4c40b2320c3fa7794"
+          },
+          {
+            "body": {
+              "action_id": "deny-04",
+              "kind": "DENIED",
+              "previous_hash": "eda81f3071a1bfbb1df3232ff5bd87ec32c3a6bb8db037e4c40b2320c3fa7794",
+              "seq": 38
+            },
+            "hash": "737fe48689fa22b2110f54699d71f7467e4ff316598509dcd63d578f9e87e7a7"
+          },
+          {
+            "body": {
+              "action_id": "deny-04",
+              "kind": "DENIED",
+              "previous_hash": "737fe48689fa22b2110f54699d71f7467e4ff316598509dcd63d578f9e87e7a7",
+              "seq": 39
+            },
+            "hash": "d400bb33b9255ba682d55ffb1e2a1538d6e0a17953e664133cc564d7ee32f1f8"
+          },
+          {
+            "body": {
+              "action_id": "keep-04",
+              "kind": "COMMITTED",
+              "previous_hash": "d400bb33b9255ba682d55ffb1e2a1538d6e0a17953e664133cc564d7ee32f1f8",
+              "seq": 40
+            },
+            "hash": "19058c0c22eea74460cf6addcd9f61804efec60e4cbab95e5268e1b5ccbff26a"
+          },
+          {
+            "body": {
+              "action_id": "keep-04",
+              "kind": "ALREADY_COMMITTED",
+              "previous_hash": "19058c0c22eea74460cf6addcd9f61804efec60e4cbab95e5268e1b5ccbff26a",
+              "seq": 41
+            },
+            "hash": "827cb5813929115ef0d15b4ab9a344dd3777775a7a48a054289829ae98c733d3"
+          },
+          {
+            "body": {
+              "action_id": "deny-05",
+              "kind": "DENIED",
+              "previous_hash": "827cb5813929115ef0d15b4ab9a344dd3777775a7a48a054289829ae98c733d3",
+              "seq": 42
+            },
+            "hash": "65e94fa64654af869d3b6c4b1901cbca15a599d43c2a1833036544c58629f890"
+          },
+          {
+            "body": {
+              "action_id": "deny-05",
+              "kind": "DENIED",
+              "previous_hash": "65e94fa64654af869d3b6c4b1901cbca15a599d43c2a1833036544c58629f890",
+              "seq": 43
+            },
+            "hash": "8a64434789478f03e5f28d9a618573737d572b31155a9fde2e22e6aa8e3cee99"
+          },
+          {
+            "body": {
+              "action_id": "keep-05",
+              "kind": "COMMITTED",
+              "previous_hash": "8a64434789478f03e5f28d9a618573737d572b31155a9fde2e22e6aa8e3cee99",
+              "seq": 44
+            },
+            "hash": "a1177a3a5c94a3be604c4863e5406df2cc885b1b7ce07b904abf2378741db089"
+          },
+          {
+            "body": {
+              "action_id": "keep-05",
+              "kind": "ALREADY_COMMITTED",
+              "previous_hash": "a1177a3a5c94a3be604c4863e5406df2cc885b1b7ce07b904abf2378741db089",
+              "seq": 45
+            },
+            "hash": "544515bef219092457c0358fcbe03bba57ce08eb5a20c2fdf066bb16e00bab03"
+          },
+          {
+            "body": {
+              "action_id": "deny-01",
+              "kind": "DENIED",
+              "previous_hash": "544515bef219092457c0358fcbe03bba57ce08eb5a20c2fdf066bb16e00bab03",
+              "seq": 46
+            },
+            "hash": "785d68d3efa8cc2be0da8ed30233169c6824236c89eef757bf53135b7e658b02"
+          },
+          {
+            "body": {
+              "action_id": "deny-06",
+              "kind": "DENIED",
+              "previous_hash": "785d68d3efa8cc2be0da8ed30233169c6824236c89eef757bf53135b7e658b02",
+              "seq": 47
+            },
+            "hash": "3abc98696173a79e33c0d4115902d7853af855f16edcc86097ccf5e571b07fd3"
+          },
+          {
+            "body": {
+              "action_id": "keep-06",
+              "kind": "COMMITTED",
+              "previous_hash": "3abc98696173a79e33c0d4115902d7853af855f16edcc86097ccf5e571b07fd3",
+              "seq": 48
+            },
+            "hash": "e4af5bd592c2fe389714e57f2219a4e0e9b5497fc19389ac452d09247f973ddf"
+          },
+          {
+            "body": {
+              "action_id": "keep-06",
+              "kind": "ALREADY_COMMITTED",
+              "previous_hash": "e4af5bd592c2fe389714e57f2219a4e0e9b5497fc19389ac452d09247f973ddf",
+              "seq": 49
+            },
+            "hash": "59fa90c30a1a25ae36b2fee6f72f3218f0703a180c6d035158fe44d7545b5530"
+          },
+          {
+            "body": {
+              "action_id": "deny-07",
+              "kind": "DENIED",
+              "previous_hash": "59fa90c30a1a25ae36b2fee6f72f3218f0703a180c6d035158fe44d7545b5530",
+              "seq": 50
+            },
+            "hash": "358951488bff740e9fe5fc1b055dc60890f7794b9328b320264557cab255a133"
+          },
+          {
+            "body": {
+              "action_id": "deny-07",
+              "kind": "DENIED",
+              "previous_hash": "358951488bff740e9fe5fc1b055dc60890f7794b9328b320264557cab255a133",
+              "seq": 51
+            },
+            "hash": "baff11c0d91e3a7d7952ce42bca21886e24b97615bf3888e4a2f6a43b9716107"
+          },
+          {
+            "body": {
+              "action_id": "keep-07",
+              "kind": "COMMITTED",
+              "previous_hash": "baff11c0d91e3a7d7952ce42bca21886e24b97615bf3888e4a2f6a43b9716107",
+              "seq": 52
+            },
+            "hash": "464b8357738b1a3a6f7cb53893b5ff6b23ea146aa00a84cc3648562f687cdc0e"
+          },
+          {
+            "body": {
+              "action_id": "keep-07",
+              "kind": "ALREADY_COMMITTED",
+              "previous_hash": "464b8357738b1a3a6f7cb53893b5ff6b23ea146aa00a84cc3648562f687cdc0e",
+              "seq": 53
+            },
+            "hash": "2c3e957b09247082cf9bcfe68c343b1f970353e0676bed15e36328db4dbe9bce"
+          },
+          {
+            "body": {
+              "action_id": "deny-08",
+              "kind": "DENIED",
+              "previous_hash": "2c3e957b09247082cf9bcfe68c343b1f970353e0676bed15e36328db4dbe9bce",
+              "seq": 54
+            },
+            "hash": "ed9c1060560a0e897be33406ace5369bc2fdc96f82a529c3851c53c5c817ea2d"
+          },
+          {
+            "body": {
+              "action_id": "deny-08",
+              "kind": "DENIED",
+              "previous_hash": "ed9c1060560a0e897be33406ace5369bc2fdc96f82a529c3851c53c5c817ea2d",
+              "seq": 55
+            },
+            "hash": "8ae91c9ab2c19172cdb1dae218b3b4981d4a7ff3d3b33d84b940783030932e4f"
+          },
+          {
+            "body": {
+              "action_id": "keep-08",
+              "kind": "COMMITTED",
+              "previous_hash": "8ae91c9ab2c19172cdb1dae218b3b4981d4a7ff3d3b33d84b940783030932e4f",
+              "seq": 56
+            },
+            "hash": "1db771a0672a3a9b17f53528672a9aea494f8409b62e72e0280999cfc1cdbf7d"
+          },
+          {
+            "body": {
+              "action_id": "keep-08",
+              "kind": "ALREADY_COMMITTED",
+              "previous_hash": "1db771a0672a3a9b17f53528672a9aea494f8409b62e72e0280999cfc1cdbf7d",
+              "seq": 57
+            },
+            "hash": "fbe7242acf1120ffc18cce0647114d6fcdfe13e8cff00c43b6ddb2080e4b4e18"
+          },
+          {
+            "body": {
+              "action_id": "deny-09",
+              "kind": "DENIED",
+              "previous_hash": "fbe7242acf1120ffc18cce0647114d6fcdfe13e8cff00c43b6ddb2080e4b4e18",
+              "seq": 58
+            },
+            "hash": "c93ec373a24868bb5798eb27ab3b92f099e2c7a9d0a98bb5392bfe1e2694208b"
+          },
+          {
+            "body": {
+              "action_id": "deny-09",
+              "kind": "DENIED",
+              "previous_hash": "c93ec373a24868bb5798eb27ab3b92f099e2c7a9d0a98bb5392bfe1e2694208b",
+              "seq": 59
+            },
+            "hash": "18d5e1dda554b8e34cf14af6a1266ae99850bcf385fb6a953d041cb310a4c8fc"
+          },
+          {
+            "body": {
+              "action_id": "keep-09",
+              "kind": "COMMITTED",
+              "previous_hash": "18d5e1dda554b8e34cf14af6a1266ae99850bcf385fb6a953d041cb310a4c8fc",
+              "seq": 60
+            },
+            "hash": "2c0f1a2bcc2ce8958485c6dee9fcd6d5121ba051c316d500e237325cfce643b4"
+          },
+          {
+            "body": {
+              "action_id": "keep-09",
+              "kind": "ALREADY_COMMITTED",
+              "previous_hash": "2c0f1a2bcc2ce8958485c6dee9fcd6d5121ba051c316d500e237325cfce643b4",
+              "seq": 61
+            },
+            "hash": "f7dcbd668ce3d1e47586f696d615ad7775082cf2543d951a3c876777379375bd"
+          },
+          {
+            "body": {
+              "action_id": "deny-10",
+              "kind": "DENIED",
+              "previous_hash": "f7dcbd668ce3d1e47586f696d615ad7775082cf2543d951a3c876777379375bd",
+              "seq": 62
+            },
+            "hash": "ac631609256baf56ea088e038435fdb59cfee06f22a485365a211ce2485c3f0f"
+          },
+          {
+            "body": {
+              "action_id": "deny-10",
+              "kind": "DENIED",
+              "previous_hash": "ac631609256baf56ea088e038435fdb59cfee06f22a485365a211ce2485c3f0f",
+              "seq": 63
+            },
+            "hash": "f01278baf788f1d6a36333faf3cb736f7d053e2bda58104f70bf6a13916d5673"
+          },
+          {
+            "body": {
+              "action_id": "keep-10",
+              "kind": "COMMITTED",
+              "previous_hash": "f01278baf788f1d6a36333faf3cb736f7d053e2bda58104f70bf6a13916d5673",
+              "seq": 64
+            },
+            "hash": "3c8dc97e1135e6d9b1568bd4aaddfe86e7949d0b1690bfe8283a8e9765506b88"
+          },
+          {
+            "body": {
+              "action_id": "keep-10",
+              "kind": "ALREADY_COMMITTED",
+              "previous_hash": "3c8dc97e1135e6d9b1568bd4aaddfe86e7949d0b1690bfe8283a8e9765506b88",
+              "seq": 65
+            },
+            "hash": "02077e597965d67ff4a744cb2627eacbd344a79a385a490a0d5dee9cdd894fe9"
+          },
+          {
+            "body": {
+              "action_id": "deny-11",
+              "kind": "DENIED",
+              "previous_hash": "02077e597965d67ff4a744cb2627eacbd344a79a385a490a0d5dee9cdd894fe9",
+              "seq": 66
+            },
+            "hash": "57ac1593d7940c48ce7a02b793fa5cc477b8ac842655d1f778b93579d723d3a0"
+          },
+          {
+            "body": {
+              "action_id": "deny-11",
+              "kind": "DENIED",
+              "previous_hash": "57ac1593d7940c48ce7a02b793fa5cc477b8ac842655d1f778b93579d723d3a0",
+              "seq": 67
+            },
+            "hash": "a683a2e1ba17754cfac86b4ea81f67e7afae96009993f8197155eb345eded88a"
+          },
+          {
+            "body": {
+              "action_id": "keep-11",
+              "kind": "COMMITTED",
+              "previous_hash": "a683a2e1ba17754cfac86b4ea81f67e7afae96009993f8197155eb345eded88a",
+              "seq": 68
+            },
+            "hash": "b85377ac1aa892afa5399a53e9f7bdc6f93b61fd77a94f338dcff0328f43a9df"
+          },
+          {
+            "body": {
+              "action_id": "keep-11",
+              "kind": "ALREADY_COMMITTED",
+              "previous_hash": "b85377ac1aa892afa5399a53e9f7bdc6f93b61fd77a94f338dcff0328f43a9df",
+              "seq": 69
+            },
+            "hash": "1e697ed7224b87c7d3ffdab95858e02dceeaf8c3500f69042e500bfdb7574cb6"
+          },
+          {
+            "body": {
+              "action_id": "keep-00",
+              "kind": "COMMITTED",
+              "previous_hash": "1e697ed7224b87c7d3ffdab95858e02dceeaf8c3500f69042e500bfdb7574cb6",
+              "seq": 70
+            },
+            "hash": "f1d79368759bf1e232ad17f87b8fedf9a3fb238a6f0c52de081877cddaa9fb56"
+          },
+          {
+            "body": {
+              "action_id": "deny-06",
+              "kind": "DENIED",
+              "previous_hash": "f1d79368759bf1e232ad17f87b8fedf9a3fb238a6f0c52de081877cddaa9fb56",
+              "seq": 71
+            },
+            "hash": "f08b1cfb5b00678ab22cff594d1cb0df57724355d2b23e05de2956d240fc6801"
+          },
+          {
+            "body": {
+              "action_id": "deny-00",
+              "kind": "DENIED",
+              "previous_hash": "f08b1cfb5b00678ab22cff594d1cb0df57724355d2b23e05de2956d240fc6801",
+              "seq": 72
+            },
+            "hash": "7dcdfe00bebb5df357d398e25a224300f2e29b85977f9dbdbf75684af43cf8a8"
+          },
+          {
+            "body": {
+              "action_id": "keep-01",
+              "kind": "ALREADY_COMMITTED",
+              "previous_hash": "7dcdfe00bebb5df357d398e25a224300f2e29b85977f9dbdbf75684af43cf8a8",
+              "seq": 73
+            },
+            "hash": "e13471e2407f641f0320e3ad46b063bec25b1a7a134bf0bd190691f0bd17619d"
+          },
+          {
+            "body": {
+              "action_id": "keep-00",
+              "kind": "ALREADY_COMMITTED",
+              "previous_hash": "e13471e2407f641f0320e3ad46b063bec25b1a7a134bf0bd190691f0bd17619d",
+              "seq": 74
+            },
+            "hash": "4a6aa2488c82ee41297baf08b727e34320987c1c981dec3f726afdd81808955e"
+          },
+          {
+            "body": {
+              "action_id": "deny-02",
+              "kind": "DENIED",
+              "previous_hash": "4a6aa2488c82ee41297baf08b727e34320987c1c981dec3f726afdd81808955e",
+              "seq": 75
+            },
+            "hash": "a76fec0d6e7e2130eecace8f9fa6af1f006ef55030bbee63eee47d726b66bc74"
+          },
+          {
+            "body": {
+              "action_id": "keep-02",
+              "kind": "ALREADY_COMMITTED",
+              "previous_hash": "a76fec0d6e7e2130eecace8f9fa6af1f006ef55030bbee63eee47d726b66bc74",
+              "seq": 76
+            },
+            "hash": "4413a6a2ca988e941e3f5e766f77d19eaa9281d9e0c4bafcfb0670afb9110510"
+          }
+        ],
+        "event_chain_valid": true
+      },
+      "test_effect_rolls_back_when_recording_fails": {
+        "database": "test_effect_rolls_back_when_recording_fails.sqlite",
+        "before_retry": {
+          "integrity": "ok",
+          "effects": [],
+          "events": [
+            {
+              "body": {
+                "grant_id": "root",
+                "kind": "GRANT",
+                "parent": null,
+                "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+                "resource": "document",
+                "seq": 1
+              },
+              "hash": "a1ed5d09d25492735ba4c53bacdd8fc32880772cdd4e49614fffadfce7839027"
+            },
+            {
+              "body": {
+                "action_id": "action",
+                "grant_id": "root",
+                "kind": "QUEUED",
+                "previous_hash": "a1ed5d09d25492735ba4c53bacdd8fc32880772cdd4e49614fffadfce7839027",
+                "seq": 2
+              },
+              "hash": "8af654766321f31ec61fa79388a1cf0e27ebb55112cf62ff1b7bedbe4ca4aeef"
+            }
+          ],
+          "event_chain_valid": true
+        },
+        "retry_result": "COMMITTED",
+        "integrity": "ok",
+        "effects": [
+          [
+            "action",
+            "document",
+            "changed"
+          ]
+        ],
+        "events": [
+          {
+            "body": {
+              "grant_id": "root",
+              "kind": "GRANT",
+              "parent": null,
+              "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+              "resource": "document",
+              "seq": 1
+            },
+            "hash": "a1ed5d09d25492735ba4c53bacdd8fc32880772cdd4e49614fffadfce7839027"
+          },
+          {
+            "body": {
+              "action_id": "action",
+              "grant_id": "root",
+              "kind": "QUEUED",
+              "previous_hash": "a1ed5d09d25492735ba4c53bacdd8fc32880772cdd4e49614fffadfce7839027",
+              "seq": 2
+            },
+            "hash": "8af654766321f31ec61fa79388a1cf0e27ebb55112cf62ff1b7bedbe4ca4aeef"
+          },
+          {
+            "body": {
+              "action_id": "action",
+              "kind": "COMMITTED",
+              "previous_hash": "8af654766321f31ec61fa79388a1cf0e27ebb55112cf62ff1b7bedbe4ca4aeef",
+              "seq": 3
+            },
+            "hash": "8c4c83b93bcd4f09fc0cb1d8d46285155c2a2e5cc121877815461a2223e803b3"
+          }
+        ],
+        "event_chain_valid": true
+      },
+      "test_revocation_lock_blocks_delivery": {
+        "database": "test_revocation_lock_blocks_delivery.sqlite",
+        "while_locked": "SQLITE_BUSY",
+        "after_revocation": "DENIED",
+        "integrity": "ok",
+        "effects": [],
+        "events": [
+          {
+            "body": {
+              "grant_id": "root",
+              "kind": "GRANT",
+              "parent": null,
+              "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+              "resource": "document",
+              "seq": 1
+            },
+            "hash": "a1ed5d09d25492735ba4c53bacdd8fc32880772cdd4e49614fffadfce7839027"
+          },
+          {
+            "body": {
+              "action_id": "action",
+              "grant_id": "root",
+              "kind": "QUEUED",
+              "previous_hash": "a1ed5d09d25492735ba4c53bacdd8fc32880772cdd4e49614fffadfce7839027",
+              "seq": 2
+            },
+            "hash": "8af654766321f31ec61fa79388a1cf0e27ebb55112cf62ff1b7bedbe4ca4aeef"
+          },
+          {
+            "body": {
+              "grant_id": "root",
+              "kind": "REVOKE",
+              "previous_hash": "8af654766321f31ec61fa79388a1cf0e27ebb55112cf62ff1b7bedbe4ca4aeef",
+              "seq": 3
+            },
+            "hash": "475a63acca7f4968887f3587d25d9547c1cb4843f2e6408c760203238b61b558"
+          },
+          {
+            "body": {
+              "action_id": "action",
+              "kind": "DENIED",
+              "previous_hash": "475a63acca7f4968887f3587d25d9547c1cb4843f2e6408c760203238b61b558",
+              "seq": 4
+            },
+            "hash": "adface35fed94d4cf088a755f0d99a5749f286d8821663f34c07efb935a1de16"
+          }
+        ],
+        "event_chain_valid": true
+      }
+    }
+  },
+  "source_sha256": {
+    "baseline/revocation_demo.py": "f3100b36c8f27d85e0e4d5ef0bad60b5dec6dcad6d3bc45f889b277c6546e4a7",
+    "baseline/tests/test_revocation.py": "8ad0f265fb5787d392292f70c4940cb73755f1ba682ec867fbd5913534f89565",
+    "receiver.py": "bc3af11e5d1c46a9f33a2e70c749773042ae7d8c75c148b8276d85e0d5d0ebd0",
+    "run.py": "64e31fa36ba3af7489dd055d6f312dc5cd6df4d472de92033b4e91428bd4dd20",
+    "run_review.py": "d44be82954e65eff805a99db238efb712d821f0a70e7361bf06f4048105923ec"
+  },
+  "database_sha256": {
+    "delegation.sqlite": "63dbde413d4e2b1e5e84b3831f82d73e550f80a0f10aafda8b752260a1e53edd",
+    "duplicate_delivery.sqlite": "d1d741742ed25c05966b53118d0532bdb6d666d0aceb4956047b1546c57d0dcd",
+    "global_invalidation.sqlite": "d9281587efa6eda7f733d611092ec5fcfd4f5779954c9bff7cdb171ffa9ea927",
+    "ignore_parent.sqlite": "81e0021f7a1aed3b92cb1e31598bcbe453d536e2ab5b910cef5a61129d1c0b5c",
+    "queue_only.sqlite": "199626905f8c6007b1c037bfb1f2c68f50ba8358e9dadb2f94ff10da25cc0eb8",
+    "restart_retry.sqlite": "819fbdccfccee41b79e7d7998e39dfe288321e441a4082ca5072c3b2224de51a",
+    "revocation.sqlite": "819fbdccfccee41b79e7d7998e39dfe288321e441a4082ca5072c3b2224de51a",
+    "test_acknowledgement_loss.sqlite": "d1d741742ed25c05966b53118d0532bdb6d666d0aceb4956047b1546c57d0dcd",
+    "test_committed_before_revocation.sqlite": "07b72dc48c3dd303e09379aad2d349c9beb02a43def037e19803e841b1555eda",
+    "test_concurrent_mixed_queue.sqlite": "5fb7e840cb555ecad851a6520cfbbefe06b04724b021c7504e886d6133cb8797",
+    "test_effect_rolls_back_when_recording_fails.sqlite": "417d74c2db0a3f7e47e9ccee727c328c4f64f70060bb2d4250a9724ac44b369c",
+    "test_revocation_lock_blocks_delivery.sqlite": "f2e2d917031992c1569d034c675691e83796a395a9debc92eb5909f24eaeb2c6",
+    "unrelated_change.sqlite": "a17cd14ba8ec019eaf728a9aee93eae68f66c43b8e202b637ebf0b41444f0819"
+  }
+}
