@@ -1,0 +1,1 @@
+{"cases":[{"id":"zero","theta_radians":0,"ones":0,"shots":100},{"id":"half","theta_radians":1.5707963267948966,"ones":50,"shots":100},{"id":"bad_pi","theta_radians":3.141592653589793,"ones":0,"shots":100}]}
