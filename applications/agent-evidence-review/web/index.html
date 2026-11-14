@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Agent Evidence Review · AI Evaluation Lab</title><link rel="stylesheet" href="/style.css"><script src="/app.js" defer></script></head>
+<body><header><a href="/" class="brand">AI EVALUATION LAB <span>/ experiments</span></a><span class="local">LOCAL REVIEW · V0.1</span></header>
+<main><section class="intro"><p class="eyebrow">THE CLAIM IS NOT THE OUTCOME</p><h1>What did the agent<br>actually establish?</h1><p class="lede">Review a tool-use trace against its recorded permissions and outcome evidence. Find the gap between “done” and demonstrated.</p></section>
+<div class="notice">This is a deterministic review of supplied records. It does not authenticate the recorder, prove capture completeness, or measure a live model.</div>
+<section class="workspace"><div class="input-panel"><div class="panel-title"><h2>01 / Evidence</h2><label class="upload">Import JSON<input type="file" id="file" accept=".json,application/json"></label></div>
+<label for="scenario">Explore a synthetic control</label><select id="scenario"></select><p id="description"></p>
+<label for="trace">Ordered trace · editable JSON</label><textarea id="trace" spellcheck="false"></textarea>
+<div class="actions"><button id="review">Review evidence →</button><button id="export" class="secondary" disabled>Export report</button></div><p id="error" role="alert"></p></div>
+<div class="output-panel"><div class="panel-title"><h2>02 / Review</h2><span id="status">AWAITING INPUT</span></div>
+<div id="summary" aria-live="polite"><p>Choose a control or import your own trace, then review it.</p></div>
+<h3>Findings in event order</h3><div id="findings"></div><details><summary>Report JSON and input fingerprint</summary><pre id="raw"></pre></details></div></section>
+<section class="boundary"><h2>Three separate questions</h2><div><article><b>Was the action permitted?</b><p>Origin and tool scope, one-use consent, exact write approval, context fields, call budgets and stop events.</p></article><article><b>Was completion supported?</b><p>A returned response is not independent outcome evidence. An unknown write cannot be retried without confirming its absence.</p></article><article><b>Can we trust these records?</b><p>Not established here. A trusted recorder and complete capture are separate requirements.</p></article></div></section></main>
+<footer>AI Evaluation Lab · Original synthetic controls · No API keys or paid services required</footer></body></html>
