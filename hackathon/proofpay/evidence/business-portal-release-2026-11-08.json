@@ -1,0 +1,287 @@
+{
+  "checkedAt": "2026-11-08T10:53:57.806Z",
+  "runtimeSource": "1f4d8d6d5a8decb916d9cfe411a54731d452008a",
+  "sourceTree": "c21194c7f5b562b4ddec9bebfa509b1ed3dbb1ec",
+  "canonicalUrl": "https://proofpay-purchase-desk.vercel.app",
+  "production": {
+    "id": "dpl_6k7XAFTRGZodLDoLjmwK3uLqTM5J",
+    "url": "https://proofpay-purchase-desk-ocus8298b-kaulastudies-projects.vercel.app",
+    "readyState": "READY",
+    "target": "production",
+    "livePgPassed": 8,
+    "warnings": [],
+    "migrationCommitted": true,
+    "buildComplete": true
+  },
+  "preview": {
+    "id": "dpl_2io7NCd3mNuEAW176vWUsnaSC18j",
+    "readyState": "READY",
+    "realPostgresTestsPassed": 8,
+    "newMigration": "0002_business_profiles.sql"
+  },
+  "github": [
+    {
+      "id": 42472825621,
+      "name": "ci",
+      "conclusion": "success",
+      "url": "https://github.com/kaulastudies/ai-evaluation-lab/actions/runs/42472825621"
+    },
+    {
+      "id": 42472825608,
+      "name": "ProofPay verification",
+      "conclusion": "success",
+      "url": "https://github.com/kaulastudies/ai-evaluation-lab/actions/runs/42472825608"
+    }
+  ],
+  "localChecks": "business-portal-checks-2026-11-08.json",
+  "browser": {
+    "scope": "Production setup-pending shell only. Owner credential provisioning is blocked; no authenticated form, purchase, export, live AI or provider workflow is claimed.",
+    "observations": [
+      {
+        "bodyFont": "15px",
+        "minNavHeight": 48,
+        "navFont": "14px",
+        "scrollWidth": 345,
+        "setupPending": true,
+        "title": "Your business",
+        "width": 360
+      },
+      {
+        "bodyFont": "15px",
+        "minNavHeight": 48,
+        "navFont": "14px",
+        "scrollWidth": 345,
+        "setupPending": true,
+        "title": "Purchases",
+        "width": 360
+      },
+      {
+        "bodyFont": "15px",
+        "minNavHeight": 48,
+        "navFont": "14px",
+        "scrollWidth": 345,
+        "setupPending": true,
+        "title": "Approvals",
+        "width": 360
+      },
+      {
+        "bodyFont": "15px",
+        "minNavHeight": 48,
+        "navFont": "14px",
+        "scrollWidth": 345,
+        "setupPending": true,
+        "title": "Evidence",
+        "width": 360
+      },
+      {
+        "bodyFont": "15px",
+        "minNavHeight": 48,
+        "navFont": "14px",
+        "scrollWidth": 345,
+        "setupPending": true,
+        "title": "Controls",
+        "width": 360
+      },
+      {
+        "bodyFont": "15px",
+        "minNavHeight": 48,
+        "navFont": "14px",
+        "scrollWidth": 345,
+        "setupPending": true,
+        "title": "Connections",
+        "width": 360
+      },
+      {
+        "bodyFont": "15px",
+        "minNavHeight": 48,
+        "navFont": "14px",
+        "scrollWidth": 345,
+        "setupPending": true,
+        "title": "Business settings",
+        "width": 360
+      },
+      {
+        "bodyFont": "15px",
+        "minNavHeight": 48,
+        "navFont": "14px",
+        "scrollWidth": 345,
+        "setupPending": true,
+        "title": "Workspace history",
+        "width": 360
+      },
+      {
+        "bodyFont": "15px",
+        "minNavHeight": 46,
+        "navFont": "14px",
+        "scrollWidth": 768,
+        "setupPending": true,
+        "title": "Your business",
+        "width": 768
+      },
+      {
+        "bodyFont": "15px",
+        "minNavHeight": 46,
+        "navFont": "14px",
+        "scrollWidth": 768,
+        "setupPending": true,
+        "title": "Purchases",
+        "width": 768
+      },
+      {
+        "bodyFont": "15px",
+        "minNavHeight": 46,
+        "navFont": "14px",
+        "scrollWidth": 768,
+        "setupPending": true,
+        "title": "Approvals",
+        "width": 768
+      },
+      {
+        "bodyFont": "15px",
+        "minNavHeight": 46,
+        "navFont": "14px",
+        "scrollWidth": 768,
+        "setupPending": true,
+        "title": "Evidence",
+        "width": 768
+      },
+      {
+        "bodyFont": "15px",
+        "minNavHeight": 46,
+        "navFont": "14px",
+        "scrollWidth": 768,
+        "setupPending": true,
+        "title": "Controls",
+        "width": 768
+      },
+      {
+        "bodyFont": "15px",
+        "minNavHeight": 46,
+        "navFont": "14px",
+        "scrollWidth": 768,
+        "setupPending": true,
+        "title": "Connections",
+        "width": 768
+      },
+      {
+        "bodyFont": "15px",
+        "minNavHeight": 46,
+        "navFont": "14px",
+        "scrollWidth": 768,
+        "setupPending": true,
+        "title": "Business settings",
+        "width": 768
+      },
+      {
+        "bodyFont": "15px",
+        "minNavHeight": 46,
+        "navFont": "14px",
+        "scrollWidth": 768,
+        "setupPending": true,
+        "title": "Workspace history",
+        "width": 768
+      },
+      {
+        "bodyFont": "15px",
+        "minNavHeight": 48,
+        "navFont": "15px",
+        "scrollWidth": 1280,
+        "setupPending": true,
+        "title": "Your business",
+        "width": 1280
+      },
+      {
+        "bodyFont": "15px",
+        "minNavHeight": 48,
+        "navFont": "15px",
+        "scrollWidth": 1280,
+        "setupPending": true,
+        "title": "Purchases",
+        "width": 1280
+      },
+      {
+        "bodyFont": "15px",
+        "minNavHeight": 48,
+        "navFont": "15px",
+        "scrollWidth": 1280,
+        "setupPending": true,
+        "title": "Approvals",
+        "width": 1280
+      },
+      {
+        "bodyFont": "15px",
+        "minNavHeight": 48,
+        "navFont": "15px",
+        "scrollWidth": 1280,
+        "setupPending": true,
+        "title": "Evidence",
+        "width": 1280
+      },
+      {
+        "bodyFont": "15px",
+        "minNavHeight": 48,
+        "navFont": "15px",
+        "scrollWidth": 1280,
+        "setupPending": true,
+        "title": "Controls",
+        "width": 1280
+      },
+      {
+        "bodyFont": "15px",
+        "minNavHeight": 48,
+        "navFont": "15px",
+        "scrollWidth": 1280,
+        "setupPending": true,
+        "title": "Connections",
+        "width": 1280
+      },
+      {
+        "bodyFont": "15px",
+        "minNavHeight": 48,
+        "navFont": "15px",
+        "scrollWidth": 1280,
+        "setupPending": true,
+        "title": "Business settings",
+        "width": 1280
+      },
+      {
+        "bodyFont": "15px",
+        "minNavHeight": 48,
+        "navFont": "15px",
+        "scrollWidth": 1280,
+        "setupPending": true,
+        "title": "Workspace history",
+        "width": 1280
+      }
+    ],
+    "focus": {
+      "activeText": "Workspace history",
+      "outline": "2.4px",
+      "outlineStyle": "solid"
+    },
+    "warningErrorCollection": [],
+    "screenshot": "business-portal-setup-2026-11-08.jpg",
+    "viewportRestored": true
+  },
+  "team": {
+    "nithyaJoinedDevpost": true,
+    "checkedAtDate": "2026-11-08",
+    "account": "nithyaravikumar1518",
+    "submission": "draft; final Submit untouched"
+  },
+  "credentialStatus": {
+    "ownerSecretTransfer": "Rejected again by automatic approval review; exact authorization to store OWNER_PASSWORD_HASH and SESSION_SECRET in dedicated Vercel Production/Preview required",
+    "paypalSandbox": "Not yet configured in this project",
+    "bypassAttempted": false
+  },
+  "modelInvocation": false,
+  "newPayPalTransaction": false,
+  "personalOpenAICreditsUsed": false,
+  "remaining": [
+    "Explicit credential-transfer authorization and server setup",
+    "Authenticated live business/history/CSV and owner-session QA",
+    "One verified free-credit model call and current PayPal sandbox flow",
+    "Independent judge access and public under-three-minute video",
+    "Final owner review; submission stays held"
+  ]
+}

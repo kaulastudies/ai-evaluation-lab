@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "recorded_at_utc": "2026-11-08T04:20:33.938428+00:00",
+  "mode": "rehearsal",
+  "evidence_layer": "Authenticated hosted browser UI; simulated provider only",
+  "site_source_for_workflow": "a768139ef62543523792d5d38ff8617c320f8c20",
+  "site_source_for_final_wording": "0b36f5399331bf63e22cdc850e678b360c222a7f",
+  "operation_id": "c2c5e452-cff1-4955-917c-2a008969b95d",
+  "purchase": "Starter review",
+  "amount_cents": 9000,
+  "currency": "USD",
+  "before_approval": {
+    "available_cents": 12000,
+    "reserved_cents": 0,
+    "paid_cents": 18000
+  },
+  "after_approval": {
+    "available_cents": 3000,
+    "reserved_cents": 9000,
+    "paid_cents": 18000
+  },
+  "after_cancellation_and_reload": {
+    "available_cents": 12000,
+    "reserved_cents": 0,
+    "paid_cents": 18000,
+    "status": "CANCELLED",
+    "same_operation_retained": true,
+    "cancellation_events_displayed": 1,
+    "approval_version": 1
+  },
+  "checks": [
+    "Six desktop navigation views rendered",
+    "Purchase search no-match state has no open actionable drawer",
+    "Confirmed filter selects the existing confirmed record",
+    "Confirmed purchase offers no cancellation",
+    "Cancellation confirmation shows item, seller, amount and release effect",
+    "Cancelled filter retains request",
+    "Evidence search finds one REQUEST_CANCELLED event",
+    "Cancellation history and allowance survive browser reload",
+    "Cancelled approval displays no execution authority in final deployment",
+    "PayPal configuration and missing AI configuration remain distinct",
+    "About dialog closes with Escape",
+    "No captured browser error/warning logs in checked tab"
+  ],
+  "mobile_visual_check": "Not verified: supported viewport override requested390x844, but DOM remained1521x682 in existing and new tab. Override reset. Responsive CSS implemented, desktop geometry only observed.",
+  "limitations": [
+    "No actual model invocation or PayPal capture in this run",
+    "No actual money moved",
+    "No provider request-count observation from this UI check; local tests separately verify no provider calls during cancellation",
+    "Browser reload is not a backend process restart",
+    "Hosted ingress identity stripping not independently established",
+    "Final Devpost Submit remains held"
+  ]
+}

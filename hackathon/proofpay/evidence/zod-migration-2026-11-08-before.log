@@ -1,0 +1,71 @@
+✖ connector: oversized grant list is rejected before any grant is inspected (9.089778ms)
+✖ connector: oversized preview result is rejected before any content block is inspected (20.679995ms)
+✖ connector: oversized deployed result is rejected before any content block is inspected (11.131311ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 0
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 361.617555
+
+✖ failing tests:
+
+test at tests/review-connectors.mjs:99:1
+✖ connector: oversized grant list is rejected before any grant is inspected (9.089778ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+  257 !== 0
+
+      at TestContext.<anonymous> (file://[checkout]/tests/review-connectors.mjs:104:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.start (node:internal/test_runner/test:1262:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 257,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/review-connectors.mjs:110:1
+✖ connector: oversized preview result is rejected before any content block is inspected (20.679995ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+  1025 !== 0
+
+      at file://[checkout]/tests/review-connectors.mjs:116:12
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async withBinding (file://[checkout]/tests/review-connectors.mjs:23:9)
+      at async TestContext.<anonymous> (file://[checkout]/tests/review-connectors.mjs:112:3)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1025,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/review-connectors.mjs:120:1
+✖ connector: oversized deployed result is rejected before any content block is inspected (11.131311ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+  1025 !== 0
+
+      at TestContext.<anonymous> (file://[checkout]/tests/review-connectors.mjs:125:10)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1025,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

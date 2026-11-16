@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-11-08T05:22:56.539831+00:00",
+  "runtime": "Node v24.22.1",
+  "command": "npm test",
+  "result": {
+    "tests": 131,
+    "pass": 131,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0
+  },
+  "layers": [
+    "Local SQLite including separate OS process reservation/cancellation races and process restart",
+    "Synthetic provider/model fixtures and mocked network responses",
+    "Unsigned offline receipt consistency checks"
+  ],
+  "actualExternalModelExecution": false,
+  "actualPayPalCaptureExecution": false,
+  "hostedD1Certified": false,
+  "ingressHeaderStrippingVerified": false,
+  "audit": {
+    "info": 0,
+    "low": 2,
+    "moderate": 15,
+    "high": 1,
+    "critical": 0,
+    "total": 18
+  },
+  "sourceSha256": {
+    "drizzle/0000_greedy_living_lightning.sql": "01e828e3d027116a1bc7ef38abbb25d75bd69393f84e215371dd0cd861edf4cd",
+    "lib/proofpay/ai.ts": "c30ace8324d544066934ab19d4890a7a1c19ce9e565706d0e835dc7aff318ac4",
+    "lib/proofpay/auth.ts": "a30bda51e5710d47a29d9915e2dbfe3b2d769a848a1dd01d8871a8b4d4fcc748",
+    "lib/proofpay/catalogue.ts": "a0d164afc4d325e95199cdfa1d75f4e7d015f5d62f5c6f1b87f9e6fd7c29dafe",
+    "lib/proofpay/http.ts": "7efefe6dc4f40a457ca089b01d415b4866408b748d44bc1cba590b782c5bce1c",
+    "lib/proofpay/provider.ts": "7ffc2421e60ba5b6cf9b215d9ffa7128a239912122d6001b2615a86d659c7b38",
+    "lib/proofpay/request.ts": "df2e914ad729db58972d6514ee1b5e19457573e7120cd8b4394884aa377fb1ba",
+    "lib/proofpay/service.ts": "8ed84984e5a8780e8e1675a5f753e090c6c1c692db51f9b5441d890a9247cf07",
+    "lib/proofpay/types.ts": "e623bfaf0ab7aa49cb1161001e80a2c7fcdf774baa4555854ec01e42f9a813e9",
+    "package-lock.json": "be3298473eba6d8349431193047b4e519b5baabc0351bf26f6370c513345e5f2",
+    "package.json": "c0620a7435da8b074c7c23ddc235cfa8f323970a26cfb1b66beb2601b94fbf3d",
+    "scripts/verify-receipt.mjs": "2e6d0a87fd7de70b7bbd6cccfb7cd00e74681364570c73b30fe615d2b0156e78",
+    "tests/review-ai.mjs": "505c63d51d65de12fc971d9d5a195234a53970625642924bdf4b782e7300784e",
+    "tests/review-auth.mjs": "4af98e6ab0480179e8d52fbfb83080bcdc32763c22befd3b4e65369b7b5c01a5",
+    "tests/review-d1.mjs": "24bf81ecf9ba8832d3577963a58c76dd5fda717a3b65dca6bfc2b3482ea2b8c3",
+    "tests/review-database.mjs": "35e35ad008ac53086d1750686d28be1defcfca16472653ff4b181f4e0529063e",
+    "tests/review-provider.mjs": "9a9461f8d1eb111635b91c21c4607ad2465d732319ebbf3759fe63eb2fd4adad",
+    "tests/review-receipt.mjs": "45812e404900bfbe6f7d50d4e8cb867d302ad7cc27c83b6ec68b8a9a1171d5dc",
+    "tests/review-security.mjs": "994dc094c1f8595b1b941a8b3e5e0a72f74313a69bb8500256a370686b6e99e6",
+    "tests/review-service.mjs": "a25102dc08fdc52877ca07f8e1ed9a0af0074360695b20d157e6a16114a9bf1e",
+    "tests/review-worker.mjs": "3e5e24bc1fb96ca698e2fd9a8a08e0eb624f86f9692b64339c5b8ee6f96524bc"
+  },
+  "evidenceSha256": {
+    "qa-2026-11-08-test-output.log": "a13bac7202882550367f65f652e5ac41e95588aad3fe478166700dbf7d0c84e9",
+    "npm-audit-2026-11-08-before.json": "d306dece4079e1ee059d7d7f134cbee2d1fa7339b40a935ca8455765cec4f517",
+    "npm-audit-2026-11-08-after.json": "953e588dcfdecd23128fbeab0dd378f4aa9ce81c370d3b138a577eb9e689afb7"
+  },
+  "additionalChecks": {
+    "changedIndependentTestLint": {
+      "command": "node node_modules/eslint/bin/eslint.js tests/review-worker.mjs tests/review-service.mjs tests/review-database.mjs",
+      "exitCode": 0
+    },
+    "fullApplicationTypecheck": {
+      "command": "npx tsc --noEmit",
+      "exitCode": 0,
+      "reportedBy": "release owner"
+    },
+    "fullApplicationLint": {
+      "command": "npm run lint",
+      "exitCode": 0,
+      "reportedBy": "release owner"
+    },
+    "productionBuild": "Pending release-owner Site build; not included in this checkpoint",
+    "responsiveFixtureBuild": {
+      "result": "passed",
+      "reportedBy": "release owner",
+      "productionSources": 3
+    },
+    "responsiveVisualQA": {
+      "reportedBy": "release owner",
+      "widths": [
+        360,
+        390,
+        768,
+        1280
+      ],
+      "observed": "No document overflow; intentional table keyboard scroll works; Escape closes receipt",
+      "boundary": "Synthetic local responsive harness, not hosted integration"
+    }
+  },
+  "privacyReview": {
+    "contents": "Test names/results, dependency audit metadata and source fingerprints only; no captured credentials, request headers, cookies or raw model/provider payloads",
+    "sensitivePatternScan": "No matching API key, private key, Authorization credential or email pattern in the four retained local QA/audit artifacts",
+    "limitation": "Pattern scan is not a comprehensive secret-scanning guarantee"
+  }
+}

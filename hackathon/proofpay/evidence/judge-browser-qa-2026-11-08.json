@@ -1,0 +1,97 @@
+{
+  "checked_date": "2026-11-08",
+  "origin": "https://proofpay-evaluation-lab.vercel.app",
+  "source_commit": "2caa74039fee7c136fb892084225a8235b4b4ea6",
+  "deployment": "dpl_Hazv9A9bHbQQmffM74iJU6obvWE3",
+  "method": "Connected Chrome, public signed guest, actual hosted UI interactions and read-only layout measurements",
+  "workflow": {
+    "operation": "e24f7f90-e5b2-422d-8502-575308b7390f",
+    "mode": "rehearsal",
+    "lab_observations": 6,
+    "lab_total": 6,
+    "approval_usd": 180,
+    "competing_block_usd": 160,
+    "response_loss": "UNKNOWN with 180 reserved",
+    "reload": "same operation and reservation retained",
+    "recovery": "original simulated order confirmed",
+    "repeat": "same simulated capture and totals",
+    "final_usd": {
+      "available": 120,
+      "reserved": 0,
+      "paid": 180
+    }
+  },
+  "responsive": [
+    {
+      "section": "Purchase desk",
+      "viewport_width": 360,
+      "document_scroll_width": 345,
+      "horizontal_overflow": false,
+      "main_font_size": "16px"
+    },
+    {
+      "section": "AI & backend",
+      "viewport_width": 360,
+      "document_scroll_width": 345,
+      "horizontal_overflow": false,
+      "main_font_size": "16px"
+    },
+    {
+      "section": "Evaluation lab",
+      "viewport_width": 360,
+      "document_scroll_width": 345,
+      "horizontal_overflow": false,
+      "main_font_size": "16px"
+    },
+    {
+      "section": "Purchase desk",
+      "viewport_width": 768,
+      "document_scroll_width": 753,
+      "horizontal_overflow": false,
+      "main_font_size": "16px"
+    },
+    {
+      "section": "AI & backend",
+      "viewport_width": 768,
+      "document_scroll_width": 753,
+      "horizontal_overflow": false,
+      "main_font_size": "16px"
+    },
+    {
+      "section": "Evaluation lab",
+      "viewport_width": 768,
+      "document_scroll_width": 753,
+      "horizontal_overflow": false,
+      "main_font_size": "16px"
+    },
+    {
+      "section": "Purchase desk",
+      "viewport_width": 1280,
+      "document_scroll_width": 1265,
+      "horizontal_overflow": false,
+      "main_font_size": "16px"
+    },
+    {
+      "section": "AI & backend",
+      "viewport_width": 1280,
+      "document_scroll_width": 1265,
+      "horizontal_overflow": false,
+      "main_font_size": "16px"
+    },
+    {
+      "section": "Evaluation lab",
+      "viewport_width": 1280,
+      "document_scroll_width": 1265,
+      "horizontal_overflow": false,
+      "main_font_size": "16px"
+    }
+  ],
+  "viewport_restored": true,
+  "captured_app_console_warnings_errors": [],
+  "limits": [
+    "Guest browser tabs share one cookie; separate-guest isolation is covered by the independent HTTP report.",
+    "Rehearsal uses deterministic proposals and simulated provider responses, not fresh external AI or PayPal calls.",
+    "Lab observations are application checks, not an independent security certification.",
+    "Browser file download was not established by these checks."
+  ]
+}

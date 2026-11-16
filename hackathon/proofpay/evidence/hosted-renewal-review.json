@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "recorded_at_utc": "2026-11-08T03:36:05.822053+00:00",
+  "evidence_layer": "Observed hosted UI rehearsal; simulated provider, no model call or PayPal transaction",
+  "site_source_commit": "4f77f426dbcfb2387f0c2e4d697c10be8466b400",
+  "public_code_checkpoint": "5c2c8ec0a8073d6bd0b9221e1d37328fd26510ce",
+  "operation_id": "75178068-3bb8-410e-be2d-6e834e2941df",
+  "simulated_order_id": "REH-86829231-6fc6-45e7-801e-f5247e25d1e3",
+  "simulated_capture_id": "REH-CAP-a00540f0-0e39-42df-af61-2e8e7f2a23d5",
+  "currency": "USD",
+  "approval_before": 1,
+  "approval_after": 2,
+  "observed": {
+    "real_15_minute_window_expired": true,
+    "capture_disabled_when_expired": true,
+    "renewal_preserved_visible_order": true,
+    "renewal_reserved_cents": 18000,
+    "renewal_available_cents": 12000,
+    "renewal_paid_cents": 0,
+    "capture_enabled_after_renewal": true,
+    "response_drop_injected": true,
+    "unknown_retained_reservation_through_browser_reload": true,
+    "reconciled_paid_cents": 18000,
+    "reconciled_reserved_cents": 0,
+    "reconciled_available_cents": 12000,
+    "reconciled_unresolved_count": 0
+  },
+  "limitations": [
+    "No actual external model inference or PayPal capture",
+    "Browser reload is not a backend process restart",
+    "Provider request IDs were covered by local tests, not independently re-extracted in this UI check",
+    "UI result alone does not prove provider call counts or hosted concurrency"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "evidence_reviewed": false,
+  "avatar_clip": null,
+  "avatar_source_reviewed": false,
+  "avatar_matches_narration": false,
+  "scenes": [
+    {"paragraph": 1, "mode_banner": "Product overview · Virtual sandbox allowance", "frames": []},
+    {"paragraph": 2, "mode_banner": "Saved evidence — completed sandbox run · No replay", "frames": []},
+    {"paragraph": 3, "mode_banner": "Saved evidence — completed sandbox run · Virtual funds", "frames": []},
+    {"paragraph": 4, "mode_banner": "Fresh rehearsal — deterministic proposals, simulated provider", "frames": []},
+    {"paragraph": 5, "mode_banner": "Fresh rehearsal — simulated provider · No model or PayPal calls", "frames": []},
+    {"paragraph": 6, "mode_banner": "Fresh rehearsal — same simulated operation · Edited recorded states", "frames": []},
+    {"paragraph": 7, "mode_banner": "Fresh rehearsal — stored unsigned evidence · No new payment", "frames": []},
+    {"paragraph": 8, "mode_banner": "Dated QA evidence · Test scope and limits remain visible", "frames": []},
+    {"paragraph": 9, "mode_banner": "Source and setup · Independent judge access only if verified", "frames": []}
+  ]
+}

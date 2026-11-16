@@ -1,0 +1,32 @@
+{
+  "scope": "Local native Next.js candidate; live PostgreSQL and hosted authentication separately gated",
+  "results": [
+    {
+      "check": "tests",
+      "exitCode": 0,
+      "durationSeconds": 2.22,
+      "tests": 178
+    },
+    {
+      "check": "lint",
+      "exitCode": 0,
+      "durationSeconds": 8.38
+    },
+    {
+      "check": "types",
+      "exitCode": 0,
+      "durationSeconds": 4.07
+    },
+    {
+      "check": "build",
+      "exitCode": 0,
+      "durationSeconds": 10.2
+    },
+    {
+      "check": "visual-build",
+      "exitCode": 0,
+      "durationSeconds": 1.02
+    }
+  ],
+  "migrationErrorRedaction": "Three synthetic subprocess regression checks passed; no database or model calls"
+}

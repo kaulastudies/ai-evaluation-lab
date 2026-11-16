@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-11-08T05:31:41.063370+00:00",
+  "environment": "Isolated local browser iframe rendering actual product components and CSS with synthetic data",
+  "checks": [
+    {
+      "viewport": 360,
+      "views": [
+        "Approvals",
+        "Controls",
+        "receipt comparison"
+      ],
+      "documentOverflow": false
+    },
+    {
+      "viewport": 390,
+      "views": [
+        "Purchases",
+        "confirmed receipt comparison"
+      ],
+      "documentOverflow": false
+    },
+    {
+      "viewport": 768,
+      "views": [
+        "Purchases",
+        "Overview"
+      ],
+      "documentOverflow": false
+    },
+    {
+      "viewport": 1280,
+      "views": [
+        "Evidence"
+      ],
+      "documentOverflow": false
+    }
+  ],
+  "keyboard": [
+    "Tab from status filter focuses purchase table",
+    "Held Right arrow visibly scrolls table horizontally",
+    "Escape closes purchase dialog"
+  ],
+  "observations": [
+    "Long merchant and provider references wrap inside receipt columns",
+    "Same value and Not recorded labels visible",
+    "Historical approval-version and catalogue-item absence disclosed",
+    "No whole-page horizontal overflow in inspected states"
+  ],
+  "limitations": [
+    "Synthetic fixture only; not real-device testing",
+    "Not a WCAG conformance audit",
+    "Not model, PayPal, hosted database or authentication evidence",
+    "Other fixture scenarios were not re-exercised in this pass"
+  ],
+  "sourceSha256": {
+    "components/proofpay/purchase-desk.tsx": "d63609290823d8c2f73bacd61a2b02c671b93471384cd6289110c481ea40061d",
+    "components/proofpay/receipt-inspector.tsx": "df72f32f9f03fae0aa9fef9a0599a16a41e9e9ff58b7fb855a798c05050e6a47",
+    "app/globals.css": "afabc7dc2205b28dba45f7ca6e0d9aa52778b2671c71fdc48db98a706aef885f",
+    "tests/responsive/entry.jsx": "9e57a4b87dd1c6f9cc80ed4f0d1f0686056c1731bcfd202a5768473c75bf47d5"
+  },
+  "screenshot": "readability-qa.png"
+}

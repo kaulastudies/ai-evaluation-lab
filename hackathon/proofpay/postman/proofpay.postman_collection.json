@@ -1,0 +1,631 @@
+{
+  "info": {
+    "name": "ProofPay — owner workflow and evidence",
+    "schema": "https://schema.postman.com/json/collection/v2.1.0/collection.json",
+    "description": "Credential-free development collection for native Next.js ProofPay. Requires your configured HTTPS APP_ORIGIN and owner session. Use individual requests; this is not an automated end-to-end payment test. Defaults to rehearsal. No provider create/capture endpoints, real keys, cookies or saved private responses are included. Postman is a development tool here, not the application inference provider. See postman/README.md for setup and evidence boundaries."
+  },
+  "auth": {
+    "type": "noauth"
+  },
+  "protocolProfileBehavior": {
+    "followRedirects": false
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://proofpay.example.invalid",
+      "type": "string",
+      "description": "Exact HTTPS APP_ORIGIN, without path or trailing slash. Replace the deliberately non-routable example."
+    },
+    {
+      "key": "mode",
+      "value": "rehearsal",
+      "type": "string",
+      "description": "rehearsal or sandbox. A model proposal in standard sandbox can consume configured provider credits."
+    },
+    {
+      "key": "operationId",
+      "value": "",
+      "type": "string",
+      "description": "Exact operation to inspect/change. Seeded rehearsal/diagnostic selects its workflow-review request; otherwise copy from state."
+    },
+    {
+      "key": "approvalVersion",
+      "value": "1",
+      "type": "string",
+      "description": "Current positive integer from the selected operation; refreshed when that operation appears in a successful state response."
+    },
+    {
+      "key": "proposalKey",
+      "value": "postman-workflow-review-v1",
+      "type": "string",
+      "description": "8–128 letters/digits/dashes/underscores. Keep stable when retrying the same request; change for a distinct request."
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "const base = pm.variables.get('baseUrl') || '';",
+          "if (!/^https:\\/\\/[A-Za-z0-9.-]+(?::[0-9]+)?$/.test(base) || base.includes('.invalid')) throw new Error('Set baseUrl to the exact configured HTTPS APP_ORIGIN, without a path or trailing slash.');"
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "pm.test('HTTP 200 for this eligible request', () => pm.response.to.have.status(200));",
+          "pm.test('JSON response', () => pm.expect(pm.response.headers.get('Content-Type') || '').to.match(/application\\/json/i));",
+          "pm.test('Private response is not cached', () => pm.expect(pm.response.headers.get('Cache-Control') || '').to.include('no-store'));"
+        ]
+      }
+    }
+  ],
+  "item": [
+    {
+      "name": "1. Owner session",
+      "description": "Send Login first. Postman stores the Secure HttpOnly session in its cookie jar. Send Logout when finished. Send individual requests; this collection is not an automatic whole-folder payment workflow.",
+      "item": [
+        {
+          "name": "Login with owner key",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Origin",
+                "value": "{{baseUrl}}"
+              }
+            ],
+            "url": "{{baseUrl}}/api/auth/login",
+            "description": "Store the owner key in your local Postman Vault as proofpay-owner-key, restricted to your exact deployment host. No key value is included in this collection. Login is globally limited to ten attempts per minute.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"password\": \"{{vault:proofpay-owner-key}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Login acknowledged', () => pm.expect(pm.response.json().ok).to.eql(true));",
+                  "pm.test('Host-only secure owner session issued', () => { const cookie = pm.response.headers.get('Set-Cookie') || ''; pm.expect(/^__Host-proofpay-session=/.test(cookie)).to.eql(true); for (const flag of ['HttpOnly', 'Secure', 'SameSite=Strict', 'Path=/']) pm.expect(cookie.includes(flag)).to.eql(true); });"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Origin",
+                "value": "{{baseUrl}}"
+              }
+            ],
+            "url": "{{baseUrl}}/api/auth/logout",
+            "description": "Clears this client session cookie. It does not revoke copies of an already-issued session.",
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Logout acknowledged', () => pm.expect(pm.response.json().ok).to.eql(true));",
+                  "pm.test('Session cookie cleared', () => pm.expect((pm.response.headers.get('Set-Cookie') || '').includes('Max-Age=0')).to.eql(true));"
+                ]
+              }
+            }
+          ],
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "2. Read state and evidence",
+      "item": [
+        {
+          "name": "Get current state",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/state",
+            "description": "Inspect workspace mode, allowance, operation ID and current approvalVersion. Copy the intended operation ID into the operationId collection variable; this response only refreshes the version of an already-selected operation."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const result = pm.response.json();",
+                  "pm.test('State envelope is present', () => pm.expect(result).to.have.property('state'));",
+                  "if (pm.response.code === 200 && result.state) {",
+                  "  const selected = (result.state.operations || []).find(op => op.id === pm.variables.get('operationId'));",
+                  "  if (selected) pm.collectionVariables.set('approvalVersion', String(selected.approvalVersion));",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
+          "name": "Get selected operation evidence",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/operations/{{operationId}}/evidence",
+            "description": "Read the owner-scoped version 1 receipt. This request performs no provider lookup or payment dispatch. Save only sanitized evidence; a consistent unsigned export is not external authenticity."
+          },
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const id = pm.variables.get('operationId') || '';",
+                  "if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id)) throw new Error('Set operationId from the operation you intend to inspect or change.');",
+                  "const version = Number(pm.variables.get('approvalVersion'));",
+                  "if (!Number.isSafeInteger(version) || version < 1) throw new Error('Use the current positive approvalVersion from Get current state.');"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const receipt = pm.response.json();",
+                  "pm.test('Versioned receipt', () => pm.expect(receipt.receiptSchemaVersion).to.eql(1));",
+                  "pm.test('Receipt belongs to selected operation', () => pm.expect(receipt.operation.id).to.eql(pm.variables.get('operationId')));",
+                  "pm.test('Provider record list is present', () => pm.expect(receipt.verificationRecords).to.be.an('array'));"
+                ]
+              }
+            }
+          ],
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "3. Start one workspace",
+      "description": "Choose one request. A reserved or uncertain active sandbox blocks workspace switching. Every request creates a new workspace; prior evidence is retained.",
+      "item": [
+        {
+          "name": "Start seeded rehearsal",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Origin",
+                "value": "{{baseUrl}}"
+              }
+            ],
+            "url": "{{baseUrl}}/api/rehearsal/start",
+            "description": "Creates a simulated workspace using the saved business allowance ($300 when unconfigured), with $180 and $160 requests; no model or PayPal calls. Selects the proposed workflow-review operation for inspection.",
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const result = pm.response.json();",
+                  "if (pm.response.code === 200 && result.state) {",
+                  "  pm.collectionVariables.set('operationId', '');",
+                  "  pm.collectionVariables.set('approvalVersion', '1');",
+                  "  pm.collectionVariables.set('mode', result.state.workspace.mode);",
+                  "  const selected = (result.state.operations || []).find(op => op.sku === 'workflow-review' && op.status === 'PROPOSED');",
+                  "  if (selected) { pm.collectionVariables.set('operationId', selected.id); pm.collectionVariables.set('approvalVersion', String(selected.approvalVersion)); }",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
+          "name": "Start empty workspace",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Origin",
+                "value": "{{baseUrl}}"
+              }
+            ],
+            "url": "{{baseUrl}}/api/workspaces",
+            "description": "Uses mode=rehearsal by default. Change mode to sandbox only for an explicitly configured external test. Starting a standard sandbox workspace does not prove a model call; proposals still require the configured model.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"mode\": \"{{mode}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const result = pm.response.json();",
+                  "if (pm.response.code === 200 && result.state) {",
+                  "  pm.collectionVariables.set('operationId', '');",
+                  "  pm.collectionVariables.set('approvalVersion', '1');",
+                  "  pm.collectionVariables.set('mode', result.state.workspace.mode);",
+                  "  const selected = (result.state.operations || []).find(op => op.sku === 'workflow-review' && op.status === 'PROPOSED');",
+                  "  if (selected) { pm.collectionVariables.set('operationId', selected.id); pm.collectionVariables.set('approvalVersion', String(selected.approvalVersion)); }",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
+          "name": "Start manual PayPal diagnostic",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Origin",
+                "value": "{{baseUrl}}"
+              }
+            ],
+            "url": "{{baseUrl}}/api/sandbox/diagnostic/start",
+            "description": "Requires PayPal server configuration. Creates one fixed, unapproved $180 workflow-review request and selects it. No model or provider call occurs at creation; it is manual/no-AI. This collection does not create or capture provider orders.",
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const result = pm.response.json();",
+                  "if (pm.response.code === 200 && result.state) {",
+                  "  pm.collectionVariables.set('operationId', '');",
+                  "  pm.collectionVariables.set('approvalVersion', '1');",
+                  "  pm.collectionVariables.set('mode', result.state.workspace.mode);",
+                  "  const selected = (result.state.operations || []).find(op => op.sku === 'workflow-review' && op.status === 'PROPOSED');",
+                  "  if (selected) { pm.collectionVariables.set('operationId', selected.id); pm.collectionVariables.set('approvalVersion', String(selected.approvalVersion)); }",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "4. Propose and review",
+      "description": "Default mode is rehearsal. Read each operation before approving it. Proposal keys are retained for retry safety; change proposalKey only for a distinct request.",
+      "item": [
+        {
+          "name": "Propose workflow review",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Origin",
+                "value": "{{baseUrl}}"
+              }
+            ],
+            "url": "{{baseUrl}}/api/proposals",
+            "description": "Uses deterministic selection in rehearsal. In a standard sandbox workspace it consumes one durable attempt under the reviewed Vercel free-credit grant. Limit: one dispatched attempt per workspace and the configured total grant cap (currently one); failures count and there is no automatic retry or alternate provider. A successful retry with the same request key reads the stored proposal. Personal OpenAI/API keys are rejected. Diagnostic workspaces reject additional proposals. Inspect state and explicitly set operationId before approval.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"request\": \"Find a workflow review for our team.\",\n  \"mode\": \"{{mode}}\",\n  \"idempotencyKey\": \"{{proposalKey}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const result = pm.response.json();",
+                  "pm.test('State envelope is present', () => pm.expect(result).to.have.property('state'));",
+                  "if (pm.response.code === 200 && result.state) {",
+                  "  const selected = (result.state.operations || []).find(op => op.id === pm.variables.get('operationId'));",
+                  "  if (selected) pm.collectionVariables.set('approvalVersion', String(selected.approvalVersion));",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
+          "name": "Approve selected operation",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Origin",
+                "value": "{{baseUrl}}"
+              }
+            ],
+            "url": "{{baseUrl}}/api/operations/{{operationId}}/approve",
+            "description": "Reserves allowance for this exact operation and approval version. No provider order is dispatched. Inspect the selected request, seller, amount and currency first.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"approvalVersion\": {{approvalVersion}}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const id = pm.variables.get('operationId') || '';",
+                  "if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id)) throw new Error('Set operationId from the operation you intend to inspect or change.');",
+                  "const version = Number(pm.variables.get('approvalVersion'));",
+                  "if (!Number.isSafeInteger(version) || version < 1) throw new Error('Use the current positive approvalVersion from Get current state.');"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const result = pm.response.json();",
+                  "pm.test('State envelope is present', () => pm.expect(result).to.have.property('state'));",
+                  "if (pm.response.code === 200 && result.state) {",
+                  "  const selected = (result.state.operations || []).find(op => op.id === pm.variables.get('operationId'));",
+                  "  if (selected) pm.collectionVariables.set('approvalVersion', String(selected.approvalVersion));",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
+          "name": "Cancel before dispatch",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Origin",
+                "value": "{{baseUrl}}"
+              }
+            ],
+            "url": "{{baseUrl}}/api/operations/{{operationId}}/cancel",
+            "description": "Cancels only an eligible untouched request. Releases an approved local reservation once; this is not a provider cancellation or refund.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"approvalVersion\": {{approvalVersion}}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const id = pm.variables.get('operationId') || '';",
+                  "if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id)) throw new Error('Set operationId from the operation you intend to inspect or change.');",
+                  "const version = Number(pm.variables.get('approvalVersion'));",
+                  "if (!Number.isSafeInteger(version) || version < 1) throw new Error('Use the current positive approvalVersion from Get current state.');"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const result = pm.response.json();",
+                  "pm.test('State envelope is present', () => pm.expect(result).to.have.property('state'));",
+                  "if (pm.response.code === 200 && result.state) {",
+                  "  const selected = (result.state.operations || []).find(op => op.id === pm.variables.get('operationId'));",
+                  "  if (selected) pm.collectionVariables.set('approvalVersion', String(selected.approvalVersion));",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
+          "name": "Renew expired approval",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Origin",
+                "value": "{{baseUrl}}"
+              }
+            ],
+            "url": "{{baseUrl}}/api/operations/{{operationId}}/renew-approval",
+            "description": "For an eligible expired approval, explicitly grants a new approval version while preserving the operation and reservation. A fresh/unexpired or cancelled request is rejected.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"approvalVersion\": {{approvalVersion}}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const id = pm.variables.get('operationId') || '';",
+                  "if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id)) throw new Error('Set operationId from the operation you intend to inspect or change.');",
+                  "const version = Number(pm.variables.get('approvalVersion'));",
+                  "if (!Number.isSafeInteger(version) || version < 1) throw new Error('Use the current positive approvalVersion from Get current state.');"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const result = pm.response.json();",
+                  "pm.test('State envelope is present', () => pm.expect(result).to.have.property('state'));",
+                  "if (pm.response.code === 200 && result.state) {",
+                  "  const selected = (result.state.operations || []).find(op => op.id === pm.variables.get('operationId'));",
+                  "  if (selected) pm.collectionVariables.set('approvalVersion', String(selected.approvalVersion));",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "response": []
+        }
+      ]
+    }
+  ]
+}

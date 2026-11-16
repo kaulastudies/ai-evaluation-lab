@@ -1,0 +1,298 @@
+{
+  "schemaVersion": 1,
+  "startedAt": "2026-11-08T12:30:24.046024+00:00",
+  "canonicalOrigin": "https://proofpay-evaluation-lab.vercel.app",
+  "deploymentId": "dpl_Hazv9A9bHbQQmffM74iJU6obvWE3",
+  "sourceCommit": "2caa74039fee7c136fb892084225a8235b4b4ea6",
+  "scope": "Independent low-volume HTTPS API checks against public guest rehearsal. No browser automation, real AI inference or PayPal call was requested.",
+  "checks": [
+    {
+      "name": "owner state disabled",
+      "method": "GET",
+      "status": 404,
+      "expectedStatus": 404,
+      "passed": true,
+      "elapsedMs": 10091,
+      "errorCode": "NOT_FOUND",
+      "cacheControl": "no-store"
+    },
+    {
+      "name": "anonymous guest state denied",
+      "method": "GET",
+      "status": 401,
+      "expectedStatus": 401,
+      "passed": true,
+      "elapsedMs": 7470,
+      "errorCode": "JUDGE_AUTH_REQUIRED",
+      "cacheControl": "no-store"
+    },
+    {
+      "name": "create guest A",
+      "method": "POST",
+      "status": 200,
+      "expectedStatus": 200,
+      "passed": true,
+      "elapsedMs": 7285,
+      "errorCode": null,
+      "cacheControl": "no-store"
+    },
+    {
+      "name": "create guest B",
+      "method": "POST",
+      "status": 200,
+      "expectedStatus": 200,
+      "passed": true,
+      "elapsedMs": 7420,
+      "errorCode": null,
+      "cacheControl": "no-store"
+    },
+    {
+      "name": "guest A cannot read guest B receipt",
+      "method": "GET",
+      "status": 404,
+      "expectedStatus": 404,
+      "passed": true,
+      "elapsedMs": 7349,
+      "errorCode": "NOT_FOUND",
+      "cacheControl": "no-store"
+    },
+    {
+      "name": "guest B cannot read guest A receipt",
+      "method": "GET",
+      "status": 404,
+      "expectedStatus": 404,
+      "passed": true,
+      "elapsedMs": 7290,
+      "errorCode": "NOT_FOUND",
+      "cacheControl": "no-store"
+    },
+    {
+      "name": "guest A cannot approve guest B purchase",
+      "method": "POST",
+      "status": 404,
+      "expectedStatus": 404,
+      "passed": true,
+      "elapsedMs": 7347,
+      "errorCode": "NOT_FOUND",
+      "cacheControl": "no-store"
+    },
+    {
+      "name": "cross-origin session creation rejected",
+      "method": "POST",
+      "status": 403,
+      "expectedStatus": 403,
+      "passed": true,
+      "elapsedMs": 7377,
+      "errorCode": "ORIGIN_REJECTED",
+      "cacheControl": "no-store"
+    },
+    {
+      "name": "owner login disabled",
+      "method": "POST",
+      "status": 404,
+      "expectedStatus": 404,
+      "passed": true,
+      "elapsedMs": 7597,
+      "errorCode": "NOT_FOUND",
+      "cacheControl": "no-store"
+    },
+    {
+      "name": "sandbox proposal forbidden",
+      "method": "POST",
+      "status": 403,
+      "expectedStatus": 403,
+      "passed": true,
+      "elapsedMs": 7394,
+      "errorCode": "JUDGE_REHEARSAL_ONLY",
+      "cacheControl": "no-store"
+    },
+    {
+      "name": "approve and reserve same 180 purchase",
+      "method": "POST",
+      "status": 200,
+      "expectedStatus": 200,
+      "passed": true,
+      "elapsedMs": 7342,
+      "errorCode": null,
+      "cacheControl": "no-store"
+    },
+    {
+      "name": "competing 160 approval blocked",
+      "method": "POST",
+      "status": 409,
+      "expectedStatus": 409,
+      "passed": true,
+      "elapsedMs": 7395,
+      "errorCode": "BUDGET_EXCEEDED",
+      "cacheControl": "no-store"
+    },
+    {
+      "name": "create simulated order",
+      "method": "POST",
+      "status": 200,
+      "expectedStatus": 200,
+      "passed": true,
+      "elapsedMs": 6330,
+      "errorCode": null,
+      "cacheControl": "no-store"
+    },
+    {
+      "name": "deliberately drop simulated capture response",
+      "method": "POST",
+      "status": 202,
+      "expectedStatus": 202,
+      "passed": true,
+      "elapsedMs": 7339,
+      "errorCode": null,
+      "cacheControl": "no-store"
+    },
+    {
+      "name": "fresh HTTP read retains unknown reservation",
+      "method": "GET",
+      "status": 200,
+      "expectedStatus": 200,
+      "passed": true,
+      "elapsedMs": 7656,
+      "errorCode": null,
+      "cacheControl": "no-store"
+    },
+    {
+      "name": "reconcile original simulated order",
+      "method": "POST",
+      "status": 200,
+      "expectedStatus": 200,
+      "passed": true,
+      "elapsedMs": 8388,
+      "errorCode": null,
+      "cacheControl": "no-store"
+    },
+    {
+      "name": "repeat reconciliation preserves capture and totals",
+      "method": "POST",
+      "status": 200,
+      "expectedStatus": 200,
+      "passed": true,
+      "elapsedMs": 7416,
+      "errorCode": null,
+      "cacheControl": "no-store"
+    },
+    {
+      "name": "download actual guest receipt JSON",
+      "method": "GET",
+      "status": 200,
+      "expectedStatus": 200,
+      "passed": true,
+      "elapsedMs": 7395,
+      "errorCode": null,
+      "cacheControl": "no-store"
+    },
+    {
+      "name": "guest B remains unchanged after guest A actions",
+      "method": "GET",
+      "status": 200,
+      "expectedStatus": 200,
+      "passed": true,
+      "elapsedMs": 7357,
+      "errorCode": null,
+      "cacheControl": "no-store"
+    },
+    {
+      "name": "reset only own simulated workspace",
+      "method": "POST",
+      "status": 200,
+      "expectedStatus": 200,
+      "passed": true,
+      "elapsedMs": 7333,
+      "errorCode": null,
+      "cacheControl": "no-store"
+    },
+    {
+      "name": "old simulated receipt retained after own reset",
+      "method": "GET",
+      "status": 200,
+      "expectedStatus": 200,
+      "passed": true,
+      "elapsedMs": 7348,
+      "errorCode": null,
+      "cacheControl": "no-store"
+    }
+  ],
+  "claims": {
+    "freshLiveAI": false,
+    "freshPayPalTransaction": false,
+    "browserBlobDownloadVerified": false,
+    "directDatabaseInspection": false
+  },
+  "postgresBuildGate": {
+    "passed": 9,
+    "total": 9,
+    "provenance": "Release owner reviewed deployment build logs and checksum-locked migrations; not independently rerun by this HTTP reviewer."
+  },
+  "outcome": "passed",
+  "guestIsolation": {
+    "distinctWorkspaceIds": true,
+    "crossGuestEvidenceDenied": true,
+    "crossGuestMutationDenied": true,
+    "guestBUnaffected": true,
+    "cookieAttributesVerified": true,
+    "cookieValuesRetained": false
+  },
+  "flow": {
+    "operationId": "fd9a3a65-9413-4221-b697-94583db4780c",
+    "originalWorkspaceId": "1db52363-a820-40bf-9970-a3007d5abe02",
+    "orderId": "REH-e8aa1168-8b07-4112-b635-54dcad598321",
+    "captureId": "REH-CAP-34722050-67bf-4951-a002-1f3e069212a1",
+    "providerMode": "rehearsal",
+    "proposalSource": "rehearsal-seed",
+    "afterResponseLoss": {
+      "budgetCents": 30000,
+      "availableCents": 12000,
+      "reservedCents": 18000,
+      "committedCents": 0
+    },
+    "afterReconciliation": {
+      "budgetCents": 30000,
+      "availableCents": 12000,
+      "reservedCents": 0,
+      "committedCents": 18000
+    },
+    "sameOperationAndOrder": true,
+    "sameCaptureAndTotalsAfterRepeatedLookup": true,
+    "ownResetCreatedNewWorkspace": true,
+    "priorReceiptUnchangedAfterReset": true
+  },
+  "receiptDownload": {
+    "transport": "HTTPS GET operation evidence endpoint; not browser Blob export",
+    "bytes": 4254,
+    "sha256": "a8323965b02f99d097ad8245b3f38bbee591c5d095564639463b059e2c422970",
+    "offlineVerifierCommand": "node scripts/verify-receipt.mjs <temporary-downloaded-receipt.json>",
+    "offlineVerifierExitCode": 0,
+    "offlineVerifierResult": {
+      "consistent": true,
+      "receiptSchemaVersion": 1,
+      "approvalDigest": "matched",
+      "declaredMode": "rehearsal",
+      "claimedStatus": "CONFIRMED",
+      "confirmedRecordConsistent": true,
+      "declaredProposalSource": "rehearsal-seed",
+      "proposalInterpretation": "Deterministic rehearsal; no AI proposal is claimed.",
+      "limits": [
+        "Unsigned application-record consistency only; an author can replace both data and digest.",
+        "No provider contact, signature, identity, current authority, TIP compatibility or external authenticity verified.",
+        "Request text, labels, rationale, request IDs and event prose are not covered by the approval digest.",
+        "Event-list completeness and the real-world time of approval are not established.",
+        "A recorded sandbox observation does not independently prove a PayPal or model execution."
+      ]
+    },
+    "rawReceiptRetained": false
+  },
+  "limits": [
+    "No browser download or CSV file was tested.",
+    "Repeated totals and provider snapshots do not independently measure external request counts.",
+    "The simulated provider ran on the hosted service; this was not another AI/PayPal sandbox transaction.",
+    "No direct SQL inspection or AI grant modification was performed."
+  ],
+  "finishedAt": "2026-11-08T12:33:02.094553+00:00",
+  "httpRequests": 21,
+  "cookieJars": "Two new in-memory CookieJar sessions; no root browser cookies used or persisted."
+}

@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-11-08T10:13:07.985381+00:00",
+  "scope": "Exact-version install-script review and Node24 CI action upgrade",
+  "allowScripts": {
+    "esbuild@0.28.1": true,
+    "unrs-resolver@1.11.1": true
+  },
+  "packages": {
+    "esbuild": {
+      "version": "0.28.1",
+      "resolved": "https://registry.npmjs.org/esbuild/-/esbuild-0.28.1.tgz",
+      "lockedIntegrity": "sha512-HrJrvZv5ayxBzPfwphOoNzkzOIIlifzk0KJrGK2c8R4+LKpMtpYLQeUdjnwjWv/LZlkH2laZk+4w78pi99D4Vw==",
+      "archiveIntegrityVerified": true,
+      "installedReviewedBytesMatchArchive": true,
+      "reviewedFilesSha256": {
+        "install.js": "612294e278914443bdcf81cb17f54afec34dbdd2ebd999a6ee187912320cc315"
+      }
+    },
+    "unrs-resolver": {
+      "version": "1.11.1",
+      "resolved": "https://registry.npmjs.org/unrs-resolver/-/unrs-resolver-1.11.1.tgz",
+      "lockedIntegrity": "sha512-bSjt9pjaEBnNiGgc9rUiHGKv5l4/TGzDmYw3RhnkJGtLhbnnA/5qJj7x3dNDCRx/PJxu774LlH8lCOlB4hEfKg==",
+      "archiveIntegrityVerified": true,
+      "installedReviewedBytesMatchArchive": true,
+      "reviewedFilesSha256": {
+        "package.json": "0510c5611b2c4436d12364dff5ddd0f227dacd174cadd62141b226bce1fa4b19"
+      }
+    },
+    "napi-postinstall": {
+      "version": "0.3.4",
+      "resolved": "https://registry.npmjs.org/napi-postinstall/-/napi-postinstall-0.3.4.tgz",
+      "lockedIntegrity": "sha512-PHI5f1O0EP5xJ9gQmFGMS6IZcrVvTjpXjz7Na41gTE7eE2hK11lg04CECCYEEjdc17EV4DO+fkGEtt7TpTaTiQ==",
+      "archiveIntegrityVerified": true,
+      "installedReviewedBytesMatchArchive": true,
+      "reviewedFilesSha256": {
+        "lib/cli.js": "2d79f5b3ee7566309a587c267ab8363881f5ebe97a728b0271fb530569b1f356",
+        "lib/index.js": "5c2547bb5ff29882a69737fe31509e32efc5a9cf0f4aa832e31e718403d70b04",
+        "lib/helpers.js": "31740188ff37907a490c98d1d483a0814257c4a35a182c732468a8dd053ddf67",
+        "lib/target.js": "12e912381504712b12b28674797f925e620a5d331d4ded88b9b0f0e89cab949c",
+        "lib/constants.js": "4e9382602f4ea68f6c598e7fd7a20088cb6a0da67700619b6dad654d811c9b61"
+      }
+    }
+  },
+  "review": {
+    "esbuild": "Selects the exact platform binary, links it locally and checks its reported version; missing optional binary fallback fetches the same version and verifies an embedded SHA256 binary digest. An explicit operator ESBUILD_BINARY_PATH can override selection.",
+    "unrs-resolver": "Runs locked napi-postinstall0.3.4 to locate the exact1.11.1 platform binding and check package versions. Normal npm install includes the locked optional binding. Missing-binding fallback can invoke npm or download from configured registry; that direct fallback does not itself check an SRI digest. No fallback was exercised in this review.",
+    "currentPlatform": "Both Linux x64 optional binary packages are installed; install:ci includes optional dependencies.",
+    "approvalBoundary": "Only esbuild0.28.1 and unrs-resolver1.11.1 are approved. No wildcard, name-only approval, approve-all or policy disabling is added."
+  },
+  "actions": {
+    "checkout": {
+      "version": "6.1.0",
+      "commit": "d23441a48e516b6c34aea4fa41551a30e30af803",
+      "actionYamlBlob": "5b0524f730db83f9513c18ab31a6c086c7239076",
+      "runtime": "node24",
+      "release": "https://github.com/actions/checkout/releases/tag/v6.1.0"
+    },
+    "setupPython": {
+      "version": "6.3.0",
+      "commit": "ece7cb06caefa5fff74198d8649806c4678c61a1",
+      "actionYamlBlob": "7a9a7b634ec348b35b882f1f14fcaa4d41836a8e",
+      "runtime": "node24",
+      "release": "https://github.com/actions/setup-python/releases/tag/v6.3.0"
+    }
+  },
+  "validation": {
+    "workflow": "Parsed YAML; exact structure unchanged except two uses values",
+    "installScripts": "Lockfile contains exactly the two reviewed hasInstallScript entries; installed review bytes match independently downloaded archive integrities.",
+    "npmPolicyCommand": "Local npm11.9.0 does not implement npm install-scripts ls. Official current npm documentation confirms the exact-version allowScripts format; warning absence must be checked by the newer Vercel installer.",
+    "dependencyLockChanged": false,
+    "testsOrBuildRerun": false
+  },
+  "references": [
+    "https://docs.npmjs.com/cli/v11/commands/npm-install-scripts/",
+    "https://github.com/actions/checkout/releases/tag/v6.1.0",
+    "https://github.com/actions/setup-python/releases/tag/v6.3.0"
+  ],
+  "sourceSha256": {
+    "package.json": "da70b7381e319328cdc4319319ff456f1eb2e0a9f3fbe795fbc6135d32740b1a",
+    "package-lock.json": "0cfdb5309bb3549264be28c458956ca9f1d32ef73458ea31ddc33958ab121b13",
+    "../../.github/workflows/ci.yml": "a3fc2a75ec46c2f5288fce727be07939f7d03c8e8fce4a1dadfbc4e153ca4418"
+  }
+}

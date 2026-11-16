@@ -1,0 +1,146 @@
+{
+  "evidence_reviewed": false,
+  "source_context": "Edited actual screen states; fresh public rehearsal and labelled saved external run. No new model or PayPal call.",
+  "public_url": "https://proofpay-evaluation-lab.vercel.app",
+  "scenes": [
+    {
+      "paragraph": 1,
+      "heading": "When the response disappears.",
+      "mode": "rehearsal",
+      "tail_hold_seconds": 0.7,
+      "shots": [
+        {
+          "path": "frames/01-overview.png",
+          "weight": 1,
+          "gentle_zoom": false
+        }
+      ]
+    },
+    {
+      "paragraph": 2,
+      "heading": "Approve the work. Protect the shared allowance.",
+      "mode": "rehearsal",
+      "tail_hold_seconds": 1.8,
+      "shots": [
+        {
+          "path": "frames/02a-purchase.png",
+          "weight": 1,
+          "gentle_zoom": false
+        },
+        {
+          "path": "frames/02b-approved-reserved.png",
+          "weight": 1,
+          "gentle_zoom": false
+        },
+        {
+          "path": "frames/02c-over-allowance.png",
+          "weight": 1,
+          "gentle_zoom": false
+        }
+      ]
+    },
+    {
+      "paragraph": 3,
+      "heading": "The response is missing. The allowance stays held.",
+      "mode": "rehearsal",
+      "tail_hold_seconds": 1.3,
+      "shots": [
+        {
+          "path": "frames/03a-order.png",
+          "weight": 1,
+          "gentle_zoom": false
+        },
+        {
+          "path": "frames/03b-needs-verification.png",
+          "weight": 1,
+          "gentle_zoom": false
+        },
+        {
+          "path": "frames/03c-reloaded-hold.png",
+          "weight": 1,
+          "gentle_zoom": false
+        }
+      ]
+    },
+    {
+      "paragraph": 4,
+      "heading": "Check the original order. Preserve the same outcome.",
+      "mode": "rehearsal",
+      "tail_hold_seconds": 1.4,
+      "shots": [
+        {
+          "path": "frames/04a-confirmed.png",
+          "weight": 1,
+          "gentle_zoom": false
+        },
+        {
+          "path": "frames/04b-rechecked.png",
+          "weight": 1,
+          "gentle_zoom": false
+        }
+      ]
+    },
+    {
+      "paragraph": 5,
+      "heading": "Inspect what matched\u2014and what is missing.",
+      "mode": "rehearsal",
+      "tail_hold_seconds": 1.0,
+      "shots": [
+        {
+          "path": "frames/05-evidence.png",
+          "weight": 1,
+          "gentle_zoom": false
+        }
+      ]
+    },
+    {
+      "paragraph": 6,
+      "heading": "A completed AI-to-PayPal sandbox purchase.",
+      "mode": "saved-evidence",
+      "tail_hold_seconds": 1.1,
+      "shots": [
+        {
+          "path": "frames/06a-saved-ai-purchase.png",
+          "weight": 1,
+          "gentle_zoom": false
+        },
+        {
+          "path": "frames/06b-saved-receipt.png",
+          "weight": 1,
+          "gentle_zoom": false
+        }
+      ]
+    },
+    {
+      "paragraph": 7,
+      "heading": "A complete portal. A workflow you can verify.",
+      "mode": "rehearsal",
+      "tail_hold_seconds": 1.2,
+      "shots": [
+        {
+          "path": "frames/07a-controls.png",
+          "weight": 1,
+          "gentle_zoom": false
+        },
+        {
+          "path": "frames/07b-evaluation-lab.png",
+          "weight": 1,
+          "gentle_zoom": false
+        }
+      ]
+    },
+    {
+      "paragraph": 8,
+      "heading": "Approve the work. Resolve the payment.",
+      "mode": "rehearsal",
+      "tail_hold_seconds": 1.7,
+      "shots": [
+        {
+          "path": "frames/08-resolved-overview.png",
+          "weight": 1,
+          "gentle_zoom": false
+        }
+      ]
+    }
+  ]
+}
