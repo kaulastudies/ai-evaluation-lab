@@ -1,0 +1,156 @@
+{
+  "schema": "LAB-EO001-PINNED-JOIN-PROBE/0.1.0",
+  "state": "STATED_EXPECTATIONS_MATCHED",
+  "source_revision": "70510dbc18a326c8846e5a7005aa7198a9744987",
+  "source_git_blob": "612f993ff555cccbe52088ed5abcbed407141bc2",
+  "source_sha256": "5141a6cc02505c63d98d2fad9c4d1b77aeeff51022f3b5900f5ecb585df99361",
+  "source_variant": "LAB_PROPOSED_GUARDS_NOT_UPSTREAM",
+  "tested_module_sha256": "d8af39653800975c1bf82471ab2b42bb8bbcdbc5a8a7235a02874ba701320815",
+  "runtime": "v22.16.0",
+  "case_count": 15,
+  "existing_boundary_checks_matched": 12,
+  "proposed_hardening_expectations_not_met": 0,
+  "all_returned_results_kept_authority_false": true,
+  "actual_host_control_executed": false,
+  "model_execution_performed": false,
+  "production_exploit_demonstrated": false,
+  "proposed_hardening_is_jointly_approved": false,
+  "notes": "Direct pure-function JSON inputs. Does not show upstream factories emit these malformed records. No original receipt, kernel probe, host stop, model or field acceptance.",
+  "cases": [
+    {
+      "id": "matching_metadata",
+      "group": "existing_boundary",
+      "expected": "ACCEPT_REVIEW_ONLY",
+      "actual": "ACCEPT_REVIEW_ONLY",
+      "expectation_matched": true,
+      "reason": null,
+      "returned_authority_flags_false": true
+    },
+    {
+      "id": "boot_mismatch",
+      "group": "existing_boundary",
+      "expected": "REJECT",
+      "actual": "REJECT",
+      "expectation_matched": true,
+      "reason": "CGKILL_JOIN_BOOT_OR_KERNEL_IDENTITY_MISMATCH",
+      "returned_authority_flags_false": null
+    },
+    {
+      "id": "source_mismatch",
+      "group": "existing_boundary",
+      "expected": "REJECT",
+      "actual": "REJECT",
+      "expectation_matched": true,
+      "reason": "CGKILL_JOIN_SCOPE_OR_SOURCE_MISMATCH",
+      "returned_authority_flags_false": null
+    },
+    {
+      "id": "inode_mismatch",
+      "group": "existing_boundary",
+      "expected": "REJECT",
+      "actual": "REJECT",
+      "expectation_matched": true,
+      "reason": "CGKILL_JOIN_BOOT_OR_KERNEL_IDENTITY_MISMATCH",
+      "returned_authority_flags_false": null
+    },
+    {
+      "id": "old_stop_permit",
+      "group": "existing_boundary",
+      "expected": "REJECT",
+      "actual": "REJECT",
+      "expectation_matched": true,
+      "reason": "CGKILL_JOIN_CANDIDATE_AUTHORITY_OR_METHOD_INVALID",
+      "returned_authority_flags_false": null
+    },
+    {
+      "id": "name_based_target",
+      "group": "existing_boundary",
+      "expected": "REJECT",
+      "actual": "REJECT",
+      "expectation_matched": true,
+      "reason": "CGKILL_JOIN_CANDIDATE_AUTHORITY_OR_METHOD_INVALID",
+      "returned_authority_flags_false": null
+    },
+    {
+      "id": "kernel_write_claim",
+      "group": "existing_boundary",
+      "expected": "REJECT",
+      "actual": "REJECT",
+      "expectation_matched": true,
+      "reason": "CGKILL_JOIN_CANDIDATE_AUTHORITY_OR_METHOD_INVALID",
+      "returned_authority_flags_false": null
+    },
+    {
+      "id": "hardware_attestation_claim",
+      "group": "existing_boundary",
+      "expected": "REJECT",
+      "actual": "REJECT",
+      "expectation_matched": true,
+      "reason": "CGKILL_JOIN_SURVEY_AUTHORITY_OR_PROVENANCE_INVALID",
+      "returned_authority_flags_false": null
+    },
+    {
+      "id": "effective_permission_claim",
+      "group": "existing_boundary",
+      "expected": "REJECT",
+      "actual": "REJECT",
+      "expectation_matched": true,
+      "reason": "CGKILL_JOIN_SURVEY_AUTHORITY_OR_PROVENANCE_INVALID",
+      "returned_authority_flags_false": null
+    },
+    {
+      "id": "old_method_write_value",
+      "group": "existing_boundary",
+      "expected": "REJECT",
+      "actual": "REJECT",
+      "expectation_matched": true,
+      "reason": "CGKILL_JOIN_CANDIDATE_AUTHORITY_OR_METHOD_INVALID",
+      "returned_authority_flags_false": null
+    },
+    {
+      "id": "fabricated_lab_approval",
+      "group": "existing_boundary",
+      "expected": "REJECT",
+      "actual": "REJECT",
+      "expectation_matched": true,
+      "reason": "CGKILL_JOIN_SURVEY_AUTHORITY_OR_PROVENANCE_INVALID",
+      "returned_authority_flags_false": null
+    },
+    {
+      "id": "unbounded_resource_policy",
+      "group": "existing_boundary",
+      "expected": "REJECT",
+      "actual": "REJECT",
+      "expectation_matched": true,
+      "reason": "CGKILL_JOIN_UNREVIEWED_PROPOSAL",
+      "returned_authority_flags_false": null
+    },
+    {
+      "id": "numeric_device_and_inode",
+      "group": "proposed_input_hardening",
+      "expected": "REJECT",
+      "actual": "REJECT",
+      "expectation_matched": true,
+      "reason": "CGKILL_JOIN_BOOT_OR_KERNEL_IDENTITY_MISMATCH",
+      "returned_authority_flags_false": null
+    },
+    {
+      "id": "relative_path_agreed_by_both_views",
+      "group": "proposed_input_hardening",
+      "expected": "REJECT",
+      "actual": "REJECT",
+      "expectation_matched": true,
+      "reason": "CGKILL_JOIN_UNREVIEWED_PROPOSAL",
+      "returned_authority_flags_false": null
+    },
+    {
+      "id": "dotdot_path_agreed_by_both_views",
+      "group": "proposed_input_hardening",
+      "expected": "REJECT",
+      "actual": "REJECT",
+      "expectation_matched": true,
+      "reason": "CGKILL_JOIN_UNREVIEWED_PROPOSAL",
+      "returned_authority_flags_false": null
+    }
+  ]
+}
