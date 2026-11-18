@@ -1,0 +1,6 @@
+{
+  "alias": "Demonstration participant — not a real beneficiary",
+  "contribution": "Illustrative review note: the initial patch passes the public test but loses duplicate rows and changes zero, False and empty-note values. A reviewer should check the task contract and the four independent gates before accepting the result. The repair preserves the required values. This note is an example, not evidence that a person independently completed the task.",
+  "ai_assistance": "This demonstration packet and explanation were prepared with AI assistance. Both candidate patches are recorded outputs of Ollama llama3:latest from the public RARB experiment. No human authorship claim is made for them.",
+  "sharing_consent": true
+}
