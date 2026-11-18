@@ -28,6 +28,7 @@ def main() -> int:
             [
                 sys.executable,
                 str(RUN_DEMO),
+                "--show-failure-logs",
                 "--out-json",
                 str(out_json),
                 "--out-md",

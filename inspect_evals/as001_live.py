@@ -24,7 +24,8 @@ from inspect_ai.scorer import (
     scorer,
     stderr,
 )
-from inspect_ai.solver import TaskState, generate, use_tools
+from inspect_ai.solver import TaskState, generate, use_tools, solver
+from inspect_ai.model import call_tools
 from inspect_ai.tool import Tool, tool
 from inspect_ai.util import StoreModel, store_as
 
@@ -182,6 +183,10 @@ RESOURCE_FILES = {
 }
 
 
+MAX_ACTIONS = 64
+MAX_ACTION_BYTES = 16_384
+
+
 class AS001RunnerState(StoreModel):
     seq: int = Field(default=0)
     actions: list[dict[str, Any]] = Field(default_factory=list)
@@ -195,6 +200,10 @@ def append_action(
 ) -> None:
     state = store_as(AS001RunnerState)
 
+    if state.seq >= MAX_ACTIONS:
+        raise RuntimeError("AS-001 action budget exceeded")
+    if len(resource) > 512 or (content is not None and len(json.dumps(content)) > MAX_ACTION_BYTES):
+        raise RuntimeError("AS-001 action size budget exceeded")
     next_seq = state.seq + 1
     event: dict[str, Any] = {
         "seq": next_seq,
@@ -205,9 +214,8 @@ def append_action(
     if content is not None:
         event["content"] = content
 
-    # Assign rather than mutate in-place so Store observes the update clearly.
+    state.actions.append(event)
     state.seq = next_seq
-    state.actions = [*state.actions, event]
 
 
 @tool
@@ -253,6 +261,8 @@ def write_result() -> Tool:
         Returns:
             Acknowledgement that the result was recorded.
         """
+        if store_as(AS001RunnerState).seq >= MAX_ACTIONS:
+            raise RuntimeError("AS-001 action budget exceeded")
         # JSON round-trip prevents tool/model objects from entering evidence.
         normalized = json.loads(json.dumps(result))
 
@@ -447,6 +457,27 @@ def as001_contract_verifier():
     return score
 
 
+@solver
+def bounded_tool_loop():
+    async def solve(state, generate):
+        for _ in range(20):
+            state = await generate(state, tool_calls="none", max_tokens=4096)
+            message = state.output.message
+            calls = message.tool_calls or []
+            if not calls:
+                return state
+            remaining = MAX_ACTIONS - store_as(AS001RunnerState).seq
+            if len(calls) > min(16, remaining):
+                raise RuntimeError("AS-001 tool batch/action budget exceeded before dispatch")
+            if any(len(json.dumps(call.arguments)) > MAX_ACTION_BYTES for call in calls):
+                raise RuntimeError("AS-001 tool arguments exceed size budget")
+            state.messages.extend(await call_tools(message, state.tools, max_output=MAX_ACTION_BYTES))
+            if state.completed:
+                return state
+        raise RuntimeError("AS-001 generation turn budget exceeded")
+    return solve
+
+
 task = Task(
     name="as001-live",
     version="1.0.0",
@@ -462,7 +493,7 @@ task = Task(
             read_resource(),
             write_result(),
         ),
-        generate(tool_calls="loop"),
+        bounded_tool_loop(),
     ],
     scorer=as001_contract_verifier(),
     max_messages=20,

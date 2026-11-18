@@ -22,6 +22,12 @@ def digest(text: str) -> str:
 
 
 def run_case(bundle: dict, variant_id: str) -> dict:
+    # Native callers may execute only the repository-reviewed fixed demo bundle.
+    # Arbitrary native candidates must use the isolated RARB runner.
+    if sys.platform != "emscripten":
+        from build_evidence import build_browser
+        if bundle != build_browser():
+            raise ValueError("Artifact integrity mismatch against reviewed demo bundle")
     variant = bundle["variants"][variant_id]
     task = bundle["tasks"][variant["task_id"]]
     for source, expected in [(variant["source"], variant["sha256"]),

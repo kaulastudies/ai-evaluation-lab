@@ -3,12 +3,27 @@ import importlib.util
 import os
 import pathlib
 import unittest
+import sys
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 
 ROUTER = pathlib.Path(os.environ.get("ROUTER_PATH", "/app/router.py"))
-spec = importlib.util.spec_from_file_location("submitted_router", ROUTER)
-router = importlib.util.module_from_spec(spec)
-assert spec.loader is not None
-spec.loader.exec_module(router)
+from candidate_proxy import Candidate
+from security import read_confined
+
+class Router:
+    def route_batch(self, items):
+        candidate = Candidate(read_confined(ROUTER.parent, ROUTER.name),
+                              isolation="chroot" if os.geteuid() == 0 else "bubblewrap")
+        try:
+            observed = candidate.request("call", name="route_batch", args=[items])
+            if type(observed) is not dict or set(observed) != {"result", "args"}:
+                raise RuntimeError("Invalid router observation")
+            items[:] = observed["args"][0]
+            return observed["result"]
+        finally:
+            candidate.close()
+
+router = Router()
 
 def task(**updates):
     base = {

@@ -67,3 +67,29 @@ def test_failed_job_needs_reconciliation(p,ledger):
 def test_unknown_cannot_transition(p,ledger):
     with pytest.raises(RuntimeError):
         ledger.set_status(req('missing'),'COMPLETED_LOCAL')
+
+@pytest.mark.parametrize('value', [float('nan'), float('inf'), True, False, 2.0, '2', None])
+@pytest.mark.parametrize('field,reason', [('shots','SHOT_LIMIT'), ('qubits','QUBIT_LIMIT'), ('depth','DEPTH_LIMIT')])
+def test_non_integer_resource_is_denied_without_reservation(p, ledger, value, field, reason):
+    request = req(shots=value) if field == 'shots' else req()
+    facts = CircuitFacts(value if field == 'qubits' else 2, value if field == 'depth' else 2)
+    result = preflight(request, facts, p, ledger)
+    assert result.verdict == 'DENY' and reason in result.reasons
+    assert not result.reserved and ledger.status(request) is None
+    # Rejecting malformed input must not consume the idempotency key.
+    assert preflight(req(), CircuitFacts(2, 2), p, ledger).verdict == 'ALLOW'
+
+@pytest.mark.parametrize('name', ['max_shots', 'max_qubits', 'max_depth'])
+@pytest.mark.parametrize('value', [float('nan'), float('inf'), True, False, 2.0, '2', None, -1])
+def test_policy_rejects_invalid_resource_limits(name, value):
+    with pytest.raises(ValueError, match=name):
+        Policy(backends={'local-sim':'local'}, **{name: value})
+
+@pytest.mark.parametrize('name', ['max_shots', 'max_qubits'])
+def test_policy_requires_positive_shot_and_qubit_limits(name):
+    with pytest.raises(ValueError, match=name):
+        Policy(backends={'local-sim':'local'}, **{name: 0})
+
+def test_inclusive_resource_limits_and_zero_depth(ledger):
+    policy = Policy(backends={'local-sim':'local'}, max_shots=1, max_qubits=1, max_depth=0)
+    assert preflight(req(shots=1), CircuitFacts(1, 0), policy, ledger).verdict == 'ALLOW'
