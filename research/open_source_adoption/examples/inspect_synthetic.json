@@ -1,0 +1,60 @@
+{
+  "version": 2,
+  "status": "success",
+  "eval": {
+    "task": "synthetic-external-case",
+    "model": "mock/review-only",
+    "created": "2026-10-29T00:00:00Z",
+    "run_id": "synthetic-run-001",
+    "task_version": "0.1",
+    "dataset": {
+      "samples": 2
+    }
+  },
+  "results": {
+    "total_samples": 2,
+    "completed_samples": 2,
+    "scores": [
+      {
+        "name": "match",
+        "metrics": {
+          "accuracy": {
+            "value": 0.5
+          }
+        }
+      }
+    ]
+  },
+  "samples": [
+    {
+      "id": 1,
+      "epoch": 1,
+      "input": "synthetic input",
+      "target": "expected",
+      "scores": {
+        "match": {
+          "value": 1
+        },
+        "other": {
+          "value": "C"
+        }
+      }
+    },
+    {
+      "id": 2,
+      "epoch": 1,
+      "input": "synthetic input",
+      "target": "expected",
+      "scores": {
+        "match": {
+          "value": 0
+        },
+        "other": {
+          "value": {
+            "constraint": false
+          }
+        }
+      }
+    }
+  ]
+}

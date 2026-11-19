@@ -1,0 +1,160 @@
+{
+  "schema_version": 1,
+  "repository": "kaulastudies/ai-evaluation-lab",
+  "base_commit": "c8f4b4ed0af988ebe8ca9821c472642ab4c20f63",
+  "base_tree": "c1d25a143883c6b93a9ca99b7cbdc0b9774284d6",
+  "branch": "research/open-source-adoption-20261029",
+  "allowed_new_prefix": "research/open_source_adoption/",
+  "existing_root_entries": [
+    {
+      "path": ".env.example",
+      "mode": "100644",
+      "type": "blob",
+      "git_object": "3d5ecbbd4711d0bd3f914b96da3b3c4569172c19"
+    },
+    {
+      "path": ".github",
+      "mode": "040000",
+      "type": "tree",
+      "git_object": "d58f8def54b9850e102d1ec96f9fb8d3ff99f5c7"
+    },
+    {
+      "path": ".gitignore",
+      "mode": "100644",
+      "type": "blob",
+      "git_object": "7e85c2e7ba2404e96c9ba26ef4b28eeb9feb3ff0"
+    },
+    {
+      "path": "ARCHITECTURE.md",
+      "mode": "100644",
+      "type": "blob",
+      "git_object": "9a533c2dbaa1985833b447fe55ab8a045a715bbf"
+    },
+    {
+      "path": "FUNDING.md",
+      "mode": "100644",
+      "type": "blob",
+      "git_object": "e5bac66a8c41f7b13248af7b5120af0cc124be94"
+    },
+    {
+      "path": "LICENSE",
+      "mode": "100644",
+      "type": "blob",
+      "git_object": "57bc88a15a0ee8266c259b2667e64608d3f7e292"
+    },
+    {
+      "path": "README.md",
+      "mode": "100644",
+      "type": "blob",
+      "git_object": "e9ab43786f7355957831659205b52a72890836dc"
+    },
+    {
+      "path": "ROADMAP.md",
+      "mode": "100644",
+      "type": "blob",
+      "git_object": "44b9ff93163e734d9364bb20d67a7f03d6667c80"
+    },
+    {
+      "path": "SECURITY.md",
+      "mode": "100644",
+      "type": "blob",
+      "git_object": "f8ca4e0fcf5e79f745ae30188144cf4a1ec40a28"
+    },
+    {
+      "path": "docs",
+      "mode": "040000",
+      "type": "tree",
+      "git_object": "f714392a97a7759a8282ddcb30c947436c08dd07"
+    },
+    {
+      "path": "evaluations",
+      "mode": "040000",
+      "type": "tree",
+      "git_object": "3779b26fd3b64d0a3bad8416fcf23083750dc67c"
+    },
+    {
+      "path": "examples",
+      "mode": "040000",
+      "type": "tree",
+      "git_object": "76cb9932fbe4823e9a0d80d582a984c2356d9ebe"
+    },
+    {
+      "path": "hackathon",
+      "mode": "040000",
+      "type": "tree",
+      "git_object": "735fb82216c5b030e68adb1992b4eefd76cb00cf"
+    },
+    {
+      "path": "inspect_evals",
+      "mode": "040000",
+      "type": "tree",
+      "git_object": "b133371079484d7202be346c5bf8347875965632"
+    },
+    {
+      "path": "integrations",
+      "mode": "040000",
+      "type": "tree",
+      "git_object": "8523f36a11116c8c59ffc4d20be31dccf8d8a824"
+    },
+    {
+      "path": "ops",
+      "mode": "040000",
+      "type": "tree",
+      "git_object": "ced4fb9d45774bce768b89619f456b4c97d6962f"
+    },
+    {
+      "path": "programs",
+      "mode": "040000",
+      "type": "tree",
+      "git_object": "1e562dcdc7bcd6db7053d5c0dab4976dfd1d8c54"
+    },
+    {
+      "path": "publications",
+      "mode": "040000",
+      "type": "tree",
+      "git_object": "f3626af897aad4f46f9f976d49b5443a9b77b7c1"
+    },
+    {
+      "path": "pyproject.toml",
+      "mode": "100644",
+      "type": "blob",
+      "git_object": "c30b2a7aea0aa0220d055fed3e7e07369841cffd"
+    },
+    {
+      "path": "runs",
+      "mode": "040000",
+      "type": "tree",
+      "git_object": "cfedfd30896afd2e172a67e149330ca3a66dc44b"
+    },
+    {
+      "path": "schemas",
+      "mode": "040000",
+      "type": "tree",
+      "git_object": "b9d0a675cc738f3b02ccd8b37bb2dc7f6cc7791d"
+    },
+    {
+      "path": "scripts",
+      "mode": "040000",
+      "type": "tree",
+      "git_object": "f1c56a138a8d6d454d6e29826b90d57ce7f3d825"
+    },
+    {
+      "path": "src",
+      "mode": "040000",
+      "type": "tree",
+      "git_object": "e6dd263fb2e3e00be1accc1443c3e9c593d5a3c8"
+    },
+    {
+      "path": "tests",
+      "mode": "040000",
+      "type": "tree",
+      "git_object": "15f6eed2cc0796f28fcf34a31be04d05010673c3"
+    }
+  ],
+  "existing_open_prs": [
+    26,
+    27
+  ],
+  "main_writes_authorized": false,
+  "external_execution_enabled": false
+}
