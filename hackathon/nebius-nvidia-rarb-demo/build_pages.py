@@ -54,6 +54,7 @@ def build_pages(output: Path) -> Path:
         "mode": "static_browser_verification_no_fresh_inference",
     }, indent=2) + "\n")
     shutil.copy2(HERE / "pages-index.html", output / "index.html")
+    shutil.copytree(HERE / "site-fonts", output / "fonts")
     # Publish the independent PDS 6 prototype beside ProofGate; no private profiles
     # or network/model services are included in the static deployment.
     careers = output / "sevasetu"
