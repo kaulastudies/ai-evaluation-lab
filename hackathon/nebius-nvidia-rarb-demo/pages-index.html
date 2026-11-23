@@ -31,6 +31,90 @@
     @media(max-width:380px){.wrap{width:calc(100% - 32px)}.hero h1{font-size:41px}.hero-actions{flex-direction:column;align-items:stretch}.nav{gap:10px;font-size:11px}.evidence-sheet{padding:22px 18px}.gate-list{font-size:9px;gap:7px}.hero-note{font-size:9px}.person{grid-template-columns:1fr}.collaborate h2{font-size:30px}}
     @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important}}
   </style>
+  <style>
+    /* Sticky header with scroll state and active section */
+    html{scroll-padding-top:84px}
+    .site-header{position:sticky;top:0;z-index:50;background:rgba(247,248,243,.88);-webkit-backdrop-filter:saturate(1.3) blur(12px);backdrop-filter:saturate(1.3) blur(12px);transition:box-shadow .2s ease,background .2s ease}
+    .site-header.is-scrolled{background:rgba(247,248,243,.96);box-shadow:0 10px 30px -22px rgba(16,43,50,.55)}
+    .header-inner{min-height:70px}
+    .nav a{position:relative;padding:6px 0}
+    .nav a[aria-current="true"]:not(.nav-cta){color:var(--green)}
+    .nav a[aria-current="true"]:not(.nav-cta):after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:2px;background:var(--green);border-radius:2px}
+    .nav .nav-cta{background:var(--ink);color:#fff;border-color:var(--ink);border-radius:6px;padding:9px 16px}
+    .nav .nav-cta:hover{background:#25464e;color:#fff}
+    /* Quieter labels: sentence case, body font */
+    .eyebrow{font-family:inherit;font-size:13px;font-weight:600;letter-spacing:0;text-transform:none}
+    .section-label{color:var(--green)}.section-label:before{display:none}
+    .hero .eyebrow{color:var(--mint)}
+    .hero-note{font-family:inherit;font-size:13px;letter-spacing:0}
+    .hero-base .wrap{font-family:inherit;font-size:13px;letter-spacing:0}
+    .button{border-radius:6px}
+    /* Verdict console */
+    .console{background:#fbfcf9;color:var(--ink);border-radius:10px;box-shadow:0 30px 60px -30px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.06);overflow:hidden}
+    .console-bar{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 18px;background:#eef2ec;border-bottom:1px solid var(--line);font-size:12px;color:var(--muted)}
+    .console-repo{font-family:var(--mono);font-size:11px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .console-live{display:inline-flex;align-items:center;gap:7px;font-weight:600;color:var(--green);white-space:nowrap}
+    .live-dot{width:7px;height:7px;border-radius:50%;background:#2f8a5f;box-shadow:0 0 0 3px rgba(47,138,95,.18)}
+    .console-tabs{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:1px solid var(--line)}
+    .console-tab{background:none;border:0;border-bottom:2px solid transparent;padding:12px 10px 11px;text-align:left;color:var(--muted);display:flex;flex-direction:column;gap:2px;transition:color .15s,border-color .15s,background .15s}
+    .console-tab+.console-tab{border-left:1px solid var(--line)}
+    .console-tab:hover{background:#f1f5ef;color:var(--ink)}
+    .console-tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--green);background:#fff}
+    .console-tab:focus-visible,.copy-button:focus-visible{outline:3px solid #267c62;outline-offset:-3px}
+    .tab-num{font-family:var(--mono);font-size:11px}
+    .tab-name{font-size:13px;font-weight:600}
+    .console-panel{padding:20px 20px 18px;outline:none}
+    .console-panel:focus-visible{box-shadow:inset 0 0 0 3px #267c62}
+    .console-context{font-size:13px;color:var(--muted);margin-bottom:14px;min-height:1.6em}
+    .verdict{display:flex;gap:12px;align-items:flex-start;padding:13px 14px;border-radius:8px;margin-bottom:14px}
+    .verdict strong{display:block;font-size:17px;letter-spacing:-.02em;line-height:1.3}
+    .verdict span[data-field="reason"]{display:block;font-size:13px;line-height:1.55;margin-top:3px}
+    .verdict-icon{flex:none;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;color:#fff}
+    .verdict-false_green{background:#fbefe2;color:#7a3c12}.verdict-false_green .verdict-icon{background:#c2611d}
+    .verdict-verified_pass{background:#e3f3e8;color:#1f5a37}.verdict-verified_pass .verdict-icon{background:#2f8a5f}
+    .verdict-hold{background:#e9edf3;color:#2e3d55}.verdict-hold .verdict-icon{background:#55657f}
+    .verdict.is-running{background:#f0f3ef;color:var(--muted)}.verdict.is-running .verdict-icon{background:#9aaba7;animation:pg-pulse 1s ease-in-out infinite}
+    @keyframes pg-pulse{50%{opacity:.4}}
+    .checks{list-style:none;margin:0 0 14px;padding:0;border-top:1px solid var(--line)}
+    .check{display:flex;justify-content:space-between;gap:16px;padding:9px 2px;border-bottom:1px solid var(--line);font-size:13px}
+    .check b{font-family:var(--mono);font-size:11px;font-weight:600;padding:2px 8px;border-radius:4px;flex:none;align-self:center}
+    .check.pass,.check.fail{background:none;color:var(--ink)}
+    .check.pass b{background:#e0efdf;color:#225132}.check.fail b{background:#f6e3d6;color:#874326}
+    .check.pending{color:#9aaba7}.check.pending b{background:#eef1ed;color:#9aaba7}
+    .check.is-new{animation:pg-in .28s ease both}
+    @keyframes pg-in{from{opacity:0;transform:translateY(4px)}}
+    .console-link{font-size:13px;font-weight:600;color:var(--green);border-bottom:1px solid currentColor;padding-bottom:2px}
+    .console-link:hover{color:var(--ink)}
+    /* Setup section */
+    .setup-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:start}
+    .setup-steps{list-style:none;margin:0;padding:0;counter-reset:step}
+    .setup-steps li{counter-increment:step;position:relative;padding:0 0 26px 52px;border-left:1px solid var(--line);margin-left:15px}
+    .setup-steps li:last-child{border-left-color:transparent;padding-bottom:0}
+    .setup-steps li:before{content:counter(step);position:absolute;left:-16px;top:-2px;width:31px;height:31px;border-radius:50%;background:var(--ink);color:var(--mint);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700}
+    .setup-steps h3{font-size:18px;font-weight:600;letter-spacing:-.02em;margin-bottom:6px}
+    .setup-steps p{font-size:14px;line-height:1.75;color:var(--muted)}
+    .setup-steps code,.setup-section p code{font-family:var(--mono);font-size:12px;background:#e9eee7;padding:1px 5px;border-radius:4px}
+    .code-card{margin:0;background:var(--ink);border-radius:10px;overflow:hidden;box-shadow:0 24px 50px -32px rgba(16,43,50,.8)}
+    .code-card figcaption{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 12px 10px 18px;border-bottom:1px solid #2c4a51;font-family:var(--mono);font-size:11px;color:#a7c3b9}
+    .copy-button{background:#224047;color:#e6f2ec;border:1px solid #3d5d64;border-radius:5px;padding:6px 12px;font-size:12px;font-weight:600}
+    .copy-button:hover{background:#2c4f57}
+    .code-card pre{margin:0;padding:18px 20px 20px;overflow-x:auto;font-family:var(--mono);font-size:12.5px;line-height:1.75;color:#dceee5;tab-size:2}
+    .copy-status{font-size:12px;color:var(--mint);padding:0 20px;min-height:0;margin:0}
+    .copy-status:not(:empty){padding-bottom:14px}
+    .setup-more{display:flex;flex-wrap:wrap;gap:14px 30px;margin-top:34px;max-width:none}
+    @media(max-width:1000px){.setup-grid{grid-template-columns:1fr;gap:36px}}
+    @media(max-width:760px){
+      html{scroll-padding-top:76px}
+      .header-inner{min-height:64px;padding:12px 0}
+      .nav{padding-top:14px;padding-bottom:6px}
+      .js .nav[data-open="true"]{display:flex;flex-wrap:wrap}
+      .console-tab{padding:10px 8px}.tab-name{font-size:12px}
+      .console-panel{padding:16px 14px}
+      .check{font-size:12px}
+      .code-card pre{font-size:11.5px;padding:14px}
+    }
+    @media(prefers-reduced-motion:reduce){.check.is-new,.verdict.is-running .verdict-icon{animation:none}}
+  </style>
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -42,8 +126,8 @@
       </a>
       <button class="menu-toggle" aria-controls="main-nav" aria-expanded="false" type="button">Menu <span aria-hidden="true">+</span></button>
       <nav class="nav" id="main-nav" data-open="false" aria-label="Main navigation">
-        <a href="#proofgate">ProofGate</a><a href="#services">Pilots</a><a href="#evidence">Evidence</a><a href="#roadmap">Roadmap</a><a href="#work">Research</a>
-        <a class="nav-cta" href="#contact">Start a pilot <span aria-hidden="true">→</span></a>
+        <a href="#proofgate">Product</a><a href="#setup">Set up</a><a href="#services">Pilots</a><a href="#roadmap">Roadmap</a><a href="#work">Research</a>
+        <a class="nav-cta" href="#contact">Start a pilot</a>
       </nav>
     </div>
   </header>
@@ -51,25 +135,34 @@
     <section class="hero" aria-labelledby="hero-title">
       <div class="wrap hero-inner">
         <div>
-          <p class="eyebrow"><span class="dot" aria-hidden="true"></span> ProofGate · Independent verification for AI coding agents</p>
+          <p class="eyebrow"><span class="dot" aria-hidden="true"></span> ProofGate for pull requests, now in beta</p>
           <h1 id="hero-title">Green tests<br>aren’t proof.<br><em>ProofGate checks the evidence.</em></h1>
           <p class="hero-description">AI-written code can pass its tests and still break the task it was given. ProofGate catches those false-greens before they ship. It checks agent output against an explicit task contract, tests the checker itself, and gives your team evidence it can inspect and replay.</p>
-          <div class="hero-actions"><a class="button button-primary" href="proofgate/">Try ProofGate live <span class="arrow" aria-hidden="true">↗</span></a><a class="button button-outline" href="#contact">Start a pilot <span aria-hidden="true">→</span></a></div>
-          <p class="hero-note">BUILT BY AI EVALUATION LAB · PROVIDER-NEUTRAL · REPRODUCIBLE</p>
+          <div class="hero-actions"><a class="button button-primary" href="proofgate/">Try ProofGate live <span class="arrow" aria-hidden="true">↗</span></a><a class="button button-outline" href="#contact">Start a pilot</a></div>
+          <p class="hero-note">Built by AI Evaluation Lab. Open source and provider-neutral.</p>
         </div>
-        <div class="evidence-object">
-          <div class="evidence-sheet" aria-label="Recorded AP-005 example: public tests passed, independent checks failed">
-            <div class="sheet-top"><span class="eyebrow">Inside the evidence</span><svg class="sheet-symbol" width="23" height="23" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 3H3v18h4M17 3h4v18h-4M8 12l3 3 6-7" stroke="currentColor" stroke-width="1.7"/></svg></div>
-            <h2>A pass is a claim.<br>Verification checks it.</h2>
-            <p class="sheet-copy">A recorded coding-agent patch passed its public test. The independent verifier caught four contract violations.</p>
-            <div class="verdict-row"><span>Public tests</span><span class="badge pass">✓ PASS</span></div>
-            <div class="verdict-row"><span>Independent checks</span><span class="badge fail">× FAIL</span></div>
-            <div class="gate-list"><span>Row preservation</span><span>Value &amp; type fidelity</span><span>Optional fields</span><span>Input integrity</span></div>
-            <p class="sheet-foot">RECORDED EXAMPLE · AP-005<br>Run the actual Python checks in ProofGate.</p>
+        <div class="console" id="verdict-console">
+          <div class="console-bar"><span class="console-repo">kaulastudies/ai-evaluation-lab</span><span class="console-live"><span class="live-dot" aria-hidden="true"></span>Real pull requests</span></div>
+          <div class="console-tabs" role="tablist" aria-label="ProofGate verdicts on three real pull requests">
+            <button class="console-tab" role="tab" id="tab-58" aria-controls="console-panel" aria-selected="true" tabindex="0" data-pr="58"><span class="tab-num">#58</span><span class="tab-name">Agent attempt</span></button>
+            <button class="console-tab" role="tab" id="tab-59" aria-controls="console-panel" aria-selected="false" tabindex="-1" data-pr="59"><span class="tab-num">#59</span><span class="tab-name">Agent repair</span></button>
+            <button class="console-tab" role="tab" id="tab-60" aria-controls="console-panel" aria-selected="false" tabindex="-1" data-pr="60"><span class="tab-num">#60</span><span class="tab-name">Verifier edit</span></button>
+          </div>
+          <div class="console-panel" id="console-panel" role="tabpanel" aria-labelledby="tab-58" tabindex="0">
+            <p class="console-context" data-field="context">A coding agent’s first patch for a data-transformation task.</p>
+            <div class="verdict verdict-false_green" data-field="verdict"><span class="verdict-icon" aria-hidden="true">!</span><div><strong data-field="label">False-green caught</strong><span data-field="reason">Public tests passed, but all four requirements failed.</span></div></div>
+            <ul class="checks" data-field="checks" aria-live="polite">
+              <li class="check pass"><span>Public tests</span><b>pass</b></li>
+              <li class="check fail"><span>Row count, order and duplicate ids kept</span><b>fail</b></li>
+              <li class="check fail"><span>0 and False keep exact values and types</span><b>fail</b></li>
+              <li class="check fail"><span>Empty, missing and null notes stay distinct</span><b>fail</b></li>
+              <li class="check fail"><span>Input rows unchanged, only public fields returned</span><b>fail</b></li>
+            </ul>
+            <a class="console-link" data-field="link" href="https://github.com/kaulastudies/ai-evaluation-lab/pull/58">See ProofGate’s comment on pull request #58 <span aria-hidden="true">↗</span></a>
           </div>
         </div>
       </div>
-      <div class="hero-base"><div class="wrap"><span>FOR <strong>AGENT TEAMS · EVAL &amp; BENCHMARK TEAMS · COMPANIES ADOPTING CODING AGENTS</strong></span><span>A task contract. An independent check. An inspectable result.</span></div></div>
+      <div class="hero-base"><div class="wrap"><span>For teams that ship code written by AI agents, and the people who evaluate those agents.</span><span>Same verdicts as the comments on GitHub, replayed from recorded runs.</span></div></div>
     </section>
     <section class="proof-strip" id="evidence" aria-labelledby="evidence-title">
       <div class="wrap">
@@ -105,6 +198,36 @@
         </div>
       </div>
     </section>
+    <section class="section wrap setup-section" id="setup" aria-labelledby="setup-title">
+      <p class="eyebrow section-label">Set up</p>
+      <div class="section-head"><h2 id="setup-title">Two files and<br>every pull request is checked.</h2><p class="section-intro">ProofGate runs as a GitHub Action. It needs no account, API key or model call, and it uses the Python already on GitHub’s runners.</p></div>
+      <div class="setup-grid">
+        <ol class="setup-steps">
+          <li><h3>Commit the rules to your main branch</h3><p>A contract lists your public tests and the requirements your verifier checks. Keep it and the verifier in a folder such as <code>.proofgate/</code>.</p></li>
+          <li><h3>Add the workflow</h3><p>Paste this file into <code>.github/workflows/</code>. On every pull request, ProofGate reads the rules from main, never from the pull request.</p></li>
+          <li><h3>Read the verdict on the pull request</h3><p>One comment per pull request, updated on each push: verified pass, false-green, fail or hold. The full evidence record is saved with the run.</p></li>
+        </ol>
+        <figure class="code-card">
+          <figcaption><span>.github/workflows/proofgate.yml</span><button class="copy-button" type="button" data-copy="workflow-code">Copy</button></figcaption>
+<pre><code id="workflow-code">on: pull_request
+permissions:
+  contents: read
+  pull-requests: write
+jobs:
+  proofgate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - uses: kaulastudies/ai-evaluation-lab/integrations/proofgate-action@main
+        with:
+          contract: .proofgate/contract.json</code></pre>
+          <p class="copy-status" role="status" aria-live="polite"></p>
+        </figure>
+      </div>
+      <p class="setup-more"><a class="text-link" href="https://github.com/kaulastudies/ai-evaluation-lab/tree/main/integrations/proofgate-action">Full setup guide and contract format <span aria-hidden="true">↗</span></a><a class="text-link" href="https://github.com/kaulastudies/ai-evaluation-lab/tree/main/examples/proofgate-pr-demo">Working example repository folder <span aria-hidden="true">↗</span></a></p>
+    </section>
     <section class="section wrap" id="services" aria-labelledby="services-title">
       <p class="eyebrow section-label">Pilots</p>
       <div class="section-head"><h2 id="services-title">Put ProofGate’s method<br>to work on your agents.</h2><p class="section-intro">Teams can run the ProofGate Action themselves, or we write the contracts and verifiers with them as a fixed-scope pilot. Success criteria are frozen before results are read, and failures and null findings are reported, not hidden.</p></div>
@@ -120,9 +243,9 @@
       <p class="eyebrow section-label">How ProofGate decides</p>
       <div class="section-head"><h2 id="approach-title">Make the verdict<br>worth trusting.</h2><p class="section-intro">We start with a bounded task, test the verifier itself, and retain the evidence behind the result.</p></div>
       <div class="principles">
-        <article class="principle"><span class="number">01 — DEFINE</span><h3>Write the contract.</h3><p>Make success and failure explicit before the run. Specify the inputs, constraints and behaviour the task actually requires.</p></article>
-        <article class="principle"><span class="number">02 — CHALLENGE</span><h3>Check the checker.</h3><p>Use reference implementations, known-bad candidates and deliberate mutations to test whether a verifier catches the faults it should.</p></article>
-        <article class="principle"><span class="number">03 — REPRODUCE</span><h3>Keep the evidence.</h3><p>Retain the code, failed checks, source references and execution reports. Make the result available for inspection and replay.</p></article>
+        <article class="principle"><span class="number">Step 1: Define</span><h3>Write the contract.</h3><p>Make success and failure explicit before the run. Specify the inputs, constraints and behaviour the task actually requires.</p></article>
+        <article class="principle"><span class="number">Step 2: Challenge</span><h3>Check the checker.</h3><p>Use reference implementations, known-bad candidates and deliberate mutations to test whether a verifier catches the faults it should.</p></article>
+        <article class="principle"><span class="number">Step 3: Reproduce</span><h3>Keep the evidence.</h3><p>Retain the code, failed checks, source references and execution reports. Make the result available for inspection and replay.</p></article>
       </div>
     </section>
     <section class="section roadmap-section" id="roadmap" aria-labelledby="roadmap-title">
@@ -154,11 +277,14 @@
         </div>
       </div>
     </section>
-    <section class="collaborate" id="contact" aria-labelledby="collaborate-title"><div class="wrap collaborate-inner"><div><p class="eyebrow">Founding pilots open</p><h2 id="collaborate-title">Have an agent, a benchmark or a verifier worth checking?</h2><p>Tell us what you’re shipping or evaluating and the decision it needs to support. We’ll reply with a fixed-scope pilot proposal: deliverables, timeline and price. Email Rama Chandra at <a href="mailto:hello@aievaluationlab.tech?subject=Pilot%20enquiry">hello@aievaluationlab.tech</a>.</p></div><a class="button button-dark" href="mailto:hello@aievaluationlab.tech?subject=Pilot%20enquiry">Request a pilot proposal <span class="arrow" aria-hidden="true">→</span></a></div></section>
+    <section class="collaborate" id="contact" aria-labelledby="collaborate-title"><div class="wrap collaborate-inner"><div><p class="eyebrow">Founding pilots open</p><h2 id="collaborate-title">Have an agent, a benchmark or a verifier worth checking?</h2><p>Tell us what you’re shipping or evaluating and the decision it needs to support. We’ll reply with a fixed-scope pilot proposal: deliverables, timeline and price. Email Rama Chandra at <a href="mailto:hello@aievaluationlab.tech?subject=Pilot%20enquiry">hello@aievaluationlab.tech</a>.</p></div><a class="button button-dark" href="mailto:hello@aievaluationlab.tech?subject=Pilot%20enquiry">Request a pilot proposal</a></div></section>
   </main>
   <footer class="site-footer"><div class="wrap footer-inner"><div class="footer-brand">AI Evaluation Lab<span>Independent evaluation. Evidence you can inspect.</span></div><nav class="footer-links" aria-label="Footer"><a href="mailto:hello@aievaluationlab.tech">Email</a><a href="https://github.com/kaulastudies/ai-evaluation-lab">GitHub ↗</a><a href="https://github.com/kaulastudies/ai-evaluation-lab/blob/main/docs/RESEARCH_PRINCIPLES.md">Research principles</a><a href="https://github.com/kaulastudies/ai-evaluation-lab/blob/main/LICENSE">Apache 2.0</a><a href="#main">Back to top ↑</a></nav></div></footer>
   <script>
     document.documentElement.classList.add('js');
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Mobile menu
     const menuButton = document.querySelector('.menu-toggle');
     const menu = document.getElementById('main-nav');
     function setMenu(open) {
@@ -170,6 +296,143 @@
     menu.addEventListener('click', event => { if (event.target.closest('a')) setMenu(false); });
     document.addEventListener('keydown', event => {
       if (event.key === 'Escape' && menu.dataset.open === 'true') { setMenu(false); menuButton.focus(); }
+    });
+
+    // Sticky header state
+    const header = document.querySelector('.site-header');
+    const onScroll = () => header.classList.toggle('is-scrolled', window.scrollY > 8);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    // Highlight the section in view
+    const navLinks = [...menu.querySelectorAll('a[href^="#"]:not(.nav-cta)')];
+    const sections = navLinks.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+    if ('IntersectionObserver' in window && sections.length) {
+      const visible = new Map();
+      const spy = new IntersectionObserver(entries => {
+        entries.forEach(e => visible.set(e.target.id, e.isIntersecting ? e.intersectionRatio : 0));
+        let current = null;
+        for (const sec of sections) { if ((visible.get(sec.id) || 0) > 0) { current = sec.id; break; } }
+        navLinks.forEach(a => {
+          if (a.getAttribute('href') === '#' + current) a.setAttribute('aria-current', 'true');
+          else a.removeAttribute('aria-current');
+        });
+      }, { rootMargin: '-90px 0px -55% 0px', threshold: [0, 0.01] });
+      sections.forEach(sec => spy.observe(sec));
+    }
+
+    // Verdict console: real ProofGate verdicts from pull requests #58, #59 and #60
+    const REPO = 'https://github.com/kaulastudies/ai-evaluation-lab/pull/';
+    const GATES = [
+      'Row count, order and duplicate ids kept',
+      '0 and False keep exact values and types',
+      'Empty, missing and null notes stay distinct',
+      'Input rows unchanged, only public fields returned'
+    ];
+    const RUNS = {
+      58: { kind: 'false_green', icon: '!', label: 'False-green caught',
+            context: 'A coding agent’s first patch for a data-transformation task.',
+            reason: 'Public tests passed, but all four requirements failed.',
+            results: [true, false, false, false, false] },
+      59: { kind: 'verified_pass', icon: '✓', label: 'Verified pass',
+            context: 'The same agent’s repair, after seeing which requirements failed.',
+            reason: 'Public tests and all four requirements passed.',
+            results: [true, true, true, true, true] },
+      60: { kind: 'hold', icon: '‖', label: 'Hold for review',
+            context: 'The failing patch again, plus an edit that makes the verifier always say pass.',
+            reason: 'The pull request changed the verifier, so it can’t be judged by it. The real verifier on main still found all four failures.',
+            results: [true, false, false, false, false] }
+    };
+    const panel = document.getElementById('console-panel');
+    const tabs = [...document.querySelectorAll('.console-tab')];
+    const field = name => panel.querySelector(`[data-field="${name}"]`);
+    let runToken = 0;
+
+    function renderChecks(results, revealed) {
+      const list = field('checks');
+      const labels = ['Public tests', ...GATES];
+      list.innerHTML = '';
+      labels.forEach((label, i) => {
+        const li = document.createElement('li');
+        const done = i < revealed;
+        li.className = 'check ' + (done ? (results[i] ? 'pass' : 'fail') : 'pending');
+        if (done && i === revealed - 1 && !reduceMotion) li.classList.add('is-new');
+        li.innerHTML = '<span></span><b></b>';
+        li.firstChild.textContent = label;
+        li.lastChild.textContent = done ? (results[i] ? 'pass' : 'fail') : 'queued';
+        list.appendChild(li);
+      });
+    }
+
+    function showVerdict(run) {
+      const v = field('verdict');
+      v.className = 'verdict verdict-' + run.kind;
+      v.querySelector('.verdict-icon').textContent = run.icon;
+      field('label').textContent = run.label;
+      field('reason').textContent = run.reason;
+    }
+
+    function select(tab, focus) {
+      const pr = tab.dataset.pr; const run = RUNS[pr]; const token = ++runToken;
+      tabs.forEach(t => {
+        const on = t === tab;
+        t.setAttribute('aria-selected', String(on));
+        t.tabIndex = on ? 0 : -1;
+      });
+      if (focus) tab.focus();
+      panel.setAttribute('aria-labelledby', tab.id);
+      field('context').textContent = run.context;
+      const link = field('link');
+      link.href = REPO + pr;
+      link.firstChild.textContent = `See ProofGate’s comment on pull request #${pr} `;
+      if (reduceMotion) { renderChecks(run.results, run.results.length); showVerdict(run); return; }
+      const v = field('verdict');
+      v.className = 'verdict is-running';
+      v.querySelector('.verdict-icon').textContent = '…';
+      field('label').textContent = 'Running checks';
+      field('reason').textContent = 'Reading the contract and verifier from main.';
+      renderChecks(run.results, 0);
+      let shown = 0;
+      const step = () => {
+        if (token !== runToken) return;
+        shown += 1;
+        renderChecks(run.results, shown);
+        if (shown < run.results.length) setTimeout(step, 140);
+        else setTimeout(() => { if (token === runToken) showVerdict(run); }, 160);
+      };
+      setTimeout(step, 260);
+    }
+
+    tabs.forEach((tab, i) => {
+      tab.addEventListener('click', () => select(tab, false));
+      tab.addEventListener('keydown', e => {
+        let n = null;
+        if (e.key === 'ArrowRight') n = (i + 1) % tabs.length;
+        if (e.key === 'ArrowLeft') n = (i - 1 + tabs.length) % tabs.length;
+        if (e.key === 'Home') n = 0;
+        if (e.key === 'End') n = tabs.length - 1;
+        if (n !== null) { e.preventDefault(); select(tabs[n], true); }
+      });
+    });
+
+    // Copy the workflow file
+    document.querySelectorAll('.copy-button').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const code = document.getElementById(btn.dataset.copy).textContent;
+        const status = btn.closest('figure').querySelector('.copy-status');
+        let ok = false;
+        try { await navigator.clipboard.writeText(code); ok = true; }
+        catch (err) {
+          const ta = document.createElement('textarea');
+          ta.value = code; ta.setAttribute('readonly', ''); ta.style.position = 'fixed'; ta.style.opacity = '0';
+          document.body.appendChild(ta); ta.select();
+          try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+          ta.remove();
+        }
+        btn.textContent = ok ? 'Copied' : 'Copy';
+        status.textContent = ok ? 'Workflow copied. Paste it into .github/workflows/proofgate.yml.' : 'Copy didn’t work in this browser. Select the text and copy it instead.';
+        setTimeout(() => { btn.textContent = 'Copy'; }, 2000);
+      });
     });
   </script>
 </body>
