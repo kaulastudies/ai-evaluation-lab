@@ -177,6 +177,30 @@
       .principle p,.service p,.research-row p,.person p,.stage p,.setup-steps p{font-size:15px}
     }
   </style>
+  <style>
+    /* Calmer scale: one-line hero, smaller section headings, tighter rhythm */
+    .hero-inner{grid-template-columns:1fr 1fr;gap:64px;padding:56px 0 52px}
+    .hero h1{font-size:clamp(36px,3.7vw,52px);line-height:1.08;letter-spacing:-.025em;margin:18px 0 18px;max-width:none}
+    .hero-description{font-size:18px;line-height:1.65;max-width:500px;color:#c9d8d6}
+    .hero-actions{margin-top:28px}
+    .hero-note{margin-top:16px}
+    .hero-base{padding:16px 0}
+    .section{padding:80px 0}
+    .section h2,.collaborate h2{font-size:clamp(28px,2.7vw,38px);line-height:1.15}
+    .section-head{margin:14px 0 36px;align-items:flex-end}
+    .proof-strip{padding:30px 0 24px}
+    .proof-item strong{font-size:30px}
+    .collaborate-inner{padding:52px 0}
+    @media(min-width:1600px){.hero-inner{padding:80px 0 76px}}
+    @media(max-width:1000px){.hero-inner{gap:40px;padding:52px 0}.hero h1{font-size:40px}}
+    @media(max-width:760px){
+      .hero-inner{grid-template-columns:1fr;gap:36px;padding:40px 0 44px}
+      .hero h1{font-size:clamp(32px,8.6vw,40px);margin-top:16px}
+      .hero-description{font-size:16.5px}
+      .section{padding:56px 0}
+      .section h2,.collaborate h2{font-size:28px}
+    }
+  </style>
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -198,8 +222,8 @@
       <div class="wrap hero-inner">
         <div>
           <p class="eyebrow"><span class="dot" aria-hidden="true"></span> ProofGate for pull requests, now in beta</p>
-          <h1 id="hero-title">Green tests<br>aren’t proof.<br><em>ProofGate checks the evidence.</em></h1>
-          <p class="hero-description">AI-written code can pass its tests and still break the task it was given. ProofGate catches those false-greens before they ship. It checks agent output against an explicit task contract, tests the checker itself, and gives your team evidence it can inspect and replay.</p>
+          <h1 id="hero-title">Green tests aren’t proof.</h1>
+          <p class="hero-description">Code written by AI agents can pass its tests and still break the task. ProofGate checks every pull request against what the task actually required, and posts one clear verdict with the evidence behind it.</p>
           <div class="hero-actions"><a class="button button-primary" href="proofgate/">Try ProofGate live <span class="arrow" aria-hidden="true">↗</span></a><a class="button button-outline" href="#contact">Start a pilot</a></div>
           <p class="hero-note">Built by AI Evaluation Lab. Open source and provider-neutral.</p>
         </div>
@@ -224,7 +248,6 @@
           </div>
         </div>
       </div>
-      <div class="hero-base"><div class="wrap"><span>For teams that ship code written by AI agents, and the people who evaluate those agents.</span><span>Same verdicts as the comments on GitHub, replayed from recorded runs.</span></div></div>
     </section>
     <section class="proof-strip" id="evidence" aria-labelledby="evidence-title">
       <div class="wrap">
