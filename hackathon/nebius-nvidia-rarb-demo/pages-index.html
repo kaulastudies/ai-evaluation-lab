@@ -201,6 +201,37 @@
       .section h2,.collaborate h2{font-size:28px}
     }
   </style>
+  <style>
+    /* Founding pilot offer */
+    .offers{display:grid;grid-template-columns:1fr 1.12fr 1fr;gap:18px;align-items:stretch}
+    .offer{display:flex;flex-direction:column;background:#fbfcf9;border:1px solid var(--line);border-radius:10px;padding:28px 26px}
+    .offer-main{background:var(--ink);color:#eef5f1;border-color:var(--ink);box-shadow:0 26px 50px -34px rgba(16,43,50,.9)}
+    .offer-tag{display:inline-block;align-self:flex-start;font-size:12px;font-weight:600;background:var(--mint);color:var(--ink);border-radius:4px;padding:3px 9px;margin-bottom:14px}
+    .offer h3{font-size:21px;margin-bottom:10px}
+    .offer-price{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:14px;max-width:none}
+    .offer-price strong{font-size:32px;font-weight:600;letter-spacing:-.025em}
+    .offer-price span{font-size:14px;color:var(--muted)}
+    .offer-main .offer-price span{color:#a9c3bd}
+    .offer>p:not(.offer-price):not(.offer-tag){font-size:15px;line-height:1.7;color:var(--muted)}
+    .offer-main>p:not(.offer-price):not(.offer-tag){color:#bcd0cc}
+    .offer-list{list-style:none;margin:18px 0 26px;padding:16px 0 0;border-top:1px solid var(--line);display:grid;gap:9px;flex:1;align-content:start}
+    .offer-main .offer-list{border-top-color:#2f4d54}
+    .offer-list li{position:relative;padding-left:22px;font-size:14.5px;line-height:1.55}
+    .offer-list li:before{content:"";position:absolute;left:2px;top:7px;width:9px;height:5px;border-left:2px solid var(--green);border-bottom:2px solid var(--green);transform:rotate(-45deg)}
+    .offer-main .offer-list li:before{border-color:var(--mint)}
+    .offer .button{align-self:flex-start}
+    .offer-main .button-dark{background:var(--mint);color:var(--ink)}
+    .offer-main .button-dark:hover{background:#d0f9e4}
+    .button-outline-dark{border:1px solid #9fb3ad;color:var(--ink);background:transparent}
+    .button-outline-dark:hover{background:#eef3ec}
+    .pilot-steps{list-style:none;margin:34px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line)}
+    .pilot-steps li{padding:20px 22px 4px 0;counter-increment:pstep}
+    .pilot-steps li+li{padding-left:22px;border-left:1px solid var(--line)}
+    .pilot-steps strong{display:block;font-size:15px;margin-bottom:6px}
+    .pilot-steps span{display:block;font-size:14px;line-height:1.65;color:var(--muted)}
+    @media(max-width:1000px){.offers{grid-template-columns:1fr;max-width:620px}.pilot-steps{grid-template-columns:1fr 1fr}.pilot-steps li:nth-child(3){padding-left:0;border-left:0}}
+    @media(max-width:760px){.offer{padding:24px 20px}.pilot-steps{grid-template-columns:1fr}.pilot-steps li,.pilot-steps li+li{padding:16px 0 4px;border-left:0;border-top:1px solid var(--line)}.pilot-steps li:first-child{border-top:0}}
+  </style>
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -314,15 +345,39 @@ jobs:
       <p class="setup-more"><a class="text-link" href="https://github.com/kaulastudies/ai-evaluation-lab/tree/main/integrations/proofgate-action">Full setup guide and contract format <span aria-hidden="true">↗</span></a><a class="text-link" href="https://github.com/kaulastudies/ai-evaluation-lab/tree/main/examples/proofgate-pr-demo">Working example repository folder <span aria-hidden="true">↗</span></a></p>
     </section>
     <section class="section wrap" id="services" aria-labelledby="services-title">
-      <p class="eyebrow section-label">Pilots</p>
-      <div class="section-head"><h2 id="services-title">Put ProofGate’s method<br>to work on your agents.</h2><p class="section-intro">Teams can run the ProofGate Action themselves, or we write the contracts and verifiers with them as a fixed-scope pilot. Success criteria are frozen before results are read, and failures and null findings are reported, not hidden.</p></div>
-      <div class="services">
-        <article class="service"><span class="number">Pilot</span><h3>Agent Reliability Sprint</h3><p>20–50 bounded cases for your coding or tool-using agent: positive and negative controls, tool-boundary tests and verifier-backed outcomes.</p><p class="service-out">You get: failure taxonomy, regression pack, evidence report</p></article>
-        <article class="service"><span class="number">Audit</span><h3>Verifier &amp; Benchmark Audit</h3><p>We test the checker before you trust its score, using reference solutions, known-bad candidates and deliberate mutations against your graders or benchmark tasks.</p><p class="service-out">You get: escaped-fault list, fixes, re-qualified verifier</p></article>
-        <article class="service"><span class="number">Compare</span><h3>Model &amp; Provider Comparison</h3><p>One frozen task contract with repeated runs across the models or providers you’re choosing between. We report the trade-offs we observe, not a universal “best model”.</p><p class="service-out">You get: normalized evidence, cost and latency notes, recommendation limits</p></article>
-        <article class="service"><span class="number">Build</span><h3>Custom Tasks &amp; Verifiers</h3><p>Domain-specific task packs, deterministic verifiers, reference implementations and CI gates, for evaluation teams and RL environment builders.</p><p class="service-out">You get: task packs, schemas, verifiers, CI release gates</p></article>
+      <p class="eyebrow section-label">Founding pilots</p>
+      <div class="section-head"><h2 id="services-title">Fixed scope, fixed price,<br>evidence you keep.</h2><p class="section-intro">Founding prices for our first three teams. Scope and price are agreed in writing before work starts. Your code and data stay in an isolated workspace and are never published without your agreement.</p></div>
+      <div class="offers">
+        <article class="offer">
+          <h3>ProofGate review</h3>
+          <p class="offer-price"><strong>$750</strong> <span>one week, credited to a pilot</span></p>
+          <p>We look at one agent workflow or up to five benchmark or grader tasks and find where a wrong answer could still pass.</p>
+          <ul class="offer-list"><li>Risk map of your current checks</li><li>Verifier gaps found with deliberate mutations</li><li>Written plan for a pilot</li></ul>
+          <a class="button button-outline-dark" href="mailto:hello@aievaluationlab.tech?subject=ProofGate%20pilot%20enquiry&body=Team%20and%20company%3A%0AWhat%20your%20agent%20or%20repository%20does%3A%0AWhat%20a%20missed%20failure%20would%20cost%20you%3A%0AWhen%20you%20would%20like%20to%20start%3A%0A">Ask about a review</a>
+        </article>
+        <article class="offer offer-main">
+          <p class="offer-tag">Most teams start here</p>
+          <h3>ProofGate pilot</h3>
+          <p class="offer-price"><strong>$2,500</strong> <span>two to three weeks</span></p>
+          <p>We write the contracts and verifiers for your agent, install ProofGate on your repository and run it on real pull requests.</p>
+          <ul class="offer-list"><li>20 evaluation cases with known-good and known-bad controls</li><li>ProofGate running on your pull requests</li><li>Failure taxonomy and regression pack</li><li>Evidence report and a walkthrough call</li></ul>
+          <a class="button button-dark" href="mailto:hello@aievaluationlab.tech?subject=ProofGate%20pilot%20enquiry&body=Team%20and%20company%3A%0AWhat%20your%20agent%20or%20repository%20does%3A%0AWhat%20a%20missed%20failure%20would%20cost%20you%3A%0AWhen%20you%20would%20like%20to%20start%3A%0A">Start a pilot</a>
+        </article>
+        <article class="offer">
+          <h3>Ongoing programs</h3>
+          <p class="offer-price"><strong>Quoted</strong> <span>after a pilot</span></p>
+          <p>For teams that want the checks to keep running as agents, models and prompts change.</p>
+          <ul class="offer-list"><li>Release regression reruns</li><li>Model and provider comparisons</li><li>Custom task packs and RL environments</li></ul>
+          <a class="button button-outline-dark" href="mailto:hello@aievaluationlab.tech?subject=ProofGate%20pilot%20enquiry&body=Team%20and%20company%3A%0AWhat%20your%20agent%20or%20repository%20does%3A%0AWhat%20a%20missed%20failure%20would%20cost%20you%3A%0AWhen%20you%20would%20like%20to%20start%3A%0A">Talk to us</a>
+        </article>
       </div>
-      <p class="services-note">Customer code and data stay in isolated workspaces and are never published without explicit agreement. <a class="text-link" href="https://github.com/kaulastudies/ai-evaluation-lab/blob/main/docs/ENGAGEMENTS.md">Engagement details <span aria-hidden="true">↗</span></a></p>
+      <ol class="pilot-steps" aria-label="How a pilot runs">
+        <li><strong>Scope call</strong><span>30 minutes, free. We agree the workflow, the cases and what counts as a pass.</span></li>
+        <li><strong>Week 1</strong><span>We write the contract and verifier and prove they catch known-bad answers.</span></li>
+        <li><strong>Week 2</strong><span>ProofGate runs on your pull requests and records every verdict.</span></li>
+        <li><strong>Week 3</strong><span>Evidence report, regression pack and a walkthrough with your team.</span></li>
+      </ol>
+      <p class="services-note">Payment: half to start, half on delivery. Results apply to the cases tested and are not a general certification. <a class="text-link" href="https://github.com/kaulastudies/ai-evaluation-lab/blob/main/docs/ENGAGEMENTS.md">How engagements work <span aria-hidden="true">↗</span></a></p>
     </section>
     <section class="section wrap" id="approach" aria-labelledby="approach-title">
       <p class="eyebrow section-label">How ProofGate decides</p>
@@ -362,7 +417,7 @@ jobs:
         </div>
       </div>
     </section>
-    <section class="collaborate" id="contact" aria-labelledby="collaborate-title"><div class="wrap collaborate-inner"><div><p class="eyebrow">Founding pilots open</p><h2 id="collaborate-title">Have an agent, a benchmark or a verifier worth checking?</h2><p>Tell us what you’re shipping or evaluating and the decision it needs to support. We’ll reply with a fixed-scope pilot proposal: deliverables, timeline and price. Email Rama Chandra at <a href="mailto:hello@aievaluationlab.tech?subject=Pilot%20enquiry">hello@aievaluationlab.tech</a>.</p></div><a class="button button-dark" href="mailto:hello@aievaluationlab.tech?subject=Pilot%20enquiry">Request a pilot proposal</a></div></section>
+    <section class="collaborate" id="contact" aria-labelledby="collaborate-title"><div class="wrap collaborate-inner"><div><p class="eyebrow">Founding pilots open</p><h2 id="collaborate-title">Have an agent, a benchmark or a verifier worth checking?</h2><p>Tell us what your agent does and what a missed failure would cost you. We’ll reply with a written scope, timeline and price. The email opens with those questions filled in. Email Rama Chandra at <a href="mailto:hello@aievaluationlab.tech?subject=ProofGate%20pilot%20enquiry&body=Team%20and%20company%3A%0AWhat%20your%20agent%20or%20repository%20does%3A%0AWhat%20a%20missed%20failure%20would%20cost%20you%3A%0AWhen%20you%20would%20like%20to%20start%3A%0A">hello@aievaluationlab.tech</a>.</p></div><a class="button button-dark" href="mailto:hello@aievaluationlab.tech?subject=ProofGate%20pilot%20enquiry&body=Team%20and%20company%3A%0AWhat%20your%20agent%20or%20repository%20does%3A%0AWhat%20a%20missed%20failure%20would%20cost%20you%3A%0AWhen%20you%20would%20like%20to%20start%3A%0A">Request a pilot proposal</a></div></section>
   </main>
   <footer class="site-footer"><div class="wrap footer-inner"><div class="footer-brand">AI Evaluation Lab<span>Independent evaluation. Evidence you can inspect.</span></div><nav class="footer-links" aria-label="Footer"><a href="mailto:hello@aievaluationlab.tech">Email</a><a href="https://github.com/kaulastudies/ai-evaluation-lab">GitHub ↗</a><a href="https://github.com/kaulastudies/ai-evaluation-lab/blob/main/docs/RESEARCH_PRINCIPLES.md">Research principles</a><a href="https://github.com/kaulastudies/ai-evaluation-lab/blob/main/LICENSE">Apache 2.0</a><a href="#main">Back to top ↑</a></nav></div></footer>
   <script>
