@@ -7,7 +7,6 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-from inspect_ai.log import read_eval_log
 
 
 def utc_now() -> str:
@@ -100,6 +99,7 @@ def first_numeric_score(values: dict[str, Any]) -> float | None:
 
 
 def inspect_record(log_path: Path, commit_sha: str) -> dict[str, Any]:
+    from inspect_ai.log import read_eval_log
     log = read_eval_log(str(log_path))
     samples = list(log.samples or [])
     if not samples:
@@ -189,23 +189,44 @@ def inspect_record(log_path: Path, commit_sha: str) -> dict[str, Any]:
 
 
 def recursive_numbers(obj: Any, wanted: set[str], path: str = "") -> list[tuple[str, float]]:
-    found: list[tuple[str, float]] = []
-    if isinstance(obj, dict):
-        for key, value in obj.items():
-            child_path = f"{path}.{key}" if path else str(key)
-            if str(key).lower() in wanted:
+    found = []
+    stack = [(obj, (), 0)]
+    visited = 0
+    while stack:
+        node, ancestors, depth = stack.pop()
+        visited += 1
+        if visited > 100_000 or depth > 64:
+            raise ValueError("Evidence traversal budget exceeded")
+        if isinstance(node, dict):
+            children = list(node.items())
+        elif isinstance(node, list):
+            children = list(enumerate(node))
+        else:
+            continue
+        if len(children) + visited + len(stack) > 100_000:
+            raise ValueError("Evidence traversal budget exceeded")
+        for key, value in reversed(children):
+            key_text = str(key)
+            if len(key_text) > 256:
+                raise ValueError("Evidence key exceeds length budget")
+            segment = f"[{key}]" if isinstance(node, list) else "." + key_text
+            child = ancestors + (segment,)
+            if isinstance(node, dict) and key_text.lower() in wanted:
                 number = numeric(value)
                 if number is not None:
-                    found.append((child_path, number))
-            found.extend(recursive_numbers(value, wanted, child_path))
-    elif isinstance(obj, list):
-        for idx, value in enumerate(obj):
-            found.extend(recursive_numbers(value, wanted, f"{path}[{idx}]"))
+                    found.append((path + "".join(child).lstrip("."), number))
+            stack.append((value, child, depth + 1))
     return found
 
 
 def harbor_record(result_path: Path, commit_sha: str, contract_hash: str) -> dict[str, Any]:
-    data = json.loads(result_path.read_text(encoding="utf-8"))
+    if result_path.stat().st_size > 4 * 1024 * 1024:
+        raise ValueError("Evidence exceeds 4 MiB input budget")
+    with result_path.open("rb") as stream:
+        raw = stream.read(4 * 1024 * 1024 + 1)
+    if len(raw) > 4 * 1024 * 1024:
+        raise ValueError("Evidence exceeds input budget")
+    data = json.loads(raw)
 
     reward_candidates = recursive_numbers(data, {"reward", "mean"})
     exception_candidates = recursive_numbers(data, {"exceptions", "exception_count"})
