@@ -1,0 +1,28 @@
+{
+  "schema": "EO001-FREEZE-PACKET/0.2.0",
+  "contract_sha256": "69d6665953daf26aca59688cf43d18bd08518875a8793427f7e5e8abbcd54da8",
+  "run_plan_sha256": "bb5fd8918de5b8b571ea19dca12cf8dbbf55e8aa437daa31cb56a774138bcb80",
+  "source_revisions": {
+    "lab_reviewer": null,
+    "forge_integrated": null,
+    "containment_collector": null
+  },
+  "resources": {
+    "memory_max_bytes": null,
+    "memory_swap_max_bytes": null,
+    "pids_max": null,
+    "cpu_quota_usec": null,
+    "cpu_period_usec": null
+  },
+  "startup_timeout_seconds": null,
+  "cleanup_timeout_seconds": null,
+  "timing_boundary": "complete_warmed_decision",
+  "effective_generation_parameters": null,
+  "evidence_sha256": {
+    "transport_abort": null,
+    "group_escape_negative_control": null,
+    "live_scope_stop": null
+  },
+  "containment_observation": null,
+  "approvals": []
+}
