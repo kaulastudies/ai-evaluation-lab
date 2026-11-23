@@ -1,0 +1,65 @@
+name: ProofGate
+description: Catch false-greens in pull requests. Runs public checks plus an independent verifier read from the base branch, and posts the verdict on the PR.
+author: AI Evaluation Lab
+branding:
+  icon: check-square
+  color: green
+
+inputs:
+  contract:
+    description: Path to the ProofGate contract (JSON), read from the base commit.
+    default: .proofgate/contract.json
+  base-sha:
+    description: Base commit to read the trusted contract and verifier from. Defaults to the pull request base.
+    default: ""
+  comment:
+    description: Post or update a verdict comment on the pull request (needs pull-requests write permission).
+    default: "true"
+  fail-on:
+    description: Comma-separated verdicts that fail the job.
+    default: FALSE_GREEN,VERIFIED_FAIL,HOLD
+  timeout:
+    description: Seconds allowed for each check.
+    default: "300"
+  github-token:
+    description: Token used only to post the verdict comment.
+    default: ${{ github.token }}
+
+outputs:
+  verdict:
+    description: VERIFIED_PASS, FALSE_GREEN, VERIFIED_FAIL or HOLD.
+    value: ${{ steps.proofgate.outputs.verdict }}
+  evidence-sha256:
+    description: SHA-256 of the evidence record uploaded as an artifact.
+    value: ${{ steps.proofgate.outputs.evidence-sha256 }}
+
+runs:
+  using: composite
+  steps:
+    - id: proofgate
+      shell: bash
+      env:
+        GITHUB_TOKEN: ${{ inputs.github-token }}
+        PG_BASE: ${{ inputs.base-sha || github.event.pull_request.base.sha }}
+        PG_HEAD: HEAD
+      run: |
+        if [ -z "$PG_BASE" ]; then
+          echo "::error::ProofGate needs a base commit. Run it on pull_request events or set base-sha."
+          exit 1
+        fi
+        git cat-file -e "$PG_BASE^{commit}" 2>/dev/null || git fetch --no-tags --depth=200 origin "$PG_BASE"
+        comment_flag=""
+        if [ "${{ inputs.comment }}" = "true" ]; then comment_flag="--comment"; fi
+        python3 "${{ github.action_path }}/proofgate_pr.py" \
+          --base "$PG_BASE" --head "$PG_HEAD" \
+          --contract "${{ inputs.contract }}" \
+          --evidence "$RUNNER_TEMP/proofgate-evidence.json" \
+          --timeout "${{ inputs.timeout }}" \
+          --fail-on "${{ inputs.fail-on }}" \
+          $comment_flag
+    - if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: proofgate-evidence
+        path: ${{ runner.temp }}/proofgate-evidence.json
+        if-no-files-found: ignore

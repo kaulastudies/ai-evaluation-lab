@@ -1,0 +1,24 @@
+{
+  "task_id": "AP-005-demo",
+  "title": "Preserve data-transformation edge-case semantics",
+  "trusted_dir": "examples/proofgate-pr-demo/.proofgate",
+  "allowed_paths": ["examples/proofgate-pr-demo/app/*"],
+  "public_checks": [
+    {
+      "id": "public-tests",
+      "run": "python3 -m unittest discover -s tests/public -v",
+      "cwd": "examples/proofgate-pr-demo"
+    }
+  ],
+  "verifier": {
+    "run": "python3 {trusted}/acceptance.py . --json",
+    "cwd": "examples/proofgate-pr-demo",
+    "format": "json-gates"
+  },
+  "gates": [
+    {"id": "AP005-G01", "description": "Row count, order and duplicate ids preserved", "critical": true},
+    {"id": "AP005-G02", "description": "0 and False keep exact values and types", "critical": true},
+    {"id": "AP005-G03", "description": "Empty, missing and null notes stay distinct", "critical": true},
+    {"id": "AP005-G04", "description": "Input rows unchanged; only public fields returned", "critical": true}
+  ]
+}
